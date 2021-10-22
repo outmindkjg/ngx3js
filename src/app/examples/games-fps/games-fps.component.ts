@@ -107,7 +107,6 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 					}
 				}
 			});
-			console.log(scene);
 		}
 	}
 

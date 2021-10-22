@@ -12,9 +12,5 @@ export class Webgl2VolumeInstancingComponent extends BaseComponent<{}> {
 	}
 
 	ngOnInit() {
-		const mesh = new THREE.PlaneGeometry();
-		const clone = mesh.clone();
-
-		console.log(mesh, clone instanceof THREE.PlaneGeometry);
 	}
 }
