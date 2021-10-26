@@ -52,7 +52,7 @@ export class WebglLoaderMd2ControlComponent extends BaseComponent<{}> {
 	};
 
 	ngOnInit() {
-		const nRows = 4;
+		const nRows = 1;
 		const nSkins = this.configOgro.skins.length;
 		this.characterInfos = [];
 		for (let j = 0; j < nRows; j++) {
@@ -62,7 +62,7 @@ export class WebglLoaderMd2ControlComponent extends BaseComponent<{}> {
 					y: 0,
 					z: j * 250,
 					skin: i,
-					useGyro: i == 0 && j === 0,
+					useGyro: true,
 				});
 			}
 		}

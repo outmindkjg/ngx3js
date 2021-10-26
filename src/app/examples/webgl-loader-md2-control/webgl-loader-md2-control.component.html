@@ -5,7 +5,6 @@
 		>Magarnigal</a
 	><br />
 	use arrows to control characters, mouse for camera
-	todo
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -66,6 +65,8 @@
 				*ngFor="let character of characterInfos"
 				[type]="'MD2CharacterComplex'"
 				[shareParts]="baseCharacter"
+				[receiveShadow]="true"
+				[castShadow]="true"
 			>
 				<ngx3js-position
 					[x]="character.x"

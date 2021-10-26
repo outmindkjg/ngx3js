@@ -13,9 +13,9 @@ export class WebglMaterialsTexturePartialupdateComponent extends BaseComponent<{
 
 	setDiffuseMap(texture: TextureComponent) {
 		this.diffuseMap = texture.getTexture();
-		const width = 32;
-		const height = 32;
-		const data = new Uint8Array(width * height * 3);
+		const width = 31;
+		const height = 31;
+		const data = new Uint8Array(width * height * 3).fill(0);
 		this.dataTexture = new THREE.DataTexture(
 			data,
 			width,
@@ -55,7 +55,7 @@ export class WebglMaterialsTexturePartialupdateComponent extends BaseComponent<{
 			timer.renderer instanceof THREE.WebGLRenderer
 		) {
 			const elapsedTime = timer.elapsedTime;
-			if (elapsedTime - this.last > 0.1) {
+			if (elapsedTime - this.last > 5.5) {
 				this.last = elapsedTime;
 				const position = this.position;
 				position.x = 32 * THREE.MathUtils.randInt(1, 16) - 32;

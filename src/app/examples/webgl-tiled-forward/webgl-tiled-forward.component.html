@@ -45,8 +45,13 @@
 				<ngx3js-mesh [geometry]="waltHead">
 					<ngx3js-position [x]="0" [y]="-37" [z]="0"></ngx3js-position>
 					<ngx3js-material
-						[type]="'meshlambert'"
-						[color]="'0xff0000'"
+						[type]="'ShaderMaterial'"
+						[lights]="true"
+						[shader]="info.shader"
+						[uniforms]="info.uniforms"
+						[defines]="info.defines"
+						[transparent]="info.transparent"
+						[extensions]="'derivatives'"
 					></ngx3js-material>
 				</ngx3js-mesh>
 			</ngx3js-mesh>
