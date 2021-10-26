@@ -24,16 +24,15 @@
 	>
 		<ngx3js-position [x]="0" [y]="0" [z]="500"></ngx3js-position>
 	</ngx3js-camera>
+	<!-- 
 	<ngx3js-composer
 		[scene]="scene"
 		[camera]="camera"
-		[viewport]="true"
-		[x]="0"
-		[y]="0"
-		[width]="'50%'"
-		[height]="'100%'"
-		[viewportAspect]="true"
-		[clear]="true"
+		[scissorX]="0"
+		[scissorY]="0"
+		[scissorWidth]="'50%'"
+		[scissorHeight]="'100%'"
+		[scissorTest]="true"
 	>
 		<ngx3js-pass [refer]="renderPass"></ngx3js-pass>
 		<ngx3js-pass [type]="'ShaderPass'" [shader]="'FXAAShader'"></ngx3js-pass>
@@ -41,16 +40,17 @@
 	<ngx3js-composer
 		[scene]="scene"
 		[camera]="camera"
-		[viewport]="true"
-		[x]="'50%'"
-		[y]="0"
-		[width]="'50%'"
-		[height]="'100%'"
+		[scissorX]="'50%'"
+		[scissorY]="0"
+		[scissorWidth]="'50%'"
+		[scissorHeight]="'100%'"
+		[scissorTest]="true"
 		[viewportAspect]="true"
 	>
 		<ngx3js-pass [refer]="renderPass"></ngx3js-pass>
 		<ngx3js-pass [type]="'ShaderPass'" [shader]="'CopyShader'"></ngx3js-pass>
 	</ngx3js-composer>
+	-->
 	<ngx3js-scene #scene [background]="'0xffffff'">
 		<ngx3js-fog [color]="'0xcccccc'" [near]="100" [far]="1500"></ngx3js-fog>
 		<ngx3js-light
