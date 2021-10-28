@@ -2,9 +2,13 @@
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
 	webgl - lightning strike todo
 </div>
-<ngx3js-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan: false, enableDamping: true }" [statsMode]="0" [antialias]="true" [outputEncoding]="'sRGBEncoding'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" [guiOpen]="true" (onRender)="onRender($event)">
+<ngx3js-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan: false, enableDamping: true }" 	
+	[useEvent]="'click'"
+	(eventListener)="onMouseClick($event)"
+	[statsMode]="0" 
+	[antialias]="true" [outputEncoding]="'sRGBEncoding'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" [guiOpen]="true" (onRender)="onRender($event)">
 	<ngx3js-lookat [x]="sceneCameraLookat.x" [y]="sceneCameraLookat.y" [z]="sceneCameraLookat.z"></ngx3js-lookat>
-	<ngx3js-camera [type]="'perspective'" [fov]="27" [near]="200" [far]="100000">
+	<ngx3js-camera [type]="'perspective'" [fov]="27" [near]="200" [far]="100000" (onLoad)="setCamera($event)">
 		<ngx3js-position [x]="sceneCamera.x" [y]="sceneCamera.y" [z]="sceneCamera.z"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-scene #scene [background]="sceneBackground">
@@ -64,25 +68,12 @@
 			</ngx3js-mesh>
 			<ngx3js-mesh [name]="'post'">
 				<ngx3js-position [x]="0" [y]="150 -12" [z]="0"></ngx3js-position>
-				<ngx3js-geometry
-					[type]="'CylinderGeometry'"
-					[radiusTop]="12"
-					[radiusBottom]="12"
-					[height]="300"
-					[radialSegments]="6"
-					[heightSegments]="1"
-					[openEnded]="true"
-				></ngx3js-geometry>
+				<ngx3js-geometry [type]="'CylinderGeometry'" [radiusTop]="12" [radiusBottom]="12" [height]="300" [radialSegments]="6" [heightSegments]="1" [openEnded]="true"></ngx3js-geometry>
 				<ngx3js-material [type]="'MeshLambertMaterial'" [color]="'0x020202'"></ngx3js-material>
 			</ngx3js-mesh>
 			<ngx3js-mesh [name]="'box'">
 				<ngx3js-position [x]="0" [y]="7.5" [z]="0"></ngx3js-position>
-				<ngx3js-geometry
-					[type]="'BoxGeometry'"
-					[width]="150"
-					[height]="30"
-					[depth]="150"
-				></ngx3js-geometry>
+				<ngx3js-geometry [type]="'BoxGeometry'" [width]="150" [height]="30" [depth]="150"></ngx3js-geometry>
 				<ngx3js-material [type]="'MeshLambertMaterial'" [color]="'0x020202'"></ngx3js-material>
 			</ngx3js-mesh>
 			<ngx3js-mesh [name]="'lightningStrike'">
