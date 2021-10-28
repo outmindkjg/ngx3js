@@ -32,7 +32,7 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 	constructor() {
 		super(
 			{
-				scene: 'ball',
+				scene: 'cones',
 				timeRate: 1,
 				outlineEnabled: true,
 				lightningColor: 0xB0FFFF,
