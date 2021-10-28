@@ -9,7 +9,7 @@
 	</ngx3js-camera>
 	<ngx3js-scene #scene [background]="sceneBackground">
 		<ngx3js-mesh *ngIf="controls.scene === 'cones'" (onLoad)="setMesh($event)">
-			<ngx3js-light [name]="'posLight'" [type]="'PointLight'" [color]="'0x00FFFF'" [intensity]="1" [distance]="5000" [decay]="2">
+			<ngx3js-light [name]="'posLight'" [type]="'PointLight'" [color]="'0x00FFFF'" [intensity]="1" [distance]="2000" [decay]="2">
 				<ngx3js-position [x]="0" [y]="600" [z]="0"></ngx3js-position>
 			</ngx3js-light>
 			<ngx3js-mesh [name]="'lightningStrike'">
