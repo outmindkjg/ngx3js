@@ -1,59 +1,67 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - vr
-	sandbox - need ar/vr device to test todo
+	sandbox - need ar/vr device to test
 </div>
 <ngx3js-renderer
+	#renderer
 	[controlType]="'vr'"
 	[statsMode]="0"
 	[antialias]="true"
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
+	[guiStyle]="{ width : '300px', visib1ility : 'hidden'}"
+	[guiOpen]="true"
+	[xrEnabled]="true"
 	(onRender)="onRender($event)"
 >
 	<ngx3js-lookat [x]="0" [y]="1.25" [z]="-2"></ngx3js-lookat>
-	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="10">
+	<ngx3js-camera #camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="10">
 		<ngx3js-position [x]="0" [y]="1.6" [z]="1.5"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-scene #scene>
 		<ngx3js-size #renderSize></ngx3js-size>
 		<ngx3js-texture
 			#background
-			[type]="'background'"
-			[image]="'textures/cube/MilkyWay/'"
-			[cubeImage]="['dark-s_', 'jpg']"
+			[type]="'background-environment'"
+			[storageName]="'textures/equirectangular/moonless_golf_1k.hdr'"
+			[mapping]="'EquirectangularReflectionMapping'"
 		></ngx3js-texture>
-		<ngx3js-light
-			#light1
-			[type]="'DirectionalLight'"
-			[color]="'0x8800ff'"
-			[castShadow]="true"
-			[shadowCameraZoom]="4"
-		>
-			<ngx3js-position [x]="-1" [y]="1.5" [z]="-1.5"></ngx3js-position>
-			<ngx3js-position
-				[type]="'target'"
-				[x]="0"
-				[y]="0"
-				[z]="-2"
-			></ngx3js-position>
-		</ngx3js-light>
-		<ngx3js-light
-			#light2
-			[type]="'DirectionalLight'"
-			[color]="'0xff0000'"
-			[castShadow]="true"
-			[shadowCameraZoom]="4"
-			[windowExport]="'light'"
-		>
-			<ngx3js-position [x]="1" [y]="1.5" [z]="-2.5"></ngx3js-position>
-			<ngx3js-position
-				[type]="'target'"
-				[x]="0"
-				[y]="0"
-				[z]="-2"
-			></ngx3js-position>
-		</ngx3js-light>
+		<ngx3js-mesh [type]="'InteractiveGroup'" [sharedCamera]="camera">
+			<ngx3js-mesh [type]="'htmlmesh'" [domElement]="renderer.gui?.domElement">
+				<ngx3js-position [x]="-0.75" [y]="1.5" [z]="-0.5"></ngx3js-position>
+				<ngx3js-rotation [x]="0" [y]="45" [z]="0"></ngx3js-rotation>
+				<ngx3js-scale [x]="2" [y]="2" [z]="2"></ngx3js-scale>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+		<ngx3js-mesh [type]="'lensflare'">
+			<ngx3js-position [x]="-2" [y]="2.5" [z]="-5"></ngx3js-position>
+			<ngx3js-lensflareelement
+				[image]="'textures/lensflare/lensflare0.png'"
+				[size]="700"
+				[distance]="0"
+			></ngx3js-lensflareelement>
+			<ngx3js-lensflareelement
+				[image]="'textures/lensflare/lensflare3.png'"
+				[size]="60"
+				[distance]="0.6"
+			></ngx3js-lensflareelement>
+			<ngx3js-lensflareelement
+				[image]="'textures/lensflare/lensflare3.png'"
+				[size]="70"
+				[distance]="0.7"
+			></ngx3js-lensflareelement>
+			<ngx3js-lensflareelement
+				[image]="'textures/lensflare/lensflare3.png'"
+				[size]="120"
+				[distance]="0.9"
+			></ngx3js-lensflareelement>
+			<ngx3js-lensflareelement
+				[image]="'textures/lensflare/lensflare3.png'"
+				[size]="70"
+				[distance]="1"
+			></ngx3js-lensflareelement>
+		</ngx3js-mesh>
 		<ngx3js-mesh (onLoad)="setMesh($event)">
 			<ngx3js-mesh [name]="'torus'" [castShadow]="true" [receiveShadow]="true">
 				<ngx3js-position [x]="0" [y]="1.25" [z]="-2"></ngx3js-position>
@@ -67,10 +75,11 @@
 					[q]="controls.q"
 				></ngx3js-geometry>
 				<ngx3js-material
-					[type]="'MeshStandardMaterial'"
-					[roughness]="0.01"
-					[metalness]="0.2"
-					[envMap]="background"
+					[type]="'MeshPhysicalMaterial'"
+					[transmission]="1.0"
+					[roughness]="0"
+					[metalness]="0.25"
+					[thickness]="controls.thickness"
 				></ngx3js-material>
 			</ngx3js-mesh>
 			<ngx3js-mesh
@@ -86,9 +95,9 @@
 					[height]="0.1"
 					[radiusSegments]="50"
 				></ngx3js-geometry>
-				<ngx3js-material [type]="'MeshPhongMaterial'"></ngx3js-material>
+				<ngx3js-material [type]="'MeshStandardMaterial'"></ngx3js-material>
 			</ngx3js-mesh>
-			<ngx3js-mesh #reflector [type]="'Reflector'" [textureSize]="renderSize">
+			<ngx3js-mesh #reflector [visible]="false" [type]="'Reflector'" [textureSize]="renderSize">
 				<ngx3js-position [x]="1" [y]="1.25" [z]="-3"></ngx3js-position>
 				<ngx3js-rotation [x]="0" [y]="-180 / 4" [z]="0"></ngx3js-rotation>
 				<ngx3js-geometry

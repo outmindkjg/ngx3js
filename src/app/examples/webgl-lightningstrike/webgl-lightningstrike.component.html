@@ -2,92 +2,93 @@
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
 	webgl - lightning strike todo
 </div>
-<ngx3js-renderer
-	[controlType]="'orbit'"
-	[controlOptions]="{ enablePan: false, enableDamping: true }"
-	[statsMode]="0"
-	[antialias]="true"
-	[shadowMapEnabled]="true"
-	[guiControl]="controls"
-	[guiParams]="controlsParams"
-	(onRender)="onRender($event)"
->
-	<ngx3js-lookat [x]="0" [y]="600" [z]="0"></ngx3js-lookat>
+<ngx3js-renderer [controlType]="'orbit'" [controlOptions]="{ enablePan: false, enableDamping: true }" [statsMode]="0" [antialias]="true" [outputEncoding]="'sRGBEncoding'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" [guiOpen]="true" (onRender)="onRender($event)">
+	<ngx3js-lookat [x]="sceneCameraLookat.x" [y]="sceneCameraLookat.y" [z]="sceneCameraLookat.z"></ngx3js-lookat>
 	<ngx3js-camera [type]="'perspective'" [fov]="27" [near]="200" [far]="100000">
-		<ngx3js-position [x]="1000" [y]="800" [z]="3600"></ngx3js-position>
+		<ngx3js-position [x]="sceneCamera.x" [y]="sceneCamera.y" [z]="sceneCamera.z"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-scene #scene>
-		<ngx3js-light
-			[type]="'PointLight'"
-			[color]="'0x00FFFF'"
-			[intensity]="1"
-			[distance]="5000"
-			[decay]="2"
-		>
-			<ngx3js-position [x]="0" [y]="600" [z]="0"></ngx3js-position>
-		</ngx3js-light>
-		<ngx3js-light
-			[type]="'Hemisphere'"
-			[skyColor]="'0x888888'"
-			[groundColor]="'0x444444'"
-			[intensity]="1"
-		>
-		</ngx3js-light>
-		<ngx3js-light
-			[type]="'directional'"
-			[color]="'0xffffff'"
-			[intensity]="0.75"
-		>
-			<ngx3js-position [x]="1.5" [y]="3" [z]="2.5"></ngx3js-position>
-		</ngx3js-light>
-		<ngx3js-mesh (onLoad)="setMesh($event)">
-			<ngx3js-mesh #coneMesh1>
+	<ngx3js-scene #scene [background]="sceneBackground">
+		<ngx3js-mesh *ngIf="controls.scene === 'cones'" (onLoad)="setMesh($event)">
+			<ngx3js-light [name]="'posLight'" [type]="'PointLight'" [color]="'0x00FFFF'" [intensity]="1" [distance]="5000" [decay]="2">
+				<ngx3js-position [x]="0" [y]="600" [z]="0"></ngx3js-position>
+			</ngx3js-light>
+			<ngx3js-mesh [name]="'lightningStrike'">
+				<ngx3js-geometry [type]="'LightningStrike'" [rayParams]="rayParams"></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xB0FFFF'"></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [name]="'coneMesh1'">
 				<ngx3js-position [x]="0" [y]="1200" [z]="0"></ngx3js-position>
 				<ngx3js-rotation [x]="180" [y]="0" [z]="0"></ngx3js-rotation>
-				<ngx3js-geometry
-					[type]="'ConeGeometry'"
-					[radius]="200"
-					[height]="200"
-					[radialSegments]="20"
-					[heightSegments]="1"
-					[openEnded]="false"
-				></ngx3js-geometry>
-				<ngx3js-material
-					[type]="'MeshPhongMaterial'"
-					[color]="'0xFFFF00'"
-					[emissive]="'0x1F1F00'"
-				></ngx3js-material>
+				<ngx3js-geometry [type]="'ConeGeometry'" [radius]="200" [height]="200" [radialSegments]="20" [heightSegments]="1" [openEnded]="false"></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xFFFF00'" [emissive]="'0x1F1F00'"></ngx3js-material>
 			</ngx3js-mesh>
-			<ngx3js-mesh #coneMesh2>
+			<ngx3js-mesh [name]="'coneMesh2'">
 				<ngx3js-position [x]="0" [y]="100" [z]="0"></ngx3js-position>
-				<ngx3js-geometry
-					[type]="'ConeGeometry'"
-					[radius]="200"
-					[height]="200"
-					[radialSegments]="20"
-					[heightSegments]="1"
-					[openEnded]="false"
-				></ngx3js-geometry>
-				<ngx3js-material
-					[type]="'MeshPhongMaterial'"
-					[color]="'0xFF2020'"
-					[emissive]="'0x1F0202'"
-				></ngx3js-material>
+				<ngx3js-geometry [type]="'ConeGeometry'" [radius]="200" [height]="200" [radialSegments]="20" [heightSegments]="1" [openEnded]="false"></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xFF2020'" [emissive]="'0x1F0202'"></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [name]="'ground'" [receiveShadow]="true">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+				<ngx3js-geometry [type]="'Plane'" [width]="200000" [height]="200000"></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xC0C0C0'" [shininess]="0"></ngx3js-material>
 			</ngx3js-mesh>
 		</ngx3js-mesh>
-		<ngx3js-mesh [receiveShadow]="true">
-			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-			<ngx3js-geometry
-				[type]="'Plane'"
-				[width]="200000"
-				[height]="200000"
-			></ngx3js-geometry>
-			<ngx3js-material
-				[type]="'MeshPhongMaterial'"
-				[color]="'0xC0C0C0'"
-				[shininess]="0"
-			></ngx3js-material>
+		<ngx3js-mesh *ngIf="controls.scene === 'ball'" (onLoad)="setMesh($event)">
+			<ngx3js-light [name]="'AmbientLight'" [type]="'AmbientLight'" [color]="'0x444444'"></ngx3js-light>
+			<ngx3js-light [name]="'light1'" [type]="'DirectionalLight'" [color]="'0xffffff'" [intensity]="0.5">
+				<ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
+			</ngx3js-light>
+			<ngx3js-light [name]="'light2'" [type]="'DirectionalLight'" [color]="'0xffffff'" [intensity]="1.5">
+				<ngx3js-position [x]="0.5" [y]="1" [z]="0.2"></ngx3js-position>
+			</ngx3js-light>
+			<ngx3js-mesh [name]="'sphereMesh'">
+				<ngx3js-position [x]="0" [y]="300" [z]="0"></ngx3js-position>
+				<ngx3js-geometry [type]="'SphereGeometry'" [radius]="200" [widthSegments]="80" [heightSegments]="40"></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshPhysicalMaterial'" [transparent]="true" [transmission]="0.96" [depthWrite]="false" [color]="'white'" [metalness]="0" [roughness]="0">
+					<ngx3js-texture [type]="'envMap'" [image]="'textures/cube/Bridge2/'" [cubeImage]="[
+						'posx.jpg',
+						'negx.jpg',
+						'posy.jpg',
+						'negy.jpg',
+						'posz.jpg',
+						'negz.jpg'
+					]"></ngx3js-texture>
+				</ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [name]="'spherePlasma'">
+				<ngx3js-position [x]="0" [y]="300" [z]="0"></ngx3js-position>
+				<ngx3js-scale [x]="1" [y]="0.6" [z]="1"></ngx3js-scale>
+				<ngx3js-geometry [type]="'SphereGeometry'" [radius]="10" [widthSegments]="24" [heightSegments]="12"></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xFFB0FF'" [side]="'DoubleSide'"></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [name]="'post'">
+				<ngx3js-position [x]="0" [y]="150 -12" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'CylinderGeometry'"
+					[radiusTop]="12"
+					[radiusBottom]="12"
+					[height]="300"
+					[radialSegments]="6"
+					[heightSegments]="1"
+					[openEnded]="true"
+				></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshLambertMaterial'" [color]="'0x020202'"></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [name]="'box'">
+				<ngx3js-position [x]="0" [y]="7.5" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'BoxGeometry'"
+					[width]="150"
+					[height]="30"
+					[depth]="150"
+				></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshLambertMaterial'" [color]="'0x020202'"></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [name]="'lightningStrike'">
+				<ngx3js-geometry [type]="'LightningStrike'" [rayParams]="rayParams"></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xB0FFFF'"></ngx3js-material>
+			</ngx3js-mesh>
 		</ngx3js-mesh>
 	</ngx3js-scene>
 </ngx3js-renderer>
