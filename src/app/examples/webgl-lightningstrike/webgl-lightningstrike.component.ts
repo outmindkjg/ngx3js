@@ -35,8 +35,8 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 				scene: 'storm',
 				timeRate: 1,
 				outlineEnabled: true,
-				lightningColor: 0xB0FFFF,
-				outlineColor: 0x00FFFF,
+				lightningColor: 0xb0ffff,
+				outlineColor: 0x00ffff,
 				straightness: 1,
 				roughness: 1,
 				radius0: 1,
@@ -59,7 +59,7 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 							select: {
 								'Electric Cones': 'cones',
 								'Plasma Ball': 'ball',
-								'Storm': 'storm',
+								Storm: 'storm',
 							},
 							change: () => {
 								this.changeScene();
@@ -81,8 +81,22 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 					isOpen: true,
 					children: [
 						{ name: 'outlineEnabled', type: 'checkbox', title: 'Glow enabled' },
-						{ name: 'lightningColor', type: 'color', title: 'Color', change : () => { this.updateRayParams(); } },
-						{ name: 'outlineColor', type: 'color', title: 'Glow color', change : () => { this.updateRayParams(); } },
+						{
+							name: 'lightningColor',
+							type: 'color',
+							title: 'Color',
+							change: () => {
+								this.updateRayParams();
+							},
+						},
+						{
+							name: 'outlineColor',
+							type: 'color',
+							title: 'Glow color',
+							change: () => {
+								this.updateRayParams();
+							},
+						},
 					],
 				},
 				{
@@ -96,8 +110,10 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 							min: 0,
 							max: 1,
 							title: 'Straightness',
-							listen : true,
-							change : () => { this.updateRayParams(); }
+							listen: true,
+							change: () => {
+								this.updateRayParams();
+							},
 						},
 						{
 							name: 'roughness',
@@ -105,8 +121,10 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 							min: 0,
 							max: 1,
 							title: 'Roughness',
-							listen : true,
-							change : () => { this.updateRayParams(); }
+							listen: true,
+							change: () => {
+								this.updateRayParams();
+							},
 						},
 						{
 							name: 'radius0',
@@ -114,8 +132,10 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 							min: 0,
 							max: 1,
 							title: 'Initial radius',
-							listen : true,
-							change : () => { this.updateRayParams(); }
+							listen: true,
+							change: () => {
+								this.updateRayParams();
+							},
 						},
 						{
 							name: 'radius1',
@@ -123,8 +143,10 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 							min: 0,
 							max: 1,
 							title: 'Final radius',
-							listen : true,
-							change : () => { this.updateRayParams(); }
+							listen: true,
+							change: () => {
+								this.updateRayParams();
+							},
 						},
 						{
 							name: 'radius0Factor',
@@ -132,8 +154,10 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 							min: 0,
 							max: 1,
 							title: 'Subray initial radius',
-							listen : true,
-							change : () => { this.updateRayParams(); }
+							listen: true,
+							change: () => {
+								this.updateRayParams();
+							},
 						},
 						{
 							name: 'radius1Factor',
@@ -141,8 +165,10 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 							min: 0,
 							max: 1,
 							title: 'Subray final radius',
-							listen : true,
-							change : () => { this.updateRayParams(); }
+							listen: true,
+							change: () => {
+								this.updateRayParams();
+							},
 						},
 						{
 							name: 'timeScale',
@@ -150,8 +176,10 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 							min: 0,
 							max: 5,
 							title: 'Ray time scale',
-							listen : true,
-							change : () => { this.updateRayParams(); }
+							listen: true,
+							change: () => {
+								this.updateRayParams();
+							},
 						},
 						{
 							name: 'subrayPeriod',
@@ -159,8 +187,10 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 							min: 0.1,
 							max: 10,
 							title: 'Subray period (s)',
-							listen : true,
-							change : () => { this.updateRayParams(); }
+							listen: true,
+							change: () => {
+								this.updateRayParams();
+							},
 						},
 						{
 							name: 'subrayDutyCycle',
@@ -168,8 +198,10 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 							min: 0,
 							max: 1,
 							title: 'Subray duty cycle',
-							listen : true,
-							change : () => { this.updateRayParams(); }
+							listen: true,
+							change: () => {
+								this.updateRayParams();
+							},
 						},
 					],
 				},
@@ -178,19 +210,42 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 	}
 
 	ngOnInit() {
+		const starVertices = [];
+		const prevPoint = new THREE.Vector3( 0, 0, 1 );
+		const currPoint = new THREE.Vector3();
+		for ( let i = 1; i <= 16; i ++ ) {
+			currPoint.set( Math.sin( 2 * Math.PI * i / 16 ), 0, Math.cos( 2 * Math.PI * i / 16 ) );
+			if ( i % 2 === 1 ) {
+				currPoint.multiplyScalar( 0.3 );
+			}
+			starVertices.push( 0, 0, 0 );
+			starVertices.push( prevPoint.x, prevPoint.y, prevPoint.z );
+			starVertices.push( currPoint.x, currPoint.y, currPoint.z );
+			prevPoint.copy( currPoint );
+		}
+		this.starVertices = starVertices;
 		this.changeScene();
+	}
+	
+	starVertices : any[] = [];
+	starMesh : THREE.Mesh = null;
+	setStarMesh(mesh : MeshComponent) {
+		this.starMesh = mesh.getMesh();
 	}
 
 	onMouseClick(e: RendererEvent) {
 		switch (this.controls.scene) {
 			case 'ball':
 				switch (e.type) {
-					case 'click' :
+					case 'click':
 						if (this.camera !== null) {
 							const raycaster = this.camera.getRaycaster(e.mouse);
-							const result = raycaster.ray.intersectSphere( this.sphere, this.intersection );
-							if ( result !== null ) {
-								this.sourceOffset.copy( this.intersection );
+							const result = raycaster.ray.intersectSphere(
+								this.sphere,
+								this.intersection
+							);
+							if (result !== null) {
+								this.sourceOffset.copy(this.intersection);
 							}
 						}
 						break;
@@ -203,9 +258,13 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 	}
 
 	private intersection = new THREE.Vector3();
-	private sphere = new THREE.Sphere( new THREE.Vector3(0, 300,), 200 );
+	private sphere = new THREE.Sphere(new THREE.Vector3(0, 300), 200);
 
 	changeScene() {
+		const vec1 = new THREE.Vector3();
+		const vec2 = new THREE.Vector3();
+		const rayDirection = new THREE.Vector3();
+		let rayLength = 0;
 		switch (this.controls.scene) {
 			case 'ball':
 				this.sceneBackground = '0x454545';
@@ -215,12 +274,8 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 				this.sourceOffset.y = 300 + 200;
 				this.sourceOffset.z = 0;
 				this.destOffset.x = 0;
-				this.destOffset.y = 300 ;
+				this.destOffset.y = 300;
 				this.destOffset.z = 0;
-				const vec1 = new THREE.Vector3();
-				const vec2 = new THREE.Vector3();
-				const rayDirection = new THREE.Vector3();
-				let rayLength = 0;
 				this.rayParams = {
 					sourceOffset: this.sourceOffset,
 					destOffset: this.destOffset,
@@ -281,6 +336,7 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 					timeScale: 0.15,
 					propagationTimeFactor: 0.2,
 					vanishingTimeFactor: 0.9,
+					radius0Factor: 0.82,
 					subrayPeriod: 4,
 					subrayDutyCycle: 0.6,
 					maxSubrayRecursion: 3,
@@ -288,20 +344,38 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 					recursionProbability: 0.4,
 					roughness: 0.85,
 					straightness: 0.65,
-					onSubrayCreation: function ( segment, parentSubray, childSubray, lightningStrike ) {
-						lightningStrike.subrayConePosition( segment, parentSubray, childSubray, 0.6, 0.6, 0.5 );
+					onSubrayCreation: (
+						segment,
+						parentSubray,
+						childSubray,
+						lightningStrike
+					) => {
+						lightningStrike.subrayConePosition(
+							segment,
+							parentSubray,
+							childSubray,
+							0.6,
+							0.6,
+							0.5
+						);
 						// Plane projection
 						rayLength = lightningStrike.rayParameters.sourceOffset.y;
-						vec1.subVectors( childSubray.pos1, lightningStrike.rayParameters.sourceOffset );
-						const proj = rayDirection.dot( vec1 );
-						vec2.copy( rayDirection ).multiplyScalar( proj );
-						vec1.sub( vec2 );
+						vec1.subVectors(
+							childSubray.pos1,
+							lightningStrike.rayParameters.sourceOffset
+						);
+						const proj = rayDirection.dot(vec1);
+						vec2.copy(rayDirection).multiplyScalar(proj);
+						vec1.sub(vec2);
 						const scale = proj / rayLength > 0.5 ? rayLength / proj : 1;
-						vec2.multiplyScalar( scale );
-						vec1.add( vec2 );
-						childSubray.pos1.addVectors( vec1, lightningStrike.rayParameters.sourceOffset );
-					}
-				}
+						vec2.multiplyScalar(scale);
+						vec1.add(vec2);
+						childSubray.pos1.addVectors(
+							vec1,
+							lightningStrike.rayParameters.sourceOffset
+						);
+					},
+				};
 				break;
 			case 'cones':
 			default:
@@ -350,7 +424,25 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 
 	currentTime: number = 0;
 
-	getLightningStrike() : any{
+	stormParams = {
+		size: 1000,
+		minHeight: 90,
+		maxHeight: 200,
+		maxSlope: 0.6,
+		maxLightnings: 8,
+		onLightningDown: (lightning) => {
+			if (this.starMesh !== null && this.meshObject3d) {
+			// Add black star mark at ray strike
+				const star1 = this.starMesh.clone();
+				star1.position.copy( lightning.rayParameters.destOffset );
+				star1.position.y = 0.05;
+				star1.rotation.y = 2 * Math.PI * Math.random();
+				this.meshObject3d.add( star1 );
+			}
+		},
+	};
+
+	getLightningStrike(): any {
 		if (this.meshObject3d !== null) {
 			return this.meshObject3d.getObjectByName('lightningStrike') || null;
 		} else {
@@ -363,19 +455,26 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 		if (lightningStrike !== null) {
 			const material = lightningStrike.material;
 			material.color = new THREE.Color(this.controls.lightningColor);
-			this.rayParams.straightness = this.controls.straightness;
-			this.rayParams.roughness = this.controls.roughness;
-			this.rayParams.radius0 = this.controls.radius0;
-			this.rayParams.radius1 = this.controls.radius1;
-			this.rayParams.radius0Factor = this.controls.radius0Factor;
-			this.rayParams.radius1Factor = this.controls.radius1Factor;
-			this.rayParams.timeScale = this.controls.timeScale;
-			this.rayParams.subrayPeriod = this.controls.subrayPeriod;
-			this.rayParams.subrayDutyCycle = this.controls.subrayDutyCycle;
+		} else {
+			const storm = (this.meshObject3d.getObjectByName('storm') ||
+			null) as any;
+			if (ThreeUtil.isNotNull(storm)) {
+				const material= storm.lightningMaterial;
+				material.color = new THREE.Color(this.controls.lightningColor);
+			}
 		}
+		this.rayParams.straightness = this.controls.straightness;
+		this.rayParams.roughness = this.controls.roughness;
+		this.rayParams.radius0 = this.controls.radius0;
+		this.rayParams.radius1 = this.controls.radius1;
+		this.rayParams.radius0Factor = this.controls.radius0Factor;
+		this.rayParams.radius1Factor = this.controls.radius1Factor;
+		this.rayParams.timeScale = this.controls.timeScale;
+		this.rayParams.subrayPeriod = this.controls.subrayPeriod;
+		this.rayParams.subrayDutyCycle = this.controls.subrayDutyCycle;
 	}
 
-	setMesh(mesh : MeshComponent) {
+	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
 		this.controls.straightness = this.rayParams.straightness;
 		this.controls.roughness = this.rayParams.roughness;
@@ -442,6 +541,13 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 					if (ThreeUtil.isNotNull(lightningStrike)) {
 						const lightningStrikeGeometry = (lightningStrike as any).geometry;
 						lightningStrikeGeometry.update(time);
+					}
+					break;
+				case 'storm':
+					const storm = (this.meshObject3d.getObjectByName('storm') ||
+						null) as any;
+					if (ThreeUtil.isNotNull(storm)) {
+						storm.update(time);
 					}
 					break;
 			}

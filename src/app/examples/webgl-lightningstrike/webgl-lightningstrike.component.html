@@ -11,7 +11,14 @@
 	<ngx3js-camera [type]="'perspective'" [fov]="27" [near]="200" [far]="100000" (onLoad)="setCamera($event)">
 		<ngx3js-position [x]="sceneCamera.x" [y]="sceneCamera.y" [z]="sceneCamera.z"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-scene #scene [background]="sceneBackground">
+	<ngx3js-scene #scene [background]="sceneBackground" (onLoad)="setScene($event)">
+		<ngx3js-shared>
+			<ngx3js-mesh (onLoad)="setStarMesh($event)">
+				<ngx3js-scale [x]="6" [y]="6" [z]="6"></ngx3js-scale>
+				<ngx3js-geometry [type]="'BufferGeometry'" [attrPosition]="starVertices"></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0x020900'"></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-shared>
 		<ngx3js-mesh *ngIf="controls.scene === 'cones'" (onLoad)="setMesh($event)">
 			<ngx3js-light [name]="'posLight'" [type]="'PointLight'" [color]="'0x00FFFF'" [intensity]="1" [distance]="2000" [decay]="2">
 				<ngx3js-position [x]="0" [y]="600" [z]="0"></ngx3js-position>
@@ -82,14 +89,20 @@
 			</ngx3js-mesh>
 		</ngx3js-mesh>
 		<ngx3js-mesh *ngIf="controls.scene === 'storm'" (onLoad)="setMesh($event)">
-			<ngx3js-light [type]="'AmbientLight'" [color]="'0x444444'" ></ngx3js-light>
+			<ngx3js-light [type]="'AmbientLight'" [color]="'0x444444'"></ngx3js-light>
 			<ngx3js-light [type]="'DirectionalLight'" [color]="'0xffffff'" [intensity]="0.5">
+				<ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
+			</ngx3js-light>
+			<ngx3js-light [type]="'PointLight'" [color]="'0x00ffff'">
 				<ngx3js-position [x]="0" [y]="100" [z]="0"></ngx3js-position>
 			</ngx3js-light>
 			<ngx3js-mesh [name]="'ground'">
 				<ngx3js-geometry [type]="'PlaneGeometry'" [width]="1000" [height]="1000" ></ngx3js-geometry>
 				<ngx3js-material [type]="'MeshLambertMaterial'" [color]="'0x072302'"></ngx3js-material>
 				<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			</ngx3js-mesh>
+			<ngx3js-mesh [name]="'storm'" [type]="'LightningStorm'" [stormParams]="stormParams" [rayParams]="rayParams">
+				<ngx3js-material [type]="'MeshBasicMaterial'" [color]="'0xB0FFFF'"></ngx3js-material>
 			</ngx3js-mesh>
 		</ngx3js-mesh>
 
