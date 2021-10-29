@@ -32,7 +32,7 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 	constructor() {
 		super(
 			{
-				scene: 'cones',
+				scene: 'storm',
 				timeRate: 1,
 				outlineEnabled: true,
 				lightningColor: 0xB0FFFF,
@@ -59,7 +59,7 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 							select: {
 								'Electric Cones': 'cones',
 								'Plasma Ball': 'ball',
-								Storm: 'storm',
+								'Storm': 'storm',
 							},
 							change: () => {
 								this.changeScene();
@@ -270,9 +270,38 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 				};
 				break;
 			case 'storm':
-				this.sceneBackground = '0x454545';
-				this.sceneCamera = { x: 1000, y: 800, z: 3600 };
-				this.sceneCameraLookat = { x: 0, y: 600, z: 0 };
+				this.sceneBackground = '0x050505';
+				this.sceneCamera = { x: 0, y: 100, z: 800 };
+				this.sceneCameraLookat = { x: 0, y: 50, z: 0 };
+				this.rayParams = {
+					radius0: 1,
+					radius1: 0.5,
+					minRadius: 0.3,
+					maxIterations: 7,
+					timeScale: 0.15,
+					propagationTimeFactor: 0.2,
+					vanishingTimeFactor: 0.9,
+					subrayPeriod: 4,
+					subrayDutyCycle: 0.6,
+					maxSubrayRecursion: 3,
+					ramification: 3,
+					recursionProbability: 0.4,
+					roughness: 0.85,
+					straightness: 0.65,
+					onSubrayCreation: function ( segment, parentSubray, childSubray, lightningStrike ) {
+						lightningStrike.subrayConePosition( segment, parentSubray, childSubray, 0.6, 0.6, 0.5 );
+						// Plane projection
+						rayLength = lightningStrike.rayParameters.sourceOffset.y;
+						vec1.subVectors( childSubray.pos1, lightningStrike.rayParameters.sourceOffset );
+						const proj = rayDirection.dot( vec1 );
+						vec2.copy( rayDirection ).multiplyScalar( proj );
+						vec1.sub( vec2 );
+						const scale = proj / rayLength > 0.5 ? rayLength / proj : 1;
+						vec2.multiplyScalar( scale );
+						vec1.add( vec2 );
+						childSubray.pos1.addVectors( vec1, lightningStrike.rayParameters.sourceOffset );
+					}
+				}
 				break;
 			case 'cones':
 			default:
