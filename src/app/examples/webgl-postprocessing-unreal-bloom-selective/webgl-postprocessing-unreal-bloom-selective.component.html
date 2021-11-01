@@ -29,7 +29,7 @@
 	<ngx3js-composer
 		[scene]="scene"
 		[camera]="camera"
-		[renderToScreen]="false"
+		[renderToScreen]="true"
 		#bloomComposer
 	>
 		<ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
@@ -38,18 +38,20 @@
 			[strength]="1.5"
 			[radius]="0.4"
 			[threshold]="0.85"
+
 		></ngx3js-pass>
 	</ngx3js-composer>
-	<ngx3js-composer [scene]="scene" [camera]="camera">
+	<ngx3js-composer #finalComposer [scene]="scene" [camera]="camera">
 		<ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
 		<ngx3js-pass
 			[type]="'ShaderPass'"
 			[shader]="'ShaderMaterial'"
 			[textureId]="'baseTexture'"
-			[uniforms]="{ baseTexture: null, bloomTexture: null }"
+			[uniforms]="{ baseTexture: null, bloomTexture:  { value : bloomComposer.getRenderTarget2()?.texture} }"
 			[materialShader]="'UnrealBloomSelective'"
 			[bloomTexture]="bloomComposer"
 			[needsSwap]="true"
+
 		></ngx3js-pass>
 	</ngx3js-composer>
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>

@@ -1,8 +1,7 @@
-<div class="info dark">
+<div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
 	VSM Shadows example by
 	<a href="https://github.com/supereggbert">Paul Brunt</a>
-	todo
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -14,19 +13,20 @@
 	[shadowMapType]="'VSM'"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
+	[guiOpen]="true"
 	(onRender)="onRender($event)"
 >
 	<ngx3js-lookat [x]="0" [y]="2" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
 		<ngx3js-position [x]="0" [y]="10" [z]="30"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-scene #scene>
-		<ngx3js-fog [color]="'0xCCCCCC'" [near]="50" [far]="100"></ngx3js-fog>
+	<ngx3js-scene #scene [background]="'0x222244'">
+		<ngx3js-fog [color]="'0x222244'" [near]="50" [far]="100"></ngx3js-fog>
 		<ngx3js-light [type]="'AmbientLight'" [color]="'0x444444'"> </ngx3js-light>
 		<ngx3js-light
 			#spotLight
 			[type]="'SpotLight'"
-			[color]="'0x888888'"
+			[color]="'0xff8888'"
 			[name]="'Spot Light'"
 			[angle]="36"
 			[penumbra]="0.3"
@@ -44,7 +44,7 @@
 			<ngx3js-light
 				#dirLight
 				[type]="'DirectionalLight'"
-				[color]="'0xffffff'"
+				[color]="'0x8888ff'"
 				[intensity]="1"
 				[name]="'Dir. Light'"
 				[castShadow]="true"

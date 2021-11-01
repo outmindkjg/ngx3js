@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererEvent } from 'ngx3js';
+import { BaseComponent, PassComponent, RendererEvent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-unreal-bloom-selective',
@@ -28,10 +28,27 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 					type: 'select',
 					select: ['Scene with Glow', 'Glow only', 'Scene only'],
 				},
-				{ name: 'exposure', type: 'number', min: 0.1, max: 2 },
-				{ name: 'bloomThreshold', type: 'number', min: 0.0, max: 1.0 },
-				{ name: 'bloomStrength', type: 'number', min: 0.0, max: 10.0 },
-				{ name: 'bloomRadius', type: 'number', min: 0.0, max: 1.0, step: 0.01 },
+				{ name: 'exposure', type: 'number', min: 0.1, max: 2 , change : () => {
+					if (this.renderer !== null) {
+						const renderer = this.renderer.getRenderer() as THREE.WebGL1Renderer;
+						renderer.toneMappingExposure = Math.pow( this.controls.exposure, 4.0 );
+					}
+				}},
+				{ name: 'bloomThreshold', type: 'number', min: 0.0, max: 1.0, change : () => {
+					if (this.bloomPass !== null) {
+						this.bloomPass.threshold = this.controls.bloomThreshold;
+					}
+				} },
+				{ name: 'bloomStrength', type: 'number', min: 0.0, max: 10.0, change : () => {
+					if (this.bloomPass !== null) {
+						this.bloomPass.strength = this.controls.bloomStrength;
+					}
+				}  },
+				{ name: 'bloomRadius', type: 'number', min: 0.0, max: 1.0, step: 0.01 , change : () => {
+					if (this.bloomPass !== null) {
+						this.bloomPass.radius = this.controls.bloomRadius;
+					}
+				} },
 			]
 		);
 	}
@@ -73,4 +90,10 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 			}
 		}
 	}
+
+	setBloomPass(pass : PassComponent) {
+		this.bloomPass = pass.getPass();
+	}
+
+	bloomPass : any = null;
 }

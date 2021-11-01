@@ -7,42 +7,74 @@ import { BaseComponent, LightComponent, RendererTimer, THREE } from 'ngx3js';
 	styleUrls: ['./webgl-shadowmap-vsm.component.scss'],
 })
 export class WebglShadowmapVsmComponent extends BaseComponent<{
-	spotlight: number;
-	directional: number;
+	spotlightRadius: number;
+	spotlightSamples : number;
+	dirlightRadius : number;
+	dirlightSamples : number;
 }> {
 	constructor() {
 		super(
 			{
-				spotlight: 4,
-				directional: 4,
-			},
+				spotlightRadius: 4,
+				spotlightSamples: 8,
+				dirlightRadius: 4,
+				dirlightSamples: 8
+		},
 			[
-				{
-					name: 'spotlight',
-					title: 'Spotlight Radius',
-					type: 'number',
-					min: 1,
-					max: 8,
-					finishChange: () => {
-						if (this.spotLight !== null) {
-							this.spotLight.shadow.radius = this.controls.spotlight;
-							this.spotLight.shadow.needsUpdate = true;
-						}
+				{ name : 'Spotlight', type : 'folder', isOpen : true, children : [
+					{
+						name: 'spotlightRadius',
+						title: 'radius',
+						type: 'number',
+						min: 0,
+						max: 25,
+						finishChange: () => {
+							if (this.spotLight !== null) {
+								this.spotLight.shadow.radius = this.controls.spotlightRadius;
+							}
+						},
 					},
-				},
-				{
-					name: 'directional',
-					title: 'Directional light Radius',
-					type: 'number',
-					min: 1,
-					max: 8,
-					finishChange: () => {
-						if (this.dirLight !== null) {
-							this.dirLight.shadow.radius = this.controls.directional;
-							this.dirLight.shadow.needsUpdate = true;
-						}
+					{
+						name: 'spotlightSamples',
+						title: 'samples',
+						type: 'number',
+						min: 1,
+						max: 25,
+						step : 1,
+						finishChange: () => {
+							if (this.spotLight !== null) {
+								this.spotLight.shadow.blurSamples = this.controls.spotlightSamples;
+							}
+						},
 					},
-				},
+				]},
+				{ name : 'Directional Light', type : 'folder', isOpen : true, children : [
+					{
+						name: 'dirlightRadius',
+						title: 'radius',
+						type: 'number',
+						min: 0,
+						max: 25,
+						finishChange: () => {
+							if (this.dirLight !== null) {
+								this.dirLight.shadow.radius = this.controls.dirlightRadius;
+							}
+						},
+					},
+					{
+						name: 'dirlightSamples',
+						title: 'samples',
+						type: 'number',
+						min: 1,
+						max: 25,
+						step : 1,
+						finishChange: () => {
+							if (this.dirLight !== null) {
+								this.dirLight.shadow.blurSamples = this.controls.dirlightSamples;
+							}
+						},
+					}
+				]}
 			]
 		);
 	}
