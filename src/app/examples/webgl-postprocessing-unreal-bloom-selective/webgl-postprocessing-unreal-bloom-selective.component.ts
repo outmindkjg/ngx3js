@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, PassComponent, RendererEvent, THREE } from 'ngx3js';
+import { BaseComponent, ComposerComponent, PassComponent, RendererEvent, RendererInfo, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-unreal-bloom-selective',
@@ -27,6 +27,22 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 					name: 'scene',
 					type: 'select',
 					select: ['Scene with Glow', 'Glow only', 'Scene only'],
+					change : () => {
+						if (this.bloomComposer !== null) {
+							switch ( this.controls.scene ) 	{
+								case 'Scene with Glow':
+									this.bloomComposer.renderToScreen = false;
+									break;
+								case 'Glow only':
+									this.bloomComposer.renderToScreen = true;
+									break;
+								case 'Scene only':
+									// nothing to do
+									break;
+			
+							}
+						}
+					}
 				},
 				{ name: 'exposure', type: 'number', min: 0.1, max: 2 , change : () => {
 					if (this.renderer !== null) {
@@ -67,6 +83,8 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 				layer: Math.random() < 0.25 ? [1] : null,
 			});
 		}
+		this.bloomLayer = new THREE.Layers();
+		this.bloomLayer.set(1);
 	}
 
 	meshInfos: {
@@ -93,7 +111,65 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 
 	setBloomPass(pass : PassComponent) {
 		this.bloomPass = pass.getPass();
+		this.bloomPass.threshold = this.controls.bloomThreshold;
+		this.bloomPass.strength = this.controls.bloomStrength;
+		this.bloomPass.radius = this.controls.bloomRadius;
 	}
 
 	bloomPass : any = null;
+	bloomLayer : THREE.Layers = null;
+	darkMaterial = new THREE.MeshBasicMaterial( { color: "black" } );
+	beforeRender = (renderInfo : RendererInfo) : boolean => {
+		if (this.finalComposer !== null && this.bloomComposer !== null && this.sceneObject3d !== null) {
+			switch(this.controls.scene) {
+				case 'Scene with Glow' :
+					const darkMaterial = this.darkMaterial;
+					const materials : {[ key : string] : any } = {}
+					this.sceneObject3d.traverse( ( obj: any ) => {
+						if ( obj.isMesh && this.bloomLayer.test( obj.layers ) === false ) {
+							materials[ obj.uuid ] = obj.material;
+							obj.material = darkMaterial;
+						}
+					} );
+					this.bloomComposer.render();
+					this.sceneObject3d.traverse( ( obj: any ) => {
+						if ( materials[ obj.uuid ] ) {
+							obj.material = materials[ obj.uuid ];
+						}
+					});
+					this.finalComposer.render();
+					break;
+				case 'Glow only' :
+					if (this.camera !== null) {
+						const camera : any = this.camera.getCamera();
+						camera.layers.set( 1 );
+						this.bloomComposer.render();
+						camera.layers.set( 0 );
+					}
+					break;
+				case 'Scene only' :
+					if (this.camera !== null && this.scene !== null) {
+						const camera : any = this.camera.getCamera();
+						renderInfo.renderer.render( this.sceneObject3d, camera );
+					}
+					break;
+				default :
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	finalComposer : any = null;
+	bloomComposer : any = null;
+	
+	setFinalComposer(composer : ComposerComponent) {
+		this.finalComposer = composer.getComposer();
+	}
+
+	setBloomComposer(composer : ComposerComponent) {
+		this.bloomComposer = composer.getComposer();
+	}
+
 }
