@@ -80,7 +80,7 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 				z: Math.random() * 10 - 5,
 				multiply: Math.random() * 4.0 + 2.0,
 				scale: Math.random() * Math.random() + 0.5,
-				layer: Math.random() < 0.25 ? [1] : [0],
+				layer: Math.random() < 0.25 ? [1] : null,
 			});
 		}
 		this.bloomLayer = new THREE.Layers();
