@@ -12,12 +12,23 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			TweenComponent
+			TweenComponent<br>
+			<br>
+			<code data-type="html"><br>
+			&lt;ngx3js-tween<br>
+				[easing]="'power4.easein'"<br>
+				[targets]="'position'"<br>
+				(onLoad)="setLightTween($event)"<br>
+			&gt;&lt;/ngx3js-tween&gt;<br>
+			&lt;ngx3js-tween<br>
+				[easing]="'power4.easein'"<br>
+				(onLoad)="setLightTween($event)"<br>
+			&gt;&lt;/ngx3js-tween&gt;<br>
+			</code>
 		</p>
 
 		<h2>Component</h2>
-		<code data-type="html">
-			&lt;ngx3js-tween
+		<code data-type="html">&lt;ngx3js-tween
 			[amplitude]="..."
 			[debug]="..."
 			[duration]="..."

@@ -206,7 +206,7 @@ export class ApiReadComponent implements OnInit {
 					code.classList.add('language-html');
 					break;
 			}
-			let innerText: string = code.innerText.replace('<br>','').replace(/\n([\t ]{1,2})/g, '\n').trim();
+			let innerText: string = code.innerText.replace(/<br>/g,'').replace(/<br\/>/g,'').replace(/\n([\t ]{1,2})/g, '\n');
 			let safeTxt:string[] = [];
 			innerText.split("\n").forEach((txt : string) => {
 				if (txt.trim() !== '') {
@@ -221,6 +221,11 @@ export class ApiReadComponent implements OnInit {
 					innerText = safeTxt.join("\n");
 					break;
 			}
+			if (innerText.startsWith('\t')) {
+				innerText = innerText.substring(1);
+				innerText = innerText.replace(/\n\t/g,'\n');
+			}
+			console.log(innerText);
 			this.highlightJS
 				.highlightAuto(innerText, languageSubset)
 				.subscribe((hi: HighlightResult) => {

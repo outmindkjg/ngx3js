@@ -12,12 +12,48 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			ViewerComponent
+			ViewerComponent<br>
+			<code data-type="html"><br>
+			&lt;ngx3js-viewer<br>
+				[type]="'canvas'"<br>
+				[canvasOptions]="canvasOptions"<br>
+				[x]="viewPort.x"<br>
+				[y]="viewPort.y"<br>
+				[width]="viewPort.width"<br>
+				[height]="viewPort.height"<br>
+			&gt;&lt;/ngx3js-viewer&gt;<br>
+			&lt;ngx3js-viewer<br>
+				[type]="'canvas'"<br>
+				[canvasOptions]="canvasOptions"<br>
+			&gt;&lt;/ngx3js-viewer&gt;<br>
+			&lt;ngx3js-viewer<br>
+				[type]="'shadowmapviewer'"<br>
+				[x]="10"<br>
+				[y]="-10"<br>
+				[width]="'25%'"<br>
+				[height]="'25%'"<br>
+				[light]="spotLight"<br>
+				[enabled]="controls.hudEnable"<br>
+			&gt;&lt;/ngx3js-viewer&gt;<br>
+			&lt;ngx3js-viewer<br>
+				[type]="'shadowmapviewer'"<br>
+				[x]="-10"<br>
+				[y]="-10"<br>
+				[width]="'15%'"<br>
+				[height]="'width'"<br>
+				[light]="spotLight"<br>
+			&gt;&lt;/ngx3js-viewer&gt;<br>
+			&lt;ngx3js-viewer<br>
+				[type]="'shadowmesh'"<br>
+				[mesh]="cube"<br>
+				[light]="sunLight"<br>
+				[plane]="plane"<br>
+			&gt;&lt;/ngx3js-viewer&gt;<br>
+			</code>
 		</p>
 
 		<h2>Component</h2>
-		<code data-type="html">
-			&lt;ngx3js-viewer
+		<code data-type="html">&lt;ngx3js-viewer
 			[blendWindow]="..."
 			[blurEdges]="..."
 			[canvasOptions]="..."

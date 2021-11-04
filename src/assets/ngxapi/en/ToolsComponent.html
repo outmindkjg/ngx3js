@@ -12,12 +12,27 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			ToolsComponent
+			ToolsComponent<br>
+			<br>
+			<code data-type="html"><br>
+			&lt;ngx3js-tools<br>
+				[type]="'audio'"<br>
+				[url]="'sounds/ping_pong.mp3'"<br>
+			&gt;&lt;/ngx3js-tools&gt;<br>
+			&lt;ngx3js-tools<br>
+				[type]="'pmremtexture'"<br>
+				[background]="'0xcccccc'"<br>
+			&gt;&lt;/ngx3js-tools&gt;<br>
+			&lt;ngx3js-tools<br>
+				[type]="'pmremtexture'"<br>
+				[storageName]="'spot1Lux.hdr'"<br>
+				[storageOption]="{ path: 'textures/equirectangular/' }"<br>
+			&gt;&lt;/ngx3js-tools&gt;<br>
+			</code>
 		</p>
 
 		<h2>Component</h2>
-		<code data-type="html">
-			&lt;ngx3js-tools
+		<code data-type="html">&lt;ngx3js-tools
 			[background]="..."
 			[debug]="..."
 			[enabled]="..."

@@ -14,6 +14,22 @@
 		<p class="desc">
 			AbstractTextureComponent<br>
 			<br>
+			<code data-type="typescript"><br>
+			_@Component({<br>
+				providers: [<br>
+					{<br>
+						provide: AbstractTextureComponent,<br>
+						useExisting: forwardRef(() =&gt; XxxComponent),<br>
+					},<br>
+				],<br>
+			})<br>
+			export class XxxComponent extends AbstractTextureComponent implements OnInit {<br>
+				constructor() {<br>
+					super();<br>
+				}<br>
+			}<br>
+			</code><br>
+			<br>
 			[page:Texture Texture] - THREE.Texture
 		</p>
 

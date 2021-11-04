@@ -12,7 +12,23 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			AbstractGeometry Component
+			AbstractGeometry Component<br>
+			<br>
+			<code data-type="typescript"><br>
+			_@Component({<br>
+				providers: [<br>
+					{<br>
+						provide: AbstractGeometryComponent,<br>
+						useExisting: forwardRef(() =&gt; XxxComponent),<br>
+					},<br>
+				],<br>
+			})<br>
+			export class XxxComponent extends AbstractGeometryComponent implements OnInit {<br>
+				constructor() {<br>
+					super();<br>
+				}<br>
+			}<br>
+			</code>
 		</p>
 
 		<h2>Properties - Input</h2>

@@ -12,12 +12,39 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			SvgComponent
+			SvgComponent<br>
+			<br>
+			<code data-type="html"><br>
+			&lt;ngx3js-geometry<br>
+				[type]="'Extrude'"<br>
+				[depth]="map.depth"<br>
+				[steps]="1"<br>
+				[bevelEnabled]="false"<br>
+			&gt;<br>
+				&lt;ngx3js-svg [path]="map.path"&gt;&lt;/ngx3js-svg&gt;<br>
+			&lt;/ngx3js-geometry&gt;<br>
+			&lt;ngx3js-mesh&gt;<br>
+				&lt;ngx3js-svg<br>
+					[type]="'line'"<br>
+					[geometryType]="'buffer'"<br>
+					[text]="'   Three.js\nSimple text.'"<br>
+					[align]="'center'"<br>
+					[font]="'helvetiker'"<br>
+					[weight]="'regular'"<br>
+					[size]="100"<br>
+				&gt;<br>
+					&lt;ngx3js-material<br>
+						[type]="'LineBasic'"<br>
+						[color]="'0x006699'"<br>
+						[side]="'double'"<br>
+					&gt;&lt;/ngx3js-material&gt;<br>
+				&lt;/ngx3js-svg&gt;<br>
+			&lt;/ngx3js-mesh&gt;<br>
+			</code>
 		</p>
 
 		<h2>Component</h2>
-		<code data-type="html">
-			&lt;ngx3js-svg
+		<code data-type="html">&lt;ngx3js-svg
 			[align]="..."
 			[bevelEnabled]="..."
 			[bevelOffset]="..."

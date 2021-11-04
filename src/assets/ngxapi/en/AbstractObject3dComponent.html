@@ -12,7 +12,23 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			AbstractObject3dComponent
+			AbstractObject3dComponent<br>
+			<br>
+			<code data-type="typescript"><br>
+			_@Component({<br>
+				providers: [<br>
+					{<br>
+						provide: AbstractObject3dComponent,<br>
+						useExisting: forwardRef(() =&gt; XxxComponent),<br>
+					},<br>
+				],<br>
+			})<br>
+			export class XxxComponent extends AbstractObject3dComponent implements OnInit {<br>
+				constructor() {<br>
+					super();<br>
+				}<br>
+			}<br>
+			</code>
 		</p>
 
 		<h2>Properties - Input</h2>
