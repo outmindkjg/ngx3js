@@ -7,33 +7,68 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractSubscribeComponent] &rarr;
+		[page:AbstractChartComponent] &rarr;
 
 		<h1>[name]</h1>
 
 		<p class="desc">
-			CanvasComponent<br>
-			<br>
-			<code data-type="html"><br>
-			</code>
+			Component
 		</p>
 
 		<h2>Component</h2>
 		<code data-type="html">
-			&lt;ngx3js-canvas
+			&lt;ngx3js-chart-title
+			[align]="..."
+			[castShadow]="..."
+			[color]="..."
 			[debug]="..."
+			[depth]="..."
+			[depthIdx]="..."
+			[depthLength]="..."
+			[depthSize]="..."
 			[enabled]="..."
+			[fontFamily]="..."
+			[frustumCulled]="..."
+			[geometry]="..."
+			[height]="..."
+			[material]="..."
+			[materialIsArray]="..."
+			[matrixAutoUpdate]="..."
+			[message]="..."
 			[name]="..."
 			[overrideParams]="..."
+			[receiveShadow]="..."
+			[scaleMax]="..."
+			[scaleMin]="..."
 			[tween]="..."
+			[tweenStart]="..."
+			[type]="..."
 			[userData]="..."
+			[visible]="..."
+			[width]="..."
+			[widthLength]="..."
 			[windowExport]="..."
-		&gt;&lt;/ngx3js-canvas&gt;
+		&gt;&lt;/ngx3js-chart-title&gt;
 		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractChartComponent AbstractChartComponent] class for common input properties.
+		</p>
+
+		<h3>[property:string align]</h3>
+		<p>
+			Input  of chart title component
+		</p>
+
+		<h3>[property:boolean castShadow]</h3>
+		<p>
+			Whether the object gets rendered into shadow map. Default is *false*.
+		</p>
+
+		<h3>[property:ThreeColor color]</h3>
+		<p>
+			Input  of chart title component
 		</p>
 
 		<h3>[property:boolean debug]</h3>
@@ -41,9 +76,72 @@
 			Input  of abstract subscribe component
 		</p>
 
+		<h3>[property:number depth]</h3>
+		<p>
+			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:number depthIdx]</h3>
+		<p>
+			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:number depthLength]</h3>
+		<p>
+			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:number depthSize]</h3>
+		<p>
+			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+		</p>
+
 		<h3>[property:boolean enabled]</h3>
 		<p>
 			Input  of abstract subscribe component
+		</p>
+
+		<h3>[property:string fontFamily]</h3>
+		<p>
+			Input  of chart title component
+		</p>
+
+		<h3>[property:boolean frustumCulled]</h3>
+		<p>
+			When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object. If set to `false` the object gets rendered every frame even if it is not in the frustum of the camera. Default is `true`.
+		</p>
+
+		<h3>[property:any geometry]</h3>
+		<p>
+			The geometry of mesh
+		</p>
+
+		<h3>[property:number height]</h3>
+		<p>
+			Height; that is, the length of the edges parallel to the Y axis. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:mixed material]</h3>
+		<p>
+			The material of mesh<br>
+			<br>
+			[page:AbstractMaterialComponent AbstractMaterialComponent] | [page:Material Material]
+		</p>
+
+		<h3>[property:boolean materialIsArray]</h3>
+		<p>
+			The material of mesh is array
+		</p>
+
+		<h3>[property:boolean matrixAutoUpdate]</h3>
+		<p>
+			When this is set, it calculates the matrix of position, (rotation or quaternion) and<br>
+			scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate] (true).
+		</p>
+
+		<h3>[property:string message]</h3>
+		<p>
+			Input  of chart title component
 		</p>
 
 		<h3>[property:string name]</h3>
@@ -58,6 +156,21 @@
 			 { [ key : [page:string string] ] : [page:any any] }
 		</p>
 
+		<h3>[property:boolean receiveShadow]</h3>
+		<p>
+			Whether the material receives shadows. Default is *false*.
+		</p>
+
+		<h3>[property:number scaleMax]</h3>
+		<p>
+			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:number scaleMin]</h3>
+		<p>
+			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+		</p>
+
 		<h3>[property:any tween]</h3>
 		<p>
 			Input  of abstract subscribe component<br>
@@ -65,9 +178,34 @@
 			 { [ key : [page:string string] ] : [page:any any] }
 		</p>
 
+		<h3>[property:boolean tweenStart]</h3>
+		<p>
+			Input  of abstract tween component
+		</p>
+
+		<h3>[property:string type]</h3>
+		<p>
+			Input  of chart title component
+		</p>
+
 		<h3>[property:any userData]</h3>
 		<p>
 			Input  of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean visible]</h3>
+		<p>
+			Object gets rendered if *true*. Default is *true*.
+		</p>
+
+		<h3>[property:number width]</h3>
+		<p>
+			Width; that is, the length of the edges parallel to the X axis. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:number widthLength]</h3>
+		<p>
+			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
 		</p>
 
 		<h3>[property:string windowExport]</h3>
@@ -77,12 +215,12 @@
 
 		<h2>Properties - Output</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+			See the base [page:AbstractChartComponent AbstractChartComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractChartComponent AbstractChartComponent] class for common methods.
 		</p>
 
 		<h3>[method:void addChanges](  [param:mixed key] )</h3>
@@ -90,14 +228,35 @@
 			Adds changes
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<h3>[method:void addChildObject3d](  [param:Object3D object3d],  [param:mixed changes] )</h3>
 		<p>
-			Applys changes
+			Adds child object3d
 		</p>
 
-		<h3>[method:void applyHtmlStyle](  )</h3>
+		<h3>[method:void addDebugLine](  [param:Object3D objs][],  [param:string lines][],  [param:string prefix] )</h3>
 		<p>
-			Applys html style
+			Adds debug line<br>
+			<br>
+			Returns : debug line
+		</p>
+
+		<h3>[method:void addParentObject3d](  [param:Object3D object3d],  [param:mixed changes] )</h3>
+		<p>
+			Adds parent object3d
+		</p>
+
+		<h3>[method:ChartTitleComponent addPosition](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<p>
+			Adds position<br>
+			<br>
+			Returns : position
+		</p>
+
+		<h3>[method:ChartTitleComponent addRotation](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<p>
+			Adds rotation<br>
+			<br>
+			Returns : rotation
 		</p>
 
 		<h3>[method:void dispose](  )</h3>
@@ -105,18 +264,18 @@
 			Disposes abstract subscribe component
 		</p>
 
-		<h3>[method:HTMLElement getCanvas](  )</h3>
+		<h3>[method:T getChart](  )</h3>
 		<p>
-			Gets canvas<br>
+			Gets Chart<br>
 			<br>
-			Returns : canvas
+			Returns : object3d
 		</p>
 
-		<h3>[method:HtmlCollection getCollection](  )</h3>
+		<h3>[method:BufferGeometry getGeometry](  )</h3>
 		<p>
-			Gets collection<br>
+			Gets geometry<br>
 			<br>
-			Returns : collection
+			Returns : geometry
 		</p>
 
 		<h3>[method:string getId](  )</h3>
@@ -133,11 +292,60 @@
 			Returns : object
 		</p>
 
-		<h3>[method:CssStyle getStyle](  )</h3>
+		<h3>[method:T getObject3d](  )</h3>
 		<p>
-			Gets style<br>
+			Gets object3d<br>
 			<br>
-			Returns : style
+			Returns : object3d
+		</p>
+
+		<h3>[method:Object3D getObjectById](  [param:number id] )</h3>
+		<p>
+			Gets object by id<br>
+			<br>
+			Returns : object by id
+		</p>
+
+		<h3>[method:Object3D getObjectByName](  [param:string name] )</h3>
+		<p>
+			Gets object by name<br>
+			<br>
+			Returns : object by name
+		</p>
+
+		<h3>[method:Object3D getObjectByProperty](  [param:string name],  [param:string value] )</h3>
+		<p>
+			Gets object by property<br>
+			<br>
+			Returns : object by property
+		</p>
+
+		<h3>[method:Object3D getObjectTop](  )</h3>
+		<p>
+			Gets object top<br>
+			<br>
+			Returns : object top
+		</p>
+
+		<h3>[method:Vector3 getPosition](  )</h3>
+		<p>
+			Gets position<br>
+			<br>
+			Returns : position
+		</p>
+
+		<h3>[method:Euler getRotation](  )</h3>
+		<p>
+			Gets rotation<br>
+			<br>
+			Returns : rotation
+		</p>
+
+		<h3>[method:Vector3 getScale](  )</h3>
+		<p>
+			Gets scale<br>
+			<br>
+			Returns : scale
 		</p>
 
 		<h3>[method:Observable getSubscribe](  )</h3>
@@ -145,6 +353,18 @@
 			Gets subscribe<br>
 			<br>
 			Returns : subscribe
+		</p>
+
+		<h3>[method:void getTagAttributeObject3d](  [param:TagAttributes tagAttributes] )</h3>
+		<p>
+			Gets tag attribute object3d
+		</p>
+
+		<h3>[method:T getTitle](  )</h3>
+		<p>
+			Gets Chart<br>
+			<br>
+			Returns : object3d
 		</p>
 
 		<h3>[method:void getUserData](  )</h3>
@@ -156,26 +376,61 @@
 			Returns :
 		</p>
 
+		<h3>[method:void resetTween](  )</h3>
+		<p>
+			Resets tween
+		</p>
+
 		<h3>[method:void runSubscribeNext](  [param:mixed key] )</h3>
 		<p>
 			Runs subscribe next
 		</p>
 
-		<h3>[method:boolean setParent](  [param:any parent] )</h3>
+		<h3>[method:ChartTitleComponent setLookat](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<p>
+			Sets lookat<br>
+			<br>
+			Returns : lookat
+		</p>
+
+		<h3>[method:boolean setParent](  [param:Object3D parent] )</h3>
 		<p>
 			Sets parent<br>
 			<br>
 			Returns : true if parent
 		</p>
 
-		<h3>[method:void setParentNode](  [param:HTMLElement parentNode] )</h3>
+		<h3>[method:void setParentObject3d](  [param:Object3D object3d] )</h3>
 		<p>
-			Sets parent node
+			Sets parent object3d
 		</p>
 
-		<h3>[method:void setSize](  [param:Vector2 size] )</h3>
+		<h3>[method:ChartTitleComponent setPosition](  [param:number x],  [param:number y],  [param:number z] )</h3>
 		<p>
-			Sets size
+			Sets position<br>
+			<br>
+			Returns : position
+		</p>
+
+		<h3>[method:ChartTitleComponent setRotation](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<p>
+			Sets rotation<br>
+			<br>
+			Returns : rotation
+		</p>
+
+		<h3>[method:ChartTitleComponent setScale](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<p>
+			Sets scale<br>
+			<br>
+			Returns : scale
+		</p>
+
+		<h3>[method:ChartTitleComponent setScaleScalar](  [param:number scalar] )</h3>
+		<p>
+			Sets scale scalar<br>
+			<br>
+			Returns : scale scalar
 		</p>
 
 		<h3>[method:void setSubscribeNext](  [param:mixed key] )</h3>
@@ -193,9 +448,29 @@
 			Sets tween
 		</p>
 
+		<h3>[method:void setTweenTarget](  [param:any tweenTarget] )</h3>
+		<p>
+			Sets tween target
+		</p>
+
 		<h3>[method:void setUserData](  [param:string key],  [param:any value] )</h3>
 		<p>
 			Sets user data
+		</p>
+
+		<h3>[method:void setVisible](  [param:boolean visible],  [param:boolean _] )</h3>
+		<p>
+			Sets visible
+		</p>
+
+		<h3>[method:void showDebug](  [param:Object3D obj] )</h3>
+		<p>
+			Shows debug
+		</p>
+
+		<h3>[method:void update](  [param:RendererTimer _],  [param:number elapsedTime],  [param:number delta] )</h3>
+		<p>
+			Updates abstract chart component
 		</p>
 
 		<h3>[method:void updateInputParams](  [param:any params],  [param:boolean firstChange],  [param:SimpleChanges changes],  [param:string type] )</h3>
@@ -1465,6 +1740,6 @@
 
 
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/s/src/lib/canvas/canvas.component.ts s/src/lib/canvas/canvas.component.ts]</p>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/s/src/lib/chart/title/title.component.ts s/src/lib/chart/title/title.component.ts]</p>
 	</body>
 </html>

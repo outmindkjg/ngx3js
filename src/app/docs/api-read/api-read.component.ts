@@ -158,7 +158,7 @@ export class ApiReadComponent implements OnInit {
 		); // [example:name title]
 
 		// text = text.replace( /<a class="param" onclick="window.setUrlFragment\('\w+'\)">(null|this|Boolean|Object|Array|Number|String|Integer|Float|TypedArray|ArrayBuffer)<\/a>/gi, '<span class="param">$1</span>' ); // remove links to primitive types
-		text = text.replace(/\<code>/gi, "<code class='prettyprint'>");
+		// text = text.replace(/\<code /gi, "<code class='prettyprint' ").replace(/\<code>/gi, "<code class='prettyprint'>");
 		this.docEle.nativeElement.innerHTML = text;
 		const links = this.docEle.nativeElement.getElementsByTagName('a');
 		for (let i = 0; i < links.length; i++) {
@@ -186,12 +186,43 @@ export class ApiReadComponent implements OnInit {
 				return false;
 			},  {passive: true} );
 		}
-		const codes = this.docEle.nativeElement.getElementsByTagName('code');
+		const codes: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('code');
 		for (let i = 0; i < codes.length; i++) {
 			const code = codes[i];
-			const innerText = code.innerText.replace(/\n([\t ]{1,2})/g, '\n').trim();
+			const language = code.dataset.type || 'javascript';
+			const languageSubset : string[] = [ 'html', 'css', 'javascript' ];
+			code.classList.add('prettyprint');
+			switch(language) {
+				case 'text' :
+					code.classList.add('language-plaintext');
+					languageSubset.push('plaintext');
+					break;
+				case 'ts' :
+				case 'javascript' :
+					code.classList.add('language-javascript');
+					languageSubset.push('javascript');
+					break;
+				case 'html' :
+					code.classList.add('language-html');
+					break;
+			}
+			let innerText: string = code.innerText.replace('<br>','').replace(/\n([\t ]{1,2})/g, '\n').trim();
+			let safeTxt:string[] = [];
+			innerText.split("\n").forEach((txt : string) => {
+				if (txt.trim() !== '') {
+					safeTxt.push(txt);
+				}
+			});
+			switch(language) {
+				case 'text' :
+					innerText = safeTxt.join("\n");
+					break;
+				default :
+					innerText = safeTxt.join("\n");
+					break;
+			}
 			this.highlightJS
-				.highlightAuto(innerText, undefined)
+				.highlightAuto(innerText, languageSubset)
 				.subscribe((hi: HighlightResult) => {
 					code.innerHTML = hi.value;
 				});

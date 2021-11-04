@@ -7,200 +7,46 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractSubscribeComponent] &rarr;
-
 		<h1>[name]</h1>
 
 		<p class="desc">
-			CanvasComponent<br>
-			<br>
-			<code data-type="html"><br>
-			</code>
+			Geometry utils
 		</p>
-
-		<h2>Component</h2>
-		<code data-type="html">
-			&lt;ngx3js-canvas
-			[debug]="..."
-			[enabled]="..."
-			[name]="..."
-			[overrideParams]="..."
-			[tween]="..."
-			[userData]="..."
-			[windowExport]="..."
-		&gt;&lt;/ngx3js-canvas&gt;
-		</code>
 
 		<h2>Properties - Input</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
-		</p>
-
-		<h3>[property:boolean debug]</h3>
-		<p>
-			Input  of abstract subscribe component
-		</p>
-
-		<h3>[property:boolean enabled]</h3>
-		<p>
-			Input  of abstract subscribe component
-		</p>
-
-		<h3>[property:string name]</h3>
-		<p>
-			The name of the object (doesn't need to be unique). Default is an empty string.
-		</p>
-
-		<h3>[property:any overrideParams]</h3>
-		<p>
-			Input  of abstract subscribe component<br>
-			<br>
-			 { [ key : [page:string string] ] : [page:any any] }
-		</p>
-
-		<h3>[property:any tween]</h3>
-		<p>
-			Input  of abstract subscribe component<br>
-			<br>
-			 { [ key : [page:string string] ] : [page:any any] }
-		</p>
-
-		<h3>[property:any userData]</h3>
-		<p>
-			Input  of abstract subscribe component
-		</p>
-
-		<h3>[property:string windowExport]</h3>
-		<p>
-			Input  of abstract subscribe component
-		</p>
-
 		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
-		</p>
-
 		<h2>Methods</h2>
+		<h3>[method:void addGeometry](  [param:string key],  [param:GeometryFunctionType func],  [param:string alias][] )</h3>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			Adds geometry
 		</p>
 
-		<h3>[method:void addChanges](  [param:mixed key] )</h3>
+		<h3>[method:BufferGeometry getFlipGeometry](  [param:BufferGeometry geometry],  [param:string plane] )</h3>
 		<p>
-			Adds changes
-		</p>
-
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
-		<p>
-			Applys changes
-		</p>
-
-		<h3>[method:void applyHtmlStyle](  )</h3>
-		<p>
-			Applys html style
-		</p>
-
-		<h3>[method:void dispose](  )</h3>
-		<p>
-			Disposes abstract subscribe component
-		</p>
-
-		<h3>[method:HTMLElement getCanvas](  )</h3>
-		<p>
-			Gets canvas<br>
+			Gets flip geometry<br>
 			<br>
-			Returns : canvas
+			Returns : flip geometry
 		</p>
 
-		<h3>[method:HtmlCollection getCollection](  )</h3>
+		<h3>[method:BufferGeometry getGeometry](  [param:string key],  [param:BufferGeometry geometry],  [param:any options] )</h3>
 		<p>
-			Gets collection<br>
+			Gets geometry<br>
 			<br>
-			Returns : collection
+			Returns : geometry
 		</p>
 
-		<h3>[method:string getId](  )</h3>
+		<h3>[method:GeometryFunctionType getGeometryFunction](  [param:string key] )</h3>
 		<p>
-			Gets id<br>
+			Gets geometry function<br>
 			<br>
-			Returns : id
+			Returns : geometry function
 		</p>
 
-		<h3>[method:T getObject](  )</h3>
+		<h3>[method:number getGeometryRadius](  [param:BufferGeometry geometry],  [param:any options] )</h3>
 		<p>
-			Gets object<br>
+			Gets geometry radius<br>
 			<br>
-			Returns : object
-		</p>
-
-		<h3>[method:CssStyle getStyle](  )</h3>
-		<p>
-			Gets style<br>
-			<br>
-			Returns : style
-		</p>
-
-		<h3>[method:Observable getSubscribe](  )</h3>
-		<p>
-			Gets subscribe<br>
-			<br>
-			Returns : subscribe
-		</p>
-
-		<h3>[method:void getUserData](  )</h3>
-		<p>
-			Gets user data<br>
-			<br>
-			 { [ key : [page:string string] ] : [page:any any] } <br>
-			<br>
-			Returns :
-		</p>
-
-		<h3>[method:void runSubscribeNext](  [param:mixed key] )</h3>
-		<p>
-			Runs subscribe next
-		</p>
-
-		<h3>[method:boolean setParent](  [param:any parent] )</h3>
-		<p>
-			Sets parent<br>
-			<br>
-			Returns : true if parent
-		</p>
-
-		<h3>[method:void setParentNode](  [param:HTMLElement parentNode] )</h3>
-		<p>
-			Sets parent node
-		</p>
-
-		<h3>[method:void setSize](  [param:Vector2 size] )</h3>
-		<p>
-			Sets size
-		</p>
-
-		<h3>[method:void setSubscribeNext](  [param:mixed key] )</h3>
-		<p>
-			Sets subscribe next
-		</p>
-
-		<h3>[method:void setSubscribeType](  [param:string subscribeType] )</h3>
-		<p>
-			Sets subscribe type
-		</p>
-
-		<h3>[method:void setTween](  [param:any tweenData] )</h3>
-		<p>
-			Sets tween
-		</p>
-
-		<h3>[method:void setUserData](  [param:string key],  [param:any value] )</h3>
-		<p>
-			Sets user data
-		</p>
-
-		<h3>[method:void updateInputParams](  [param:any params],  [param:boolean firstChange],  [param:SimpleChanges changes],  [param:string type] )</h3>
-		<p>
-			Updates input params
+			Returns : geometry radius
 		</p>
 
 		<hr>
@@ -1465,6 +1311,6 @@
 
 
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/s/src/lib/canvas/canvas.component.ts s/src/lib/canvas/canvas.component.ts]</p>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/s/src/lib/geometry/geometryUtils.ts s/src/lib/geometry/geometryUtils.ts]</p>
 	</body>
 </html>

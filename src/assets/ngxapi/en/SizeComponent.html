@@ -12,23 +12,21 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			CanvasComponent<br>
-			<br>
-			<code data-type="html"><br>
-			</code>
+			Component
 		</p>
 
 		<h2>Component</h2>
 		<code data-type="html">
-			&lt;ngx3js-canvas
+			&lt;ngx3js-size
 			[debug]="..."
 			[enabled]="..."
-			[name]="..."
+			[height]="..."
 			[overrideParams]="..."
 			[tween]="..."
 			[userData]="..."
+			[width]="..."
 			[windowExport]="..."
-		&gt;&lt;/ngx3js-canvas&gt;
+		&gt;&lt;/ngx3js-size&gt;
 		</code>
 
 		<h2>Properties - Input</h2>
@@ -46,9 +44,18 @@
 			Input  of abstract subscribe component
 		</p>
 
-		<h3>[property:string name]</h3>
+		<h3>[property:mixed height]</h3>
 		<p>
-			The name of the object (doesn't need to be unique). Default is an empty string.
+			The size of height<br>
+			- type number<br>
+			 fixed size<br>
+			- type string with include %<br>
+			 relative size from renderer size<br>
+			 for example<br>
+			   in case renderer = 1024<br>
+			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:any overrideParams]</h3>
@@ -68,6 +75,20 @@
 		<h3>[property:any userData]</h3>
 		<p>
 			Input  of abstract subscribe component
+		</p>
+
+		<h3>[property:mixed width]</h3>
+		<p>
+			The size of width<br>
+			- type number<br>
+			 fixed size<br>
+			- type string with include %<br>
+			 relative size from renderer size<br>
+			 for example<br>
+			   in case renderer = 1024<br>
+			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542<br>
+			<br>
+			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:string windowExport]</h3>
@@ -92,31 +113,12 @@
 
 		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
-			Applys changes
-		</p>
-
-		<h3>[method:void applyHtmlStyle](  )</h3>
-		<p>
-			Applys html style
+			Applys changes3d
 		</p>
 
 		<h3>[method:void dispose](  )</h3>
 		<p>
 			Disposes abstract subscribe component
-		</p>
-
-		<h3>[method:HTMLElement getCanvas](  )</h3>
-		<p>
-			Gets canvas<br>
-			<br>
-			Returns : canvas
-		</p>
-
-		<h3>[method:HtmlCollection getCollection](  )</h3>
-		<p>
-			Gets collection<br>
-			<br>
-			Returns : collection
 		</p>
 
 		<h3>[method:string getId](  )</h3>
@@ -131,13 +133,6 @@
 			Gets object<br>
 			<br>
 			Returns : object
-		</p>
-
-		<h3>[method:CssStyle getStyle](  )</h3>
-		<p>
-			Gets style<br>
-			<br>
-			Returns : style
 		</p>
 
 		<h3>[method:Observable getSubscribe](  )</h3>
@@ -168,14 +163,9 @@
 			Returns : true if parent
 		</p>
 
-		<h3>[method:void setParentNode](  [param:HTMLElement parentNode] )</h3>
+		<h3>[method:void setRendererSize](  [param:number width],  [param:number height],  [param:number pixelRatio] )</h3>
 		<p>
-			Sets parent node
-		</p>
-
-		<h3>[method:void setSize](  [param:Vector2 size] )</h3>
-		<p>
-			Sets size
+			Sets size size
 		</p>
 
 		<h3>[method:void setSubscribeNext](  [param:mixed key] )</h3>
@@ -1465,6 +1455,6 @@
 
 
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/s/src/lib/canvas/canvas.component.ts s/src/lib/canvas/canvas.component.ts]</p>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/s/src/lib/size/size.component.ts s/src/lib/size/size.component.ts]</p>
 	</body>
 </html>

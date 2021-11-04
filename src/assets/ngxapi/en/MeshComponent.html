@@ -7,675 +7,2374 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent]
-		&rarr; [page:AbstractObject3dComponent] &rarr;
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
 
 		<h1>[name]</h1>
 
 		<p class="desc">
-			MeshComponent<br />
-			<br />
-			[page:Mesh Mesh] - THREE.Mesh<br />
+			MeshComponent<br>
+			<br>
+			<code data-type="html"><br>
+			&lt;ngx3js-mesh [type]="'skybox'"<br>
+				[skyboxType]="'sun'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'HTMLMesh'"<br>
+				[domElement]="domElement"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'SVGObject'"<br>
+				[cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'CSS2DObject'"<br>
+				[cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'CSS3DSprite'"<br>
+				[cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Reflector'"<br>
+				[color]="'0x889999'"<br>
+				[clipBias]="0.003"<br>
+				[textureWidth]="1024"<br>
+				[textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'ReflectorRTT'"<br>
+				[color]="'0x889999'"<br>
+				[clipBias]="0.003"<br>
+				[textureWidth]="1024"<br>
+				[textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Refractor'"<br>
+				[color]="'0x999999'"<br>
+				[textureWidth]="1024"<br>
+				[textureHeight]="1024"<br>
+				[shader]="'WaterRefraction'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'ReflectorRTT'"<br>
+				[color]="'0x889999'"<br>
+				[clipBias]="0.003"<br>
+				[textureWidth]="1024"<br>
+				[textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'ReflectorForSSRPass'"<br>
+				[color]="'0x889999'"<br>
+				[clipBias]="0.003"<br>
+				[textureWidth]="1024"<br>
+				[textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Water'"<br>
+				[sunColor]="'0xffffff'"<br>
+				[waterColor]="'0x001e0f'"<br>
+				[sunDirection]="sunDirection"<br>
+				[textureWidth]="512"<br>
+				[textureHeight]="512"<br>
+				[alpha]="alpha"<br>
+				[distortionScale]="distortionScale"<br>
+				[uniforms]="uniforms"<br>
+			&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Water2'"<br>
+				[color]="'#ffffff'"<br>
+				[waterScale]="4"<br>
+				[reflectivity]="0.02"<br>
+				[flowDirectionX]="1"<br>
+				[flowDirectionY]="1"<br>
+				[textureWidth]="1024"<br>
+				[textureHeight]="1024"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Sky'"<br>
+				[uniforms]="{<br>
+					sunPosition: { type: 'v3', value: sunDirection },<br>
+					turbidity: { type: 'number', value: 10 },<br>
+					rayleigh: { type: 'number', value: 2 },<br>
+					mieCoefficient: { type: 'number', value: 0.005 },<br>
+					mieDirectionalG: { type: 'number', value: 0.8 }}"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Flow'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'InstancedFlow'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'LineLoop'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Light'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Lensflare'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'InstancedMesh'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'merged'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'naive'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'multimaterial'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Sprite'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Wireframe'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'LOD'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'MarchingCubes'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Points'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Line'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'TubePainter'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Text'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Line2'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'LineSegments'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'MD2CharacterComplex'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'InteractiveGroup'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Group'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			&lt;ngx3js-mesh [type]="'Mesh'"&gt;&lt;/ngx3js-mesh&gt;<br>
+			</code><br>
+			<br>
+			[page:Mesh Mesh] - THREE.Mesh<br>
 			[page:Group Group] - THREE.Group
 		</p>
 
 		<h2>Component</h2>
-		<code>
-			&lt;ngx3js-mesh [ alpha ]="..." [ axis ]="..." [ blobInfos ]="..." [
-			castShadow ]="..." [ centerX ]="..." [ centerY ]="..." [ clipBias ]="..."
-			[ color ]="..." [ colors ]="..." [ compressNormals ]="..." [
-			compressPositions ]="..." [ compressUvs ]="..." [ count ]="..." [ cssStyle
-			]="..." [ cssTag ]="..." [ curve ]="..." [ debug ]="..." [ distance
-			]="..." [ distortionScale ]="..." [ divisions ]="..." [ enableColors
-			]="..." [ enableUvs ]="..." [ enabled ]="..." [ encoding ]="..." [
-			flowDirectionX ]="..." [ flowDirectionY ]="..." [ flowMap ]="..." [
-			flowSpeed ]="..." [ frustumCulled ]="..." [ geometry ]="..." [
-			helperOptions ]="..." [ helperType ]="..." [ index ]="..." [ isolation
-			]="..." [ lightOptions ]="..." [ makeColor ]="..." [ makeMatrix ]="..." [
-			material ]="..." [ materialIsArray ]="..." [ matrixAutoUpdate ]="..." [
-			metalness ]="..." [ morphTargets ]="..." [ moveAlongCurve ]="..." [
-			moveIndividualAlongCurve ]="..." [ name ]="..." [ normalMap0 ]="..." [
-			normalMap1 ]="..." [ planeInfos ]="..." [ receiveShadow ]="..." [
-			reflectivity ]="..." [ resolution ]="..." [ roughness ]="..." [ scaleStep
-			]="..." [ shader ]="..." [ shareParts ]="..." [ sharedMesh ]="..." [ size
-			]="..." [ skyColor ]="..." [ skyboxCubeImage ]="..." [ skyboxImage ]="..."
-			[ skyboxRate ]="..." [ skyboxSunImage ]="..." [ skyboxSunX ]="..." [
-			skyboxSunY ]="..." [ skyboxSunZ ]="..." [ skyboxType ]="..." [ storageName
-			]="..." [ storageOption ]="..." [ sunColor ]="..." [ sunDirection ]="..."
-			[ sunPosition ]="..." [ texture ]="..." [ textureHeight ]="..." [
-			textureWidth ]="..." [ tweenStart ]="..." [ type ]="..." [ uniforms
-			]="..." [ usage ]="..." [ usePlaneStencil ]="..." [ visible ]="..." [
-			volumeOption ]="..." [ waterColor ]="..." [ waterScale ]="..." [
-			windowExport ]="..." &gt;&lt;/ngx3js-mesh&gt;
+		<code data-type="html">
+			&lt;ngx3js-mesh
+			[alpha]="..."
+			[axis]="..."
+			[blobInfos]="..."
+			[castShadow]="..."
+			[centerX]="..."
+			[centerY]="..."
+			[clipBias]="..."
+			[color]="..."
+			[colors]="..."
+			[count]="..."
+			[cssStyle]="..."
+			[cssTag]="..."
+			[curve]="..."
+			[debug]="..."
+			[distance]="..."
+			[distortionScale]="..."
+			[divisions]="..."
+			[domElement]="..."
+			[enableColors]="..."
+			[enableUvs]="..."
+			[enabled]="..."
+			[encoding]="..."
+			[flowDirectionX]="..."
+			[flowDirectionY]="..."
+			[flowMap]="..."
+			[flowSpeed]="..."
+			[frustumCulled]="..."
+			[geometry]="..."
+			[helperOptions]="..."
+			[helperType]="..."
+			[index]="..."
+			[isolation]="..."
+			[lightOptions]="..."
+			[makeColor]="..."
+			[makeMatrix]="..."
+			[material]="..."
+			[materialIsArray]="..."
+			[matrixAutoUpdate]="..."
+			[metalness]="..."
+			[morphTargets]="..."
+			[moveAlongCurve]="..."
+			[moveIndividualAlongCurve]="..."
+			[name]="..."
+			[normalMap0]="..."
+			[normalMap1]="..."
+			[overrideParams]="..."
+			[planeInfos]="..."
+			[rayParams]="..."
+			[receiveShadow]="..."
+			[reflectivity]="..."
+			[resolution]="..."
+			[roughness]="..."
+			[scaleStep]="..."
+			[shader]="..."
+			[shareParts]="..."
+			[sharedCamera]="..."
+			[sharedMesh]="..."
+			[size]="..."
+			[skyColor]="..."
+			[skyboxCubeImage]="..."
+			[skyboxImage]="..."
+			[skyboxRate]="..."
+			[skyboxSunImage]="..."
+			[skyboxSunX]="..."
+			[skyboxSunY]="..."
+			[skyboxSunZ]="..."
+			[skyboxType]="..."
+			[storageName]="..."
+			[storageOption]="..."
+			[sunColor]="..."
+			[sunDirection]="..."
+			[sunPosition]="..."
+			[text]="..."
+			[texture]="..."
+			[textureHeight]="..."
+			[textureSize]="..."
+			[textureWidth]="..."
+			[tween]="..."
+			[tweenStart]="..."
+			[type]="..."
+			[uniforms]="..."
+			[usage]="..."
+			[useDepthTexture]="..."
+			[usePlaneStencil]="..."
+			[userData]="..."
+			[visible]="..."
+			[volumeOption]="..."
+			[waterColor]="..."
+			[waterScale]="..."
+			[windowExport]="..."
+		&gt;&lt;/ngx3js-mesh&gt;
 		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
-			class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class
-			for common input properties.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common input properties.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent]
-			class for common input properties.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common input properties.
 		</p>
 
 		<h3>[property:number alpha]</h3>
-		<p>The alpha of water</p>
+		<p>
+			The alpha of water
+		</p>
 
 		<h3>[property:string axis]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:any blobInfos]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
+
+		<h3>[property:boolean castShadow]</h3>
+		<p>
+			Whether the object gets rendered into shadow map. Default is *false*.
+		</p>
 
 		<h3>[property:number centerX]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:number centerY]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:number clipBias]</h3>
-		<p>The clip bias of Reflector</p>
+		<p>
+			The clip bias of Reflector
+		</p>
 
 		<h3>[property:ThreeColor color]</h3>
-		<p>The color of sun etc</p>
+		<p>
+			The color of sun etc
+		</p>
 
 		<h3>[property:mixed colors]</h3>
 		<p>
-			Input of mesh component<br />
-			<br />
+			Input  of mesh component<br>
+			<br>
 			[page:string string] | [page:number number]
 		</p>
 
-		<h3>[property:string compressNormals]</h3>
-		<p>
-			Make the input mesh.geometry's normal attribute encoded and compressed by
-			3 different methods.<br />
-			Also will change the mesh.material to `PackedPhongMaterial` which let the
-			vertex shader program decode the normal data.<br />
-			<br />
-			"DEFAULT" || "OCT1Byte" || "OCT2Byte" || "ANGLES"<br />
-			<br />
-			"OCT1Byte"<br />
-			It is not recommended to use 1-byte octahedron normals encoding unless you
-			want to extremely reduce the memory usage<br />
-			As it makes vertex data not aligned to a 4 byte boundary which may harm
-			some WebGL implementations and sometimes the normal distortion is
-			visible<br />
-			Please refer to @zeux 's comments in
-			https://github.com/mrdoob/three.js/pull/18208<br />
-			<br />
-			"OCT2Byte"<br />
-			"ANGLES"
-		</p>
-
-		<h3>[property:boolean compressPositions]</h3>
-		<p>
-			The compressPositions<br />
-			<br />
-			GeometryCompressionUtils.compressPositions
-		</p>
-
-		<h3>[property:boolean compressUvs]</h3>
-		<p>
-			The compressUvs<br />
-			<br />
-			GeometryCompressionUtils.compressUvs
-		</p>
-
 		<h3>[property:number count]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:mixed cssStyle]</h3>
 		<p>
-			The css style of CSS2DObject, CSS3DObject<br />
-			<br />
-			CssStyle<br />
-			<br />
+			The css style of CSS2DObject, CSS3DObject<br>
+			<br>
+			CssStyle<br>
+			<br>
 			[page:string string] | [page:CssStyle CssStyle]
 		</p>
 
 		<h3>[property:any cssTag]</h3>
 		<p>
-			The css tag of CSS2DObject, CSS3DObject<br />
-			<br />
-			HTMLDivElement - div<br />
+			The css tag of CSS2DObject, CSS3DObject<br>
+			<br>
+			HTMLDivElement - div<br>
 			HTMLSpanElement - span
 		</p>
 
 		<h3>[property:mixed curve]</h3>
 		<p>
-			The curve<br />
-			<br />
+			The curve<br>
+			<br>
 			[page:Curve Curve] | [page:CurveComponent CurveComponent]
 		</p>
 
+		<h3>[property:boolean debug]</h3>
+		<p>
+			Input  of abstract subscribe component
+		</p>
+
 		<h3>[property:number distance]</h3>
-		<p>The distance of sun</p>
+		<p>
+			The distance of sun
+		</p>
 
 		<h3>[property:number distortionScale]</h3>
-		<p>The distortion scale of Water</p>
+		<p>
+			The distortion scale of Water
+		</p>
 
 		<h3>[property:number divisions]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
+
+		<h3>[property:HTMLElement domElement]</h3>
+		<p>
+			The domElement of CSS2DObject, CSS3DObject, HtmlMesh
+		</p>
 
 		<h3>[property:boolean enableColors]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:boolean enableUvs]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
+
+		<h3>[property:boolean enabled]</h3>
+		<p>
+			Input  of abstract subscribe component
+		</p>
 
 		<h3>[property:string encoding]</h3>
 		<p>
-			[page:Textures THREE.LinearEncoding] is the default.<br />
-			See the [page:Textures texture constants] page for details of other
-			formats.<br />
-			Note that if this value is changed on a texture after the material has
-			been used,<br />
-			it is necessary to trigger a Material.needsUpdate for this value to be
-			realized in the shader.<br />
-			<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br />
-			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding -
-			LinearEncoding <br />
-			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding
-			<br />
-			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding
-			<br />
-			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding
-			<br />
-			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding -
-			LogLuvEncoding <br />
-			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding
-			<br />
-			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding -
-			RGBM16Encoding <br />
+			[page:Textures THREE.LinearEncoding] is the default.<br>
+			See the [page:Textures texture constants] page for details of other formats.<br>
+			Note that if this value is changed on a texture after the material has been used,<br>
+			it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br>
+			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br>
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br>
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br>
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br>
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br>
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br>
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br>
 			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
 		</p>
 
 		<h3>[property:number flowDirectionX]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:number flowDirectionY]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:mixed flowMap]</h3>
 		<p>
-			Input of mesh component<br />
-			<br />
-			[page:string string] | [page:Texture Texture] |
-			[page:AbstractTextureComponent AbstractTextureComponent]
+			Input  of mesh component<br>
+			<br>
+			[page:string string] | [page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
 		</p>
 
 		<h3>[property:number flowSpeed]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
+
+		<h3>[property:boolean frustumCulled]</h3>
+		<p>
+			When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object. If set to `false` the object gets rendered every frame even if it is not in the frustum of the camera. Default is `true`.
+		</p>
 
 		<h3>[property:any geometry]</h3>
-		<p>The geometry of mesh</p>
+		<p>
+			The geometry of mesh
+		</p>
 
 		<h3>[property:HelperOptions helperOptions]</h3>
-		<p>The options of helper</p>
+		<p>
+			The options of helper
+		</p>
 
 		<h3>[property:string helperType]</h3>
-		<p>The type of helper</p>
+		<p>
+			The type of helper
+		</p>
 
 		<h3>[property:number index]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:number isolation]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:LightOptions lightOptions]</h3>
 		<p>
-			The options of light<br />
-			<br />
+			The options of light<br>
+			<br>
 			LightOptions
 		</p>
 
 		<h3>[property:any makeColor]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			
+		</p>
 
 		<h3>[property:any makeMatrix]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			
+		</p>
 
 		<h3>[property:mixed material]</h3>
 		<p>
-			The material of mesh<br />
-			<br />
-			[page:AbstractMaterialComponent AbstractMaterialComponent] |
-			[page:Material Material]
+			The material of mesh<br>
+			<br>
+			[page:AbstractMaterialComponent AbstractMaterialComponent] | [page:Material Material]
 		</p>
 
 		<h3>[property:boolean materialIsArray]</h3>
-		<p>The material of mesh is array</p>
+		<p>
+			The material of mesh is array
+		</p>
+
+		<h3>[property:boolean matrixAutoUpdate]</h3>
+		<p>
+			When this is set, it calculates the matrix of position, (rotation or quaternion) and<br>
+			scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate] (true).
+		</p>
 
 		<h3>[property:number metalness]</h3>
 		<p>
-			How much the material is like a metal. Non-metallic materials such as wood
-			or stone use 0.0, metallic use 1.0, with nothing<br />
-			(usually) in between. Default is 0.0. A value between 0.0 and 1.0 could be
-			used for a rusty metal look. If metalnessMap is<br />
+			How much the material is like a metal. Non-metallic materials such as wood or stone use 0.0, metallic use 1.0, with nothing<br>
+			(usually) in between. Default is 0.0. A value between 0.0 and 1.0 could be used for a rusty metal look. If metalnessMap is<br>
 			also provided, both values are multiplied.
 		</p>
 
 		<h3>[property:boolean morphTargets]</h3>
-		<p>Define whether the material uses morphTargets. Default is false.</p>
+		<p>
+			Define whether the material uses morphTargets. Default is false.
+		</p>
 
 		<h3>[property:number moveAlongCurve]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:mixed moveIndividualAlongCurve]</h3>
 		<p>
-			Input of mesh component<br />
-			<br />
+			Input  of mesh component<br>
+			<br>
 			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:string name]</h3>
+		<p>
+			The name of the object (doesn't need to be unique). Default is an empty string.
 		</p>
 
 		<h3>[property:mixed normalMap0]</h3>
 		<p>
-			Input of mesh component<br />
-			<br />
-			[page:string string] | [page:Texture Texture] |
-			[page:AbstractTextureComponent AbstractTextureComponent]
+			Input  of mesh component<br>
+			<br>
+			[page:string string] | [page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
 		</p>
 
 		<h3>[property:mixed normalMap1]</h3>
 		<p>
-			Input of mesh component<br />
-			<br />
-			[page:string string] | [page:Texture Texture] |
-			[page:AbstractTextureComponent AbstractTextureComponent]
+			Input  of mesh component<br>
+			<br>
+			[page:string string] | [page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
+		</p>
+
+		<h3>[property:any overrideParams]</h3>
+		<p>
+			Input  of abstract subscribe component<br>
+			<br>
+			 { [ key : [page:string string] ] : [page:any any] }
 		</p>
 
 		<h3>[property:any planeInfos]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
+
+		<h3>[property:RayParameters rayParams]</h3>
+		<p>
+			Input  of geometry component
+		</p>
+
+		<h3>[property:boolean receiveShadow]</h3>
+		<p>
+			Whether the material receives shadows. Default is *false*.
+		</p>
 
 		<h3>[property:number reflectivity]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:number resolution]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:number roughness]</h3>
 		<p>
-			How rough the material appears. 0.0 means a smooth mirror reflection, 1.0
-			means fully diffuse. Default is 1.0.<br />
+			How rough the material appears. 0.0 means a smooth mirror reflection, 1.0 means fully diffuse. Default is 1.0.<br>
 			If roughnessMap is also provided, both values are multiplied.
 		</p>
 
 		<h3>[property:number scaleStep]</h3>
-		<p>The scale step of MultiMaterialObject</p>
+		<p>
+			The scale step of MultiMaterialObject
+		</p>
 
 		<h3>[property:string shader]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:MeshComponent shareParts]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
+
+		<h3>[property:any sharedCamera]</h3>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:MeshComponent sharedMesh]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:number size]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
 
 		<h3>[property:mixed skyColor]</h3>
 		<p>
-			The color of sky<br />
-			<br />
+			The color of sky<br>
+			<br>
 			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:string skyboxCubeImage][]</h3>
-		<p>The cube image of skybox</p>
+		<p>
+			The cube image of skybox
+		</p>
 
 		<h3>[property:any skyboxImage]</h3>
-		<p>The image of skybox</p>
+		<p>
+			The image of skybox
+		</p>
 
 		<h3>[property:number skyboxRate]</h3>
-		<p>The rate of Skybox from distance</p>
+		<p>
+			The rate of Skybox from distance
+		</p>
 
 		<h3>[property:string skyboxSunImage]</h3>
-		<p>The sun image of skybox</p>
+		<p>
+			The sun image of skybox
+		</p>
 
 		<h3>[property:number skyboxSunX]</h3>
-		<p>The sun X direction in degree.</p>
+		<p>
+			The sun X direction in degree.
+		</p>
 
 		<h3>[property:number skyboxSunY]</h3>
-		<p>The sun Y direction in degree.</p>
+		<p>
+			The sun Y direction in degree.
+		</p>
 
 		<h3>[property:number skyboxSunZ]</h3>
-		<p>The sun Z direction in degree.</p>
+		<p>
+			The sun Z direction in degree.
+		</p>
 
 		<h3>[property:string skyboxType]</h3>
 		<p>
-			The type of skybox<br />
-			<br />
-			Lensflare - sun<br />
-			[page:BoxGeometry BoxGeometry] - THREE.BoxGeometry - box<br />
+			The type of skybox<br>
+			<br>
+			Lensflare - sun<br>
+			[page:BoxGeometry BoxGeometry] - THREE.BoxGeometry - box<br>
 			[page:SphereGeometry SphereGeometry] - THREE.SphereGeometry - sphere
 		</p>
 
 		<h3>[property:string storageName]</h3>
-		<p>The storage Name</p>
+		<p>
+			The storage Name
+		</p>
 
 		<h3>[property:any storageOption]</h3>
-		<p>The storage Option</p>
+		<p>
+			The storage Option
+		</p>
 
 		<h3>[property:ThreeColor sunColor]</h3>
-		<p>The color of sun</p>
+		<p>
+			The color of sun
+		</p>
 
 		<h3>[property:mixed sunDirection]</h3>
 		<p>
-			The direction of sun<br />
-			<br />
+			The direction of sun<br>
+			<br>
 			[page:Vector3 Vector3] | [page:number number]
 		</p>
 
 		<h3>[property:mixed sunPosition]</h3>
 		<p>
-			The position of sun<br />
-			<br />
+			The position of sun<br>
+			<br>
 			[page:Vector3 Vector3] | [page:number number]
+		</p>
+
+		<h3>[property:string text]</h3>
+		<p>
+			Input  of mesh component
 		</p>
 
 		<h3>[property:mixed texture]</h3>
 		<p>
-			The refer texture<br />
-			<br />
-			[page:Texture Texture] | [page:AbstractTextureComponent
-			AbstractTextureComponent]
+			The refer texture<br>
+			<br>
+			[page:Texture Texture] | [page:AbstractTextureComponent AbstractTextureComponent]
 		</p>
 
 		<h3>[property:number textureHeight]</h3>
-		<p>The texture Height</p>
+		<p>
+			The texture Height
+		</p>
+
+		<h3>[property:mixed textureSize]</h3>
+		<p>
+			The texture size<br>
+			<br>
+			[page:Vector2 Vector2] | [page:SizeComponent SizeComponent]
+		</p>
 
 		<h3>[property:number textureWidth]</h3>
-		<p>The texture Width</p>
+		<p>
+			The texture Width
+		</p>
+
+		<h3>[property:any tween]</h3>
+		<p>
+			Input  of abstract subscribe component<br>
+			<br>
+			 { [ key : [page:string string] ] : [page:any any] }
+		</p>
+
+		<h3>[property:boolean tweenStart]</h3>
+		<p>
+			Input  of abstract tween component
+		</p>
 
 		<h3>[property:string type]</h3>
 		<p>
-			The type of mesh<br />
-			<br />
-			Notice - case insensitive.<br />
-			<br />
-			Lensflare - type : skybox, skyboxType : sun<br />
-			SVGObject - SVGObject, SVG<br />
-			CSS2DObject - CSS2DObject, CSS2D<br />
-			CSS3DSprite - CSS3DSprite<br />
-			CSS3DObject - CSS3DObject, CSS3D, CSS<br />
-			Reflector - Reflector<br />
-			ReflectorRTT - ReflectorRTT<br />
-			Refractor - Refractor<br />
-			Water - Water<br />
-			Water2 - Water2<br />
-			Sky - Sky<br />
-			Flow - Flow<br />
-			InstancedFlow - InstancedFlow<br />
-			LineLoop - LineLoop<br />
-			[page:Light Light] - THREE.Light - light<br />
-			LineLoop - LineLoop<br />
-			Lensflare - Lensflare, lensflareelement<br />
-			[page:InstancedMesh InstancedMesh] - THREE.InstancedMesh - InstancedMesh,
-			Instanced<br />
-			BufferGeometryUtils.mergeBufferGeometries - merged<br />
-			SceneUtils.createMultiMaterialObject - multimaterial, multi<br />
-			[page:Sprite Sprite] - THREE.Sprite - Sprite<br />
-			Wireframe - wireframe<br />
-			[page:LOD LOD] - THREE.LOD - lod<br />
-			MarchingCubes - marchingcubes<br />
-			[page:Points Points] - THREE.Points - points<br />
-			[page:Line Line] - THREE.Line - Line<br />
-			Line2 - line2<br />
-			[page:LineSegments LineSegments] - THREE.LineSegments - linesegments<br />
-			MD2CharacterComplex - md2charactercomplex<br />
-			[page:Group Group] - THREE.Group - group<br />
+			The type of mesh<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			Lensflare - type : skybox, skyboxType : sun<br>
+			SVGObject - SVGObject, SVG<br>
+			CSS2DObject - CSS2DObject, CSS2D<br>
+			CSS3DSprite - CSS3DSprite<br>
+			CSS3DObject - CSS3DObject, CSS3D, CSS<br>
+			Reflector - Reflector<br>
+			ReflectorRTT - ReflectorRTT<br>
+			Refractor - Refractor<br>
+			ReflectorForSSRPass - RefractorForSSRPass<br>
+			Water - Water<br>
+			Water2 - Water2<br>
+			Sky - Sky<br>
+			Flow - Flow<br>
+			InstancedFlow - InstancedFlow<br>
+			[page:Light Light] - THREE.Light - light<br>
+			[page:LineLoop LineLoop] - THREE.LineLoop - LineLoop<br>
+			Lensflare - Lensflare, lensflareelement<br>
+			[page:InstancedMesh InstancedMesh] - THREE.InstancedMesh - InstancedMesh, Instanced<br>
+			BufferGeometryUtils.mergeBufferGeometries - merged<br>
+			SceneUtils.createMultiMaterialObject - multimaterial, multi<br>
+			[page:Sprite Sprite] - THREE.Sprite - Sprite<br>
+			Wireframe - wireframe<br>
+			[page:LOD LOD] - THREE.LOD - lod<br>
+			MarchingCubes - marchingcubes<br>
+			[page:Points Points] - THREE.Points - points<br>
+			[page:Line Line] - THREE.Line - Line<br>
+			Line2 - line2<br>
+			[page:LineSegments LineSegments] - THREE.LineSegments - linesegments<br>
+			MD2CharacterComplex - md2charactercomplex<br>
+			[page:Group Group] - THREE.Group - group<br>
 			[page:Mesh Mesh] - THREE.Mesh - mesh
 		</p>
 
 		<h3>[property:any uniforms]</h3>
 		<p>
-			The uniform of sun, sky water etc<br />
-			<br />
-			{ [ uniform : [page:string string] ] : [page:any any] }
+			The uniform of sun, sky water etc<br>
+			<br>
+			 { [ uniform : [page:string string] ] : [page:any any] }
 		</p>
 
 		<h3>[property:string usage]</h3>
 		<p>
-			The usage of InstancedMesh<br />
-			<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:StaticDrawUsage StaticDrawUsage] - THREE.StaticDrawUsage -
-			StaticDrawUsage, StaticDraw<br />
-			[page:DynamicDrawUsage DynamicDrawUsage] - THREE.DynamicDrawUsage -
-			DynamicDrawUsage, DynamicDraw<br />
-			[page:StreamDrawUsage StreamDrawUsage] - THREE.StreamDrawUsage -
-			StreamDrawUsage, StreamDraw<br />
-			[page:StaticReadUsage StaticReadUsage] - THREE.StaticReadUsage -
-			StaticReadUsage, StaticRead<br />
-			[page:DynamicReadUsage DynamicReadUsage] - THREE.DynamicReadUsage -
-			DynamicReadUsage, DynamicRead<br />
-			[page:StreamReadUsage StreamReadUsage] - THREE.StreamReadUsage -
-			StreamReadUsage, StreamRead<br />
-			[page:StaticCopyUsage StaticCopyUsage] - THREE.StaticCopyUsage -
-			StaticCopyUsage, StaticCopy<br />
-			[page:DynamicCopyUsage DynamicCopyUsage] - THREE.DynamicCopyUsage -
-			DynamicCopyUsage, DynamicCopy<br />
-			[page:StreamCopyUsage StreamCopyUsage] - THREE.StreamCopyUsage -
-			StreamCopyUsage, StreamCopy
+			The usage of InstancedMesh<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			[page:StaticDrawUsage StaticDrawUsage] - THREE.StaticDrawUsage - StaticDrawUsage, StaticDraw<br>
+			[page:DynamicDrawUsage DynamicDrawUsage] - THREE.DynamicDrawUsage - DynamicDrawUsage, DynamicDraw<br>
+			[page:StreamDrawUsage StreamDrawUsage] - THREE.StreamDrawUsage - StreamDrawUsage, StreamDraw<br>
+			[page:StaticReadUsage StaticReadUsage] - THREE.StaticReadUsage - StaticReadUsage, StaticRead<br>
+			[page:DynamicReadUsage DynamicReadUsage] - THREE.DynamicReadUsage - DynamicReadUsage, DynamicRead<br>
+			[page:StreamReadUsage StreamReadUsage] - THREE.StreamReadUsage - StreamReadUsage, StreamRead<br>
+			[page:StaticCopyUsage StaticCopyUsage] - THREE.StaticCopyUsage - StaticCopyUsage, StaticCopy<br>
+			[page:DynamicCopyUsage DynamicCopyUsage] - THREE.DynamicCopyUsage - DynamicCopyUsage, DynamicCopy<br>
+			[page:StreamCopyUsage StreamCopyUsage] - THREE.StreamCopyUsage - StreamCopyUsage, StreamCopy
+		</p>
+
+		<h3>[property:boolean useDepthTexture]</h3>
+		<p>
+			The clip bias of Reflector
 		</p>
 
 		<h3>[property:boolean usePlaneStencil]</h3>
-		<p>use Plane Stencil</p>
+		<p>
+			use Plane Stencil
+		</p>
+
+		<h3>[property:any userData]</h3>
+		<p>
+			Input  of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean visible]</h3>
+		<p>
+			Object gets rendered if *true*. Default is *true*.
+		</p>
 
 		<h3>[property:VolumeOptions volumeOption]</h3>
-		<p>The volume Option</p>
+		<p>
+			The volume Option
+		</p>
 
 		<h3>[property:mixed waterColor]</h3>
 		<p>
-			The color water<br />
-			<br />
+			The color water<br>
+			<br>
 			[page:string string] | [page:number number]
 		</p>
 
 		<h3>[property:number waterScale]</h3>
-		<p>Input of mesh component</p>
+		<p>
+			Input  of mesh component
+		</p>
+
+		<h3>[property:string windowExport]</h3>
+		<p>
+			Input  of abstract subscribe component
+		</p>
 
 		<h2>Properties - Output</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
-			class for common output properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class
-			for common output properties.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common output properties.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent]
-			class for common output properties.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
-			class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class
-			for common methods.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent]
-			class for common methods.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges3d]( [param:string changes][] )</h3>
+		<h3>[method:void addChanges](  [param:mixed key] )</h3>
 		<p>
-			Applys changes3d<br />
-			<br />
+			Adds changes
+		</p>
+
+		<h3>[method:void addChildObject3d](  [param:Object3D object3d],  [param:mixed changes] )</h3>
+		<p>
+			Adds child object3d
+		</p>
+
+		<h3>[method:void addDebugLine](  [param:Object3D objs][],  [param:string lines][],  [param:string prefix] )</h3>
+		<p>
+			Adds debug line<br>
+			<br>
+			Returns : debug line
+		</p>
+
+		<h3>[method:void addParentObject3d](  [param:Object3D object3d],  [param:mixed changes] )</h3>
+		<p>
+			Adds parent object3d
+		</p>
+
+		<h3>[method:MeshComponent addPosition](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<p>
+			Adds position<br>
+			<br>
+			Returns : position
+		</p>
+
+		<h3>[method:MeshComponent addRotation](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<p>
+			Adds rotation<br>
+			<br>
+			Returns : rotation
+		</p>
+
+		<h3>[method:void applyChanges3d](  [param:string changes][] )</h3>
+		<p>
+			Applys changes3d<br>
+			<br>
 			Returns :
 		</p>
 
-		<h3>[method:any getClips]( )</h3>
+		<h3>[method:void dispose](  )</h3>
 		<p>
-			Gets clips<br />
-			<br />
+			Disposes abstract subscribe component
+		</p>
+
+		<h3>[method:any getClips](  )</h3>
+		<p>
+			Gets clips<br>
+			<br>
 			Returns : clips
 		</p>
 
-		<h3>[method:Curve getCurve]( )</h3>
+		<h3>[method:Curve getCurve](  )</h3>
 		<p>
-			Gets curve<br />
-			<br />
+			Gets curve<br>
+			<br>
 			Returns : curve
 		</p>
 
-		<h3>[method:BufferGeometry getGeometry]( )</h3>
+		<h3>[method:BufferGeometry getGeometry](  )</h3>
 		<p>
-			Gets geometry<br />
-			<br />
+			Gets geometry<br>
+			<br>
 			Returns : geometry
 		</p>
 
-		<h3>[method:any getJson]( )</h3>
+		<h3>[method:string getId](  )</h3>
 		<p>
-			Gets json<br />
-			<br />
+			Gets id<br>
+			<br>
+			Returns : id
+		</p>
+
+		<h3>[method:any getJson](  )</h3>
+		<p>
+			Gets json<br>
+			<br>
 			Returns : json
 		</p>
 
-		<h3>[method:Material getMaterial]( )</h3>
+		<h3>[method:Material getMaterial](  )</h3>
 		<p>
-			Gets material<br />
-			<br />
+			Gets material<br>
+			<br>
 			Returns : material
 		</p>
 
-		<h3>[method:T getMesh]( )</h3>
+		<h3>[method:T getMesh](  )</h3>
 		<p>
-			Gets mesh<br />
-			<br />
+			Gets mesh<br>
+			<br>
 			Returns : mesh
 		</p>
 
-		<h3>[method:T getObject3d]( )</h3>
+		<h3>[method:T getObject](  )</h3>
 		<p>
-			Gets object3d<br />
-			<br />
+			Gets object<br>
+			<br>
+			Returns : object
+		</p>
+
+		<h3>[method:T getObject3d](  )</h3>
+		<p>
+			Gets object3d<br>
+			<br>
 			Returns : object3d
 		</p>
 
-		<h3>[method:void getRealMesh]( )</h3>
+		<h3>[method:Object3D getObjectById](  [param:number id] )</h3>
 		<p>
-			Gets real mesh<br />
-			<br />
-			[page:Mesh Mesh] | [page:LineSegments LineSegments] | [page:Line Line] |
-			[page:Points Points]<br />
-			<br />
+			Gets object by id<br>
+			<br>
+			Returns : object by id
+		</p>
+
+		<h3>[method:Object3D getObjectByName](  [param:string name] )</h3>
+		<p>
+			Gets object by name<br>
+			<br>
+			Returns : object by name
+		</p>
+
+		<h3>[method:Object3D getObjectByProperty](  [param:string name],  [param:string value] )</h3>
+		<p>
+			Gets object by property<br>
+			<br>
+			Returns : object by property
+		</p>
+
+		<h3>[method:Object3D getObjectTop](  )</h3>
+		<p>
+			Gets object top<br>
+			<br>
+			Returns : object top
+		</p>
+
+		<h3>[method:Vector3 getPosition](  )</h3>
+		<p>
+			Gets position<br>
+			<br>
+			Returns : position
+		</p>
+
+		<h3>[method:void getRealMesh](  )</h3>
+		<p>
+			Gets real mesh<br>
+			<br>
+			[page:Mesh Mesh] | [page:Line Line] | [page:Points Points] | [page:LineSegments LineSegments]<br>
+			<br>
 			Returns : real mesh
 		</p>
 
-		<h3>[method:any getStorageSource]( )</h3>
+		<h3>[method:Euler getRotation](  )</h3>
 		<p>
-			Gets storage source<br />
-			<br />
+			Gets rotation<br>
+			<br>
+			Returns : rotation
+		</p>
+
+		<h3>[method:Vector3 getScale](  )</h3>
+		<p>
+			Gets scale<br>
+			<br>
+			Returns : scale
+		</p>
+
+		<h3>[method:any getStorageSource](  )</h3>
+		<p>
+			Gets storage source<br>
+			<br>
 			Returns : storage source
 		</p>
 
-		<h3>[method:void getUniforms]( )</h3>
+		<h3>[method:Observable getSubscribe](  )</h3>
 		<p>
-			Gets uniforms<br />
-			<br />
-			{ [ uniform : [page:string string] ] : [page:THREE.IUniform
-			THREE.IUniform] } <br />
-			<br />
+			Gets subscribe<br>
+			<br>
+			Returns : subscribe
+		</p>
+
+		<h3>[method:void getTagAttributeObject3d](  [param:TagAttributes tagAttributes] )</h3>
+		<p>
+			Gets tag attribute object3d
+		</p>
+
+		<h3>[method:void getUniforms](  )</h3>
+		<p>
+			Gets uniforms<br>
+			<br>
+			 { [ uniform : [page:string string] ] : [page:THREE.IUniform THREE.IUniform] } <br>
+			<br>
 			Returns : uniforms
 		</p>
 
-		<h3>[method:void resetHelper]( )</h3>
-		<p>Resets helper</p>
-
-		<h3>[method:boolean setParent]( [param:Object3D parent] )</h3>
+		<h3>[method:void getUserData](  )</h3>
 		<p>
-			Sets parent<br />
-			<br />
-			Returns : true if parent
-		</p>
-
-		<h3>[method:void setSavelocalStorage]( [param:string storageName] )</h3>
-		<p>
-			Sets savelocal storage<br />
-			<br />
+			Gets user data<br>
+			<br>
+			 { [ key : [page:string string] ] : [page:any any] } <br>
+			<br>
 			Returns :
 		</p>
 
-		<h3>
-			[method:void setVisible]( [param:boolean visible], [param:boolean
-			helperVisible] )
-		</h3>
-		<p>Sets visible</p>
+		<h3>[method:void resetHelper](  )</h3>
+		<p>
+			Resets helper
+		</p>
 
-		<h3>
-			[method:void setWireFrame]( [param:boolean wireframe], [param:Object3D
-			child] )
-		</h3>
-		<p>Sets wire frame</p>
+		<h3>[method:void resetTween](  )</h3>
+		<p>
+			Resets tween
+		</p>
 
-		<hr />
-		<h1 id="VolumeOptions">VolumeOptions</h1>
+		<h3>[method:void runSubscribeNext](  [param:mixed key] )</h3>
+		<p>
+			Runs subscribe next
+		</p>
 
-		<p class="desc">Volume Options</p>
+		<h3>[method:MeshComponent setLookat](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<p>
+			Sets lookat<br>
+			<br>
+			Returns : lookat
+		</p>
+
+		<h3>[method:boolean setParent](  [param:Object3D parent] )</h3>
+		<p>
+			Sets parent<br>
+			<br>
+			Returns : true if parent
+		</p>
+
+		<h3>[method:void setParentObject3d](  [param:Object3D object3d] )</h3>
+		<p>
+			Sets parent object3d
+		</p>
+
+		<h3>[method:MeshComponent setPosition](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<p>
+			Sets position<br>
+			<br>
+			Returns : position
+		</p>
+
+		<h3>[method:MeshComponent setRotation](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<p>
+			Sets rotation<br>
+			<br>
+			Returns : rotation
+		</p>
+
+		<h3>[method:void setSavelocalStorage](  [param:string storageName] )</h3>
+		<p>
+			Sets savelocal storage<br>
+			<br>
+			Returns :
+		</p>
+
+		<h3>[method:MeshComponent setScale](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<p>
+			Sets scale<br>
+			<br>
+			Returns : scale
+		</p>
+
+		<h3>[method:MeshComponent setScaleScalar](  [param:number scalar] )</h3>
+		<p>
+			Sets scale scalar<br>
+			<br>
+			Returns : scale scalar
+		</p>
+
+		<h3>[method:void setSubscribeNext](  [param:mixed key] )</h3>
+		<p>
+			Sets subscribe next
+		</p>
+
+		<h3>[method:void setSubscribeType](  [param:string subscribeType] )</h3>
+		<p>
+			Sets subscribe type
+		</p>
+
+		<h3>[method:void setTween](  [param:any tweenData] )</h3>
+		<p>
+			Sets tween
+		</p>
+
+		<h3>[method:void setTweenTarget](  [param:any tweenTarget] )</h3>
+		<p>
+			Sets tween target
+		</p>
+
+		<h3>[method:void setUserData](  [param:string key],  [param:any value] )</h3>
+		<p>
+			Sets user data
+		</p>
+
+		<h3>[method:void setVisible](  [param:boolean visible],  [param:boolean helperVisible] )</h3>
+		<p>
+			Sets visible
+		</p>
+
+		<h3>[method:void setWireFrame](  [param:boolean wireframe],  [param:Object3D child] )</h3>
+		<p>
+			Sets wire frame
+		</p>
+
+		<h3>[method:void showDebug](  [param:Object3D obj] )</h3>
+		<p>
+			Shows debug
+		</p>
+
+		<h3>[method:void updateInputParams](  [param:any params],  [param:boolean firstChange],  [param:SimpleChanges changes],  [param:string type] )</h3>
+		<p>
+			Updates input params
+		</p>
+
+		<hr>
+		<h1 id="ApplyMatrix4">ApplyMatrix4</h1>
+
+		<p class="desc">
+			Apply matrix4
+		</p>
 
 		<h2>Properties</h2>
-		<h3>[property:boolean boxVisible]?</h3>
-		<p></p>
+		<hr>
+		<h1 id="BackgroundBorder">BackgroundBorder</h1>
 
-		<h3>[property:ThreeColor helperColor]?</h3>
-		<p></p>
+		<p class="desc">
+			Background border
+		</p>
 
-		<h3>[property:boolean helperVisible]?</h3>
-		<p></p>
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="CharacterControl">CharacterControl</h1>
 
-		<h3>[property:number lowerThreshold]?</h3>
-		<p></p>
+		<p class="desc">
+			Character Control
+		</p>
 
-		<h3>[property:number upperThreshold]?</h3>
-		<p></p>
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="ChartData">ChartData</h1>
 
-		<h3>[property:number windowHigh]?</h3>
-		<p></p>
+		<p class="desc">
+			Chart data
+		</p>
 
-		<h3>[property:number windowLow]?</h3>
-		<p></p>
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="ColorOpacity">ColorOpacity</h1>
 
-		<h3>[property:number x]?</h3>
-		<p></p>
+		<p class="desc">
+			Color opacity
+		</p>
 
-		<h3>[property:boolean xVisible]?</h3>
-		<p></p>
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="ControlObjectItem">ControlObjectItem</h1>
 
-		<h3>[property:number y]?</h3>
-		<p></p>
+		<p class="desc">
+			Control object item
+		</p>
 
-		<h3>[property:boolean yVisible]?</h3>
-		<p></p>
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="ControlOptions">ControlOptions</h1>
 
-		<h3>[property:number z]?</h3>
-		<p></p>
+		<p class="desc">
+			Control options
+		</p>
 
-		<h3>[property:boolean zVisible]?</h3>
-		<p></p>
+		<h2>Properties</h2>
+		<h3>[property:boolean activeLook]?</h3>
+		<p>
+			The activeLook of control
+		</p>
+
+		<h3>[property:boolean autoForward]?</h3>
+		<p>
+			The autoForward of control
+		</p>
+
+		<h3>[property:boolean autoRotate]?</h3>
+		<p>
+			The autoRotate of control
+		</p>
+
+		<h3>[property:number autoRotateSpeed]?</h3>
+		<p>
+			The autoRotateSpeed of control
+		</p>
+
+		<h3>[property:any camera]?</h3>
+		<p>
+			The camera of control
+		</p>
+
+		<h3>[property:number cascades]?</h3>
+		<p>
+			The cascades of control
+		</p>
+
+		<h3>[property:boolean constrainVertical]?</h3>
+		<p>
+			The constrainVertical of control
+		</p>
+
+		<h3>[property:number dampingFactor]?</h3>
+		<p>
+			The dampingFactor of control
+		</p>
+
+		<h3>[property:boolean dragToLook]?</h3>
+		<p>
+			The dragToLook of control
+		</p>
+
+		<h3>[property:boolean enableDamping]?</h3>
+		<p>
+			The enableDamping of control
+		</p>
+
+		<h3>[property:boolean enableKeys]?</h3>
+		<p>
+			The enableKeys of control
+		</p>
+
+		<h3>[property:boolean enablePan]?</h3>
+		<p>
+			The enablePan of control
+		</p>
+
+		<h3>[property:boolean enableZoom]?</h3>
+		<p>
+			The enableZoom of control
+		</p>
+
+		<h3>[property:number heightCoef]?</h3>
+		<p>
+			The heightCoef of control
+		</p>
+
+		<h3>[property:number heightMax]?</h3>
+		<p>
+			The heightMax of control
+		</p>
+
+		<h3>[property:number heightMin]?</h3>
+		<p>
+			The heightMin of control
+		</p>
+
+		<h3>[property:boolean heightSpeed]?</h3>
+		<p>
+			The heightSpeed of control
+		</p>
+
+		<h3>[property:number lightDirectionX]?</h3>
+		<p>
+			The lightDirectionX of control
+		</p>
+
+		<h3>[property:number lightDirectionY]?</h3>
+		<p>
+			The lightDirectionY of control
+		</p>
+
+		<h3>[property:number lightDirectionZ]?</h3>
+		<p>
+			The lightDirectionZ of control
+		</p>
+
+		<h3>[property:number lookSpeed]?</h3>
+		<p>
+			The lookSpeed of control
+		</p>
+
+		<h3>[property:boolean lookVertical]?</h3>
+		<p>
+			The lookVertical of control
+		</p>
+
+		<h3>[property:QueryList lookatList]?</h3>
+		<p>
+			The lookat list of control
+		</p>
+
+		<h3>[property:number maxDistance]?</h3>
+		<p>
+			The maxDistance of control
+		</p>
+
+		<h3>[property:number maxFar]?</h3>
+		<p>
+			The maxFar of control
+		</p>
+
+		<h3>[property:number maxPolarAngle]?</h3>
+		<p>
+			The maxPolarAngle of control
+		</p>
+
+		<h3>[property:number maxZoom]?</h3>
+		<p>
+			The maxZoom of control
+		</p>
+
+		<h3>[property:number minDistance]?</h3>
+		<p>
+			The minDistance of control
+		</p>
+
+		<h3>[property:number minPolarAngle]?</h3>
+		<p>
+			The minPolarAngle of control
+		</p>
+
+		<h3>[property:number minZoom]?</h3>
+		<p>
+			The minZoom of control
+		</p>
+
+		<h3>[property:string mode]?</h3>
+		<p>
+			The mode of control<br>
+			<br>
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:boolean mouseDragOn]?</h3>
+		<p>
+			The mouseDragOn of control
+		</p>
+
+		<h3>[property:number movementSpeed]?</h3>
+		<p>
+			The movementSpeed of control
+		</p>
+
+		<h3>[property:number panSpeed]?</h3>
+		<p>
+			The panSpeed of control
+		</p>
+
+		<h3>[property:number rollSpeed]?</h3>
+		<p>
+			The rollSpeed of control in degree
+		</p>
+
+		<h3>[property:number rotateSpeed]?</h3>
+		<p>
+			The rotateSpeed of control
+		</p>
+
+		<h3>[property:any scene]?</h3>
+		<p>
+			The scene of control
+		</p>
+
+		<h3>[property:boolean screenSpacePanning]?</h3>
+		<p>
+			The screenSpacePanning of control
+		</p>
+
+		<h3>[property:number shadowMapSize]?</h3>
+		<p>
+			The shadowMapSize of control
+		</p>
+
+		<h3>[property:boolean staticMoving]?</h3>
+		<p>
+			The staticMoving of control
+		</p>
+
+		<h3>[property:any target]?</h3>
+		<p>
+			The target of control
+		</p>
+
+		<h3>[property:string type]?</h3>
+		<p>
+			The type of control<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			FlyControls - FlyControls, Fly<br>
+			FirstPersonControls - FirstPersonControls, FirstPerson<br>
+			DeviceOrientationControls - DeviceOrientationControls, DeviceOrientation<br>
+			DragControls - DragControls, Drag<br>
+			TransformControls - TransformControls, Transform<br>
+			TrackballControls - TrackballControls, Trackball<br>
+			ArcballControls - ArcballControls, Arcball<br>
+			CSM - CSM<br>
+			PlaneControls - PlaneControls, Plane<br>
+			OrbitControls - OrbitControls, Orbit
+		</p>
+
+		<h3>[property:number verticalMax]?</h3>
+		<p>
+			The verticalMax of control
+		</p>
+
+		<h3>[property:number verticalMin]?</h3>
+		<p>
+			The verticalMin of control
+		</p>
+
+		<h3>[property:number xDistance]?</h3>
+		<p>
+			The xDistance of control
+		</p>
+
+		<h3>[property:number yDistance]?</h3>
+		<p>
+			The yDistance of control
+		</p>
+
+		<h3>[property:number zoomSpeed]?</h3>
+		<p>
+			The zoomSpeed of control
+		</p>
+
+		<hr>
+		<h1 id="CssStyle">CssStyle</h1>
+
+		<p class="desc">
+			Css style
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="CurveClass">CurveClass</h1>
+
+		<p class="desc">
+			Curve class
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="CurvesNormalParameters">CurvesNormalParameters</h1>
+
+		<p class="desc">
+			Curves normal parameters
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="CurvesParameters">CurvesParameters</h1>
+
+		<p class="desc">
+			Curves parameters
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="GeometriesParametric">GeometriesParametric</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="GuiBaseControl">GuiBaseControl</h1>
+
+		<p class="desc">
+			Gui base control
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="GuiControlParam">GuiControlParam</h1>
+
+		<p class="desc">
+			Gui control param
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:GuiControlParam children][]?</h3>
+		<p>
+			The children of folder type
+		</p>
+
+		<h3>[property:ThreeGuiController controller]?</h3>
+		<p>
+			The controller of gui
+		</p>
+
+		<h3>[property:boolean isOpen]?</h3>
+		<p>
+			is opened in case folder
+		</p>
+
+		<h3>[property:number max]?</h3>
+		<p>
+			The max value of number type
+		</p>
+
+		<h3>[property:number min]?</h3>
+		<p>
+			The min value of number type
+		</p>
+
+		<h3>[property:string name]</h3>
+		<p>
+			The name of gui control
+		</p>
+
+		<h3>[property:mixed select]?</h3>
+		<p>
+			The select value of select type<br>
+			<br>
+			[page:string string]
+		</p>
+
+		<h3>[property:number step]?</h3>
+		<p>
+			The step value of number type
+		</p>
+
+		<h3>[property:string title]?</h3>
+		<p>
+			The title of gui name
+		</p>
+
+		<h3>[property:mixed type]?</h3>
+		<p>
+			The type of gui control
+		</p>
+
+		<hr>
+		<h1 id="HelperOptions">HelperOptions</h1>
+
+		<p class="desc">
+			Helper options
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:any arrowFrom]?</h3>
+		<p>
+			Point at which the arrow starts.
+		</p>
+
+		<h3>[property:any arrowTo]?</h3>
+		<p>
+			Point at which the arrow end.
+		</p>
+
+		<h3>[property:any children][]?</h3>
+		<p>
+			this children of Gyroscope
+		</p>
+
+		<h3>[property:number circles]?</h3>
+		<p>
+			The number of circles. This can be any positive integer. Default is 8.
+		</p>
+
+		<h3>[property:mixed color]?</h3>
+		<p>
+			color -- The desired color.<br>
+			<br>
+			[page:string string] | [page:number number]
+		</p>
+
+		<h3>[property:ThreeColor color1]?</h3>
+		<p>
+			The first color used for grid elements. This can be a [page:Color], a hexadecimal value and an CSS-Color name. Default is 0x444444
+		</p>
+
+		<h3>[property:ThreeColor color2]?</h3>
+		<p>
+			The second color used for grid elements. This can be a [page:Color], a hexadecimal value and an CSS-Color name. Default is 0x888888
+		</p>
+
+		<h3>[property:any control]?</h3>
+		<p>
+			The cms control of CSMHelper
+		</p>
+
+		<h3>[property:boolean depthWrite]?</h3>
+		<p>
+			Whether rendering this material has any effect on the depth buffer. Default is *true*.
+		</p>
+
+		<h3>[property:number dirX]?</h3>
+		<p>
+			X Direction from origin. Must be a unit vector.
+		</p>
+
+		<h3>[property:number dirY]?</h3>
+		<p>
+			Y Direction from origin. Must be a unit vector.
+		</p>
+
+		<h3>[property:number dirZ]?</h3>
+		<p>
+			Z Direction from origin. Must be a unit vector.
+		</p>
+
+		<h3>[property:number divisions]?</h3>
+		<p>
+			The number of line segments used for each circle. This can be any positive integer that is 3 or greater. Default is 64.
+		</p>
+
+		<h3>[property:number divisionsInnerAngle]?</h3>
+		<p>
+			the divisionsInnerAngle of PositionalAudioHelper
+		</p>
+
+		<h3>[property:number divisionsOuterAngle]?</h3>
+		<p>
+			the divisionsOuterAngle of PositionalAudioHelper
+		</p>
+
+		<h3>[property:number headLength]?</h3>
+		<p>
+			The length of the head of the arrow. Default is 0.2 * length.
+		</p>
+
+		<h3>[property:number headWidth]?</h3>
+		<p>
+			The width of the head of the arrow. Default is 0.2 * headLength.
+		</p>
+
+		<h3>[property:number length]?</h3>
+		<p>
+			length of the arrow. Default is *1*.
+		</p>
+
+		<h3>[property:string materialBlending]?</h3>
+		<p>
+			Input  of helper component<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.<br>
+			<br>
+			[page:NoBlending NoBlending] - THREE.NoBlending - NoBlending, No<br>
+			[page:NormalBlending NormalBlending] - THREE.NormalBlending - NormalBlending, Normal<br>
+			[page:AdditiveBlending AdditiveBlending] - THREE.AdditiveBlending - AdditiveBlending, Additive<br>
+			[page:SubtractiveBlending SubtractiveBlending] - THREE.SubtractiveBlending - SubtractiveBlending, Subtractive<br>
+			[page:MultiplyBlending MultiplyBlending] - THREE.MultiplyBlending - MultiplyBlending, Multiply<br>
+			[page:CustomBlending CustomBlending] - THREE.CustomBlending - CustomBlending, Custom
+		</p>
+
+		<h3>[property:ThreeColor materialColor]?</h3>
+		<p>
+			The color of material
+		</p>
+
+		<h3>[property:boolean materialTransparent]?</h3>
+		<p>
+			Defines whether this material is transparent. This has an effect on rendering as transparent objects need special treatment and are rendered after non-transparent objects.<br>
+			When set to true, the extent to which the material is transparent is controlled by setting it's .opacity property.<br>
+			Default is false.
+		</p>
+
+		<h3>[property:Matrix4 matrix]?</h3>
+		<p>
+			Update matrix for this helper
+		</p>
+
+		<h3>[property:number opacity]?</h3>
+		<p>
+			Float in the range of *0.0* - *1.0* indicating how transparent the material is.
+		</p>
+
+		<h3>[property:number originX]?</h3>
+		<p>
+			X Point at which the arrow starts.
+		</p>
+
+		<h3>[property:number originY]?</h3>
+		<p>
+			Y Point at which the arrow starts.
+		</p>
+
+		<h3>[property:number originZ]?</h3>
+		<p>
+			Z Point at which the arrow starts.
+		</p>
+
+		<h3>[property:number radials]?</h3>
+		<p>
+			The number of radial lines. This can be any positive integer. Default is 16.
+		</p>
+
+		<h3>[property:number radius]?</h3>
+		<p>
+			The radius of the polar grid. This can be any positive number. Default is 10.
+		</p>
+
+		<h3>[property:number range]?</h3>
+		<p>
+			the range of PositionalAudioHelper
+		</p>
+
+		<h3>[property:number size]?</h3>
+		<p>
+			size of the lines representing the axes. Default is *1*.
+		</p>
+
+		<h3>[property:any target]?</h3>
+		<p>
+			The target object of helper
+		</p>
+
+		<h3>[property:string type]?</h3>
+		<p>
+			the type of helper<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			Gyroscope - Gyroscope<br>
+			CSM - CSM<br>
+			[page:ArrowHelper ArrowHelper] - THREE.ArrowHelper - ArrowHelper, Arrow<br>
+			[page:BoxHelper BoxHelper] - THREE.BoxHelper - BoxHelper, Box<br>
+			[page:Box3Helper Box3Helper] - THREE.Box3Helper - Box3Helper, Box3<br>
+			[page:GridHelper GridHelper] - THREE.GridHelper - GridHelper, Grid<br>
+			[page:PolarGridHelper PolarGridHelper] - THREE.PolarGridHelper - PolarGridHelper, PolarGrid<br>
+			PositionalAudioHelper - PositionalAudioHelper, PositionalAudio<br>
+			[page:CameraHelper CameraHelper] - THREE.CameraHelper - CameraHelper, Camera<br>
+			[page:DirectionalLightHelper DirectionalLightHelper] - THREE.DirectionalLightHelper - DirectionalLightHelper, DirectionalLight, Directional, Light<br>
+			[page:HemisphereLightHelper HemisphereLightHelper] - THREE.HemisphereLightHelper - HemisphereLightHelper, HemisphereLight, Hemisphere, Light<br>
+			[page:PointLightHelper PointLightHelper] - THREE.PointLightHelper - PointLightHelper, PointLightHelper, PointLight, Light<br>
+			[page:SpotLightHelper SpotLightHelper] - THREE.SpotLightHelper - SpotLightHelper, SpotLight, Light<br>
+			RectAreaLightHelper - RectAreaLightHelper, RectAreaLight, Light<br>
+			LightProbeHelper - LightProbeHelper, LightProbe, Light<br>
+			[page:PlaneHelper PlaneHelper] - THREE.PlaneHelper - PlaneHelper, Plane<br>
+			VertexTangentsHelper - VertexTangentsHelper, VertexTangents<br>
+			VertexNormalsHelper - VertexNormalsHelper, VertexNormals<br>
+			[page:SkeletonHelper SkeletonHelper] - THREE.SkeletonHelper - SkeletonHelper, Skeleton<br>
+			[page:AxesHelper AxesHelper] - THREE.AxesHelper - AxesHelper, Axes
+		</p>
+
+		<hr>
+		<h1 id="HtmlCollection">HtmlCollection</h1>
+
+		<p class="desc">
+			Html collection
+		</p>
+
+		<h2>Properties</h2>
+		[page:Object3dOptions] &rarr;
+
+		<hr>
+		<h1 id="LightOptions">LightOptions</h1>
+
+		<p class="desc">
+			Light options
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:Object3dOptions Object3dOptions] class for common properties.
+		</p>
+
+		<h3>[property:number angle]?</h3>
+		<p>
+			Maximum angle of light dispersion from its direction whose upper bound is Math.PI/2(360).
+		</p>
+
+		<h3>[property:mixed animationGroup]?</h3>
+		<p>
+			Input  of abstract object3d component<br>
+			<br>
+			[page:AnimationGroupComponent AnimationGroupComponent] | [page:AnimationObjectGroup AnimationObjectGroup]
+		</p>
+
+		<h3>[property:boolean castShadow]?</h3>
+		<p>
+			Whether the object gets rendered into shadow map. Default is *false*.
+		</p>
+
+		<h3>[property:ThreeColor color]?</h3>
+		<p>
+			Numeric value of the RGB component of the color. Default is 0xffffff.
+		</p>
+
+		<h3>[property:any customDepth]?</h3>
+		<p>
+			Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br>
+			When shadow-casting with a [page:DirectionalLight] or [page:SpotLight], if you are (a) modifying vertex positions in the vertex shader,<br>
+			(b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a transparent texture with alphaTest,<br>
+			you must specify a customDepthMaterial for proper shadows. Default is *undefined*.
+		</p>
+
+		<h3>[property:any customDistance]?</h3>
+		<p>
+			Same as [page:.customDepthMaterial customDepthMaterial], but used with [page:PointLight]. Default is *undefined*.
+		</p>
+
+		<h3>[property:number decay]?</h3>
+		<p>
+			The amount the light dims along the distance of the light. Default is 1.
+		</p>
+
+		<h3>[property:number distance]?</h3>
+		<p>
+			Maximum range of the light. Default is 0 (no limit).
+		</p>
+
+		<h3>[property:boolean frustumCulled]?</h3>
+		<p>
+			When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object. If set to `false` the object gets rendered every frame even if it is not in the frustum of the camera. Default is `true`.
+		</p>
+
+		<h3>[property:ThreeColor groundColor]?</h3>
+		<p>
+			hexadecimal color of the ground. Default is 0xffffff.
+		</p>
+
+		<h3>[property:number height]?</h3>
+		<p>
+			height of the light. Default is 10.
+		</p>
+
+		<h3>[property:number intensity]?</h3>
+		<p>
+			Numeric value of the light's strength/intensity. Default is 1.
+		</p>
+
+		<h3>[property:number layers][]?</h3>
+		<p>
+			The layer membership of the object. The object is only visible if it has at least one<br>
+			layer in common with the [page:Camera] in use. This property can also be used to filter out<br>
+			unwanted objects in ray-intersection tests when using [page:Raycaster].
+		</p>
+
+		<h3>[property:number loDistance]?</h3>
+		<p>
+			Input  of abstract object3d component
+		</p>
+
+		<h3>[property:any lookat]?</h3>
+		<p>
+			vector - A vector representing a position in world space.<br>
+			Optionally, the [page:.x x], [page:.y y] and [page:.z z] components of the world space position.<br>
+			Rotates the object to face a point in world space.<br>
+			This method does not support objects having non-uniformly-scaled parent(s).
+		</p>
+
+		<h3>[property:boolean matrixAutoUpdate]?</h3>
+		<p>
+			When this is set, it calculates the matrix of position, (rotation or quaternion) and<br>
+			scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate] (true).
+		</p>
+
+		<h3>[property:string name]?</h3>
+		<p>
+			The name of the object (doesn't need to be unique). Default is an empty string.
+		</p>
+
+		<h3>[property:number penumbra]?</h3>
+		<p>
+			Percent of the spotlight cone that is attenuated due to penumbra. Takes values between zero and 1. Default is zero.
+		</p>
+
+		<h3>[property:any position]?</h3>
+		<p>
+			A [page:Vector3] representing the object's local position. Default is (0, 0, 0).
+		</p>
+
+		<h3>[property:boolean receiveShadow]?</h3>
+		<p>
+			Whether the material receives shadows. Default is *false*.
+		</p>
+
+		<h3>[property:number renderOrder]?</h3>
+		<p>
+			This value allows the default rendering order of [link:https://en.wikipedia.org/wiki/Scene_graph scene graph]<br>
+			objects to be overridden although opaque and transparent objects remain sorted independently. When this property<br>
+			is set for an instance of [page:Group Group], all descendants objects will be sorted and rendered together.<br>
+			Sorting is from lowest to highest renderOrder. Default value is *0*.
+		</p>
+
+		<h3>[property:any renderTarget]?</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:any renderer]?</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:any rotation]?</h3>
+		<p>
+			Object's local rotation (see [link:https://en.wikipedia.org/wiki/Euler_angles Euler angles]), in radians.
+		</p>
+
+		<h3>[property:any scale]?</h3>
+		<p>
+			The object's local scale. Default is [page:Vector3]( 1, 1, 1 ).
+		</p>
+
+		<h3>[property:string sh]?</h3>
+		<p>
+			An instance of [page:SphericalHarmonics3].
+		</p>
+
+		<h3>[property:number shadowBias]?</h3>
+		<p>
+			Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.<br>
+			The default is 0. Very tiny adjustments here (in the order of 0.0001) may help reduce artefacts in shadows
+		</p>
+
+		<h3>[property:number shadowCameraBottom]?</h3>
+		<p>
+			Camera frustum bottom plane.
+		</p>
+
+		<h3>[property:number shadowCameraFar]?</h3>
+		<p>
+			Camera frustum far plane. Default is *2000*.<br>
+			Must be greater than the current value of [page:.near near] plane.
+		</p>
+
+		<h3>[property:number shadowCameraFov]?</h3>
+		<p>
+			Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is *50*.
+		</p>
+
+		<h3>[property:number shadowCameraLeft]?</h3>
+		<p>
+			Camera frustum left plane.
+		</p>
+
+		<h3>[property:number shadowCameraNear]?</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:number shadowCameraRight]?</h3>
+		<p>
+			Camera frustum right plane.
+		</p>
+
+		<h3>[property:number shadowCameraTop]?</h3>
+		<p>
+			Camera frustum top plane.
+		</p>
+
+		<h3>[property:number shadowCameraZoom]?</h3>
+		<p>
+			Gets or sets the zoom factor of the camera. Default is *1*.
+		</p>
+
+		<h3>[property:number shadowFocus]?</h3>
+		<p>
+			Used to focus the shadow camera. The camera's field of view is set as a percentage of the spotlight's field-of-view. Range is [0, 1]. Default is 1.0.
+		</p>
+
+		<h3>[property:number shadowMapSize]?</h3>
+		<p>
+			A [Page:Vector2] defining the width and height of the shadow map.
+		</p>
+
+		<h3>[property:number shadowMapSizeHeight]?</h3>
+		<p>
+			A [Page:Vector2] defining the width and height of the shadow map.<br>
+			vector2.height
+		</p>
+
+		<h3>[property:number shadowMapSizeWidth]?</h3>
+		<p>
+			A [Page:Vector2] defining the width and height of the shadow map.<br>
+			vector2.width
+		</p>
+
+		<h3>[property:number shadowRadius]?</h3>
+		<p>
+			Setting this to values greater than 1 will blur the edges of the shadow.<br>
+			High values will cause unwanted banding effects in the shadows - a greater [page:.mapSize mapSize]<br>
+			will allow for a higher value to be used here before these effects become visible.<br>
+			If [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer PCFSoftShadowMap], radius has<br>
+			no effect and it is recommended to increase softness by decreasing [page:.mapSize mapSize] instead.<br>
+			Note that this has no effect if the [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer BasicShadowMap].
+		</p>
+
+		<h3>[property:ThreeColor skyColor]?</h3>
+		<p>
+			hexadecimal color of the sky. Default is 0xffffff.
+		</p>
+
+		<h3>[property:any target]?</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:number targetX]?</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:number targetY]?</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:number targetZ]?</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:AbstractTextureComponent texture]?</h3>
+		<p>
+			Input  of light component
+		</p>
+
+		<h3>[property:string type]?</h3>
+		<p>
+			The type of light<br>
+			<br>
+			Notice - case insensitive.<br>
+			<br>
+			[page:PointLight PointLight] - THREE.PointLight - PointLight, Point<br>
+			[page:RectAreaLight RectAreaLight] - THREE.RectAreaLight - RectAreaLight, RectArea<br>
+			[page:SpotLight SpotLight] - THREE.SpotLight - SpotLight, Spot<br>
+			[page:DirectionalLight DirectionalLight] - THREE.DirectionalLight - DirectionalLight, Directional<br>
+			[page:HemisphereLight HemisphereLight] - THREE.HemisphereLight - HemisphereLight, Hemisphere<br>
+			[page:LightProbe LightProbe] - THREE.LightProbe - LightProbe, Probe<br>
+			[page:AmbientLight AmbientLight] - THREE.AmbientLight - AmbientLight, Ambient
+		</p>
+
+		<h3>[property:boolean visible]?</h3>
+		<p>
+			Object gets rendered if *true*. Default is *true*.
+		</p>
+
+		<h3>[property:number width]?</h3>
+		<p>
+			width of the light. Default is 10.
+		</p>
+
+		<hr>
+		<h1 id="LoadedObject">LoadedObject</h1>
+
+		<p class="desc">
+			Loaded object
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="MeshMaterialRaw">MeshMaterialRaw</h1>
+
+		<p class="desc">
+			Mesh material raw
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="Object3dOptions">Object3dOptions</h1>
+
+		<p class="desc">
+			Object3d options
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:mixed animationGroup]?</h3>
+		<p>
+			Input  of abstract object3d component<br>
+			<br>
+			[page:AnimationGroupComponent AnimationGroupComponent] | [page:AnimationObjectGroup AnimationObjectGroup]
+		</p>
+
+		<h3>[property:boolean castShadow]?</h3>
+		<p>
+			Whether the object gets rendered into shadow map. Default is *false*.
+		</p>
+
+		<h3>[property:any customDepth]?</h3>
+		<p>
+			Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br>
+			When shadow-casting with a [page:DirectionalLight] or [page:SpotLight], if you are (a) modifying vertex positions in the vertex shader,<br>
+			(b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a transparent texture with alphaTest,<br>
+			you must specify a customDepthMaterial for proper shadows. Default is *undefined*.
+		</p>
+
+		<h3>[property:any customDistance]?</h3>
+		<p>
+			Same as [page:.customDepthMaterial customDepthMaterial], but used with [page:PointLight]. Default is *undefined*.
+		</p>
+
+		<h3>[property:boolean frustumCulled]?</h3>
+		<p>
+			When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object. If set to `false` the object gets rendered every frame even if it is not in the frustum of the camera. Default is `true`.
+		</p>
+
+		<h3>[property:number layers][]?</h3>
+		<p>
+			The layer membership of the object. The object is only visible if it has at least one<br>
+			layer in common with the [page:Camera] in use. This property can also be used to filter out<br>
+			unwanted objects in ray-intersection tests when using [page:Raycaster].
+		</p>
+
+		<h3>[property:number loDistance]?</h3>
+		<p>
+			Input  of abstract object3d component
+		</p>
+
+		<h3>[property:any lookat]?</h3>
+		<p>
+			vector - A vector representing a position in world space.<br>
+			Optionally, the [page:.x x], [page:.y y] and [page:.z z] components of the world space position.<br>
+			Rotates the object to face a point in world space.<br>
+			This method does not support objects having non-uniformly-scaled parent(s).
+		</p>
+
+		<h3>[property:boolean matrixAutoUpdate]?</h3>
+		<p>
+			When this is set, it calculates the matrix of position, (rotation or quaternion) and<br>
+			scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate] (true).
+		</p>
+
+		<h3>[property:string name]?</h3>
+		<p>
+			The name of the object (doesn't need to be unique). Default is an empty string.
+		</p>
+
+		<h3>[property:any position]?</h3>
+		<p>
+			A [page:Vector3] representing the object's local position. Default is (0, 0, 0).
+		</p>
+
+		<h3>[property:boolean receiveShadow]?</h3>
+		<p>
+			Whether the material receives shadows. Default is *false*.
+		</p>
+
+		<h3>[property:number renderOrder]?</h3>
+		<p>
+			This value allows the default rendering order of [link:https://en.wikipedia.org/wiki/Scene_graph scene graph]<br>
+			objects to be overridden although opaque and transparent objects remain sorted independently. When this property<br>
+			is set for an instance of [page:Group Group], all descendants objects will be sorted and rendered together.<br>
+			Sorting is from lowest to highest renderOrder. Default value is *0*.
+		</p>
+
+		<h3>[property:any rotation]?</h3>
+		<p>
+			Object's local rotation (see [link:https://en.wikipedia.org/wiki/Euler_angles Euler angles]), in radians.
+		</p>
+
+		<h3>[property:any scale]?</h3>
+		<p>
+			The object's local scale. Default is [page:Vector3]( 1, 1, 1 ).
+		</p>
+
+		<h3>[property:boolean visible]?</h3>
+		<p>
+			Object gets rendered if *true*. Default is *true*.
+		</p>
+
+		<hr>
+		<h1 id="RendererEvent">RendererEvent</h1>
+
+		<p class="desc">
+			Renderer event
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="RendererInfo">RendererInfo</h1>
+
+		<p class="desc">
+			Renderer info
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="RendererTimer">RendererTimer</h1>
+
+		<p class="desc">
+			Renderer timer
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="RigidbodyType">RigidbodyType</h1>
+
+		<p class="desc">
+			Rigidbody type
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="StorageExportOption">StorageExportOption</h1>
+
+		<p class="desc">
+			Storage export option
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="StorageOption">StorageOption</h1>
+
+		<p class="desc">
+			Storage option
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:string material]?</h3>
+		<p>
+			override material from storage
+		</p>
+
+		<h3>[property:any object]?</h3>
+		<p>
+			ref object
+		</p>
+
+		<h3>[property:string resourcePath]?</h3>
+		<p>
+			The resource path
+		</p>
+
+		<h3>[property:boolean useDraco]?</h3>
+		<p>
+			Use Darco
+		</p>
+
+		<h3>[property:boolean useKtx2]?</h3>
+		<p>
+			Use Ktx2
+		</p>
+
+		<h3>[property:mixed vmdUrl]?</h3>
+		<p>
+			vmdUrl<br>
+			<br>
+			[page:string string] | [page:string string]
+		</p>
+
+		<hr>
+		<h1 id="SvgGeometry">SvgGeometry</h1>
+
+		<p class="desc">
+			Svg geometry
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="TagAttributes">TagAttributes</h1>
+
+		<p class="desc">
+			Tag attributes
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="TextureOption">TextureOption</h1>
+
+		<p class="desc">
+			Texture option
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:string cubeImage][]?</h3>
+		<p>
+			The cube image url
+		</p>
+
+		<h3>[property:string options]?</h3>
+		<p>
+			The texture options
+		</p>
+
+		<h3>[property:string type]</h3>
+		<p>
+			The texture type
+		</p>
+
+		<h3>[property:string value]</h3>
+		<p>
+			The texture value
+		</p>
+
+		<hr>
+		<h1 id="ThreeFace">ThreeFace</h1>
+
+		<p class="desc">
+			Three Face
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="ThreeGuiController">ThreeGuiController</h1>
+
+		<p class="desc">
+			Three gui controller
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="ThreeVector">ThreeVector</h1>
+
+		<p class="desc">
+			Three Vector
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="VolumeOptions">VolumeOptions</h1>
+
+		<p class="desc">
+			Volume Options
+		</p>
+
+		<h2>Properties</h2>
+		<hr>
+		<h1 id="AttrBufferAttribute">AttrBufferAttribute</h1>
+
+		<p class="desc">
+			Attr Buffer Attribute<br>
+			<br>
+			[page:number number] | [page:Int8Array Int8Array] | [page:Int16Array Int16Array] | [page:Int32Array Int32Array] | [page:Uint8Array Uint8Array] | [page:Uint16Array Uint16Array] | [page:Uint32Array Uint32Array] | [page:Float32Array Float32Array] | [page:Float64Array Float64Array] | [page:THREE.BufferAttribute THREE.BufferAttribute]
+		</p>
+
+
+		<hr>
+		<h1 id="MeshMaterial">MeshMaterial</h1>
+
+		<p class="desc">
+			Mesh Material<br>
+			<br>
+			[page:MeshMaterialRaw MeshMaterialRaw] | [page:THREE.Scene THREE.Scene]
+		</p>
+
+
+		<hr>
+		<h1 id="ThreeColor">ThreeColor</h1>
+
+		<p class="desc">
+			Three Color<br>
+			string hexcode - #ffffff<br>
+			string hsl(0,1,1)<br>
+			string rgb(255,255,255)<br>
+			string color name - red,blue...  'aliceblue': 0xF0F8FF, 'antiquewhite': 0xFAEBD7, 'aqua': 0x00FFFF ...<br>
+			string random<br>
+			number 0xffffff<br>
+			THREE.Color<br>
+			<br>
+			[page:string string] | [page:number number] | [page:THREE.Color THREE.Color]
+		</p>
+
+
+		<hr>
+		<h1 id="ThreeTexture">ThreeTexture</h1>
+
+		<p class="desc">
+			ThreeTexture<br>
+			<br>
+			[page:string string] | [page:THREE.Texture THREE.Texture] | [page:TextureOption TextureOption] | [page:any any]
+		</p>
+
+
+		<hr>
+		<h1 id="ThreeUniform">ThreeUniform</h1>
+
+		<p class="desc">
+			ThreeUniform<br>
+			<br>
+			[page:THREE.IUniform THREE.IUniform]
+		</p>
+
+
+		<hr>
+		<h1 id="ThreeUniforms">ThreeUniforms</h1>
+
+		<p class="desc">
+			ThreeUniforms<br>
+			<br>
+			 { [ key : [page:string string] ] : [page:ThreeUniform ThreeUniform] }
+		</p>
+
 
 		<h2>Source</h2>
-		<p>
-			[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/mesh/mesh.component.ts
-			mesh/mesh.component.ts]
-		</p>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/s/src/lib/mesh/mesh.component.ts s/src/lib/mesh/mesh.component.ts]</p>
 	</body>
 </html>
