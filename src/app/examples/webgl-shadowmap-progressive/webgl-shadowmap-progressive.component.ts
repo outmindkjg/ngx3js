@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from 'ngx3js';
+import { BaseComponent, MeshComponent, ViewerComponent, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shadowmap-progressive',
@@ -54,5 +54,58 @@ export class WebglShadowmapProgressiveComponent extends BaseComponent<{
 				{ name: 'enable', title: 'Debug Lightmap', type: 'checkbox' },
 			]
 		);
+	}
+
+	ngOnInit() {
+	}
+
+	setMesh(mesh : MeshComponent) {
+		super.setMesh(mesh);
+		this.lightmapObjects = [];
+		this.dirLights = [];
+		const lightTarget = new THREE.Group();
+		lightTarget.position.set( 0, 20, 0 );
+		for(let l = 0; l < 8; l++) {
+			const dirLight = new THREE.DirectionalLight( 0xffffff, 1.0 / 8 );
+			dirLight.name = 'Dir. Light ' + l;
+			dirLight.position.set( 200, 200, 200 );
+			dirLight.castShadow = true;
+			dirLight.shadow.camera.near = 100;
+			dirLight.shadow.camera.far = 5000;
+			dirLight.shadow.camera.right = 150;
+			dirLight.shadow.camera.left = - 150;
+			dirLight.shadow.camera.top = 150;
+			dirLight.shadow.camera.bottom = - 150;
+			dirLight.shadow.mapSize.width = 512;
+			dirLight.shadow.mapSize.height = 512;
+			// this.lightmapObjects.push( dirLight );
+			this.dirLights.push( dirLight );
+			dirLight.target = lightTarget;
+		}
+		this.meshObject3d.traverse((child : any) => {
+			if (child.isMesh) {
+				child.name = 'Loaded Mesh';
+				child.castShadow = true;
+				child.receiveShadow = true;
+				child.material = new THREE.MeshPhongMaterial();
+				// This adds the model to the lightmap
+				// this.lightmapObjects.push( child );
+			} else {
+				child.layers.disableAll();
+			}
+		})
+		this.progressiveSurfacemap.addObjectsToLightMap( this.lightmapObjects );
+	}
+	dirLights : any[] = [];
+	lightmapObjects : any[] = [];
+
+	setProgressiveSurfacemap(viewer : ViewerComponent) {
+		this.progressiveSurfacemap = viewer.getViewer();
+	}
+
+	progressiveSurfacemap : any = null;
+
+	onRender(timer : RendererTimer) {
+		super.onRender(timer);
 	}
 }

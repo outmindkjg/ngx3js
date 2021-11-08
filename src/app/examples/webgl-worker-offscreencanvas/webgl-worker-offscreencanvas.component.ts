@@ -13,10 +13,10 @@ export class WebglWorkerOffscreencanvasComponent extends BaseComponent<{}> {
 
 	setShared(shared : SharedComponent) {
 		const materialList = shared.getMaterialComponents();
-		this.meshInfos = [];
+		const meshInfos = [];
 		for ( let i = 0; i < 100; i ++ ) {
 			const material = materialList[ i % materialList.length ];
-			this.meshInfos.push({
+			meshInfos.push({
 				x : Math.random() * 200 - 100,
 				y : Math.random() * 200 - 100,
 				z : Math.random() * 200 - 100,
@@ -24,6 +24,9 @@ export class WebglWorkerOffscreencanvasComponent extends BaseComponent<{}> {
 				material : material
 			})
 		}
+		this.getTimeout(100).then(() => {
+			this.meshInfos = meshInfos;
+		})
 	}
 
 	meshInfos : {

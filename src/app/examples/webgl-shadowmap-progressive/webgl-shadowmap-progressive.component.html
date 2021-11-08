@@ -33,14 +33,20 @@
 	<ngx3js-lookat [x]="0" [y]="100" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera
 		[name]="'Camera'"
-		[type]="'perspective'"
+		[type]="'PerspectiveCamera'"
 		[fov]="70"
 		[near]="1"
 		[far]="1000"
+		(onLoad)="setCamera($event)"
 	>
 		<ngx3js-position [x]="0" [y]="100" [z]="200"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-scene #scene [background]="'0x949494'">
+	<ngx3js-viewer
+		[type]="'ProgressiveLightMap'"
+		[lightMapRes]="1024"
+		(onLoad)="setProgressiveSurfacemap($event)"
+	></ngx3js-viewer>
+	<ngx3js-scene #scene [background]="'0x949494'" (onLoad)="setScene($event)">
 		<ngx3js-fog [color]="'0x949494'" [near]="1000" [far]="3000"></ngx3js-fog>
 		<ngx3js-light
 			[type]="'Hemisphere'"
