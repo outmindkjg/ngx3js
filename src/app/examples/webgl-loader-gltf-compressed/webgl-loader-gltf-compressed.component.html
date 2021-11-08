@@ -24,7 +24,7 @@
 		<ngx3js-light [type]="'directional'" [color]="'0xffffff'" [intensity]="1" [castShadow]="true" [shadowCameraTop]="2" [shadowCameraBottom]="-2" [shadowCameraLeft]="-2" [shadowCameraRight]="2" [shadowCameraNear]="0.1" [shadowCameraFar]="40">
 			<ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
 		</ngx3js-light>
-		<ngx3js-helper [type]="'grid'" [size]="500" [divisions]="10" [color1]="'0xffffff'" [color2]="'0xffffff'" [opacity]="0.5"></ngx3js-helper>
+		<ngx3js-helper [type]="'grid'" [size]="500" [divisions]="10" [color1]="'0xffffff'" [color2]="'0xffffff'" [opacity]="0.5" [depthWrite]="false"></ngx3js-helper>
 		<ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'coffeemat.glb'" [storageOption]="{ useKtx2: true, path : 'models/gltf/'  }">
 			<ngx3js-position [y]="8"></ngx3js-position>
 		</ngx3js-mesh>
