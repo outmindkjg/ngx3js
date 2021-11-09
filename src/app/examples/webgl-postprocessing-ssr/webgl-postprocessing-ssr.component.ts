@@ -2,12 +2,10 @@ import { Component } from '@angular/core';
 import {
 	BaseComponent,
 	MeshComponent,
-	PassComponent,
-	ReflectorForSSRPass,
-	RendererEvent,
+	PassComponent, RendererEvent,
 	SceneComponent,
 	SSRPass,
-	THREE,
+	THREE
 } from 'ngx3js';
 
 @Component({
@@ -175,7 +173,7 @@ export class WebglPostprocessingSsrComponent extends BaseComponent<{
 		}, 1000);
 	}
 
-	groundReflector: ReflectorForSSRPass = null;
+	groundReflector: any = null;
 	updatePass() {
 		if (this.pass !== null) {
 			if (this.controls.groundReflector) {
