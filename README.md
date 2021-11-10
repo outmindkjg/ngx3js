@@ -11,10 +11,6 @@ The aim of the project is to create an easy to use, lightweight, cross-browser, 
 [Examples](https://outmindkjg.github.io/ngx3js-doc/#/examples/) &mdash;
 [Documentation](https://outmindkjg.github.io/ngx3js-doc/#/docs)
 
-### FIX dependencies ###
-I found some errors on three.js. Before use this source. You muse fix them by you self.
-current theejs verion "0.134.0"
-
 ### Usage ###
 
 This code creates a scene, a camera, and a geometric cube, and it adds the cube to the scene. It then creates a `WebGL` renderer for the scene and camera, and it adds that viewport to the `document.body` element. Finally, it animates the cube within the scene for the camera.
