@@ -13,33 +13,38 @@ The aim of the project is to create an easy to use, lightweight, cross-browser, 
 
 ### FIX dependencies ###
 I found some errors on three.js. Before use this source. You muse fix them by you self.
-current theejs verion "^0.131.0"
-I found some errors on @types/three. Before use this source. You muse fix them by you self.
-current theejs verion "^0.131.0"
-```javascript
-
-// node_modules/@types/three/examples/jsm/objects/ReflectorForSSRPass.d.ts
- + 59   export { Reflector as ReflectorForSSRPass };
-
-// node_modules/@types/three/examples/jsm/nodes/inputs/ColorNode.d.ts
- + 7    constructor(color: any, g?: number, b?: number);
-
-// node_modules/@types/three/examples/jsm/loaders/NodeMaterialLoader.d.ts - create
- + 1    export class NodeMaterialLoader {}
-
-// node_modules/@types/three/examples/jsm/libs/dat.gui.module.d.ts
- + 1    export class GUI {}
-
-```
+current theejs verion "0.134.0"
 
 ### Usage ###
 
 This code creates a scene, a camera, and a geometric cube, and it adds the cube to the scene. It then creates a `WebGL` renderer for the scene and camera, and it adds that viewport to the `document.body` element. Finally, it animates the cube within the scene for the camera.
 
+```sh
+npm install -g @angular/cli
+npm install ngx3js
+npm install three@0.134.0
+npm install --save-dev @types/three@0.134.0
+npm install gsap
+npm install ammojs-typed
+npm install lil-gui
+npm install chroma-js
+npm install --save-dev @types/chroma-js
+npm install fs
+npm install fs-web
+```
+
+```sh
+# prettier format change
+npx prettier --write src/**/*.json
+npx prettier --write src/**/*.ts
+npx prettier --write src/**/*.html
+npx prettier --write src/**/*.scss
+```
+
 ```javascript
 // src/app/app.module.ts
 
-import { Ngx3JsModule } from './three/ngx3js.module';
+import { Ngx3JsModule } from 'ngx3js';
 
 @NgModule({
 	....
@@ -58,17 +63,17 @@ import { Ngx3JsModule } from './three/ngx3js.module';
 		  ......
           "options": {
             "allowedCommonJsDependencies" : [
-              "ammojs-typed",
-              "three/examples/js/libs/lottie_canvas",
-              "three/examples/js/libs/draco/draco_encoder",
-              "crypto",
-              "crypto-js",
-              "highlight.js"
+              "ammojs-typed"
             ],
 		    ......
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+    		    ......
+                {
+                    "glob": "**/*",
+                    "input": "./node_modules/ngx3js/assets",
+                    "output": "/assets/examples/"
+                }
+	    	    ......
             ],
 		    ......
           },
@@ -95,53 +100,78 @@ import { Ngx3JsModule } from './three/ngx3js.module';
 }
 ```
 
-### Document ###
-```sh
-npm install -g @angular/cli
-npm install ammojs-typed
-npm install three
-npm install --save three three.ar.js
-npm install @types/three
-npm install @types/dat.gui –save-dev
-npm install @types/physijs –save-dev
-npm install @types/stats-js –save-dev
-npm run maxmem
-npm run maxbuild
-npm run maxbuildprod
-
-npm install typedoc --save-dev
-npx typedoc --out docs --exclude "**/*+(index|.spec|.e2e).ts"
-npx typedoc --exclude "**/*+(index|.spec|.e2e).ts"
-npx typedoc --json docs_api.json --exclude "**/*+(index|.spec|.e2e).ts"
-
-rm -rf src/app/**/*spec.ts
-rm -rf src/app/**/*.js
-
-npm install --no-optional --no-shrinkwrap --no-package-lock
-npm install -f
-
-
-git remote set-url origin https://github.com/outmindkjg/ngx3js.git
-git remote -v
-
-grep -Ril "AmmoLib = await Ammo" ./node_modules
-
-cd ngx3js-module build
-cd ngx3js-module watch
-ng serve
-
-export NODE_OPTIONS=--max_old_space_size=5024
-
-```
-
-```sh
-# prettier format change
-npx prettier --write src/**/*.json
-npx prettier --write src/**/*.ts
-npx prettier --write src/**/*.html
-npx prettier --write src/**/*.scss
-```
-
+// src/app/app.component.html
+~~~html
+<div style="width: 700px; height: 500px; display: block; position: relative">
+  <ngx3js-renderer
+    [controlType]="'orbit'"
+    [controlOptions]="{
+      enablePan: false,
+      enableDamping: true,
+      minDistance: 10,
+      maxDistance: 500
+    }"
+    [statsMode]="0"
+    [antialias]="true"
+    [clearColor]="'0x000000'"
+    [shadowMapEnabled]="true"
+  >
+    <ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+    <ngx3js-camera
+      [type]="'perspective'"
+      [fov]="40"
+      [near]="1"
+      [far]="1000"
+      [viewport]="true"
+      [x]="0"
+      [y]="0"
+      [width]="'100%'"
+      [height]="'100%'"
+    >
+      <ngx3js-position [x]="-50" [y]="0" [z]="50"></ngx3js-position>
+    </ngx3js-camera>
+    <ngx3js-scene #scene>
+      <ngx3js-light [type]="'AmbientLight'" [color]="'0x6688cc'"></ngx3js-light>
+      <ngx3js-light
+        [type]="'directional'"
+        [color]="'0xffffff'"
+        [intensity]="1"
+        [castShadow]="true"
+      >
+        <ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
+      </ngx3js-light>
+      <ngx3js-mesh>
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
+          [type]="'Icosahedron'"
+          [radius]="20"
+          [detail]="2"
+        ></ngx3js-geometry>
+        <ngx3js-material
+          [type]="'meshlambert'"
+          [color]="'0xffffff'"
+          [wireframe]="true"
+        ></ngx3js-material>
+      </ngx3js-mesh>
+      <ngx3js-mesh>
+        <ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+        <ngx3js-geometry
+          [type]="'TextGeometry'"
+          [text]="'Ngx3Js'"
+          [font]="'gentilis_regular'"
+          [size]="20"
+          [height]="5"
+          [center]="true"
+        ></ngx3js-geometry>
+        <ngx3js-material
+          [type]="'meshlambert'"
+          [color]="'0xff0000'"
+        ></ngx3js-material>
+      </ngx3js-mesh>
+    </ngx3js-scene>
+  </ngx3js-renderer>
+</div>
+~~~
 
 ### Cloning this repository ###
 
