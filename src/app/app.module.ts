@@ -426,6 +426,7 @@ import { WebglMaterialsInstanceUniformNodesComponent } from './examples/webgl-ma
 import { WebglPointsNodesComponent } from './examples/webgl-points-nodes/webgl-points-nodes.component';
 import { WebgpuSkinningComponent } from './examples/webgpu-skinning/webgpu-skinning.component';
 import { MiscControlsArcballComponent } from './examples/misc-controls-arcball/misc-controls-arcball.component';
+import { NgxHudTopComponent } from './examples/ngx-hud-top/ngx-hud-top.component';
 
 @NgModule({
 	declarations: [
@@ -841,6 +842,7 @@ import { MiscControlsArcballComponent } from './examples/misc-controls-arcball/m
 		NgxChartBubbleComponent,
 		NgxChartPolarComponent,
 		NgxChartMixedComponent,
+		NgxHudTopComponent,
 		WebgpuInstanceUniformComponent,
 		WebgpuLightsCustomComponent,
 		WebgpuLightsSelectiveComponent,
