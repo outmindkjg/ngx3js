@@ -10,6 +10,7 @@ The aim of the project is to create an easy to use, lightweight, cross-browser, 
 
 [Examples](https://outmindkjg.github.io/ngx3js-doc/#/examples/) &mdash;
 [Documentation](https://outmindkjg.github.io/ngx3js-doc/#/docs)
+[API Documentation](https://outmindkjg.github.io/ngx3js-doc/docs)
 
 ### Usage ###
 
