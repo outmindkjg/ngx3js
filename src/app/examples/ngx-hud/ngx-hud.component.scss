@@ -1,4 +1,8 @@
 
+ngx3js-canvas {
+    perspective: 800px;
+}
+
 div.left-menu {
     position: absolute;
     left : -120px;
@@ -36,14 +40,17 @@ div.bottom-menu {
 
 div.side-menu {
     position: absolute;
-    right : -120px;
+    right : -90px;
     top : 50px;
     width: 200px;
     padding : 0 5px;
     background-color: rgba(255,255,255, 0.3);
     border-radius: 10px;
-    transition: right 1s;
+    transform: rotate3d(1, 1, 1, 45deg);        
+    transform-style: preserve-3d;
+    transition: all .3s ease-in;
     &:hover {
+        transform: rotate3d(1, 1, 1, 0);
         right : 20px;
     }
     button {
