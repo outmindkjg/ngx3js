@@ -1,0 +1,152 @@
+<div class="info">
+	<a href="https://threejs.org" target="_blank">three.js</a> - Ngx Hud
+</div>
+<ngx3js-renderer
+	[controlType]="'orbit'"
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
+		minDistance: 10,
+		maxDistance: 500
+	}"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0x000000'"
+	[clearAlpha]="0"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-canvas>
+		<div class="left-menu" [class.display-none]="!controls.type">
+			<button type="button" (click)="setType('BoxGeometry')" [class.selected]="geometryType == 'BoxGeometry'">BoxGeometry</button>
+			<button type="button" (click)="setType('SphereGeometry')" [class.selected]="geometryType == 'SphereGeometry'">SphereGeometry</button>
+			<button type="button" (click)="setType('TorusKnotGeometry')" [class.selected]="geometryType == 'TorusKnotGeometry'">TorusKnotGeometry</button>
+			<button type="button" (click)="setType('TeapotGeometry')" [class.selected]="geometryType == 'TeapotGeometry'">TeapotGeometry</button>
+		</div>
+		<div class="bottom-menu" [class.display-none]="!controls.size">
+			<button type="button" (click)="setRadius(10)" [class.selected]="radius == 10">Size 10</button>
+			<button type="button" (click)="setRadius(5)" [class.selected]="radius == 5">Size 5</button>
+			<button type="button" (click)="setRadius(15)" [class.selected]="radius == 15">Size 15</button>
+			<button type="button" (click)="setRadius(7)" [class.selected]="radius == 7">Size 7</button>
+		</div>
+		<div class="side-menu" [class.display-none]="!controls.color">
+			<button type="button" (click)="setColor('0xff0000')" [class.selected]="color == '0xff0000'">Bg Red</button>
+			<button type="button" (click)="setColor('0x00ff00')" [class.selected]="color == '0x00ff00'">Bg Green</button>
+			<button type="button" (click)="setColor('0x0000ff')" [class.selected]="color == '0x0000ff'">Bg Blue</button>
+			<button type="button" (click)="setColor('0xffffff')" [class.selected]="color == '0xffffff'">Bg White</button>
+			<button type="button" (click)="setColor('transparent')" [class.selected]="color == 'transparent'">Bg Transparent</button>
+			<button type="button" (click)="setLine('0xff0000')" [class.selected]="line == '0xff0000'">Line Red</button>
+			<button type="button" (click)="setLine('0x0000ff')" [class.selected]="line == '0x0000ff'">Line Blue</button>
+			<button type="button" (click)="setLine('0xffffff')" [class.selected]="line == '0xffffff'">Line White</button>
+			<button type="button" (click)="setLine('0x000000')" [class.selected]="line == '0x000000'">Line Black</button>
+			<button type="button" (click)="setLineDash('solid')" [class.selected]="lineDash == 'solid'">Solid</button>
+			<button type="button" (click)="setLineDash('dotted')" [class.selected]="lineDash == 'dotted'">Dotted</button>
+			<button type="button" (click)="setLineDash('dashed')" [class.selected]="lineDash == 'dashed'">Dashed</button>
+
+			<div class="canvas-holder">
+				<canvas
+					#drawCanvas
+					height="128"
+					width="180"
+					ngx3jsDrawingCanvas
+					[clearColor]="color"
+					[lineColor]="line"
+					[lineDash]="lineDash"
+					[lineWidth]="2"
+				></canvas>
+			</div>
+		</div>
+		<div class="geometry-info">
+			<div>Type : {{ geometryType }} / Size : {{ radius }}</div>
+			<div>Bg Color : {{ color }} / Line Color : {{ line }}</div>
+		</div>
+	</ngx3js-canvas>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		[type]="'perspective'"
+		#mainCamera
+		[clearColor]="'0x000000'"
+		[clearAlpha]="0"
+		[fov]="40"
+		[near]="1"
+		[far]="1000"
+		[viewport]="true"
+		[x]="0"
+		[y]="0"
+		[width]="'100%'"
+		[height]="'100%'"
+	>
+		<ngx3js-position [x]="-50" [y]="0" [z]="50"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-camera
+		[type]="'perspective'"
+		[clearColor]="'0x222222'"
+		[clearAlpha]="1"
+		[clearDepth]="true"
+		[fov]="40"
+		[near]="1"
+		[far]="1000"
+		[viewport]="true"
+		[x]="20"
+		[y]="70"
+		[width]="'25%'"
+		[height]="'width'"
+		[scissorTest]="true"
+		[scissorX]="'x'"
+		[scissorY]="'y'"
+		[scissorWidth]="'width'"
+		[scissorHeight]="'height'"
+		[referObject3d]="mainCamera"
+	>
+		<ngx3js-position [x]="-50" [y]="0" [z]="50"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light
+			[type]="'Hemisphere'"
+			[skyColor]="'0xffffff'"
+			[groundColor]="'0x444444'"
+		>
+			<ngx3js-position [x]="0" [y]="20" [z]="0"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[castShadow]="true"
+			[shadowCameraTop]="2"
+			[shadowCameraBottom]="-2"
+			[shadowCameraLeft]="-2"
+			[shadowCameraRight]="2"
+			[shadowCameraNear]="0.1"
+			[shadowCameraFar]="40"
+		>
+			<ngx3js-position [x]="-3" [y]="10" [z]="-10"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-material
+				#material
+				[type]="'meshlambert'"
+				[color]="'0xffffff'"
+				[transparent]="true"
+			>
+				<ngx3js-texture [canvas]="drawCanvas"></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [material]="material">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="geometryType"
+					[width]="radius * 2"
+					[height]="radius * 2"
+					[depth]="radius * 2"
+					[radius]="radius"
+					[tube]="radius * 0.2"
+					[size]="radius"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>

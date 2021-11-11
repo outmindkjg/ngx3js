@@ -1,6 +1,6 @@
  {
 	"ngx3js": [
 		"ngx_chart_line",
-		"ngx_hud_top"
+		"ngx_hud"
 	]
 }

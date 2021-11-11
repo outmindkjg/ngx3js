@@ -44,7 +44,7 @@ import { NgxChartPolarComponent } from './examples/ngx-chart-polar/ngx-chart-pol
 import { NgxChartRadarComponent } from './examples/ngx-chart-radar/ngx-chart-radar.component';
 import { NgxChartScatterComponent } from './examples/ngx-chart-scatter/ngx-chart-scatter.component';
 import { NgxGeometryComponent } from './examples/ngx-geometry/ngx-geometry.component';
-import { NgxHudTopComponent } from './examples/ngx-hud-top/ngx-hud-top.component';
+import { NgxHudComponent } from './examples/ngx-hud/ngx-hud.component';
 import { NgxMaterialComponent } from './examples/ngx-material/ngx-material.component';
 import { PhysicsAmmoBreakComponent } from './examples/physics-ammo-break/physics-ammo-break.component';
 import { PhysicsAmmoClothComponent } from './examples/physics-ammo-cloth/physics-ammo-cloth.component';
@@ -1576,7 +1576,7 @@ const routes: Routes = [
 			{ path: 'ngx_chart_bubble', component: NgxChartBubbleComponent },
 			{ path: 'ngx_chart_polar', component: NgxChartPolarComponent },
 			{ path: 'ngx_chart_mixed', component: NgxChartMixedComponent },
-			{ path: 'ngx_hud_top', component: NgxHudTopComponent },
+			{ path: 'ngx_hud', component: NgxHudComponent },
 			{ path: '**', component: UnderConstructionComponent },
 		],
 	},

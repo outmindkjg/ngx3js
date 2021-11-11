@@ -1,0 +1,115 @@
+
+div.left-menu {
+    position: absolute;
+    left : -120px;
+    top : 50px;
+    width: 200px;
+    padding : 0 5px;
+    background-color: rgba(255,255,255, 0.3);
+    border-radius: 10px;
+    transition: left 1s;
+    &:hover {
+        left : 20px;
+    }
+    button {
+        margin: 5px 0 5px 0;
+        display: block;
+        padding : 5px 0;
+        width: 100%;
+    }
+}
+
+div.bottom-menu {
+    position: absolute;
+    bottom: 0;
+    left :0;
+    width: 100%;
+    padding : 5px 15px;
+
+    button {
+        margin: 5px 5px;
+        display: inline-block;
+        padding : 5px 0;
+        width: 150px;
+    }
+}
+
+div.side-menu {
+    position: absolute;
+    right : -120px;
+    top : 50px;
+    width: 200px;
+    padding : 0 5px;
+    background-color: rgba(255,255,255, 0.3);
+    border-radius: 10px;
+    transition: right 1s;
+    &:hover {
+        right : 20px;
+    }
+    button {
+        margin: 5px 0 5px 0;
+        display: block;
+        padding : 5px 0;
+        width: 100%;
+    }
+    div.canvas-holder {
+        position: relative;
+        display: block;
+        padding: 0 5px;
+        pointer-events: auto;
+        >canvas {
+            pointer-events: auto;
+        }
+        ::ng-deep {
+            button.clear-btn {
+                position: absolute;
+                right: 10px;
+                bottom: 10px;
+            }
+        }
+    }
+}
+
+div.left-menu,
+div.side-menu,
+div.bottom-menu {
+    pointer-events: auto;
+    button {
+        border-radius: 7px;
+        border: 1px solid #888888;
+        background-color: #000000;
+        color:white;
+        cursor: pointer;
+        &:hover {
+            background-color: #ffffff;
+            color:#000000;
+        }
+        &.selected {
+            background-color: #454545;
+        }
+    }
+    &.display-none {
+        display: none;
+    }
+}
+
+div.geometry-info {
+    position: absolute;
+    top : 50px;
+    left : 50%;
+    width: calc(100% - 500px);
+    margin-left: calc((100% - 500px) * -0.5);
+    padding : 0 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    min-width: 200px;
+    >div {
+        display: block;
+        margin: 5px 0;
+        padding: 3px;
+        border-bottom: 1px dashed #343434;
+        color : white;
+        text-align: center;
+        font-size: 11px;
+    }
+}
