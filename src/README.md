@@ -9,7 +9,7 @@ ngx3js
 The aim of the project is to create an easy to use, lightweight, cross-browser, general purpose 3D library. The current builds only include a WebGL renderer but WebGPU (experimental), SVG and CSS3D renderers are also available in the examples.
 
 [Examples](https://outmindkjg.github.io/ngx3js-doc/#/examples/) &mdash;
-[Documentation](https://outmindkjg.github.io/ngx3js-doc/#/docs)
+[Documentation](https://outmindkjg.github.io/ngx3js-doc/#/docs) &mdash;
 [API Documentation](https://outmindkjg.github.io/ngx3js-doc/docs)
 
 ### Usage ###
@@ -28,6 +28,15 @@ npm install chroma-js
 npm install --save-dev @types/chroma-js
 npm install fs
 npm install fs-web
+```
+
+OR
+
+```sh
+npm install -g @angular/cli
+npm install ngx3js
+node ./node_modules/ngx3js/bin/patch.js
+npm install 
 ```
 
 ```sh
