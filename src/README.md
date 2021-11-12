@@ -16,7 +16,21 @@ The aim of the project is to create an easy to use, lightweight, cross-browser, 
 
 This code creates a scene, a camera, and a geometric cube, and it adds the cube to the scene. It then creates a `WebGL` renderer for the scene and camera, and it adds that viewport to the `document.body` element. Finally, it animates the cube within the scene for the camera.
 
+
+To Install you can choose one from two method. 
+
+#### Ngx3js Install - Method 1 - Recommanded ####
 ```sh
+# install shell script
+npm install -g @angular/cli
+npm install ngx3js
+node ./node_modules/ngx3js/bin/patch.js
+npm install 
+```
+
+#### Ngx3js Install - Method 2 ####
+```sh
+# install by npm
 npm install -g @angular/cli
 npm install ngx3js
 npm install three@0.134.0
@@ -30,15 +44,8 @@ npm install fs
 npm install fs-web
 ```
 
-OR
 
-```sh
-npm install -g @angular/cli
-npm install ngx3js
-node ./node_modules/ngx3js/bin/patch.js
-npm install 
-```
-
+#### Auto Formater - optional ####
 ```sh
 # prettier format change
 npx prettier --write src/**/*.json
@@ -47,7 +54,10 @@ npx prettier --write src/**/*.html
 npx prettier --write src/**/*.scss
 ```
 
-```javascript
+#### Imports Ngx3JsModule - Required ####
+
+To use ngx3js have to import Ngx3JsModule in src/app/app.module.ts or some other place modle.ts
+```ts
 // src/app/app.module.ts
 
 import { Ngx3JsModule } from 'ngx3js';
@@ -57,7 +67,29 @@ import { Ngx3JsModule } from 'ngx3js';
 	imports: [..., Ngx3JsModule],
 	....
 })
+```
 
+#### Change Default Assets Url - optional ####
+
+If you chhange assets in angular.json file must be setted!
+
+```ts
+// src/app/app.component.ts
+
+import { ThreeUtil } from 'ngx3js';
+
+export class AppComponent {
+	ngOnInit(): void {
+	  // any where use ngx3js for just one time
+	  ThreeUtil.setAssetUrl('assets/examples/');
+	}
+}
+```
+
+
+#### Chane angular.json for ammojs-typed and basic assets ####
+
+```json
 // angular.json
 {
   .......
@@ -91,7 +123,11 @@ import { Ngx3JsModule } from 'ngx3js';
   },
   ......
 }
+```
 
+#### Chane tsconfig.json for fs ####
+
+```json
 // tsconfig.json
 {
   ....
@@ -106,8 +142,11 @@ import { Ngx3JsModule } from 'ngx3js';
 }
 ```
 
-// src/app/app.component.html
+#### Add Code to your template ####
+
+
 ~~~html
+<!-- src/app/app.component.html -->
 <div style="width: 700px; height: 500px; display: block; position: relative">
   <ngx3js-renderer
     [controlType]="'orbit'"
@@ -184,12 +223,14 @@ import { Ngx3JsModule } from 'ngx3js';
 Cloning the repo with all its history results in a ~2 GB download. If you don't need the whole history you can use the `depth` parameter to significantly reduce download size.
 
 ```sh
-git clone --depth=1 https://github.com/outmindkjg/ngx3js.git
+git clone --depth=1 https://github.com/outmindkjg/ngx3js-module.git
 ```
 
-### Change log ###
+### Change log &amp; Ask Question ###
 
-[Releases](https://github.com/outmindkjg/ngx3js/releases)
+ - [Releases - GitHub](https://github.com/outmindkjg/ngx3js-module/releases)
+ - [ISSUE - GitHub](https://github.com/outmindkjg/ngx3js-module/issues)
+ - [Email - outmind0@gmail.com](outmind0@gmail.com)
 
 
 [npm]: https://img.shields.io/npm/v/ngx3js

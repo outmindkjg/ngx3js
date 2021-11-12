@@ -1,31 +1,38 @@
+/** To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
-		"sourceMap": true,
-		"declaration": false,
+    "sourceMap": true,
+    "declaration": false,
     "allowSyntheticDefaultImports": true,
-		"moduleResolution": "node",
-    "strictNullChecks" : false,
-		// "emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"target": "es6",
-		"typeRoots": [
-			"node_modules/@types",
+    "moduleResolution": "node",
+    "strictNullChecks": false,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "typeRoots": [
+      "node_modules/@types",
       "node_modules/ammojs-typed/ammo/ambient"
-		],
+    ],
     "downlevelIteration": true,
     "module": "es2020",
     "lib": [
       "es2018",
       "dom"
-    ]    
+    ],
+    "paths": {
+      "fs": [
+        "./node_modules/fs-web"
+      ]
+    }
   },
-  "typedocOptions" : {
-    "entryPoints": ["src/app/three/index.ts"],
-    "out" : "docs"
+  "typedocOptions": {
+    "entryPoints": [
+      "src/app/three/index.ts"
+    ],
+    "out": "docs"
   },
-  "angularCompilerOptions" : {
-    "strictTemplates" : true
+  "angularCompilerOptions": {
+    "strictTemplates": true
   }
 }
