@@ -7,14 +7,14 @@ import { BaseComponent } from 'ngx3js';
 	styleUrls: ['./ngx-material.component.scss'],
 })
 export class NgxMaterialComponent extends BaseComponent<{
-	depthRate: number;
+	color: number;
 }> {
 	constructor() {
 		super(
 			{
-				depthRate: 0.5,
+				color: 0x999999,
 			},
-			[{ name: 'depthRate', type: 'number', min: 0, max: 1.5 }]
+			[{ name: 'color', type: 'color' }]
 		);
 	}
 }

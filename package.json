@@ -1,6 +1,6 @@
 {
   "name": "three-sample",
-  "version": "0.0.0",
+  "version": "0.134.0-2021111518",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -23,7 +23,7 @@
     "stream": false,
     "tls": false
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^12.2.10",
     "@angular/common": "^12.2.10",
@@ -74,5 +74,35 @@
     "worker-loader": "^3.0.8",
     "@types/three": "0.134.0",
     "@types/chroma-js": "^2.1.2"
-  }
+  },
+  "keywords": [
+    "three",
+    "three.js",
+    "javascript",
+    "3d",
+    "virtual-reality",
+    "augmented-reality",
+    "webgl",
+    "webgl2",
+    "webaudio",
+    "webgpu",
+    "webxr",
+    "canvas",
+    "svg",
+    "html5",
+    "ngx3js",
+    "angular",
+    "typescript"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/outmindkjg/ngx3js-module.git"
+  },
+  "description": "Angular & Javascript 3D library",
+  "author": "outmind0@gmail.com",
+  "bugs": {
+    "url": "https://github.com/outmindkjg/ngx3js-module/issues"
+  },
+  "homepage": "https://outmindkjg.github.io/ngx3js-doc/"
 }

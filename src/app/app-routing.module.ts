@@ -43,6 +43,7 @@ import { NgxChartMixedComponent } from './examples/ngx-chart-mixed/ngx-chart-mix
 import { NgxChartPolarComponent } from './examples/ngx-chart-polar/ngx-chart-polar.component';
 import { NgxChartRadarComponent } from './examples/ngx-chart-radar/ngx-chart-radar.component';
 import { NgxChartScatterComponent } from './examples/ngx-chart-scatter/ngx-chart-scatter.component';
+import { NgxControlComponent } from './examples/ngx-control/ngx-control.component';
 import { NgxGeometryComponent } from './examples/ngx-geometry/ngx-geometry.component';
 import { NgxHudComponent } from './examples/ngx-hud/ngx-hud.component';
 import { NgxMaterialComponent } from './examples/ngx-material/ngx-material.component';
@@ -1577,6 +1578,7 @@ const routes: Routes = [
 			{ path: 'ngx_chart_polar', component: NgxChartPolarComponent },
 			{ path: 'ngx_chart_mixed', component: NgxChartMixedComponent },
 			{ path: 'ngx_hud', component: NgxHudComponent },
+			{ path: 'ngx_control', component: NgxControlComponent },
 			{ path: '**', component: UnderConstructionComponent },
 		],
 	},

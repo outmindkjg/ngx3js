@@ -190,18 +190,29 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 				child.selected = child.id === this.menuId;
 				if (child.selected) {
 					document.title = child.name + ' :: Three.js examples';
-					this.gitHub.nativeElement.href =
-						'https://github.com/mrdoob/three.js/blob/master' +
-						child.id +
-						'.html';
-					this.gitHub.nativeElement.title =
-						'View source code for "' + child.name + '" on GitHub';
+					if (child.safeId.startsWith('/examples/ngx-')) {
+						this.gitHub.nativeElement.style.pointerEvents = 'none';
+						this.gitHub.nativeElement.href =
+						'https://github.com/outmindkjg/ngx3js/tree/master/src/app' +
+						child.safeId +
+						'';
+						this.gitHub.nativeElement.title =
+						'View source code for "' + child.name + '" on GitHub ngx3js';
+					} else {
+						this.gitHub.nativeElement.style.pointerEvents = 'all';
+						this.gitHub.nativeElement.href =
+							'https://github.com/mrdoob/three.js/blob/master' +
+							child.id +
+							'.html';
+							this.gitHub.nativeElement.title =
+							'View source code for "' + child.name + '" on GitHub';
+					}
 					this.ngxGithub.nativeElement.href =
 						'https://github.com/outmindkjg/ngx3js/tree/master/src/app' +
 						child.safeId +
 						'';
 					this.ngxGithub.nativeElement.title =
-						'View source code for "' + child.name + '" on GitHub ngx';
+						'View source code for "' + child.name + '" on GitHub ngx3js';
 					setTimeout(() => {
 						console.log('INFO : ', child.id);
 						console.log('INFO : ', child.safeId);

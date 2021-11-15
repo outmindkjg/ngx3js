@@ -89,56 +89,42 @@ export class AppComponent {
 
 #### Chane angular.json for ammojs-typed and basic assets ####
 
-```json
 // angular.json
+```json
 {
-  .......
   "projects": {
     "your-project-name": {
-      ......
       "architect": {
         "build": {
-		  ......
           "options": {
             "allowedCommonJsDependencies" : [
               "ammojs-typed"
             ],
-		    ......
             "assets": [
-    		    ......
                 {
                     "glob": "**/*",
                     "input": "./node_modules/ngx3js/assets",
                     "output": "/assets/examples/"
                 }
-	    	    ......
             ],
-		    ......
           },
-	      ......
         },
-	    ......
       }
     }
   },
-  ......
 }
 ```
 
 #### Chane tsconfig.json for fs ####
 
-```json
 // tsconfig.json
+```json
 {
-  ....
   "compilerOptions": {
-    ....
     "paths": {
       "fs": ["./node_modules/fs-web"]
-    },
-    .....
+    }
   }
-  ....
 }
 ```
 

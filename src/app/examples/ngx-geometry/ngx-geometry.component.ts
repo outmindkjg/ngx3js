@@ -6,8 +6,15 @@ import { BaseComponent } from 'ngx3js';
 	templateUrl: './ngx-geometry.component.html',
 	styleUrls: ['./ngx-geometry.component.scss'],
 })
-export class NgxGeometryComponent extends BaseComponent<{}> {
+export class NgxGeometryComponent extends BaseComponent<{
+	color: number;
+}> {
 	constructor() {
-		super({}, []);
+		super(
+			{
+				color: 0x999999,
+			},
+			[{ name: 'color', type: 'color' }]
+		);
 	}
 }

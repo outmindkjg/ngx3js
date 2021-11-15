@@ -1,6 +1,9 @@
  {
 	"ngx3js": [
 		"ngx_chart_line",
-		"ngx_hud"
+		"ngx_hud",
+		"ngx_material",
+		"ngx_geometry",
+		"ngx_control"
 	]
 }

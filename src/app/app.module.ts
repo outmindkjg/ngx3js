@@ -427,6 +427,7 @@ import { WebglPointsNodesComponent } from './examples/webgl-points-nodes/webgl-p
 import { WebgpuSkinningComponent } from './examples/webgpu-skinning/webgpu-skinning.component';
 import { MiscControlsArcballComponent } from './examples/misc-controls-arcball/misc-controls-arcball.component';
 import { NgxHudComponent } from './examples/ngx-hud/ngx-hud.component';
+import { NgxControlComponent } from './examples/ngx-control/ngx-control.component';
 
 @NgModule({
 	declarations: [
@@ -843,6 +844,7 @@ import { NgxHudComponent } from './examples/ngx-hud/ngx-hud.component';
 		NgxChartPolarComponent,
 		NgxChartMixedComponent,
 		NgxHudComponent,
+		NgxControlComponent,
 		WebgpuInstanceUniformComponent,
 		WebgpuLightsCustomComponent,
 		WebgpuLightsSelectiveComponent,
