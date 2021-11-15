@@ -575,7 +575,54 @@
 		<h1 id="ControlOptions">ControlOptions</h1>
 
 		<p class="desc">
-			Control options
+			Control options<br>
+			<br>
+			<code data-type="html"><br>
+			&lt;ngx3js-control <br>
+				[type]="'arcball'" <br>
+				[gizmoVisible]="true" <br>
+			&gt;&lt;/ngx3js-control&gt;<br>
+			&lt;ngx3js-control <br>
+				[type]="'DeviceOrientationControls'"<br>
+			&gt;&lt;/ngx3js-control&gt;<br>
+			&lt;ngx3js-control <br>
+				[type]="'DragControls'"<br>
+			&gt;&lt;/ngx3js-control&gt;<br>
+			&lt;ngx3js-control <br>
+				[type]="'FlyControls'" <br>
+				[movementSpeed]="1000" <br>
+				[rollSpeed]="7.5" <br>
+				[autoForward]="false" <br>
+				[dragToLook]="false"<br>
+			&gt;&lt;/ngx3js-control&gt;<br>
+			&lt;ngx3js-control <br>
+				[type]="'OrbitControls'" <br>
+				[enableDamping]="true" <br>
+				[dampingFactor]="0.05" <br>
+				[screenSpacePanning]="false" <br>
+				[minDistance]="100" <br>
+				[maxDistance]="500" <br>
+				[maxPolarAngle]="90"<br>
+			&gt;&lt;/ngx3js-control&gt;<br>
+			&lt;ngx3js-control <br>
+				[type]="'PointerLockControls'"<br>
+			&gt;&lt;/ngx3js-control&gt;<br>
+			&lt;ngx3js-control <br>
+				[type]="'TrackballControls'" <br>
+				[rollSpeed]="1.0" <br>
+				[zoomSpeed]="1.2" <br>
+				[panSpeed]="0.8" <br>
+				[keys]="['KeyA', 'KeyS', 'KeyD']"<br>
+			&gt;&lt;/ngx3js-control&gt;<br>
+			&lt;ngx3js-control <br>
+				[type]="'Transform'"<br>
+			&gt;&lt;/ngx3js-control&gt;<br>
+			&lt;ngx3js-control <br>
+				[type]="'plane'"<br>
+			&gt;&lt;/ngx3js-control&gt;<br>
+			</code><br>
+			<br>
+			{@link https://outmindkjg.github.io/ngx3js-doc/#/examples/ngx_control | NGX Control}
 		</p>
 
 		<h2>Properties</h2>
@@ -2256,6 +2303,6 @@
 
 
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/s/src/lib/controller/controller.component.ts s/src/lib/controller/controller.component.ts]</p>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/ller/controller.component.ts ller/controller.component.ts]</p>
 	</body>
 </html>
