@@ -4,6 +4,7 @@
 		"ngx_hud",
 		"ngx_material",
 		"ngx_geometry",
-		"ngx_control"
+		"ngx_control",
+		"ngx_light"
 	]
 }

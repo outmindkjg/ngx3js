@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from 'ngx3js';
+import { BaseComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-geometry',
@@ -17,4 +17,13 @@ export class NgxGeometryComponent extends BaseComponent<{
 			[{ name: 'color', type: 'color' }]
 		);
 	}
+
+	onRender(timer : RendererTimer) {
+		super.onRender(timer);
+		if (this.meshObject3d !== null) {
+			const elapsedTime = timer.elapsedTime;
+			this.meshObject3d.rotation.y = elapsedTime / 5;
+		}
+	}
+
 }

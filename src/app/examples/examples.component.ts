@@ -286,9 +286,12 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 				case 'css2d':
 				case 'css3d':
 				case 'svg':
-				case 'ngx3js':
 				case 'tests':
 					image = ThreeUtil.getStoreUrl('screenshots/' + id + '.jpg');
+					url = '/examples/' + id;
+					break;
+				case 'ngx3js':
+					image = ThreeUtil.getStoreUrl('screenshots/' + id + '.jpeg');
 					url = '/examples/' + id;
 					break;
 				default:

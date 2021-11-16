@@ -1,0 +1,137 @@
+<div class="info">
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	ngx light
+</div>
+<ngx3js-renderer
+	[statsMode]="0"
+	[controlType]="'orbit'"
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
+		minDistance: 10,
+		maxDistance: 500
+	}"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
+		<ngx3js-position [x]="0" [y]="5" [z]="10"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x000000'">
+		<ngx3js-light
+			*ngIf="controls.ambientLight.enable"
+			[type]="'AmbientLight'"
+			[color]="controls.ambientLight.color"
+			[intensity]="controls.ambientLight.intensity"
+		></ngx3js-light>
+		<ngx3js-light
+			*ngIf="controls.hemisphereLight.enable"
+			[type]="'HemisphereLight'"
+			[skyColor]="controls.hemisphereLight.skyColor"
+			[groundColor]="controls.hemisphereLight.groundColor"
+			[intensity]="controls.hemisphereLight.intensity"
+			[target]="lightTarget"
+		>
+			<ngx3js-position [x]="controls.hemisphereLight.position.x" [y]="controls.hemisphereLight.position.y" [z]="controls.hemisphereLight.position.z"></ngx3js-position>
+			<ngx3js-helper
+				*ngIf="controls.showHelper"
+				[type]="'light'"
+				[size]="10"
+			></ngx3js-helper>
+		</ngx3js-light>
+		<ngx3js-light
+			*ngIf="controls.directionalLight.enable"
+			[type]="'DirectionalLight'"
+			[color]="controls.directionalLight.color"
+			[intensity]="controls.directionalLight.intensity"
+			[castShadow]="controls.directionalLight.castShadow"
+			[shadowCameraTop]="6"
+			[shadowCameraBottom]="-6"
+			[shadowCameraLeft]="-6"
+			[shadowCameraRight]="6"
+			[shadowCameraNear]="0.1"
+			[shadowCameraFar]="100"
+			[target]="lightTarget"
+		>
+			<ngx3js-position [x]="controls.directionalLight.position.x" [y]="controls.directionalLight.position.y" [z]="controls.directionalLight.position.z"></ngx3js-position>
+			<ngx3js-helper
+				*ngIf="controls.showHelper"
+				[type]="'light'"
+				[size]="10"
+			></ngx3js-helper>
+		</ngx3js-light>
+		<ngx3js-light
+			*ngIf="controls.spotLight.enable"
+			[type]="'SpotLight'"
+			[color]="controls.spotLight.color"
+			[intensity]="controls.spotLight.intensity"
+			[castShadow]="controls.spotLight.castShadow"
+			[distance]="controls.spotLight.distance"
+			[angle]="controls.spotLight.angle"
+			[penumbra]="controls.spotLight.penumbra"
+			[decay]="controls.spotLight.decay"
+			[shadowBias]="0.0001"
+			[target]="lightTarget"
+		>
+			<ngx3js-position [x]="controls.spotLight.position.x" [y]="controls.spotLight.position.y" [z]="controls.spotLight.position.z"></ngx3js-position>
+			<ngx3js-helper
+				*ngIf="controls.showHelper"
+				[type]="'light'"
+				[size]="10"
+			></ngx3js-helper>
+		</ngx3js-light>
+		<ngx3js-light
+			*ngIf="controls.rectAreaLight.enable"
+			[type]="'RectAreaLight'"
+			[color]="controls.rectAreaLight.color"
+			[intensity]="controls.rectAreaLight.intensity"
+			[width]="controls.rectAreaLight.width"
+			[height]="controls.rectAreaLight.height"
+			[castShadow]="true"
+			>
+			<ngx3js-lookat [x]="controls.lightTarget.x" [y]="controls.lightTarget.y" [z]="controls.lightTarget.z"></ngx3js-lookat>
+			<ngx3js-position [x]="controls.rectAreaLight.position.x" [y]="controls.rectAreaLight.position.y" [z]="controls.rectAreaLight.position.z"></ngx3js-position>
+			<ngx3js-helper
+				*ngIf="controls.showHelper"
+				[type]="'light'"
+				[size]="10"
+			></ngx3js-helper>
+		</ngx3js-light>
+		<ngx3js-helper
+			[name]="'gridHelper'"
+			[type]="'GridHelper'"
+			[size]="100"
+			[divisions]="50"
+			[color1]="'0x888888'"
+			[color2]="'0x444444'"
+		>
+			<ngx3js-position [x]="0" [y]="-2.5" [z]="0"></ngx3js-position>
+		</ngx3js-helper>
+		<ngx3js-mesh #lightTarget [name]="'Light Target'">
+			<ngx3js-position [x]="controls.lightTarget.x" [y]="controls.lightTarget.y" [z]="controls.lightTarget.z"></ngx3js-position>
+		</ngx3js-mesh>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [castShadow]="true">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'TorusKnotGeometry'"
+				[radius]="1.5"
+				[tube]="0.34"
+				[radiusSegments]="100"
+				[tubularSegments]="64"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhysicalMaterial'"
+				[color]="'0xffffff'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+		<ngx3js-mesh [receiveShadow]="true">
+			<ngx3js-position [x]="0" [y]="-2.5" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry [type]="'plane'" [width]="10" [height]="10"></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xa0a0a0'"></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>

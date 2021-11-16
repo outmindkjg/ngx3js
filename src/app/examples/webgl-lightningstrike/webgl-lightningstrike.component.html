@@ -6,7 +6,7 @@
 	[useEvent]="'click'"
 	(eventListener)="onMouseClick($event)"
 	[statsMode]="0" 
-	[antialias]="true" [outputEncoding]="'sRGBEncoding'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" [guiOpen]="true" (onRender)="onRender($event)">
+	[antialias]="true" [outputEncoding]="'sRGBEncoding'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" (onRender)="onRender($event)">
 	<ngx3js-lookat [x]="sceneCameraLookat.x" [y]="sceneCameraLookat.y" [z]="sceneCameraLookat.z"></ngx3js-lookat>
 	<ngx3js-camera [type]="'perspective'" [fov]="27" [near]="200" [far]="100000" (onLoad)="setCamera($event)">
 		<ngx3js-position [x]="sceneCamera.x" [y]="sceneCamera.y" [z]="sceneCamera.z"></ngx3js-position>

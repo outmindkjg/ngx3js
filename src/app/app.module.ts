@@ -428,6 +428,7 @@ import { WebgpuSkinningComponent } from './examples/webgpu-skinning/webgpu-skinn
 import { MiscControlsArcballComponent } from './examples/misc-controls-arcball/misc-controls-arcball.component';
 import { NgxHudComponent } from './examples/ngx-hud/ngx-hud.component';
 import { NgxControlComponent } from './examples/ngx-control/ngx-control.component';
+import { NgxLightComponent } from './examples/ngx-light/ngx-light.component';
 
 @NgModule({
 	declarations: [
@@ -845,6 +846,7 @@ import { NgxControlComponent } from './examples/ngx-control/ngx-control.componen
 		NgxChartMixedComponent,
 		NgxHudComponent,
 		NgxControlComponent,
+		NgxLightComponent,
 		WebgpuInstanceUniformComponent,
 		WebgpuLightsCustomComponent,
 		WebgpuLightsSelectiveComponent,

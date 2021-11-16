@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, ControlComponent } from 'ngx3js';
+import { BaseComponent, ControlComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-control',
@@ -43,4 +43,13 @@ export class NgxControlComponent extends BaseComponent<{
 	resetCamera() {
 		(this.cameraObject3d.position as THREE.Vector3).set(0, 5, 10);
 	}
+
+	onRender(timer : RendererTimer) {
+		super.onRender(timer);
+		if (this.meshObject3d !== null) {
+			const elapsedTime = timer.elapsedTime;
+			this.meshObject3d.rotation.y = elapsedTime / 5;
+		}
+	}
+
 }

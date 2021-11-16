@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from 'ngx3js';
+import { BaseComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-hud',
@@ -52,6 +52,15 @@ export class NgxHudComponent extends BaseComponent<{
 	setType(type : string) {
 		this.geometryType = type;
 		return false;
+	}
+
+	onRender(timer : RendererTimer) {
+		super.onRender(timer);
+		if (this.meshObject3d !== null) {
+			const elapsedTime = timer.elapsedTime;
+			this.meshObject3d.rotation.y = elapsedTime / 5;
+			this.meshObject3d.rotation.x = elapsedTime / 10;
+		}
 	}
 
 }
