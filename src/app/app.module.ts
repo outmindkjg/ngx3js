@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { Ngx3JsModule } from 'ngx3js';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApiReadComponent } from './docs/api-read/api-read.component';
@@ -21,6 +22,7 @@ import { GamesFpsComponent } from './examples/games-fps/games-fps.component';
 import { MiscAnimationGroupsComponent } from './examples/misc-animation-groups/misc-animation-groups.component';
 import { MiscAnimationKeysComponent } from './examples/misc-animation-keys/misc-animation-keys.component';
 import { MiscBoxselectionComponent } from './examples/misc-boxselection/misc-boxselection.component';
+import { MiscControlsArcballComponent } from './examples/misc-controls-arcball/misc-controls-arcball.component';
 import { MiscControlsDeviceorientationComponent } from './examples/misc-controls-deviceorientation/misc-controls-deviceorientation.component';
 import { MiscControlsDragComponent } from './examples/misc-controls-drag/misc-controls-drag.component';
 import { MiscControlsFlyComponent } from './examples/misc-controls-fly/misc-controls-fly.component';
@@ -47,8 +49,12 @@ import { NgxChartMixedComponent } from './examples/ngx-chart-mixed/ngx-chart-mix
 import { NgxChartPolarComponent } from './examples/ngx-chart-polar/ngx-chart-polar.component';
 import { NgxChartRadarComponent } from './examples/ngx-chart-radar/ngx-chart-radar.component';
 import { NgxChartScatterComponent } from './examples/ngx-chart-scatter/ngx-chart-scatter.component';
+import { NgxControlComponent } from './examples/ngx-control/ngx-control.component';
 import { NgxGeometryComponent } from './examples/ngx-geometry/ngx-geometry.component';
+import { NgxHudComponent } from './examples/ngx-hud/ngx-hud.component';
+import { NgxLightComponent } from './examples/ngx-light/ngx-light.component';
 import { NgxMaterialComponent } from './examples/ngx-material/ngx-material.component';
+import { NgxSceneComponent } from './examples/ngx-scene/ngx-scene.component';
 import { PhysicsAmmoBreakComponent } from './examples/physics-ammo-break/physics-ammo-break.component';
 import { PhysicsAmmoClothComponent } from './examples/physics-ammo-cloth/physics-ammo-cloth.component';
 import { PhysicsAmmoInstancingComponent } from './examples/physics-ammo-instancing/physics-ammo-instancing.component';
@@ -181,6 +187,7 @@ import { WebglLoaderFbxComponent } from './examples/webgl-loader-fbx/webgl-loade
 import { WebglLoaderGcodeComponent } from './examples/webgl-loader-gcode/webgl-loader-gcode.component';
 import { WebglLoaderGltfCompressedComponent } from './examples/webgl-loader-gltf-compressed/webgl-loader-gltf-compressed.component';
 import { WebglLoaderGltfExtensionsComponent } from './examples/webgl-loader-gltf-extensions/webgl-loader-gltf-extensions.component';
+import { WebglLoaderGltfSheenComponent } from './examples/webgl-loader-gltf-sheen/webgl-loader-gltf-sheen.component';
 import { WebglLoaderGltfTransmissionComponent } from './examples/webgl-loader-gltf-transmission/webgl-loader-gltf-transmission.component';
 import { WebglLoaderGltfVariantsComponent } from './examples/webgl-loader-gltf-variants/webgl-loader-gltf-variants.component';
 import { WebglLoaderGltfComponent } from './examples/webgl-loader-gltf/webgl-loader-gltf.component';
@@ -248,6 +255,7 @@ import { WebglMaterialsEnvmapsParallaxComponent } from './examples/webgl-materia
 import { WebglMaterialsEnvmapsPmremNodesComponent } from './examples/webgl-materials-envmaps-pmrem-nodes/webgl-materials-envmaps-pmrem-nodes.component';
 import { WebglMaterialsEnvmapsComponent } from './examples/webgl-materials-envmaps/webgl-materials-envmaps.component';
 import { WebglMaterialsGrassComponent } from './examples/webgl-materials-grass/webgl-materials-grass.component';
+import { WebglMaterialsInstanceUniformNodesComponent } from './examples/webgl-materials-instance-uniform-nodes/webgl-materials-instance-uniform-nodes.component';
 import { WebglMaterialsLightmapComponent } from './examples/webgl-materials-lightmap/webgl-materials-lightmap.component';
 import { WebglMaterialsMatcapComponent } from './examples/webgl-materials-matcap/webgl-materials-matcap.component';
 import { WebglMaterialsModifiedComponent } from './examples/webgl-materials-modified/webgl-materials-modified.component';
@@ -288,6 +296,7 @@ import { WebglModifierCurveComponent } from './examples/webgl-modifier-curve/web
 import { WebglModifierEdgesplitComponent } from './examples/webgl-modifier-edgesplit/webgl-modifier-edgesplit.component';
 import { WebglModifierSimplifierComponent } from './examples/webgl-modifier-simplifier/webgl-modifier-simplifier.component';
 import { WebglModifierTessellationComponent } from './examples/webgl-modifier-tessellation/webgl-modifier-tessellation.component';
+import { WebglMorphtargetsFaceComponent } from './examples/webgl-morphtargets-face/webgl-morphtargets-face.component';
 import { WebglMorphtargetsHorseComponent } from './examples/webgl-morphtargets-horse/webgl-morphtargets-horse.component';
 import { WebglMorphtargetsSphereComponent } from './examples/webgl-morphtargets-sphere/webgl-morphtargets-sphere.component';
 import { WebglMorphtargetsComponent } from './examples/webgl-morphtargets/webgl-morphtargets.component';
@@ -307,6 +316,7 @@ import { WebglPerformanceComponent } from './examples/webgl-performance/webgl-pe
 import { WebglPmremTestComponent } from './examples/webgl-pmrem-test/webgl-pmrem-test.component';
 import { WebglPointsBillboardsComponent } from './examples/webgl-points-billboards/webgl-points-billboards.component';
 import { WebglPointsDynamicComponent } from './examples/webgl-points-dynamic/webgl-points-dynamic.component';
+import { WebglPointsNodesComponent } from './examples/webgl-points-nodes/webgl-points-nodes.component';
 import { WebglPointsSpritesComponent } from './examples/webgl-points-sprites/webgl-points-sprites.component';
 import { WebglPointsWavesComponent } from './examples/webgl-points-waves/webgl-points-waves.component';
 import { WebglPortalComponent } from './examples/webgl-portal/webgl-portal.component';
@@ -390,18 +400,27 @@ import { Webgl2VolumeInstancingComponent } from './examples/webgl2-volume-instan
 import { Webgl2VolumePerlinComponent } from './examples/webgl2-volume-perlin/webgl2-volume-perlin.component';
 import { WebgpuComputeComponent } from './examples/webgpu-compute/webgpu-compute.component';
 import { WebgpuInstanceUniformComponent } from './examples/webgpu-instance-uniform/webgpu-instance-uniform.component';
+import { WebgpuLightsCustomComponent } from './examples/webgpu-lights-custom/webgpu-lights-custom.component';
+import { WebgpuLightsSelectiveComponent } from './examples/webgpu-lights-selective/webgpu-lights-selective.component';
+import { WebgpuMaterialsComponent } from './examples/webgpu-materials/webgpu-materials.component';
 import { WebgpuRttComponent } from './examples/webgpu-rtt/webgpu-rtt.component';
 import { WebgpuSandboxComponent } from './examples/webgpu-sandbox/webgpu-sandbox.component';
+import { WebgpuSkinningComponent } from './examples/webgpu-skinning/webgpu-skinning.component';
 import { WebxrArConesComponent } from './examples/webxr-ar-cones/webxr-ar-cones.component';
 import { WebxrArHittestComponent } from './examples/webxr-ar-hittest/webxr-ar-hittest.component';
+import { WebxrArLightingComponent } from './examples/webxr-ar-lighting/webxr-ar-lighting.component';
 import { WebxrArPaintComponent } from './examples/webxr-ar-paint/webxr-ar-paint.component';
 import { WebxrVrBallshooterComponent } from './examples/webxr-vr-ballshooter/webxr-vr-ballshooter.component';
 import { WebxrVrCubesComponent } from './examples/webxr-vr-cubes/webxr-vr-cubes.component';
 import { WebxrVrDraggingComponent } from './examples/webxr-vr-dragging/webxr-vr-dragging.component';
 import { WebxrVrHandinputCubesComponent } from './examples/webxr-vr-handinput-cubes/webxr-vr-handinput-cubes.component';
+import { WebxrVrHandinputPointerclickComponent } from './examples/webxr-vr-handinput-pointerclick/webxr-vr-handinput-pointerclick.component';
+import { WebxrVrHandinputPointerdragComponent } from './examples/webxr-vr-handinput-pointerdrag/webxr-vr-handinput-pointerdrag.component';
+import { WebxrVrHandinputPressbuttonComponent } from './examples/webxr-vr-handinput-pressbutton/webxr-vr-handinput-pressbutton.component';
 import { WebxrVrHandinputProfilesComponent } from './examples/webxr-vr-handinput-profiles/webxr-vr-handinput-profiles.component';
 import { WebxrVrHandinputComponent } from './examples/webxr-vr-handinput/webxr-vr-handinput.component';
 import { WebxrVrHapticsComponent } from './examples/webxr-vr-haptics/webxr-vr-haptics.component';
+import { WebxrVrLayersComponent } from './examples/webxr-vr-layers/webxr-vr-layers.component';
 import { WebxrVrLorenzattractorComponent } from './examples/webxr-vr-lorenzattractor/webxr-vr-lorenzattractor.component';
 import { WebxrVrPaintComponent } from './examples/webxr-vr-paint/webxr-vr-paint.component';
 import { WebxrVrPanoramaDepthComponent } from './examples/webxr-vr-panorama-depth/webxr-vr-panorama-depth.component';
@@ -411,24 +430,6 @@ import { WebxrVrSandboxComponent } from './examples/webxr-vr-sandbox/webxr-vr-sa
 import { WebxrVrSculptComponent } from './examples/webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './examples/webxr-vr-video/webxr-vr-video.component';
 import { MenuComponent } from './menu/menu.component';
-import { Ngx3JsModule } from 'ngx3js';
-import { WebgpuLightsCustomComponent } from './examples/webgpu-lights-custom/webgpu-lights-custom.component';
-import { WebgpuLightsSelectiveComponent } from './examples/webgpu-lights-selective/webgpu-lights-selective.component';
-import { WebgpuMaterialsComponent } from './examples/webgpu-materials/webgpu-materials.component';
-import { WebxrArLightingComponent } from './examples/webxr-ar-lighting/webxr-ar-lighting.component';
-import { WebxrVrHandinputPointerclickComponent } from './examples/webxr-vr-handinput-pointerclick/webxr-vr-handinput-pointerclick.component';
-import { WebxrVrHandinputPointerdragComponent } from './examples/webxr-vr-handinput-pointerdrag/webxr-vr-handinput-pointerdrag.component';
-import { WebxrVrHandinputPressbuttonComponent } from './examples/webxr-vr-handinput-pressbutton/webxr-vr-handinput-pressbutton.component';
-import { WebxrVrLayersComponent } from './examples/webxr-vr-layers/webxr-vr-layers.component';
-import { WebglLoaderGltfSheenComponent } from './examples/webgl-loader-gltf-sheen/webgl-loader-gltf-sheen.component';
-import { WebglMorphtargetsFaceComponent } from './examples/webgl-morphtargets-face/webgl-morphtargets-face.component';
-import { WebglMaterialsInstanceUniformNodesComponent } from './examples/webgl-materials-instance-uniform-nodes/webgl-materials-instance-uniform-nodes.component';
-import { WebglPointsNodesComponent } from './examples/webgl-points-nodes/webgl-points-nodes.component';
-import { WebgpuSkinningComponent } from './examples/webgpu-skinning/webgpu-skinning.component';
-import { MiscControlsArcballComponent } from './examples/misc-controls-arcball/misc-controls-arcball.component';
-import { NgxHudComponent } from './examples/ngx-hud/ngx-hud.component';
-import { NgxControlComponent } from './examples/ngx-control/ngx-control.component';
-import { NgxLightComponent } from './examples/ngx-light/ngx-light.component';
 
 @NgModule({
 	declarations: [
@@ -847,6 +848,7 @@ import { NgxLightComponent } from './examples/ngx-light/ngx-light.component';
 		NgxHudComponent,
 		NgxControlComponent,
 		NgxLightComponent,
+		NgxSceneComponent,
 		WebgpuInstanceUniformComponent,
 		WebgpuLightsCustomComponent,
 		WebgpuLightsSelectiveComponent,

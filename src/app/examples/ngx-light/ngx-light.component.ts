@@ -194,7 +194,7 @@ export class NgxLightComponent extends BaseComponent<{
 					{ name : 'z', type : 'number', min : -30, max : 30, step : 0.1},
 				]}
 		]
-		,true);
+		,true, false);
 	}
 
 	onRender(timer : RendererTimer) {

@@ -9,6 +9,7 @@ code.prettyprint {
 
 .lil-gui.root>div.children {
 	background-color: var(--background-color);
+	max-height: calc(100vh - 200px) !important;
 }
 
 @media (prefers-color-scheme: dark) {

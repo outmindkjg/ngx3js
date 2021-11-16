@@ -15,7 +15,7 @@ export class NgxGeometryComponent extends BaseComponent<{
 				color: 0x999999,
 			},
 			[{ name: 'color', type: 'color' }]
-		);
+		, true, false);
 	}
 
 	onRender(timer : RendererTimer) {

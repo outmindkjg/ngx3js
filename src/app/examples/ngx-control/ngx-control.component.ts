@@ -17,7 +17,7 @@ export class NgxControlComponent extends BaseComponent<{
 			[{ name: 'controlType', type: 'select' , select : [ 'FlyControls','FirstPersonControls','DeviceOrientationControls','DragControls','TransformControls','TrackballControls','ArcballControls','PlaneControls','OrbitControls'], change : () => {
 				this.resetCamera();
 			} }]
-		);
+		, true, false);
 	}
 
 	control : any = null;

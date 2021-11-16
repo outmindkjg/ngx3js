@@ -48,6 +48,7 @@ import { NgxGeometryComponent } from './examples/ngx-geometry/ngx-geometry.compo
 import { NgxHudComponent } from './examples/ngx-hud/ngx-hud.component';
 import { NgxLightComponent } from './examples/ngx-light/ngx-light.component';
 import { NgxMaterialComponent } from './examples/ngx-material/ngx-material.component';
+import { NgxSceneComponent } from './examples/ngx-scene/ngx-scene.component';
 import { PhysicsAmmoBreakComponent } from './examples/physics-ammo-break/physics-ammo-break.component';
 import { PhysicsAmmoClothComponent } from './examples/physics-ammo-cloth/physics-ammo-cloth.component';
 import { PhysicsAmmoInstancingComponent } from './examples/physics-ammo-instancing/physics-ammo-instancing.component';
@@ -1581,6 +1582,7 @@ const routes: Routes = [
 			{ path: 'ngx_hud', component: NgxHudComponent },
 			{ path: 'ngx_light', component: NgxLightComponent },
 			{ path: 'ngx_control', component: NgxControlComponent },
+			{ path: 'ngx_scene', component: NgxSceneComponent },
 			{ path: '**', component: UnderConstructionComponent },
 		],
 	},

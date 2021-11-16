@@ -20,7 +20,7 @@ export class NgxHudComponent extends BaseComponent<{
 			{ name : 'type', title : 'Show Geometry Type', type : 'checkbox'},
 			{ name : 'color', title : 'Show Color', type : 'checkbox'},
 			{ name : 'size', title : 'Show Size', type : 'checkbox'}
-		]);
+		], true, false);
 	}
 
 	geometryType : string = 'BoxGeometry';

@@ -1,10 +1,11 @@
  {
 	"ngx3js": [
-		"ngx_chart_line",
+		"ngx_scene",
+		"ngx_control",
 		"ngx_hud",
+		"ngx_light",
 		"ngx_material",
 		"ngx_geometry",
-		"ngx_control",
-		"ngx_light"
+		"ngx_chart_line"
 	]
 }
