@@ -41,6 +41,7 @@ import { MiscExporterUsdzComponent } from './examples/misc-exporter-usdz/misc-ex
 import { MiscLegacyComponent } from './examples/misc-legacy/misc-legacy.component';
 import { MiscLookatComponent } from './examples/misc-lookat/misc-lookat.component';
 import { MiscUvTestsComponent } from './examples/misc-uv-tests/misc-uv-tests.component';
+import { NgxCameraComponent } from './examples/ngx-camera/ngx-camera.component';
 import { NgxChartAreaComponent } from './examples/ngx-chart-area/ngx-chart-area.component';
 import { NgxChartBarComponent } from './examples/ngx-chart-bar/ngx-chart-bar.component';
 import { NgxChartBubbleComponent } from './examples/ngx-chart-bubble/ngx-chart-bubble.component';
@@ -54,6 +55,7 @@ import { NgxGeometryComponent } from './examples/ngx-geometry/ngx-geometry.compo
 import { NgxHudComponent } from './examples/ngx-hud/ngx-hud.component';
 import { NgxLightComponent } from './examples/ngx-light/ngx-light.component';
 import { NgxMaterialComponent } from './examples/ngx-material/ngx-material.component';
+import { NgxRendererComponent } from './examples/ngx-renderer/ngx-renderer.component';
 import { NgxSceneComponent } from './examples/ngx-scene/ngx-scene.component';
 import { PhysicsAmmoBreakComponent } from './examples/physics-ammo-break/physics-ammo-break.component';
 import { PhysicsAmmoClothComponent } from './examples/physics-ammo-cloth/physics-ammo-cloth.component';
@@ -849,6 +851,8 @@ import { MenuComponent } from './menu/menu.component';
 		NgxControlComponent,
 		NgxLightComponent,
 		NgxSceneComponent,
+		NgxRendererComponent,
+		NgxCameraComponent,
 		WebgpuInstanceUniformComponent,
 		WebgpuLightsCustomComponent,
 		WebgpuLightsSelectiveComponent,

@@ -100,16 +100,6 @@
 				[size]="10"
 			></ngx3js-helper>
 		</ngx3js-light>
-		<ngx3js-helper
-			[name]="'gridHelper'"
-			[type]="'GridHelper'"
-			[size]="100"
-			[divisions]="50"
-			[color1]="'0x888888'"
-			[color2]="'0x444444'"
-		>
-			<ngx3js-position [x]="0" [y]="-2.5" [z]="0"></ngx3js-position>
-		</ngx3js-helper>
 		<ngx3js-mesh #lightTarget [name]="'Light Target'">
 			<ngx3js-position [x]="controls.lightTarget.x" [y]="controls.lightTarget.y" [z]="controls.lightTarget.z"></ngx3js-position>
 		</ngx3js-mesh>
@@ -127,6 +117,16 @@
 				[color]="'0xffffff'"
 			></ngx3js-material>
 		</ngx3js-mesh>
+		<ngx3js-helper
+			[name]="'gridHelper'"
+			[type]="'GridHelper'"
+			[size]="100"
+			[divisions]="50"
+			[color1]="'0x888888'"
+			[color2]="'0x444444'"
+		>
+			<ngx3js-position [x]="0" [y]="-2.5" [z]="0"></ngx3js-position>
+		</ngx3js-helper>
 		<ngx3js-mesh [receiveShadow]="true">
 			<ngx3js-position [x]="0" [y]="-2.5" [z]="0"></ngx3js-position>
 			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>

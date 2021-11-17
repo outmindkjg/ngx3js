@@ -1,6 +1,6 @@
 {
   "name": "three-sample",
-  "version": "0.134.0-2021111518",
+  "version": "0.134.0-2021111717",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

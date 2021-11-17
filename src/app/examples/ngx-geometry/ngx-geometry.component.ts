@@ -23,6 +23,9 @@ export class NgxGeometryComponent extends BaseComponent<{
 		if (this.meshObject3d !== null) {
 			const elapsedTime = timer.elapsedTime;
 			this.meshObject3d.rotation.y = elapsedTime / 5;
+			this.meshChildren.forEach(child => {
+				child.rotation.y = - elapsedTime / 5;
+			})
 		}
 	}
 

@@ -4,7 +4,7 @@ ngx3js
 [![NPM Package][npm]][npm-url]
 [![NPM Downloads][npm-downloads]][npmtrends-url]
 
-#### JavaScript 3D library ####
+### JavaScript 3D library ####
 
 The aim of the project is to create an easy to use, lightweight, cross-browser, general purpose 3D library. The current builds only include a WebGL renderer but WebGPU (experimental), SVG and CSS3D renderers are also available in the examples.
 
@@ -12,25 +12,25 @@ The aim of the project is to create an easy to use, lightweight, cross-browser, 
 [Documentation](https://outmindkjg.github.io/ngx3js-doc/#/docs) &mdash;
 [API Documentation](https://outmindkjg.github.io/ngx3js-doc/docs)
 
-### Usage ###
+## Usage ###
 
 This code creates a scene, a camera, and a geometric cube, and it adds the cube to the scene. It then creates a `WebGL` renderer for the scene and camera, and it adds that viewport to the `document.body` element. Finally, it animates the cube within the scene for the camera.
 
 
 To Install you can choose one from two method. 
 
-#### Ngx3js Install - Method 1 - Recommanded ####
+### Ngx3js Install - Method 1 - Recommanded ####
 ```sh
-# install shell script
+ install shell script
 npm install -g @angular/cli
 npm install ngx3js
 node ./node_modules/ngx3js/bin/patch.js
 npm install 
 ```
 
-#### Ngx3js Install - Method 2 ####
+### Ngx3js Install - Method 2 ####
 ```sh
-# install by npm
+ install by npm
 npm install -g @angular/cli
 npm install ngx3js
 npm install three@0.134.0
@@ -45,16 +45,16 @@ npm install fs-web
 ```
 
 
-#### Auto Formater - optional ####
+### Auto Formater - optional ####
 ```sh
-# prettier format change
+ prettier format change
 npx prettier --write src/**/*.json
 npx prettier --write src/**/*.ts
 npx prettier --write src/**/*.html
 npx prettier --write src/**/*.scss
 ```
 
-#### Imports Ngx3JsModule - Required ####
+### Imports Ngx3JsModule - Required ####
 
 To use ngx3js have to import Ngx3JsModule in src/app/app.module.ts or some other place modle.ts
 ```ts
@@ -69,7 +69,7 @@ import { Ngx3JsModule } from 'ngx3js';
 })
 ```
 
-#### Change Default Assets Url - optional ####
+### Change Default Assets Url - optional ####
 
 If you chhange assets in angular.json file must be setted!
 
@@ -87,7 +87,7 @@ export class AppComponent {
 ```
 
 
-#### Chane angular.json for ammojs-typed and basic assets ####
+### Chane angular.json for ammojs-typed and basic assets ####
 
 // angular.json
 ```json
@@ -115,7 +115,7 @@ export class AppComponent {
 }
 ```
 
-#### Chane tsconfig.json for fs ####
+### Chane tsconfig.json for fs ####
 
 // tsconfig.json
 ```json
@@ -128,7 +128,7 @@ export class AppComponent {
 }
 ```
 
-#### Add Code to your template ####
+### Add Code to your template ####
 
 
 ~~~html
@@ -204,7 +204,7 @@ export class AppComponent {
 </div>
 ~~~
 
-### Cloning this repository ###
+## Cloning this repository ###
 
 Cloning the repo with all its history results in a ~2 GB download. If you don't need the whole history you can use the `depth` parameter to significantly reduce download size.
 
@@ -212,7 +212,7 @@ Cloning the repo with all its history results in a ~2 GB download. If you don't 
 git clone --depth=1 https://github.com/outmindkjg/ngx3js-module.git
 ```
 
-### Change log &amp; Ask Question ###
+## Change log &amp; Ask Question ###
 
  - [Releases - GitHub](https://github.com/outmindkjg/ngx3js-module/releases)
  - [ISSUE - GitHub](https://github.com/outmindkjg/ngx3js-module/issues)

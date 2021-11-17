@@ -1,6 +1,8 @@
  {
 	"ngx3js": [
+		"ngx_renderer",
 		"ngx_scene",
+		"ngx_camera",
 		"ngx_control",
 		"ngx_hud",
 		"ngx_light",

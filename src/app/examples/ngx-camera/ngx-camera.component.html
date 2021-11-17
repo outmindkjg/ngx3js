@@ -1,6 +1,6 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-	ngx scene
+	ngx camera
 </div>
 <ngx3js-renderer
 	[statsMode]="0"
@@ -12,41 +12,40 @@
 		minDistance: 10,
 		maxDistance: 500
 	}"
+	[clearColor]="controls.environment.clearColor"
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
 	(onRender)="onRender($event)"
 >
-	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
-		<ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
+	<ngx3js-camera 
+		[type]="controls.camera.type" 
+		[autoClear]="true"
+		[near]="controls.camera.near" 
+		[far]="controls.camera.far" 
+		[fov]="controls.perspective.fov" 
+		[aspect]="controls.perspective.aspect"
+		[orthoSize]="controls.orthographic.orthoSize"
+		[left]="controls.orthographic.left"
+		[right]="controls.orthographic.right"
+		[top]="controls.orthographic.top"
+		[bottom]="controls.orthographic.bottom"
+		[viewport]="controls.viewport.enable"
+		[viewportType]="controls.viewport.viewportType"
+		[x]="controls.viewport.x + '%'"
+		[y]="controls.viewport.y + '%'"
+		[width]="controls.viewport.width + '%'"
+		[height]="controls.viewport.height + '%'"
+		[scissorTest]="controls.scissorTest.enable"
+		[scissorX]="controls.scissorTest.x + '%'"
+		[scissorY]="controls.scissorTest.y + '%'"
+		[scissorWidth]="controls.scissorTest.width + '%'"
+		[scissorHeight]="controls.scissorTest.height + '%'"
+		(onLoad)="setCamera($event)"
+	>
+		<ngx3js-position [x]="cameraPosition.x" [y]="cameraPosition.y" [z]="cameraPosition.z"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-scene #scene [background]="controls.background.type !== 'image' ? controls.background.color : null">
-		<ngx3js-texture
-			*ngIf="controls.background.type === 'image'"
-			[type]="'background'"
-			[image]="backgroundTexture.image"
-			[cubeImage]="backgroundTexture.cubeImage"
-			[loaderType]="backgroundTexture.loaderType"
-			[magFilter]="backgroundTexture.magFilter"
-			[cubeType]="backgroundTexture.cubeType"
-		></ngx3js-texture>
-		<ngx3js-texture
-			*ngIf="controls.environment.enabled"
-			[type]="'environment'"
-			[image]="environmentTexture.image"
-			[cubeImage]="environmentTexture.cubeImage"
-			[loaderType]="environmentTexture.loaderType"
-			[magFilter]="environmentTexture.magFilter"
-			[cubeType]="environmentTexture.cubeType"
-		></ngx3js-texture>
-		<ngx3js-fog 
-			*ngIf="controls.background.type === 'fog'"
-			[type]="controls.background.fog.type" 
-			[color]="controls.background.color" 
-			[near]="controls.background.fog.near" 
-			[far]="controls.background.fog.far"
-			[density]="controls.background.fog.density"
-		></ngx3js-fog>
+	<ngx3js-scene #scene [background]="controls.environment.background">
 		<ngx3js-light
 			[type]="'directional'"
 			[color]="'0xffffff'"
@@ -68,10 +67,13 @@
 			<ngx3js-material
 				#material
 				[type]="'MeshStandardMaterial'"
-				[color]="'0xffffff'"
-				[roughness]="controls.environment.roughness"
-				[metalness]="controls.environment.metalness"
-			></ngx3js-material>
+				[color]="'0xff0000'"
+			>
+				<ngx3js-texture
+					[type]="'map'"
+					[image]="'textures/crate.gif'"
+				></ngx3js-texture>
+			</ngx3js-material>
 		</ngx3js-shared>
 		<ngx3js-mesh (onLoad)="setMesh($event)" [geometry]="geometry" [material]="material" [castShadow]="true">
 			<ngx3js-mesh [geometry]="geometry" [material]="material" [castShadow]="true">
@@ -88,14 +90,24 @@
 			</ngx3js-mesh>
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
 		</ngx3js-mesh>
-		<ngx3js-mesh [type]="'text'" [text]="controls.background.type + ' / ' + (controls.background.type !== 'image' ? controls.background.color : controls.background.image) + ' / ' + controls.environment.image " [size]="0.2">
+		<ngx3js-mesh [type]="'text'" [text]="controls.camera.type" [size]="0.2">
 			<ngx3js-position [x]="0" [y]="2.5" [z]="1.7"></ngx3js-position>
 		</ngx3js-mesh>
-		<ngx3js-mesh [receiveShadow]="true" *ngIf="controls.background.type === 'fog'">
+		<ngx3js-helper
+			[name]="'gridHelper'"
+			[type]="'GridHelper'"
+			[size]="100"
+			[divisions]="50"
+			[color1]="'0x888888'"
+			[color2]="'0x444444'"
+		>
+			<ngx3js-position [x]="0" [y]="-2.5" [z]="0"></ngx3js-position>
+		</ngx3js-helper>
+		<ngx3js-mesh [receiveShadow]="true">
 			<ngx3js-position [x]="0" [y]="-2.5" [z]="0"></ngx3js-position>
 			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-			<ngx3js-geometry [type]="'plane'" [width]="140" [height]="140"></ngx3js-geometry>
-			<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0x000000'"></ngx3js-material>
+			<ngx3js-geometry [type]="'plane'" [width]="10" [height]="10"></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xffffff'"></ngx3js-material>
 		</ngx3js-mesh>
 	</ngx3js-scene>
 </ngx3js-renderer>

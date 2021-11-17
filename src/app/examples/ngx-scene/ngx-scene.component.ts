@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, ControlComponent, RendererTimer } from 'ngx3js';
+import { BaseComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-scene',
@@ -11,6 +11,12 @@ export class NgxSceneComponent extends BaseComponent<{
 		type: string;
 		color: string;
 		image: string;
+		fog: {
+			type: string;
+			near: number;
+			far: number;
+			density: number;
+		};
 	};
 	environment: {
 		enabled: boolean;
@@ -18,37 +24,27 @@ export class NgxSceneComponent extends BaseComponent<{
 		roughness: number;
 		metalness: number;
 	};
-	fog: {
-		enabled: boolean;
-		type: string;
-		color: string;
-		near: number;
-		far: number;
-		density: number;
-	};
 }> {
 	constructor() {
 		super(
 			{
 				background: {
 					type: 'image',
-					color: '0x000000',
+					color: '0xffffff',
 					image: 'SwedishRoyalCastle',
+					fog: {
+						type: 'fog',
+						near: 0.1,
+						far: 70,
+						density: 0.04,
+					}
 				},
 				environment: {
 					enabled: true,
 					image: 'SwedishRoyalCastle',
 					roughness: 0.2,
 					metalness: 1,
-				},
-				fog: {
-					enabled: true,
-					type: 'fog',
-					color: '0xffffff',
-					near: 0.1,
-					far: 70,
-					density: 0.0025,
-				},
+				}
 			},
 			[
 				{
@@ -56,7 +52,7 @@ export class NgxSceneComponent extends BaseComponent<{
 					type: 'folder',
 					control: 'background',
 					children: [
-						{ name: 'type', type: 'select', select: ['color', 'image'] },
+						{ name: 'type', type: 'select', select: ['color', 'image', 'fog'] },
 						{ name: 'color', type: 'color' },
 						{
 							name: 'image',
@@ -72,6 +68,23 @@ export class NgxSceneComponent extends BaseComponent<{
 								this.chageBackground('background');
 							},
 						},
+						{
+							name: 'fog',
+							type: 'folder',
+							control: 'fog',
+							children: [
+								{ name: 'type', type: 'select', select: ['fog', 'FogExp2'] },
+								{ name: 'near', type: 'number', min: 0, max: 10, step: 0.1 },
+								{ name: 'far', type: 'number', min: 0, max: 100, step: 0.1 },
+								{
+									name: 'density',
+									type: 'number',
+									min: 0,
+									max: 0.2,
+									step: 0.0001,
+								},
+							],
+						},						
 					],
 				},
 				{
@@ -97,26 +110,7 @@ export class NgxSceneComponent extends BaseComponent<{
 						{ name: 'roughness', type: 'number', min: 0, max: 1, step: 0.1 },
 						{ name: 'metalness', type: 'number', min: 0, max: 1, step: 0.1 },
 					],
-				},
-				{
-					name: 'fog',
-					type: 'folder',
-					control: 'fog',
-					children: [
-						{ name: 'enabled', type: 'checkbox' },
-						{ name: 'type', type: 'select', select: ['fog', 'FogExp2'] },
-						{ name: 'color', type: 'color' },
-						{ name: 'near', type: 'number', min: 0, max: 10, step: 0.1 },
-						{ name: 'far', type: 'number', min: 0, max: 100, step: 0.1 },
-						{
-							name: 'density',
-							type: 'number',
-							min: 0,
-							max: 0.004,
-							step: 0.0001,
-						},
-					],
-				},
+				}
 			],
 			true,
 			false
@@ -222,6 +216,10 @@ export class NgxSceneComponent extends BaseComponent<{
 		if (this.meshObject3d !== null) {
 			const elapsedTime = timer.elapsedTime;
 			this.meshObject3d.rotation.y = elapsedTime / 5;
+			this.meshChildren.forEach(child => {
+				child.rotation.x = elapsedTime / 2;
+				child.rotation.y = elapsedTime / 4;
+			})
 		}
 	}
 }
