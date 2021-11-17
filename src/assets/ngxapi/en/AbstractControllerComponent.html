@@ -12,46 +12,28 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			FogComponent<br>
+			AbstractControllerComponent Component<br>
 			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-fog<br>
-				[color]="'0xa0a0a0'"<br>
-				[near]="10"<br>
-				[far]="50"<br>
-			&gt;&lt;/ngx3js-fog&gt;<br>
-			&lt;ngx3js-fog<br>
-				[type]="'FogExp2'"<br>
-				[color]="'0x000000'"<br>
-				[density]="0.00000025"<br>
-			&gt;&lt;/ngx3js-fog&gt;<br>
+			<code data-type="typescript"><br>
+			_@Component({<br>
+				providers: [<br>
+					{<br>
+						provide: AbstractControllerComponent,<br>
+						useExisting: forwardRef(() =&gt; XxxComponent),<br>
+					},<br>
+				],<br>
+			})<br>
+			export class XxxComponent extends AbstractControllerComponent implements OnInit {<br>
+				constructor() {<br>
+					super();<br>
+				}<br>
+			}<br>
 			</code>
 		</p>
-
-		<h2>Component</h2>
-		<code data-type="html">&lt;ngx3js-fog
-			[color]="..."
-			[debug]="..."
-			[density]="..."
-			[enabled]="..."
-			[far]="..."
-			[near]="..."
-			[overrideParams]="..."
-			[tween]="..."
-			[type]="..."
-			[userData]="..."
-			[windowExport]="..."
-		&gt;&lt;/ngx3js-fog&gt;
-		</code>
 
 		<h2>Properties - Input</h2>
 		<p>
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
-		</p>
-
-		<h3>[property:ThreeColor color]</h3>
-		<p>
-			Fog color.  Example: If set to black, far away objects will be rendered black.
 		</p>
 
 		<h3>[property:boolean debug]</h3>
@@ -59,27 +41,9 @@
 			Debug this Object
 		</p>
 
-		<h3>[property:number density]</h3>
-		<p>
-			Defines how fast the fog will grow dense.<br>
-			Default is 0.00025.
-		</p>
-
 		<h3>[property:boolean enabled]</h3>
 		<p>
 			Enabled or Not
-		</p>
-
-		<h3>[property:number far]</h3>
-		<p>
-			The maximum distance at which fog stops being calculated and applied. Objects that are more than 'far' units away from the active camera won't be affected by fog.<br>
-			Default is 1000.
-		</p>
-
-		<h3>[property:number near]</h3>
-		<p>
-			The minimum distance to start applying fog. Objects that are less than 'near' units from the active camera won't be affected by fog.<br>
-			Default is 1.
 		</p>
 
 		<h3>[property:any overrideParams]</h3>
@@ -94,14 +58,6 @@
 			Tween animation params<br>
 			<br>
 			 { [ key : [page:string string] ] : [page:any any] }
-		</p>
-
-		<h3>[property:string type]</h3>
-		<p>
-			The Fog type.<br>
-			<br>
-			[page:Fog Fog] - THREE.Fog - fog (default)<br>
-			[page:FogExp2 FogExp2] - THREE.FogExp2 - fogexp2, exp, exp2
 		</p>
 
 		<h3>[property:any userData]</h3>
@@ -131,7 +87,9 @@
 
 		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
 		<p>
-			Applys changes3d
+			Applys changes<br>
+			<br>
+			Returns :
 		</p>
 
 		<h3>[method:void callOnLoad](  )</h3>
@@ -178,11 +136,9 @@
 			Returns : changes
 		</p>
 
-		<h3>[method:FogBase getFog](  )</h3>
+		<h3>[method:void getController](  )</h3>
 		<p>
-			Gets fog<br>
-			<br>
-			Returns : fog
+			Gets controller
 		</p>
 
 		<h3>[method:string getId](  )</h3>
@@ -242,6 +198,26 @@
 			Runs subscribe next
 		</p>
 
+		<h3>[method:void setCanvas](  [param:HtmlCollection canvas] )</h3>
+		<p>
+			Sets canvas
+		</p>
+
+		<h3>[method:void setObject](  [param:any obj] )</h3>
+		<p>
+			Sets object
+		</p>
+
+		<h3>[method:void setObject2d](  [param:HtmlCollection refObject2d] )</h3>
+		<p>
+			Sets object2d
+		</p>
+
+		<h3>[method:void setObject3d](  [param:Object3D refObject3d] )</h3>
+		<p>
+			Sets object3d
+		</p>
+
 		<h3>[method:boolean setParent](  [param:any parent] )</h3>
 		<p>
 			Sets parent<br>
@@ -249,7 +225,12 @@
 			Returns : true if parent
 		</p>
 
-		<h3>[method:void setScene](  [param:Scene refScene] )</h3>
+		<h3>[method:void setRenderer](  [param:Renderer renderer],  [param:QueryList scenes],  [param:QueryList cameras],  [param:QueryList canvas2ds] )</h3>
+		<p>
+			Sets renderer
+		</p>
+
+		<h3>[method:void setScene](  [param:Scene scene] )</h3>
 		<p>
 			Sets scene
 		</p>
@@ -309,6 +290,11 @@
 			subscription<br>
 			<br>
 			Returns : subscription
+		</p>
+
+		<h3>[method:void update](  [param:RendererTimer rendererTimer] )</h3>
+		<p>
+			Updates controller component
 		</p>
 
 		<h3>[method:void updateInputParams](  [param:any params],  [param:boolean firstChange],  [param:SimpleChanges changes],  [param:string type] )</h3>
@@ -2096,6 +2082,6 @@
 
 
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/g.component.ts g.component.ts]</p>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/ller.component.abstract.ts ller.component.abstract.ts]</p>
 	</body>
 </html>
