@@ -115,12 +115,14 @@ export class AppComponent {
 }
 ```
 
-### Chane tsconfig.json for fs ####
+### Chane tsconfig.json for fs & AmmoJs ####
 
 // tsconfig.json
 ```json
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop" : true,
     "paths": {
       "fs": ["./node_modules/fs-web"]
     }

@@ -6,5 +6,7 @@
     "jupyter.jupyterServerType": "local",
     "html.format.wrapLineLength": 0,
     "prettier.proseWrap": "never",
-    "prettier.printWidth": 500
+    "prettier.printWidth": 500,
+    "angular.suggest.includeAutomaticOptionalChainCompletions": false,
+    "angular.suggest.includeCompletionsWithSnippetText": false
 }

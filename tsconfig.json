@@ -5,6 +5,7 @@
     "sourceMap": true,
     "declaration": false,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop" : true,
     "moduleResolution": "node",
     "strictNullChecks": false,
     "experimentalDecorators": true,
@@ -32,6 +33,7 @@
     "out": "docs"
   },
   "angularCompilerOptions": {
+    "allowEmptyCodegenFiles": true,
     "strictTemplates": true
   }
 }
