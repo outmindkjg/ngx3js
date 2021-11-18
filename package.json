@@ -34,7 +34,6 @@
     "@angular/platform-browser-dynamic": "^13.0.1",
     "@angular/router": "^13.0.1",
     "@babel/core": "^7.15.8",
-    "ammojs-typed": "^1.0.6",
     "gsap": "^3.8.0",
     "three": "0.134.0",
     "chroma-js": "^2.1.2",

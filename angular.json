@@ -19,7 +19,6 @@
           "options": {
             "preserveSymlinks": true,
             "allowedCommonJsDependencies": [
-              "ammojs-typed",
               "three/examples/js/libs/lottie_canvas",
               "three/examples/js/libs/draco/draco_encoder",
               "crypto",
@@ -45,7 +44,6 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/three/examples/js/libs/ammo.wasm.js",
               "node_modules/ngx3js/assets/js/libs/lottie_canvas.js"
             ]
           },
