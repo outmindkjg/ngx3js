@@ -36,7 +36,6 @@ npm install ngx3js
 npm install three@0.134.0
 npm install --save-dev @types/three@0.134.0
 npm install gsap
-npm install ammojs-typed
 npm install lil-gui
 npm install chroma-js
 npm install --save-dev @types/chroma-js
@@ -87,7 +86,10 @@ export class AppComponent {
 ```
 
 
-### Chane angular.json for ammojs-typed and basic assets ####
+### Change angular.json for  basic assets ####
+
+if you need lottie_canvas add "node_modules/ngx3js/assets/js/libs/lottie_canvas.js" to scripts like below.
+the assets url can be changed by your site. 
 
 // angular.json
 ```json
@@ -97,9 +99,6 @@ export class AppComponent {
       "architect": {
         "build": {
           "options": {
-            "allowedCommonJsDependencies" : [
-              "ammojs-typed"
-            ],
             "assets": [
                 {
                     "glob": "**/*",
@@ -107,6 +106,9 @@ export class AppComponent {
                     "output": "/assets/examples/"
                 }
             ],
+            "scripts": [
+              "node_modules/ngx3js/assets/js/libs/lottie_canvas.js"
+            ] 
           },
         },
       }
@@ -115,7 +117,7 @@ export class AppComponent {
 }
 ```
 
-### Chane tsconfig.json for fs ####
+### Change tsconfig.json for fs ####
 
 // tsconfig.json
 ```json
