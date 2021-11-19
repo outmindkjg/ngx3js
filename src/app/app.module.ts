@@ -51,6 +51,7 @@ import { NgxChartPolarComponent } from './examples/ngx-chart-polar/ngx-chart-pol
 import { NgxChartRadarComponent } from './examples/ngx-chart-radar/ngx-chart-radar.component';
 import { NgxChartScatterComponent } from './examples/ngx-chart-scatter/ngx-chart-scatter.component';
 import { NgxControlComponent } from './examples/ngx-control/ngx-control.component';
+import { NgxDirectivesComponent } from './examples/ngx-directives/ngx-directives.component';
 import { NgxGeometryComponent } from './examples/ngx-geometry/ngx-geometry.component';
 import { NgxHudComponent } from './examples/ngx-hud/ngx-hud.component';
 import { NgxLightComponent } from './examples/ngx-light/ngx-light.component';
@@ -855,6 +856,7 @@ import { MenuComponent } from './menu/menu.component';
 		NgxRendererComponent,
 		NgxCameraComponent,
 		NgxPipesComponent,
+		NgxDirectivesComponent,
 		WebgpuInstanceUniformComponent,
 		WebgpuLightsCustomComponent,
 		WebgpuLightsSelectiveComponent,

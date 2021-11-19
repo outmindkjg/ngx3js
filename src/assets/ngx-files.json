@@ -9,6 +9,7 @@
 		"ngx_material",
 		"ngx_geometry",
 		"ngx_pipes",
+		"ngx_directives",
 		"ngx_chart_line"
 	]
 }
