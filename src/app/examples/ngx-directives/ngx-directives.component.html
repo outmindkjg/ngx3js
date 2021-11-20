@@ -1,144 +1,82 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-	ngx directives
+	ngx directives - ngx3jsRotate, ngx3jsScale, ngx3jsPosition, ngx3jsNumber, ngx3jsDrawingCanvas
 </div>
 <div class="bottom">
 	<div id="lbl_left" class="lbl canvas">
-		<canvas
-			height="128"
-			width="128"
-			#canvas
-			ngx3jsDrawingCanvas
-			[clearColor]="'0xffffff'"
-			[lineColor]="'0x000000'"
-		></canvas>
+		<canvas height="128" width="128" #canvas ngx3jsDrawingCanvas [clearColor]="'0xffffff'" [lineColor]="'0x000000'"></canvas>
 	</div>
 </div>
-<ngx3js-renderer
-	[statsMode]="0"
-	[antialias]="true"
-	[controlType]="'orbit'"
-	[controlOptions]="{
+<ngx3js-renderer [statsMode]="0" [antialias]="true" [controlType]="'orbit'" [controlOptions]="{
 		enablePan: false,
 		enableDamping: true,
 		minDistance: 10,
 		maxDistance: 500
-	}"
-	[clearColor]="'0x000000'"
-	[shadowMapEnabled]="true"
-	[guiControl]="controls"
-	[guiParams]="controlsParams"
-	[guiOpen]="true"
-	(onRender)="onRender($event)"
->
-	<ngx3js-camera
-		[type]="'perspective'"
-		[clearColor]="'0x000000'"
-		[clearAlpha]="0"
-		[fov]="40"
-		[near]="1"
-		[far]="1000"
-		[viewport]="true"
-		[x]="0"
-		[y]="0"
-		[width]="'100%'"
-		[height]="'100%'"
-	>
-		<ngx3js-position [x]="0" [y]="5" [z]="10"></ngx3js-position>
+	}" [clearColor]="'0x000000'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" [guiOpen]="true" (onRender)="onRender($event)">
+	<ngx3js-camera [type]="'perspective'" [clearColor]="'0x000000'" [clearAlpha]="0" [fov]="40" [near]="1" [far]="1000" [viewport]="true" [x]="0" [y]="0" [width]="'100%'" [height]="'100%'">
+		<ngx3js-position [x]="0" [y]="5" [z]="15"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-scene #scene [background]="'0x000000'">
-		<ngx3js-light
-			[type]="'directional'"
-			[color]="'0xffffff'"
-			[intensity]="1"
-			[castShadow]="true"
-		>
+		<ngx3js-light [type]="'directional'" [color]="'0xffffff'" [intensity]="1" [castShadow]="true" [ngx3jsNumber]="ngx3jsDirectionalIntensity">
 			<ngx3js-position [x]="-3" [y]="10" [z]="10"></ngx3js-position>
 		</ngx3js-light>
-		<ngx3js-light [type]="'AmbientLight'" [color]="'0x6688cc'"></ngx3js-light>
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0x6688cc'" [ngx3jsNumber]="ngx3jsAmbientIntensity"></ngx3js-light>
 		<ngx3js-shared>
-			<ngx3js-geometry
-				#geometry
-				[type]="'BoxGeometry'"
-				[width]="3"
-				[height]="3"
-				[depth]="3"
-			></ngx3js-geometry>
-			<ngx3js-material
-				#material
-				[type]="'MeshStandardMaterial'"
-				[color]="'0xffffff'"
-			>
-				<ngx3js-texture
-					[type]="'map'"
-					[image]="'textures/crate.gif'"
-				></ngx3js-texture>
+			<ngx3js-geometry #geometry [type]="'BoxGeometry'" [width]="3" [height]="3" [depth]="3"></ngx3js-geometry>
+			<ngx3js-material #material [type]="'MeshStandardMaterial'" [color]="'0xffffff'">
+				<ngx3js-texture [type]="'map'" [image]="'textures/crate.gif'"></ngx3js-texture>
 			</ngx3js-material>
 		</ngx3js-shared>
-		<ngx3js-mesh
-			(onLoad)="setMesh($event)"
-			[geometry]="geometry"
-			[material]="material"
-			[castShadow]="true"
-			[ngx3jsRotate]="ngx3jsRotate1"
-		>
-			<ngx3js-mesh
-				#lightTarget
-				[geometry]="geometry"
-				[material]="material"
-				[castShadow]="true"
-				[ngx3jsRotate]="ngx3jsRotate2"
-			>
-				<ngx3js-position [x]="0" [y]="0" [z]="-10"></ngx3js-position>
-			</ngx3js-mesh>
-			<ngx3js-mesh
-				[geometry]="geometry"
-				[material]="material"
-				[castShadow]="true"
-				[ngx3jsRotate]="ngx3jsRotate2"
-			>
-				<ngx3js-position [x]="-10" [y]="0" [z]="0"></ngx3js-position>
-			</ngx3js-mesh>
-			<ngx3js-mesh
-				[geometry]="geometry"
-				[material]="material"
-				[castShadow]="true"
-				[ngx3jsRotate]="ngx3jsRotate2"
-			>
-				<ngx3js-position [x]="10" [y]="0" [z]="0"></ngx3js-position>
-			</ngx3js-mesh>
-			<ngx3js-mesh
-				[geometry]="geometry"
-				[material]="material"
-				[castShadow]="true"
-				[ngx3jsRotate]="ngx3jsRotate2"
-			>
-				<ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
-			</ngx3js-mesh>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [geometry]="geometry" [material]="material" [castShadow]="true" [ngx3jsRotate]="ngx3jsMainRotate" [ngx3jsScale]="ngx3jsMainScale" [ngx3jsPosition]="ngx3jsMainPosition">
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-mesh [type]="'text'" [text]="'Main :' + controls.main.rotate.type " [size]="0.15">
+				<ngx3js-position [x]="0" [y]="2" [z]="0"></ngx3js-position>
+			</ngx3js-mesh>
+			<ngx3js-mesh>
+				<ngx3js-position [x]="0" [y]="0" [z]="-7"></ngx3js-position>
+				<ngx3js-scale [x]="0.5" [y]="0.5" [z]="0.5"></ngx3js-scale>
+				<ngx3js-mesh [geometry]="geometry" [material]="material" [castShadow]="true" [ngx3jsRotate]="ngx3jsObject1Rotate" [ngx3jsScale]="ngx3jsObject1Scale" [ngx3jsPosition]="ngx3jsObject1Position">
+					<ngx3js-mesh [type]="'text'" [text]="'Object1 :' + controls.object1.rotate.type " [size]="0.15">
+						<ngx3js-position [x]="0" [y]="2" [z]="0"></ngx3js-position>
+					</ngx3js-mesh>
+				</ngx3js-mesh>
+			</ngx3js-mesh>
+			<ngx3js-mesh>
+				<ngx3js-position [x]="-7" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-scale [x]="0.5" [y]="0.5" [z]="0.5"></ngx3js-scale>
+				<ngx3js-mesh [geometry]="geometry" [material]="material" [castShadow]="true" [ngx3jsRotate]="ngx3jsObject2Rotate" [ngx3jsScale]="ngx3jsObject2Scale" [ngx3jsPosition]="ngx3jsObject2Position">
+					<ngx3js-mesh [type]="'text'" [text]="'Object2 :' + controls.object2.rotate.type " [size]="0.15">
+						<ngx3js-position [x]="0" [y]="2" [z]="0"></ngx3js-position>
+					</ngx3js-mesh>
+				</ngx3js-mesh>
+			</ngx3js-mesh>
+			<ngx3js-mesh>
+				<ngx3js-position [x]="7" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-scale [x]="0.5" [y]="0.5" [z]="0.5"></ngx3js-scale>
+				<ngx3js-mesh [geometry]="geometry" [material]="material" [castShadow]="true" [ngx3jsRotate]="ngx3jsObject3Rotate" [ngx3jsScale]="ngx3jsObject3Scale" [ngx3jsPosition]="ngx3jsObject3Position">
+					<ngx3js-mesh [type]="'text'" [text]="'Object3 :' + controls.object3.rotate.type " [size]="0.15">
+						<ngx3js-position [x]="0" [y]="2" [z]="0"></ngx3js-position>
+					</ngx3js-mesh>
+				</ngx3js-mesh>
+			</ngx3js-mesh>
+			<ngx3js-mesh>
+				<ngx3js-position [x]="0" [y]="0" [z]="7"></ngx3js-position>
+				<ngx3js-scale [x]="0.5" [y]="0.5" [z]="0.5"></ngx3js-scale>
+				<ngx3js-mesh [geometry]="geometry" [material]="material" [castShadow]="true" [ngx3jsRotate]="ngx3jsObject4Rotate" [ngx3jsScale]="ngx3jsObject4Scale" [ngx3jsPosition]="ngx3jsObject4Position">
+					<ngx3js-mesh [type]="'text'" [text]="'Object4 :' + controls.object4.rotate.type " [size]="0.15">
+						<ngx3js-position [x]="0" [y]="2" [z]="0"></ngx3js-position>
+					</ngx3js-mesh>
+				</ngx3js-mesh>
+			</ngx3js-mesh>
 		</ngx3js-mesh>
-		<ngx3js-helper
-			[name]="'gridHelper'"
-			[type]="'GridHelper'"
-			[size]="100"
-			[divisions]="50"
-			[color1]="'0x888888'"
-			[color2]="'0x444444'"
-		>
-			<ngx3js-position [x]="0" [y]="-2.5" [z]="0"></ngx3js-position>
+		<ngx3js-helper [name]="'gridHelper'" [type]="'GridHelper'" [size]="100" [divisions]="50" [color1]="'0x888888'" [color2]="'0x444444'">
+			<ngx3js-position [x]="0" [y]="-2.6" [z]="0"></ngx3js-position>
 		</ngx3js-helper>
 		<ngx3js-mesh [receiveShadow]="true">
 			<ngx3js-position [x]="0" [y]="-2.5" [z]="0"></ngx3js-position>
 			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-			<ngx3js-geometry
-				[type]="'plane'"
-				[width]="10"
-				[height]="10"
-			></ngx3js-geometry>
-			<ngx3js-material
-				[type]="'MeshPhongMaterial'"
-				[color]="'0xffffff'"
-			>
+			<ngx3js-geometry [type]="'plane'" [width]="10" [height]="10"></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xffffff'" [transparent]="true" [opacity]="1" [ngx3jsNumber]="ngx3jsFloorOpacity">
 				<ngx3js-texture [canvas]="canvas"></ngx3js-texture>
 			</ngx3js-material>
 		</ngx3js-mesh>
