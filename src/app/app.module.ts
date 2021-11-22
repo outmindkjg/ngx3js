@@ -56,6 +56,7 @@ import { NgxGeometryComponent } from './examples/ngx-geometry/ngx-geometry.compo
 import { NgxHudComponent } from './examples/ngx-hud/ngx-hud.component';
 import { NgxLightComponent } from './examples/ngx-light/ngx-light.component';
 import { NgxMaterialComponent } from './examples/ngx-material/ngx-material.component';
+import { NgxPhysicsComponent } from './examples/ngx-physics/ngx-physics.component';
 import { NgxPipesComponent } from './examples/ngx-pipes/ngx-pipes.component';
 import { NgxRendererComponent } from './examples/ngx-renderer/ngx-renderer.component';
 import { NgxSceneComponent } from './examples/ngx-scene/ngx-scene.component';
@@ -857,6 +858,7 @@ import { MenuComponent } from './menu/menu.component';
 		NgxCameraComponent,
 		NgxPipesComponent,
 		NgxDirectivesComponent,
+		NgxPhysicsComponent,
 		WebgpuInstanceUniformComponent,
 		WebgpuLightsCustomComponent,
 		WebgpuLightsSelectiveComponent,

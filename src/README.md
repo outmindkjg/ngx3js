@@ -21,7 +21,7 @@ To Install you can choose one from two method.
 
 ### Ngx3js Install - Method 1 - Recommanded ####
 ```sh
- install shell script
+# install shell script
 npm install -g @angular/cli
 npm install ngx3js
 node ./node_modules/ngx3js/bin/patch.js
@@ -30,7 +30,7 @@ npm install
 
 ### Ngx3js Install - Method 2 ####
 ```sh
- install by npm
+# install by npm
 npm install -g @angular/cli
 npm install ngx3js
 npm install three@0.134.0
@@ -46,7 +46,7 @@ npm install fs-web
 
 ### Auto Formater - optional ####
 ```sh
- prettier format change
+# prettier format change
 npx prettier --write src/**/*.json
 npx prettier --write src/**/*.ts
 npx prettier --write src/**/*.html
@@ -99,6 +99,9 @@ the assets url can be changed by your site.
       "architect": {
         "build": {
           "options": {
+            "allowedCommonJsDependencies" : [
+              "fs"
+            ],
             "assets": [
                 {
                     "glob": "**/*",
@@ -210,11 +213,26 @@ the assets url can be changed by your site.
 
 Cloning the repo with all its history results in a ~2 GB download. If you don't need the whole history you can use the `depth` parameter to significantly reduce download size.
 
+### ngx3js-module 
+
 ```sh
 git clone --depth=1 https://github.com/outmindkjg/ngx3js-module.git
+cd ngx3js-module
 ```
 
-## Change log &amp; Ask Question ###
+### ngx3js - examples and api docs
+
+ngx3js module required to be reinstall.
+```sh
+git clone --depth=1 https://github.com/outmindkjg/ngx3js.git
+
+cd ngx3js
+npm uninstall ngx3js && npm install ngx3js
+node ./node_modules/ngx3js/bin/patch.js
+```
+
+
+## Releases &amp; ISSUE &amp; Ask Question ###
 
  - [Releases - GitHub](https://github.com/outmindkjg/ngx3js-module/releases)
  - [ISSUE - GitHub](https://github.com/outmindkjg/ngx3js-module/issues)

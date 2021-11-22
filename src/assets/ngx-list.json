@@ -82,6 +82,17 @@
         "AutoScaleController": "ngxapi/en/AutoScaleController",
         "AutoUniformsController": "ngxapi/en/AutoUniformsController"
       },
+      "Directive & Pipes" : {
+        "AbstractThreeDirective": "ngxapi/en/AbstractThreeDirective",
+        "PositionDirective": "ngxapi/en/PositionDirective",
+        "AbstractObject3dDirective": "ngxapi/en/AbstractObject3dDirective",
+        "ScaleDirective": "ngxapi/en/ScaleDirective",
+        "RotateDirective": "ngxapi/en/RotateDirective",
+        "NumberDirective": "ngxapi/en/NumberDirective",
+        "AnglePipe": "ngxapi/en/AnglePipe",
+        "AssetsPipe": "ngxapi/en/AssetsPipe",
+        "DrawingCanvasDirective": "ngxapi/en/DrawingCanvasDirective"
+      },
       "Curves": {
         "CurveUtils": "ngxapi/en/CurveUtils",
         "CurvesCircle": "ngxapi/en/CurvesCircle",
@@ -157,7 +168,6 @@
         "ThreeGui": "ngxapi/en/ThreeGui",
         "ThreeStats": "ngxapi/en/ThreeStats",
         "ThreeUtil": "ngxapi/en/ThreeUtil",
-        "DrawingCanvasDirective": "ngxapi/en/DrawingCanvasDirective",
         "TextureUtils": "ngxapi/en/TextureUtils"
       }
     }
