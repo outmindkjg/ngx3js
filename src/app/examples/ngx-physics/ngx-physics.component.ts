@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	MeshComponent,
-	RendererEvent,
-	RendererTimer,
-	RigidbodyComponent,
+	BaseComponent, RendererEvent,
+	RendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -45,12 +42,12 @@ export class NgxPhysicsComponent extends BaseComponent<{
 					},
 				},
 				shape: {
-					count: 5,
+					count: 10,
 					minMass: 0,
 					maxMass: 30,
 					minSize: 4,
 					maxSize: 10,
-					breakable : false,
+					breakable : true,
 					softSphere: true,
 					softBox: false,
 					reset: () => {
@@ -58,7 +55,9 @@ export class NgxPhysicsComponent extends BaseComponent<{
 						this.shapeInfos = [];
 						this.addSoft();
 						for (let i = 0; i < this.controls.shape.count; i++) {
-							this.addShape();
+							this.getTimeout(i * 500).then(() => {
+								this.addShape();
+							})
 						}
 					},
 				},

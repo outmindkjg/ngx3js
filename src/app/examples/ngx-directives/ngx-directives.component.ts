@@ -1,43 +1,70 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer, Object3dFunction, ObjectFunction } from 'ngx3js';
+import {
+	BaseComponent,
+	RendererTimer,
+	Object3dFunction,
+	ObjectFunction,
+	DirectiveOptions,
+} from 'ngx3js';
 
-/**
- * Rotate options
- */
-interface RotateOptions {
-	/** type */
-	type?: string;
-
-	/** speed */
-	speed?: number;
-}
-
-/**
- * Directive options
- */
-interface DirectiveOptions {
-	/** type */
-	type?: string;
-
-	/** yoyo */
-	yoyo?: boolean;
-
-	/** yoyo */
-	min?: number;
-
-	/** yoyo */
-	max?: number;
-
-	/** speed */
-	speed?: number;
-}
-
+const easingOptions = [
+	'linearInOut',
+	'linearOut',
+	'linearNone',
+	'quadIn',
+	'quadInOut',
+	'quadOut',
+	'cubicIn',
+	'cubicInOut',
+	'cubicOut',
+	'quartIn',
+	'quartInOut',
+	'quartOut',
+	'quintIn',
+	'quintInOut',
+	'quintOut',
+	'strongIn',
+	'strongInOut',
+	'strongOut',
+	'power1In',
+	'power1InOut',
+	'power1Out',
+	'power2In',
+	'power2InOut',
+	'power2Out',
+	'power3In',
+	'power3InOut',
+	'power3Out',
+	'power4In',
+	'power4InOut',
+	'power4Out',
+	'backIn',
+	'backInOut',
+	'backOut',
+	'elasticIn',
+	'elasticInOut',
+	'elasticOut',
+	'bounceIn',
+	'bounceInOut',
+	'bounceOut',
+	'circIn',
+	'circInOut',
+	'circOut',
+	'expoIn',
+	'expoInOut',
+	'expoOut',
+	'sineIn',
+	'sineInOut',
+	'sineOut',
+	'power0None',
+	'linearIn',
+];
 /**
  * Rotate options
  */
 interface ObjectOptions {
 	/** rotate */
-	rotate?: RotateOptions;
+	rotate?: DirectiveOptions;
 	scale?: DirectiveOptions;
 	position?: DirectiveOptions;
 }
@@ -48,9 +75,9 @@ interface ObjectOptions {
 	styleUrls: ['./ngx-directives.component.scss'],
 })
 export class NgxDirectivesComponent extends BaseComponent<{
-	directionalIntensity : DirectiveOptions,
-	ambientIntensity : DirectiveOptions,
-	floorOpacity  : DirectiveOptions,
+	directionalIntensity: DirectiveOptions;
+	ambientIntensity: DirectiveOptions;
+	floorOpacity: DirectiveOptions;
 	main: ObjectOptions;
 	object1: ObjectOptions;
 	object2: ObjectOptions;
@@ -60,125 +87,158 @@ export class NgxDirectivesComponent extends BaseComponent<{
 	constructor() {
 		super(
 			{
-				directionalIntensity : {
+				directionalIntensity: {
 					type: 'none',
 					speed: 0.1,
-					yoyo: true,
-					min: 0.5,
-					max: 1,
+					easing: 'linearIn',
+					repeat: 'yoyo',
+					start: 0.5,
+					end: 1,
 				},
-				ambientIntensity : {
+				ambientIntensity: {
 					type: 'none',
 					speed: 0.1,
-					yoyo: true,
-					min: 0,
-					max: 1,
+					easing: 'linearIn',
+					repeat: 'yoyo',
+					start: 0,
+					end: 1,
 				},
-				floorOpacity : {
+				floorOpacity: {
 					type: 'none',
 					speed: 0.1,
-					yoyo: true,
-					min: 0,
-					max: 1,
+					easing: 'linearIn',
+					repeat: 'yoyo',
+					start: 0,
+					end: 1,
 				},
 				main: {
 					rotate: {
 						type: 'y',
 						speed: 0.1,
+						easing: 'linearIn',
+						repeat: 'yoyo',
+						start: 0,
+						end: 360,
 					},
 					scale: {
 						type: 'none',
 						speed: 0.1,
-						yoyo: true,
-						min: 0.5,
-						max: 1.5,
+						easing: 'linearIn',
+						repeat: 'yoyo',
+						start: 0.5,
+						end: 1.5,
 					},
 					position: {
 						type: 'none',
 						speed: 0.5,
-						yoyo: true,
-						min: 0,
-						max: 3,
+						easing: 'linearIn',
+						repeat: 'yoyo',
+						start: 0,
+						end: 3,
 					},
 				},
 				object1: {
 					rotate: {
 						type: 'x',
 						speed: 0.4,
+						easing: 'linearIn',
+						repeat: 'yoyo',
+						start: 0,
+						end: 360,
 					},
 					scale: {
 						type: 'z',
 						speed: 0.1,
-						yoyo: true,
-						min: 0.5,
-						max: 1.5,
+						easing: 'linearIn',
+						repeat: 'yoyo',
+						start: 0.5,
+						end: 1.5,
 					},
 					position: {
 						type: 'circle',
 						speed: 0.5,
-						yoyo: true,
-						min: 0,
-						max: 3,
+						easing: 'linearIn',
+						repeat: 'yoyo',
+						start: 0,
+						end: 3,
 					},
 				},
 				object2: {
 					rotate: {
 						type: 'y',
 						speed: 0.4,
+						easing: 'linearIn',
+						repeat: 'yoyo',
+						start: 0,
+						end: 360,
 					},
 					scale: {
 						type: 'y',
 						speed: 0.1,
-						yoyo: true,
-						min: 0.5,
-						max: 1.5,
+						easing: 'linearIn',
+						repeat: 'yoyo',
+						start: 0.5,
+						end: 1.5,
 					},
 					position: {
 						type: 'y',
 						speed: 0.5,
-						yoyo: true,
-						min: 0,
-						max: 3,
+						easing: 'linearIn',
+						repeat: 'yoyo',
+						start: 0,
+						end: 3,
 					},
 				},
 				object3: {
 					rotate: {
 						type: 'z',
 						speed: 0.4,
+						easing: 'linearIn',
+						repeat: 'yoyo',
+						start: 0,
+						end: 360,
 					},
 					scale: {
 						type: 'z',
 						speed: 0.1,
-						yoyo: true,
-						min: 0.5,
-						max: 1.5,
+						easing: 'linearIn',
+						repeat: 'yoyo',
+						start: 0.5,
+						end: 1.5,
 					},
 					position: {
 						type: 'z',
 						speed: 0.5,
-						yoyo: true,
-						min: 0,
-						max: 3,
+						easing: 'linearIn',
+						repeat: 'yoyo',
+						start: 0,
+						end: 3,
 					},
 				},
 				object4: {
 					rotate: {
 						type: 'xyz',
 						speed: 0.4,
+						easing: 'linearIn',
+						repeat: 'yoyo',
+						start: 0,
+						end: 360,
 					},
 					scale: {
 						type: 'xyz',
 						speed: 0.1,
-						yoyo: true,
-						min: 0.5,
-						max: 1.5,
+						easing: 'linearIn',
+						repeat: 'yoyo',
+						start: 0.5,
+						end: 1.5,
 					},
 					position: {
 						type: 'xyz',
 						speed: 0.5,
-						yoyo: true,
-						min: 0,
-						max: 3,
+						easing: 'linearIn',
+						repeat: 'yoyo',
+						start: 0,
+						end: 3,
 					},
 				},
 			},
@@ -191,11 +251,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 						{
 							name: 'type',
 							type: 'select',
-							select: [
-								'intensity',
-								'sin',
-								'none',
-							],
+							select: ['intensity', 'sin', 'none'],
 							change: () => {
 								this.changeNumber('directionalIntensity');
 							},
@@ -211,14 +267,23 @@ export class NgxDirectivesComponent extends BaseComponent<{
 							},
 						},
 						{
-							name: 'yoyo',
-							type: 'checkbox',
+							name: 'repeat',
+							type: 'select',
+							select: ['yoyo', 'repeat', 'once'],
 							change: () => {
 								this.changeNumber('directionalIntensity');
 							},
 						},
 						{
-							name: 'min',
+							name: 'easing',
+							type: 'select',
+							select: easingOptions,
+							change: () => {
+								this.changeNumber('directionalIntensity');
+							},
+						},
+						{
+							name: 'start',
 							type: 'number',
 							min: 0,
 							max: 0.5,
@@ -228,7 +293,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 							},
 						},
 						{
-							name: 'max',
+							name: 'end',
 							type: 'number',
 							min: 0.5,
 							max: 1.5,
@@ -237,7 +302,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 								this.changeNumber('directionalIntensity');
 							},
 						},
-					]
+					],
 				},
 				{
 					name: 'ambientIntensity',
@@ -247,11 +312,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 						{
 							name: 'type',
 							type: 'select',
-							select: [
-								'intensity',
-								'sin',
-								'none',
-							],
+							select: ['intensity', 'sin', 'none'],
 							change: () => {
 								this.changeNumber('ambientIntensity');
 							},
@@ -267,14 +328,23 @@ export class NgxDirectivesComponent extends BaseComponent<{
 							},
 						},
 						{
-							name: 'yoyo',
-							type: 'checkbox',
+							name: 'repeat',
+							type: 'select',
+							select: ['yoyo', 'repeat', 'once'],
 							change: () => {
 								this.changeNumber('ambientIntensity');
 							},
 						},
 						{
-							name: 'min',
+							name: 'easing',
+							type: 'select',
+							select: easingOptions,
+							change: () => {
+								this.changeNumber('ambientIntensity');
+							},
+						},
+						{
+							name: 'start',
 							type: 'number',
 							min: 0,
 							max: 0.5,
@@ -284,7 +354,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 							},
 						},
 						{
-							name: 'max',
+							name: 'end',
 							type: 'number',
 							min: 0.5,
 							max: 1.5,
@@ -293,7 +363,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 								this.changeNumber('ambientIntensity');
 							},
 						},
-					]
+					],
 				},
 				{
 					name: 'floorOpacity',
@@ -303,10 +373,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 						{
 							name: 'type',
 							type: 'select',
-							select: [
-								'opacity',
-								'none',
-							],
+							select: ['opacity', 'none'],
 							change: () => {
 								this.changeNumber('floorOpacity');
 							},
@@ -322,14 +389,23 @@ export class NgxDirectivesComponent extends BaseComponent<{
 							},
 						},
 						{
-							name: 'yoyo',
-							type: 'checkbox',
+							name: 'repeat',
+							type: 'select',
+							select: ['yoyo', 'repeat', 'once'],
 							change: () => {
 								this.changeNumber('floorOpacity');
 							},
 						},
 						{
-							name: 'min',
+							name: 'easing',
+							type: 'select',
+							select: easingOptions,
+							change: () => {
+								this.changeNumber('floorOpacity');
+							},
+						},
+						{
+							name: 'start',
 							type: 'number',
 							min: 0,
 							max: 0.5,
@@ -339,7 +415,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 							},
 						},
 						{
-							name: 'max',
+							name: 'end',
 							type: 'number',
 							min: 0.5,
 							max: 1,
@@ -348,9 +424,9 @@ export class NgxDirectivesComponent extends BaseComponent<{
 								this.changeNumber('floorOpacity');
 							},
 						},
-					]
+					],
 				},
-				
+
 				{
 					name: 'main',
 					type: 'folder',
@@ -385,6 +461,42 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									type: 'number',
 									min: -1,
 									max: 1,
+									step: 0.1,
+									change: () => {
+										this.changeRotate('main');
+									},
+								},
+								{
+									name: 'repeat',
+									type: 'select',
+									select: ['yoyo', 'repeat', 'once'],
+									change: () => {
+										this.changeRotate('main');
+									},
+								},
+								{
+									name: 'easing',
+									type: 'select',
+									select: easingOptions,
+									change: () => {
+										this.changeRotate('main');
+									},
+								},
+								{
+									name: 'start',
+									type: 'number',
+									min: 0,
+									max: 360,
+									step: 0.1,
+									change: () => {
+										this.changeRotate('main');
+									},
+								},
+								{
+									name: 'end',
+									type: 'number',
+									min: 0,
+									max: 360,
 									step: 0.1,
 									change: () => {
 										this.changeRotate('main');
@@ -427,14 +539,23 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'yoyo',
-									type: 'checkbox',
+									name: 'repeat',
+									type: 'select',
+									select: ['yoyo', 'repeat', 'once'],
 									change: () => {
 										this.changeScale('main');
 									},
 								},
 								{
-									name: 'min',
+									name: 'easing',
+									type: 'select',
+									select: easingOptions,
+									change: () => {
+										this.changeNumber('main');
+									},
+								},
+								{
+									name: 'start',
 									type: 'number',
 									min: 0,
 									max: 0.5,
@@ -444,7 +565,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'max',
+									name: 'end',
 									type: 'number',
 									min: 0.5,
 									max: 1.5,
@@ -489,14 +610,23 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'yoyo',
-									type: 'checkbox',
+									name: 'repeat',
+									type: 'select',
+									select: ['yoyo', 'repeat', 'once'],
 									change: () => {
 										this.changePosition('main');
 									},
 								},
 								{
-									name: 'min',
+									name: 'easing',
+									type: 'select',
+									select: easingOptions,
+									change: () => {
+										this.changeNumber('main');
+									},
+								},
+								{
+									name: 'start',
 									type: 'number',
 									min: -3,
 									max: 0,
@@ -506,7 +636,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'max',
+									name: 'end',
 									type: 'number',
 									min: 0,
 									max: 3,
@@ -516,7 +646,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 							],
-						},						
+						},
 					],
 				},
 				{
@@ -558,6 +688,42 @@ export class NgxDirectivesComponent extends BaseComponent<{
 										this.changeRotate('object1');
 									},
 								},
+								{
+									name: 'repeat',
+									type: 'select',
+									select: ['yoyo', 'repeat', 'once'],
+									change: () => {
+										this.changeRotate('object1');
+									},
+								},
+								{
+									name: 'easing',
+									type: 'select',
+									select: easingOptions,
+									change: () => {
+										this.changeRotate('object1');
+									},
+								},
+								{
+									name: 'start',
+									type: 'number',
+									min: 0,
+									max: 0.5,
+									step: 0.1,
+									change: () => {
+										this.changeRotate('object1');
+									},
+								},
+								{
+									name: 'end',
+									type: 'number',
+									min: 0.5,
+									max: 1.5,
+									step: 0.1,
+									change: () => {
+										this.changeRotate('object1');
+									},
+								},
 							],
 						},
 						{
@@ -595,14 +761,23 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'yoyo',
-									type: 'checkbox',
+									name: 'repeat',
+									type: 'select',
+									select: ['yoyo', 'repeat', 'once'],
 									change: () => {
 										this.changeScale('object1');
 									},
 								},
 								{
-									name: 'min',
+									name: 'easing',
+									type: 'select',
+									select: easingOptions,
+									change: () => {
+										this.changeScale('object1');
+									},
+								},
+								{
+									name: 'start',
 									type: 'number',
 									min: 0,
 									max: 0.5,
@@ -612,7 +787,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'max',
+									name: 'end',
 									type: 'number',
 									min: 0.5,
 									max: 1.5,
@@ -657,14 +832,23 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'yoyo',
-									type: 'checkbox',
+									name: 'repeat',
+									type: 'select',
+									select: ['yoyo', 'repeat', 'once'],
 									change: () => {
 										this.changePosition('object1');
 									},
 								},
 								{
-									name: 'min',
+									name: 'easing',
+									type: 'select',
+									select: easingOptions,
+									change: () => {
+										this.changePosition('object1');
+									},
+								},
+								{
+									name: 'start',
 									type: 'number',
 									min: -3,
 									max: 0,
@@ -674,7 +858,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'max',
+									name: 'end',
 									type: 'number',
 									min: 0,
 									max: 3,
@@ -726,6 +910,42 @@ export class NgxDirectivesComponent extends BaseComponent<{
 										this.changeRotate('object2');
 									},
 								},
+								{
+									name: 'repeat',
+									type: 'select',
+									select: ['yoyo', 'repeat', 'once'],
+									change: () => {
+										this.changeRotate('object2');
+									},
+								},
+								{
+									name: 'easing',
+									type: 'select',
+									select: easingOptions,
+									change: () => {
+										this.changeRotate('object2');
+									},
+								},
+								{
+									name: 'start',
+									type: 'number',
+									min: 0,
+									max: 0.5,
+									step: 0.1,
+									change: () => {
+										this.changeRotate('object2');
+									},
+								},
+								{
+									name: 'end',
+									type: 'number',
+									min: 0.5,
+									max: 1.5,
+									step: 0.1,
+									change: () => {
+										this.changeRotate('object2');
+									},
+								},
 							],
 						},
 						{
@@ -763,14 +983,23 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'yoyo',
-									type: 'checkbox',
+									name: 'repeat',
+									type: 'select',
+									select: ['yoyo', 'repeat', 'once'],
 									change: () => {
 										this.changeScale('object2');
 									},
 								},
 								{
-									name: 'min',
+									name: 'easing',
+									type: 'select',
+									select: easingOptions,
+									change: () => {
+										this.changeScale('object2');
+									},
+								},
+								{
+									name: 'start',
 									type: 'number',
 									min: 0,
 									max: 0.5,
@@ -780,7 +1009,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'max',
+									name: 'end',
 									type: 'number',
 									min: 0.5,
 									max: 1.5,
@@ -825,14 +1054,23 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'yoyo',
-									type: 'checkbox',
+									name: 'repeat',
+									type: 'select',
+									select: ['yoyo', 'repeat', 'once'],
 									change: () => {
 										this.changePosition('object2');
 									},
 								},
 								{
-									name: 'min',
+									name: 'easing',
+									type: 'select',
+									select: easingOptions,
+									change: () => {
+										this.changePosition('object2');
+									},
+								},
+								{
+									name: 'start',
 									type: 'number',
 									min: -3,
 									max: 0,
@@ -842,7 +1080,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'max',
+									name: 'end',
 									type: 'number',
 									min: 0,
 									max: 3,
@@ -894,6 +1132,42 @@ export class NgxDirectivesComponent extends BaseComponent<{
 										this.changeRotate('object3');
 									},
 								},
+								{
+									name: 'repeat',
+									type: 'select',
+									select: ['yoyo', 'repeat', 'once'],
+									change: () => {
+										this.changeRotate('object3');
+									},
+								},
+								{
+									name: 'easing',
+									type: 'select',
+									select: easingOptions,
+									change: () => {
+										this.changeRotate('object3');
+									},
+								},
+								{
+									name: 'start',
+									type: 'number',
+									min: 0,
+									max: 360,
+									step: 0.1,
+									change: () => {
+										this.changeRotate('object3');
+									},
+								},
+								{
+									name: 'end',
+									type: 'number',
+									min: 0,
+									max: 360,
+									step: 0.1,
+									change: () => {
+										this.changeRotate('object3');
+									},
+								},
 							],
 						},
 						{
@@ -931,14 +1205,23 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'yoyo',
-									type: 'checkbox',
+									name: 'repeat',
+									type: 'select',
+									select: ['yoyo', 'repeat', 'once'],
 									change: () => {
 										this.changeScale('object3');
 									},
 								},
 								{
-									name: 'min',
+									name: 'easing',
+									type: 'select',
+									select: easingOptions,
+									change: () => {
+										this.changeScale('object3');
+									},
+								},
+								{
+									name: 'start',
 									type: 'number',
 									min: 0,
 									max: 0.5,
@@ -948,7 +1231,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'max',
+									name: 'end',
 									type: 'number',
 									min: 0.5,
 									max: 1.5,
@@ -993,14 +1276,23 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'yoyo',
-									type: 'checkbox',
+									name: 'repeat',
+									type: 'select',
+									select: ['yoyo', 'repeat', 'once'],
 									change: () => {
 										this.changePosition('object3');
 									},
 								},
 								{
-									name: 'min',
+									name: 'easing',
+									type: 'select',
+									select: easingOptions,
+									change: () => {
+										this.changePosition('object3');
+									},
+								},
+								{
+									name: 'start',
 									type: 'number',
 									min: -3,
 									max: 0,
@@ -1010,7 +1302,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'max',
+									name: 'end',
 									type: 'number',
 									min: 0,
 									max: 3,
@@ -1062,6 +1354,42 @@ export class NgxDirectivesComponent extends BaseComponent<{
 										this.changeRotate('object4');
 									},
 								},
+								{
+									name: 'repeat',
+									type: 'select',
+									select: ['yoyo', 'repeat', 'once'],
+									change: () => {
+										this.changeRotate('object4');
+									},
+								},
+								{
+									name: 'easing',
+									type: 'select',
+									select: easingOptions,
+									change: () => {
+										this.changeRotate('object4');
+									},
+								},
+								{
+									name: 'start',
+									type: 'number',
+									min: 0,
+									max: 360,
+									step: 0.1,
+									change: () => {
+										this.changeRotate('object4');
+									},
+								},
+								{
+									name: 'end',
+									type: 'number',
+									min: 0,
+									max: 360,
+									step: 0.1,
+									change: () => {
+										this.changeRotate('object4');
+									},
+								},
 							],
 						},
 						{
@@ -1099,14 +1427,23 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'yoyo',
-									type: 'checkbox',
+									name: 'repeat',
+									type: 'select',
+									select: ['yoyo', 'repeat', 'once'],
 									change: () => {
 										this.changeScale('object4');
 									},
 								},
 								{
-									name: 'min',
+									name: 'easing',
+									type: 'select',
+									select: easingOptions,
+									change: () => {
+										this.changeScale('object4');
+									},
+								},
+								{
+									name: 'start',
 									type: 'number',
 									min: 0,
 									max: 0.5,
@@ -1116,7 +1453,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'max',
+									name: 'end',
 									type: 'number',
 									min: 0.5,
 									max: 1.5,
@@ -1161,14 +1498,15 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'yoyo',
-									type: 'checkbox',
+									name: 'repeat',
+									type: 'select',
+									select: ['yoyo', 'repeat', 'once'],
 									change: () => {
 										this.changePosition('object4');
 									},
 								},
 								{
-									name: 'min',
+									name: 'start',
 									type: 'number',
 									min: -3,
 									max: 0,
@@ -1178,7 +1516,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 									},
 								},
 								{
-									name: 'max',
+									name: 'end',
 									type: 'number',
 									min: 0,
 									max: 3,
@@ -1216,16 +1554,14 @@ export class NgxDirectivesComponent extends BaseComponent<{
 		this.changePosition('object3');
 		this.changePosition('object4');
 
-		this.changeNumber('directionalIntensity');		
-		this.changeNumber('ambientIntensity');		
-		this.changeNumber('floorOpacity');		
-		
-		
+		this.changeNumber('directionalIntensity');
+		this.changeNumber('ambientIntensity');
+		this.changeNumber('floorOpacity');
 	}
 
 	getObject3dRotateOption(
-		option: RotateOptions
-	): RotateOptions | string | Object3dFunction {
+		option: DirectiveOptions
+	): DirectiveOptions | string | Object3dFunction {
 		switch (option.type) {
 			case 'none':
 				return 'stop';
@@ -1244,11 +1580,18 @@ export class NgxDirectivesComponent extends BaseComponent<{
 					elapsedTime: number,
 					timer: RendererTimer
 				) => {
-					const angle = Math.sin(elapsedTime  * option.speed) * Math.PI;
+					const angle = Math.sin(elapsedTime * option.speed) * Math.PI;
 					object3d.rotation.set(angle, angle * 0.1, angle * 0.5);
 				};
 			default:
-				return { type: option.type, speed: option.speed };
+				return {
+					type: option.type,
+					speed: option.speed,
+					easing: option.easing,
+					repeat: option.repeat,
+					start: option.start,
+					end: option.end,
+				};
 		}
 	}
 
@@ -1310,9 +1653,10 @@ export class NgxDirectivesComponent extends BaseComponent<{
 				return {
 					type: option.type,
 					speed: option.speed,
-					yoyo: option.yoyo,
-					min: option.min,
-					max: option.max,
+					easing: option.easing,
+					repeat: option.repeat,
+					start: option.start,
+					end: option.end,
 				};
 		}
 	}
@@ -1360,9 +1704,9 @@ export class NgxDirectivesComponent extends BaseComponent<{
 					_: RendererTimer
 				) => {
 					const timeValue = elapsedTime * option.speed;
-					const x = Math.cos(timeValue)  * 5;
-					const z = Math.sin(timeValue)  * 5;
-					const y = Math.sin(timeValue * 5)*2  + 2;
+					const x = Math.cos(timeValue) * 5;
+					const z = Math.sin(timeValue) * 5;
+					const y = Math.sin(timeValue * 5) * 2 + 2;
 					object3d.position.set(x, y, z);
 				};
 			case 'rect':
@@ -1378,13 +1722,14 @@ export class NgxDirectivesComponent extends BaseComponent<{
 				return {
 					type: option.type,
 					speed: option.speed,
-					yoyo: option.yoyo,
-					min: option.min,
-					max: option.max,
+					easing: option.easing,
+					repeat: option.repeat,
+					start: option.start,
+					end: option.end,
 				};
 		}
 	}
-	
+
 	changePosition(type: string) {
 		switch (type) {
 			case 'main':
@@ -1422,21 +1767,18 @@ export class NgxDirectivesComponent extends BaseComponent<{
 			case 'none':
 				return 'stop';
 			case 'sin':
-				return (
-					object: any,
-					elapsedTime: number,
-					_: RendererTimer
-				) => {
+				return (object: any, elapsedTime: number, _: RendererTimer) => {
 					const timeValue = elapsedTime * option.speed;
-					object.intensity = Math.sin(timeValue)  * 0.5 + 0.5;
+					object.intensity = Math.sin(timeValue) * 0.5 + 0.5;
 				};
 			default:
 				return {
 					type: option.type,
 					speed: option.speed,
-					yoyo: option.yoyo,
-					min: option.min,
-					max: option.max,
+					easing: option.easing,
+					repeat: option.repeat,
+					start: option.start,
+					end: option.end,
 				};
 		}
 	}
@@ -1448,12 +1790,12 @@ export class NgxDirectivesComponent extends BaseComponent<{
 					this.controls.directionalIntensity
 				);
 				break;
-			case 'ambientIntensity' :
+			case 'ambientIntensity':
 				this.ngx3jsAmbientIntensity = this.getObjectNumberOption(
 					this.controls.ambientIntensity
 				);
 				break;
-			case 'floorOpacity' :
+			case 'floorOpacity':
 				this.ngx3jsFloorOpacity = this.getObjectNumberOption(
 					this.controls.floorOpacity
 				);
@@ -1461,11 +1803,11 @@ export class NgxDirectivesComponent extends BaseComponent<{
 		}
 	}
 
-	ngx3jsMainRotate: RotateOptions | string | Object3dFunction = null;
-	ngx3jsObject1Rotate: RotateOptions | string | Object3dFunction = null;
-	ngx3jsObject2Rotate: RotateOptions | string | Object3dFunction = null;
-	ngx3jsObject3Rotate: RotateOptions | string | Object3dFunction = null;
-	ngx3jsObject4Rotate: RotateOptions | string | Object3dFunction = null;
+	ngx3jsMainRotate: DirectiveOptions | string | Object3dFunction = null;
+	ngx3jsObject1Rotate: DirectiveOptions | string | Object3dFunction = null;
+	ngx3jsObject2Rotate: DirectiveOptions | string | Object3dFunction = null;
+	ngx3jsObject3Rotate: DirectiveOptions | string | Object3dFunction = null;
+	ngx3jsObject4Rotate: DirectiveOptions | string | Object3dFunction = null;
 
 	ngx3jsMainScale: DirectiveOptions | string | Object3dFunction = null;
 	ngx3jsObject1Scale: DirectiveOptions | string | Object3dFunction = null;
@@ -1482,5 +1824,4 @@ export class NgxDirectivesComponent extends BaseComponent<{
 	ngx3jsDirectionalIntensity: DirectiveOptions | string | ObjectFunction = null;
 	ngx3jsAmbientIntensity: DirectiveOptions | string | ObjectFunction = null;
 	ngx3jsFloorOpacity: DirectiveOptions | string | ObjectFunction = null;
-
 }
