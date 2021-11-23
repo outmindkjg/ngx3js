@@ -1,0 +1,221 @@
+<div class="info">
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	ngx font - ttf , json , MeshText(Canvas), Texture(Canvas)
+</div>
+<ngx3js-renderer
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
+		<ngx3js-position [x]="0" [y]="5" [z]="15"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x000000'">
+		<ngx3js-fog [color]="'0x000000'" [near]="15" [far]="20"></ngx3js-fog>
+		<ngx3js-light [type]="'Ambient'" [color]="'0x003973'" [intensity]="1"></ngx3js-light>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[castShadow]="true"
+			[shadowCameraTop]="6"
+			[shadowCameraBottom]="-6"
+			[shadowCameraLeft]="-6"
+			[shadowCameraRight]="6"
+			[shadowCameraNear]="0.1"
+			[shadowCameraFar]="100"
+		>
+			<ngx3js-position [x]="-3" [y]="10" [z]="20"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#boxTextureGeometry
+				[type]="'BoxGeometry'"
+				[width]="controls.size * 10"
+				[height]="controls.size"
+				[depth]="controls.size"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-shared (onLoad)="setShared($event)">
+			<ngx3js-texture
+				[type]="'map'"
+				[text]="controls.vietnamese.text"
+				[program]="'labeltrans'"
+				[width]="512"
+				[height]="70"
+			></ngx3js-texture>
+			<ngx3js-texture
+				[type]="'map'"
+				[text]="controls.japanese.text"
+				[program]="'labeltrans'"
+				[width]="512"
+				[height]="70"
+			></ngx3js-texture>
+			<ngx3js-texture
+				[type]="'map'"
+				[text]="controls.chinese.text"
+				[program]="'labeltrans'"
+				[width]="512"
+				[height]="70"
+			></ngx3js-texture>
+			<ngx3js-texture
+				[type]="'map'"
+				[text]="controls.korean.text"
+				[program]="'labeltrans'"
+				[width]="512"
+				[height]="70"
+			></ngx3js-texture>
+			<ngx3js-texture
+				[type]="'map'"
+				[text]="controls.english.text"
+				[program]="'labeltrans'"
+				[width]="512"
+				[height]="70"
+			></ngx3js-texture>
+			<ngx3js-material
+				#material1
+				[type]="'MeshPhongMaterial'"
+				[color]="controls.color"
+				[side]="'double'"
+			></ngx3js-material>
+			<ngx3js-material #material2 [type]="'MeshPhongMaterial'">
+				<ngx3js-texture
+					[type]="'map'"
+					[image]="'textures/crate.gif'"
+				></ngx3js-texture>
+			</ngx3js-material>
+			<ngx3js-material
+				#material3
+				[type]="'MeshPhongMaterial'"
+				[wireframe]="true"
+			></ngx3js-material>
+			<ngx3js-geometry
+				#vietnamese
+				[type]="'text'"
+				[text]="controls.vietnamese.text"
+				[font]="controls.vietnamese.font"
+				[size]="controls.size"
+				[height]="controls.height"
+				[align]="controls.align.leftRight + '/' + controls.align.topBottom+ '/' + controls.align.frontBack"
+				[curveSegments]="controls.curveSegments"
+				[bevelEnabled]="controls.bevel.bevelEnabled"
+				[bevelThickness]="controls.bevel.bevelThickness"
+				[bevelSize]="controls.bevel.bevelSize"
+				[bevelOffset]="controls.bevel.bevelOffset"
+				[bevelSegments]="controls.bevel.bevelSegments"
+			></ngx3js-geometry>
+			<ngx3js-geometry
+				#japanese
+				[type]="'text'"
+				[text]="controls.japanese.text"
+				[font]="controls.japanese.font"
+				[size]="controls.size"
+				[height]="controls.height"
+				[align]="controls.align.leftRight + '/' + controls.align.topBottom+ '/' + controls.align.frontBack"
+				[curveSegments]="controls.curveSegments"
+				[bevelEnabled]="controls.bevel.bevelEnabled"
+				[bevelThickness]="controls.bevel.bevelThickness"
+				[bevelSize]="controls.bevel.bevelSize"
+				[bevelOffset]="controls.bevel.bevelOffset"
+				[bevelSegments]="controls.bevel.bevelSegments"
+			></ngx3js-geometry>
+			<ngx3js-geometry
+				#chinese
+				[type]="'text'"
+				[text]="controls.chinese.text"
+				[font]="controls.chinese.font"
+				[size]="controls.size"
+				[height]="controls.height"
+				[align]="controls.align.leftRight + '/' + controls.align.topBottom+ '/' + controls.align.frontBack"
+				[curveSegments]="controls.curveSegments"
+				[bevelEnabled]="controls.bevel.bevelEnabled"
+				[bevelThickness]="controls.bevel.bevelThickness"
+				[bevelSize]="controls.bevel.bevelSize"
+				[bevelOffset]="controls.bevel.bevelOffset"
+				[bevelSegments]="controls.bevel.bevelSegments"
+			></ngx3js-geometry>
+			<ngx3js-geometry
+				#korean
+				[type]="'text'"
+				[text]="controls.korean.text"
+				[font]="controls.korean.font"
+				[size]="controls.size"
+				[height]="controls.height"
+				[align]="controls.align.leftRight + '/' + controls.align.topBottom+ '/' + controls.align.frontBack"
+				[curveSegments]="controls.curveSegments"
+				[bevelEnabled]="controls.bevel.bevelEnabled"
+				[bevelThickness]="controls.bevel.bevelThickness"
+				[bevelSize]="controls.bevel.bevelSize"
+				[bevelOffset]="controls.bevel.bevelOffset"
+				[bevelSegments]="controls.bevel.bevelSegments"
+			></ngx3js-geometry>
+			<ngx3js-geometry
+				#english
+				[type]="'text'"
+				[text]="controls.english.text"
+				[font]="controls.english.font"
+				[size]="controls.size"
+				[height]="controls.height"
+				[align]="controls.align.leftRight + '/' + controls.align.topBottom+ '/' + controls.align.frontBack"
+				[curveSegments]="controls.curveSegments"
+				[bevelEnabled]="controls.bevel.bevelEnabled"
+				[bevelThickness]="controls.bevel.bevelThickness"
+				[bevelSize]="controls.bevel.bevelSize"
+				[bevelOffset]="controls.bevel.bevelOffset"
+				[bevelSegments]="controls.bevel.bevelSegments"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-helper
+			[name]="'gridHelper'"
+			[type]="'GridHelper'"
+			[size]="100"
+			[divisions]="10"
+			[color1]="'0x888888'"
+			[color2]="'0x444444'"
+		>
+			<ngx3js-position [x]="0" [y]="-1" [z]="0"></ngx3js-position>
+		</ngx3js-helper>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				*ngFor="let info of fontMeshInfos"
+				[material]="info.material"
+				[geometry]="info.geometry"
+			>
+				<ngx3js-position
+					[x]="info.x"
+					[y]="info.y"
+					[z]="info.z"
+				></ngx3js-position>
+				<ngx3js-helper [type]="'AxesHelper'" [size]="1"></ngx3js-helper>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				*ngFor="let info of fontTextInfo"
+				[type]="'text'"
+				[text]="info.text.text"
+				[size]="controls.size"
+				[color]="controls.color"
+			>
+				<ngx3js-position
+					[x]="info.x"
+					[y]="info.y"
+					[z]="info.z"
+				></ngx3js-position>
+			</ngx3js-mesh>
+			<ngx3js-mesh *ngFor="let info of fontTexureInfo" [geometry]="boxTextureGeometry">
+				<ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+				<ngx3js-material
+					[type]="'MeshPhongMaterial'"
+					[transparent]="true"
+					[color]="controls.color"
+					[map]="info.texture"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>

@@ -1,6 +1,6 @@
 {
   "name": "three-sample",
-  "version": "0.134.0-2021112221",
+  "version": "0.134.0-2021112317",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -14,7 +14,7 @@
     "maxbuildprod": "node --max_old_space_size=5000 ./node_modules/@angular/cli/bin/ng build --configuration production",
     "doccopy": "rm -rf docs && cp -rf ../ngx3js-module/docs ./ &&  rm -rf ../ngx3js-doc/* && cp -rf dist/ngx3js-doc/* ../ngx3js-doc/ && cp -rf ../ngx3js-module/docs ../ngx3js-doc/ && cp ../ngx3js-module/README.md ../ngx3js-doc/ && cp ../ngx3js-module/LICENSE ../ngx3js-doc/ "
   },
-  "browser": { 
+  "browser": {
     "crypto": false,
     "fs": false,
     "path": false,

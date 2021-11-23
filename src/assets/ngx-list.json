@@ -84,8 +84,8 @@
       },
       "Directive & Pipes" : {
         "AbstractThreeDirective": "ngxapi/en/AbstractThreeDirective",
-        "PositionDirective": "ngxapi/en/PositionDirective",
         "AbstractObject3dDirective": "ngxapi/en/AbstractObject3dDirective",
+        "PositionDirective": "ngxapi/en/PositionDirective",
         "ScaleDirective": "ngxapi/en/ScaleDirective",
         "RotateDirective": "ngxapi/en/RotateDirective",
         "NumberDirective": "ngxapi/en/NumberDirective",

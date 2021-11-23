@@ -46,6 +46,7 @@ import { NgxChartRadarComponent } from './examples/ngx-chart-radar/ngx-chart-rad
 import { NgxChartScatterComponent } from './examples/ngx-chart-scatter/ngx-chart-scatter.component';
 import { NgxControlComponent } from './examples/ngx-control/ngx-control.component';
 import { NgxDirectivesComponent } from './examples/ngx-directives/ngx-directives.component';
+import { NgxFontComponent } from './examples/ngx-font/ngx-font.component';
 import { NgxGeometryComponent } from './examples/ngx-geometry/ngx-geometry.component';
 import { NgxHudComponent } from './examples/ngx-hud/ngx-hud.component';
 import { NgxLightComponent } from './examples/ngx-light/ngx-light.component';
@@ -1576,6 +1577,7 @@ const routes: Routes = [
 			{ path: 'webgl_loader_ifc', component: WebglLoaderIfcComponent },
 			{ path: 'ngx_material', component: NgxMaterialComponent },
 			{ path: 'ngx_geometry', component: NgxGeometryComponent },
+			{ path: 'ngx_font', component: NgxFontComponent },
 			{ path: 'ngx_chart_bar', component: NgxChartBarComponent },
 			{ path: 'ngx_chart_line', component: NgxChartLineComponent },
 			{ path: 'ngx_chart_radar', component: NgxChartRadarComponent },

@@ -8,6 +8,7 @@
 		"ngx_light",
 		"ngx_material",
 		"ngx_geometry",
+		"ngx_font",
 		"ngx_pipes",
 		"ngx_directives",
 		"ngx_physics",
