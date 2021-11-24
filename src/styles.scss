@@ -4,11 +4,22 @@
 
 pre.prettyprint,
 code.prettyprint {
-	background-color: #f5f5f5;
 	font-family: 'Roboto Mono', monospace;
+	border-width: 5px;
+	border-style: solid;
+	border-radius: 10px;
+	background-color: #f5f5f5;
+	border-color: #d6d6d6;
+	transition: border-radius 1s, background-color 1s;
+	&:hover {
+		background-color: #ffffff;
+		border-color: #a3a3a3;
+		border-radius: 30px;
+		box-shadow: 0px 0px 10px 5px #888888;
+	}
 }
 
-.lil-gui.root>div.children {
+.lil-gui.root > div.children {
 	background-color: var(--background-color);
 	max-height: calc(100vh - 200px) !important;
 }
@@ -16,8 +27,13 @@ code.prettyprint {
 @media (prefers-color-scheme: dark) {
 	pre.prettyprint,
 	code.prettyprint {
-		background-color: #797979;
-		color: #a0a0a0;
+		color: #000000;
+		background-color: #363636;
+		border-color: #4b4b4b;
+		&:hover {
+			background-color: #a5a5a5;
+			border-color: #686868;
+		}
 	}
 }
 
@@ -174,32 +190,31 @@ code.prettyprint {
 div#example,
 div#docs {
 	hr.interface-line {
-		margin : 1rem 0;
+		margin: 1rem 0;
 		border: 2px solid var(--secondary-text-color);
 	}
-		i.modifier {
-			display: inline-block;
-			line-height: 120%;
-			font-size: 0.7em;
-			padding: 0.1em 0.3em;
-			margin-left: 0.5em;
-			border-radius: 3px;
-			border: var(--border-style);
-			color: var(--background-color);
-			background-color: var(--text-color);
-			vertical-align: middle;
-			&.modifier-public {
-				color: var(--secondary-background-color);
-				background-color: var(--secondary-text-color);
-			}
-			&.modifier-input {
-				background-color: var(--color-blue);
-			}
-			&.modifier-output {
-				background-color: var(--color-red);
-			}
-
+	i.modifier {
+		display: inline-block;
+		line-height: 120%;
+		font-size: 0.7em;
+		padding: 0.1em 0.3em;
+		margin-left: 0.5em;
+		border-radius: 3px;
+		border: var(--border-style);
+		color: var(--background-color);
+		background-color: var(--text-color);
+		vertical-align: middle;
+		&.modifier-public {
+			color: var(--secondary-background-color);
+			background-color: var(--secondary-text-color);
 		}
+		&.modifier-input {
+			background-color: var(--color-blue);
+		}
+		&.modifier-output {
+			background-color: var(--color-red);
+		}
+	}
 	height: 100%;
 	position: relative;
 	a.button {
@@ -221,11 +236,9 @@ div#docs {
 	a.button.download {
 		bottom: 80px;
 	}
-
 	a.button.ngxgithub {
 		right: 80px;
 	}
-
 	a.button:hover {
 		opacity: 1;
 		transform: rotate(360deg);

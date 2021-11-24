@@ -3,15 +3,12 @@
   "version": "0.134.0-2021112317",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "node --max_old_space_size=5000 ./node_modules/@angular/cli/bin/ng serve --port 4300",
+    "build": "node --max_old_space_size=5000 ./node_modules/@angular/cli/bin/ng build --configuration production",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "maxmem": "node --max_old_space_size=5000 ./node_modules/@angular/cli/bin/ng serve --port 4300",
-    "ngx3jswatch": "cd ../ngx3js-module/ && ng build ngx3js --watch --configuration development",
-    "maxbuild": "node --max_old_space_size=5000 ./node_modules/@angular/cli/bin/ng build",
-    "maxbuildprod": "node --max_old_space_size=5000 ./node_modules/@angular/cli/bin/ng build --configuration production",
+    "devbuild": "node --max_old_space_size=5000 ./node_modules/@angular/cli/bin/ng build",
     "doccopy": "rm -rf docs && cp -rf ../ngx3js-module/docs ./ &&  rm -rf ../ngx3js-doc/* && cp -rf dist/ngx3js-doc/* ../ngx3js-doc/ && cp -rf ../ngx3js-module/docs ../ngx3js-doc/ && cp ../ngx3js-module/README.md ../ngx3js-doc/ && cp ../ngx3js-module/LICENSE ../ngx3js-doc/ "
   },
   "browser": {
