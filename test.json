@@ -1,0 +1,47 @@
+{
+	"id": 7049,
+	"name": "__type",
+	"kind": 65536,
+	"kindString": "Type literal",
+	"flags": {},
+	"sources": [
+		{ "fileName": "src/lib/directive.abstract.ts", "line": 23, "character": 31 }
+	],
+	"signatures": [
+		{
+			"id": 7050,
+			"name": "__type",
+			"kind": 4096,
+			"kindString": "Call signature",
+			"flags": {},
+			"comment": { "shortText": "Object3dFunction" },
+			"parameters": [
+				{
+					"id": 7051,
+					"name": "object3d",
+					"kind": 32768,
+					"kindString": "Parameter",
+					"flags": {},
+					"type": { "type": "reference", "name": "THREE.Object3D" }
+				},
+				{
+					"id": 7052,
+					"name": "elapsedTime",
+					"kind": 32768,
+					"kindString": "Parameter",
+					"flags": { "isOptional": true },
+					"type": { "type": "intrinsic", "name": "number" }
+				},
+				{
+					"id": 7053,
+					"name": "timer",
+					"kind": 32768,
+					"kindString": "Parameter",
+					"flags": { "isOptional": true },
+					"type": { "type": "reference", "id": 9558, "name": "RendererTimer" }
+				}
+			],
+			"type": { "type": "intrinsic", "name": "void" }
+		}
+	]
+}

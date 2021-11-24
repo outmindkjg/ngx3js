@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>RigidbodyNodeComponent</h1>
 
 		<p class="desc">
 			Component
@@ -33,39 +33,34 @@
 		&gt;&lt;/ngx3js-rigidbody-node&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:any body]</h3>
+		<h3>[property:any body]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The body of rigidbody node component
 		</p>
 
-		<h3>[property:boolean disableCollisionBetweenLinkedBodies]</h3>
+		<h3>[property:boolean disableCollisionBetweenLinkedBodies]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The disableCollisionBetweenLinkedBodies of rigidbody node component
 		</p>
 
-		<h3>[property:number influence]</h3>
+		<h3>[property:number influence]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The influence of rigidbody node component
 		</p>
 
-		<h3>[property:number node]</h3>
+		<h3>[property:number node]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The node of rigidbody node component
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of rigidbody node component
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -73,15 +68,24 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:btTypedConstraint getRigidbodyNode](  )</h3>
+		<h3>[method:RigidbodyNodeComponent constructor](  )</h3>
+		<p>
+			Creates an instance of rigidbody node component.
+		</p>
+
+		<h3>[method:btTypedConstraint getRigidbodyNode](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets rigidbody node<br>
 			<br>
 			Returns : rigidbody node
 		</p>
 
-		<h3>[method:void setRigidbody](  [param:btSoftBody rigidBody],  [param:btSoftRigidDynamicsWorld physics],  [param:any ammo] )</h3>
+		<h3>[method:void setRigidbody](  [param:btSoftBody rigidBody],  [param:btSoftRigidDynamicsWorld physics],  [param:any ammo] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:btSoftBody rigidBody] - The rigid body.<br />
+			[page:btSoftRigidDynamicsWorld physics] - The physics.<br />
+			[page:any ammo] - The ammo.<br /><br />
+
 			Sets rigidbody
 		</p>
 

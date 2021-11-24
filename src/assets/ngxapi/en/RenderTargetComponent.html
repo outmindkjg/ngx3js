@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTextureComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>RenderTargetComponent</h1>
 
 		<p class="desc">
 			RenderTargetComponent<br>
@@ -74,59 +74,49 @@
 		&gt;&lt;/ngx3js-render-target&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractTextureComponent AbstractTextureComponent] class for common input properties.
+			See the base [page:AbstractTextureComponent AbstractTextureComponent] class for common properties.
 		</p>
 
-		<h3>[property:number count]</h3>
+		<h3>[property:number count]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The count of render target component
 		</p>
 
-		<h3>[property:boolean depthBuffer]</h3>
+		<h3>[property:boolean depthBuffer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The depthBuffer of composer component
 		</p>
 
-		<h3>[property:any depthTexture]</h3>
+		<h3>[property:any depthTexture]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The depthTexture of composer component
 		</p>
 
-		<h3>[property:number size]</h3>
+		<h3>[property:number size]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The size of render target component
 		</p>
 
-		<h3>[property:boolean stencilBuffer]</h3>
+		<h3>[property:boolean stencilBuffer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The stencilBuffer of composer component
 		</p>
 
-		<h3>[property:mixed targetSize]</h3>
+		<h3>[property:Vector2|SizeComponent targetSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The targetSize of pass component<br>
-			<br>
-			[page:Vector2 Vector2] | [page:SizeComponent SizeComponent]
+			The targetSize of pass component
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of render target component<br>
 			<br>
 			Notice - case insensitive.
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
-		</p>
-		<p>
-			See the base [page:AbstractTextureComponent AbstractTextureComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -137,21 +127,26 @@
 			See the base [page:AbstractTextureComponent AbstractTextureComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<h3>[method:RenderTargetComponent constructor](  )</h3>
 		<p>
-			Applys changes<br>
-			<br>
-			Returns :
+			Creates an instance of render target component.
 		</p>
 
-		<h3>[method:T getRenderTarget](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
+			Applys changes
+		</p>
+
+		<h3>[method:T getRenderTarget](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets render target<br>
 			<br>
 			Returns : render target
 		</p>
 
-		<h3>[method:T getTexture](  )</h3>
+		<h3>[method:T getTexture](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets texture<br>
 			<br>

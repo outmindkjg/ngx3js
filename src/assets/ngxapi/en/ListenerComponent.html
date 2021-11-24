@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>ListenerComponent</h1>
 
 		<p class="desc">
 			ListenerComponent<br>
@@ -51,31 +51,20 @@
 		&gt;&lt;/ngx3js-listener&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common input properties.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common input properties.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common properties.
 		</p>
 
-		<h3>[property:number volume]</h3>
+		<h3>[property:number volume]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Set the volume.
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
-		</p>
-		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common output properties.
-		</p>
-		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -89,27 +78,36 @@
 			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges3d](  [param:string changes][] )</h3>
+		<h3>[method:ListenerComponent constructor](  )</h3>
 		<p>
+			Creates an instance of listener component.
+		</p>
+
+		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
 			Applys changes3d
 		</p>
 
-		<h3>[method:AudioListener getListener](  )</h3>
+		<h3>[method:AudioListener getListener](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets listener<br>
 			<br>
 			Returns : listener
 		</p>
 
-		<h3>[method:T getObject3d](  )</h3>
+		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets object3d<br>
 			<br>
 			Returns : object3d
 		</p>
 
-		<h3>[method:boolean setParent](  [param:Object3D parent] )</h3>
+		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:Object3D parent] - The parent.<br /><br />
+
 			Sets parent<br>
 			<br>
 			Returns : true if parent

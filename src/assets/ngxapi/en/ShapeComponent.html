@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>ShapeComponent</h1>
 
 		<p class="desc">
 			ShapeComponent<br>
@@ -51,111 +51,106 @@
 		&gt;&lt;/ngx3js-shape&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:number aCP1x]</h3>
+		<h3>[property:number aCP1x]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The aCP1x of shape component
 		</p>
 
-		<h3>[property:number aCP1y]</h3>
+		<h3>[property:number aCP1y]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The aCP1y of shape component
 		</p>
 
-		<h3>[property:number aCP2x]</h3>
+		<h3>[property:number aCP2x]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The aCP2x of shape component
 		</p>
 
-		<h3>[property:number aCP2y]</h3>
+		<h3>[property:number aCP2y]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The aCP2y of shape component
 		</p>
 
-		<h3>[property:number aCPx]</h3>
+		<h3>[property:number aCPx]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The aCPx of shape component
 		</p>
 
-		<h3>[property:number aCPy]</h3>
+		<h3>[property:number aCPy]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The aCPy of shape component
 		</p>
 
-		<h3>[property:boolean aClockwise]</h3>
+		<h3>[property:boolean aClockwise]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The aClockwise of shape component
 		</p>
 
-		<h3>[property:number aEndAngle]</h3>
+		<h3>[property:number aEndAngle]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The aEndAngle of shape component
 		</p>
 
-		<h3>[property:number aRadius]</h3>
+		<h3>[property:number aRadius]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The aRadius of shape component
 		</p>
 
-		<h3>[property:number aRotation]</h3>
+		<h3>[property:number aRotation]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The aRotation of shape component
 		</p>
 
-		<h3>[property:number aStartAngle]</h3>
+		<h3>[property:number aStartAngle]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The aStartAngle of shape component
 		</p>
 
-		<h3>[property:number aX]</h3>
+		<h3>[property:number aX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The aX of shape component
 		</p>
 
-		<h3>[property:number aY]</h3>
+		<h3>[property:number aY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The aY of shape component
 		</p>
 
-		<h3>[property:ThreeVector points][]</h3>
+		<h3>[property:ThreeVector[] points]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The points of shape component
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of shape component<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:number x]</h3>
+		<h3>[property:number x]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The x of shape component
 		</p>
 
-		<h3>[property:number xRadius]</h3>
+		<h3>[property:number xRadius]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The xRadius of shape component
 		</p>
 
-		<h3>[property:number y]</h3>
+		<h3>[property:number y]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The y of shape component
 		</p>
 
-		<h3>[property:number yRadius]</h3>
+		<h3>[property:number yRadius]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The yRadius of shape component
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -163,17 +158,24 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:void getShape](  [param:mixed shape] )</h3>
+		<h3>[method:ShapeComponent constructor](  )</h3>
 		<p>
+			Creates an instance of shape component.
+		</p>
+
+		<h3>[method:Shape|Path getShape](  [param:Shape|Path shape] )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[page:Shape|Path shape] - The shape.<br /><br />
+
 			Gets shape<br>
-			<br>
-			[page:Shape Shape] | [page:Path Path]<br>
 			<br>
 			Returns : shape
 		</p>
 
-		<h3>[method:boolean setParent](  [param:AbstractGeometryComponent parent] )</h3>
+		<h3>[method:boolean setParent](  [param:AbstractGeometryComponent parent] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:AbstractGeometryComponent parent] - The parent.<br /><br />
+
 			Sets parent<br>
 			<br>
 			Returns : true if parent

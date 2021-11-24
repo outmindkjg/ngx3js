@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>VisualComponent</h1>
 
 		<p class="desc">
 			VisualComponent<br>
@@ -41,69 +41,58 @@
 		&gt;&lt;/ngx3js-visual&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:mixed checked]</h3>
+		<h3>[property:string|number checked]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The checked of visual component<br>
-			<br>
-			[page:string string] | [page:number number]
+			The checked of visual component
 		</p>
 
-		<h3>[property:string childType]</h3>
+		<h3>[property:string childType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of visual component<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:mixed inputType]</h3>
+		<h3>[property:string|number inputType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The inputType of visual component<br>
-			<br>
-			[page:string string] | [page:number number]
+			The inputType of visual component
 		</p>
 
-		<h3>[property:string name]</h3>
+		<h3>[property:string name]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The name of the object (doesn't need to be unique). Default is an empty string.
 		</p>
 
-		<h3>[property:any radioValues]</h3>
+		<h3>[property:any radioValues]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The radioValues of visual component
 		</p>
 
-		<h3>[property:any selectOptions]</h3>
+		<h3>[property:any selectOptions]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The selectOptions of visual component
 		</p>
 
-		<h3>[property:string src]</h3>
+		<h3>[property:string src]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The src of visual component
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of visual component<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:mixed value]</h3>
+		<h3>[property:string|number value]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The value of visual component<br>
-			<br>
-			[page:string string] | [page:number number]
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+			The value of visual component
 		</p>
 
 		<h2>Methods</h2>
@@ -111,43 +100,56 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges2d](  [param:string changes][] )</h3>
+		<h3>[method:VisualComponent constructor](  [param:ElementRef ele] )</h3>
 		<p>
+			[page:ElementRef ele] - The ele.<br /><br />
+
+			Creates an instance of visual component.
+		</p>
+
+		<h3>[method:void applyChanges2d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
 			Applys changes2d
 		</p>
 
-		<h3>[method:void applyHtmlStyle](  )</h3>
+		<h3>[method:void applyHtmlStyle](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Applys html style
 		</p>
 
-		<h3>[method:HtmlCollection getCollection](  )</h3>
+		<h3>[method:HtmlCollection getCollection](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets collection<br>
 			<br>
 			Returns : collection
 		</p>
 
-		<h3>[method:CssStyle getStyle](  )</h3>
+		<h3>[method:CssStyle getStyle](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets style<br>
 			<br>
 			Returns : style
 		</p>
 
-		<h3>[method:HTMLElement getVisual](  )</h3>
+		<h3>[method:HTMLElement getVisual](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets visual<br>
 			<br>
 			Returns : visual
 		</p>
 
-		<h3>[method:void setParentNode](  [param:HTMLElement parentNode],  [param:Vector2 parentSize],  [param:HtmlCollection parentCollection] )</h3>
+		<h3>[method:void setParentNode](  [param:HTMLElement parentNode],  [param:Vector2 parentSize],  [param:HtmlCollection parentCollection] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:HTMLElement parentNode] - The parent node.<br />
+			[page:Vector2 parentSize] - The parent size.<br />
+			[page:HtmlCollection parentCollection] - The parent collection.<br /><br />
+
 			Sets parent node
 		</p>
 
-		<hr>
+		<hr class="interface-line"/>
 		<h1 id="HtmlCollection">HtmlCollection</h1>
 
 		<p class="desc">
@@ -155,6 +157,10 @@
 		</p>
 
 		<h2>Properties</h2>
+		<p>
+			None
+		</p>
+
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three//visual/visual.component.ts /visual/visual.component.ts]</p>
 	</body>

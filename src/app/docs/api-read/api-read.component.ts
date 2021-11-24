@@ -109,38 +109,95 @@ export class ApiReadComponent implements OnInit {
 		let text = html;
 		text = text.replace(/\[name\]/gi, name);
 		text = text.replace(/\[path\]/gi, path);
-		text = text.replace(/\[page:([\w\.]+)\]/gi, '[page:$1 $1]'); // [page:name] to [page:name title]
+		text = text.replace(/\[page:([\w\.]+)(\[\]|)\]/gi, '[page:$1$2 $1]'); // [page:name] to [page:name title]
 		text = text.replace(/src=\"scenes\/([^\"]+)\"/gi, 'src="assets/scenes/$1"'); // [page:name] to [page:name title]
 
 		text = text.replace(
-			/\[page:\.([\w\.]+) ([\w\.\s]+)\]/gi,
-			'[page:' + name + '.$1 $2]'
+			/\[page:\.([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
+			'[page:' + name + '.$1$2 $3]'
 		); // [page:.member title] to [page:name.member title]
 		text = text.replace(
-			/\[page:([\w\.]+) ([\w\.\s]+)\]/gi,
-			'<a href="#$1" title="$1">$2</a>'
+			/\[page:([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
+			'<a href="#$1" title="$1$2">$3</a> : <a href="#$1" title="$1$2">$1$2</a>'
 		); // [page:name title]
-		// text = text.replace( /\[member:.([\w]+) ([\w\.\s]+)\]/gi, "<a href=\"#" + name + ".$1\" title=\"$1\">$2</a>" );
-
 		text = text.replace(
-			/\[(member|property|method|param):([\w]+)\]/gi,
-			'[$1:$2 $2]'
+			/\[page:([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
+			'<a href="#$1" title="$1$2">$5</a> : <a href="#$1" title="$1$2">$1$2</a> | <a href="#$3" title="$3$4">$3$4</a>'
+		); // [page:name|name title]
+		text = text.replace(
+			/\[page:([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
+			'<a href="#$1" title="$1$2">$7</a> : <a href="#$1" title="$1$2">$1$2</a> | <a href="#$3" title="$3$4">$3$4</a> | <a href="#$5" title="$5$6">$5$6</a>'
+		); // [page:name|name|name title]
+
+		
+		text = text.replace(
+			/\[(member|property|method|param):([\w\.]+)(\[\]|)\]/gi,
+			'[$1:$2$3 $2]'
 		); // [member:name] to [member:name title]
 		text = text.replace(
-			/\[(?:member|property|method):([\w]+) ([\w\.\s]+)\]\s*(\(.*\))?/gi,
+			/\[(?:member|property|method):([\w\.]+)(\[\]|) ([\w\.\s]+)\]\s*(\(.*\)|\?)?/gi,
+			'<a href="#' +
+				name +
+				'.$3" title="' +
+				name +
+				'.$3" class="permalink">#</a> .<a href="#' +
+				name +
+				'.$3" id="$3">$3</a> $4 : <a class="param" href="#$1">$1</a>$2'
+		);
+		text = text.replace(
+			/\[(?:member|property|method):([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]\s*(\(.*\)|\?)?/gi,
+			'<a href="#' +
+				name +
+				'.$5" title="' +
+				name +
+				'.$5" class="permalink">#</a> .<a href="#' +
+				name +
+				'.$5" id="$5">$5</a> $6 : <a class="param" href="#$1">$1</a>$2 | <a class="param" href="#$3">$3</a>$4'
+		);
+		text = text.replace(
+			/\[(?:member|property|method):([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]\s*(\(.*\)|\?)?/gi,
+			'<a href="#' +
+				name +
+				'.$7" title="' +
+				name +
+				'.$7" class="permalink">#</a> .<a href="#' +
+				name +
+				'.$7" id="$7">$7</a> $8 : <a class="param" href="#$1">$1</a>$2 | <a class="param" href="#$3">$3</a>$4 | <a class="param" href="#$5">$5</a>$6'
+		);
+		text = text.replace(
+			/\[(?:member|property|method):([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]\s*(\(.*\)|\?)?/gi,
+			'<a href="#' +
+				name +
+				'.$9" title="' +
+				name +
+				'.$9" class="permalink">#</a> .<a href="#' +
+				name +
+				'.$9" id="$9">$9</a> $10 : <a class="param" href="#$1">$1</a>$2 | <a class="param" href="#$3">$3</a>$4 | <a class="param" href="#$5">$5</a>$6 | <a class="param" href="#$7">$7</a>$8'
+		);
+		text = text.replace(
+			/\[(?:member|property|method):([^ ]+) ([\w\.\s]+)\]\s*(\(.*\)|\?)?/gi,
 			'<a href="#' +
 				name +
 				'.$2" title="' +
 				name +
 				'.$2" class="permalink">#</a> .<a href="#' +
 				name +
-				'.$2" id="$2">$2</a> $3 : <a class="param" href="#$1">$1</a>'
+				'.$2" id="$2">$2</a> $3 : <span class="param">$1</span>'
 		);
-		text = text.replace(
-			/\[param:([\w\.]+) ([\w\.\s]+)\]/gi,
-			'$2 : <a class="param" href="#$1">$1</a>'
-		); // [param:name title]
 
+		
+		text = text.replace(
+			/\[param:([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
+			'$3 : <a class="param" href="#$1">$1</a>$2'
+		); // [param:name title]
+		text = text.replace(
+			/\[param:([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
+			'$5 : <a class="param" href="#$1">$1</a>$2 | <a class="param" href="#$3">$3</a>$4'
+		); // [param:name|name title]
+		text = text.replace(
+			/\[param:([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
+			'$7 : <a class="param" href="#$1">$1</a>$2 | <a class="param" href="#$3">$3</a>$4 | <a class="param" href="#$5">$5</a>$6'
+		); // [param:name|name| title]
 		text = text.replace(/\[link:([\w|\:|\/|\.|\-|\_]+)\]/gi, '[link:$1 $1]'); // [link:url] to [link:url title]
 		text = text.replace(
 			/\[link:([\w|\:|\/|\.|\-|\_|\(|\)|\?|\#|\=|\!]+) ([\w|\:|\/|\.|\-|\_|\s]+)\]/gi,
@@ -157,8 +214,16 @@ export class ApiReadComponent implements OnInit {
 			'<a href="#examples/$1">$2</a>'
 		); // [example:name title]
 
-		// text = text.replace( /<a class="param" onclick="window.setUrlFragment\('\w+'\)">(null|this|Boolean|Object|Array|Number|String|Integer|Float|TypedArray|ArrayBuffer)<\/a>/gi, '<span class="param">$1</span>' ); // remove links to primitive types
-		// text = text.replace(/\<code /gi, "<code class='prettyprint' ").replace(/\<code>/gi, "<code class='prettyprint'>");
+		text = text.replace(
+			/(\w|\')\|(\w|\')/gi,
+			'$1 | $2'
+		);
+		text = text.replace(
+			/emptyName : /gi,
+			''
+		);
+
+		text = text.replace(/\<code>/gi, "<pre><code>").replace(/\<code /gi, "<pre><code ").replace(/\<\/code>/gi, "</code></pre>");
 		this.docEle.nativeElement.innerHTML = text;
 		const links = this.docEle.nativeElement.getElementsByTagName('a');
 		for (let i = 0; i < links.length; i++) {
@@ -192,12 +257,14 @@ export class ApiReadComponent implements OnInit {
 			const language = code.dataset.type || 'javascript';
 			const languageSubset : string[] = [ 'html', 'css', 'javascript' ];
 			code.classList.add('prettyprint');
+			code.classList.add('hljs');
 			switch(language) {
 				case 'text' :
 					code.classList.add('language-plaintext');
 					languageSubset.push('plaintext');
 					break;
 				case 'ts' :
+				case 'typescript' :
 				case 'javascript' :
 					code.classList.add('language-javascript');
 					languageSubset.push('javascript');
@@ -225,7 +292,6 @@ export class ApiReadComponent implements OnInit {
 				innerText = innerText.substring(1);
 				innerText = innerText.replace(/\n\t/g,'\n');
 			}
-			console.log(innerText);
 			this.highlightJS
 				.highlightAuto(innerText, languageSubset)
 				.subscribe((hi: HighlightResult) => {

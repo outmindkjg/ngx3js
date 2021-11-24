@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>PhysicsComponent</h1>
 
 		<p class="desc">
 			PhysicsComponent<br>
@@ -46,46 +46,41 @@
 		&gt;&lt;/ngx3js-physics&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:number gravity]</h3>
+		<h3>[property:number gravity]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The gravity of physics component
 		</p>
 
-		<h3>[property:number gravityX]</h3>
+		<h3>[property:number gravityX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The gravityX of physics component
 		</p>
 
-		<h3>[property:number gravityY]</h3>
+		<h3>[property:number gravityY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The gravityY of physics component
 		</p>
 
-		<h3>[property:number gravityZ]</h3>
+		<h3>[property:number gravityZ]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The gravityZ of physics component
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of physics component<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:boolean useCollision]</h3>
+		<h3>[property:boolean useCollision]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The useCollision of physics component
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -93,64 +88,75 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<h3>[method:PhysicsComponent constructor](  )</h3>
 		<p>
-			Applys changes<br>
-			<br>
-			Returns :
+			Creates an instance of physics component.
 		</p>
 
-		<h3>[method:AmmoType getAmmo](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			Gets ammo<br>
-			<br>
-			Returns :
+			[page:string[] changes] - The changes.<br /><br />
+
+			Applys changes
 		</p>
 
-		<h3>[method:any getBtVector3](  [param:any pointer] )</h3>
+		<h3>[method:AmmoType getAmmo](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			Gets ammo
+		</p>
+
+		<h3>[method:any getBtVector3](  [param:any pointer] )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[page:any pointer] - The pointer.<br /><br />
+
 			Gets bt vector3<br>
 			<br>
 			Returns : bt vector3
 		</p>
 
-		<h3>[method:Object3D getCollisionObject](  [param:btCollisionObject body] )</h3>
+		<h3>[method:Object3D getCollisionObject](  [param:btCollisionObject body] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:btCollisionObject body] - The body.<br /><br />
+
 			Gets collision object<br>
 			<br>
 			Returns : collision object
 		</p>
 
-		<h3>[method:ConvexObjectBreaker getConvexObjectBreaker](  )</h3>
+		<h3>[method:ConvexObjectBreaker getConvexObjectBreaker](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets convex object breaker<br>
 			<br>
 			Returns : convex object breaker
 		</p>
 
-		<h3>[method:btSoftRigidDynamicsWorld getPhysics](  )</h3>
+		<h3>[method:btSoftRigidDynamicsWorld getPhysics](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets physics<br>
 			<br>
 			Returns : physics
 		</p>
 
-		<h3>[method:btRigidBody getRigidBody](  [param:btCollisionObject body] )</h3>
+		<h3>[method:btRigidBody getRigidBody](  [param:btCollisionObject body] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:btCollisionObject body] - The body.<br /><br />
+
 			Gets rigid body<br>
 			<br>
 			Returns : rigid body
 		</p>
 
-		<h3>[method:btSoftBodyHelpers getSoftBodyHelpers](  )</h3>
+		<h3>[method:btSoftBodyHelpers getSoftBodyHelpers](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets soft body helpers<br>
 			<br>
 			Returns : soft body helpers
 		</p>
 
-		<h3>[method:void update](  [param:RendererTimer timer] )</h3>
+		<h3>[method:void update](  [param:RendererTimer timer] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:RendererTimer timer] - The timer.<br /><br />
+
 			Updates physics component
 		</p>
 

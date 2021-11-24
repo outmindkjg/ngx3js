@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>TweenComponent</h1>
 
 		<p class="desc">
 			TweenComponent<br>
@@ -54,86 +54,81 @@
 		&gt;&lt;/ngx3js-tween&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:number amplitude]</h3>
+		<h3>[property:number amplitude]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The amplitude of tween component
 		</p>
 
-		<h3>[property:number duration]</h3>
+		<h3>[property:number duration]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The duration of tween component
 		</p>
 
-		<h3>[property:string easing]</h3>
+		<h3>[property:string easing]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of tween component<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:number linearRatio]</h3>
+		<h3>[property:number linearRatio]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The linearRatio of tween component
 		</p>
 
-		<h3>[property:number overshoot]</h3>
+		<h3>[property:number overshoot]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The overshoot of tween component
 		</p>
 
-		<h3>[property:number period]</h3>
+		<h3>[property:number period]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The period of tween component
 		</p>
 
-		<h3>[property:number power]</h3>
+		<h3>[property:number power]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The power of tween component
 		</p>
 
-		<h3>[property:number repeat]</h3>
+		<h3>[property:number repeat]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The repeat of tween component
 		</p>
 
-		<h3>[property:number steps]</h3>
+		<h3>[property:number steps]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The steps of tween component
 		</p>
 
-		<h3>[property:string targets]</h3>
+		<h3>[property:string targets]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The targets of tween component
 		</p>
 
-		<h3>[property:string template]</h3>
+		<h3>[property:string template]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The template of tween component
 		</p>
 
-		<h3>[property:any to]</h3>
+		<h3>[property:any to]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The to of tween component
 		</p>
 
-		<h3>[property:boolean yoyo]</h3>
+		<h3>[property:boolean yoyo]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The yoyo of tween component
 		</p>
 
-		<h3>[property:boolean yoyoMode]</h3>
+		<h3>[property:boolean yoyoMode]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The yoyoMode of tween component
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -141,15 +136,27 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:any getTween](  [param:mixed tween],  [param:any tweenTarget],  [param:any parentEle] )</h3>
+		<h3>[method:TweenComponent constructor](  )</h3>
 		<p>
+			Creates an instance of tween component.
+		</p>
+
+		<h3>[method:any getTween](  [param:TimelineLite|TimelineMax tween],  [param:any tweenTarget],  [param:any parentEle] )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[page:TimelineLite|TimelineMax tween] - The tween.<br />
+			[page:any tweenTarget] - The tween target.<br />
+			[page:any parentEle] - The parent ele.<br /><br />
+
 			Gets tween<br>
 			<br>
 			Returns : tween
 		</p>
 
-		<h3>[method:any setTween](  [param:any to],  [param:number duration] )</h3>
+		<h3>[method:any setTween](  [param:any to],  [param:number duration]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:any to] - The to.<br />
+			[page:number duration] - (optional) The duration.<br /><br />
+
 			Sets tween<br>
 			<br>
 			Returns : tween

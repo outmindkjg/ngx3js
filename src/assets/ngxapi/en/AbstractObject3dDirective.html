@@ -9,20 +9,35 @@
 	<body>
 		[page:AbstractThreeDirective] &rarr;
 
-		<h1>[name]</h1>
+		<h1>AbstractObject3dDirective</h1>
 
 		<p class="desc">
 			AbstractObject3dDirective Abstract
 		</p>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractThreeDirective AbstractThreeDirective] class for common input properties.
+			See the base [page:AbstractThreeDirective AbstractThreeDirective] class for common properties.
 		</p>
 
-		<h2>Properties - Output</h2>
+		<h3>[property:number elapsedTime]<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			See the base [page:AbstractThreeDirective AbstractThreeDirective] class for common output properties.
+			Elapsed time of abstract object3d directive
+		</p>
+
+		<h3>[property:boolean enabled]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Enabled  of abstract directive
+		</p>
+
+		<h3>[property:Object3dFunction object3dFunction]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Object3d function of abstract object3d directive
+		</p>
+
+		<h3>[property:ObjectFunction objectFunction]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Object3d function of abstract object3d directive
 		</p>
 
 		<h2>Methods</h2>
@@ -30,44 +45,64 @@
 			See the base [page:AbstractThreeDirective AbstractThreeDirective] class for common methods.
 		</p>
 
-		<h3>[method:void consoleLogTime](  [param:string key],  [param:any object],  [param:number repeat] )</h3>
+		<h3>[method:AbstractObject3dDirective constructor](  [param:AbstractObject3dComponent object3dCom] )</h3>
 		<p>
+			[page:AbstractObject3dComponent object3dCom] - The object3d com.<br /><br />
+
+			Creates an instance of AbstractObject3dDirective.
+		</p>
+
+		<h3>[method:void consoleLogTime](  [param:string key],  [param:any object],  [param:number repeat] )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			[page:string key] - The key.<br />
+			[page:any object] - The object.<br />
+			[page:number repeat] - The repeat.<br /><br />
+
 			Consoles log time
 		</p>
 
-		<h3>[method:void pause](  )</h3>
+		<h3>[method:void pause](  )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			Pauses abstract directive
 		</p>
 
-		<h3>[method:void play](  )</h3>
+		<h3>[method:void play](  )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			Plays abstract directive
 		</p>
 
-		<h3>[method:void subscribeRefer](  [param:string key],  [param:Subscription subscription] )</h3>
+		<h3>[method:void subscribeRefer](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:string key] - The key.<br />
+			[page:Subscription subscription] - The subscription.<br /><br />
+
 			Subscribes refer
 		</p>
 
-		<h3>[method:void unSubscribeRefer](  [param:string key] )</h3>
+		<h3>[method:void unSubscribeRefer](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:string key] - The key.<br /><br />
+
 			subscribe refer
 		</p>
 
-		<h3>[method:void unSubscription](  [param:Subscription subscriptions][] )</h3>
+		<h3>[method:Subscription[] unSubscription](  [param:Subscription[] subscriptions] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:Subscription[] subscriptions] - The subscriptions.<br /><br />
+
 			subscription<br>
 			<br>
 			Returns : subscription
 		</p>
 
-		<h3>[method:void update](  [param:RendererTimer timer] )</h3>
+		<h3>[method:void update](  [param:RendererTimer timer] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:RendererTimer timer] - The timer.<br /><br />
+
 			Updates abstract object3d directive
 		</p>
 
-		<hr>
+		<hr class="interface-line"/>
 		<h1 id="DirectiveOptions">DirectiveOptions</h1>
 
 		<p class="desc">
@@ -105,19 +140,29 @@
 			type
 		</p>
 
-		<hr>
+		<hr class="interface-line"/>
 		<h1 id="Object3dFunction">Object3dFunction</h1>
 
 		<p class="desc">
 			
 		</p>
 
+		<h3>[method:void __type](  [param:THREE.Object3D object3d],  [param:number elapsedTime],  [param:RendererTimer timer] )</h3>
+		<p>
+			Object3dFunction
+		</p>
 
-		<hr>
+
+		<hr class="interface-line"/>
 		<h1 id="ObjectFunction">ObjectFunction</h1>
 
 		<p class="desc">
 			
+		</p>
+
+		<h3>[method:void __type](  [param:any object],  [param:number elapsedTime],  [param:RendererTimer timer] )</h3>
+		<p>
+			ObjectFunction
 		</p>
 
 

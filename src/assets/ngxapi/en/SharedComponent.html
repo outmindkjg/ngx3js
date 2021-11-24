@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>SharedComponent</h1>
 
 		<p class="desc">
 			SharedComponent<br>
@@ -33,14 +33,14 @@
 		&gt;&lt;/ngx3js-shared&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h2>Properties - Output</h2>
+		<h3>[property:QueryList controllerList]<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+			Content children of shared component
 		</p>
 
 		<h2>Methods</h2>
@@ -48,49 +48,56 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<h3>[method:SharedComponent constructor](  )</h3>
 		<p>
-			Applys changes<br>
-			<br>
-			Returns :
+			Creates an instance of shared component.
 		</p>
 
-		<h3>[method:void getAnimationGroupComponents](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
+			Applys changes
+		</p>
+
+		<h3>[method:AnimationGroupComponent[] getAnimationGroupComponents](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets animation group components<br>
 			<br>
 			Returns : animation group components
 		</p>
 
-		<h3>[method:void getComponents](  [param:QueryList list] )</h3>
+		<h3>[method:any[] getComponents](  [param:QueryList list] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:QueryList list] - The list.<br /><br />
+
 			Gets components<br>
 			<br>
 			Returns : components
 		</p>
 
-		<h3>[method:void getGeometryComponents](  )</h3>
+		<h3>[method:AbstractGeometryComponent[] getGeometryComponents](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets geometry components<br>
 			<br>
 			Returns : geometry components
 		</p>
 
-		<h3>[method:void getMaterialComponents](  )</h3>
+		<h3>[method:AbstractMaterialComponent[] getMaterialComponents](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets material components<br>
 			<br>
 			Returns : material components
 		</p>
 
-		<h3>[method:any getShared](  )</h3>
+		<h3>[method:any getShared](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets shared<br>
 			<br>
 			Returns : shared
 		</p>
 
-		<h3>[method:void getTextureComponents](  )</h3>
+		<h3>[method:AbstractTextureComponent[] getTextureComponents](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets texture components<br>
 			<br>

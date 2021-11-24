@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>CameraComponent</h1>
 
 		<p class="desc">
 			CameraComponent<br>
@@ -110,93 +110,89 @@
 		&gt;&lt;/ngx3js-camera&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common input properties.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common input properties.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common properties.
 		</p>
 
-		<h3>[property:boolean active]</h3>
+		<h3>[property:boolean active]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The camera is active.
 		</p>
 
-		<h3>[property:number aspect]</h3>
+		<h3>[property:number aspect]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Camera frustum aspect ratio, usually the canvas width / canvas height. Default is *1* (square canvas).
 		</p>
 
-		<h3>[property:boolean autoClear]</h3>
+		<h3>[property:boolean autoClear]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Defines whether the renderer should automatically clear its output before rendering a frame.
 		</p>
 
-		<h3>[property:boolean autoRotate]</h3>
+		<h3>[property:boolean autoRotate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The autoRotate of camera component
 		</p>
 
-		<h3>[property:number bottom]</h3>
+		<h3>[property:number bottom]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Camera frustum bottom plane.
 		</p>
 
-		<h3>[property:boolean clear]</h3>
+		<h3>[property:boolean clear]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Tells the renderer to clear its color, depth or stencil drawing buffer(s).<br>
 			This method initializes the color buffer to the current clear color value.<br>
 			Arguments default to *true*.
 		</p>
 
-		<h3>[property:number clearAlpha]</h3>
+		<h3>[property:number clearAlpha]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The clearAlpha of camera component
 		</p>
 
-		<h3>[property:ThreeColor clearColor]</h3>
+		<h3>[property:ThreeColor clearColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Clear the color buffer. Equivalent to calling [page:WebGLRenderer.clear .clear]( true, false, false ).
 		</p>
 
-		<h3>[property:boolean clearDepth]</h3>
+		<h3>[property:boolean clearDepth]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Clear the depth buffer. Equivalent to calling [page:WebGLRenderer.clear .clear]( false, true, false ).
 		</p>
 
-		<h3>[property:string controlType]</h3>
+		<h3>[property:string controlType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The controlType of camera component<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:mixed far]</h3>
+		<h3>[property:string|number far]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Camera frustum far plane. Default is *2000*.<br>
-			Must be greater than the current value of [page:.near near] plane.<br>
-			<br>
-			[page:string string] | [page:number number]
+			Must be greater than the current value of [page:.near near] plane.
 		</p>
 
-		<h3>[property:number focalLength]</h3>
+		<h3>[property:number focalLength]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Sets the FOV by focal length in respect to the current [page:PerspectiveCamera.filmGauge .filmGauge].<br>
 			By default, the focal length is specified for a 35mm (full frame) camera.
 		</p>
 
-		<h3>[property:mixed fov]</h3>
+		<h3>[property:string|number fov]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is *50*.<br>
-			<br>
-			[page:string string] | [page:number number]
+			Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is *50*.
 		</p>
 
-		<h3>[property:mixed height]</h3>
+		<h3>[property:string|number height]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The size of height<br>
 			- type number<br>
@@ -207,101 +203,87 @@
 			   in case renderer = 1024<br>
 			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542<br>
 			- type string const refer<br>
-			  width,height,x,y,<br>
-			<br>
-			[page:string string] | [page:number number]
+			  width,height,x,y,
 		</p>
 
-		<h3>[property:number left]</h3>
+		<h3>[property:number left]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Camera frustum left plane.
 		</p>
 
-		<h3>[property:mixed near]</h3>
+		<h3>[property:string|number near]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Camera frustum near plane. Default is *0.1*.<br>
 			The valid range is between 0 and the current value of the [page:.far far] plane.<br>
 			Note that, unlike for the [page:PerspectiveCamera], *0* is a valid value for an<br>
-			OrthographicCamera's near plane.<br>
-			<br>
-			[page:string string] | [page:number number]
+			OrthographicCamera's near plane.
 		</p>
 
-		<h3>[property:number orthoSize]</h3>
+		<h3>[property:number orthoSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The orthoSize of camera component
 		</p>
 
-		<h3>[property:mixed referObject3d]</h3>
+		<h3>[property:AbstractObject3dComponent|Object3D referObject3d]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The referObject3d of camera component<br>
-			<br>
-			[page:AbstractObject3dComponent AbstractObject3dComponent] | [page:Object3D Object3D]
+			The referObject3d of camera component
 		</p>
 
-		<h3>[property:number right]</h3>
+		<h3>[property:number right]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Camera frustum right plane.
 		</p>
 
-		<h3>[property:any scene]</h3>
+		<h3>[property:any scene]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The given scene
 		</p>
 
-		<h3>[property:any scenes][]</h3>
+		<h3>[property:any[] scenes]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The given scene
 		</p>
 
-		<h3>[property:mixed scissorHeight]</h3>
+		<h3>[property:string|number scissorHeight]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br>
-			Vector4.height<br>
-			<br>
-			[page:string string] | [page:number number]
+			Vector4.height
 		</p>
 
-		<h3>[property:boolean scissorTest]</h3>
+		<h3>[property:boolean scissorTest]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Indicates whether the scissor test is active or not.
 		</p>
 
-		<h3>[property:mixed scissorWidth]</h3>
+		<h3>[property:string|number scissorWidth]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br>
-			Vector4.width<br>
-			<br>
-			[page:string string] | [page:number number]
+			Vector4.width
 		</p>
 
-		<h3>[property:mixed scissorX]</h3>
+		<h3>[property:string|number scissorX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br>
-			Vector4.x<br>
-			<br>
-			[page:string string] | [page:number number]
+			Vector4.x
 		</p>
 
-		<h3>[property:mixed scissorY]</h3>
+		<h3>[property:string|number scissorY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br>
-			Vector4.y<br>
-			<br>
-			[page:string string] | [page:number number]
+			Vector4.y
 		</p>
 
-		<h3>[property:string storageName]</h3>
+		<h3>[property:string storageName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The storageName of camera
 		</p>
 
-		<h3>[property:number top]</h3>
+		<h3>[property:number top]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Camera frustum top plane.
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of camera<br>
 			<br>
@@ -317,12 +299,12 @@
 			[page:StereoCamera StereoCamera] - THREE.StereoCamera      - StereoCamera, Stereo
 		</p>
 
-		<h3>[property:boolean viewport]</h3>
+		<h3>[property:boolean viewport]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The viewport of this render target.
 		</p>
 
-		<h3>[property:string viewportType]</h3>
+		<h3>[property:string viewportType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The viewport of this render target.<br>
 			<br>
@@ -334,7 +316,7 @@
 			[page:PerspectiveCamera PerspectiveCamera] - THREE.PerspectiveCamera - #viewport - camera
 		</p>
 
-		<h3>[property:mixed width]</h3>
+		<h3>[property:string|number width]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The size of width<br>
 			- type number<br>
@@ -345,43 +327,24 @@
 			   in case renderer = 1024<br>
 			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542<br>
 			- type string const refer<br>
-			  width,height,x,y,<br>
-			<br>
-			[page:string string] | [page:number number]
+			  width,height,x,y,
 		</p>
 
-		<h3>[property:mixed x]</h3>
+		<h3>[property:string|number x]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The viewport of this render target.<br>
-			Vector4.x<br>
-			<br>
-			[page:string string] | [page:number number]
+			Vector4.x
 		</p>
 
-		<h3>[property:mixed y]</h3>
+		<h3>[property:string|number y]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The viewport of this render target.<br>
-			Vector4.y<br>
-			<br>
-			[page:string string] | [page:number number]
+			Vector4.y
 		</p>
 
-		<h3>[property:mixed zoom]</h3>
+		<h3>[property:string|number zoom]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets or sets the zoom factor of the camera. Default is *1*.<br>
-			<br>
-			[page:string string] | [page:number number]
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
-		</p>
-		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common output properties.
-		</p>
-		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common output properties.
+			Gets or sets the zoom factor of the camera. Default is *1*.
 		</p>
 
 		<h2>Methods</h2>
@@ -395,104 +358,138 @@
 			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges3d](  [param:string changes][] )</h3>
+		<h3>[method:CameraComponent constructor](  [param:LocalStorageService localStorageService] )</h3>
 		<p>
-			Applys changes3d<br>
-			<br>
-			Returns :
+			[page:LocalStorageService localStorageService] - The local storage service.<br /><br />
+
+			Creates an instance of camera component.
 		</p>
 
-		<h3>[method:T getCamera](  )</h3>
+		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
+			Applys changes3d
+		</p>
+
+		<h3>[method:T getCamera](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets camera<br>
 			<br>
 			Returns : camera
 		</p>
 
-		<h3>[method:WebGLCubeRenderTarget getCubeRenderTarget](  )</h3>
+		<h3>[method:WebGLCubeRenderTarget getCubeRenderTarget](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets cube render target<br>
 			<br>
 			Returns : cube render target
 		</p>
 
-		<h3>[method:Intersection getIntersection](  [param:Vector2 mouse],  [param:mixed mesh],  [param:boolean recursive] )</h3>
+		<h3>[method:Intersection getIntersection](  [param:Vector2 mouse],  [param:Object3D|Object3D[] mesh],  [param:boolean recursive] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:Vector2 mouse] - The mouse.<br />
+			[page:Object3D|Object3D[] mesh] - The mesh.<br />
+			[page:boolean recursive] - The recursive.<br /><br />
+
 			Gets intersection<br>
 			<br>
 			Returns : intersection
 		</p>
 
-		<h3>[method:void getIntersections](  [param:Vector2 mouse],  [param:mixed mesh],  [param:boolean recursive] )</h3>
+		<h3>[method:Intersection[] getIntersections](  [param:Vector2 mouse],  [param:Object3D|Object3D[] mesh],  [param:boolean recursive] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:Vector2 mouse] - The mouse.<br />
+			[page:Object3D|Object3D[] mesh] - The mesh.<br />
+			[page:boolean recursive] - The recursive.<br /><br />
+
 			Gets intersections<br>
 			<br>
 			Returns : intersections
 		</p>
 
-		<h3>[method:T getObject3d](  )</h3>
+		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets object3d<br>
 			<br>
 			Returns : object3d
 		</p>
 
-		<h3>[method:Raycaster getRaycaster](  [param:Vector2 mouse] )</h3>
+		<h3>[method:Raycaster getRaycaster](  [param:Vector2 mouse] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:Vector2 mouse] - The mouse.<br /><br />
+
 			Gets raycaster<br>
 			<br>
 			Returns : raycaster
 		</p>
 
-		<h3>[method:Renderer getRenderer](  )</h3>
+		<h3>[method:Renderer getRenderer](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets renderer<br>
 			<br>
 			Returns : renderer
 		</p>
 
-		<h3>[method:Scene getScene](  [param:any scenes] )</h3>
+		<h3>[method:Scene getScene](  [param:any scenes]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:any scenes] - (optional) The scenes.<br /><br />
+
 			Gets scene<br>
 			<br>
 			Returns : scene
 		</p>
 
-		<h3>[method:Vector2 getSize](  )</h3>
+		<h3>[method:Vector2 getSize](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets size<br>
 			<br>
 			Returns : size
 		</p>
 
-		<h3>[method:WebGLCubeRenderTarget getTexture](  )</h3>
+		<h3>[method:WebGLCubeRenderTarget getTexture](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets texture<br>
 			<br>
 			Returns : texture
 		</p>
 
-		<h3>[method:void render](  [param:Renderer renderer],  [param:mixed cssRenderer],  [param:any scenes],  [param:RendererTimer renderTimer] )</h3>
+		<h3>[method:void render](  [param:Renderer renderer],  [param:CSS3DRenderer|CSS2DRenderer cssRenderer],  [param:any scenes],  [param:RendererTimer renderTimer] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Renders camera component<br>
-			<br>
-			Returns :
+			[page:Renderer renderer] - The renderer.<br />
+			[page:CSS3DRenderer|CSS2DRenderer cssRenderer] - The css renderer.<br />
+			[page:any scenes] - The scenes.<br />
+			[page:RendererTimer renderTimer] - The render timer.<br /><br />
+
+			Renders camera component
 		</p>
 
-		<h3>[method:boolean setParent](  [param:Object3D parent] )</h3>
+		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:Object3D parent] - The parent.<br /><br />
+
 			Sets parent<br>
 			<br>
 			Returns : true if parent
 		</p>
 
-		<h3>[method:void setRenderer](  [param:Renderer renderer],  [param:mixed cssRenderer],  [param:QueryList rendererScenes] )</h3>
+		<h3>[method:void setRenderer](  [param:Renderer renderer],  [param:CSS3DRenderer|CSS2DRenderer cssRenderer],  [param:QueryList rendererScenes] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:Renderer renderer] - The renderer.<br />
+			[page:CSS3DRenderer|CSS2DRenderer cssRenderer] - The css renderer.<br />
+			[page:QueryList rendererScenes] - The renderer scenes.<br /><br />
+
 			Sets renderer
 		</p>
 
-		<h3>[method:void setRendererSize](  [param:number width],  [param:number height],  [param:number fullWidth],  [param:number fullHeight],  [param:number pixelRatio] )</h3>
+		<h3>[method:void setRendererSize](  [param:number width],  [param:number height],  [param:number fullWidth],  [param:number fullHeight],  [param:number pixelRatio] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:number width] - The width.<br />
+			[page:number height] - The height.<br />
+			[page:number fullWidth] - The full width.<br />
+			[page:number fullHeight] - The full height.<br />
+			[page:number pixelRatio] - The pixel ratio.<br /><br />
+
 			Sets camera size
 		</p>
 

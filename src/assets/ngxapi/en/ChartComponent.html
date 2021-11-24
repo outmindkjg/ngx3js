@@ -9,7 +9,7 @@
 	<body>
 		[page:BaseComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>ChartComponent</h1>
 
 		<p class="desc">
 			ChartComponent
@@ -29,59 +29,124 @@
 		&gt;&lt;/ngx3js-chart&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:BaseComponent BaseComponent] class for common input properties.
+			See the base [page:BaseComponent BaseComponent] class for common properties.
 		</p>
 
-		<h3>[property:ChartData data]</h3>
+		<h3>[property:ThreeVector axisX]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Axis x of chart component
+		</p>
+
+		<h3>[property:ThreeVector axisY]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Axis y of chart component
+		</p>
+
+		<h3>[property:ThreeVector axisZ]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Axis z of chart component
+		</p>
+
+		<h3>[property:any barChart]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Bar chart of chart component
+		</p>
+
+		<h3>[property:any barGeometryInfo]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Bar geometry info of chart component
+		</p>
+
+		<h3>[property:Vector3 chartPosition]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Axis x of chart component
+		</p>
+
+		<h3>[property:Vector3 chartScale]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Axis x of chart component
+		</p>
+
+		<h3>[property:Vector3 chartZero]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Axis x of chart component
+		</p>
+
+		<h3>[property:ChartData data]<i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The Input of chart component
 		</p>
 
-		<h3>[property:number depth]</h3>
+		<h3>[property:number depth]<i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The Input of chart component
 		</p>
 
-		<h3>[property:any guiControl]</h3>
+		<h3>[property:any grideInfo]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gride info of chart component
+		</p>
+
+		<h3>[property:any guiControl]<i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The Input of chart component
 		</p>
 
-		<h3>[property:GuiControlParam guiParams][]</h3>
+		<h3>[property:GuiControlParam[] guiParams]<i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The Input of chart component
 		</p>
 
-		<h3>[property:number height]</h3>
+		<h3>[property:number height]<i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The Input of chart component
 		</p>
 
-		<h3>[property:any options]</h3>
+		<h3>[property:any lineChart]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Line chart of chart component
+		</p>
+
+		<h3>[property:any lineCurvePath]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Line curve path of chart component
+		</p>
+
+		<h3>[property:any lineGeometryInfo]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Bar geometry info of chart component
+		</p>
+
+		<h3>[property:any options]<i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The Input of chart component
 		</p>
 
-		<h3>[property:number padding]</h3>
+		<h3>[property:number padding]<i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The Input of chart component
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:string type]<i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The Input of chart component
 		</p>
 
-		<h3>[property:number width]</h3>
+		<h3>[property:number width]<i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The Input of chart component
 		</p>
 
-		<h2>Properties - Output</h2>
+		<h3>[property:any xLabel]<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			See the base [page:BaseComponent BaseComponent] class for common output properties.
+			X label of chart component
+		</p>
+
+		<h3>[property:any yLabel]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Y label of chart component
 		</p>
 
 		<h2>Methods</h2>
@@ -89,22 +154,33 @@
 			See the base [page:BaseComponent BaseComponent] class for common methods.
 		</p>
 
-		<h3>[method:void onMouseMove](  [param:RendererEvent event] )</h3>
+		<h3>[method:ChartComponent constructor](  )</h3>
 		<p>
+			Creates an instance of chart component.
+		</p>
+
+		<h3>[method:void onMouseMove](  [param:RendererEvent event] )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[page:RendererEvent event] - The event.<br /><br />
+
 			Determines whether mouse move on
 		</p>
 
-		<h3>[method:void onRender](  [param:RendererTimer timer] )</h3>
+		<h3>[method:void onRender](  [param:RendererTimer timer] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:RendererTimer timer] - The timer.<br /><br />
+
 			Determines whether render on
 		</p>
 
-		<h3>[method:void setToolTip](  [param:MeshComponent mesh] )</h3>
+		<h3>[method:void setToolTip](  [param:MeshComponent mesh] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:MeshComponent mesh] - The mesh.<br /><br />
+
 			Sets tool tip
 		</p>
 
-		<hr>
+		<hr class="interface-line"/>
 		<h1 id="BackgroundBorder">BackgroundBorder</h1>
 
 		<p class="desc">
@@ -112,7 +188,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="ChartData">ChartData</h1>
 
 		<p class="desc">
@@ -120,7 +200,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="ColorOpacity">ColorOpacity</h1>
 
 		<p class="desc">
@@ -128,6 +212,10 @@
 		</p>
 
 		<h2>Properties</h2>
+		<p>
+			None
+		</p>
+
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three//chart/chart.component.ts /chart/chart.component.ts]</p>
 	</body>

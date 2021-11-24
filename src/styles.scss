@@ -1,5 +1,6 @@
 @import './main';
 @import './page';
+@import './prettify';
 
 pre.prettyprint,
 code.prettyprint {
@@ -15,19 +16,8 @@ code.prettyprint {
 @media (prefers-color-scheme: dark) {
 	pre.prettyprint,
 	code.prettyprint {
-		background-color: #363636;
+		background-color: #797979;
 		color: #a0a0a0;
-		.hljs-keyword,
-		.hljs-selector-tag,
-		.hljs-subst {
-			color: #a0a0a0;
-		}
-		.hljs-tag,
-		.hljs-name,
-		.hljs-attribute {
-			color: #aaaacc;
-			font-weight: normal;
-		}
 	}
 }
 
@@ -183,6 +173,33 @@ code.prettyprint {
 
 div#example,
 div#docs {
+	hr.interface-line {
+		margin : 1rem 0;
+		border: 2px solid var(--secondary-text-color);
+	}
+		i.modifier {
+			display: inline-block;
+			line-height: 120%;
+			font-size: 0.7em;
+			padding: 0.1em 0.3em;
+			margin-left: 0.5em;
+			border-radius: 3px;
+			border: var(--border-style);
+			color: var(--background-color);
+			background-color: var(--text-color);
+			vertical-align: middle;
+			&.modifier-public {
+				color: var(--secondary-background-color);
+				background-color: var(--secondary-text-color);
+			}
+			&.modifier-input {
+				background-color: var(--color-blue);
+			}
+			&.modifier-output {
+				background-color: var(--color-red);
+			}
+
+		}
 	height: 100%;
 	position: relative;
 	a.button {

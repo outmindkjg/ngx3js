@@ -7,43 +7,62 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		<h1>[name]</h1>
+		<h1>NgxGeometryUtils</h1>
 
 		<p class="desc">
 			Geometry utils
 		</p>
 
-		<h2>Properties - Input</h2>
-		<h2>Properties - Output</h2>
-		<h2>Methods</h2>
-		<h3>[method:void addGeometry](  [param:string key],  [param:GeometryFunctionType func],  [param:string alias][] )</h3>
+		<h2>Properties</h2>
 		<p>
+			None
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:void addGeometry](  [param:string key],  [param:GeometryFunctionType func],  [param:string[] alias]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			[page:string key] - The key.<br />
+			[page:GeometryFunctionType func] - The func.<br />
+			[page:string[] alias] - (optional) The alias.<br /><br />
+
 			Adds geometry
 		</p>
 
-		<h3>[method:BufferGeometry getFlipGeometry](  [param:BufferGeometry geometry],  [param:string plane] )</h3>
+		<h3>[method:BufferGeometry getFlipGeometry](  [param:BufferGeometry geometry],  [param:string plane] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:BufferGeometry geometry] - The geometry.<br />
+			[page:string plane] - The plane.<br /><br />
+
 			Gets flip geometry<br>
 			<br>
 			Returns : flip geometry
 		</p>
 
-		<h3>[method:BufferGeometry getGeometry](  [param:string key],  [param:BufferGeometry geometry],  [param:any options] )</h3>
+		<h3>[method:BufferGeometry getGeometry](  [param:string key],  [param:BufferGeometry geometry],  [param:any options]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string key] - The key.<br />
+			[page:BufferGeometry geometry] - The geometry.<br />
+			[page:any options] - (optional) The options.<br /><br />
+
 			Gets geometry<br>
 			<br>
 			Returns : geometry
 		</p>
 
-		<h3>[method:GeometryFunctionType getGeometryFunction](  [param:string key] )</h3>
+		<h3>[method:GeometryFunctionType getGeometryFunction](  [param:string key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string key] - The key.<br /><br />
+
 			Gets geometry function<br>
 			<br>
 			Returns : geometry function
 		</p>
 
-		<h3>[method:number getGeometryRadius](  [param:BufferGeometry geometry],  [param:any options] )</h3>
+		<h3>[method:number getGeometryRadius](  [param:BufferGeometry geometry],  [param:any options] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:BufferGeometry geometry] - The geometry.<br />
+			[page:any options] - The options.<br /><br />
+
 			Gets geometry radius<br>
 			<br>
 			Returns : geometry radius

@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>ToolsComponent</h1>
 
 		<p class="desc">
 			ToolsComponent<br>
@@ -52,19 +52,17 @@
 		&gt;&lt;/ngx3js-tools&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:mixed background]</h3>
+		<h3>[property:string|number|AbstractTextureComponent background]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The background of tools component<br>
-			<br>
-			[page:string string] | [page:number number] | [page:AbstractTextureComponent AbstractTextureComponent]
+			The background of tools component
 		</p>
 
-		<h3>[property:string encoding]</h3>
+		<h3>[property:string encoding]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			[page:Textures THREE.LinearEncoding] is the default.<br>
 			See the [page:Textures texture constants] page for details of other formats.<br>
@@ -83,7 +81,7 @@
 			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
 		</p>
 
-		<h3>[property:string format]</h3>
+		<h3>[property:string format]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The default is [page:Textures THREE.RGBAFormat], although the [page:TextureLoader TextureLoader] will automatically set this to [page:Textures THREE.RGBFormat] for JPG images.<br>
 			See the [page:Textures texture constants] page for details of other formats.<br>
@@ -107,36 +105,31 @@
 			[page:RGBAFormat RGBAFormat] - THREE.RGBAFormat - RGBAFormat, RGBA
 		</p>
 
-		<h3>[property:number size]</h3>
+		<h3>[property:number size]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The size of tools component
 		</p>
 
-		<h3>[property:string storageName]</h3>
+		<h3>[property:string storageName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The storageName of tools component
 		</p>
 
-		<h3>[property:any storageOption]</h3>
+		<h3>[property:any storageOption]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The storageOption of tools component
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of tools component<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string url]</h3>
+		<h3>[property:string url]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The url of tools component
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -144,21 +137,28 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:AudioBuffer getAudio](  )</h3>
+		<h3>[method:ToolsComponent constructor](  [param:LocalStorageService localStorageService] )</h3>
+		<p>
+			[page:LocalStorageService localStorageService] - The local storage service.<br /><br />
+
+			Creates an instance of tools component.
+		</p>
+
+		<h3>[method:AudioBuffer getAudio](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets audio<br>
 			<br>
 			Returns : audio
 		</p>
 
-		<h3>[method:Texture getTexture](  )</h3>
+		<h3>[method:Texture getTexture](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets texture<br>
 			<br>
 			Returns : texture
 		</p>
 
-		<h3>[method:any getTool](  )</h3>
+		<h3>[method:any getTool](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets tool<br>
 			<br>

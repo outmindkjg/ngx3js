@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>ShaderComponent</h1>
 
 		<p class="desc">
 			ShaderComponent<br>
@@ -34,26 +34,21 @@
 		&gt;&lt;/ngx3js-shader&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:ShaderComponent refShader]</h3>
+		<h3>[property:ShaderComponent refShader]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The refShader of shader component
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of shader component<br>
 			<br>
 			Notice - case insensitive.
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -61,7 +56,14 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:string getShader](  )</h3>
+		<h3>[method:ShaderComponent constructor](  [param:ElementRef ele] )</h3>
+		<p>
+			[page:ElementRef ele] - The ele.<br /><br />
+
+			Creates an instance of shader component.
+		</p>
+
+		<h3>[method:string getShader](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets shader<br>
 			<br>

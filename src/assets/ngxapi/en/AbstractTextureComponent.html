@@ -9,13 +9,13 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>AbstractTextureComponent</h1>
 
 		<p class="desc">
 			AbstractTextureComponent<br>
 			<br>
 			<code data-type="typescript"><br>
-			_@Component({<br>
+			@Component({<br>
 				providers: [<br>
 					{<br>
 						provide: AbstractTextureComponent,<br>
@@ -33,53 +33,56 @@
 			[page:Texture Texture] - THREE.Texture
 		</p>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:number anisotropy]</h3>
+		<h3>[property:string[] TEXTURE_ATTR]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The base attribute can be fine without re-make Texture
+		</p>
+
+		<h3>[property:number anisotropy]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The number of samples taken along the axis through the pixel that has the highest density of texels.<br>
 			By default, this value is 1. A higher value gives a less blurry result than a basic mipmap, at the cost of more texture samples being used. Use [page:WebGLRenderer.getMaxAnisotropy renderer.getMaxAnisotropy]() to find the maximum valid anisotropy value for the GPU; this value is usually a power of 2.
 		</p>
 
-		<h3>[property:number center]</h3>
+		<h3>[property:number center]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.<br>
 			<br>
 			The default value of centerX, centerY
 		</p>
 
-		<h3>[property:number centerX]</h3>
+		<h3>[property:number centerX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.<br>
 			<br>
 			The value of center.x
 		</p>
 
-		<h3>[property:number centerY]</h3>
+		<h3>[property:number centerY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.<br>
 			<br>
 			The value of center.y
 		</p>
 
-		<h3>[property:string cubeType]</h3>
+		<h3>[property:string cubeType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The CubeType of Texture -<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:mixed data]</h3>
+		<h3>[property:number[]|BufferSource data]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The data of DataTexture<br>
-			<br>
-			[page:number number] | [page:BufferSource BufferSource]
+			The data of DataTexture
 		</p>
 
-		<h3>[property:string dataType]</h3>
+		<h3>[property:string dataType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			This must correspond to the [page:Texture.format .format]. The default is [page:Textures THREE.UnsignedByteType], which will be used for most texture formats.<br>
 			See the [page:Textures texture constants] page for details of other formats.<br>
@@ -101,12 +104,12 @@
 			[page:UnsignedInt248Type UnsignedInt248Type] - THREE.UnsignedInt248Type - UnsignedInt248Type , UnsignedInt248
 		</p>
 
-		<h3>[property:number depth]</h3>
+		<h3>[property:number depth]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			depth of the texture.
 		</p>
 
-		<h3>[property:string encoding]</h3>
+		<h3>[property:string encoding]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			[page:Textures THREE.LinearEncoding] is the default.<br>
 			See the [page:Textures texture constants] page for details of other formats.<br>
@@ -125,7 +128,7 @@
 			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
 		</p>
 
-		<h3>[property:string filter]</h3>
+		<h3>[property:string filter]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Default Value of magFilter, minFilter<br>
 			<br>
@@ -140,14 +143,14 @@
 			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
 		</p>
 
-		<h3>[property:boolean flipY]</h3>
+		<h3>[property:boolean flipY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			If set to *true*, the texture is flipped along the vertical axis when uploaded to the GPU. Default is *true*.<br>
 			Note that this property has no effect for [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap].<br>
 			You need to configure on bitmap creation instead. See [page:ImageBitmapLoader].
 		</p>
 
-		<h3>[property:string format]</h3>
+		<h3>[property:string format]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The default is [page:Textures THREE.RGBAFormat], although the [page:TextureLoader TextureLoader] will automatically set this to [page:Textures THREE.RGBFormat] for JPG images.<br>
 			See the [page:Textures texture constants] page for details of other formats.<br>
@@ -171,17 +174,17 @@
 			[page:RGBAFormat RGBAFormat] - THREE.RGBAFormat - RGBAFormat, RGBA
 		</p>
 
-		<h3>[property:boolean generateMipmaps]</h3>
+		<h3>[property:boolean generateMipmaps]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Whether to generate mipmaps (if possible) for a texture. True by default. Set this to false if you are creating mipmaps manually.
 		</p>
 
-		<h3>[property:number height]</h3>
+		<h3>[property:number height]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			height of the texture.
 		</p>
 
-		<h3>[property:string loaderType]</h3>
+		<h3>[property:string loaderType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The LoadType of Texture - video, image etc<br>
 			 hdrcube, hdrcubetexture -<br>
@@ -196,7 +199,7 @@
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string magFilter]</h3>
+		<h3>[property:string magFilter]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How the texture is sampled when a texel covers more than one pixel. The default is<br>
 			[page:Textures THREE.LinearFilter], which takes the four closest texels and bilinearly interpolates among them.<br>
@@ -214,7 +217,7 @@
 			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
 		</p>
 
-		<h3>[property:string mapping]</h3>
+		<h3>[property:string mapping]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How the image is applied to the object. An object type of [page:Textures THREE.UVMapping] is the default, where the U,V coordinates are used to apply the map.<br>
 			See the [page:Textures texture constants] page for other mapping types.<br>
@@ -231,7 +234,7 @@
 			[page:Texture Texture] - THREE.Texture.DEFAULT_MAPPING   - default
 		</p>
 
-		<h3>[property:string minFilter]</h3>
+		<h3>[property:string minFilter]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How the texture is sampled when a texel covers less than one pixel. The default is<br>
 			[page:Textures THREE.LinearMipmapLinearFilter], which uses mipmapping and a trilinear filter.<br>
@@ -248,12 +251,12 @@
 			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
 		</p>
 
-		<h3>[property:string name]</h3>
+		<h3>[property:string name]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The name of the object (doesn't need to be unique). Default is an empty string.
 		</p>
 
-		<h3>[property:number offset]</h3>
+		<h3>[property:number offset]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br>
 			Typical range is *0.0* to *1.0*.<br>
@@ -261,7 +264,7 @@
 			The default value of offsetX, offsetY
 		</p>
 
-		<h3>[property:number offsetX]</h3>
+		<h3>[property:number offsetX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br>
 			Typical range is *0.0* to *1.0*.<br>
@@ -269,7 +272,7 @@
 			The value of offset.x
 		</p>
 
-		<h3>[property:number offsetY]</h3>
+		<h3>[property:number offsetY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br>
 			Typical range is *0.0* to *1.0*.<br>
@@ -277,31 +280,29 @@
 			The value of offset.y
 		</p>
 
-		<h3>[property:boolean premultiplyAlpha]</h3>
+		<h3>[property:boolean premultiplyAlpha]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			If set to *true*, the alpha channel, if present, is multiplied into the color channels when the texture is uploaded to the GPU. Default is *false*.<br>
 			Note that this property has no effect for [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap].<br>
 			You need to configure on bitmap creation instead. See [page:ImageBitmapLoader].
 		</p>
 
-		<h3>[property:any programMipmaps][]</h3>
+		<h3>[property:any[] programMipmaps]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The texture program mipmaps
 		</p>
 
-		<h3>[property:any programParam]</h3>
+		<h3>[property:any programParam]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The texture program params
 		</p>
 
-		<h3>[property:mixed refName]</h3>
+		<h3>[property:string|string[] refName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The refName of geometry component<br>
-			<br>
-			[page:string string] | [page:string string]
+			The refName of geometry component
 		</p>
 
-		<h3>[property:number repeat]</h3>
+		<h3>[property:number repeat]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to<br>
 			[page:Textures THREE.RepeatWrapping] or [page:Textures THREE.MirroredRepeatWrapping] to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [page:.offset].<br>
@@ -309,7 +310,7 @@
 			The default value of repeatX , repeatY
 		</p>
 
-		<h3>[property:number repeatX]</h3>
+		<h3>[property:number repeatX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to<br>
 			[page:Textures THREE.RepeatWrapping] or [page:Textures THREE.MirroredRepeatWrapping] to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [page:.offset].<br>
@@ -317,7 +318,7 @@
 			The value of repeat.x
 		</p>
 
-		<h3>[property:number repeatY]</h3>
+		<h3>[property:number repeatY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to<br>
 			[page:Textures THREE.RepeatWrapping] or [page:Textures THREE.MirroredRepeatWrapping] to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [page:.offset].<br>
@@ -325,39 +326,44 @@
 			The value of repeat.y
 		</p>
 
-		<h3>[property:number rotation]</h3>
+		<h3>[property:number rotation]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How much the texture is rotated around the center point, in radians. Positive values are counter-clockwise. Default is *0*.
 		</p>
 
-		<h3>[property:number scale]</h3>
+		<h3>[property:number scale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			scale of the texture.
 		</p>
 
-		<h3>[property:string text]</h3>
+		<h3>[property:string text]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Texture param use when call Canvas Program.
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:Texture texture]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Texture of abstract texture component
+		</p>
+
+		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Type of Texture of Matrial
 		</p>
 
-		<h3>[property:number unpackAlignment]</h3>
+		<h3>[property:number unpackAlignment]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			4 by default. Specifies the alignment requirements for the start of each pixel row in memory.<br>
 			The allowable values are 1 (byte-alignment), 2 (rows aligned to even-numbered bytes), 4 (word-alignment), and 8 (rows start on double-word boundaries).<br>
 			See [link:http://www.khronos.org/opengles/sdk/docs/man/xhtml/glPixelStorei.xml glPixelStorei] for more information.
 		</p>
 
-		<h3>[property:number width]</h3>
+		<h3>[property:number width]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			width of the texture.
 		</p>
 
-		<h3>[property:string wrap]</h3>
+		<h3>[property:string wrap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br>
 			The default is [page:Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.<br>
@@ -373,7 +379,7 @@
 			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
 		</p>
 
-		<h3>[property:string wrapS]</h3>
+		<h3>[property:string wrapS]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br>
 			The default is [page:Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.<br>
@@ -387,7 +393,7 @@
 			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
 		</p>
 
-		<h3>[property:string wrapT]</h3>
+		<h3>[property:string wrapT]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			This defines how the texture is wrapped vertically and corresponds to *V* in UV mapping.<br>
 			The same choices are available as for [property:number wrapS].<br>
@@ -403,9 +409,39 @@
 			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
 		</p>
 
-		<h2>Properties - Output</h2>
+		<h3>[property:CubeTextureLoader cubeTextureLoader]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+			Cube texture loader of abstract texture component
+		</p>
+
+		<h3>[property:FileLoader fileLoader]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			File loader of abstract texture component
+		</p>
+
+		<h3>[property:HDRCubeTextureLoader hdrCubeMapLoader]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Hdr cube map loader of abstract texture component
+		</p>
+
+		<h3>[property:ImageBitmapLoader imageBitmapLoader]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Image bitmap loader of abstract texture component
+		</p>
+
+		<h3>[property:NRRDLoader nrrdLoader]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Nrrd loader of abstract texture component
+		</p>
+
+		<h3>[property:RGBMLoader rgbmLoader]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Rgbm loader of abstract texture component
+		</p>
+
+		<h3>[property:TextureLoader textureLoader]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Texture loader of abstract texture component
 		</p>
 
 		<h2>Methods</h2>
@@ -413,103 +449,151 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<h3>[method:AbstractTextureComponent constructor](  )</h3>
 		<p>
-			Applys changes<br>
-			<br>
-			Returns :
+			Creates an instance of abstract texture component.
 		</p>
 
-		<h3>[method:void applyTexture2Material](  [param:Material material],  [param:string key],  [param:Texture texture] )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
+			Applys changes
+		</p>
+
+		<h3>[method:void applyTexture2Material](  [param:Material material],  [param:string key],  [param:Texture texture] )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			[page:Material material] - The material.<br />
+			[page:string key] - The key.<br />
+			[page:Texture texture] - The texture.<br /><br />
+
 			Applys texture2 material
 		</p>
 
-		<h3>[method:Vector2 getOffset](  [param:number defX],  [param:number defY] )</h3>
+		<h3>[method:Vector2 getOffset](  [param:number defX],  [param:number defY] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:number defX] - The def x.<br />
+			[page:number defY] - The def y.<br /><br />
+
 			Gets offset<br>
 			<br>
 			Returns : offset
 		</p>
 
-		<h3>[method:Vector2 getRepeat](  [param:number defX],  [param:number defY] )</h3>
+		<h3>[method:Vector2 getRepeat](  [param:number defX],  [param:number defY] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:number defX] - The def x.<br />
+			[page:number defY] - The def y.<br /><br />
+
 			Gets repeat<br>
 			<br>
 			Returns : repeat
 		</p>
 
-		<h3>[method:T getTexture](  )</h3>
+		<h3>[method:T getTexture](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets texture<br>
 			<br>
 			Returns : texture
 		</p>
 
-		<h3>[method:Texture getTextureImage](  [param:string image],  [param:string cubeImage][],  [param:mixed program],  [param:any onLoad] )</h3>
+		<h3>[method:Texture getTextureImage](  [param:string image],  [param:string[] cubeImage]?,  [param:string|CanvasFunctionType program]?,  [param:any onLoad]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:string image] - The image.<br />
+			[page:string[] cubeImage] - (optional) The cube image.<br />
+			[page:string|CanvasFunctionType program] - (optional) The program.<br />
+			[page:any onLoad] - (optional) The on load.<br /><br />
+
 			Gets texture image<br>
 			<br>
 			Returns : texture image
 		</p>
 
-		<h3>[method:void getTextureOptions](  [param:any options] )</h3>
+		<h3>[method:void getTextureOptions](  [param:any options] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:any options] - The options.<br /><br />
+
 			Gets texture options<br>
-			<br>
-			 { [ key : [page:string string] ] : [page:any any] } <br>
 			<br>
 			Returns : texture options
 		</p>
 
-		<h3>[method:boolean isTexture](  [param:String type] )</h3>
+		<h3>[method:boolean isTexture](  [param:String type] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:String type] - The type.<br /><br />
+
 			Determines whether texture is<br>
 			<br>
 			Returns : true if texture
 		</p>
 
-		<h3>[method:void setMaterial](  [param:AbstractSubscribeComponent material],  [param:string refType] )</h3>
+		<h3>[method:void setMaterial](  [param:AbstractSubscribeComponent material],  [param:string refType] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:AbstractSubscribeComponent material] - The material.<br />
+			[page:string refType] - The ref type.<br /><br />
+
 			Sets material
 		</p>
 
-		<h3>[method:void setReferTexture](  [param:any texture] )</h3>
+		<h3>[method:void setReferTexture](  [param:any texture] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:any texture] - The texture.<br /><br />
+
 			Sets refer texture
 		</p>
 
-		<h3>[method:void setTexture](  [param:Texture refTexture] )</h3>
+		<h3>[method:void setTexture](  [param:Texture refTexture] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:Texture refTexture] - The ref texture.<br /><br />
+
 			Sets texture
 		</p>
 
-		<h3>[method:void setTextureLoaded](  [param:Texture texture] )</h3>
+		<h3>[method:void setTextureLoaded](  [param:Texture texture] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:Texture texture] - The texture.<br /><br />
+
 			Sets texture loaded
 		</p>
 
-		<h3>[method:void unsetMaterial](  [param:AbstractSubscribeComponent material] )</h3>
+		<h3>[method:void unsetMaterial](  [param:AbstractSubscribeComponent material] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:AbstractSubscribeComponent material] - The material.<br /><br />
+
 			unSets object3d
 		</p>
 
-		<h3>[method:Texture getTextureImage](  [param:string image],  [param:string cubeImage][],  [param:mixed program],  [param:any options],  [param:any onLoad] )</h3>
+		<h3>[method:Texture getTextureImage](  [param:string image],  [param:string[] cubeImage]?,  [param:string|CanvasFunctionType program]?,  [param:any options]?,  [param:any onLoad]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string image] - The image.<br />
+			[page:string[] cubeImage] - (optional) The cube image.<br />
+			[page:string|CanvasFunctionType program] - (optional) The program.<br />
+			[page:any options] - (optional) The options.<br />
+			[page:any onLoad] - (optional) The on load.<br /><br />
+
 			Gets texture image<br>
 			<br>
 			Returns : texture image
 		</p>
 
-		<h3>[method:Texture getTextureImageOption](  [param:any image],  [param:string optionsTxt],  [param:string loaderType],  [param:string cubeImage][],  [param:any onLoad] )</h3>
+		<h3>[method:Texture getTextureImageOption](  [param:any image],  [param:string optionsTxt]?,  [param:string loaderType]?,  [param:string[] cubeImage]?,  [param:any onLoad]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any image] - The image.<br />
+			[page:string optionsTxt] - (optional) The options txt.<br />
+			[page:string loaderType] - (optional) The loader type.<br />
+			[page:string[] cubeImage] - (optional) The cube image.<br />
+			[page:any onLoad] - (optional) The on load.<br /><br />
+
 			Gets texture image option<br>
 			<br>
 			Returns : texture image option
 		</p>
 
-		<h3>[method:any setTextureOptions](  [param:any texture],  [param:any options] )</h3>
+		<h3>[method:any setTextureOptions](  [param:any texture],  [param:any options] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any texture] - The texture.<br />
+			[page:any options] - The options.<br /><br />
+
 			Sets texture options<br>
 			<br>
 			Returns : texture options

@@ -7,59 +7,91 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		<h1>[name]</h1>
+		<h1>ThreeUtil</h1>
 
 		<p class="desc">
 			Three util
 		</p>
 
-		<h2>Properties - Input</h2>
-		<h2>Properties - Output</h2>
-		<h2>Methods</h2>
-		<h3>[method:string addCssStyle](  [param:HTMLElement ele],  [param:mixed styles],  [param:string clazzName],  [param:string classPrefix],  [param:string vertualClass] )</h3>
+		<h2>Properties</h2>
+		<h3>[property:any lastRenderer]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			Last renderer of three util
+		</p>
+
+		<h3>[property:ThreeStats stats]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			The Stats of three util
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:string addCssStyle](  [param:HTMLElement ele],  [param:string|CssStyle styles],  [param:string clazzName]?,  [param:string classPrefix]?,  [param:string vertualClass]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			[page:HTMLElement ele] - The ele.<br />
+			[page:string|CssStyle styles] - The styles.<br />
+			[page:string clazzName] - (optional) The clazz name.<br />
+			[page:string classPrefix] - (optional) The class prefix.<br />
+			[page:string vertualClass] - (optional) The vertual class.<br /><br />
+
 			Adds css style<br>
 			<br>
 			Returns : css style
 		</p>
 
-		<h3>[method:string camelCaseToDash](  [param:string myStr] )</h3>
+		<h3>[method:string camelCaseToDash](  [param:string myStr] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
-			Camels case to dash<br>
-			<br>
-			Returns :
+			[page:string myStr] - The my str.<br /><br />
+
+			Camels case to dash
 		</p>
 
-		<h3>[method:boolean cssEject](  [param:string id],  [param:any indoc] )</h3>
+		<h3>[method:boolean cssEject](  [param:string id],  [param:any indoc]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string id] - The id.<br />
+			[page:any indoc] - (optional) The indoc.<br /><br />
+
 			Css eject<br>
 			<br>
 			Returns : true if eject
 		</p>
 
-		<h3>[method:boolean cssInject](  [param:string cssContent],  [param:string id],  [param:any indoc] )</h3>
+		<h3>[method:boolean cssInject](  [param:string cssContent],  [param:string id]?,  [param:any indoc]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string cssContent] - The css content.<br />
+			[page:string id] - (optional) The id.<br />
+			[page:any indoc] - (optional) The indoc.<br /><br />
+
 			Css inject<br>
 			<br>
 			Returns : true if inject
 		</p>
 
-		<h3>[method:number getAngle2RadianSafe](  [param:number angle],  [param:number altangle] )</h3>
+		<h3>[method:number getAngle2RadianSafe](  [param:number angle],  [param:number altangle]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:number angle] - The angle.<br />
+			[page:number altangle] - (optional) The altangle.<br /><br />
+
 			Gets angle2 radian safe<br>
 			<br>
 			Returns : angle2 radian safe
 		</p>
 
-		<h3>[method:number getAngleSafe](  [param:mixed angle],  [param:number altangle] )</h3>
+		<h3>[method:number getAngleSafe](  [param:string|number angle],  [param:number altangle]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string|number angle] - The angle.<br />
+			[page:number altangle] - (optional) The altangle.<br /><br />
+
 			Gets angle safe<br>
 			<br>
 			Returns : angle safe
 		</p>
 
-		<h3>[method:Blending getBlendingSafe](  [param:string baseBlending],  [param:string altBlending],  [param:string def] )</h3>
+		<h3>[method:Blending getBlendingSafe](  [param:string baseBlending],  [param:string altBlending]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string baseBlending] - The base blending.<br />
+			[page:string altBlending] - (optional) The alt blending.<br />
+			[page:string def] - (optional) The def.<br /><br />
+
 			Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.<br>
 			<br>
 			[page:NoBlending NoBlending] - THREE.NoBlending - NoBlending, No<br>
@@ -72,183 +104,257 @@
 			Returns : blending safe
 		</p>
 
-		<h3>[method:boolean getBooleanSafe](  [param:mixed bl],  [param:mixed altbl] )</h3>
+		<h3>[method:boolean getBooleanSafe](  [param:string|number|boolean bl],  [param:string|number|boolean altbl]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string|number|boolean bl] - The bl.<br />
+			[page:string|number|boolean altbl] - (optional) The altbl.<br /><br />
+
 			Gets boolean safe<br>
 			<br>
 			Returns : true if boolean safe
 		</p>
 
-		<h3>[method:HTMLElement getChildElementSave](  [param:HTMLElement parentEle] )</h3>
+		<h3>[method:HTMLElement getChildElementSave](  [param:HTMLElement parentEle] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:HTMLElement parentEle] - The parent ele.<br /><br />
+
 			Gets child element save<br>
 			<br>
 			Returns : child element save
 		</p>
 
-		<h3>[method:Scale getChromaScale](  [param:any scales][] )</h3>
+		<h3>[method:Scale getChromaScale](  [param:any[] scales] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any[] scales] - The scales.<br /><br />
+
 			Gets chroma scale<br>
 			<br>
 			Returns : chroma scale
 		</p>
 
-		<h3>[method:ThreeClock getClock](  [param:boolean autoStart] )</h3>
+		<h3>[method:ThreeClock getClock](  [param:boolean autoStart]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:boolean autoStart] - (optional) The auto start.<br /><br />
+
 			Gets clock<br>
 			<br>
 			Returns : clock
 		</p>
 
-		<h3>[method:Color getColor](  [param:mixed color] )</h3>
+		<h3>[method:Color getColor](  [param:ThreeColor color] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:ThreeColor color] - The color.<br /><br />
+
 			Gets color<br>
 			<br>
 			Returns : color
 		</p>
 
-		<h3>[method:void getColorAlphaSafe](  [param:ThreeColor color],  [param:number alpha],  [param:ThreeColor altColor] )</h3>
+		<h3>[method:Color|Vector4 getColorAlphaSafe](  [param:ThreeColor color],  [param:number alpha],  [param:ThreeColor altColor]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:ThreeColor color] - The color.<br />
+			[page:number alpha] - The alpha.<br />
+			[page:ThreeColor altColor] - (optional) The alt color.<br /><br />
+
 			Gets color alpha safe<br>
-			<br>
-			[page:Color Color] | [page:Vector4 Vector4]<br>
 			<br>
 			Returns : color alpha safe
 		</p>
 
-		<h3>[method:Color getColorHSL](  [param:number h],  [param:number s],  [param:number l],  [param:ThreeColor color] )</h3>
+		<h3>[method:Color getColorHSL](  [param:number h]?,  [param:number s]?,  [param:number l]?,  [param:ThreeColor color]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:number h] - (optional) The h.<br />
+			[page:number s] - (optional) The s.<br />
+			[page:number l] - (optional) The l.<br />
+			[page:ThreeColor color] - (optional) The color.<br /><br />
+
 			Gets color hsl<br>
 			<br>
 			Returns : color hsl
 		</p>
 
-		<h3>[method:number getColorHex](  [param:ThreeColor color] )</h3>
+		<h3>[method:number getColorHex](  [param:ThreeColor color]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:ThreeColor color] - (optional) The color.<br /><br />
+
 			Gets color hex<br>
 			<br>
 			Returns : color hex
 		</p>
 
-		<h3>[method:string getColorHexString](  [param:ThreeColor color] )</h3>
+		<h3>[method:string getColorHexString](  [param:ThreeColor color]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:ThreeColor color] - (optional) The color.<br /><br />
+
 			Gets color hex string<br>
 			<br>
 			Returns : color hex string
 		</p>
 
-		<h3>[method:Color getColorMultiplySafe](  [param:ThreeColor color],  [param:ThreeColor altColor],  [param:number multiply] )</h3>
+		<h3>[method:Color getColorMultiplySafe](  [param:ThreeColor color],  [param:ThreeColor altColor]?,  [param:number multiply]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:ThreeColor color] - The color.<br />
+			[page:ThreeColor altColor] - (optional) The alt color.<br />
+			[page:number multiply] - (optional) The multiply.<br /><br />
+
 			Gets color multiply safe<br>
 			<br>
 			Returns : color multiply safe
 		</p>
 
-		<h3>[method:Color getColorRGB](  [param:number r],  [param:number g],  [param:number b],  [param:ThreeColor color] )</h3>
+		<h3>[method:Color getColorRGB](  [param:number r],  [param:number g],  [param:number b],  [param:ThreeColor color]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:number r] - The r.<br />
+			[page:number g] - The g.<br />
+			[page:number b] - The b.<br />
+			[page:ThreeColor color] - (optional) The color.<br /><br />
+
 			Gets color rgb<br>
 			<br>
 			Returns : color rgb
 		</p>
 
-		<h3>[method:Color getColorSafe](  [param:ThreeColor color],  [param:ThreeColor altColor],  [param:ThreeColor nullColor] )</h3>
+		<h3>[method:Color getColorSafe](  [param:ThreeColor color],  [param:ThreeColor altColor]?,  [param:ThreeColor nullColor]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:ThreeColor color] - The color.<br />
+			[page:ThreeColor altColor] - (optional) The alt color.<br />
+			[page:ThreeColor nullColor] - (optional) The null color.<br /><br />
+
 			Gets color safe<br>
 			<br>
 			Returns : color safe
 		</p>
 
-		<h3>[method:string getColorStyle](  [param:ThreeColor color] )</h3>
+		<h3>[method:string getColorStyle](  [param:ThreeColor color]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:ThreeColor color] - (optional) The color.<br /><br />
+
 			Gets color style<br>
 			<br>
 			Returns : color style
 		</p>
 
-		<h3>[method:void getControls](  [param:T param],  [param:any component],  [param:boolean addBaseParam] )</h3>
+		<h3>[method:void getControls](  [param:T param],  [param:any component],  [param:boolean addBaseParam] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:T param] - The param.<br />
+			[page:any component] - The component.<br />
+			[page:boolean addBaseParam] - The add base param.<br /><br />
+
 			Gets controls<br>
 			<br>
 			Returns : controls
 		</p>
 
-		<h3>[method:void getControlsOnRender](  [param:RendererTimer timer],  [param:any component] )</h3>
+		<h3>[method:void getControlsOnRender](  [param:RendererTimer timer],  [param:any component] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:RendererTimer timer] - The timer.<br />
+			[page:any component] - The component.<br /><br />
+
 			Gets controls on render
 		</p>
 
-		<h3>[method:void getControlsParams](  [param:GuiControlParam params][],  [param:any component],  [param:boolean addBaseParam] )</h3>
+		<h3>[method:GuiControlParam[] getControlsParams](  [param:GuiControlParam[] params],  [param:any component],  [param:boolean addBaseParam] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:GuiControlParam[] params] - The params.<br />
+			[page:any component] - The component.<br />
+			[page:boolean addBaseParam] - The add base param.<br /><br />
+
 			Gets controls params<br>
 			<br>
 			Returns : controls params
 		</p>
 
-		<h3>[method:void getCubeImage](  [param:string cubeImage][] )</h3>
+		<h3>[method:string[] getCubeImage](  [param:string[] cubeImage] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string[] cubeImage] - The cube image.<br /><br />
+
 			Gets cube image<br>
 			<br>
 			Returns : cube image
 		</p>
 
-		<h3>[method:Euler getEulerSafe](  [param:mixed x],  [param:mixed y],  [param:mixed z],  [param:Euler altValue],  [param:boolean isRequired] )</h3>
+		<h3>[method:Euler getEulerSafe](  [param:string|number x],  [param:string|number y],  [param:string|number z],  [param:Euler altValue]?,  [param:boolean isRequired]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string|number x] - The x.<br />
+			[page:string|number y] - The y.<br />
+			[page:string|number z] - The z.<br />
+			[page:Euler altValue] - (optional) The alt value.<br />
+			[page:boolean isRequired] - (optional) The is required.<br /><br />
+
 			Gets euler safe<br>
 			<br>
 			Returns : euler safe
 		</p>
 
-		<h3>[method:T getFirst](  [param:mixed value] )</h3>
+		<h3>[method:T getFirst](  [param:T|T[] value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:T|T[] value] - The value.<br /><br />
+
 			Gets first<br>
 			<br>
 			Returns : first
 		</p>
 
-		<h3>[method:BufferGeometry getGeometry](  [param:any geometry] )</h3>
+		<h3>[method:BufferGeometry getGeometry](  [param:any geometry] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any geometry] - The geometry.<br /><br />
+
 			Gets geometry<br>
 			<br>
 			Returns : geometry
 		</p>
 
-		<h3>[method:GuiControlParam getGuiControlParam](  [param:GuiControlParam children][],  [param:string name] )</h3>
+		<h3>[method:GuiControlParam getGuiControlParam](  [param:GuiControlParam[] children],  [param:string name] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:GuiControlParam[] children] - The children.<br />
+			[page:string name] - The name.<br /><br />
+
 			Gets gui control param<br>
 			<br>
 			Returns : gui control param
 		</p>
 
-		<h3>[method:string getHtmlCode](  [param:TagAttributes info],  [param:string preTab] )</h3>
+		<h3>[method:string getHtmlCode](  [param:TagAttributes info],  [param:string preTab] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:TagAttributes info] - The info.<br />
+			[page:string preTab] - The pre tab.<br /><br />
+
 			Gets html code<br>
 			<br>
 			Returns : html code
 		</p>
 
-		<h3>[method:Light getLight](  [param:any light] )</h3>
+		<h3>[method:Light getLight](  [param:any light] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any light] - The light.<br /><br />
+
 			Gets light<br>
 			<br>
 			Returns : light
 		</p>
 
-		<h3>[method:LoadingManager getLoadingManager](  )</h3>
+		<h3>[method:LoadingManager getLoadingManager](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
 			Gets loading manager<br>
 			<br>
 			Returns : loading manager
 		</p>
 
-		<h3>[method:Vector3 getLookAt](  [param:any lookat] )</h3>
+		<h3>[method:Vector3 getLookAt](  [param:any lookat] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any lookat] - The lookat.<br /><br />
+
 			Gets look at<br>
 			<br>
 			Returns : look at
 		</p>
 
-		<h3>[method:Mapping getMappingSafe](  [param:string baseMapping],  [param:string altMapping],  [param:string def] )</h3>
+		<h3>[method:Mapping getMappingSafe](  [param:string baseMapping],  [param:string altMapping]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string baseMapping] - The base mapping.<br />
+			[page:string altMapping] - (optional) The alt mapping.<br />
+			[page:string def] - (optional) The def.<br /><br />
+
 			Gets mapping safe<br>
 			<br>
 			Notice - case insensitive.<br>
@@ -265,73 +371,98 @@
 			Returns : mapping safe
 		</p>
 
-		<h3>[method:void getMaterial](  [param:any material] )</h3>
+		<h3>[method:Material|Material[] getMaterial](  [param:any material] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any material] - The material.<br /><br />
+
 			Gets material<br>
-			<br>
-			[page:Material Material] | [page:Material Material]<br>
 			<br>
 			Returns : material
 		</p>
 
-		<h3>[method:Material getMaterialByType](  [param:any material],  [param:string materialType] )</h3>
+		<h3>[method:Material getMaterialByType](  [param:any material],  [param:string materialType]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any material] - The material.<br />
+			[page:string materialType] - (optional) The material type.<br /><br />
+
 			Gets material by type<br>
 			<br>
 			Returns : material by type
 		</p>
 
-		<h3>[method:Material getMaterialOne](  [param:any material] )</h3>
+		<h3>[method:Material getMaterialOne](  [param:any material] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any material] - The material.<br /><br />
+
 			Gets material one<br>
 			<br>
 			Returns : material one
 		</p>
 
-		<h3>[method:Matrix4 getMatrix4Safe](  [param:Object3D obj],  [param:string matrixType] )</h3>
+		<h3>[method:Matrix4 getMatrix4Safe](  [param:Object3D obj],  [param:string matrixType] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:Object3D obj] - The obj.<br />
+			[page:string matrixType] - The matrix type.<br /><br />
+
 			Gets matrix4 safe<br>
 			<br>
 			Returns : matrix4 safe
 		</p>
 
-		<h3>[method:Mesh getMesh](  [param:any mesh] )</h3>
+		<h3>[method:Mesh getMesh](  [param:any mesh] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any mesh] - The mesh.<br /><br />
+
 			Gets mesh<br>
 			<br>
 			Returns : mesh
 		</p>
 
-		<h3>[method:Mesh getMeshFind](  [param:any mesh] )</h3>
+		<h3>[method:Mesh getMeshFind](  [param:any mesh] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any mesh] - The mesh.<br /><br />
+
 			Gets mesh find<br>
 			<br>
 			Returns : mesh find
 		</p>
 
-		<h3>[method:number getNumberSafe](  [param:mixed num],  [param:number altnum] )</h3>
+		<h3>[method:number getNumberSafe](  [param:string|number num],  [param:number altnum]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string|number num] - The num.<br />
+			[page:number altnum] - (optional) The altnum.<br /><br />
+
 			Gets number safe<br>
 			<br>
 			Returns : number safe
 		</p>
 
-		<h3>[method:T getObject3d](  [param:any object3d],  [param:boolean isRequired] )</h3>
+		<h3>[method:T getObject3d](  [param:any object3d],  [param:boolean isRequired] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any object3d] - The object3d.<br />
+			[page:boolean isRequired] - The is required.<br /><br />
+
 			Gets object3d<br>
 			<br>
 			Returns : object3d
 		</p>
 
-		<h3>[method:number getParseFloat](  [param:string value],  [param:number max] )</h3>
+		<h3>[method:number getParseFloat](  [param:string value],  [param:number max] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string value] - The value.<br />
+			[page:number max] - The max.<br /><br />
+
 			Gets parse float<br>
 			<br>
 			Returns : parse float
 		</p>
 
-		<h3>[method:PixelFormat getPixelFormatSafe](  [param:string baseFormat],  [param:string altFormat],  [param:string def] )</h3>
+		<h3>[method:PixelFormat getPixelFormatSafe](  [param:string baseFormat],  [param:string altFormat]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string baseFormat] - The base format.<br />
+			[page:string altFormat] - (optional) The alt format.<br />
+			[page:string def] - (optional) The def.<br /><br />
+
 			Gets pixel format safe<br>
 			<br>
 			Notice - case insensitive.<br>
@@ -355,106 +486,135 @@
 			Returns : pixel format safe
 		</p>
 
-		<h3>[method:PMREMGenerator getPmremGenerator](  )</h3>
+		<h3>[method:PMREMGenerator getPmremGenerator](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
 			Gets pmrem generator<br>
 			<br>
 			Returns : pmrem generator
 		</p>
 
-		<h3>[method:Vector3 getPosition](  [param:any position] )</h3>
+		<h3>[method:Vector3 getPosition](  [param:any position] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any position] - The position.<br /><br />
+
 			Gets position<br>
 			<br>
 			Returns : position
 		</p>
 
-		<h3>[method:number getRadian2AngleSafe](  [param:number angle],  [param:number altangle] )</h3>
+		<h3>[method:number getRadian2AngleSafe](  [param:number angle],  [param:number altangle]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:number angle] - The angle.<br />
+			[page:number altangle] - (optional) The altangle.<br /><br />
+
 			Gets radian2 angle safe<br>
 			<br>
 			Returns : radian2 angle safe
 		</p>
 
-		<h3>[method:Renderer getRenderer](  )</h3>
+		<h3>[method:Renderer getRenderer](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
 			Gets renderer<br>
 			<br>
 			Returns : renderer
 		</p>
 
-		<h3>[method:Vector2 getRendererSize](  )</h3>
+		<h3>[method:Vector2 getRendererSize](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
 			Gets renderer size<br>
 			<br>
 			Returns : renderer size
 		</p>
 
-		<h3>[method:btRigidBody getRigidbody](  [param:any object] )</h3>
+		<h3>[method:btRigidBody getRigidbody](  [param:any object] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any object] - The object.<br /><br />
+
 			Gets rigidbody<br>
 			<br>
 			Returns : rigidbody
 		</p>
 
-		<h3>[method:any getRigidbodyComponent](  [param:any object] )</h3>
+		<h3>[method:any getRigidbodyComponent](  [param:any object] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any object] - The object.<br /><br />
+
 			Gets rigidbody component<br>
 			<br>
 			Returns : rigidbody component
 		</p>
 
-		<h3>[method:Euler getRotation](  [param:any rotation] )</h3>
+		<h3>[method:Euler getRotation](  [param:any rotation] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any rotation] - The rotation.<br /><br />
+
 			Gets rotation<br>
 			<br>
 			Returns : rotation
 		</p>
 
-		<h3>[method:Vector3 getScale](  [param:any scale] )</h3>
+		<h3>[method:Vector3 getScale](  [param:any scale] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any scale] - The scale.<br /><br />
+
 			Gets scale<br>
 			<br>
 			Returns : scale
 		</p>
 
-		<h3>[method:Observable getSizeSubscribe](  )</h3>
+		<h3>[method:Observable getSizeSubscribe](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
 			Gets size subscribe<br>
 			<br>
 			Returns : size subscribe
 		</p>
 
-		<h3>[method:ThreeStats getStats](  [param:object style] )</h3>
+		<h3>[method:ThreeStats getStats](  [param:object style]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:object style] - (optional) The style.<br /><br />
+
 			Gets stats<br>
 			<br>
 			Returns : stats
 		</p>
 
-		<h3>[method:string getStoreUrl](  [param:string url] )</h3>
+		<h3>[method:string getStoreUrl](  [param:string url] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string url] - The url.<br /><br />
+
 			Gets store url<br>
 			<br>
 			Returns : store url
 		</p>
 
-		<h3>[method:Subscription getSubscribe](  [param:any object],  [param:any callBack],  [param:string nextKey] )</h3>
+		<h3>[method:Subscription getSubscribe](  [param:any object],  [param:any callBack],  [param:string nextKey] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any object] - The object.<br />
+			[page:any callBack] - The call back.<br />
+			[page:string nextKey] - The next key.<br /><br />
+
 			Gets subscribe<br>
 			<br>
 			Returns : subscribe
 		</p>
 
-		<h3>[method:Texture getTexture](  [param:any texture],  [param:string refType],  [param:boolean isRequired] )</h3>
+		<h3>[method:Texture getTexture](  [param:any texture],  [param:string refType],  [param:boolean isRequired] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any texture] - The texture.<br />
+			[page:string refType] - The ref type.<br />
+			[page:boolean isRequired] - The is required.<br /><br />
+
 			Gets texture<br>
 			<br>
 			Returns : texture
 		</p>
 
-		<h3>[method:TextureDataType getTextureDataTypeSafe](  [param:string baseFormat],  [param:string altFormat],  [param:string def] )</h3>
+		<h3>[method:TextureDataType getTextureDataTypeSafe](  [param:string baseFormat],  [param:string altFormat]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string baseFormat] - The base format.<br />
+			[page:string altFormat] - (optional) The alt format.<br />
+			[page:string def] - (optional) The def.<br /><br />
+
 			Gets texture data type safe<br>
 			<br>
 			Notice - case insensitive.<br>
@@ -476,8 +636,12 @@
 			Returns : texture data type safe
 		</p>
 
-		<h3>[method:TextureEncoding getTextureEncodingSafe](  [param:string baseEncoding],  [param:string altEncoding],  [param:string def] )</h3>
+		<h3>[method:TextureEncoding getTextureEncodingSafe](  [param:string baseEncoding],  [param:string altEncoding]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string baseEncoding] - The base encoding.<br />
+			[page:string altEncoding] - (optional) The alt encoding.<br />
+			[page:string def] - (optional) The def.<br /><br />
+
 			Gets texture encoding safe<br>
 			<br>
 			Notice - case insensitive.<br>
@@ -495,8 +659,12 @@
 			Returns : texture encoding safe
 		</p>
 
-		<h3>[method:TextureFilter getTextureFilterSafe](  [param:string baseFilter],  [param:string altFilter],  [param:string def] )</h3>
+		<h3>[method:TextureFilter getTextureFilterSafe](  [param:string baseFilter],  [param:string altFilter]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string baseFilter] - The base filter.<br />
+			[page:string altFilter] - (optional) The alt filter.<br />
+			[page:string def] - (optional) The def.<br /><br />
+
 			Gets texture filter safe<br>
 			<br>
 			Notice - case insensitive.<br>
@@ -512,57 +680,86 @@
 			Returns : texture filter safe
 		</p>
 
-		<h3>[method:any getThreeComponent](  [param:any object] )</h3>
+		<h3>[method:any getThreeComponent](  [param:any object] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any object] - The object.<br /><br />
+
 			Gets three component<br>
 			<br>
 			Returns : three component
 		</p>
 
-		<h3>[method:T getTypeSafe](  [param:T value],  [param:T altValue],  [param:T nullValue] )</h3>
+		<h3>[method:T getTypeSafe](  [param:T value],  [param:T altValue]?,  [param:T nullValue]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:T value] - The value.<br />
+			[page:T altValue] - (optional) The alt value.<br />
+			[page:T nullValue] - (optional) The null value.<br /><br />
+
 			Gets type safe<br>
 			<br>
 			Returns : type safe
 		</p>
 
-		<h3>[method:Observable getUpdateSubscribe](  )</h3>
+		<h3>[method:Observable getUpdateSubscribe](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
 			Gets update subscribe<br>
 			<br>
 			Returns : update subscribe
 		</p>
 
-		<h3>[method:Vector2 getVector2Safe](  [param:number x],  [param:number y],  [param:Vector2 altValue],  [param:mixed v2],  [param:boolean isRequired] )</h3>
+		<h3>[method:Vector2 getVector2Safe](  [param:number x],  [param:number y],  [param:Vector2 altValue]?,  [param:Vector2|number[] v2]?,  [param:boolean isRequired]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:number x] - The x.<br />
+			[page:number y] - The y.<br />
+			[page:Vector2 altValue] - (optional) The alt value.<br />
+			[page:Vector2|number[] v2] - (optional) The v2.<br />
+			[page:boolean isRequired] - (optional) The is required.<br /><br />
+
 			Gets vector2 safe<br>
 			<br>
 			Returns : vector2 safe
 		</p>
 
-		<h3>[method:Vector2 getVector2VSafe](  [param:mixed v2],  [param:Vector2 altValue] )</h3>
+		<h3>[method:Vector2 getVector2VSafe](  [param:Vector2|number[] v2],  [param:Vector2 altValue]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:Vector2|number[] v2] - The v2.<br />
+			[page:Vector2 altValue] - (optional) The alt value.<br /><br />
+
 			Gets vector2 vsafe<br>
 			<br>
 			Returns : vector2 vsafe
 		</p>
 
-		<h3>[method:Vector3 getVector3Safe](  [param:number x],  [param:number y],  [param:number z],  [param:Vector3 altValue],  [param:mixed v3],  [param:boolean isRequired] )</h3>
+		<h3>[method:Vector3 getVector3Safe](  [param:number x],  [param:number y],  [param:number z],  [param:Vector3 altValue]?,  [param:Vector3|number[] v3]?,  [param:boolean isRequired]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:number x] - The x.<br />
+			[page:number y] - The y.<br />
+			[page:number z] - The z.<br />
+			[page:Vector3 altValue] - (optional) The alt value.<br />
+			[page:Vector3|number[] v3] - (optional) The v3.<br />
+			[page:boolean isRequired] - (optional) The is required.<br /><br />
+
 			Gets vector3 safe<br>
 			<br>
 			Returns : vector3 safe
 		</p>
 
-		<h3>[method:Vector3 getVector3VSafe](  [param:mixed v3],  [param:Vector3 altValue] )</h3>
+		<h3>[method:Vector3 getVector3VSafe](  [param:Vector3|number[] v3],  [param:Vector3 altValue]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:Vector3|number[] v3] - The v3.<br />
+			[page:Vector3 altValue] - (optional) The alt value.<br /><br />
+
 			Gets vector3 vsafe<br>
 			<br>
 			Returns : vector3 vsafe
 		</p>
 
-		<h3>[method:Wrapping getWrappingSafe](  [param:string baseWrap],  [param:string altWrap],  [param:string def] )</h3>
+		<h3>[method:Wrapping getWrappingSafe](  [param:string baseWrap],  [param:string altWrap]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string baseWrap] - The base wrap.<br />
+			[page:string altWrap] - (optional) The alt wrap.<br />
+			[page:string def] - (optional) The def.<br /><br />
+
 			Gets wrapping safe<br>
 			<br>
 			Notice - case insensitive.<br>
@@ -575,142 +772,200 @@
 			Returns : wrapping safe
 		</p>
 
-		<h3>[method:boolean isArray](  [param:any value] )</h3>
+		<h3>[method:boolean isArray](  [param:any value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any value] - The value.<br /><br />
+
 			Determines whether array is<br>
 			<br>
 			Returns : true if array
 		</p>
 
-		<h3>[method:boolean isColor](  [param:any color] )</h3>
+		<h3>[method:boolean isColor](  [param:any color] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any color] - The color.<br /><br />
+
 			Determines whether not null is color<br>
 			<br>
 			Returns : true if not null
 		</p>
 
-		<h3>[method:boolean isIndexOf](  [param:T data][],  [param:mixed findMe] )</h3>
+		<h3>[method:boolean isIndexOf](  [param:T[] data],  [param:T|T[] findMe] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:T[] data] - The data.<br />
+			[page:T|T[] findMe] - The find me.<br /><br />
+
 			Determines whether index of is<br>
 			<br>
 			Returns : true if index of
 		</p>
 
-		<h3>[method:boolean isNotNull](  [param:any value] )</h3>
+		<h3>[method:boolean isNotNull](  [param:any value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any value] - The value.<br /><br />
+
 			Determines whether not null is<br>
 			<br>
 			Returns : true if not null
 		</p>
 
-		<h3>[method:boolean isNull](  [param:any value] )</h3>
+		<h3>[method:boolean isNull](  [param:any value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any value] - The value.<br /><br />
+
 			Determines whether null is<br>
 			<br>
 			Returns : true if null
 		</p>
 
-		<h3>[method:boolean isOnlyIndexOf](  [param:T data][],  [param:T findMe][],  [param:T addedFindMe][] )</h3>
+		<h3>[method:boolean isOnlyIndexOf](  [param:T[] data],  [param:T[] findMe],  [param:T[] addedFindMe]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:T[] data] - The data.<br />
+			[page:T[] findMe] - The find me.<br />
+			[page:T[] addedFindMe] - (optional) The added find me.<br /><br />
+
 			Determines whether only index of is<br>
 			<br>
 			Returns : true if only index of
 		</p>
 
-		<h3>[method:boolean isTextureLoaded](  [param:Texture texture] )</h3>
+		<h3>[method:boolean isTextureLoaded](  [param:Texture texture] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:Texture texture] - The texture.<br /><br />
+
 			Determines whether texture loaded is<br>
 			<br>
 			Returns : true if texture loaded
 		</p>
 
-		<h3>[method:boolean isThreeComponent](  [param:any object],  [param:string key] )</h3>
+		<h3>[method:boolean isThreeComponent](  [param:any object],  [param:string key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any object] - The object.<br />
+			[page:string key] - The key.<br /><br />
+
 			Determines whether three component is<br>
 			<br>
 			Returns : true if three component
 		</p>
 
-		<h3>[method:string makeUUID](  [param:number len],  [param:string pre] )</h3>
+		<h3>[method:string makeUUID](  [param:number len],  [param:string pre]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
-			Makes uuid<br>
-			<br>
-			Returns :
+			[page:number len] - The len.<br />
+			[page:string pre] - (optional) The pre.<br /><br />
+
+			Makes uuid
 		</p>
 
-		<h3>[method:void pushUniq](  [param:T data][],  [param:mixed addMe] )</h3>
+		<h3>[method:T[] pushUniq](  [param:T[] data],  [param:T|T[] addMe] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:T[] data] - The data.<br />
+			[page:T|T[] addMe] - The add me.<br /><br />
+
 			Pushs uniq<br>
 			<br>
 			Returns : uniq
 		</p>
 
-		<h3>[method:boolean removeCssStyle](  [param:HTMLElement ele],  [param:string clazzName] )</h3>
+		<h3>[method:boolean removeCssStyle](  [param:HTMLElement ele],  [param:string clazzName]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:HTMLElement ele] - The ele.<br />
+			[page:string clazzName] - (optional) The clazz name.<br /><br />
+
 			Removes css style<br>
 			<br>
 			Returns : true if css style
 		</p>
 
-		<h3>[method:void render](  [param:RendererTimer renderTimer] )</h3>
+		<h3>[method:void render](  [param:RendererTimer renderTimer] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:RendererTimer renderTimer] - The render timer.<br /><br />
+
 			Renders three util
 		</p>
 
-		<h3>[method:void setAssetUrl](  [param:string url] )</h3>
+		<h3>[method:void setAssetUrl](  [param:string url] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
-			Gets store url<br>
-			<br>
-			Returns :
+			[page:string url] - The url.<br /><br />
+
+			Gets store url
 		</p>
 
-		<h3>[method:void setGuiEnabled](  [param:ThreeGuiController control],  [param:boolean isEnable] )</h3>
+		<h3>[method:void setGuiEnabled](  [param:ThreeGuiController control],  [param:boolean isEnable] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:ThreeGuiController control] - The control.<br />
+			[page:boolean isEnable] - The is enable.<br /><br />
+
 			Sets gui enabled
 		</p>
 
-		<h3>[method:void setLoadingProcess](  [param:string url],  [param:number loaded],  [param:number total] )</h3>
+		<h3>[method:void setLoadingProcess](  [param:string url],  [param:number loaded],  [param:number total] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string url] - The url.<br />
+			[page:number loaded] - The loaded.<br />
+			[page:number total] - The total.<br /><br />
+
 			Sets loading process
 		</p>
 
-		<h3>[method:void setRenderer](  [param:any lastRenderer] )</h3>
+		<h3>[method:void setRenderer](  [param:any lastRenderer] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any lastRenderer] - The last renderer.<br /><br />
+
 			Sets renderer
 		</p>
 
-		<h3>[method:void setSubscribeNext](  [param:any object],  [param:mixed key] )</h3>
+		<h3>[method:void setSubscribeNext](  [param:any object],  [param:string|string[] key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any object] - The object.<br />
+			[page:string|string[] key] - The key.<br /><br />
+
 			Sets subscribe next
 		</p>
 
-		<h3>[method:void setThreeComponent](  [param:string key],  [param:any object] )</h3>
+		<h3>[method:void setThreeComponent](  [param:string key],  [param:any object]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string key] - The key.<br />
+			[page:any object] - (optional) The object.<br /><br />
+
 			Sets three component
 		</p>
 
-		<h3>[method:ThreeGuiController setupGui](  [param:any control],  [param:ThreeGuiController gui],  [param:GuiControlParam params][] )</h3>
+		<h3>[method:ThreeGuiController setupGui](  [param:any control],  [param:ThreeGuiController gui],  [param:GuiControlParam[] params] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any control] - The control.<br />
+			[page:ThreeGuiController gui] - The gui.<br />
+			[page:GuiControlParam[] params] - The params.<br /><br />
+
 			Setups gui<br>
 			<br>
 			Returns : gui
 		</p>
 
-		<h3>[method:ThreeGuiController setupGuiChange](  [param:ThreeGuiController control],  [param:any onFinishChange],  [param:any onChange],  [param:boolean listen],  [param:string title] )</h3>
+		<h3>[method:ThreeGuiController setupGuiChange](  [param:ThreeGuiController control],  [param:any onFinishChange]?,  [param:any onChange]?,  [param:boolean listen]?,  [param:string title]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:ThreeGuiController control] - The control.<br />
+			[page:any onFinishChange] - (optional) The on finish change.<br />
+			[page:any onChange] - (optional) The on change.<br />
+			[page:boolean listen] - (optional) The listen.<br />
+			[page:string title] - (optional) The title.<br /><br />
+
 			Setups gui change<br>
 			<br>
 			Returns : gui change
 		</p>
 
-		<h3>[method:boolean toggleCssStyle](  [param:HTMLElement ele],  [param:string clazzName],  [param:boolean isActive] )</h3>
+		<h3>[method:boolean toggleCssStyle](  [param:HTMLElement ele],  [param:string clazzName]?,  [param:boolean isActive]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:HTMLElement ele] - The ele.<br />
+			[page:string clazzName] - (optional) The clazz name.<br />
+			[page:boolean isActive] - (optional) The is active.<br /><br />
+
 			Toggles css style<br>
 			<br>
 			Returns : true if css style
 		</p>
 
-		<hr>
+		<hr class="interface-line"/>
 		<h1 id="ApplyMatrix4">ApplyMatrix4</h1>
 
 		<p class="desc">
@@ -718,7 +973,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="CssStyle">CssStyle</h1>
 
 		<p class="desc">
@@ -726,11 +985,9 @@
 		</p>
 
 		<h2>Properties</h2>
-		<h3>[property:mixed background]?</h3>
+		<h3>[property:Vector4|ThreeColor background]?</h3>
 		<p>
-			The background shorthand CSS property sets all background style properties at once, such as color, image, origin and size, or repeat method.<br>
-			<br>
-			[page:Vector4 Vector4] | [page:ThreeColor ThreeColor]
+			The background shorthand CSS property sets all background style properties at once, such as color, image, origin and size, or repeat method.
 		</p>
 
 		<h3>[property:string backgroundClip]?</h3>
@@ -738,11 +995,9 @@
 			The background-clip CSS property sets whether an element's background extends underneath its border box, padding box, or content box.
 		</p>
 
-		<h3>[property:mixed backgroundColor]?</h3>
+		<h3>[property:Vector4|ThreeColor backgroundColor]?</h3>
 		<p>
-			The background-color CSS property sets the background color of an element.<br>
-			<br>
-			[page:Vector4 Vector4] | [page:ThreeColor ThreeColor]
+			The background-color CSS property sets the background color of an element.
 		</p>
 
 		<h3>[property:string backgroundImage]?</h3>
@@ -755,18 +1010,14 @@
 			The background-position CSS property sets the initial position for each background image. The position is relative to the position layer set by background-origin.
 		</p>
 
-		<h3>[property:mixed backgroundPositionX]?</h3>
+		<h3>[property:string|number backgroundPositionX]?</h3>
 		<p>
-			The background-position CSS property sets the initial position for each background image. The position is relative to the position layer set by background-origin.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The background-position CSS property sets the initial position for each background image. The position is relative to the position layer set by background-origin.
 		</p>
 
-		<h3>[property:mixed backgroundPositionY]?</h3>
+		<h3>[property:string|number backgroundPositionY]?</h3>
 		<p>
-			The background-position CSS property sets the initial position for each background image. The position is relative to the position layer set by background-origin.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The background-position CSS property sets the initial position for each background image. The position is relative to the position layer set by background-origin.
 		</p>
 
 		<h3>[property:string backgroundRepeat]?</h3>
@@ -784,46 +1035,34 @@
 			The background-repeat CSS property sets how background images are repeated. A background image can be repeated along the horizontal and vertical axes, or not repeated at all.
 		</p>
 
-		<h3>[property:mixed backgroundSize]?</h3>
+		<h3>[property:string|number backgroundSize]?</h3>
 		<p>
-			The background-size CSS property sets the size of the element's background image. The image can be left to its natural size, stretched, or constrained to fit the available space.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The background-size CSS property sets the size of the element's background image. The image can be left to its natural size, stretched, or constrained to fit the available space.
 		</p>
 
-		<h3>[property:mixed backgroundSizeX]?</h3>
+		<h3>[property:string|number backgroundSizeX]?</h3>
 		<p>
-			The background-size CSS property sets the size of the element's background image. The image can be left to its natural size, stretched, or constrained to fit the available space.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The background-size CSS property sets the size of the element's background image. The image can be left to its natural size, stretched, or constrained to fit the available space.
 		</p>
 
-		<h3>[property:mixed backgroundSizeY]?</h3>
+		<h3>[property:string|number backgroundSizeY]?</h3>
 		<p>
-			The background-size CSS property sets the size of the element's background image. The image can be left to its natural size, stretched, or constrained to fit the available space.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The background-size CSS property sets the size of the element's background image. The image can be left to its natural size, stretched, or constrained to fit the available space.
 		</p>
 
-		<h3>[property:mixed border]?</h3>
+		<h3>[property:string|number border]?</h3>
 		<p>
-			The border shorthand CSS property sets an element's border. It sets the values of border-width, border-style, and border-color.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The border shorthand CSS property sets an element's border. It sets the values of border-width, border-style, and border-color.
 		</p>
 
-		<h3>[property:mixed borderBottom]?</h3>
+		<h3>[property:string|number borderBottom]?</h3>
 		<p>
-			The border-bottom shorthand CSS property sets an element's bottom border. It sets the values of border-bottom-width, border-bottom-style and border-bottom-color.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The border-bottom shorthand CSS property sets an element's bottom border. It sets the values of border-bottom-width, border-bottom-style and border-bottom-color.
 		</p>
 
-		<h3>[property:mixed borderColor]?</h3>
+		<h3>[property:Vector4|ThreeColor borderColor]?</h3>
 		<p>
-			The border-color shorthand CSS property sets the color of an element's border.<br>
-			<br>
-			[page:Vector4 Vector4] | [page:ThreeColor ThreeColor]
+			The border-color shorthand CSS property sets the color of an element's border.
 		</p>
 
 		<h3>[property:string borderImage]?</h3>
@@ -831,12 +1070,10 @@
 			The border-image CSS property draws an image around a given element. It replaces the element's regular border.
 		</p>
 
-		<h3>[property:mixed borderImageOutset]?</h3>
+		<h3>[property:string|number borderImageOutset]?</h3>
 		<p>
 			The border-image-outset CSS property sets the distance by which an element's border image is set out from its border box.<br>
-			The parts of the border image that are rendered outside the element's border box with border-image-outset do not trigger overflow scrollbars and don't capture mouse events.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The parts of the border image that are rendered outside the element's border box with border-image-outset do not trigger overflow scrollbars and don't capture mouse events.
 		</p>
 
 		<h3>[property:string borderImageRepeat]?</h3>
@@ -844,11 +1081,9 @@
 			The border-image-repeat CSS property defines how the edge regions of a source image are adjusted to fit the dimensions of an element's border image.
 		</p>
 
-		<h3>[property:mixed borderImageSlice]?</h3>
+		<h3>[property:string|number borderImageSlice]?</h3>
 		<p>
-			The border-image-slice CSS property divides the image specified by border-image-source into regions. These regions form the components of an element's border image.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The border-image-slice CSS property divides the image specified by border-image-source into regions. These regions form the components of an element's border image.
 		</p>
 
 		<h3>[property:string borderImageSource]?</h3>
@@ -856,32 +1091,24 @@
 			The border-image-source CSS property sets the source image used to create an element's border image.
 		</p>
 
-		<h3>[property:mixed borderImageWidth]?</h3>
+		<h3>[property:string|number borderImageWidth]?</h3>
 		<p>
-			The border-image-width CSS property sets the width of an element's border image.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The border-image-width CSS property sets the width of an element's border image.
 		</p>
 
-		<h3>[property:mixed borderLeft]?</h3>
+		<h3>[property:string|number borderLeft]?</h3>
 		<p>
-			The border-left shorthand CSS property sets all the properties of an element's left border.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The border-left shorthand CSS property sets all the properties of an element's left border.
 		</p>
 
-		<h3>[property:mixed borderRadius]?</h3>
+		<h3>[property:string|number borderRadius]?</h3>
 		<p>
-			The border-radius CSS property rounds the corners of an element's outer border edge. You can set a single radius to make circular corners, or two radii to make elliptical corners.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The border-radius CSS property rounds the corners of an element's outer border edge. You can set a single radius to make circular corners, or two radii to make elliptical corners.
 		</p>
 
-		<h3>[property:mixed borderRight]?</h3>
+		<h3>[property:string|number borderRight]?</h3>
 		<p>
-			The border-right shorthand CSS property sets all the properties of an element's right border.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The border-right shorthand CSS property sets all the properties of an element's right border.
 		</p>
 
 		<h3>[property:string borderStyle]?</h3>
@@ -889,25 +1116,19 @@
 			The border-style shorthand CSS property sets the line style for all four sides of an element's border.
 		</p>
 
-		<h3>[property:mixed borderTop]?</h3>
+		<h3>[property:string|number borderTop]?</h3>
 		<p>
-			The border-top shorthand CSS property sets all the properties of an element's top border.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The border-top shorthand CSS property sets all the properties of an element's top border.
 		</p>
 
-		<h3>[property:mixed borderWidth]?</h3>
+		<h3>[property:string|number borderWidth]?</h3>
 		<p>
-			The border-width shorthand CSS property sets the width of an element's border.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The border-width shorthand CSS property sets the width of an element's border.
 		</p>
 
-		<h3>[property:mixed bottom]?</h3>
+		<h3>[property:string|number bottom]?</h3>
 		<p>
-			The bottom CSS property participates in setting the vertical position of a positioned element. It has no effect on non-positioned elements.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The bottom CSS property participates in setting the vertical position of a positioned element. It has no effect on non-positioned elements.
 		</p>
 
 		<h3>[property:string className]?</h3>
@@ -915,11 +1136,9 @@
 			The className property of the Element interface gets and sets the value of the class attribute of the specified element.
 		</p>
 
-		<h3>[property:mixed color]?</h3>
+		<h3>[property:Vector4|ThreeColor color]?</h3>
 		<p>
-			The color CSS property sets the foreground color value of an element's text and text decorations, and sets the <currentcolor> value. currentcolor may be used as an indirect value on other properties and is the default for other color properties, such as border-color.<br>
-			<br>
-			[page:Vector4 Vector4] | [page:ThreeColor ThreeColor]
+			The color CSS property sets the foreground color value of an element's text and text decorations, and sets the &lt;currentcolor&gt; value. currentcolor may be used as an indirect value on other properties and is the default for other color properties, such as border-color.
 		</p>
 
 		<h3>[property:string content]?</h3>
@@ -937,11 +1156,9 @@
 			The font-family CSS property specifies a prioritized list of one or more font family names and/or generic family names for the selected element.
 		</p>
 
-		<h3>[property:mixed fontSize]?</h3>
+		<h3>[property:string|number fontSize]?</h3>
 		<p>
-			The font-size CSS property sets the size of the font. Changing the font size also updates the sizes of the font size-relative <length> units, such as em, ex, and so forth.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The font-size CSS property sets the size of the font. Changing the font size also updates the sizes of the font size-relative &lt;length&gt; units, such as em, ex, and so forth.
 		</p>
 
 		<h3>[property:string fontStyle]?</h3>
@@ -949,18 +1166,14 @@
 			The font-style CSS property sets whether a font should be styled with a normal, italic, or oblique face from its font-family.
 		</p>
 
-		<h3>[property:mixed fontWeight]?</h3>
+		<h3>[property:string|number fontWeight]?</h3>
 		<p>
-			The font-weight CSS property sets the weight (or boldness) of the font. The weights available depend on the font-family that is currently set.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The font-weight CSS property sets the weight (or boldness) of the font. The weights available depend on the font-family that is currently set.
 		</p>
 
-		<h3>[property:mixed height]?</h3>
+		<h3>[property:string|number height]?</h3>
 		<p>
-			The height CSS property specifies the height of an element. By default, the property defines the height of the content area. If box-sizing is set to border-box, however, it instead determines the height of the border area.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The height CSS property specifies the height of an element. By default, the property defines the height of the content area. If box-sizing is set to border-box, however, it instead determines the height of the border area.
 		</p>
 
 		<h3>[property:string innerHTML]?</h3>
@@ -978,11 +1191,9 @@
 			The innerText property of the HTMLElement interface represents the "rendered" text content of a node and its descendants.
 		</p>
 
-		<h3>[property:mixed left]?</h3>
+		<h3>[property:string|number left]?</h3>
 		<p>
-			The left CSS property participates in specifying the horizontal position of a positioned element. It has no effect on non-positioned elements.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The left CSS property participates in specifying the horizontal position of a positioned element. It has no effect on non-positioned elements.
 		</p>
 
 		<h3>[property:string letterSpacing]?</h3>
@@ -990,67 +1201,49 @@
 			The letter-spacing CSS property sets the horizontal spacing behavior between text characters. This value is added to the natural spacing between characters while rendering the text. Positive values of letter-spacing causes characters to spread farther apart, while negative values of letter-spacing bring characters closer together.
 		</p>
 
-		<h3>[property:mixed margin]?</h3>
+		<h3>[property:string|number margin]?</h3>
 		<p>
-			The margin CSS shorthand property sets the margin area on all four sides of an element.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The margin CSS shorthand property sets the margin area on all four sides of an element.
 		</p>
 
-		<h3>[property:mixed marginBottom]?</h3>
+		<h3>[property:string|number marginBottom]?</h3>
 		<p>
-			The margin-bottom CSS property sets the margin area on the bottom of an element. A positive value places it farther from its neighbors, while a negative value places it closer.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The margin-bottom CSS property sets the margin area on the bottom of an element. A positive value places it farther from its neighbors, while a negative value places it closer.
 		</p>
 
-		<h3>[property:mixed marginLeft]?</h3>
+		<h3>[property:string|number marginLeft]?</h3>
 		<p>
-			The margin-left CSS property sets the margin area on the left side of an element. A positive value places it farther from its neighbors, while a negative value places it closer.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The margin-left CSS property sets the margin area on the left side of an element. A positive value places it farther from its neighbors, while a negative value places it closer.
 		</p>
 
-		<h3>[property:mixed marginRight]?</h3>
+		<h3>[property:string|number marginRight]?</h3>
 		<p>
-			The margin-right CSS property sets the margin area on the right side of an element. A positive value places it farther from its neighbors, while a negative value places it closer.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The margin-right CSS property sets the margin area on the right side of an element. A positive value places it farther from its neighbors, while a negative value places it closer.
 		</p>
 
-		<h3>[property:mixed marginTop]?</h3>
+		<h3>[property:string|number marginTop]?</h3>
 		<p>
-			The margin-top CSS property sets the margin area on the top of an element. A positive value places it farther from its neighbors, while a negative value places it closer.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The margin-top CSS property sets the margin area on the top of an element. A positive value places it farther from its neighbors, while a negative value places it closer.
 		</p>
 
-		<h3>[property:mixed maxHeight]?</h3>
+		<h3>[property:string|number maxHeight]?</h3>
 		<p>
-			The max-height CSS property sets the maximum height of an element. It prevents the used value of the height property from becoming larger than the value specified for max-height.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The max-height CSS property sets the maximum height of an element. It prevents the used value of the height property from becoming larger than the value specified for max-height.
 		</p>
 
-		<h3>[property:mixed maxWidth]?</h3>
+		<h3>[property:string|number maxWidth]?</h3>
 		<p>
-			The max-width CSS property sets the maximum width of an element. It prevents the used value of the width property from becoming larger than the value specified by max-width.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The max-width CSS property sets the maximum width of an element. It prevents the used value of the width property from becoming larger than the value specified by max-width.
 		</p>
 
-		<h3>[property:mixed minHeight]?</h3>
+		<h3>[property:string|number minHeight]?</h3>
 		<p>
-			The min-height CSS property sets the minimum height of an element. It prevents the used value of the height property from becoming smaller than the value specified for min-height.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The min-height CSS property sets the minimum height of an element. It prevents the used value of the height property from becoming smaller than the value specified for min-height.
 		</p>
 
-		<h3>[property:mixed minWidth]?</h3>
+		<h3>[property:string|number minWidth]?</h3>
 		<p>
-			The min-width CSS property sets the minimum width of an element. It prevents the used value of the width property from becoming smaller than the value specified for min-width.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The min-width CSS property sets the minimum width of an element. It prevents the used value of the width property from becoming smaller than the value specified for min-width.
 		</p>
 
 		<h3>[property:number opacity]?</h3>
@@ -1063,39 +1256,29 @@
 			The overflow CSS shorthand property sets the desired behavior for an element's overflow — i.e. when an element's content is too big to fit in its block formatting context — in both directions.
 		</p>
 
-		<h3>[property:mixed padding]?</h3>
+		<h3>[property:string|number padding]?</h3>
 		<p>
-			The padding CSS shorthand property sets the padding area on all four sides of an element at once.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The padding CSS shorthand property sets the padding area on all four sides of an element at once.
 		</p>
 
-		<h3>[property:mixed paddingBottom]?</h3>
+		<h3>[property:string|number paddingBottom]?</h3>
 		<p>
-			The padding-right CSS property sets the width of the padding area on the bottom of an element.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The padding-right CSS property sets the width of the padding area on the bottom of an element.
 		</p>
 
-		<h3>[property:mixed paddingLeft]?</h3>
+		<h3>[property:string|number paddingLeft]?</h3>
 		<p>
-			The padding-left CSS property sets the width of the padding area to the left of an element.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The padding-left CSS property sets the width of the padding area to the left of an element.
 		</p>
 
-		<h3>[property:mixed paddingRight]?</h3>
+		<h3>[property:string|number paddingRight]?</h3>
 		<p>
-			The padding-right CSS property sets the width of the padding area on the right of an element.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The padding-right CSS property sets the width of the padding area on the right of an element.
 		</p>
 
-		<h3>[property:mixed paddingTop]?</h3>
+		<h3>[property:string|number paddingTop]?</h3>
 		<p>
-			The padding-top CSS property sets the height of the padding area on the top of an element.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The padding-top CSS property sets the height of the padding area on the top of an element.
 		</p>
 
 		<h3>[property:string pointerEvents]?</h3>
@@ -1108,17 +1291,15 @@
 			The position CSS property sets how an element is positioned in a document. The top, right, bottom, and left properties determine the final location of positioned elements.
 		</p>
 
-		<h3>[property:mixed right]?</h3>
+		<h3>[property:string|number right]?</h3>
 		<p>
-			The right CSS property participates in specifying the horizontal position of a positioned element. It has no effect on non-positioned elements.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The right CSS property participates in specifying the horizontal position of a positioned element. It has no effect on non-positioned elements.
 		</p>
 
 		<h3>[property:string src]?</h3>
 		<p>
 			The HTTP Content-Security-Policy img-src directive specifies valid sources of images and favicons.<br>
-			The HTTP Content-Security-Policy (CSP) frame-src directive specifies valid sources for nested browsing contexts loading using elements such as <frame> and <iframe>.
+			The HTTP Content-Security-Policy (CSP) frame-src directive specifies valid sources for nested browsing contexts loading using elements such as &lt;frame&gt; and &lt;iframe&gt;.
 		</p>
 
 		<h3>[property:string textAlign]?</h3>
@@ -1136,11 +1317,9 @@
 			The text-decoration shorthand CSS property sets the appearance of decorative lines on text. It is a shorthand for text-decoration-line, text-decoration-color, text-decoration-style, and the newer text-decoration-thickness property.
 		</p>
 
-		<h3>[property:mixed textIndent]?</h3>
+		<h3>[property:string|number textIndent]?</h3>
 		<p>
-			The text-indent CSS property sets the length of empty space (indentation) that is put before lines of text in a block.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The text-indent CSS property sets the length of empty space (indentation) that is put before lines of text in a block.
 		</p>
 
 		<h3>[property:string textJustify]?</h3>
@@ -1158,18 +1337,14 @@
 			The text-transform CSS property specifies how to capitalize an element's text. It can be used to make text appear in all-uppercase or all-lowercase, or with each word capitalized. It also can help improve legibility for ruby.
 		</p>
 
-		<h3>[property:mixed top]?</h3>
+		<h3>[property:string|number top]?</h3>
 		<p>
-			The top CSS property participates in specifying the vertical position of a positioned element. It has no effect on non-positioned elements.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The top CSS property participates in specifying the vertical position of a positioned element. It has no effect on non-positioned elements.
 		</p>
 
-		<h3>[property:mixed transform]?</h3>
+		<h3>[property:string|string[] transform]?</h3>
 		<p>
-			The transform CSS property lets you rotate, scale, skew, or translate an element. It modifies the coordinate space of the CSS visual formatting model.<br>
-			<br>
-			[page:string string] | [page:string string]
+			The transform CSS property lets you rotate, scale, skew, or translate an element. It modifies the coordinate space of the CSS visual formatting model.
 		</p>
 
 		<h3>[property:string transformOrigin]?</h3>
@@ -1177,11 +1352,9 @@
 			The transform-origin CSS property sets the origin for an element's transformations.
 		</p>
 
-		<h3>[property:mixed transition]?</h3>
+		<h3>[property:string|string[] transition]?</h3>
 		<p>
-			The transition CSS property is a shorthand property for transition-property, transition-duration, transition-timing-function, and transition-delay.<br>
-			<br>
-			[page:string string] | [page:string string]
+			The transition CSS property is a shorthand property for transition-property, transition-duration, transition-timing-function, and transition-delay.
 		</p>
 
 		<h3>[property:string whiteSpace]?</h3>
@@ -1189,11 +1362,9 @@
 			The white-space CSS property sets how white space inside an element is handled.
 		</p>
 
-		<h3>[property:mixed width]?</h3>
+		<h3>[property:string|number width]?</h3>
 		<p>
-			The width CSS property sets an element's width. By default, it sets the width of the content area, but if box-sizing is set to border-box, it sets the width of the border area.<br>
-			<br>
-			[page:string string] | [page:number number]
+			The width CSS property sets an element's width. By default, it sets the width of the content area, but if box-sizing is set to border-box, it sets the width of the border area.
 		</p>
 
 		<h3>[property:string wordBreak]?</h3>
@@ -1211,7 +1382,7 @@
 			The z-index CSS property sets the z-order of a positioned element and its descendants or flex items. Overlapping elements with a larger z-index cover those with a smaller one.
 		</p>
 
-		<hr>
+		<hr class="interface-line"/>
 		<h1 id="CurvesParameters">CurvesParameters</h1>
 
 		<p class="desc">
@@ -1219,7 +1390,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="GuiBaseControl">GuiBaseControl</h1>
 
 		<p class="desc">
@@ -1227,7 +1402,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="GuiControlParam">GuiControlParam</h1>
 
 		<p class="desc">
@@ -1235,7 +1414,7 @@
 		</p>
 
 		<h2>Properties</h2>
-		<h3>[property:GuiControlParam children][]?</h3>
+		<h3>[property:GuiControlParam[] children]?</h3>
 		<p>
 			The children of folder type
 		</p>
@@ -1265,11 +1444,9 @@
 			The name of gui control
 		</p>
 
-		<h3>[property:mixed select]?</h3>
+		<h3>[property:string[] select]?</h3>
 		<p>
-			The select value of select type<br>
-			<br>
-			[page:string string]
+			The select value of select type
 		</p>
 
 		<h3>[property:number step]?</h3>
@@ -1282,12 +1459,12 @@
 			The title of gui name
 		</p>
 
-		<h3>[property:mixed type]?</h3>
+		<h3>[property:'number'|'folder'|'select'|'button'|'color'|'checkbox'|'input'|'listen'|'auto' type]?</h3>
 		<p>
 			The type of gui control
 		</p>
 
-		<hr>
+		<hr class="interface-line"/>
 		<h1 id="LoadedObject">LoadedObject</h1>
 
 		<p class="desc">
@@ -1295,7 +1472,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="RendererEvent">RendererEvent</h1>
 
 		<p class="desc">
@@ -1303,7 +1484,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="RendererInfo">RendererInfo</h1>
 
 		<p class="desc">
@@ -1311,7 +1496,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="RendererTimer">RendererTimer</h1>
 
 		<p class="desc">
@@ -1319,7 +1508,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="StorageExportOption">StorageExportOption</h1>
 
 		<p class="desc">
@@ -1327,7 +1520,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="StorageOption">StorageOption</h1>
 
 		<p class="desc">
@@ -1360,14 +1557,12 @@
 			Use Ktx2
 		</p>
 
-		<h3>[property:mixed vmdUrl]?</h3>
+		<h3>[property:string|string[] vmdUrl]?</h3>
 		<p>
-			vmdUrl<br>
-			<br>
-			[page:string string] | [page:string string]
+			vmdUrl
 		</p>
 
-		<hr>
+		<hr class="interface-line"/>
 		<h1 id="TagAttributes">TagAttributes</h1>
 
 		<p class="desc">
@@ -1375,7 +1570,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="TextureOption">TextureOption</h1>
 
 		<p class="desc">
@@ -1383,7 +1582,7 @@
 		</p>
 
 		<h2>Properties</h2>
-		<h3>[property:string cubeImage][]?</h3>
+		<h3>[property:string[] cubeImage]?</h3>
 		<p>
 			The cube image url
 		</p>
@@ -1403,7 +1602,7 @@
 			The texture value
 		</p>
 
-		<hr>
+		<hr class="interface-line"/>
 		<h1 id="ThreeFace">ThreeFace</h1>
 
 		<p class="desc">
@@ -1411,7 +1610,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="ThreeGuiController">ThreeGuiController</h1>
 
 		<p class="desc">
@@ -1419,7 +1622,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="ThreeVector">ThreeVector</h1>
 
 		<p class="desc">
@@ -1427,7 +1634,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="ThreeColor">ThreeColor</h1>
 
 		<p class="desc">
@@ -1438,39 +1649,39 @@
 			string color name - red,blue...  'aliceblue': 0xF0F8FF, 'antiquewhite': 0xFAEBD7, 'aqua': 0x00FFFF ...<br>
 			string random<br>
 			number 0xffffff<br>
-			THREE.Color<br>
-			<br>
-			[page:string string] | [page:number number] | [page:THREE.Color THREE.Color]
+			THREE.Color
 		</p>
 
+		<h3>[property:string|number|THREE.Color ThreeColor]</h3>
 
-		<hr>
+		<hr class="interface-line"/>
 		<h1 id="ThreeTexture">ThreeTexture</h1>
 
 		<p class="desc">
-			ThreeTexture<br>
-			<br>
-			[page:string string] | [page:THREE.Texture THREE.Texture] | [page:TextureOption TextureOption] | [page:any any]
+			ThreeTexture
 		</p>
 
+		<h3>[property:string|THREE.Texture|TextureOption|any ThreeTexture]</h3>
 
-		<hr>
+		<hr class="interface-line"/>
 		<h1 id="ThreeUniform">ThreeUniform</h1>
 
 		<p class="desc">
-			ThreeUniform<br>
-			<br>
-			[page:THREE.IUniform THREE.IUniform]
+			ThreeUniform
 		</p>
 
+		<h3>[property:THREE.IUniform ThreeUniform]</h3>
 
-		<hr>
+		<hr class="interface-line"/>
 		<h1 id="ThreeUniforms">ThreeUniforms</h1>
 
 		<p class="desc">
-			ThreeUniforms<br>
-			<br>
-			 { [ key : [page:string string] ] : [page:ThreeUniform ThreeUniform] }
+			ThreeUniforms
+		</p>
+
+		<h3> { [  [param:string key] ] : [param:ThreeUniform emptyName] }</h3>
+		<p>
+			
 		</p>
 
 

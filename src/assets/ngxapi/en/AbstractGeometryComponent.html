@@ -9,13 +9,13 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>AbstractGeometryComponent</h1>
 
 		<p class="desc">
 			AbstractGeometry Component<br>
 			<br>
 			<code data-type="typescript"><br>
-			_@Component({<br>
+			@Component({<br>
 				providers: [<br>
 					{<br>
 						provide: AbstractGeometryComponent,<br>
@@ -31,12 +31,17 @@
 			</code>
 		</p>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:string align]</h3>
+		<h3>[property:string[] GEOMETRY_ATTR]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Geometry attr of abstract geometry component
+		</p>
+
+		<h3>[property:string align]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The align of geometry<br>
 			<br>
@@ -45,216 +50,214 @@
 			Notice - case insensitive. mixed
 		</p>
 
-		<h3>[property:AttrBufferAttribute attrColor]</h3>
+		<h3>[property:AttrBufferAttribute attrColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrColor of abstract geometry component
 		</p>
 
-		<h3>[property:string attrColorKey]</h3>
+		<h3>[property:string attrColorKey]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrColorKey of abstract geometry component
 		</p>
 
-		<h3>[property:boolean attrColorNormalized]</h3>
+		<h3>[property:boolean attrColorNormalized]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrColorNormalized of abstract geometry component
 		</p>
 
-		<h3>[property:number attrColorSize]</h3>
+		<h3>[property:number attrColorSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrColorSize of abstract geometry component
 		</p>
 
-		<h3>[property:string attrColorUsage]</h3>
+		<h3>[property:string attrColorUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrColorUsage of abstract geometry component
 		</p>
 
-		<h3>[property:AttrBufferAttribute attrCustomColor]</h3>
+		<h3>[property:AttrBufferAttribute attrCustomColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrCustomColor of abstract geometry component
 		</p>
 
-		<h3>[property:string attrCustomColorUsage]</h3>
+		<h3>[property:string attrCustomColorUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrCustomColorUsage of abstract geometry component
 		</p>
 
-		<h3>[property:AttrBufferAttribute attrIndex]</h3>
+		<h3>[property:AttrBufferAttribute attrIndex]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrIndex of abstract geometry component
 		</p>
 
-		<h3>[property:string attrIndexUsage]</h3>
+		<h3>[property:string attrIndexUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrIndexUsage of abstract geometry component
 		</p>
 
-		<h3>[property:AttrBufferAttribute attrNormal]</h3>
+		<h3>[property:AttrBufferAttribute attrNormal]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrNormal of abstract geometry component
 		</p>
 
-		<h3>[property:boolean attrNormalNormalized]</h3>
+		<h3>[property:boolean attrNormalNormalized]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrNormalNormalized of abstract geometry component
 		</p>
 
-		<h3>[property:string attrNormalUsage]</h3>
+		<h3>[property:string attrNormalUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrNormalUsage of abstract geometry component
 		</p>
 
-		<h3>[property:AttrBufferAttribute attrOffset]</h3>
+		<h3>[property:AttrBufferAttribute attrOffset]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrOffset of abstract geometry component
 		</p>
 
-		<h3>[property:string attrOffsetUsage]</h3>
+		<h3>[property:string attrOffsetUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrOffsetUsage of abstract geometry component
 		</p>
 
-		<h3>[property:AttrBufferAttribute attrOrientationEnd]</h3>
+		<h3>[property:AttrBufferAttribute attrOrientationEnd]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrOrientationEnd of abstract geometry component
 		</p>
 
-		<h3>[property:string attrOrientationEndUsage]</h3>
+		<h3>[property:string attrOrientationEndUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrOrientationEndUsage of abstract geometry component
 		</p>
 
-		<h3>[property:AttrBufferAttribute attrOrientationStart]</h3>
+		<h3>[property:AttrBufferAttribute attrOrientationStart]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrOrientationStart of abstract geometry component
 		</p>
 
-		<h3>[property:string attrOrientationStartUsage]</h3>
+		<h3>[property:string attrOrientationStartUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrOrientationStartUsage of abstract geometry component
 		</p>
 
-		<h3>[property:AttrBufferAttribute attrPosition]</h3>
+		<h3>[property:AttrBufferAttribute attrPosition]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrPosition of abstract geometry component
 		</p>
 
-		<h3>[property:string attrPositionUsage]</h3>
+		<h3>[property:string attrPositionUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrPositionUsage of abstract geometry component
 		</p>
 
-		<h3>[property:AttrBufferAttribute attrScale]</h3>
+		<h3>[property:AttrBufferAttribute attrScale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrScale of abstract geometry component
 		</p>
 
-		<h3>[property:string attrScaleUsage]</h3>
+		<h3>[property:string attrScaleUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrScaleUsage of abstract geometry component
 		</p>
 
-		<h3>[property:AttrBufferAttribute attrSize]</h3>
+		<h3>[property:AttrBufferAttribute attrSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrSize of abstract geometry component
 		</p>
 
-		<h3>[property:string attrSizeUsage]</h3>
+		<h3>[property:string attrSizeUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the *usage* parameter of<br>
 			[link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().
 		</p>
 
-		<h3>[property:AttrBufferAttribute attrTextureIndex]</h3>
+		<h3>[property:AttrBufferAttribute attrTextureIndex]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrTextureIndex of abstract geometry component
 		</p>
 
-		<h3>[property:string attrTextureIndexUsage]</h3>
+		<h3>[property:string attrTextureIndexUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrTextureIndexUsage of abstract geometry component
 		</p>
 
-		<h3>[property:AttrBufferAttribute attrTranslate]</h3>
+		<h3>[property:AttrBufferAttribute attrTranslate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrTranslate of abstract geometry component
 		</p>
 
-		<h3>[property:string attrTranslateUsage]</h3>
+		<h3>[property:string attrTranslateUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrTranslateUsage of abstract geometry component
 		</p>
 
-		<h3>[property:AttrBufferAttribute attrUv]</h3>
+		<h3>[property:AttrBufferAttribute attrUv]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrUv of abstract geometry component
 		</p>
 
-		<h3>[property:string attrUvUsage]</h3>
+		<h3>[property:string attrUvUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrUvUsage of abstract geometry component
 		</p>
 
-		<h3>[property:AttrBufferAttribute attrVertColor]</h3>
+		<h3>[property:AttrBufferAttribute attrVertColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrVertColor of abstract geometry component
 		</p>
 
-		<h3>[property:AttrBufferAttribute attrVisible]</h3>
+		<h3>[property:AttrBufferAttribute attrVisible]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrVisible of abstract geometry component
 		</p>
 
-		<h3>[property:any attributes]</h3>
+		<h3>[property:any attributes]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			This hashmap has as id the name of the attribute to be set and as value the [page:BufferAttribute buffer] to set it to.<br>
-			Rather than accessing this property directly, use [page:.setAttribute] and [page:.getAttribute] to access attributes of this geometry.<br>
-			<br>
-			 { [ key : [page:string string] ] : [page:AttrBufferAttribute AttrBufferAttribute] }
+			Rather than accessing this property directly, use [page:.setAttribute] and [page:.getAttribute] to access attributes of this geometry.
 		</p>
 
-		<h3>[property:boolean autoCustomColor]</h3>
+		<h3>[property:boolean autoCustomColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The autoCustomColor of abstract geometry component
 		</p>
 
-		<h3>[property:string autoCustomColorKey]</h3>
+		<h3>[property:string autoCustomColorKey]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The autoCustomColorKey of abstract geometry component
 		</p>
 
-		<h3>[property:number autoCustomColorSize]</h3>
+		<h3>[property:number autoCustomColorSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The autoCustomColorSize of abstract geometry component
 		</p>
 
-		<h3>[property:boolean autoDisplacement]</h3>
+		<h3>[property:boolean autoDisplacement]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The autoDisplacement of abstract geometry component
 		</p>
 
-		<h3>[property:number autoDisplacementSize]</h3>
+		<h3>[property:number autoDisplacementSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The autoDisplacementSize of abstract geometry component
 		</p>
 
-		<h3>[property:boolean autoSize]</h3>
+		<h3>[property:boolean autoSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The autoSize of abstract geometry component
 		</p>
 
-		<h3>[property:number autoSizeSize]</h3>
+		<h3>[property:number autoSizeSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The autoSizeSize of abstract geometry component
 		</p>
 
-		<h3>[property:boolean center]</h3>
+		<h3>[property:boolean center]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Center the geometry based on the bounding box.
 		</p>
 
-		<h3>[property:string compressNormals]</h3>
+		<h3>[property:string compressNormals]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Make the input mesh.geometry's normal attribute encoded and compressed by 3 different methods.<br>
 			Also will change the mesh.material to `PackedPhongMaterial` which let the vertex shader program decode the normal data.<br>
@@ -270,72 +273,77 @@
 			"ANGLES"
 		</p>
 
-		<h3>[property:boolean compressPositions]</h3>
+		<h3>[property:boolean compressPositions]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The compressPositions
 		</p>
 
-		<h3>[property:boolean compressUvs]</h3>
+		<h3>[property:boolean compressUvs]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The compressUvs
 		</p>
 
-		<h3>[property:boolean computeBoundingBox]</h3>
+		<h3>[property:boolean computeBoundingBox]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Computes bounding box of the geometry, updating [page:.boundingBox] attribute. Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
 		</p>
 
-		<h3>[property:boolean computeBoundingSphere]</h3>
+		<h3>[property:boolean computeBoundingSphere]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Computes bounding sphere of the geometry, updating [page:.boundingSphere] attribute. Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
 		</p>
 
-		<h3>[property:boolean computeTangents]</h3>
+		<h3>[property:boolean computeTangents]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Calculates and adds a tangent attribute to this geometry.<br>
 			The computation is only supported for indexed geometries and if position, normal, and uv attributes are defined.
 		</p>
 
-		<h3>[property:boolean computeVertexNormals]</h3>
+		<h3>[property:boolean computeVertexNormals]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Computes vertex normals by averaging face normals.
 		</p>
 
-		<h3>[property:number count]</h3>
+		<h3>[property:number count]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The count of abstract geometry component
 		</p>
 
-		<h3>[property:number cutOffAngle]</h3>
+		<h3>[property:number cutOffAngle]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The cutoff angle in radians. If the angle between two face normals is higher than this value, a split will be made.
 		</p>
 
-		<h3>[property:number drawRangeCount]</h3>
+		<h3>[property:number drawRangeCount]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			drawRangeCount of abstract geometry component<br>
 			<br>
 			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry setDrawRange
 		</p>
 
-		<h3>[property:number drawRangeStart]</h3>
+		<h3>[property:number drawRangeStart]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			drawRangeStart of abstract geometry component<br>
 			<br>
 			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry setDrawRange
 		</p>
 
-		<h3>[property:boolean edgeSplit]</h3>
+		<h3>[property:boolean edgeSplit]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The geometry to modify by splitting edges. This geometry can be any of any type: Geometry or BufferGeometry, indexed or not
 		</p>
 
-		<h3>[property:boolean flipY]</h3>
+		<h3>[property:boolean flipY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The flipY of abstract geometry component
 		</p>
 
-		<h3>[property:string lineType]</h3>
+		<h3>[property:BufferGeometry geometry]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Geometry of abstract geometry component
+		</p>
+
+		<h3>[property:string lineType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The lineType of abstract geometry component<br>
 			<br>
@@ -343,110 +351,99 @@
 			[page:WireframeGeometry WireframeGeometry] - THREE.WireframeGeometry - WireframeGeometry, Wireframe
 		</p>
 
-		<h3>[property:number maxEdgeLength]</h3>
+		<h3>[property:number maxEdgeLength]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The maxEdgeLength of abstract geometry component
 		</p>
 
-		<h3>[property:number maxIterations]</h3>
+		<h3>[property:number maxIterations]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The maxIterations of abstract geometry component
 		</p>
 
-		<h3>[property:boolean mergeVertices]</h3>
+		<h3>[property:boolean mergeVertices]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			geometry -- Instance of [page:BufferGeometry BufferGeometry] to merge the vertices of.<br>
 			tolerance -- The maximum allowable difference between vertex attributes to merge. Defaults to 1e-4.<br>
 			Returns a new [page:BufferGeometry BufferGeometry] with vertices for which all similar vertex attributes (within tolerance) are merged.
 		</p>
 
-		<h3>[property:any morphAttributes]</h3>
+		<h3>[property:any morphAttributes]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Hashmap of [page:BufferAttribute]s holding details of the geometry's morph targets.<br>
-			<br>
-			 { [ key : [page:string string] ] : [page:any any] }
+			Hashmap of [page:BufferAttribute]s holding details of the geometry's morph targets.
 		</p>
 
-		<h3>[property:string name]</h3>
+		<h3>[property:string name]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The name of the object (doesn't need to be unique). Default is an empty string.<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:any onInit]</h3>
+		<h3>[property:any onInit]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			
 		</p>
 
-		<h3>[property:string program]</h3>
+		<h3>[property:string program]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The program of abstract geometry component
 		</p>
 
-		<h3>[property:any programParam]</h3>
+		<h3>[property:any programParam]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The programParam of abstract geometry component
 		</p>
 
-		<h3>[property:mixed refName]</h3>
+		<h3>[property:string|string[] refName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			refer mesh name  of geometry component<br>
-			<br>
-			[page:string string] | [page:string string]
+			refer mesh name  of geometry component
 		</p>
 
-		<h3>[property:number scale]</h3>
+		<h3>[property:number scale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Scale the geometry data. This is typically done as a one time operation, and not during a loop. Use [page:Object3D.scale] for typical real-time mesh scaling.
 		</p>
 
-		<h3>[property:boolean simplify]</h3>
+		<h3>[property:boolean simplify]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The simplify of abstract geometry component
 		</p>
 
-		<h3>[property:number sphereScale]</h3>
+		<h3>[property:number sphereScale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Scale the geometry data. This is typically done as a one time operation, and not during a loop. Use [page:Object3D.scale] for typical real-time mesh scaling.
 		</p>
 
-		<h3>[property:boolean tessellate]</h3>
+		<h3>[property:boolean tessellate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The tessellate of abstract geometry component
 		</p>
 
-		<h3>[property:number thresholdAngle]</h3>
+		<h3>[property:number thresholdAngle]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The thresholdAngle of geometry component
 		</p>
 
-		<h3>[property:boolean toNonIndexed]</h3>
+		<h3>[property:boolean toNonIndexed]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Return a non-index version of an indexed BufferGeometry.
 		</p>
 
-		<h3>[property:boolean tryKeepNormals]</h3>
+		<h3>[property:boolean tryKeepNormals]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Set to true to keep the normal values for vertices that won't be split.<br>
 			To use this feature, you also need to pass an indexed geometry with a 'normal' BufferAttribute
 		</p>
 
-		<h3>[property:mixed vertexBuffer]</h3>
+		<h3>[property:number[]|Float32Array|InterleavedBuffer vertexBuffer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The vertexBuffer of abstract geometry component<br>
-			<br>
-			[page:number number] | [page:Float32Array Float32Array] | [page:InterleavedBuffer InterleavedBuffer]
+			The vertexBuffer of abstract geometry component
 		</p>
 
-		<h3>[property:number vertexBufferStride]</h3>
+		<h3>[property:number vertexBufferStride]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The vertexBufferStride of abstract geometry component
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -454,64 +451,83 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<h3>[method:AbstractGeometryComponent constructor](  )</h3>
 		<p>
-			Applys changes<br>
-			<br>
-			Returns :
+			Creates an instance of abstract geometry component.
 		</p>
 
-		<h3>[method:BufferAttribute getAttribute](  [param:AttrBufferAttribute value],  [param:number itemSize],  [param:string usage],  [param:string bufferType],  [param:boolean normalized] )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
+			Applys changes
+		</p>
+
+		<h3>[method:BufferAttribute getAttribute](  [param:AttrBufferAttribute value],  [param:number itemSize],  [param:string usage]?,  [param:string bufferType]?,  [param:boolean normalized]? )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			[page:AttrBufferAttribute value] - The value.<br />
+			[page:number itemSize] - The item size.<br />
+			[page:string usage] - (optional) The usage.<br />
+			[page:string bufferType] - (optional) The buffer type.<br />
+			[page:boolean normalized] - (optional) The normalized.<br /><br />
+
 			Gets attribute<br>
 			<br>
 			Returns : attribute
 		</p>
 
-		<h3>[method:void getAttributes](  [param:string colorType] )</h3>
+		<h3>[method:void getAttributes](  [param:string colorType] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:string colorType] - The color type.<br /><br />
+
 			Gets attributes<br>
 			<br>
 			Returns : attributes
 		</p>
 
-		<h3>[method:T getGeometry](  )</h3>
+		<h3>[method:T getGeometry](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets geometry<br>
 			<br>
 			Returns : geometry
 		</p>
 
-		<h3>[method:void getMorphAttributes](  )</h3>
+		<h3>[method:void getMorphAttributes](  )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			Gets morph attributes<br>
 			<br>
 			Returns : morph attributes
 		</p>
 
-		<h3>[method:boolean isGeometryType](  )</h3>
+		<h3>[method:boolean isGeometryType](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Determines whether Geometry type is<br>
 			<br>
 			Returns : true if Geometry type
 		</p>
 
-		<h3>[method:void setGeometry](  [param:BufferGeometry geometry] )</h3>
+		<h3>[method:void setGeometry](  [param:BufferGeometry geometry] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:BufferGeometry geometry] - The geometry.<br /><br />
+
 			Sets geometry
 		</p>
 
-		<h3>[method:void setObject3d](  [param:AbstractSubscribeComponent object3d] )</h3>
+		<h3>[method:void setObject3d](  [param:AbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:AbstractSubscribeComponent object3d] - The object3d.<br /><br />
+
 			Sets object3d
 		</p>
 
-		<h3>[method:void unsetObject3d](  [param:AbstractSubscribeComponent object3d] )</h3>
+		<h3>[method:void unsetObject3d](  [param:AbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:AbstractSubscribeComponent object3d] - The object3d.<br /><br />
+
 			unSets object3d
 		</p>
 
-		<hr>
+		<hr class="interface-line"/>
 		<h1 id="GeometriesParametric">GeometriesParametric</h1>
 
 		<p class="desc">
@@ -519,15 +535,18 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="AttrBufferAttribute">AttrBufferAttribute</h1>
 
 		<p class="desc">
-			Attr Buffer Attribute<br>
-			<br>
-			[page:number number] | [page:Int8Array Int8Array] | [page:Int16Array Int16Array] | [page:Int32Array Int32Array] | [page:Uint8Array Uint8Array] | [page:Uint16Array Uint16Array] | [page:Uint32Array Uint32Array] | [page:Float32Array Float32Array] | [page:Float64Array Float64Array] | [page:THREE.BufferAttribute THREE.BufferAttribute]
+			Attr Buffer Attribute
 		</p>
 
+		<h3>[property:number[]|Int8Array|Int16Array|Int32Array|Uint8Array|Uint16Array|Uint32Array|Float32Array|Float64Array|THREE.BufferAttribute AttrBufferAttribute]</h3>
 
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three//geometry.abstract.ts /geometry.abstract.ts]</p>

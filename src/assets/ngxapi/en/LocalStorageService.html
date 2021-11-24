@@ -7,96 +7,148 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		<h1>[name]</h1>
+		<h1>LocalStorageService</h1>
 
 		<p class="desc">
 			LocalStorageService
 		</p>
 
-		<h2>Properties - Input</h2>
-		<h2>Properties - Output</h2>
+		<h2>Properties</h2>
+		<p>
+			None
+		</p>
+
 		<h2>Methods</h2>
-		<h3>[method:void clear](  )</h3>
+		<h3>[method:LocalStorageService constructor](  )</h3>
+		<p>
+			Creates an instance of local storage service.
+		</p>
+
+		<h3>[method:void clear](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Clears local storage service
 		</p>
 
-		<h3>[method:void getExportObject](  [param:string fileName],  [param:mixed object],  [param:StorageExportOption options] )</h3>
+		<h3>[method:void getExportObject](  [param:string fileName],  [param:Object3D|Object3D[] object],  [param:StorageExportOption options]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:string fileName] - The file name.<br />
+			[page:Object3D|Object3D[] object] - The object.<br />
+			[page:StorageExportOption options] - (optional) The options.<br /><br />
+
 			Gets export object
 		</p>
 
-		<h3>[method:void getFont](  [param:any callBack],  [param:string fontName],  [param:string fontWeight] )</h3>
+		<h3>[method:void getFont](  [param:any callBack],  [param:string fontName],  [param:string fontWeight] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:any callBack] - The call back.<br />
+			[page:string fontName] - The font name.<br />
+			[page:string fontWeight] - The font weight.<br /><br />
+
 			Gets font
 		</p>
 
-		<h3>[method:void getGeometry](  [param:string key],  [param:any callBack],  [param:StorageOption options] )</h3>
+		<h3>[method:void getGeometry](  [param:string key],  [param:any callBack],  [param:StorageOption options]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:string key] - The key.<br />
+			[page:any callBack] - The call back.<br />
+			[page:StorageOption options] - (optional) The options.<br /><br />
+
 			Gets geometry
 		</p>
 
-		<h3>[method:string getItem](  [param:string key] )</h3>
+		<h3>[method:string getItem](  [param:string key] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets item<br>
-			<br>
-			Returns :
+			[page:string key] - The key.<br /><br />
+
+			Gets item
 		</p>
 
-		<h3>[method:void getMaterial](  [param:string key],  [param:any callBack],  [param:StorageOption options] )</h3>
+		<h3>[method:void getMaterial](  [param:string key],  [param:any callBack],  [param:StorageOption options]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:string key] - The key.<br />
+			[page:any callBack] - The call back.<br />
+			[page:StorageOption options] - (optional) The options.<br /><br />
+
 			Gets material
 		</p>
 
-		<h3>[method:void getObject](  [param:string key],  [param:any callBack],  [param:StorageOption options] )</h3>
+		<h3>[method:void getObject](  [param:string key],  [param:any callBack],  [param:StorageOption options]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:string key] - The key.<br />
+			[page:any callBack] - The call back.<br />
+			[page:StorageOption options] - (optional) The options.<br /><br />
+
 			Gets object
 		</p>
 
-		<h3>[method:void getScene](  [param:string key],  [param:any callBack],  [param:StorageOption options] )</h3>
+		<h3>[method:void getScene](  [param:string key],  [param:any callBack],  [param:StorageOption options]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:string key] - The key.<br />
+			[page:any callBack] - The call back.<br />
+			[page:StorageOption options] - (optional) The options.<br /><br />
+
 			Gets scene
 		</p>
 
-		<h3>[method:void getTexture](  [param:string key],  [param:any callBack],  [param:StorageOption options] )</h3>
+		<h3>[method:void getTexture](  [param:string key],  [param:any callBack],  [param:StorageOption options]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:string key] - The key.<br />
+			[page:any callBack] - The call back.<br />
+			[page:StorageOption options] - (optional) The options.<br /><br />
+
 			Gets texture
 		</p>
 
-		<h3>[method:void onError](  [param:any event] )</h3>
+		<h3>[method:void onError](  [param:any event] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:any event] - The event.<br /><br />
+
 			Determines whether error on
 		</p>
 
-		<h3>[method:void onProgress](  [param:any xhr] )</h3>
+		<h3>[method:void onProgress](  [param:any xhr] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:any xhr] - The xhr.<br /><br />
+
 			Determines whether progress on
 		</p>
 
-		<h3>[method:void removeItem](  [param:string key] )</h3>
+		<h3>[method:void removeItem](  [param:string key] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:string key] - The key.<br /><br />
+
 			Removes item
 		</p>
 
-		<h3>[method:void setItem](  [param:string key],  [param:string value] )</h3>
+		<h3>[method:void setItem](  [param:string key],  [param:string value] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:string key] - The key.<br />
+			[page:string value] - The value.<br /><br />
+
 			Sets item
 		</p>
 
-		<h3>[method:Loader setLoaderWithOption](  [param:Loader loader],  [param:StorageOption options] )</h3>
+		<h3>[method:Loader setLoaderWithOption](  [param:Loader loader],  [param:StorageOption options] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Sets loader with option<br>
-			<br>
-			Returns :
+			[page:Loader loader] - The loader.<br />
+			[page:StorageOption options] - The options.<br /><br />
+
+			Sets loader with option
 		</p>
 
-		<h3>[method:void setObject](  [param:string key],  [param:Object3D mesh] )</h3>
+		<h3>[method:void setObject](  [param:string key],  [param:Object3D mesh] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:string key] - The key.<br />
+			[page:Object3D mesh] - The mesh.<br /><br />
+
 			Sets object
 		</p>
 
-		<h3>[method:void setScene](  [param:string key],  [param:Scene scene] )</h3>
+		<h3>[method:void setScene](  [param:string key],  [param:Scene scene] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:string key] - The key.<br />
+			[page:Scene scene] - The scene.<br /><br />
+
 			Sets scene
 		</p>
 

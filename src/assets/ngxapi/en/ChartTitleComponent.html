@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr; [page:AbstractChartComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>ChartTitleComponent</h1>
 
 		<p class="desc">
 			Component
@@ -52,57 +52,43 @@
 		&gt;&lt;/ngx3js-chart-title&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common input properties.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common input properties.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractChartComponent AbstractChartComponent] class for common input properties.
+			See the base [page:AbstractChartComponent AbstractChartComponent] class for common properties.
 		</p>
 
-		<h3>[property:string align]</h3>
+		<h3>[property:string align]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The align of chart title component
 		</p>
 
-		<h3>[property:ThreeColor color]</h3>
+		<h3>[property:ThreeColor color]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The color of chart title component
 		</p>
 
-		<h3>[property:string fontFamily]</h3>
+		<h3>[property:string fontFamily]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The fontFamily of chart title component
 		</p>
 
-		<h3>[property:string message]</h3>
+		<h3>[property:string message]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The message of chart title component
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of chart title component
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
-		</p>
-		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common output properties.
-		</p>
-		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common output properties.
-		</p>
-		<p>
-			See the base [page:AbstractChartComponent AbstractChartComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -119,21 +105,26 @@
 			See the base [page:AbstractChartComponent AbstractChartComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges3d](  [param:string changes][] )</h3>
+		<h3>[method:ChartTitleComponent constructor](  )</h3>
 		<p>
-			Applys changes3d<br>
-			<br>
-			Returns :
+			Creates an instance of chart title component.
 		</p>
 
-		<h3>[method:T getChart](  )</h3>
+		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
+			Applys changes3d
+		</p>
+
+		<h3>[method:T getChart](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets Chart<br>
 			<br>
 			Returns : object3d
 		</p>
 
-		<h3>[method:T getTitle](  )</h3>
+		<h3>[method:T getTitle](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets Chart<br>
 			<br>

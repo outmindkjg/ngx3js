@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>PlaneComponent</h1>
 
 		<p class="desc">
 			PlaneComponent
@@ -32,34 +32,29 @@
 		&gt;&lt;/ngx3js-plane&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:number w]</h3>
+		<h3>[property:number w]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The w of plane component
 		</p>
 
-		<h3>[property:number x]</h3>
+		<h3>[property:number x]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The x of plane component
 		</p>
 
-		<h3>[property:number y]</h3>
+		<h3>[property:number y]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The y of plane component
 		</p>
 
-		<h3>[property:number z]</h3>
+		<h3>[property:number z]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The z of plane component
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -67,22 +62,34 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:Plane getPlane](  )</h3>
+		<h3>[method:PlaneComponent constructor](  )</h3>
+		<p>
+			Creates an instance of plane component.
+		</p>
+
+		<h3>[method:Plane getPlane](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets plane<br>
 			<br>
 			Returns : plane
 		</p>
 
-		<h3>[method:Plane getWorldPlane](  [param:Matrix4 matrixWorld] )</h3>
+		<h3>[method:Plane getWorldPlane](  [param:Matrix4 matrixWorld]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:Matrix4 matrixWorld] - (optional) The matrix world.<br /><br />
+
 			Gets world plane<br>
 			<br>
 			Returns : world plane
 		</p>
 
-		<h3>[method:void setPlane](  [param:number x],  [param:number y],  [param:number z],  [param:number w] )</h3>
+		<h3>[method:void setPlane](  [param:number x],  [param:number y],  [param:number z],  [param:number w] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:number x] - The x.<br />
+			[page:number y] - The y.<br />
+			[page:number z] - The z.<br />
+			[page:number w] - The w.<br /><br />
+
 			Sets plane
 		</p>
 

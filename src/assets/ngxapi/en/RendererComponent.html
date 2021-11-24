@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>RendererComponent</h1>
 
 		<p class="desc">
 			RendererComponent<br>
@@ -85,137 +85,153 @@
 		&gt;&lt;/ngx3js-renderer&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:any afterRender]</h3>
+		<h3>[property:Subject _sizeSubject]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Size subject of renderer component
+		</p>
+
+		<h3>[property:Subject _updateSubject]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Update subject of renderer component
+		</p>
+
+		<h3>[property:Subject _userGestureSubject]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			User gesture subject of renderer component
+		</p>
+
+		<h3>[property:any afterRender]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			
 		</p>
 
-		<h3>[property:boolean alpha]</h3>
+		<h3>[property:boolean alpha]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			whether to perform alpha. Default is *false*.
 		</p>
 
-		<h3>[property:boolean antialias]</h3>
+		<h3>[property:boolean antialias]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			whether to perform antialiasing. Default is *false*.
 		</p>
 
-		<h3>[property:boolean autoClear]</h3>
+		<h3>[property:boolean autoClear]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Defines whether the renderer should automatically clear its output before rendering a frame.
 		</p>
 
-		<h3>[property:boolean autoClearColor]</h3>
+		<h3>[property:boolean autoClearColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			If [page:.autoClear autoClear] is true, defines whether the renderer should clear the color buffer.<br>
 				Default is *true*.
 		</p>
 
-		<h3>[property:any beforeRender]</h3>
+		<h3>[property:any beforeRender]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			
 		</p>
 
-		<h3>[property:CameraComponent camera]</h3>
+		<h3>[property:CameraComponent camera]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The camera of renderer component
 		</p>
 
-		<h3>[property:number clearAlpha]</h3>
+		<h3>[property:number clearAlpha]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Sets the alpha of the clear color
 		</p>
 
-		<h3>[property:mixed clearColor]</h3>
+		<h3>[property:string|number clearColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Sets the clear color<br>
-			<br>
-			[page:string string] | [page:number number]
+			Sets the clear color
 		</p>
 
-		<h3>[property:boolean composerEnable]</h3>
+		<h3>[property:boolean composerEnable]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The guiOpen of GUI
 		</p>
 
-		<h3>[property:ControlOptions controlOptions]</h3>
+		<h3>[property:ControlOptions controlOptions]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The options of control
 		</p>
 
-		<h3>[property:string controlType]</h3>
+		<h3>[property:string controlType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of control<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string cssClass]</h3>
+		<h3>[property:string cssClass]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of css canvas class
 		</p>
 
-		<h3>[property:string cssType]</h3>
+		<h3>[property:string cssType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of css renderer<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:number gammaFactor]</h3>
+		<h3>[property:number gammaFactor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Converts this color from gamma space to linear space by taking [page:.r r], [page:.g g] and [page:.b b] to the power of [page:Float gammaFactor].
 		</p>
 
-		<h3>[property:boolean globalClippingEnabled]</h3>
+		<h3>[property:boolean globalClippingEnabled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			User-defined clipping planes specified as THREE.Plane objects in world space.
 		</p>
 
-		<h3>[property:any guiControl]</h3>
+		<h3>[property:ThreeGui gui]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Gui of renderer component
+		</p>
+
+		<h3>[property:any guiControl]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The guiControl of GUI
 		</p>
 
-		<h3>[property:boolean guiOpen]</h3>
+		<h3>[property:boolean guiOpen]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The guiOpen of GUI
 		</p>
 
-		<h3>[property:GuiControlParam guiParams][]</h3>
+		<h3>[property:GuiControlParam[] guiParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The guiParams of GUI
 		</p>
 
-		<h3>[property:any guiStyle]</h3>
+		<h3>[property:any guiStyle]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The guiStyle of GUI
 		</p>
 
-		<h3>[property:mixed height]</h3>
+		<h3>[property:string|number height]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The height of renderer<br>
-			<br>
-			[page:string string] | [page:number number]
+			The height of renderer
 		</p>
 
-		<h3>[property:boolean localClippingEnabled]</h3>
+		<h3>[property:boolean localClippingEnabled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Defines whether the renderer respects object-level clipping planes. Default is *false*.
 		</p>
 
-		<h3>[property:boolean logarithmicDepthBuffer]</h3>
+		<h3>[property:boolean logarithmicDepthBuffer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			whether to use a logarithmic depth buffer. It may be neccesary to use this if dealing with huge differences in scale in a single scene. Note that this setting uses gl_FragDepth if available which disables the [link:https://www.khronos.org/opengl/wiki/Early_Fragment_Test Early Fragment Test] optimization and can cause a decrease in performance.<br>
 			Default is *false*. See the [example:webgl_camera_logarithmicdepthbuffer camera / logarithmicdepthbuffer] example.
 		</p>
 
-		<h3>[property:string outputEncoding]</h3>
+		<h3>[property:string outputEncoding]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Defines the output encoding of the renderer. Default is [page:Textures THREE.LinearEncoding].<br>
 			If a render target has been set using [page:WebGLRenderer.setRenderTarget .setRenderTarget] then renderTarget.texture.encoding will be used instead.<br>
@@ -234,18 +250,18 @@
 			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding, Linear
 		</p>
 
-		<h3>[property:boolean physicallyCorrectLights]</h3>
+		<h3>[property:boolean physicallyCorrectLights]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Whether to use physically correct lighting mode. Default is *false*.<br>
 			See the [example:webgl_lights_physical lights / physical] example.
 		</p>
 
-		<h3>[property:boolean preserveDrawingBuffer]</h3>
+		<h3>[property:boolean preserveDrawingBuffer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			whether to preserve the buffers until manually cleared or overwritten. Default is *false*.
 		</p>
 
-		<h3>[property:string quality]</h3>
+		<h3>[property:string quality]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The quality of SVGRenderer<br>
 			<br>
@@ -255,22 +271,37 @@
 			low - low quality.
 		</p>
 
-		<h3>[property:string requiredExtensions][]</h3>
+		<h3>[property:Renderer renderer]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Renderer of renderer component
+		</p>
+
+		<h3>[property:number rendererHeight]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Renderer height of renderer component
+		</p>
+
+		<h3>[property:number rendererWidth]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Renderer width of renderer component
+		</p>
+
+		<h3>[property:string[] requiredExtensions]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The requiredExtensions of renderer component
 		</p>
 
-		<h3>[property:SceneComponent scene]</h3>
+		<h3>[property:SceneComponent scene]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The scene of renderer component
 		</p>
 
-		<h3>[property:boolean shadowMapEnabled]</h3>
+		<h3>[property:boolean shadowMapEnabled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			If set, use shadow maps in the scene. Default is *true*.
 		</p>
 
-		<h3>[property:string shadowMapType]</h3>
+		<h3>[property:string shadowMapType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Defines shadow map type (unfiltered, percentage close filtering, percentage close filtering with bilinear filtering in shader)<br>
 			Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftShadowMap and THREE.VSMShadowMap. See [page:Renderer Renderer constants] for details.<br>
@@ -278,7 +309,7 @@
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string sizeType]</h3>
+		<h3>[property:string sizeType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of renderer component<br>
 			<br>
@@ -288,17 +319,17 @@
 			fixed - use fixed size of renderer.
 		</p>
 
-		<h3>[property:number statsMode]</h3>
+		<h3>[property:number statsMode]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			the stats mode  of stats module
 		</p>
 
-		<h3>[property:any statsStyle]</h3>
+		<h3>[property:any statsStyle]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The statsStyle of stats module
 		</p>
 
-		<h3>[property:string toneMapping]</h3>
+		<h3>[property:string toneMapping]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Default is [page:Renderer NoToneMapping]. See the [page:Renderer Renderer constants] for other choices.<br>
 			<br>
@@ -312,12 +343,12 @@
 			[page:NoToneMapping NoToneMapping] - THREE.NoToneMapping - NoToneMapping, No
 		</p>
 
-		<h3>[property:number toneMappingExposure]</h3>
+		<h3>[property:number toneMappingExposure]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Exposure level of tone mapping. Default is *1*.
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of renderer<br>
 			<br>
@@ -326,7 +357,7 @@
 			[page:WebGLRenderer WebGLRenderer] - THREE.WebGLRenderer - WebGLRenderer, WebGL, GL, WebGL2
 		</p>
 
-		<h3>[property:string useEvent]</h3>
+		<h3>[property:string useEvent]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of renderer component<br>
 			<br>
@@ -346,43 +377,32 @@
 			mouseout - mouseout, out.
 		</p>
 
-		<h3>[property:mixed width]</h3>
+		<h3>[property:string|number width]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The width of renderer<br>
-			<br>
-			[page:string string] | [page:number number]
+			The width of renderer
 		</p>
 
-		<h3>[property:mixed x]</h3>
+		<h3>[property:string|number x]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The x position of renderer<br>
 			<br>
 			number : fixed position.<br>
 			string : % - the percent of renderer.<br>
-			string : % -/+ number - the percent of renderer and add some value.<br>
-			<br>
-			[page:string string] | [page:number number]
+			string : % -/+ number - the percent of renderer and add some value.
 		</p>
 
-		<h3>[property:boolean xrEnabled]</h3>
+		<h3>[property:boolean xrEnabled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The xrEnabled of renderer component
 		</p>
 
-		<h3>[property:mixed y]</h3>
+		<h3>[property:string|number y]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The y position of renderer<br>
 			<br>
 			number : fixed position.<br>
 			string : % - the percent of renderer.<br>
-			string : % -/+ number - the percent of renderer and add some value.<br>
-			<br>
-			[page:string string] | [page:number number]
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+			string : % -/+ number - the percent of renderer and add some value.
 		</p>
 
 		<h2>Methods</h2>
@@ -390,96 +410,111 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:any addEvent](  [param:string type],  [param:any listener] )</h3>
+		<h3>[method:RendererComponent constructor](  )</h3>
 		<p>
-			Adds event<br>
-			<br>
-			Returns :
+			Creates an instance of renderer component.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<h3>[method:any addEvent](  [param:string type],  [param:any listener] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Applys changes<br>
-			<br>
-			Returns :
+			[page:string type] - The type.<br />
+			[page:any listener] - The listener.<br /><br />
+
+			Adds event
 		</p>
 
-		<h3>[method:void changeAutoSize](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
+			Applys changes
+		</p>
+
+		<h3>[method:void changeAutoSize](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Changes auto size
 		</p>
 
-		<h3>[method:void getCanvasJson](  [param:any callback],  [param:any options] )</h3>
+		<h3>[method:void getCanvasJson](  [param:any callback],  [param:any options]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:any callback] - The callback.<br />
+			[page:any options] - (optional) The options.<br /><br />
+
 			Gets canvas json
 		</p>
 
-		<h3>[method:T getObject](  )</h3>
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets Object<br>
 			<br>
 			Returns : Object
 		</p>
 
-		<h3>[method:ControlComponent getRenderControl](  )</h3>
+		<h3>[method:ControlComponent getRenderControl](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets Render controls<br>
 			<br>
 			Returns : controls
 		</p>
 
-		<h3>[method:Renderer getRenderer](  )</h3>
+		<h3>[method:Renderer getRenderer](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets Renderer<br>
 			<br>
 			Returns : Renderer
 		</p>
 
-		<h3>[method:Vector2 getSize](  )</h3>
+		<h3>[method:Vector2 getSize](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets size<br>
 			<br>
 			Returns : size
 		</p>
 
-		<h3>[method:void render](  )</h3>
+		<h3>[method:void render](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Renders renderer component<br>
-			<br>
-			Returns :
+			Renders renderer component
 		</p>
 
-		<h3>[method:void resizeCanvas](  [param:number width],  [param:number height] )</h3>
+		<h3>[method:void resizeCanvas](  [param:number width],  [param:number height] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:number width] - The width.<br />
+			[page:number height] - The height.<br /><br />
+
 			Resizes canvas
 		</p>
 
-		<h3>[method:void resizeRender](  )</h3>
+		<h3>[method:void resizeRender](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Hosts listener
 		</p>
 
-		<h3>[method:void setSize](  [param:number width],  [param:number height] )</h3>
+		<h3>[method:void setSize](  [param:number width],  [param:number height] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:number width] - The width.<br />
+			[page:number height] - The height.<br /><br />
+
 			Sets size
 		</p>
 
-		<h3>[method:Observable sizeSubscribe](  )</h3>
+		<h3>[method:Observable sizeSubscribe](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Sizes subscribe<br>
 			<br>
 			Returns : subscribe
 		</p>
 
-		<h3>[method:Observable updateSubscribe](  )</h3>
+		<h3>[method:Observable updateSubscribe](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Updates subscribe<br>
 			<br>
 			Returns : subscribe
 		</p>
 
-		<h3>[method:Observable userGestureSubscribe](  [param:HTMLElement ele] )</h3>
+		<h3>[method:Observable userGestureSubscribe](  [param:HTMLElement ele]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:HTMLElement ele] - (optional) The ele.<br /><br />
+
 			Users gesture subscribe<br>
 			<br>
 			Returns : gesture subscribe

@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTextureComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>TextureComponent</h1>
 
 		<p class="desc">
 			TextureComponent<br>
@@ -155,98 +155,82 @@
 		&gt;&lt;/ngx3js-texture&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractTextureComponent AbstractTextureComponent] class for common input properties.
-		</p>
-
-		<h3>[property:mixed add]</h3>
-		<p>
-			The add of texture component<br>
-			<br>
-			[page:string string] | [page:number number]
+			See the base [page:AbstractTextureComponent AbstractTextureComponent] class for common properties.
 		</p>
 
-		<h3>[property:mixed canvas]</h3>
+		<h3>[property:string|number add]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The canvas of texture component<br>
-			<br>
-			[page:string string] | [page:HTMLVideoElement HTMLVideoElement] | [page:HTMLCanvasElement HTMLCanvasElement] | [page:HTMLImageElement HTMLImageElement] | [page:ImageBitmap ImageBitmap]
+			The add of texture component
 		</p>
 
-		<h3>[property:mixed color]</h3>
+		<h3>[property:string|HTMLVideoElement|HTMLCanvasElement|HTMLImageElement|ImageBitmap canvas]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The color of texture component<br>
-			<br>
-			[page:string string] | [page:number number]
+			The canvas of texture component
 		</p>
 
-		<h3>[property:string cubeImage][]</h3>
+		<h3>[property:string|number color]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The color of texture component
+		</p>
+
+		<h3>[property:string[] cubeImage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The cubeImage of texture component
 		</p>
 
-		<h3>[property:string image]</h3>
+		<h3>[property:string image]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The image of texture component
 		</p>
 
-		<h3>[property:any perlin]</h3>
+		<h3>[property:any perlin]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The perlin of texture component
 		</p>
 
-		<h3>[property:mixed program]</h3>
+		<h3>[property:string|CanvasFunctionType program]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The program of texture component<br>
-			<br>
-			[page:string string] | [page:CanvasFunctionType CanvasFunctionType]
+			The program of texture component
 		</p>
 
-		<h3>[property:any refer]</h3>
+		<h3>[property:any refer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The refer of texture component
 		</p>
 
-		<h3>[property:string storageName]</h3>
+		<h3>[property:string storageName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The storageName of texture component
 		</p>
 
-		<h3>[property:any storageOption]</h3>
+		<h3>[property:any storageOption]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The storageOption of texture component
 		</p>
 
-		<h3>[property:number sunX]</h3>
+		<h3>[property:number sunX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The sunX of texture component
 		</p>
 
-		<h3>[property:number sunY]</h3>
+		<h3>[property:number sunY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The sunY of texture component
 		</p>
 
-		<h3>[property:number sunZ]</h3>
+		<h3>[property:number sunZ]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The sunZ of texture component
 		</p>
 
-		<h3>[property:boolean useDropImage]</h3>
+		<h3>[property:boolean useDropImage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The useDropImage of texture component
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
-		</p>
-		<p>
-			See the base [page:AbstractTextureComponent AbstractTextureComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -257,14 +241,21 @@
 			See the base [page:AbstractTextureComponent AbstractTextureComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<h3>[method:TextureComponent constructor](  [param:LocalStorageService localStorageService] )</h3>
 		<p>
-			Applys changes<br>
-			<br>
-			Returns :
+			[page:LocalStorageService localStorageService] - The local storage service.<br /><br />
+
+			Creates an instance of texture component.
 		</p>
 
-		<h3>[method:T getTexture](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
+			Applys changes
+		</p>
+
+		<h3>[method:T getTexture](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets texture<br>
 			<br>

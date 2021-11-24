@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>HtmlComponent</h1>
 
 		<p class="desc">
 			HtmlComponent
@@ -38,71 +38,61 @@
 		&gt;&lt;/ngx3js-html&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common input properties.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common properties.
 		</p>
 
-		<h3>[property:string childType]</h3>
+		<h3>[property:string childType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The child append method.<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:any dlList]</h3>
+		<h3>[property:any dlList]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The dlList of html component
 		</p>
 
-		<h3>[property:any list]</h3>
+		<h3>[property:any list]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The list of html component
 		</p>
 
-		<h3>[property:string src]</h3>
+		<h3>[property:string src]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The src of image or iframe
 		</p>
 
-		<h3>[property:mixed style]</h3>
+		<h3>[property:string|CssStyle style]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Style<br>
-			<br>
-			[page:string string] | [page:CssStyle CssStyle]
+			The Style
 		</p>
 
-		<h3>[property:any table]</h3>
+		<h3>[property:any table]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The table of html component
 		</p>
 
-		<h3>[property:any tableFoot]</h3>
+		<h3>[property:any tableFoot]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The tableFoot of html component
 		</p>
 
-		<h3>[property:any tableHead]</h3>
+		<h3>[property:any tableHead]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The tableHead of html component
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The html tag.<br>
 			<br>
 			Notice - case insensitive.
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
-		</p>
-		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -113,20 +103,31 @@
 			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges2d](  [param:string changes][] )</h3>
+		<h3>[method:HtmlComponent constructor](  [param:ElementRef ele] )</h3>
 		<p>
+			[page:ElementRef ele] - The ele.<br /><br />
+
+			Creates an instance of html component.
+		</p>
+
+		<h3>[method:void applyChanges2d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
 			Applys changes2d
 		</p>
 
-		<h3>[method:HTMLElement getHtml](  )</h3>
+		<h3>[method:HTMLElement getHtml](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets html<br>
 			<br>
 			Returns : html
 		</p>
 
-		<h3>[method:boolean setParent](  [param:mixed refObject3d] )</h3>
+		<h3>[method:boolean setParent](  [param:HTMLElement|Object3D refObject3d] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:HTMLElement|Object3D refObject3d] - The ref object3d.<br /><br />
+
 			Sets parent<br>
 			<br>
 			Returns : true if parent

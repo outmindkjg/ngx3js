@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>SceneComponent</h1>
 
 		<p class="desc">
 			SceneComponent
@@ -41,43 +41,32 @@
 		&gt;&lt;/ngx3js-scene&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common input properties.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common input properties.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common properties.
 		</p>
 
-		<h3>[property:any background]</h3>
+		<h3>[property:any background]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			If not null, sets the background used when rendering the scene, and is always rendered first.<br>
 			Can be set to a [page:Color] which sets the clear color, a [page:Texture] covering the canvas, a cubemap as a [page:CubeTexture] or an equirectangular as a [page:Texture] . Default is null.
 		</p>
 
-		<h3>[property:any environment]</h3>
+		<h3>[property:any environment]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			If not null, this texture is set as the environment map for all physical materials in the scene.<br>
 			However, it's not possible to overwrite an existing texture assigned to [page:MeshStandardMaterial.envMap]. Default is null.
 		</p>
 
-		<h3>[property:string storageName]</h3>
+		<h3>[property:string storageName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The storageName of scene component
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
-		</p>
-		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common output properties.
-		</p>
-		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -91,72 +80,85 @@
 			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges3d](  [param:string changes][] )</h3>
+		<h3>[method:SceneComponent constructor](  [param:LocalStorageService localStorageService] )</h3>
 		<p>
+			[page:LocalStorageService localStorageService] - The local storage service.<br /><br />
+
+			Creates an instance of scene component.
+		</p>
+
+		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
 			Applys changes3d
 		</p>
 
-		<h3>[method:any getJson](  )</h3>
+		<h3>[method:any getJson](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets json<br>
 			<br>
 			Returns : json
 		</p>
 
-		<h3>[method:T getObject3d](  )</h3>
+		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets object3d<br>
 			<br>
 			Returns : object3d
 		</p>
 
-		<h3>[method:RendererComponent getRenderer](  )</h3>
+		<h3>[method:RendererComponent getRenderer](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets renderer<br>
 			<br>
 			Returns : renderer
 		</p>
 
-		<h3>[method:Scene getScene](  )</h3>
+		<h3>[method:Scene getScene](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets scene<br>
 			<br>
 			Returns : scene
 		</p>
 
-		<h3>[method:Scene getSceneDumpy](  )</h3>
+		<h3>[method:Scene getSceneDumpy](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets scene dumpy<br>
 			<br>
 			Returns : scene dumpy
 		</p>
 
-		<h3>[method:Renderer getThreeRenderer](  )</h3>
+		<h3>[method:Renderer getThreeRenderer](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets three renderer<br>
 			<br>
 			Returns : three renderer
 		</p>
 
-		<h3>[method:void setClear](  )</h3>
+		<h3>[method:void setClear](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Sets clear
 		</p>
 
-		<h3>[method:void setRenderer](  [param:RendererComponent renderer] )</h3>
+		<h3>[method:void setRenderer](  [param:RendererComponent renderer] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:RendererComponent renderer] - The renderer.<br /><br />
+
 			Sets renderer
 		</p>
 
-		<h3>[method:void setSavelocalStorage](  [param:string storageName] )</h3>
+		<h3>[method:void setSavelocalStorage](  [param:string storageName] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Sets savelocal storage<br>
-			<br>
-			Returns :
+			[page:string storageName] - The storage name.<br /><br />
+
+			Sets savelocal storage
 		</p>
 
-		<h3>[method:void update](  [param:RendererTimer timer] )</h3>
+		<h3>[method:void update](  [param:RendererTimer timer] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:RendererTimer timer] - The timer.<br /><br />
+
 			Updates scene component
 		</p>
 

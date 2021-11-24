@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>AnimationGroupComponent</h1>
 
 		<p class="desc">
 			AnimationGroupComponent<br>
@@ -56,19 +56,14 @@
 		&gt;&lt;/ngx3js-animation-group&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:string name]</h3>
+		<h3>[property:string name]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The name of the object (doesn't need to be unique). Default is an empty string.
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -76,21 +71,26 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<h3>[method:AnimationGroupComponent constructor](  )</h3>
 		<p>
-			Applys changes<br>
-			<br>
-			Returns :
+			Creates an instance of animation group component.
 		</p>
 
-		<h3>[method:T getAnimationGroup](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
+			Applys changes
+		</p>
+
+		<h3>[method:T getAnimationGroup](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets animation group<br>
 			<br>
 			Returns : animation group
 		</p>
 
-		<h3>[method:T getObject](  )</h3>
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets object3d<br>
 			<br>

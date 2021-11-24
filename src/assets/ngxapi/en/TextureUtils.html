@@ -7,73 +7,110 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		<h1>[name]</h1>
+		<h1>TextureUtils</h1>
 
 		<p class="desc">
 			Texture utils
 		</p>
 
-		<h2>Properties - Input</h2>
-		<h2>Properties - Output</h2>
-		<h2>Methods</h2>
-		<h3>[method:void addCanvas](  [param:string key],  [param:CanvasFunctionType canvas] )</h3>
+		<h2>Properties</h2>
 		<p>
+			None
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:void addCanvas](  [param:string key],  [param:CanvasFunctionType canvas] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			[page:string key] - The key.<br />
+			[page:CanvasFunctionType canvas] - The canvas.<br /><br />
+
 			Adds canvas
 		</p>
 
-		<h3>[method:void addDataTexture](  [param:string key],  [param:DataFunctionType data] )</h3>
+		<h3>[method:void addDataTexture](  [param:string key],  [param:DataFunctionType data] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string key] - The key.<br />
+			[page:DataFunctionType data] - The data.<br /><br />
+
 			Adds data texture
 		</p>
 
-		<h3>[method:void dataTexture](  [param:any value],  [param:any onload],  [param:any options] )</h3>
+		<h3>[method:DataTexture|DataTexture3D dataTexture](  [param:any value],  [param:any onload]?,  [param:any options]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:any value] - The value.<br />
+			[page:any onload] - (optional) The onload.<br />
+			[page:any options] - (optional) The options.<br /><br />
+
 			Datas texture<br>
-			<br>
-			[page:DataTexture DataTexture] | [page:DataTexture3D DataTexture3D]<br>
 			<br>
 			Returns : texture
 		</p>
 
-		<h3>[method:void drawCanvas](  [param:mixed program],  [param:CanvasRenderingContext2D ctx],  [param:string text],  [param:number width],  [param:number height],  [param:any programParam] )</h3>
+		<h3>[method:void drawCanvas](  [param:string|CanvasFunctionType program],  [param:CanvasRenderingContext2D ctx]?,  [param:string text]?,  [param:number width]?,  [param:number height]?,  [param:any programParam]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string|CanvasFunctionType program] - The program.<br />
+			[page:CanvasRenderingContext2D ctx] - (optional) The ctx.<br />
+			[page:string text] - (optional) The text.<br />
+			[page:number width] - (optional) The width.<br />
+			[page:number height] - (optional) The height.<br />
+			[page:any programParam] - (optional) The program param.<br /><br />
+
 			Draws canvas
 		</p>
 
-		<h3>[method:CanvasFunctionType getCanvas](  [param:mixed key] )</h3>
+		<h3>[method:CanvasFunctionType getCanvas](  [param:string|CanvasFunctionType key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string|CanvasFunctionType key] - The key.<br /><br />
+
 			Gets canvas<br>
 			<br>
 			Returns : canvas
 		</p>
 
-		<h3>[method:DataFunctionType getDataTexture](  [param:mixed key] )</h3>
+		<h3>[method:DataFunctionType getDataTexture](  [param:string|DataFunctionType key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:string|DataFunctionType key] - The key.<br /><br />
+
 			Gets data texture<br>
 			<br>
 			Returns : data texture
 		</p>
 
-		<h3>[method:Vector2 scale](  [param:number w],  [param:number h],  [param:number ow],  [param:number oh] )</h3>
+		<h3>[method:Vector2 scale](  [param:number w],  [param:number h],  [param:number ow],  [param:number oh] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
+			[page:number w] - The w.<br />
+			[page:number h] - The h.<br />
+			[page:number ow] - The ow.<br />
+			[page:number oh] - The oh.<br /><br />
+
 			Scales texture utils<br>
 			<br>
 			Returns : scale
 		</p>
 
-		<hr>
+		<hr class="interface-line"/>
 		<h1 id="CanvasFunctionType">CanvasFunctionType</h1>
 
 		<p class="desc">
 			
 		</p>
 
+		<h3>[method:void __type](  [param:CanvasRenderingContext2D ctx],  [param:string text],  [param:number width],  [param:number height],  [param:any options] )</h3>
+		<p>
+			CanvasFunctionType
+		</p>
 
-		<hr>
+
+		<hr class="interface-line"/>
 		<h1 id="DataFunctionType">DataFunctionType</h1>
 
 		<p class="desc">
 			
+		</p>
+
+		<h3>[method:THREE.DataTexture|THREE.DataTexture3D __type](  [param:any options] )</h3>
+		<p>
+			DataFunctionType
 		</p>
 
 

@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>KeyframeComponent</h1>
 
 		<p class="desc">
 			KeyframeComponent<br>
@@ -83,26 +83,22 @@
 		&gt;&lt;/ngx3js-keyframe&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:mixed booleans]</h3>
+		<h3>[property:number[]|boolean[] booleans]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			values for the keyframes at the times specified.<br>
-			<br>
-			[page:number number] | [page:boolean boolean]
+			values for the keyframes at the times specified.
 		</p>
 
-		<h3>[property:mixed colors]</h3>
+		<h3>[property:string[]|number[] colors]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			values for the keyframes at the times specified.<br>
-			<br>
-			[page:string string] | [page:number number]
+			values for the keyframes at the times specified.
 		</p>
 
-		<h3>[property:string interpolation]</h3>
+		<h3>[property:string interpolation]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			the type of interpolation to use. See<br>
 			<br>
@@ -111,24 +107,22 @@
 			[page:InterpolateSmooth InterpolateSmooth] - THREE.InterpolateSmooth - InterpolateSmooth, Smooth
 		</p>
 
-		<h3>[property:string name]</h3>
+		<h3>[property:string name]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			identifier for the KeyframeTrack
 		</p>
 
-		<h3>[property:mixed quaternions]</h3>
+		<h3>[property:number[] quaternions]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			values for the keyframes at the times specified.<br>
-			<br>
-			[page:number number]
+			values for the keyframes at the times specified.
 		</p>
 
-		<h3>[property:number times][]</h3>
+		<h3>[property:number[] times]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			(required) array of keyframe times.
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			identifier for the KeyframeTrack<br>
 			<br>
@@ -153,21 +147,14 @@
 			[page:BooleanKeyframeTrack BooleanKeyframeTrack] - THREE.BooleanKeyframeTrack  - Boolean, BooleanKeyframe, BooleanKeyframeTrack - The Boolean of object3d
 		</p>
 
-		<h3>[property:number values][]</h3>
+		<h3>[property:number[] values]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			values for the keyframes at the times specified.
 		</p>
 
-		<h3>[property:mixed vectors]</h3>
+		<h3>[property:number[] vectors]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			values for the keyframes at the times specified.<br>
-			<br>
-			[page:number number]
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+			values for the keyframes at the times specified.
 		</p>
 
 		<h2>Methods</h2>
@@ -175,22 +162,29 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<h3>[method:KeyframeComponent constructor](  )</h3>
 		<p>
-			Applys changes<br>
-			<br>
-			Returns :
+			Creates an instance of keyframe component.
 		</p>
 
-		<h3>[method:KeyframeTrack getKeyframe](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
+			Applys changes
+		</p>
+
+		<h3>[method:KeyframeTrack getKeyframe](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets keyframe<br>
 			<br>
 			Returns : keyframe
 		</p>
 
-		<h3>[method:void setClip](  [param:AnimationClip clip] )</h3>
+		<h3>[method:void setClip](  [param:AnimationClip clip] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:AnimationClip clip] - The clip.<br /><br />
+
 			Sets clip
 		</p>
 

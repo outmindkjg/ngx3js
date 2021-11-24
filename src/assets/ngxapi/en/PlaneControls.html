@@ -7,39 +7,92 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		<h1>[name]</h1>
+		<h1>PlaneControls</h1>
 
 		<p class="desc">
 			Plane controls
 		</p>
 
-		<h2>Properties - Input</h2>
-		<h2>Properties - Output</h2>
+		<h2>Properties</h2>
+		<h3>[property:boolean enabled]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Enabled of plane controls
+		</p>
+
+		<h3>[property:number panSpeed]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Pan speed of plane controls
+		</p>
+
+		<h3>[property:number rotateSpeed]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Rotate speed of plane controls
+		</p>
+
+		<h3>[property:any screen]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Screen of plane controls
+		</p>
+
+		<h3>[property:Vector3 target]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Target of plane controls
+		</p>
+
+		<h3>[property:number xDistance]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			X distance of plane controls
+		</p>
+
+		<h3>[property:number yDistance]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Y distance of plane controls
+		</p>
+
+		<h3>[property:number zoomSpeed]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Zoom speed of plane controls
+		</p>
+
 		<h2>Methods</h2>
-		<h3>[method:void dispose](  )</h3>
+		<h3>[method:PlaneControls constructor](  [param:Camera camera],  [param:HTMLElement domElement] )</h3>
+		<p>
+			[page:Camera camera] - The camera.<br />
+			[page:HTMLElement domElement] - The dom element.<br /><br />
+
+			Creates an instance of plane controls.
+		</p>
+
+		<h3>[method:void dispose](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Disposes plane controls
 		</p>
 
-		<h3>[method:Vector2 getMouseOnScreen](  [param:Vector2 vector],  [param:number pageX],  [param:number pageY] )</h3>
+		<h3>[method:Vector2 getMouseOnScreen](  [param:Vector2 vector],  [param:number pageX],  [param:number pageY] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets mouse on screen<br>
-			<br>
-			Returns :
+			[page:Vector2 vector] - The vector.<br />
+			[page:number pageX] - The page x.<br />
+			[page:number pageY] - The page y.<br /><br />
+
+			Gets mouse on screen
 		</p>
 
-		<h3>[method:void handleResize](  )</h3>
+		<h3>[method:void handleResize](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Handles resize
 		</p>
 
-		<h3>[method:void setActive](  [param:boolean isActive] )</h3>
+		<h3>[method:void setActive](  [param:boolean isActive] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:boolean isActive] - The is active.<br /><br />
+
 			Sets active
 		</p>
 
-		<h3>[method:void update](  [param:number delta] )</h3>
+		<h3>[method:void update](  [param:number delta] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:number delta] - The delta.<br /><br />
+
 			Updates plane controls
 		</p>
 

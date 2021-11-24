@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>CanvasComponent</h1>
 
 		<p class="desc">
 			CanvasComponent<br>
@@ -32,19 +32,14 @@
 		&gt;&lt;/ngx3js-canvas&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:string name]</h3>
+		<h3>[property:string name]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The name of the object (doesn't need to be unique). Default is an empty string.
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -52,51 +47,64 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<h3>[method:CanvasComponent constructor](  [param:ElementRef ele] )</h3>
 		<p>
+			[page:ElementRef ele] - The ele.<br /><br />
+
+			Creates an instance of canvas component.
+		</p>
+
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
 			Applys changes
 		</p>
 
-		<h3>[method:void applyHtmlStyle](  )</h3>
+		<h3>[method:void applyHtmlStyle](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Applys html style
 		</p>
 
-		<h3>[method:HTMLElement getCanvas](  )</h3>
+		<h3>[method:HTMLElement getCanvas](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets canvas<br>
 			<br>
 			Returns : canvas
 		</p>
 
-		<h3>[method:HtmlCollection getCollection](  )</h3>
+		<h3>[method:HtmlCollection getCollection](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets collection<br>
 			<br>
 			Returns : collection
 		</p>
 
-		<h3>[method:T getObject](  )</h3>
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets object<br>
 			<br>
 			Returns : object
 		</p>
 
-		<h3>[method:CssStyle getStyle](  )</h3>
+		<h3>[method:CssStyle getStyle](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets style<br>
 			<br>
 			Returns : style
 		</p>
 
-		<h3>[method:void setParentNode](  [param:HTMLElement parentNode] )</h3>
+		<h3>[method:void setParentNode](  [param:HTMLElement parentNode] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:HTMLElement parentNode] - The parent node.<br /><br />
+
 			Sets parent node
 		</p>
 
-		<h3>[method:void setSize](  [param:Vector2 size] )</h3>
+		<h3>[method:void setSize](  [param:Vector2 size] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:Vector2 size] - The size.<br /><br />
+
 			Sets size
 		</p>
 

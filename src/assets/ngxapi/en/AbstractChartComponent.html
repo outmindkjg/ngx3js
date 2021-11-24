@@ -9,13 +9,13 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>AbstractChartComponent</h1>
 
 		<p class="desc">
 			AbstractChartComponent Component<br>
 			<br>
 			<code data-type="typescript"><br>
-			_@Component({<br>
+			@Component({<br>
 				providers: [<br>
 					{<br>
 						provide: AbstractObject3dComponent,<br>
@@ -31,71 +31,70 @@
 			</code>
 		</p>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common input properties.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common input properties.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common properties.
 		</p>
 
-		<h3>[property:number depth]</h3>
+		<h3>[property:string[] CHART_ATTR]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Object3 d attr of abstract object3d component
+		</p>
+
+		<h3>[property:Object3D chart]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Chart of abstract chart component
+		</p>
+
+		<h3>[property:number depth]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
 		</p>
 
-		<h3>[property:number depthIdx]</h3>
+		<h3>[property:number depthIdx]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
 		</p>
 
-		<h3>[property:number depthLength]</h3>
+		<h3>[property:number depthLength]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
 		</p>
 
-		<h3>[property:number depthSize]</h3>
+		<h3>[property:number depthSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
 		</p>
 
-		<h3>[property:number height]</h3>
+		<h3>[property:number height]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Height; that is, the length of the edges parallel to the Y axis. Optional; defaults to 1.
 		</p>
 
-		<h3>[property:number scaleMax]</h3>
+		<h3>[property:number scaleMax]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
 		</p>
 
-		<h3>[property:number scaleMin]</h3>
+		<h3>[property:number scaleMin]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
 		</p>
 
-		<h3>[property:number width]</h3>
+		<h3>[property:number width]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Width; that is, the length of the edges parallel to the X axis. Optional; defaults to 1.
 		</p>
 
-		<h3>[property:number widthLength]</h3>
+		<h3>[property:number widthLength]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
-		</p>
-		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common output properties.
-		</p>
-		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -109,91 +108,119 @@
 			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
 		</p>
 
-		<h3>[method:void addPointer](  [param:number upPoints][],  [param:Object3D pointer],  [param:Object3D parent],  [param:number middleY],  [param:number baseZ] )</h3>
+		<h3>[method:AbstractChartComponent constructor](  )</h3>
 		<p>
+			Creates an instance of abstract object3d component.
+		</p>
+
+		<h3>[method:void addPointer](  [param:number[] upPoints],  [param:Object3D pointer],  [param:Object3D parent],  [param:number middleY],  [param:number baseZ] )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			[page:number[] upPoints] - The up points.<br />
+			[page:Object3D pointer] - The pointer.<br />
+			[page:Object3D parent] - The parent.<br />
+			[page:number middleY] - The middle y.<br />
+			[page:number baseZ] - The base z.<br /><br />
+
 			Adds pointer
 		</p>
 
-		<h3>[method:void addUpdateAttributes](  [param:BufferGeometry geometry],  [param:AttributeUpdateInfo values][] )</h3>
+		<h3>[method:void addUpdateAttributes](  [param:BufferGeometry geometry],  [param:AttributeUpdateInfo[] values] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:BufferGeometry geometry] - The geometry.<br />
+			[page:AttributeUpdateInfo[] values] - The values.<br /><br />
+
 			Adds update attributes
 		</p>
 
-		<h3>[method:void addUpdatePosition](  [param:Object3D object3d],  [param:AttributeUpdateInfo value],  [param:boolean isPointer] )</h3>
+		<h3>[method:void addUpdatePosition](  [param:Object3D object3d],  [param:AttributeUpdateInfo value],  [param:boolean isPointer] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:Object3D object3d] - The object3d.<br />
+			[page:AttributeUpdateInfo value] - The value.<br />
+			[page:boolean isPointer] - The is pointer.<br /><br />
+
 			Adds update position
 		</p>
 
-		<h3>[method:void applyChanges3d](  [param:string changes][] )</h3>
+		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			Applys changes3d<br>
-			<br>
-			Returns :
+			[page:string[] changes] - The changes.<br /><br />
+
+			Applys changes3d
 		</p>
 
-		<h3>[method:void clearChart](  )</h3>
+		<h3>[method:void clearChart](  )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			Clears chart
 		</p>
 
-		<h3>[method:T getChart](  )</h3>
+		<h3>[method:T getChart](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets Chart<br>
 			<br>
 			Returns : object3d
 		</p>
 
-		<h3>[method:number getDepthCenter](  )</h3>
+		<h3>[method:number getDepthCenter](  )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			Gets depth center<br>
 			<br>
 			Returns : depth center
 		</p>
 
-		<h3>[method:number getDepthSize](  )</h3>
+		<h3>[method:number getDepthSize](  )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			Gets depth size<br>
 			<br>
 			Returns : depth size
 		</p>
 
-		<h3>[method:number getHeightCenter](  [param:number scaleMin],  [param:number scaleMax],  [param:number value] )</h3>
+		<h3>[method:number getHeightCenter](  [param:number scaleMin],  [param:number scaleMax],  [param:number value] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:number scaleMin] - The scale min.<br />
+			[page:number scaleMax] - The scale max.<br />
+			[page:number value] - The value.<br /><br />
+
 			Gets height center<br>
 			<br>
 			Returns : height center
 		</p>
 
-		<h3>[method:ChartShape getMeshAndBorder](  [param:string type],  [param:ShapeInfo options] )</h3>
+		<h3>[method:ChartShape getMeshAndBorder](  [param:string type],  [param:ShapeInfo options] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:string type] - The type.<br />
+			[page:ShapeInfo options] - The options.<br /><br />
+
 			Gets mesh and border<br>
 			<br>
 			Returns : mesh and border
 		</p>
 
-		<h3>[method:T getObject3d](  )</h3>
+		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets object3d<br>
 			<br>
 			Returns : object3d
 		</p>
 
-		<h3>[method:ChartShape getPointShape](  )</h3>
+		<h3>[method:ChartShape getPointShape](  )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			Gets point shape<br>
 			<br>
 			Returns : point shape
 		</p>
 
-		<h3>[method:void getScaleMinMax](  [param:number data][] )</h3>
+		<h3>[method:number[] getScaleMinMax](  [param:number[] data] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			Gets scale min max<br>
-			<br>
-			Returns :
+			[page:number[] data] - The data.<br /><br />
+
+			Gets scale min max
 		</p>
 
-		<h3>[method:Side getSide](  [param:string value],  [param:string def] )</h3>
+		<h3>[method:Side getSide](  [param:string value],  [param:string def]? )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:string value] - The value.<br />
+			[page:string def] - (optional) The def.<br /><br />
+
 			Gets side<br>
 			<br>
 			Notice - case insensitive.<br>
@@ -206,43 +233,56 @@
 			Returns : side
 		</p>
 
-		<h3>[method:void getTestData](  [param:number data][],  [param:number len] )</h3>
+		<h3>[method:number[] getTestData](  [param:number[] data],  [param:number len] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			Gets test data<br>
-			<br>
-			Returns :
+			[page:number[] data] - The data.<br />
+			[page:number len] - The len.<br /><br />
+
+			Gets test data
 		</p>
 
-		<h3>[method:number getWidthCenter](  [param:number widthIdx] )</h3>
+		<h3>[method:number getWidthCenter](  [param:number widthIdx] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:number widthIdx] - The width idx.<br /><br />
+
 			Gets width center<br>
 			<br>
 			Returns : width center
 		</p>
 
-		<h3>[method:void setChart](  [param:Object3D object] )</h3>
+		<h3>[method:void setChart](  [param:Object3D object] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:Object3D object] - The object.<br /><br />
+
 			Sets chart
 		</p>
 
-		<h3>[method:void setObject3d](  [param:Object3D object] )</h3>
+		<h3>[method:void setObject3d](  [param:Object3D object] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:Object3D object] - The object.<br /><br />
+
 			Sets object3d
 		</p>
 
-		<h3>[method:boolean setParent](  [param:Object3D parent] )</h3>
+		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:Object3D parent] - The parent.<br /><br />
+
 			Sets parent<br>
 			<br>
 			Returns : true if parent
 		</p>
 
-		<h3>[method:void update](  [param:RendererTimer _],  [param:number elapsedTime],  [param:number delta] )</h3>
+		<h3>[method:void update](  [param:RendererTimer _],  [param:number elapsedTime],  [param:number delta] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:RendererTimer _] - The _.<br />
+			[page:number elapsedTime] - The elapsed time.<br />
+			[page:number delta] - The delta.<br /><br />
+
 			Updates abstract chart component
 		</p>
 
-		<hr>
+		<hr class="interface-line"/>
 		<h1 id="AttributeUpdateInfo">AttributeUpdateInfo</h1>
 
 		<p class="desc">
@@ -250,7 +290,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="ChartShape">ChartShape</h1>
 
 		<p class="desc">
@@ -258,7 +302,11 @@
 		</p>
 
 		<h2>Properties</h2>
-		<hr>
+		<p>
+			None
+		</p>
+
+		<hr class="interface-line"/>
 		<h1 id="ShapeInfo">ShapeInfo</h1>
 
 		<p class="desc">
@@ -266,6 +314,10 @@
 		</p>
 
 		<h2>Properties</h2>
+		<p>
+			None
+		</p>
+
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three//chart.abstract.ts /chart.abstract.ts]</p>
 	</body>

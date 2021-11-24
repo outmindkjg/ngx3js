@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>ViewerComponent</h1>
 
 		<p class="desc">
 			ViewerComponent<br>
@@ -78,32 +78,32 @@
 		&gt;&lt;/ngx3js-viewer&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:number blendWindow]</h3>
+		<h3>[property:number blendWindow]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The blendWindow of viewer component
 		</p>
 
-		<h3>[property:boolean blurEdges]</h3>
+		<h3>[property:boolean blurEdges]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The blurEdges of viewer component
 		</p>
 
-		<h3>[property:any canvasOptions]</h3>
+		<h3>[property:any canvasOptions]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The canvasOptions of viewer component
 		</p>
 
-		<h3>[property:boolean debugLightmap]</h3>
+		<h3>[property:boolean debugLightmap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The debugLightmap of viewer component
 		</p>
 
-		<h3>[property:mixed height]</h3>
+		<h3>[property:string|number height]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The size of height<br>
 			- type number<br>
@@ -112,45 +112,37 @@
 			 relative size from renderer size<br>
 			 for example<br>
 			   in case renderer = 1024<br>
-			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542<br>
-			<br>
-			[page:string string] | [page:number number]
+			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
 		</p>
 
-		<h3>[property:mixed light]</h3>
+		<h3>[property:MeshComponent|Light|LightComponent light]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Light of Viewer<br>
-			<br>
-			[page:MeshComponent MeshComponent] | [page:Light Light] | [page:LightComponent LightComponent]
+			The Light of Viewer
 		</p>
 
-		<h3>[property:number lightMapRes]</h3>
+		<h3>[property:number lightMapRes]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The lightMapRes of ProgressiveLightMap
 		</p>
 
-		<h3>[property:mixed mesh]</h3>
+		<h3>[property:MeshComponent|Mesh|HelperComponent mesh]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Mesh of Viewer<br>
-			<br>
-			[page:MeshComponent MeshComponent] | [page:Mesh Mesh] | [page:HelperComponent HelperComponent]
+			The Mesh of Viewer
 		</p>
 
-		<h3>[property:mixed plane]</h3>
+		<h3>[property:Object3D|MeshComponent|HelperComponent|Plane plane]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Plane of Viewer<br>
-			<br>
-			[page:Object3D Object3D] | [page:MeshComponent MeshComponent] | [page:HelperComponent HelperComponent] | [page:Plane Plane]
+			The Plane of Viewer
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of viewer<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:mixed width]</h3>
+		<h3>[property:string|number width]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The size of width<br>
 			- type number<br>
@@ -159,28 +151,17 @@
 			 relative size from renderer size<br>
 			 for example<br>
 			   in case renderer = 1024<br>
-			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542<br>
-			<br>
-			[page:string string] | [page:number number]
+			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
 		</p>
 
-		<h3>[property:mixed x]</h3>
+		<h3>[property:string|number x]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The x of position<br>
-			<br>
-			[page:string string] | [page:number number]
+			The x of position
 		</p>
 
-		<h3>[property:mixed y]</h3>
+		<h3>[property:string|number y]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The y of position<br>
-			<br>
-			[page:string string] | [page:number number]
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
+			The y of position
 		</p>
 
 		<h2>Methods</h2>
@@ -188,70 +169,92 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<h3>[method:ViewerComponent constructor](  )</h3>
 		<p>
-			Applys changes<br>
-			<br>
-			Returns :
+			Creates an instance of viewer component.
 		</p>
 
-		<h3>[method:Camera getCamera](  [param:any cameras] )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
+			Applys changes
+		</p>
+
+		<h3>[method:Camera getCamera](  [param:any cameras]? )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[page:any cameras] - (optional) The cameras.<br /><br />
+
 			Gets camera<br>
 			<br>
 			Returns : camera
 		</p>
 
-		<h3>[method:Renderer getRenderer](  )</h3>
+		<h3>[method:Renderer getRenderer](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets renderer<br>
 			<br>
 			Returns : renderer
 		</p>
 
-		<h3>[method:Scene getScene](  [param:any scenes] )</h3>
+		<h3>[method:Scene getScene](  [param:any scenes]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:any scenes] - (optional) The scenes.<br /><br />
+
 			Gets scene<br>
 			<br>
 			Returns : scene
 		</p>
 
-		<h3>[method:any getViewer](  )</h3>
+		<h3>[method:any getViewer](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets viewer<br>
-			<br>
-			Returns :
+			Gets viewer
 		</p>
 
-		<h3>[method:void render](  [param:Renderer renderer],  [param:any scenes],  [param:any cameras],  [param:RendererTimer renderTimer] )</h3>
+		<h3>[method:void render](  [param:Renderer renderer],  [param:any scenes],  [param:any cameras],  [param:RendererTimer renderTimer]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:Renderer renderer] - The renderer.<br />
+			[page:any scenes] - The scenes.<br />
+			[page:any cameras] - The cameras.<br />
+			[page:RendererTimer renderTimer] - (optional) The render timer.<br /><br />
+
 			Renders viewer component
 		</p>
 
-		<h3>[method:void resizeViewer](  )</h3>
+		<h3>[method:void resizeViewer](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Resizes viewer
 		</p>
 
-		<h3>[method:boolean setParent](  [param:any parent] )</h3>
+		<h3>[method:boolean setParent](  [param:any parent] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:any parent] - The parent.<br /><br />
+
 			Sets parent<br>
 			<br>
 			Returns : true if parent
 		</p>
 
-		<h3>[method:void setRenderer](  [param:Renderer renderer] )</h3>
+		<h3>[method:void setRenderer](  [param:Renderer renderer] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:Renderer renderer] - The renderer.<br /><br />
+
 			Sets renderer
 		</p>
 
-		<h3>[method:void setRendererSize](  [param:number width],  [param:number height],  [param:number pixelRatio] )</h3>
+		<h3>[method:void setRendererSize](  [param:number width],  [param:number height],  [param:number pixelRatio] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:number width] - The width.<br />
+			[page:number height] - The height.<br />
+			[page:number pixelRatio] - The pixel ratio.<br /><br />
+
 			Sets viewer size
 		</p>
 
-		<h3>[method:void update](  [param:RendererTimer _] )</h3>
+		<h3>[method:void update](  [param:RendererTimer _] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:RendererTimer _] - The _.<br /><br />
+
 			Updates viewer component
 		</p>
 

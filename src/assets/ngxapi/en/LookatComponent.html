@@ -9,7 +9,7 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>LookatComponent</h1>
 
 		<p class="desc">
 			LookatComponent<br>
@@ -48,39 +48,34 @@
 		&gt;&lt;/ngx3js-lookat&gt;
 		</code>
 
-		<h2>Properties - Input</h2>
+		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common input properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:string refName]</h3>
+		<h3>[property:string refName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The refName of rotation component
 		</p>
 
-		<h3>[property:any refer]</h3>
+		<h3>[property:any refer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The refer of lookat component
 		</p>
 
-		<h3>[property:number x]</h3>
+		<h3>[property:number x]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The current value of the x component. Default value is *0*.
 		</p>
 
-		<h3>[property:number y]</h3>
+		<h3>[property:number y]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The current value of the y component. Default value is *0*.
 		</p>
 
-		<h3>[property:number z]</h3>
+		<h3>[property:number z]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The current value of the z component. Default value is *0*.
-		</p>
-
-		<h2>Properties - Output</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common output properties.
 		</p>
 
 		<h2>Methods</h2>
@@ -88,44 +83,62 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string changes][] )</h3>
+		<h3>[method:LookatComponent constructor](  )</h3>
 		<p>
-			Applys changes<br>
-			<br>
-			Returns :
+			Creates an instance of lookat component.
 		</p>
 
-		<h3>[method:Vector3 getLookAt](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			[page:string[] changes] - The changes.<br /><br />
+
+			Applys changes
+		</p>
+
+		<h3>[method:Vector3 getLookAt](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets look at<br>
 			<br>
 			Returns : look at
 		</p>
 
-		<h3>[method:TagAttributes getTagAttribute](  [param:any options] )</h3>
+		<h3>[method:TagAttributes getTagAttribute](  [param:any options]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:any options] - (optional) The options.<br /><br />
+
 			Gets tag attribute<br>
 			<br>
 			Returns : tag attribute
 		</p>
 
-		<h3>[method:void setLookat](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<h3>[method:void setLookat](  [param:number x]?,  [param:number y]?,  [param:number z]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:number x] - (optional) The x.<br />
+			[page:number y] - (optional) The y.<br />
+			[page:number z] - (optional) The z.<br /><br />
+
 			Sets Lookat
 		</p>
 
-		<h3>[method:void setObject3d](  [param:AbstractSubscribeComponent object3d] )</h3>
+		<h3>[method:void setObject3d](  [param:AbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:AbstractSubscribeComponent object3d] - The object3d.<br /><br />
+
 			Sets object3d
 		</p>
 
-		<h3>[method:void synkObject3d](  [param:Vector3 lookat],  [param:string key] )</h3>
+		<h3>[method:void synkObject3d](  [param:Vector3 lookat],  [param:string key] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:Vector3 lookat] - The lookat.<br />
+			[page:string key] - The key.<br /><br />
+
 			Synks object3d
 		</p>
 
-		<h3>[method:void unsetObject3d](  [param:AbstractSubscribeComponent object3d] )</h3>
+		<h3>[method:void unsetObject3d](  [param:AbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
+			[page:AbstractSubscribeComponent object3d] - The object3d.<br /><br />
+
 			unSets object3d
 		</p>
 
