@@ -65,59 +65,65 @@
 			[page:Light Light] - THREE.Light
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:LightComponent LightComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of light component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-light
-			[angle]="..."
-			[castShadow]="..."
-			[color]="..."
-			[debug]="..."
-			[decay]="..."
-			[distance]="..."
-			[enabled]="..."
-			[frustumCulled]="..."
-			[geometry]="..."
-			[groundColor]="..."
-			[height]="..."
-			[intensity]="..."
-			[material]="..."
-			[materialIsArray]="..."
-			[matrixAutoUpdate]="..."
-			[name]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[penumbra]="..."
-			[receiveShadow]="..."
-			[renderTarget]="..."
-			[renderer]="..."
-			[sh]="..."
-			[shadowBias]="..."
-			[shadowCameraBottom]="..."
-			[shadowCameraFar]="..."
-			[shadowCameraFov]="..."
-			[shadowCameraLeft]="..."
-			[shadowCameraNear]="..."
-			[shadowCameraRight]="..."
-			[shadowCameraTop]="..."
-			[shadowCameraZoom]="..."
-			[shadowFocus]="..."
-			[shadowMapSize]="..."
-			[shadowMapSizeHeight]="..."
-			[shadowMapSizeWidth]="..."
-			[shadowRadius]="..."
-			[skyColor]="..."
-			[target]="..."
-			[targetX]="..."
-			[targetY]="..."
-			[targetZ]="..."
-			[texture]="..."
-			[tween]="..."
-			[tweenStart]="..."
-			[type]="..."
-			[userData]="..."
-			[visible]="..."
-			[width]="..."
-			[windowExport]="..."
+			[ angle ]="... number -- Maximum angle of light dispers... "
+			[ castShadow ]="... boolean -- Whether the object gets render... "
+			[ color ]="... ThreeColor -- Numeric value of the RGB compo... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ decay ]="... number -- The amount the light dims alon... "
+			[ distance ]="... number -- Maximum range of the light. De... "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ frustumCulled ]="... boolean -- When this is set, it checks ev... "
+			[ geometry ]="... any -- The geometry of mesh "
+			[ groundColor ]="... ThreeColor -- hexadecimal color of the groun... "
+			[ height ]="... number -- height of the light. Default i... "
+			[ intensity ]="... number -- Numeric value of the light's s... "
+			[ material ]="... AbstractMaterialComponent|Material -- The material of mesh "
+			[ materialIsArray ]="... boolean -- The material of mesh is array "
+			[ matrixAutoUpdate ]="... boolean -- When this is set, it calculate... "
+			[ name ]="... string -- The name of the object (doesn'... "
+			( onDestory )="...($event : LightComponent -- Will be called when before des... )"
+			( onLoad )="...($event : LightComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ penumbra ]="... number -- Percent of the spotlight cone ... "
+			[ receiveShadow ]="... boolean -- Whether the material receives ... "
+			[ renderTarget ]="... any -- The renderTarget of light comp... "
+			[ renderer ]="... any -- The renderer of light componen... "
+			[ sh ]="... string -- An instance of [page:Spherical... "
+			[ shadowBias ]="... number -- Shadow map bias, how much to a... "
+			[ shadowCameraBottom ]="... number -- Camera frustum bottom plane. "
+			[ shadowCameraFar ]="... number -- Camera frustum far plane. Defa... "
+			[ shadowCameraFov ]="... number -- Camera frustum vertical field ... "
+			[ shadowCameraLeft ]="... number -- Camera frustum left plane. "
+			[ shadowCameraNear ]="... number -- The shadowCameraNear of light ... "
+			[ shadowCameraRight ]="... number -- Camera frustum right plane. "
+			[ shadowCameraTop ]="... number -- Camera frustum top plane. "
+			[ shadowCameraZoom ]="... number -- Gets or sets the zoom factor o... "
+			[ shadowFocus ]="... number -- Used to focus the shadow camer... "
+			[ shadowMapSize ]="... number -- A [Page:Vector2] defining the ... "
+			[ shadowMapSizeHeight ]="... number -- A [Page:Vector2] defining the ... "
+			[ shadowMapSizeWidth ]="... number -- A [Page:Vector2] defining the ... "
+			[ shadowRadius ]="... number -- Setting this to values greater... "
+			[ skyColor ]="... ThreeColor -- hexadecimal color of the sky. ... "
+			[ target ]="... any -- The target of light component "
+			[ targetX ]="... number -- The targetX of light component "
+			[ targetY ]="... number -- The targetY of light component "
+			[ targetZ ]="... number -- The targetZ of light component "
+			[ texture ]="... AbstractTextureComponent -- The texture of light component "
+			[ tween ]="... any -- Tween animation params "
+			[ tweenStart ]="... boolean -- Start tween "
+			[ type ]="... string -- The type of light "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ visible ]="... boolean -- Object gets rendered if *true*... "
+			[ width ]="... number -- width of the light. Default is... "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-light&gt;
 		</code>
 
@@ -294,7 +300,7 @@
 			The texture of light component
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'spot' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of light<br>
 			<br>
@@ -325,15 +331,12 @@
 			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
 		</p>
 
-		<h3>[method:LightComponent constructor](  )</h3>
+		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of light component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes3d
 		</p>
 
@@ -344,7 +347,7 @@
 			Returns : light
 		</p>
 
-		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			Gets object3d<br>
 			<br>
@@ -352,9 +355,11 @@
 		</p>
 
 		<h3>[method:TagAttributes getTagAttribute](  [param:any options] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any options] - The options.<br /><br />
-
+			[parameter:any options] - The options.
+		</p>
+		<p>
 			Gets tag attribute
 		</p>
 
@@ -365,10 +370,12 @@
 			Returns : three renderer
 		</p>
 
-		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Object3D parent] - The parent.<br /><br />
-
+			[parameter:Object3D parent] - The parent.
+		</p>
+		<p>
 			Sets parent<br>
 			<br>
 			Returns : true if parent
@@ -377,182 +384,52 @@
 		[page:Object3dOptions] &rarr;
 
 		<hr class="interface-line"/>
-		<h1 id="LightOptions">LightOptions</h1>
-
-		<p class="desc">
-			Light options
-		</p>
-
-		<h2>Properties</h2>
+		<h3 id="LightOptions">LightOptions</h3>
+		<h4>Properties</h4>
 		<p>
 			See the base [page:Object3dOptions Object3dOptions] class for common properties.
 		</p>
 
-		<h3>[property:number angle]?</h3>
 		<p>
-			Maximum angle of light dispersion from its direction whose upper bound is Math.PI/2(360).
-		</p>
-
-		<h3>[property:ThreeColor color]?</h3>
-		<p>
-			Numeric value of the RGB component of the color. Default is 0xffffff.
-		</p>
-
-		<h3>[property:number decay]?</h3>
-		<p>
-			The amount the light dims along the distance of the light. Default is 1.
-		</p>
-
-		<h3>[property:number distance]?</h3>
-		<p>
-			Maximum range of the light. Default is 0 (no limit).
-		</p>
-
-		<h3>[property:ThreeColor groundColor]?</h3>
-		<p>
-			hexadecimal color of the ground. Default is 0xffffff.
-		</p>
-
-		<h3>[property:number height]?</h3>
-		<p>
-			height of the light. Default is 10.
-		</p>
-
-		<h3>[property:number intensity]?</h3>
-		<p>
-			Numeric value of the light's strength/intensity. Default is 1.
-		</p>
-
-		<h3>[property:number penumbra]?</h3>
-		<p>
-			Percent of the spotlight cone that is attenuated due to penumbra. Takes values between zero and 1. Default is zero.
-		</p>
-
-		<h3>[property:any renderTarget]?</h3>
-		<p>
-			The Input of light component
-		</p>
-
-		<h3>[property:any renderer]?</h3>
-		<p>
-			The Input of light component
-		</p>
-
-		<h3>[property:string sh]?</h3>
-		<p>
-			An instance of [page:SphericalHarmonics3].
-		</p>
-
-		<h3>[property:number shadowBias]?</h3>
-		<p>
-			Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.<br>
-			The default is 0. Very tiny adjustments here (in the order of 0.0001) may help reduce artefacts in shadows
-		</p>
-
-		<h3>[property:number shadowCameraBottom]?</h3>
-		<p>
-			Camera frustum bottom plane.
-		</p>
-
-		<h3>[property:number shadowCameraFar]?</h3>
-		<p>
-			Camera frustum far plane. Default is *2000*.<br>
-			Must be greater than the current value of [page:.near near] plane.
-		</p>
-
-		<h3>[property:number shadowCameraFov]?</h3>
-		<p>
-			Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is *50*.
-		</p>
-
-		<h3>[property:number shadowCameraLeft]?</h3>
-		<p>
-			Camera frustum left plane.
-		</p>
-
-		<h3>[property:number shadowCameraNear]?</h3>
-		<p>
-			Camera frustum near plane.
-		</p>
-
-		<h3>[property:number shadowCameraRight]?</h3>
-		<p>
-			Camera frustum right plane.
-		</p>
-
-		<h3>[property:number shadowCameraTop]?</h3>
-		<p>
-			Camera frustum top plane.
-		</p>
-
-		<h3>[property:number shadowCameraZoom]?</h3>
-		<p>
-			Gets or sets the zoom factor of the camera. Default is *1*.
-		</p>
-
-		<h3>[property:number shadowFocus]?</h3>
-		<p>
-			Used to focus the shadow camera. The camera's field of view is set as a percentage of the spotlight's field-of-view. Range is [0, 1]. Default is 1.0.
-		</p>
-
-		<h3>[property:number shadowMapSize]?</h3>
-		<p>
-			A [Page:Vector2] defining the width and height of the shadow map.
-		</p>
-
-		<h3>[property:number shadowMapSizeHeight]?</h3>
-		<p>
-			A [Page:Vector2] defining the width and height of the shadow map.<br>
-			vector2.height
-		</p>
-
-		<h3>[property:number shadowMapSizeWidth]?</h3>
-		<p>
-			A [Page:Vector2] defining the width and height of the shadow map.<br>
-			vector2.width
-		</p>
-
-		<h3>[property:number shadowRadius]?</h3>
-		<p>
-			Setting this to values greater than 1 will blur the edges of the shadow.<br>
+			[property:number angle]? - Maximum angle of light dispersion from its direction whose upper bound is Math.PI/2(360).<br />			
+[property:ThreeColor color]? - Numeric value of the RGB component of the color. Default is 0xffffff.<br />			
+[property:number decay]? - The amount the light dims along the distance of the light. Default is 1.<br />			
+[property:number distance]? - Maximum range of the light. Default is 0 (no limit).<br />			
+[property:ThreeColor groundColor]? - hexadecimal color of the ground. Default is 0xffffff.<br />			
+[property:number height]? - height of the light. Default is 10.<br />			
+[property:number intensity]? - Numeric value of the light's strength/intensity. Default is 1.<br />			
+[property:number penumbra]? - Percent of the spotlight cone that is attenuated due to penumbra. Takes values between zero and 1. Default is zero.<br />			
+[property:any renderTarget]? - The Input of light component<br />			
+[property:any renderer]? - The Input of light component<br />			
+[property:string sh]? - An instance of [page:SphericalHarmonics3].<br />			
+[property:number shadowBias]? - Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.<br>
+			The default is 0. Very tiny adjustments here (in the order of 0.0001) may help reduce artefacts in shadows<br />			
+[property:number shadowCameraBottom]? - Camera frustum bottom plane.<br />			
+[property:number shadowCameraFar]? - Camera frustum far plane. Default is *2000*.<br>
+			Must be greater than the current value of [page:.near near] plane.<br />			
+[property:number shadowCameraFov]? - Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is *50*.<br />			
+[property:number shadowCameraLeft]? - Camera frustum left plane.<br />			
+[property:number shadowCameraNear]? - Camera frustum near plane.<br />			
+[property:number shadowCameraRight]? - Camera frustum right plane.<br />			
+[property:number shadowCameraTop]? - Camera frustum top plane.<br />			
+[property:number shadowCameraZoom]? - Gets or sets the zoom factor of the camera. Default is *1*.<br />			
+[property:number shadowFocus]? - Used to focus the shadow camera. The camera's field of view is set as a percentage of the spotlight's field-of-view. Range is [0, 1]. Default is 1.0.<br />			
+[property:number shadowMapSize]? - A [Page:Vector2] defining the width and height of the shadow map.<br />			
+[property:number shadowMapSizeHeight]? - A [Page:Vector2] defining the width and height of the shadow map.<br>
+			vector2.height<br />			
+[property:number shadowMapSizeWidth]? - A [Page:Vector2] defining the width and height of the shadow map.<br>
+			vector2.width<br />			
+[property:number shadowRadius]? - Setting this to values greater than 1 will blur the edges of the shadow.<br>
 			High values will cause unwanted banding effects in the shadows - a greater [page:.mapSize mapSize] will allow for a higher value to be used here before these effects become visible.<br>
 			If [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer PCFSoftShadowMap], radius has no effect and it is recommended to increase softness by decreasing [page:.mapSize mapSize] instead.<br>
-			Note that this has no effect if the [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer BasicShadowMap].
-		</p>
-
-		<h3>[property:ThreeColor skyColor]?</h3>
-		<p>
-			hexadecimal color of the sky. Default is 0xffffff.
-		</p>
-
-		<h3>[property:any target]?</h3>
-		<p>
-			The Input of light component
-		</p>
-
-		<h3>[property:number targetX]?</h3>
-		<p>
-			The Input of light component
-		</p>
-
-		<h3>[property:number targetY]?</h3>
-		<p>
-			The Input of light component
-		</p>
-
-		<h3>[property:number targetZ]?</h3>
-		<p>
-			The Input of light component
-		</p>
-
-		<h3>[property:AbstractTextureComponent texture]?</h3>
-		<p>
-			The Input of light component
-		</p>
-
-		<h3>[property:string type]?</h3>
-		<p>
-			The type of light<br>
+			Note that this has no effect if the [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer BasicShadowMap].<br />			
+[property:ThreeColor skyColor]? - hexadecimal color of the sky. Default is 0xffffff.<br />			
+[property:any target]? - The Input of light component<br />			
+[property:number targetX]? - The Input of light component<br />			
+[property:number targetY]? - The Input of light component<br />			
+[property:number targetZ]? - The Input of light component<br />			
+[property:AbstractTextureComponent texture]? - The Input of light component<br />			
+[property:string type]? - The type of light<br>
 			<br>
 			Notice - case insensitive.<br>
 			<br>
@@ -562,12 +439,13 @@
 			[page:DirectionalLight DirectionalLight] - THREE.DirectionalLight - DirectionalLight, Directional<br>
 			[page:HemisphereLight HemisphereLight] - THREE.HemisphereLight - HemisphereLight, Hemisphere<br>
 			[page:LightProbe LightProbe] - THREE.LightProbe - LightProbe, Probe<br>
-			[page:AmbientLight AmbientLight] - THREE.AmbientLight - AmbientLight, Ambient
+			[page:AmbientLight AmbientLight] - THREE.AmbientLight - AmbientLight, Ambient<br />			
+[property:number width]? - width of the light. Default is 10.
 		</p>
 
-		<h3>[property:number width]?</h3>
-		<p>
-			width of the light. Default is 10.
+
+		<p class="desc">
+			Light options
 		</p>
 
 		<h2>Source</h2>

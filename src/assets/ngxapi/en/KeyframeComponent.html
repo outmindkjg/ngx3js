@@ -61,25 +61,31 @@
 			[page:KeyframeTrack KeyframeTrack] - THREE.KeyframeTrack
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:KeyframeComponent KeyframeComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of keyframe component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-keyframe
-			[booleans]="..."
-			[colors]="..."
-			[debug]="..."
-			[enabled]="..."
-			[interpolation]="..."
-			[name]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[quaternions]="..."
-			[times]="..."
-			[tween]="..."
-			[type]="..."
-			[userData]="..."
-			[values]="..."
-			[vectors]="..."
-			[windowExport]="..."
+			[ booleans ]="... number[]|boolean[] -- values for the keyframes at th... "
+			[ colors ]="... string[]|number[] -- values for the keyframes at th... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ interpolation ]="... string -- the type of interpolation to u... "
+			[ name ]="... string -- identifier for the KeyframeTra... "
+			( onDestory )="...($event : KeyframeComponent -- Will be called when before des... )"
+			( onLoad )="...($event : KeyframeComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ quaternions ]="... number[] -- values for the keyframes at th... "
+			[ times ]="... number[] -- (required) array of keyframe t... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- identifier for the KeyframeTra... "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ values ]="... number[] -- values for the keyframes at th... "
+			[ vectors ]="... number[] -- values for the keyframes at th... "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-keyframe&gt;
 		</code>
 
@@ -88,17 +94,17 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:number[]|boolean[] booleans]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number[]|boolean[] booleans] &nbsp; = [] <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			values for the keyframes at the times specified.
 		</p>
 
-		<h3>[property:string[]|number[] colors]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string[]|number[] colors] &nbsp; = [] <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			values for the keyframes at the times specified.
 		</p>
 
-		<h3>[property:string interpolation]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string interpolation] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			the type of interpolation to use. See<br>
 			<br>
@@ -107,12 +113,12 @@
 			[page:InterpolateSmooth InterpolateSmooth] - THREE.InterpolateSmooth - InterpolateSmooth, Smooth
 		</p>
 
-		<h3>[property:string name]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string name] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			identifier for the KeyframeTrack
 		</p>
 
-		<h3>[property:number[] quaternions]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number[] quaternions] &nbsp; = [] <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			values for the keyframes at the times specified.
 		</p>
@@ -122,7 +128,7 @@
 			(required) array of keyframe times.
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			identifier for the KeyframeTrack<br>
 			<br>
@@ -147,12 +153,12 @@
 			[page:BooleanKeyframeTrack BooleanKeyframeTrack] - THREE.BooleanKeyframeTrack  - Boolean, BooleanKeyframe, BooleanKeyframeTrack - The Boolean of object3d
 		</p>
 
-		<h3>[property:number[] values]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number[] values] &nbsp; = [] <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			values for the keyframes at the times specified.
 		</p>
 
-		<h3>[property:number[] vectors]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number[] vectors] &nbsp; = [] <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			values for the keyframes at the times specified.
 		</p>
@@ -162,15 +168,12 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:KeyframeComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of keyframe component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
@@ -182,9 +185,11 @@
 		</p>
 
 		<h3>[method:void setClip](  [param:AnimationClip clip] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:AnimationClip clip] - The clip.<br /><br />
-
+			[parameter:AnimationClip clip] - The clip.
+		</p>
+		<p>
 			Sets clip
 		</p>
 

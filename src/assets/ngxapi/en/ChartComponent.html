@@ -15,17 +15,23 @@
 			ChartComponent
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:ChartComponent ChartComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of chart component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-chart
-			[data]="..."
-			[depth]="..."
-			[guiControl]="..."
-			[guiParams]="..."
-			[height]="..."
-			[options]="..."
-			[padding]="..."
-			[type]="..."
-			[width]="..."
+			[ data ]="... ChartData -- The Input of chart component "
+			[ depth ]="... number -- The Input of chart component "
+			[ guiControl ]="... any -- The Input of chart component "
+			[ guiParams ]="... GuiControlParam[] -- The Input of chart component "
+			[ height ]="... number -- The Input of chart component "
+			[ options ]="... any -- The Input of chart component "
+			[ padding ]="... number -- The Input of chart component "
+			[ type ]="... string -- The Input of chart component "
+			[ width ]="... number -- The Input of chart component "
 		&gt;&lt;/ngx3js-chart&gt;
 		</code>
 
@@ -54,32 +60,32 @@
 			Bar chart of chart component
 		</p>
 
-		<h3>[property:any barGeometryInfo]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:any barGeometryInfo] &nbsp; = ... <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Bar geometry info of chart component
 		</p>
 
-		<h3>[property:Vector3 chartPosition]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:Vector3 chartPosition] &nbsp; = ... <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Axis x of chart component
 		</p>
 
-		<h3>[property:Vector3 chartScale]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:Vector3 chartScale] &nbsp; = ... <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Axis x of chart component
 		</p>
 
-		<h3>[property:Vector3 chartZero]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:Vector3 chartZero] &nbsp; = ... <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Axis x of chart component
 		</p>
 
-		<h3>[property:ChartData data]<i class="modifier modifier-input">Input</i></h3>
+		<h3>[property:ChartData data] &nbsp; = ... <i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The Input of chart component
 		</p>
 
-		<h3>[property:number depth]<i class="modifier modifier-input">Input</i></h3>
+		<h3>[property:number depth] &nbsp; = 200 <i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The Input of chart component
 		</p>
@@ -99,7 +105,7 @@
 			The Input of chart component
 		</p>
 
-		<h3>[property:number height]<i class="modifier modifier-input">Input</i></h3>
+		<h3>[property:number height] &nbsp; = 700 <i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The Input of chart component
 		</p>
@@ -109,12 +115,12 @@
 			Line chart of chart component
 		</p>
 
-		<h3>[property:any lineCurvePath]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:any lineCurvePath] &nbsp; = [] <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Line curve path of chart component
 		</p>
 
-		<h3>[property:any lineGeometryInfo]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:any lineGeometryInfo] &nbsp; = ... <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Bar geometry info of chart component
 		</p>
@@ -124,17 +130,17 @@
 			The Input of chart component
 		</p>
 
-		<h3>[property:number padding]<i class="modifier modifier-input">Input</i></h3>
+		<h3>[property:number padding] &nbsp; = 0.5 <i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The Input of chart component
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i></h3>
+		<h3>[property:string type] &nbsp; = 'bar' <i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The Input of chart component
 		</p>
 
-		<h3>[property:number width]<i class="modifier modifier-input">Input</i></h3>
+		<h3>[property:number width] &nbsp; = 1000 <i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The Input of chart component
 		</p>
@@ -154,66 +160,73 @@
 			See the base [page:BaseComponent BaseComponent] class for common methods.
 		</p>
 
-		<h3>[method:ChartComponent constructor](  )</h3>
-		<p>
-			Creates an instance of chart component.
-		</p>
-
 		<h3>[method:void onMouseMove](  [param:RendererEvent event] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererEvent event] - The event.<br /><br />
-
+			[parameter:RendererEvent event] - The event.
+		</p>
+		<p>
 			Determines whether mouse move on
 		</p>
 
-		<h3>[method:void onRender](  [param:RendererTimer timer] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:void onRender](  [param:RendererTimer timer] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererTimer timer] - The timer.<br /><br />
-
+			[parameter:RendererTimer timer] - The timer.
+		</p>
+		<p>
 			Determines whether render on
 		</p>
 
 		<h3>[method:void setToolTip](  [param:MeshComponent mesh] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:MeshComponent mesh] - The mesh.<br /><br />
-
+			[parameter:MeshComponent mesh] - The mesh.
+		</p>
+		<p>
 			Sets tool tip
 		</p>
 
 		<hr class="interface-line"/>
-		<h1 id="BackgroundBorder">BackgroundBorder</h1>
+		<h3 id="BackgroundBorder">BackgroundBorder</h3>
+		<h4>Properties</h4>
+		<p>
+			[property:ColorOpacity backgroundColor] -  The background color.<br />			
+[property:ColorOpacity borderColor]? -  The border color.<br />			
+[property:ColorOpacity hoverBackgroundColor]? -  The hover background color.<br />			
+[property:ColorOpacity hoverBorderColor]? -  The hover border color.
+		</p>
+
 
 		<p class="desc">
 			Background border
 		</p>
 
-		<h2>Properties</h2>
+		<hr class="interface-line"/>
+		<h3 id="ChartData">ChartData</h3>
+		<h4>Properties</h4>
 		<p>
-			None
+			[property:any datasets] -  The datasets.<br />			
+[property:string[] labels]? -  The labels.<br />			
+[property:any options]? -  The options.
 		</p>
 
-		<hr class="interface-line"/>
-		<h1 id="ChartData">ChartData</h1>
 
 		<p class="desc">
 			Chart data
 		</p>
 
-		<h2>Properties</h2>
+		<hr class="interface-line"/>
+		<h3 id="ColorOpacity">ColorOpacity</h3>
+		<h4>Properties</h4>
 		<p>
-			None
+			[property:ThreeColor color] -  The color.<br />			
+[property:number opacity] -  The opacity.
 		</p>
 
-		<hr class="interface-line"/>
-		<h1 id="ColorOpacity">ColorOpacity</h1>
 
 		<p class="desc">
 			Color opacity
-		</p>
-
-		<h2>Properties</h2>
-		<p>
-			None
 		</p>
 
 		<h2>Source</h2>

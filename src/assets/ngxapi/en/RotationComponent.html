@@ -22,23 +22,29 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:RotationComponent RotationComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of rotation component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-rotation
-			[debug]="..."
-			[enabled]="..."
-			[isRadian]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[order]="..."
-			[overrideParams]="..."
-			[refName]="..."
-			[refer]="..."
-			[tween]="..."
-			[userData]="..."
-			[windowExport]="..."
-			[x]="..."
-			[y]="..."
-			[z]="..."
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ isRadian ]="... boolean -- The value type is radian. Defa... "
+			( onDestory )="...($event : RotationComponent -- Will be called when before des... )"
+			( onLoad )="...($event : RotationComponent -- Will be called when load compl... )"
+			[ order ]="... string -- The current value of the order... "
+			[ overrideParams ]="... any -- The override params "
+			[ refName ]="... string -- The refName of rotation compon... "
+			[ refer ]="... any -- The refer of rotation componen... "
+			[ tween ]="... any -- Tween animation params "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ x ]="... string|number -- The current value of the x com... "
+			[ y ]="... string|number -- The current value of the y com... "
+			[ z ]="... string|number -- The current value of the z com... "
 		&gt;&lt;/ngx3js-rotation&gt;
 		</code>
 
@@ -47,7 +53,7 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:boolean isRadian]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean isRadian] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The value type is radian. Default value is *false*.
 		</p>
@@ -67,17 +73,17 @@
 			The refer of rotation component
 		</p>
 
-		<h3>[property:string|number x]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number x] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The current value of the x component.
 		</p>
 
-		<h3>[property:string|number y]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number y] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The current value of the y component.
 		</p>
 
-		<h3>[property:string|number z]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number z] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The current value of the z component.
 		</p>
@@ -87,15 +93,12 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:RotationComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of rotation component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
@@ -107,42 +110,52 @@
 		</p>
 
 		<h3>[method:TagAttributes getTagAttribute](  [param:any options]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any options] - (optional) The options.<br /><br />
-
+			[parameter:any options] - (optional) The options.
+		</p>
+		<p>
 			Gets tag attribute<br>
 			<br>
 			Returns : tag attribute
 		</p>
 
 		<h3>[method:void setObject3d](  [param:AbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:AbstractSubscribeComponent object3d] - The object3d.<br /><br />
-
+			[parameter:AbstractSubscribeComponent object3d] - The object3d.
+		</p>
+		<p>
 			Sets object3d
 		</p>
 
 		<h3>[method:void setRotation](  [param:number x]?,  [param:number y]?,  [param:number z]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number x] - (optional) The x.<br />
-			[page:number y] - (optional) The y.<br />
-			[page:number z] - (optional) The z.<br /><br />
-
+			[parameter:number x] - (optional) The x.<br />
+			[parameter:number y] - (optional) The y.<br />
+			[parameter:number z] - (optional) The z.
+		</p>
+		<p>
 			Sets rotation
 		</p>
 
 		<h3>[method:void synkObject3d](  [param:Euler rotation],  [param:string key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Euler rotation] - The rotation.<br />
-			[page:string key] - The key.<br /><br />
-
+			[parameter:Euler rotation] - The rotation.<br />
+			[parameter:string key] - The key.
+		</p>
+		<p>
 			Synks object3d
 		</p>
 
 		<h3>[method:void unsetObject3d](  [param:AbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:AbstractSubscribeComponent object3d] - The object3d.<br /><br />
-
+			[parameter:AbstractSubscribeComponent object3d] - The object3d.
+		</p>
+		<p>
 			unSets object3d
 		</p>
 

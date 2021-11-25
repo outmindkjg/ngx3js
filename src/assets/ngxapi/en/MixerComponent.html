@@ -49,46 +49,52 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:MixerComponent MixerComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of mixer component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-mixer
-			[action]="..."
-			[afterglow]="..."
-			[angularSpeed]="..."
-			[animationFPS]="..."
-			[animationHelper]="..."
-			[backAcceleration]="..."
-			[controls]="..."
-			[debug]="..."
-			[delayTime]="..."
-			[duration]="..."
-			[enabled]="..."
-			[fps]="..."
-			[frontAcceleration]="..."
-			[frontDecceleration]="..."
-			[gravity]="..."
-			[maxReverseSpeed]="..."
-			[maxSpeed]="..."
-			[maxStepNum]="..."
-			[mmdHelpers]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[physics]="..."
-			[rate]="..."
-			[resetPhysicsOnLoop]="..."
-			[scale]="..."
-			[skin]="..."
-			[sync]="..."
-			[timeScale]="..."
-			[transitionFrames]="..."
-			[tween]="..."
-			[type]="..."
-			[unitStep]="..."
-			[userData]="..."
-			[warmup]="..."
-			[weapon]="..."
-			[windowExport]="..."
-			[wireframe]="..."
+			[ action ]="... string -- The Input of mixer component "
+			[ afterglow ]="... number -- The afterglow of mixer compone... "
+			[ angularSpeed ]="... number -- The rate of MD2Character "
+			[ animationFPS ]="... number -- The rate of MD2Character "
+			[ animationHelper ]="... MixerComponent -- The animationHelper of mixer c... "
+			[ backAcceleration ]="... number -- The rate of MD2Character "
+			[ controls ]="... CharacterControl -- The controls of mixer componen... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ delayTime ]="... number -- The delayTime of mixer compone... "
+			[ duration ]="... number -- Sets the duration for a single... "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ fps ]="... number -- The fps of mixer component "
+			[ frontAcceleration ]="... number -- The rate of MD2Character "
+			[ frontDecceleration ]="... number -- The rate of MD2Character "
+			[ gravity ]="... number -- The gravity of mixer component "
+			[ maxReverseSpeed ]="... number -- The rate of MD2Character "
+			[ maxSpeed ]="... number -- The rate of MD2Character "
+			[ maxStepNum ]="... number -- The maxStepNum of mixer compon... "
+			[ mmdHelpers ]="... string[] -- The mmdHelpers of mixer compon... "
+			( onDestory )="...($event : MixerComponent -- Will be called when before des... )"
+			( onLoad )="...($event : MixerComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ physics ]="... boolean -- The physics of mixer component "
+			[ rate ]="... number -- The rate of MD2Character "
+			[ resetPhysicsOnLoop ]="... boolean -- The resetPhysicsOnLoop of mixe... "
+			[ scale ]="... number -- The rate of MD2Character "
+			[ skin ]="... string|number -- The skin of mixer component "
+			[ sync ]="... boolean -- The sync of mixer component "
+			[ timeScale ]="... number -- Scaling factor for the [page:.... "
+			[ transitionFrames ]="... number -- The rate of MD2Character "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The Input of mixer component "
+			[ unitStep ]="... number -- The unitStep of mixer componen... "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ warmup ]="... number -- The warmup of mixer component "
+			[ weapon ]="... string|number -- The weapon of mixer component "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ wireframe ]="... boolean -- The wireframe of mixer compone... "
 		&gt;&lt;/ngx3js-mixer&gt;
 		</code>
 
@@ -97,7 +103,7 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:string action]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string action] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of mixer component<br>
 			<br>
@@ -139,7 +145,7 @@
 			The delayTime of mixer component
 		</p>
 
-		<h3>[property:number duration]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number duration] &nbsp; = 0.5 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Sets the duration for a single loop of this action (by adjusting [page:.timeScale timeScale] and stopping any scheduled warping). This method can be chained.
 		</p>
@@ -214,7 +220,7 @@
 			The sync of mixer component
 		</p>
 
-		<h3>[property:number timeScale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number timeScale] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Scaling factor for the [page:.time time]. A value of 0 causes the animation to pause. Negative values cause the animation to play backwards. Default is 1.<br>
 			Properties/methods concerning *timeScale* (respectively *time*)
@@ -225,7 +231,7 @@
 			The rate of MD2Character
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'mixer' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of mixer component<br>
 			<br>
@@ -257,32 +263,33 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:MixerComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of mixer component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
 		<h3>[method:void checkModel](  [param:AnimationObjectGroup|Object3D parent] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:AnimationObjectGroup|Object3D parent] - The parent.<br /><br />
-
+			[parameter:AnimationObjectGroup|Object3D parent] - The parent.
+		</p>
+		<p>
 			Checks model
 		</p>
 
 		<h3>[method:void fadeToAction](  [param:string endAction],  [param:number duration]?,  [param:string restoreAction]?,  [param:number restoreDuration]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string endAction] - The end action.<br />
-			[page:number duration] - (optional) The duration.<br />
-			[page:string restoreAction] - (optional) The restore action.<br />
-			[page:number restoreDuration] - (optional) The restore duration.<br /><br />
-
+			[parameter:string endAction] - The end action.<br />
+			[parameter:number duration] - (optional) The duration.<br />
+			[parameter:string restoreAction] - (optional) The restore action.<br />
+			[parameter:number restoreDuration] - (optional) The restore duration.
+		</p>
+		<p>
 			Fades to action
 		</p>
 
@@ -306,55 +313,71 @@
 		</p>
 
 		<h3>[method:boolean play](  [param:string name],  [param:number duration] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string name] - The name.<br />
-			[page:number duration] - The duration.<br /><br />
-
+			[parameter:string name] - The name.<br />
+			[parameter:number duration] - The duration.
+		</p>
+		<p>
 			Plays mixer component<br>
 			<br>
 			Returns : true if play
 		</p>
 
-		<h3>[method:boolean setParent](  [param:AnimationObjectGroup|Object3D parent] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:boolean setParent](  [param:AnimationObjectGroup|Object3D parent] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:AnimationObjectGroup|Object3D parent] - The parent.<br /><br />
-
+			[parameter:AnimationObjectGroup|Object3D parent] - The parent.
+		</p>
+		<p>
 			Sets parent<br>
 			<br>
 			Returns : true if parent
 		</p>
 
 		<h3>[method:void setPhysics](  [param:PhysicsComponent physics] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:PhysicsComponent physics] - The physics.<br /><br />
-
+			[parameter:PhysicsComponent physics] - The physics.
+		</p>
+		<p>
 			Sets physics
 		</p>
 
 		<h3>[method:void synkAnimationHelper](  [param:MMDAnimationHelper helper] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:MMDAnimationHelper helper] - The helper.<br /><br />
-
+			[parameter:MMDAnimationHelper helper] - The helper.
+		</p>
+		<p>
 			Synks animation helper
 		</p>
 
 		<h3>[method:void update](  [param:RendererTimer timer] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererTimer timer] - The timer.<br /><br />
-
+			[parameter:RendererTimer timer] - The timer.
+		</p>
+		<p>
 			Updates mixer component
 		</p>
 
 		<hr class="interface-line"/>
-		<h1 id="CharacterControl">CharacterControl</h1>
+		<h3 id="CharacterControl">CharacterControl</h3>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean attack]? -  The attack.<br />			
+[property:boolean crouch]? -  The crouch.<br />			
+[property:boolean jump]? -  The jump.<br />			
+[property:boolean moveBackward]? -  The move backward.<br />			
+[property:boolean moveForward]? -  The move forward.<br />			
+[property:boolean moveLeft]? -  The move left.<br />			
+[property:boolean moveRight]? -  The move right.
+		</p>
+
 
 		<p class="desc">
 			Character Control
-		</p>
-
-		<h2>Properties</h2>
-		<p>
-			None
 		</p>
 
 		<h2>Source</h2>

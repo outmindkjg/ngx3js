@@ -173,7 +173,34 @@ export class DocsComponent implements OnInit {
 			this.router.navigateByUrl(viewUrl + (hashTag != '' ? '.' + hashTag : ''));
 			this.checkSearch('');
 		} else {
-			// console.log(this.loadedPageInfo, pageName);
+			switch (pageName) {
+				case 'ApplyMatrix4':
+				case 'CssStyle':
+				case 'CurvesParameters':
+				case 'GuiBaseControl':
+				case 'GuiControlParam':
+				case 'LoadedNameMap':
+				case 'LoadedObject':
+				case 'RendererEvent':
+				case 'RendererInfo':
+				case 'RendererTimer':
+				case 'StorageExportOption':
+				case 'StorageOption':
+				case 'TagAttributes':
+				case 'TextureOption':
+				case 'ThreeGuiController':
+				case 'ThreeColor':
+				case 'ThreeTexture':
+				case 'ThreeUniform':
+				case 'ThreeUniforms':
+					try {
+						this.router.navigateByUrl('/docs/ngxapi/en/ThreeUtil.' + pageName);
+					} catch(ex : any){ }
+					break;
+				default :
+					console.log(this.loadedPageInfo, pageName);
+					break;
+			}
 		}
 	}
 

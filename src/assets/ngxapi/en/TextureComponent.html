@@ -90,68 +90,78 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:TextureComponent TextureComponent](  [param:LocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:LocalStorageService localStorageService] - The local storage service.
+		</p>
+		<p>
+			Creates an instance of texture component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-texture
-			[add]="..."
-			[anisotropy]="..."
-			[canvas]="..."
-			[center]="..."
-			[centerX]="..."
-			[centerY]="..."
-			[color]="..."
-			[cubeImage]="..."
-			[cubeType]="..."
-			[data]="..."
-			[dataType]="..."
-			[debug]="..."
-			[depth]="..."
-			[enabled]="..."
-			[encoding]="..."
-			[filter]="..."
-			[flipY]="..."
-			[format]="..."
-			[generateMipmaps]="..."
-			[height]="..."
-			[image]="..."
-			[loaderType]="..."
-			[magFilter]="..."
-			[mapping]="..."
-			[minFilter]="..."
-			[name]="..."
-			[offset]="..."
-			[offsetX]="..."
-			[offsetY]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[perlin]="..."
-			[premultiplyAlpha]="..."
-			[program]="..."
-			[programMipmaps]="..."
-			[programParam]="..."
-			[refName]="..."
-			[refer]="..."
-			[repeat]="..."
-			[repeatX]="..."
-			[repeatY]="..."
-			[rotation]="..."
-			[scale]="..."
-			[storageName]="..."
-			[storageOption]="..."
-			[sunX]="..."
-			[sunY]="..."
-			[sunZ]="..."
-			[text]="..."
-			[tween]="..."
-			[type]="..."
-			[unpackAlignment]="..."
-			[useDropImage]="..."
-			[userData]="..."
-			[width]="..."
-			[windowExport]="..."
-			[wrap]="..."
-			[wrapS]="..."
-			[wrapT]="..."
+			[ add ]="... string|number -- The add of texture component "
+			[ anisotropy ]="... number -- The number of samples taken al... "
+			[ canvas ]="... string|HTMLVideoElement|HTMLCanvasElement|HTMLImageElement|ImageBitmap -- The canvas of texture componen... "
+			[ center ]="... number -- The point around which rotatio... "
+			[ centerX ]="... number -- The point around which rotatio... "
+			[ centerY ]="... number -- The point around which rotatio... "
+			[ color ]="... string|number -- The color of texture component "
+			[ cubeImage ]="... string[] -- The cubeImage of texture compo... "
+			[ cubeType ]="... string -- The CubeType of Texture - "
+			[ data ]="... number[]|BufferSource -- The data of DataTexture "
+			[ dataType ]="... string -- This must correspond to the [p... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ depth ]="... number -- depth of the texture. "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ encoding ]="... string -- [page:Textures THREE.LinearEnc... "
+			[ filter ]="... string -- The Default Value of magFilter... "
+			[ flipY ]="... boolean -- If set to *true*, the texture ... "
+			[ format ]="... string -- The default is [page:Textures ... "
+			[ generateMipmaps ]="... boolean -- Whether to generate mipmaps (i... "
+			[ height ]="... number -- height of the texture. "
+			[ image ]="... string -- The image of texture component "
+			[ loaderType ]="... string -- The LoadType of Texture - vide... "
+			[ magFilter ]="... string -- How the texture is sampled whe... "
+			[ mapping ]="... string -- How the image is applied to th... "
+			[ minFilter ]="... string -- How the texture is sampled whe... "
+			[ name ]="... string -- The name of the object (doesn'... "
+			[ offset ]="... number -- How much a single repetition o... "
+			[ offsetX ]="... number -- How much a single repetition o... "
+			[ offsetY ]="... number -- How much a single repetition o... "
+			( onDestory )="...($event : TextureComponent -- Will be called when before des... )"
+			( onLoad )="...($event : TextureComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ perlin ]="... any -- The perlin of texture componen... "
+			[ premultiplyAlpha ]="... boolean -- If set to *true*, the alpha ch... "
+			[ program ]="... string|CanvasFunctionType -- The program of texture compone... "
+			[ programMipmaps ]="... any[] -- The texture program mipmaps "
+			[ programParam ]="... any -- The texture program params "
+			[ refName ]="... string|string[] -- The refName of geometry compon... "
+			[ refer ]="... any -- The refer of texture component "
+			[ repeat ]="... number -- How many times the texture is ... "
+			[ repeatX ]="... number -- How many times the texture is ... "
+			[ repeatY ]="... number -- How many times the texture is ... "
+			[ rotation ]="... number -- How much the texture is rotate... "
+			[ scale ]="... number -- scale of the texture. "
+			[ storageName ]="... string -- The storageName of texture com... "
+			[ storageOption ]="... any -- The storageOption of texture c... "
+			[ sunX ]="... number -- The sunX of texture component "
+			[ sunY ]="... number -- The sunY of texture component "
+			[ sunZ ]="... number -- The sunZ of texture component "
+			[ text ]="... string -- The Texture param use when cal... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The Type of Texture of Matrial "
+			[ unpackAlignment ]="... number -- 4 by default. Specifies the al... "
+			[ useDropImage ]="... boolean -- The useDropImage of texture co... "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ width ]="... number -- width of the texture. "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ wrap ]="... string -- This defines how the texture i... "
+			[ wrapS ]="... string -- This defines how the texture i... "
+			[ wrapT ]="... string -- This defines how the texture i... "
 		&gt;&lt;/ngx3js-texture&gt;
 		</code>
 
@@ -228,7 +238,7 @@
 			The sunZ of texture component
 		</p>
 
-		<h3>[property:boolean useDropImage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean useDropImage] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The useDropImage of texture component
 		</p>
@@ -241,21 +251,16 @@
 			See the base [page:AbstractTextureComponent AbstractTextureComponent] class for common methods.
 		</p>
 
-		<h3>[method:TextureComponent constructor](  [param:LocalStorageService localStorageService] )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:LocalStorageService localStorageService] - The local storage service.<br /><br />
-
-			Creates an instance of texture component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
-		<h3>[method:T getTexture](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:T getTexture](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			Gets texture<br>
 			<br>

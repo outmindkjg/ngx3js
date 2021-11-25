@@ -9,103 +9,164 @@
 	<body>
 		[page:AbstractSubscribeComponent] &rarr;
 
-		<h1>[name]</h1>
+		<h1>PhysicsConstraintComponent</h1>
 
-		<p class="desc"></p>
-
-		<h2>Component</h2>
-		<code>
-			&lt;ngx3js-physics-constraint [ axisx ]="..." [ axisy ]="..." [ axisz
-			]="..." [ debug ]="..." [ disableCollisionsBetweenLinkedBodies ]="..." [
-			enableMotor ]="..." [ enabled ]="..." [ maxMotorImpulse ]="..." [ pivot1x
-			]="..." [ pivot1y ]="..." [ pivot1z ]="..." [ pivot2x ]="..." [ pivot2y
-			]="..." [ pivot2z ]="..." [ source1 ]="..." [ source2 ]="..." [
-			targetVelocity ]="..." [ type ]="..." [ windowExport ]="..."
-			&gt;&lt;/ngx3js-physics-constraint&gt;
-		</code>
-
-		<h2>Properties - Input</h2>
-		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
-			class for common input properties.
+		<p class="desc">
+			
 		</p>
 
-		<h3>[property:number axisx]</h3>
-		<p></p>
-
-		<h3>[property:number axisy]</h3>
-		<p></p>
-
-		<h3>[property:number axisz]</h3>
-		<p></p>
-
-		<h3>[property:boolean disableCollisionsBetweenLinkedBodies]</h3>
-		<p></p>
-
-		<h3>[property:boolean enableMotor]</h3>
-		<p></p>
-
-		<h3>[property:number maxMotorImpulse]</h3>
-		<p></p>
-
-		<h3>[property:number pivot1x]</h3>
-		<p></p>
-
-		<h3>[property:number pivot1y]</h3>
-		<p></p>
-
-		<h3>[property:number pivot1z]</h3>
-		<p></p>
-
-		<h3>[property:number pivot2x]</h3>
-		<p></p>
-
-		<h3>[property:number pivot2y]</h3>
-		<p></p>
-
-		<h3>[property:number pivot2z]</h3>
-		<p></p>
-
-		<h3>[property:any source1]</h3>
-		<p></p>
-
-		<h3>[property:any source2]</h3>
-		<p></p>
-
-		<h3>[property:number targetVelocity]</h3>
-		<p></p>
-
-		<h3>[property:string type]</h3>
-		<p></p>
-
-		<h2>Properties - Output</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:PhysicsConstraintComponent PhysicsConstraintComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
-			class for common output properties.
+			Creates an instance of physics constraint component.
+		</p>
+
+		<h3>Angular Html Template</h3>
+		<code data-type="html">&lt;ngx3js-physics-constraint
+			[ axisx ]="... number -- The axisx of physics constrain... "
+			[ axisy ]="... number -- The axisy of physics constrain... "
+			[ axisz ]="... number -- The axisz of physics constrain... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ disableCollisionsBetweenLinkedBodies ]="... boolean -- The disableCollisionsBetweenLi... "
+			[ enableMotor ]="... boolean -- The enableMotor of physics con... "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ maxMotorImpulse ]="... number -- The maxMotorImpulse of physics... "
+			( onDestory )="...($event : PhysicsConstraintComponent -- Will be called when before des... )"
+			( onLoad )="...($event : PhysicsConstraintComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ pivot1x ]="... number -- The pivot1x of physics constra... "
+			[ pivot1y ]="... number -- The pivot1y of physics constra... "
+			[ pivot1z ]="... number -- The pivot1z of physics constra... "
+			[ pivot2x ]="... number -- The pivot2x of physics constra... "
+			[ pivot2y ]="... number -- The pivot2y of physics constra... "
+			[ pivot2z ]="... number -- The pivot2z of physics constra... "
+			[ source1 ]="... any -- The source1 of physics constra... "
+			[ source2 ]="... any -- The source2 of physics constra... "
+			[ targetVelocity ]="... number -- The targetVelocity of physics ... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The type of physics constraint... "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ windowExport ]="... string -- Export this Object to window g... "
+		&gt;&lt;/ngx3js-physics-constraint&gt;
+		</code>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+		</p>
+
+		<h3>[property:number axisx]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The axisx of physics constraint component
+		</p>
+
+		<h3>[property:number axisy]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The axisy of physics constraint component
+		</p>
+
+		<h3>[property:number axisz]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The axisz of physics constraint component
+		</p>
+
+		<h3>[property:boolean disableCollisionsBetweenLinkedBodies] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The disableCollisionsBetweenLinkedBodies of physics constraint componenta
+		</p>
+
+		<h3>[property:boolean enableMotor] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The enableMotor of physics constraint component
+		</p>
+
+		<h3>[property:number maxMotorImpulse] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The maxMotorImpulse of physics constraint component
+		</p>
+
+		<h3>[property:number pivot1x]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The pivot1x of physics constraint component
+		</p>
+
+		<h3>[property:number pivot1y]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The pivot1y of physics constraint component
+		</p>
+
+		<h3>[property:number pivot1z]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The pivot1z of physics constraint component
+		</p>
+
+		<h3>[property:number pivot2x]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The pivot2x of physics constraint component
+		</p>
+
+		<h3>[property:number pivot2y]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The pivot2y of physics constraint component
+		</p>
+
+		<h3>[property:number pivot2z]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The pivot2z of physics constraint component
+		</p>
+
+		<h3>[property:any source1]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The source1 of physics constraint component
+		</p>
+
+		<h3>[property:any source2]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The source2 of physics constraint component
+		</p>
+
+		<h3>[property:number targetVelocity] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The targetVelocity of physics constraint component
+		</p>
+
+		<h3>[property:string type] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The type of physics constraint component
 		</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
-			class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges]( [param:string changes][] )</h3>
-		<p>Applys changes</p>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string[] changes] - The changes.
+		</p>
+		<p>
+			Applys changes
+		</p>
 
-		<h3>[method:btTypedConstraint getConstraint]( )</h3>
-		<p></p>
+		<h3>[method:btTypedConstraint getConstraint](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets constraint<br>
+			<br>
+			Returns : constraint
+		</p>
 
-		<h3>
-			[method:void setPhysics]( [param:btSoftRigidDynamicsWorld physics],
-			[param:any ammo] )
-		</h3>
-		<p></p>
+		<h3>[method:void setPhysics](  [param:btSoftRigidDynamicsWorld physics],  [param:AmmoType ammo] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:btSoftRigidDynamicsWorld physics] - The physics.<br />
+			[parameter:AmmoType ammo] - The ammo.
+		</p>
+		<p>
+			Sets physics
+		</p>
 
 		<h2>Source</h2>
-		<p>
-			[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/physics/physics-constraint/physics-constraint.component.ts
-			physics/physics-constraint/physics-constraint.component.ts]
-		</p>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three//physics/physics-constraint/physics-constraint.component.ts /physics/physics-constraint/physics-constraint.component.ts]</p>
 	</body>
 </html>

@@ -110,24 +110,37 @@ export class ApiReadComponent implements OnInit {
 		text = text.replace(/\[name\]/gi, name);
 		text = text.replace(/\[path\]/gi, path);
 		text = text.replace(/\[page:([\w\.]+)(\[\]|)\]/gi, '[page:$1$2 $1]'); // [page:name] to [page:name title]
+		text = text.replace(/\[parameter:([\w\.]+)(\[\]|)\]/gi, '[parameter:$1$2 $1]'); // [parameter:name] to [parameter:name title]
+		
 		text = text.replace(/src=\"scenes\/([^\"]+)\"/gi, 'src="assets/scenes/$1"'); // [page:name] to [page:name title]
 
 		text = text.replace(
 			/\[page:\.([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
 			'[page:' + name + '.$1$2 $3]'
 		); // [page:.member title] to [page:name.member title]
+
 		text = text.replace(
 			/\[page:([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
-			'<a href="#$1" title="$1$2">$3</a> : <a href="#$1" title="$1$2">$1$2</a>'
+			'<a href="#$1" title="$1$2">$3</a>'
 		); // [page:name title]
+
 		text = text.replace(
-			/\[page:([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
+			/\[parameter:\.([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
+			'[parameter:' + name + '.$1$2 $3]'
+		); // [parameter:.member title] to [page:name.member title]
+
+		text = text.replace(
+			/\[parameter:([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
+			'<a href="#$1" title="$1$2">$3</a> : <a href="#$1" title="$1$2">$1$2</a>'
+		); // [parameter:name title]
+		text = text.replace(
+			/\[parameter:([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
 			'<a href="#$1" title="$1$2">$5</a> : <a href="#$1" title="$1$2">$1$2</a> | <a href="#$3" title="$3$4">$3$4</a>'
-		); // [page:name|name title]
+		); // [parameter:name|name title]
 		text = text.replace(
 			/\[page:([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
 			'<a href="#$1" title="$1$2">$7</a> : <a href="#$1" title="$1$2">$1$2</a> | <a href="#$3" title="$3$4">$3$4</a> | <a href="#$5" title="$5$6">$5$6</a>'
-		); // [page:name|name|name title]
+		); // [parameter:name|name|name title]
 
 		
 		text = text.replace(
@@ -239,17 +252,19 @@ export class ApiReadComponent implements OnInit {
 					href.startsWith('//')
 				) {
 					return true;
-				} else if (hrefId.startsWith(this.pageName)) {
+				} else if (hrefId === this.pageName) {
+					this.setFocus(null);
+				} else if (hrefId.startsWith(this.pageName + '.')) {
 					this.setFocus(hrefId.substr(this.pageName.length + 1));
 				} else if (this.setElementById(hrefId) !== null) {
 					this.setFocus(hrefId);
 				} else {
 					this.docsComponent.changePage(hrefId);
 				}
-				e.stopPropagation();
-				e.preventDefault();
+				e.stopPropagation()
+				e.preventDefault()
 				return false;
-			},  {passive: true} );
+			});
 		}
 		const codes: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('code');
 		for (let i = 0; i < codes.length; i++) {
@@ -299,7 +314,7 @@ export class ApiReadComponent implements OnInit {
 				});
 		}
 		if (this.tagName !== null) {
-			this.setFocus(this.tagName);
+			this.setFocus(this.tagName, 1000);
 			this.tagName = null;
 		} else {
 			this.setFocus(null);
@@ -308,15 +323,21 @@ export class ApiReadComponent implements OnInit {
 
 	private setElementById(menuId: string) {
 		const links = [];
-		const linksA: HTMLElement[] =
-			this.docEle.nativeElement.getElementsByTagName('a');
-		const linksH1: HTMLElement[] =
-			this.docEle.nativeElement.getElementsByTagName('h1');
+		const linksA: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('a');
+		const linksH1: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('h1');
+		const linksH2: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('h2');
+		const linksH3: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('h3');
 		for (let i = 0; i < linksA.length; i++) {
 			links.push(linksA[i]);
 		}
 		for (let i = 0; i < linksH1.length; i++) {
 			links.push(linksH1[i]);
+		}
+		for (let i = 0; i < linksH2.length; i++) {
+			links.push(linksH2[i]);
+		}
+		for (let i = 0; i < linksH3.length; i++) {
+			links.push(linksH3[i]);
 		}
 		let selected: HTMLElement = null;
 		for (let i = 0; i < links.length; i++) {
@@ -328,7 +349,7 @@ export class ApiReadComponent implements OnInit {
 		return selected;
 	}
 
-	setFocus(menuId: string) {
+	setFocus(menuId: string, timeOut : number = 200) {
 		setTimeout(() => {
 			if (menuId !== null) {
 				let selected: HTMLElement = this.setElementById(menuId);
@@ -341,6 +362,6 @@ export class ApiReadComponent implements OnInit {
 					behavior: 'smooth',
 				});
 			}
-		}, 100);
+		}, timeOut);
 	}
 }

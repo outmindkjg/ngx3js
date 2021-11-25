@@ -15,29 +15,39 @@
 			SceneComponent
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:SceneComponent SceneComponent](  [param:LocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:LocalStorageService localStorageService] - The local storage service.
+		</p>
+		<p>
+			Creates an instance of scene component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-scene
-			[background]="..."
-			[castShadow]="..."
-			[debug]="..."
-			[enabled]="..."
-			[environment]="..."
-			[frustumCulled]="..."
-			[geometry]="..."
-			[material]="..."
-			[materialIsArray]="..."
-			[matrixAutoUpdate]="..."
-			[name]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[receiveShadow]="..."
-			[storageName]="..."
-			[tween]="..."
-			[tweenStart]="..."
-			[userData]="..."
-			[visible]="..."
-			[windowExport]="..."
+			[ background ]="... any -- If not null, sets the backgrou... "
+			[ castShadow ]="... boolean -- Whether the object gets render... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ environment ]="... any -- If not null, this texture is s... "
+			[ frustumCulled ]="... boolean -- When this is set, it checks ev... "
+			[ geometry ]="... any -- The geometry of mesh "
+			[ material ]="... AbstractMaterialComponent|Material -- The material of mesh "
+			[ materialIsArray ]="... boolean -- The material of mesh is array "
+			[ matrixAutoUpdate ]="... boolean -- When this is set, it calculate... "
+			[ name ]="... string -- The name of the object (doesn'... "
+			( onDestory )="...($event : SceneComponent -- Will be called when before des... )"
+			( onLoad )="...($event : SceneComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ receiveShadow ]="... boolean -- Whether the material receives ... "
+			[ storageName ]="... string -- The storageName of scene compo... "
+			[ tween ]="... any -- Tween animation params "
+			[ tweenStart ]="... boolean -- Start tween "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ visible ]="... boolean -- Object gets rendered if *true*... "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-scene&gt;
 		</code>
 
@@ -80,17 +90,12 @@
 			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
 		</p>
 
-		<h3>[method:SceneComponent constructor](  [param:LocalStorageService localStorageService] )</h3>
+		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:LocalStorageService localStorageService] - The local storage service.<br /><br />
-
-			Creates an instance of scene component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes3d
 		</p>
 
@@ -101,7 +106,7 @@
 			Returns : json
 		</p>
 
-		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			Gets object3d<br>
 			<br>
@@ -142,23 +147,29 @@
 		</p>
 
 		<h3>[method:void setRenderer](  [param:RendererComponent renderer] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererComponent renderer] - The renderer.<br /><br />
-
+			[parameter:RendererComponent renderer] - The renderer.
+		</p>
+		<p>
 			Sets renderer
 		</p>
 
 		<h3>[method:void setSavelocalStorage](  [param:string storageName] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string storageName] - The storage name.<br /><br />
-
+			[parameter:string storageName] - The storage name.
+		</p>
+		<p>
 			Sets savelocal storage
 		</p>
 
 		<h3>[method:void update](  [param:RendererTimer timer] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererTimer timer] - The timer.<br /><br />
-
+			[parameter:RendererTimer timer] - The timer.
+		</p>
+		<p>
 			Updates scene component
 		</p>
 

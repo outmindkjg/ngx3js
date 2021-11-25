@@ -15,50 +15,56 @@
 			RigidbodyComponent
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:RigidbodyComponent RigidbodyComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of rigidbody component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-rigidbody
-			[angDamping]="..."
-			[angStiffness]="..."
-			[angularVelocityX]="..."
-			[angularVelocityY]="..."
-			[angularVelocityZ]="..."
-			[breakable]="..."
-			[collisions]="..."
-			[damping]="..."
-			[debug]="..."
-			[depth]="..."
-			[enabled]="..."
-			[friction]="..."
-			[height]="..."
-			[inertia]="..."
-			[inertiaX]="..."
-			[inertiaY]="..."
-			[inertiaZ]="..."
-			[isSoftBody]="..."
-			[linDamping]="..."
-			[linStiffness]="..."
-			[margin]="..."
-			[mass]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[piterations]="..."
-			[pressure]="..."
-			[radius]="..."
-			[randomizeConstraints]="..."
-			[restitution]="..."
-			[rollingFriction]="..."
-			[stiffness]="..."
-			[tween]="..."
-			[type]="..."
-			[userData]="..."
-			[velocityType]="..."
-			[velocityX]="..."
-			[velocityY]="..."
-			[velocityZ]="..."
-			[viterations]="..."
-			[width]="..."
-			[windowExport]="..."
+			[ angDamping ]="... number -- The angDamping of rigidbody co... "
+			[ angStiffness ]="... number -- The angStiffness of rigidbody ... "
+			[ angularVelocityX ]="... number -- The angularVelocityX of rigidb... "
+			[ angularVelocityY ]="... number -- The angularVelocityY of rigidb... "
+			[ angularVelocityZ ]="... number -- The angularVelocityZ of rigidb... "
+			[ breakable ]="... boolean -- The breakable of rigidbody com... "
+			[ collisions ]="... string|number -- The collisions of rigidbody co... "
+			[ damping ]="... number -- The damping of rigidbody compo... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ depth ]="... number -- The depth of rigidbody compone... "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ friction ]="... number -- The friction of rigidbody comp... "
+			[ height ]="... number -- The height of rigidbody compon... "
+			[ inertia ]="... number -- The inertia of rigidbody compo... "
+			[ inertiaX ]="... number -- The inertiaX of rigidbody comp... "
+			[ inertiaY ]="... number -- The inertiaY of rigidbody comp... "
+			[ inertiaZ ]="... number -- The inertiaZ of rigidbody comp... "
+			[ isSoftBody ]="... boolean -- The isSoftBody of rigidbody co... "
+			[ linDamping ]="... number -- The linDamping of rigidbody co... "
+			[ linStiffness ]="... number -- The linStiffness of rigidbody ... "
+			[ margin ]="... number -- The margin of rigidbody compon... "
+			[ mass ]="... number -- The mass of rigidbody componen... "
+			( onDestory )="...($event : RigidbodyComponent -- Will be called when before des... )"
+			( onLoad )="...($event : RigidbodyComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ piterations ]="... number -- The piterations of rigidbody c... "
+			[ pressure ]="... number -- The pressure of rigidbody comp... "
+			[ radius ]="... number -- The radius of rigidbody compon... "
+			[ randomizeConstraints ]="... boolean -- The randomizeConstraints of ri... "
+			[ restitution ]="... number -- The restitution of rigidbody c... "
+			[ rollingFriction ]="... number -- The rollingFriction of rigidbo... "
+			[ stiffness ]="... number -- The stiffness of rigidbody com... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The type  of rigidbody compone... "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ velocityType ]="... string -- The velocityType of rigidbody ... "
+			[ velocityX ]="... number -- The velocityX of rigidbody com... "
+			[ velocityY ]="... number -- The velocityY of rigidbody com... "
+			[ velocityZ ]="... number -- The velocityZ of rigidbody com... "
+			[ viterations ]="... number -- The viterations of rigidbody c... "
+			[ width ]="... number -- The width of rigidbody compone... "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-rigidbody&gt;
 		</code>
 
@@ -142,7 +148,7 @@
 			The inertiaZ of rigidbody component
 		</p>
 
-		<h3>[property:boolean isSoftBody]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean isSoftBody] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The isSoftBody of rigidbody component
 		</p>
@@ -182,7 +188,7 @@
 			The radius of rigidbody component
 		</p>
 
-		<h3>[property:boolean randomizeConstraints]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean randomizeConstraints] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The randomizeConstraints of rigidbody component
 		</p>
@@ -202,7 +208,7 @@
 			The stiffness of rigidbody component
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'auto' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type  of rigidbody component<br>
 			<br>
@@ -246,64 +252,71 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:RigidbodyComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of rigidbody component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
 		<h3>[method:void applyForce](  [param:number x],  [param:number y],  [param:number z],  [param:string type],  [param:number relX],  [param:number relY],  [param:number relZ],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number x] - The x.<br />
-			[page:number y] - The y.<br />
-			[page:number z] - The z.<br />
-			[page:string type] - The type.<br />
-			[page:number relX] - The rel x.<br />
-			[page:number relY] - The rel y.<br />
-			[page:number relZ] - The rel z.<br />
-			[page:number index] - The index.<br /><br />
-
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:string type] - The type.<br />
+			[parameter:number relX] - The rel x.<br />
+			[parameter:number relY] - The rel y.<br />
+			[parameter:number relZ] - The rel z.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
 			Applys force
 		</p>
 
 		<h3>[method:void applyTorque](  [param:number x],  [param:number y],  [param:number z],  [param:string type],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number x] - The x.<br />
-			[page:number y] - The y.<br />
-			[page:number z] - The z.<br />
-			[page:string type] - The type.<br />
-			[page:number index] - The index.<br /><br />
-
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:string type] - The type.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
 			Applys torque
 		</p>
 
 		<h3>[method:void clearForces](  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number index] - The index.<br /><br />
-
+			[parameter:number index] - The index.
+		</p>
+		<p>
 			Clears forces
 		</p>
 
 		<h3>[method:Vector3 getFactor](  [param:string type],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string type] - The type.<br />
-			[page:number index] - The index.<br /><br />
-
+			[parameter:string type] - The type.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
 			Gets factor<br>
 			<br>
 			Returns : factor
 		</p>
 
 		<h3>[method:btMotionState getMotionState](  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number index] - The index.<br /><br />
-
+			[parameter:number index] - The index.
+		</p>
+		<p>
 			Gets motion state<br>
 			<br>
 			Returns : motion state
@@ -317,10 +330,12 @@
 		</p>
 
 		<h3>[method:Vector3 getVelocity](  [param:string type],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string type] - The type.<br />
-			[page:number index] - The index.<br /><br />
-
+			[parameter:string type] - The type.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
 			Gets velocity<br>
 			<br>
 			Returns : velocity
@@ -334,101 +349,124 @@
 		</p>
 
 		<h3>[method:void setFactor](  [param:number x],  [param:number y],  [param:number z],  [param:string type],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number x] - The x.<br />
-			[page:number y] - The y.<br />
-			[page:number z] - The z.<br />
-			[page:string type] - The type.<br />
-			[page:number index] - The index.<br /><br />
-
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:string type] - The type.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
 			Sets factor
 		</p>
 
 		<h3>[method:void setMotionState](  [param:btMotionState motionState],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:btMotionState motionState] - The motion state.<br />
-			[page:number index] - The index.<br /><br />
-
+			[parameter:btMotionState motionState] - The motion state.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
 			Sets motion state
 		</p>
 
 		<h3>[method:void setMotionStatePosition](  [param:number x],  [param:number y],  [param:number z],  [param:number rx],  [param:number ry],  [param:number rz],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number x] - The x.<br />
-			[page:number y] - The y.<br />
-			[page:number z] - The z.<br />
-			[page:number rx] - The rx.<br />
-			[page:number ry] - The ry.<br />
-			[page:number rz] - The rz.<br />
-			[page:number index] - The index.<br /><br />
-
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:number rx] - The rx.<br />
+			[parameter:number ry] - The ry.<br />
+			[parameter:number rz] - The rz.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
 			Sets motion state position
 		</p>
 
 		<h3>[method:void setMotionStateRotation](  [param:number x],  [param:number y],  [param:number z],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number x] - The x.<br />
-			[page:number y] - The y.<br />
-			[page:number z] - The z.<br />
-			[page:number index] - The index.<br /><br />
-
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
 			Sets motion state rotation
 		</p>
 
-		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Object3D parent] - The parent.<br /><br />
-
+			[parameter:Object3D parent] - The parent.
+		</p>
+		<p>
 			Sets parent<br>
 			<br>
 			Returns : true if parent
 		</p>
 
 		<h3>[method:void setPhysics](  [param:PhysicsComponent physics] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:PhysicsComponent physics] - The physics.<br /><br />
-
+			[parameter:PhysicsComponent physics] - The physics.
+		</p>
+		<p>
 			Sets physics
 		</p>
 
 		<h3>[method:void setPosition](  [param:number x],  [param:number y],  [param:number z],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number x] - The x.<br />
-			[page:number y] - The y.<br />
-			[page:number z] - The z.<br />
-			[page:number index] - The index.<br /><br />
-
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
 			Sets position
 		</p>
 
 		<h3>[method:void setVelocity](  [param:number x],  [param:number y],  [param:number z],  [param:string type],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number x] - The x.<br />
-			[page:number y] - The y.<br />
-			[page:number z] - The z.<br />
-			[page:string type] - The type.<br />
-			[page:number index] - The index.<br /><br />
-
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:string type] - The type.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
 			Sets velocity
 		</p>
 
 		<h3>[method:void update](  [param:RendererTimer timer] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererTimer timer] - The timer.<br /><br />
-
+			[parameter:RendererTimer timer] - The timer.
+		</p>
+		<p>
 			Updates rigidbody component
 		</p>
 
 		<hr class="interface-line"/>
-		<h1 id="RigidbodyType">RigidbodyType</h1>
+		<h3 id="RigidbodyType">RigidbodyType</h3>
+		<h4>Properties</h4>
+		<p>
+			[property:any ammoIndexAssociation]? -  The ammo index association.<br />			
+[property:RigidbodyComponent[] debris] -  The debris.<br />			
+[property:Object3D mesh]? -  The mesh.<br />			
+[property:btRigidBody[] rigidBodies] -  The rigid bodies.<br />			
+[property:btSoftBody softBody] -  The soft body.<br />			
+[property:'instanced'|'rigidbody'|'softbody'|'debris'|'mesh' type] -  The type.
+		</p>
+
 
 		<p class="desc">
 			Rigidbody type
-		</p>
-
-		<h2>Properties</h2>
-		<p>
-			None
 		</p>
 
 		<h2>Source</h2>

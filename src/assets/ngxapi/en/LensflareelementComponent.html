@@ -46,20 +46,26 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:LensflareelementComponent LensflareelementComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of LensflareElement.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-lensflareelement
-			[color]="..."
-			[debug]="..."
-			[distance]="..."
-			[enabled]="..."
-			[image]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[size]="..."
-			[tween]="..."
-			[userData]="..."
-			[windowExport]="..."
+			[ color ]="... ThreeColor -- color of LensflareElement "
+			[ debug ]="... boolean -- Debug this Object "
+			[ distance ]="... number -- distance of LensflareElement "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ image ]="... string -- image of LensflareElement "
+			( onDestory )="...($event : LensflareelementComponent -- Will be called when before des... )"
+			( onLoad )="...($event : LensflareelementComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ size ]="... number -- size of LensflareElement "
+			[ tween ]="... any -- Tween animation params "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-lensflareelement&gt;
 		</code>
 
@@ -93,11 +99,6 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:LensflareelementComponent constructor](  )</h3>
-		<p>
-			Creates an instance of LensflareElement.
-		</p>
-
 		<h3>[method:LensflareElement getLensflareElement](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets lensflare element<br>
@@ -113,9 +114,11 @@
 		</p>
 
 		<h3>[method:void setLensflare](  [param:Lensflare lensflare] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Lensflare lensflare] - The lensflare.<br /><br />
-
+			[parameter:Lensflare lensflare] - The lensflare.
+		</p>
+		<p>
 			Sets lensflare
 		</p>
 

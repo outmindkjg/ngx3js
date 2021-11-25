@@ -19,18 +19,28 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:ShaderComponent ShaderComponent](  [param:ElementRef ele] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ElementRef ele] - The ele.
+		</p>
+		<p>
+			Creates an instance of shader component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-shader
-			[debug]="..."
-			[enabled]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[refShader]="..."
-			[tween]="..."
-			[type]="..."
-			[userData]="..."
-			[windowExport]="..."
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			( onDestory )="...($event : ShaderComponent -- Will be called when before des... )"
+			( onLoad )="...($event : ShaderComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ refShader ]="... ShaderComponent -- The refShader of shader compon... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The type of shader component "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-shader&gt;
 		</code>
 
@@ -44,7 +54,7 @@
 			The refShader of shader component
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'x-shader/x-fragment' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of shader component<br>
 			<br>
@@ -54,13 +64,6 @@
 		<h2>Methods</h2>
 		<p>
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
-		</p>
-
-		<h3>[method:ShaderComponent constructor](  [param:ElementRef ele] )</h3>
-		<p>
-			[page:ElementRef ele] - The ele.<br /><br />
-
-			Creates an instance of shader component.
 		</p>
 
 		<h3>[method:string getShader](  )<i class="modifier modifier-public">Public</i></h3>

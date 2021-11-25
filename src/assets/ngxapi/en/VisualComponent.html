@@ -19,25 +19,35 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:VisualComponent VisualComponent](  [param:ElementRef ele] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ElementRef ele] - The ele.
+		</p>
+		<p>
+			Creates an instance of visual component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-visual
-			[checked]="..."
-			[childType]="..."
-			[debug]="..."
-			[enabled]="..."
-			[inputType]="..."
-			[name]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[radioValues]="..."
-			[selectOptions]="..."
-			[src]="..."
-			[tween]="..."
-			[type]="..."
-			[userData]="..."
-			[value]="..."
-			[windowExport]="..."
+			[ checked ]="... string|number -- The checked of visual componen... "
+			[ childType ]="... string -- The Input of visual component "
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ inputType ]="... string|number -- The inputType of visual compon... "
+			[ name ]="... string -- The name of the object (doesn'... "
+			( onDestory )="...($event : VisualComponent -- Will be called when before des... )"
+			( onLoad )="...($event : VisualComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ radioValues ]="... any -- The radioValues of visual comp... "
+			[ selectOptions ]="... any -- The selectOptions of visual co... "
+			[ src ]="... string -- The src of visual component "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The Input of visual component "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ value ]="... string|number -- The value of visual component "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-visual&gt;
 		</code>
 
@@ -46,19 +56,19 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:string|number checked]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number checked] &nbsp; = 'false' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The checked of visual component
 		</p>
 
-		<h3>[property:string childType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string childType] &nbsp; = 'innerHTML' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of visual component<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string|number inputType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number inputType] &nbsp; = 'text' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The inputType of visual component
 		</p>
@@ -83,14 +93,14 @@
 			The src of visual component
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'div' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of visual component<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string|number value]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number value] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The value of visual component
 		</p>
@@ -100,17 +110,12 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:VisualComponent constructor](  [param:ElementRef ele] )</h3>
-		<p>
-			[page:ElementRef ele] - The ele.<br /><br />
-
-			Creates an instance of visual component.
-		</p>
-
 		<h3>[method:void applyChanges2d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
+			[parameter:string[] changes] - The changes.
+		</p>
+		<p>
 			Applys changes2d
 		</p>
 
@@ -141,24 +146,29 @@
 		</p>
 
 		<h3>[method:void setParentNode](  [param:HTMLElement parentNode],  [param:Vector2 parentSize],  [param:HtmlCollection parentCollection] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:HTMLElement parentNode] - The parent node.<br />
-			[page:Vector2 parentSize] - The parent size.<br />
-			[page:HtmlCollection parentCollection] - The parent collection.<br /><br />
-
+			[parameter:HTMLElement parentNode] - The parent node.<br />
+			[parameter:Vector2 parentSize] - The parent size.<br />
+			[parameter:HtmlCollection parentCollection] - The parent collection.
+		</p>
+		<p>
 			Sets parent node
 		</p>
 
 		<hr class="interface-line"/>
-		<h1 id="HtmlCollection">HtmlCollection</h1>
+		<h3 id="HtmlCollection">HtmlCollection</h3>
+		<h4>Properties</h4>
+		<p>
+			[property:HtmlCollection[] children] -  The children.<br />			
+[property:any component] -  The component.<br />			
+[property:HTMLElement html] -  The html.<br />			
+[property:string name] -  The name.
+		</p>
+
 
 		<p class="desc">
 			Html collection
-		</p>
-
-		<h2>Properties</h2>
-		<p>
-			None
 		</p>
 
 		<h2>Source</h2>

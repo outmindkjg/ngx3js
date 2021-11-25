@@ -13,6 +13,17 @@
 			Three gui
 		</p>
 
+		<h2>Constructor</h2>
+		<h3>new [method:ThreeGui ThreeGui](  [param:any style]?,  [param:any pars]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any style] - (optional) The style.<br />
+			[parameter:any pars] - (optional) The pars.
+		</p>
+		<p>
+			Creates an instance of three gui.
+		</p>
+
 		<h2>Properties</h2>
 		<h3>[property:HTMLElement domElement]<i class="modifier modifier-public">Public</i></h3>
 		<p>
@@ -24,736 +35,453 @@
 			The Gui of three gui
 		</p>
 
-		<h3>[property:string customCss]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>[property:string customCss] &nbsp; = '.no-pointer-events {pointer-events: none;}.control-disabled {color: #888;text-decoration: line-through;}' <i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
 			Custom css of three gui
 		</p>
 
 		<h2>Methods</h2>
-		<h3>[method:ThreeGui constructor](  [param:any style]?,  [param:any pars]? )</h3>
-		<p>
-			[page:any style] - (optional) The style.<br />
-			[page:any pars] - (optional) The pars.<br /><br />
-
-			Creates an instance of three gui.
-		</p>
-
 		<h3>[method:ThreeGuiController add](  [param:any object],  [param:string property],  [param:any option1]?,  [param:any options2]?,  [param:any options3]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any object] - The object.<br />
-			[page:string property] - The property.<br />
-			[page:any option1] - (optional) The option1.<br />
-			[page:any options2] - (optional) The options2.<br />
-			[page:any options3] - (optional) The options3.<br /><br />
-
+			[parameter:any object] - The object.<br />
+			[parameter:string property] - The property.<br />
+			[parameter:any option1] - (optional) The option1.<br />
+			[parameter:any options2] - (optional) The options2.<br />
+			[parameter:any options3] - (optional) The options3.
+		</p>
+		<p>
 			Adds three gui<br>
 			<br>
 			Returns : add
 		</p>
 
 		<h3>[method:ThreeGuiController addColor](  [param:any object],  [param:string property] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any object] - The object.<br />
-			[page:string property] - The property.<br /><br />
-
+			[parameter:any object] - The object.<br />
+			[parameter:string property] - The property.
+		</p>
+		<p>
 			Adds color<br>
 			<br>
 			Returns : color
 		</p>
 
 		<h3>[method:ThreeGuiController addFolder](  [param:string name] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string name] - The name.<br /><br />
-
+			[parameter:string name] - The name.
+		</p>
+		<p>
 			Adds folder<br>
 			<br>
 			Returns : folder
 		</p>
 
 		<h3>[method:ThreeGui setStyle](  [param:object style] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:object style] - The style.<br /><br />
-
+			[parameter:object style] - The style.
+		</p>
+		<p>
 			Sets style<br>
 			<br>
 			Returns : style
 		</p>
 
 		<hr class="interface-line"/>
-		<h1 id="ApplyMatrix4">ApplyMatrix4</h1>
+		<h3 id="ApplyMatrix4">ApplyMatrix4</h3>
+		<h4>Properties</h4>
+		<p>
+			
+		</p>
+
+		<p>
+			None
+		</p>
+
 
 		<p class="desc">
 			Apply matrix4
 		</p>
 
-		<h2>Properties</h2>
+		<hr class="interface-line"/>
+		<h3 id="CssStyle">CssStyle</h3>
+		<h4>Properties</h4>
 		<p>
-			None
+			[property:Vector4|ThreeColor background]? - The background shorthand CSS property sets all background style properties at once, such as color, image, origin and size, or repeat method.<br />			
+[property:string backgroundClip]? - The background-clip CSS property sets whether an element's background extends underneath its border box, padding box, or content box.<br />			
+[property:Vector4|ThreeColor backgroundColor]? - The background-color CSS property sets the background color of an element.<br />			
+[property:string backgroundImage]? - The background-image CSS property sets one or more background images on an element.<br />			
+[property:string backgroundPosition]? - The background-position CSS property sets the initial position for each background image. The position is relative to the position layer set by background-origin.<br />			
+[property:string|number backgroundPositionX]? - The background-position CSS property sets the initial position for each background image. The position is relative to the position layer set by background-origin.<br />			
+[property:string|number backgroundPositionY]? - The background-position CSS property sets the initial position for each background image. The position is relative to the position layer set by background-origin.<br />			
+[property:string backgroundRepeat]? - The background-repeat CSS property sets how background images are repeated. A background image can be repeated along the horizontal and vertical axes, or not repeated at all.<br />			
+[property:string backgroundRepeatX]? - The background-repeat CSS property sets how background images are repeated. A background image can be repeated along the horizontal and vertical axes, or not repeated at all.<br />			
+[property:string backgroundRepeatY]? - The background-repeat CSS property sets how background images are repeated. A background image can be repeated along the horizontal and vertical axes, or not repeated at all.<br />			
+[property:string|number backgroundSize]? - The background-size CSS property sets the size of the element's background image. The image can be left to its natural size, stretched, or constrained to fit the available space.<br />			
+[property:string|number backgroundSizeX]? - The background-size CSS property sets the size of the element's background image. The image can be left to its natural size, stretched, or constrained to fit the available space.<br />			
+[property:string|number backgroundSizeY]? - The background-size CSS property sets the size of the element's background image. The image can be left to its natural size, stretched, or constrained to fit the available space.<br />			
+[property:string|number border]? - The border shorthand CSS property sets an element's border. It sets the values of border-width, border-style, and border-color.<br />			
+[property:string|number borderBottom]? - The border-bottom shorthand CSS property sets an element's bottom border. It sets the values of border-bottom-width, border-bottom-style and border-bottom-color.<br />			
+[property:Vector4|ThreeColor borderColor]? - The border-color shorthand CSS property sets the color of an element's border.<br />			
+[property:string borderImage]? - The border-image CSS property draws an image around a given element. It replaces the element's regular border.<br />			
+[property:string|number borderImageOutset]? - The border-image-outset CSS property sets the distance by which an element's border image is set out from its border box.<br>
+			The parts of the border image that are rendered outside the element's border box with border-image-outset do not trigger overflow scrollbars and don't capture mouse events.<br />			
+[property:string borderImageRepeat]? - The border-image-repeat CSS property defines how the edge regions of a source image are adjusted to fit the dimensions of an element's border image.<br />			
+[property:string|number borderImageSlice]? - The border-image-slice CSS property divides the image specified by border-image-source into regions. These regions form the components of an element's border image.<br />			
+[property:string borderImageSource]? - The border-image-source CSS property sets the source image used to create an element's border image.<br />			
+[property:string|number borderImageWidth]? - The border-image-width CSS property sets the width of an element's border image.<br />			
+[property:string|number borderLeft]? - The border-left shorthand CSS property sets all the properties of an element's left border.<br />			
+[property:string|number borderRadius]? - The border-radius CSS property rounds the corners of an element's outer border edge. You can set a single radius to make circular corners, or two radii to make elliptical corners.<br />			
+[property:string|number borderRight]? - The border-right shorthand CSS property sets all the properties of an element's right border.<br />			
+[property:string borderStyle]? - The border-style shorthand CSS property sets the line style for all four sides of an element's border.<br />			
+[property:string|number borderTop]? - The border-top shorthand CSS property sets all the properties of an element's top border.<br />			
+[property:string|number borderWidth]? - The border-width shorthand CSS property sets the width of an element's border.<br />			
+[property:string|number bottom]? - The bottom CSS property participates in setting the vertical position of a positioned element. It has no effect on non-positioned elements.<br />			
+[property:string className]? - The className property of the Element interface gets and sets the value of the class attribute of the specified element.<br />			
+[property:Vector4|ThreeColor color]? - The color CSS property sets the foreground color value of an element's text and text decorations, and sets the &lt;currentcolor&gt; value. currentcolor may be used as an indirect value on other properties and is the default for other color properties, such as border-color.<br />			
+[property:string content]? - The content CSS property replaces an element with a generated value. Objects inserted using the content property are anonymous replaced elements.<br />			
+[property:boolean draggable]? - The draggable global attribute is an enumerated attribute that indicates whether the element can be dragged, either with native browser behavior or the HTML Drag and Drop API.<br />			
+[property:string fontFamily]? - The font-family CSS property specifies a prioritized list of one or more font family names and/or generic family names for the selected element.<br />			
+[property:string|number fontSize]? - The font-size CSS property sets the size of the font. Changing the font size also updates the sizes of the font size-relative &lt;length&gt; units, such as em, ex, and so forth.<br />			
+[property:string fontStyle]? - The font-style CSS property sets whether a font should be styled with a normal, italic, or oblique face from its font-family.<br />			
+[property:string|number fontWeight]? - The font-weight CSS property sets the weight (or boldness) of the font. The weights available depend on the font-family that is currently set.<br />			
+[property:string|number height]? - The height CSS property specifies the height of an element. By default, the property defines the height of the content area. If box-sizing is set to border-box, however, it instead determines the height of the border area.<br />			
+[property:string innerHTML]? - The Element property innerHTML gets or sets the HTML or XML markup contained within the element.<br />			
+[property:string innerHtml]? - The Element property innerHTML gets or sets the HTML or XML markup contained within the element.<br />			
+[property:string innerText]? - The innerText property of the HTMLElement interface represents the "rendered" text content of a node and its descendants.<br />			
+[property:string|number left]? - The left CSS property participates in specifying the horizontal position of a positioned element. It has no effect on non-positioned elements.<br />			
+[property:string letterSpacing]? - The letter-spacing CSS property sets the horizontal spacing behavior between text characters. This value is added to the natural spacing between characters while rendering the text. Positive values of letter-spacing causes characters to spread farther apart, while negative values of letter-spacing bring characters closer together.<br />			
+[property:string|number margin]? - The margin CSS shorthand property sets the margin area on all four sides of an element.<br />			
+[property:string|number marginBottom]? - The margin-bottom CSS property sets the margin area on the bottom of an element. A positive value places it farther from its neighbors, while a negative value places it closer.<br />			
+[property:string|number marginLeft]? - The margin-left CSS property sets the margin area on the left side of an element. A positive value places it farther from its neighbors, while a negative value places it closer.<br />			
+[property:string|number marginRight]? - The margin-right CSS property sets the margin area on the right side of an element. A positive value places it farther from its neighbors, while a negative value places it closer.<br />			
+[property:string|number marginTop]? - The margin-top CSS property sets the margin area on the top of an element. A positive value places it farther from its neighbors, while a negative value places it closer.<br />			
+[property:string|number maxHeight]? - The max-height CSS property sets the maximum height of an element. It prevents the used value of the height property from becoming larger than the value specified for max-height.<br />			
+[property:string|number maxWidth]? - The max-width CSS property sets the maximum width of an element. It prevents the used value of the width property from becoming larger than the value specified by max-width.<br />			
+[property:string|number minHeight]? - The min-height CSS property sets the minimum height of an element. It prevents the used value of the height property from becoming smaller than the value specified for min-height.<br />			
+[property:string|number minWidth]? - The min-width CSS property sets the minimum width of an element. It prevents the used value of the width property from becoming smaller than the value specified for min-width.<br />			
+[property:number opacity]? - The opacity CSS property sets the opacity of an element. Opacity is the degree to which content behind an element is hidden, and is the opposite of transparency.<br />			
+[property:string overflow]? - The overflow CSS shorthand property sets the desired behavior for an element's overflow — i.e. when an element's content is too big to fit in its block formatting context — in both directions.<br />			
+[property:string|number padding]? - The padding CSS shorthand property sets the padding area on all four sides of an element at once.<br />			
+[property:string|number paddingBottom]? - The padding-right CSS property sets the width of the padding area on the bottom of an element.<br />			
+[property:string|number paddingLeft]? - The padding-left CSS property sets the width of the padding area to the left of an element.<br />			
+[property:string|number paddingRight]? - The padding-right CSS property sets the width of the padding area on the right of an element.<br />			
+[property:string|number paddingTop]? - The padding-top CSS property sets the height of the padding area on the top of an element.<br />			
+[property:string pointerEvents]? - The pointer-events CSS property sets under what circumstances (if any) a particular graphic element can become the target of pointer events.<br />			
+[property:string position]? - The position CSS property sets how an element is positioned in a document. The top, right, bottom, and left properties determine the final location of positioned elements.<br />			
+[property:string|number right]? - The right CSS property participates in specifying the horizontal position of a positioned element. It has no effect on non-positioned elements.<br />			
+[property:string src]? - The HTTP Content-Security-Policy img-src directive specifies valid sources of images and favicons.<br>
+			The HTTP Content-Security-Policy (CSP) frame-src directive specifies valid sources for nested browsing contexts loading using elements such as &lt;frame&gt; and &lt;iframe&gt;.<br />			
+[property:string textAlign]? - The text-align CSS property sets the horizontal alignment of the content inside a block element or table-cell box. This means it works like vertical-align but in the horizontal direction.<br />			
+[property:string textContent]? - The textContent property of the Node interface represents the text content of the node and its descendants.<br />			
+[property:string textDecoration]? - The text-decoration shorthand CSS property sets the appearance of decorative lines on text. It is a shorthand for text-decoration-line, text-decoration-color, text-decoration-style, and the newer text-decoration-thickness property.<br />			
+[property:string|number textIndent]? - The text-indent CSS property sets the length of empty space (indentation) that is put before lines of text in a block.<br />			
+[property:string textJustify]? - The text-justify CSS property sets what type of justification should be applied to text when text-align: justify; is set on an element.<br />			
+[property:string textSizeAdjust]? - The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones and tablets. Other browsers will ignore this property.<br />			
+[property:string textTransform]? - The text-transform CSS property specifies how to capitalize an element's text. It can be used to make text appear in all-uppercase or all-lowercase, or with each word capitalized. It also can help improve legibility for ruby.<br />			
+[property:string|number top]? - The top CSS property participates in specifying the vertical position of a positioned element. It has no effect on non-positioned elements.<br />			
+[property:string|string[] transform]? - The transform CSS property lets you rotate, scale, skew, or translate an element. It modifies the coordinate space of the CSS visual formatting model.<br />			
+[property:string transformOrigin]? - The transform-origin CSS property sets the origin for an element's transformations.<br />			
+[property:string|string[] transition]? - The transition CSS property is a shorthand property for transition-property, transition-duration, transition-timing-function, and transition-delay.<br />			
+[property:string whiteSpace]? - The white-space CSS property sets how white space inside an element is handled.<br />			
+[property:string|number width]? - The width CSS property sets an element's width. By default, it sets the width of the content area, but if box-sizing is set to border-box, it sets the width of the border area.<br />			
+[property:string wordBreak]? - The word-break CSS property sets whether line breaks appear wherever the text would otherwise overflow its content box.<br />			
+[property:string wordSpacing]? - The word-spacing CSS property sets the length of space between words and between tags.<br />			
+[property:number zIndex]? - The z-index CSS property sets the z-order of a positioned element and its descendants or flex items. Overlapping elements with a larger z-index cover those with a smaller one.
 		</p>
 
-		<hr class="interface-line"/>
-		<h1 id="CssStyle">CssStyle</h1>
 
 		<p class="desc">
 			Css style
 		</p>
 
-		<h2>Properties</h2>
-		<h3>[property:Vector4|ThreeColor background]?</h3>
-		<p>
-			The background shorthand CSS property sets all background style properties at once, such as color, image, origin and size, or repeat method.
-		</p>
-
-		<h3>[property:string backgroundClip]?</h3>
-		<p>
-			The background-clip CSS property sets whether an element's background extends underneath its border box, padding box, or content box.
-		</p>
-
-		<h3>[property:Vector4|ThreeColor backgroundColor]?</h3>
-		<p>
-			The background-color CSS property sets the background color of an element.
-		</p>
-
-		<h3>[property:string backgroundImage]?</h3>
-		<p>
-			The background-image CSS property sets one or more background images on an element.
-		</p>
-
-		<h3>[property:string backgroundPosition]?</h3>
-		<p>
-			The background-position CSS property sets the initial position for each background image. The position is relative to the position layer set by background-origin.
-		</p>
-
-		<h3>[property:string|number backgroundPositionX]?</h3>
-		<p>
-			The background-position CSS property sets the initial position for each background image. The position is relative to the position layer set by background-origin.
-		</p>
-
-		<h3>[property:string|number backgroundPositionY]?</h3>
-		<p>
-			The background-position CSS property sets the initial position for each background image. The position is relative to the position layer set by background-origin.
-		</p>
-
-		<h3>[property:string backgroundRepeat]?</h3>
-		<p>
-			The background-repeat CSS property sets how background images are repeated. A background image can be repeated along the horizontal and vertical axes, or not repeated at all.
-		</p>
-
-		<h3>[property:string backgroundRepeatX]?</h3>
-		<p>
-			The background-repeat CSS property sets how background images are repeated. A background image can be repeated along the horizontal and vertical axes, or not repeated at all.
-		</p>
-
-		<h3>[property:string backgroundRepeatY]?</h3>
-		<p>
-			The background-repeat CSS property sets how background images are repeated. A background image can be repeated along the horizontal and vertical axes, or not repeated at all.
-		</p>
-
-		<h3>[property:string|number backgroundSize]?</h3>
-		<p>
-			The background-size CSS property sets the size of the element's background image. The image can be left to its natural size, stretched, or constrained to fit the available space.
-		</p>
-
-		<h3>[property:string|number backgroundSizeX]?</h3>
-		<p>
-			The background-size CSS property sets the size of the element's background image. The image can be left to its natural size, stretched, or constrained to fit the available space.
-		</p>
-
-		<h3>[property:string|number backgroundSizeY]?</h3>
-		<p>
-			The background-size CSS property sets the size of the element's background image. The image can be left to its natural size, stretched, or constrained to fit the available space.
-		</p>
-
-		<h3>[property:string|number border]?</h3>
-		<p>
-			The border shorthand CSS property sets an element's border. It sets the values of border-width, border-style, and border-color.
-		</p>
-
-		<h3>[property:string|number borderBottom]?</h3>
-		<p>
-			The border-bottom shorthand CSS property sets an element's bottom border. It sets the values of border-bottom-width, border-bottom-style and border-bottom-color.
-		</p>
-
-		<h3>[property:Vector4|ThreeColor borderColor]?</h3>
-		<p>
-			The border-color shorthand CSS property sets the color of an element's border.
-		</p>
-
-		<h3>[property:string borderImage]?</h3>
-		<p>
-			The border-image CSS property draws an image around a given element. It replaces the element's regular border.
-		</p>
-
-		<h3>[property:string|number borderImageOutset]?</h3>
-		<p>
-			The border-image-outset CSS property sets the distance by which an element's border image is set out from its border box.<br>
-			The parts of the border image that are rendered outside the element's border box with border-image-outset do not trigger overflow scrollbars and don't capture mouse events.
-		</p>
-
-		<h3>[property:string borderImageRepeat]?</h3>
-		<p>
-			The border-image-repeat CSS property defines how the edge regions of a source image are adjusted to fit the dimensions of an element's border image.
-		</p>
-
-		<h3>[property:string|number borderImageSlice]?</h3>
-		<p>
-			The border-image-slice CSS property divides the image specified by border-image-source into regions. These regions form the components of an element's border image.
-		</p>
-
-		<h3>[property:string borderImageSource]?</h3>
-		<p>
-			The border-image-source CSS property sets the source image used to create an element's border image.
-		</p>
-
-		<h3>[property:string|number borderImageWidth]?</h3>
-		<p>
-			The border-image-width CSS property sets the width of an element's border image.
-		</p>
-
-		<h3>[property:string|number borderLeft]?</h3>
-		<p>
-			The border-left shorthand CSS property sets all the properties of an element's left border.
-		</p>
-
-		<h3>[property:string|number borderRadius]?</h3>
-		<p>
-			The border-radius CSS property rounds the corners of an element's outer border edge. You can set a single radius to make circular corners, or two radii to make elliptical corners.
-		</p>
-
-		<h3>[property:string|number borderRight]?</h3>
-		<p>
-			The border-right shorthand CSS property sets all the properties of an element's right border.
-		</p>
-
-		<h3>[property:string borderStyle]?</h3>
-		<p>
-			The border-style shorthand CSS property sets the line style for all four sides of an element's border.
-		</p>
-
-		<h3>[property:string|number borderTop]?</h3>
-		<p>
-			The border-top shorthand CSS property sets all the properties of an element's top border.
-		</p>
-
-		<h3>[property:string|number borderWidth]?</h3>
-		<p>
-			The border-width shorthand CSS property sets the width of an element's border.
-		</p>
-
-		<h3>[property:string|number bottom]?</h3>
-		<p>
-			The bottom CSS property participates in setting the vertical position of a positioned element. It has no effect on non-positioned elements.
-		</p>
-
-		<h3>[property:string className]?</h3>
-		<p>
-			The className property of the Element interface gets and sets the value of the class attribute of the specified element.
-		</p>
-
-		<h3>[property:Vector4|ThreeColor color]?</h3>
-		<p>
-			The color CSS property sets the foreground color value of an element's text and text decorations, and sets the &lt;currentcolor&gt; value. currentcolor may be used as an indirect value on other properties and is the default for other color properties, such as border-color.
-		</p>
-
-		<h3>[property:string content]?</h3>
-		<p>
-			The content CSS property replaces an element with a generated value. Objects inserted using the content property are anonymous replaced elements.
-		</p>
-
-		<h3>[property:boolean draggable]?</h3>
-		<p>
-			The draggable global attribute is an enumerated attribute that indicates whether the element can be dragged, either with native browser behavior or the HTML Drag and Drop API.
-		</p>
-
-		<h3>[property:string fontFamily]?</h3>
-		<p>
-			The font-family CSS property specifies a prioritized list of one or more font family names and/or generic family names for the selected element.
-		</p>
-
-		<h3>[property:string|number fontSize]?</h3>
-		<p>
-			The font-size CSS property sets the size of the font. Changing the font size also updates the sizes of the font size-relative &lt;length&gt; units, such as em, ex, and so forth.
-		</p>
-
-		<h3>[property:string fontStyle]?</h3>
-		<p>
-			The font-style CSS property sets whether a font should be styled with a normal, italic, or oblique face from its font-family.
-		</p>
-
-		<h3>[property:string|number fontWeight]?</h3>
-		<p>
-			The font-weight CSS property sets the weight (or boldness) of the font. The weights available depend on the font-family that is currently set.
-		</p>
-
-		<h3>[property:string|number height]?</h3>
-		<p>
-			The height CSS property specifies the height of an element. By default, the property defines the height of the content area. If box-sizing is set to border-box, however, it instead determines the height of the border area.
-		</p>
-
-		<h3>[property:string innerHTML]?</h3>
-		<p>
-			The Element property innerHTML gets or sets the HTML or XML markup contained within the element.
-		</p>
-
-		<h3>[property:string innerHtml]?</h3>
-		<p>
-			The Element property innerHTML gets or sets the HTML or XML markup contained within the element.
-		</p>
-
-		<h3>[property:string innerText]?</h3>
-		<p>
-			The innerText property of the HTMLElement interface represents the "rendered" text content of a node and its descendants.
-		</p>
-
-		<h3>[property:string|number left]?</h3>
-		<p>
-			The left CSS property participates in specifying the horizontal position of a positioned element. It has no effect on non-positioned elements.
-		</p>
-
-		<h3>[property:string letterSpacing]?</h3>
-		<p>
-			The letter-spacing CSS property sets the horizontal spacing behavior between text characters. This value is added to the natural spacing between characters while rendering the text. Positive values of letter-spacing causes characters to spread farther apart, while negative values of letter-spacing bring characters closer together.
-		</p>
-
-		<h3>[property:string|number margin]?</h3>
-		<p>
-			The margin CSS shorthand property sets the margin area on all four sides of an element.
-		</p>
-
-		<h3>[property:string|number marginBottom]?</h3>
-		<p>
-			The margin-bottom CSS property sets the margin area on the bottom of an element. A positive value places it farther from its neighbors, while a negative value places it closer.
-		</p>
-
-		<h3>[property:string|number marginLeft]?</h3>
-		<p>
-			The margin-left CSS property sets the margin area on the left side of an element. A positive value places it farther from its neighbors, while a negative value places it closer.
-		</p>
-
-		<h3>[property:string|number marginRight]?</h3>
-		<p>
-			The margin-right CSS property sets the margin area on the right side of an element. A positive value places it farther from its neighbors, while a negative value places it closer.
-		</p>
-
-		<h3>[property:string|number marginTop]?</h3>
-		<p>
-			The margin-top CSS property sets the margin area on the top of an element. A positive value places it farther from its neighbors, while a negative value places it closer.
-		</p>
-
-		<h3>[property:string|number maxHeight]?</h3>
-		<p>
-			The max-height CSS property sets the maximum height of an element. It prevents the used value of the height property from becoming larger than the value specified for max-height.
-		</p>
-
-		<h3>[property:string|number maxWidth]?</h3>
-		<p>
-			The max-width CSS property sets the maximum width of an element. It prevents the used value of the width property from becoming larger than the value specified by max-width.
-		</p>
-
-		<h3>[property:string|number minHeight]?</h3>
-		<p>
-			The min-height CSS property sets the minimum height of an element. It prevents the used value of the height property from becoming smaller than the value specified for min-height.
-		</p>
-
-		<h3>[property:string|number minWidth]?</h3>
-		<p>
-			The min-width CSS property sets the minimum width of an element. It prevents the used value of the width property from becoming smaller than the value specified for min-width.
-		</p>
-
-		<h3>[property:number opacity]?</h3>
-		<p>
-			The opacity CSS property sets the opacity of an element. Opacity is the degree to which content behind an element is hidden, and is the opposite of transparency.
-		</p>
-
-		<h3>[property:string overflow]?</h3>
-		<p>
-			The overflow CSS shorthand property sets the desired behavior for an element's overflow — i.e. when an element's content is too big to fit in its block formatting context — in both directions.
-		</p>
-
-		<h3>[property:string|number padding]?</h3>
-		<p>
-			The padding CSS shorthand property sets the padding area on all four sides of an element at once.
-		</p>
-
-		<h3>[property:string|number paddingBottom]?</h3>
-		<p>
-			The padding-right CSS property sets the width of the padding area on the bottom of an element.
-		</p>
-
-		<h3>[property:string|number paddingLeft]?</h3>
-		<p>
-			The padding-left CSS property sets the width of the padding area to the left of an element.
-		</p>
-
-		<h3>[property:string|number paddingRight]?</h3>
-		<p>
-			The padding-right CSS property sets the width of the padding area on the right of an element.
-		</p>
-
-		<h3>[property:string|number paddingTop]?</h3>
-		<p>
-			The padding-top CSS property sets the height of the padding area on the top of an element.
-		</p>
-
-		<h3>[property:string pointerEvents]?</h3>
-		<p>
-			The pointer-events CSS property sets under what circumstances (if any) a particular graphic element can become the target of pointer events.
-		</p>
-
-		<h3>[property:string position]?</h3>
-		<p>
-			The position CSS property sets how an element is positioned in a document. The top, right, bottom, and left properties determine the final location of positioned elements.
-		</p>
-
-		<h3>[property:string|number right]?</h3>
-		<p>
-			The right CSS property participates in specifying the horizontal position of a positioned element. It has no effect on non-positioned elements.
-		</p>
-
-		<h3>[property:string src]?</h3>
-		<p>
-			The HTTP Content-Security-Policy img-src directive specifies valid sources of images and favicons.<br>
-			The HTTP Content-Security-Policy (CSP) frame-src directive specifies valid sources for nested browsing contexts loading using elements such as &lt;frame&gt; and &lt;iframe&gt;.
-		</p>
-
-		<h3>[property:string textAlign]?</h3>
-		<p>
-			The text-align CSS property sets the horizontal alignment of the content inside a block element or table-cell box. This means it works like vertical-align but in the horizontal direction.
-		</p>
-
-		<h3>[property:string textContent]?</h3>
-		<p>
-			The textContent property of the Node interface represents the text content of the node and its descendants.
-		</p>
-
-		<h3>[property:string textDecoration]?</h3>
-		<p>
-			The text-decoration shorthand CSS property sets the appearance of decorative lines on text. It is a shorthand for text-decoration-line, text-decoration-color, text-decoration-style, and the newer text-decoration-thickness property.
-		</p>
-
-		<h3>[property:string|number textIndent]?</h3>
-		<p>
-			The text-indent CSS property sets the length of empty space (indentation) that is put before lines of text in a block.
-		</p>
-
-		<h3>[property:string textJustify]?</h3>
-		<p>
-			The text-justify CSS property sets what type of justification should be applied to text when text-align: justify; is set on an element.
-		</p>
-
-		<h3>[property:string textSizeAdjust]?</h3>
-		<p>
-			The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones and tablets. Other browsers will ignore this property.
-		</p>
-
-		<h3>[property:string textTransform]?</h3>
-		<p>
-			The text-transform CSS property specifies how to capitalize an element's text. It can be used to make text appear in all-uppercase or all-lowercase, or with each word capitalized. It also can help improve legibility for ruby.
-		</p>
-
-		<h3>[property:string|number top]?</h3>
-		<p>
-			The top CSS property participates in specifying the vertical position of a positioned element. It has no effect on non-positioned elements.
-		</p>
-
-		<h3>[property:string|string[] transform]?</h3>
-		<p>
-			The transform CSS property lets you rotate, scale, skew, or translate an element. It modifies the coordinate space of the CSS visual formatting model.
-		</p>
-
-		<h3>[property:string transformOrigin]?</h3>
-		<p>
-			The transform-origin CSS property sets the origin for an element's transformations.
-		</p>
-
-		<h3>[property:string|string[] transition]?</h3>
-		<p>
-			The transition CSS property is a shorthand property for transition-property, transition-duration, transition-timing-function, and transition-delay.
-		</p>
-
-		<h3>[property:string whiteSpace]?</h3>
-		<p>
-			The white-space CSS property sets how white space inside an element is handled.
-		</p>
-
-		<h3>[property:string|number width]?</h3>
-		<p>
-			The width CSS property sets an element's width. By default, it sets the width of the content area, but if box-sizing is set to border-box, it sets the width of the border area.
-		</p>
-
-		<h3>[property:string wordBreak]?</h3>
-		<p>
-			The word-break CSS property sets whether line breaks appear wherever the text would otherwise overflow its content box.
-		</p>
-
-		<h3>[property:string wordSpacing]?</h3>
-		<p>
-			The word-spacing CSS property sets the length of space between words and between tags.
-		</p>
-
-		<h3>[property:number zIndex]?</h3>
-		<p>
-			The z-index CSS property sets the z-order of a positioned element and its descendants or flex items. Overlapping elements with a larger z-index cover those with a smaller one.
-		</p>
-
 		<hr class="interface-line"/>
-		<h1 id="CurvesParameters">CurvesParameters</h1>
+		<h3 id="CurvesParameters">CurvesParameters</h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number radiusInner]? - radiusInner<br />			
+[property:number rateX]? - rateX<br />			
+[property:number rateY]? - rateY<br />			
+[property:number rateZ]? - rateZ<br />			
+[property:number waveH]? - waveH<br />			
+[property:number waveR]? - waveR
+		</p>
+
 
 		<p class="desc">
 			Curves parameters
 		</p>
 
-		<h2>Properties</h2>
+		<hr class="interface-line"/>
+		<h3 id="GuiBaseControl">GuiBaseControl</h3>
+		<h4>Properties</h4>
 		<p>
-			None
+			[property:any meshPosition]? -  The mesh position.<br />			
+[property:any meshPositionOrg]? -  The mesh position org.<br />			
+[property:any meshRotate]? -  The mesh rotate.<br />			
+[property:any meshRotateOrg]? -  The mesh rotate org.<br />			
+[property:any meshScale]? -  The mesh scale.<br />			
+[property:any meshScaleOrg]? -  The mesh scale org.<br />			
+[property:any meshShape]? -  The mesh shape.
 		</p>
 
-		<hr class="interface-line"/>
-		<h1 id="GuiBaseControl">GuiBaseControl</h1>
 
 		<p class="desc">
 			Gui base control
 		</p>
 
-		<h2>Properties</h2>
+		<hr class="interface-line"/>
+		<h3 id="GuiControlParam">GuiControlParam</h3>
+		<h4>Properties</h4>
 		<p>
-			None
+			[property:GuiControlParam[] children]? - The children of folder type<br />			
+[property:string control]? -  The control.<br />			
+[property:ThreeGuiController controller]? - The controller of gui<br />			
+[property:boolean isOpen]? - is opened in case folder<br />			
+[property:boolean listen]? -  The listen.<br />			
+[property:number max]? - The max value of number type<br />			
+[property:number min]? - The min value of number type<br />			
+[property:string name] - The name of gui control<br />			
+[property:string[] select]? - The select value of select type<br />			
+[property:number step]? - The step value of number type<br />			
+[property:string title]? - The title of gui name<br />			
+[property:'number'|'folder'|'select'|'button'|'color'|'checkbox'|'input'|'listen'|'auto' type]? - The type of gui control
 		</p>
 
-		<hr class="interface-line"/>
-		<h1 id="GuiControlParam">GuiControlParam</h1>
 
 		<p class="desc">
 			Gui control param
 		</p>
 
-		<h2>Properties</h2>
-		<h3>[property:GuiControlParam[] children]?</h3>
+		<hr class="interface-line"/>
+		<h3 id="LoadedNameMap">LoadedNameMap</h3>
+		<h4>Properties</h4>
 		<p>
-			The children of folder type
+			None
 		</p>
 
-		<h3>[property:ThreeGuiController controller]?</h3>
-		<p>
-			The controller of gui
-		</p>
 
-		<h3>[property:boolean isOpen]?</h3>
-		<p>
-			is opened in case folder
-		</p>
-
-		<h3>[property:number max]?</h3>
-		<p>
-			The max value of number type
-		</p>
-
-		<h3>[property:number min]?</h3>
-		<p>
-			The min value of number type
-		</p>
-
-		<h3>[property:string name]</h3>
-		<p>
-			The name of gui control
-		</p>
-
-		<h3>[property:string[] select]?</h3>
-		<p>
-			The select value of select type
-		</p>
-
-		<h3>[property:number step]?</h3>
-		<p>
-			The step value of number type
-		</p>
-
-		<h3>[property:string title]?</h3>
-		<p>
-			The title of gui name
-		</p>
-
-		<h3>[property:'number'|'folder'|'select'|'button'|'color'|'checkbox'|'input'|'listen'|'auto' type]?</h3>
-		<p>
-			The type of gui control
+		<p class="desc">
+			
 		</p>
 
 		<hr class="interface-line"/>
-		<h1 id="LoadedObject">LoadedObject</h1>
+		<h3 id="LoadedObject">LoadedObject</h3>
+		<h4>Properties</h4>
+		<p>
+			[property:any clips]? -  The clips.<br />			
+[property:BufferGeometry geometry]? -  The geometry.<br />			
+[property:any material]? -  The material.<br />			
+[property:BufferAttribute[] morphTargets]? -  The morph targets.<br />			
+[property:Object3D object]? -  The object.<br />			
+[property:any source]? -  The source.<br />			
+[property:Texture texture]? -  The texture.
+		</p>
+
 
 		<p class="desc">
 			Loaded object
 		</p>
 
-		<h2>Properties</h2>
+		<hr class="interface-line"/>
+		<h3 id="RendererEvent">RendererEvent</h3>
+		<h4>Properties</h4>
 		<p>
-			None
+			[property:Vector2 client]? -  The client.<br />			
+[property:number clientX]? -  The client x.<br />			
+[property:number clientY]? -  The client y.<br />			
+[property:Vector2 direction]? -  The direction.<br />			
+[property:any event] -  The event.<br />			
+[property:number height]? -  The height.<br />			
+[property:any keyInfo]? -  The key info.<br />			
+[property:Vector2 mouse]? -  The mouse.<br />			
+[property:HTMLElement nativeElement]? -  The native element.<br />			
+[property:Vector2 offset]? -  The offset.<br />			
+[property:number offsetX]? -  The offset x.<br />			
+[property:number offsetY]? -  The offset y.<br />			
+[property:Vector2 rate]? -  The rate.<br />			
+[property:number rateX]? -  The rate x.<br />			
+[property:number rateY]? -  The rate y.<br />			
+[property:Vector2 size]? -  The size.<br />			
+[property:string type] -  The type.<br />			
+[property:number width]? -  The width.
 		</p>
 
-		<hr class="interface-line"/>
-		<h1 id="RendererEvent">RendererEvent</h1>
 
 		<p class="desc">
 			Renderer event
 		</p>
 
-		<h2>Properties</h2>
+		<hr class="interface-line"/>
+		<h3 id="RendererInfo">RendererInfo</h3>
+		<h4>Properties</h4>
 		<p>
-			None
+			[property:Camera[] cameras] -  The cameras.<br />			
+[property:any cssRenderer] -  The css renderer.<br />			
+[property:number innerHeight] -  The inner height.<br />			
+[property:number innerWidth] -  The inner width.<br />			
+[property:Renderer renderer] -  The renderer.<br />			
+[property:Scene[] scenes] -  The scenes.<br />			
+[property:RendererTimer timer] -  The timer.
 		</p>
 
-		<hr class="interface-line"/>
-		<h1 id="RendererInfo">RendererInfo</h1>
 
 		<p class="desc">
 			Renderer info
 		</p>
 
-		<h2>Properties</h2>
+		<hr class="interface-line"/>
+		<h3 id="RendererTimer">RendererTimer</h3>
+		<h4>Properties</h4>
 		<p>
-			None
+			[property:number delta] -  The delta.<br />			
+[property:number elapsedTime] -  The elapsed time.<br />			
+[property:RendererEvent event]? -  The event.<br />			
+[property:Renderer renderer]? -  The renderer.
 		</p>
 
-		<hr class="interface-line"/>
-		<h1 id="RendererTimer">RendererTimer</h1>
 
 		<p class="desc">
 			Renderer timer
 		</p>
 
-		<h2>Properties</h2>
+		<hr class="interface-line"/>
+		<h3 id="StorageExportOption">StorageExportOption</h3>
+		<h4>Properties</h4>
 		<p>
-			None
+			[property:AnimationClip[] animations]? - animations<br />			
+[property:boolean binary]? - binary<br />			
+[property:boolean embedImages]? - embedImages<br />			
+[property:string[] excludeAttributes]? - excludeAttributes<br />			
+[property:boolean forceIndices]? - forceIndices<br />			
+[property:boolean forcePowerOfTwoTextures]? - forcePowerOfTwoTextures<br />			
+[property:boolean includeCustomExtensions]? - includeCustomExtensions<br />			
+[property:boolean littleEndian]? - littleEndian<br />			
+[property:number maxTextureSize]? - maxTextureSize<br />			
+[property:boolean onlyVisible]? - onlyVisible<br />			
+[property:boolean trs]? - trs<br />			
+[property:boolean truncateDrawRange]? - truncateDrawRange
 		</p>
 
-		<hr class="interface-line"/>
-		<h1 id="StorageExportOption">StorageExportOption</h1>
 
 		<p class="desc">
 			Storage export option
 		</p>
 
-		<h2>Properties</h2>
+		<hr class="interface-line"/>
+		<h3 id="StorageOption">StorageOption</h3>
+		<h4>Properties</h4>
 		<p>
-			None
+			[property:boolean autoCenter]? - autoCenter<br />			
+[property:string baseUrl]? - baseUrl<br />			
+[property:any body]? - body<br />			
+[property:string cssType]? - cssType<br />			
+[property:any dataType]? - dataType<br />			
+[property:boolean debug]? - debug<br />			
+[property:boolean debugName]? - debugName<br />			
+[property:boolean drawFillShapes]? - drawFillShapes<br />			
+[property:boolean drawStrokes]? - drawStrokes<br />			
+[property:boolean fillShapesWireframe]? - fillShapesWireframe<br />			
+[property:boolean firstMesh]? - firstMesh<br />			
+[property:boolean geometry]? - geometry<br />			
+[property:string loaderType]? - loaderType<br />			
+[property:string material]? - material<br />			
+[property:string name]? - name<br />			
+[property:any object]? - ref object<br />			
+[property:string path]? - path<br />			
+[property:number quality]? - quality<br />			
+[property:string resourcePath]? - The resource path<br />			
+[property:number scale]? - scale<br />			
+[property:boolean strokesWireframe]? - strokesWireframe<br />			
+[property:string type]? - type<br />			
+[property:boolean useDraco]? - Use Darco<br />			
+[property:boolean useKtx2]? - Use Ktx2<br />			
+[property:string|string[] vmdUrl]? - vmdUrl
 		</p>
 
-		<hr class="interface-line"/>
-		<h1 id="StorageOption">StorageOption</h1>
 
 		<p class="desc">
 			Storage option
 		</p>
 
-		<h2>Properties</h2>
-		<h3>[property:string material]?</h3>
-		<p>
-			override material from storage
-		</p>
-
-		<h3>[property:any object]?</h3>
-		<p>
-			ref object
-		</p>
-
-		<h3>[property:string resourcePath]?</h3>
-		<p>
-			The resource path
-		</p>
-
-		<h3>[property:boolean useDraco]?</h3>
-		<p>
-			Use Darco
-		</p>
-
-		<h3>[property:boolean useKtx2]?</h3>
-		<p>
-			Use Ktx2
-		</p>
-
-		<h3>[property:string|string[] vmdUrl]?</h3>
-		<p>
-			vmdUrl
-		</p>
-
 		<hr class="interface-line"/>
-		<h1 id="TagAttributes">TagAttributes</h1>
+		<h3 id="TagAttributes">TagAttributes</h3>
+		<h4>Properties</h4>
+		<p>
+			[property:any attributes] -  The attributes.<br />			
+[property:any children]? -  The children.<br />			
+[property:any options]? -  The options.<br />			
+[property:string tag] -  The tag.
+		</p>
+
 
 		<p class="desc">
 			Tag attributes
 		</p>
 
-		<h2>Properties</h2>
+		<hr class="interface-line"/>
+		<h3 id="TextureOption">TextureOption</h3>
+		<h4>Properties</h4>
 		<p>
-			None
+			[property:string[] cubeImage]? - The cube image url<br />			
+[property:string options]? - The texture options<br />			
+[property:string type] - The texture type<br />			
+[property:string value] - The texture value
 		</p>
 
-		<hr class="interface-line"/>
-		<h1 id="TextureOption">TextureOption</h1>
 
 		<p class="desc">
 			Texture option
 		</p>
 
-		<h2>Properties</h2>
-		<h3>[property:string[] cubeImage]?</h3>
-		<p>
-			The cube image url
-		</p>
-
-		<h3>[property:string options]?</h3>
-		<p>
-			The texture options
-		</p>
-
-		<h3>[property:string type]</h3>
-		<p>
-			The texture type
-		</p>
-
-		<h3>[property:string value]</h3>
-		<p>
-			The texture value
-		</p>
-
 		<hr class="interface-line"/>
-		<h1 id="ThreeFace">ThreeFace</h1>
+		<h3 id="ThreeFace">ThreeFace</h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number a] -  The a.<br />			
+[property:number b] -  The b.<br />			
+[property:number c] -  The c.
+		</p>
+
 
 		<p class="desc">
 			Three Face
 		</p>
 
-		<h2>Properties</h2>
+		<hr class="interface-line"/>
+		<h3 id="ThreeGuiController">ThreeGuiController</h3>
+		<h4>Properties</h4>
 		<p>
-			None
+			[property:HTMLElement domElement]? -  The dom element.
 		</p>
 
-		<hr class="interface-line"/>
-		<h1 id="ThreeGuiController">ThreeGuiController</h1>
 
 		<p class="desc">
 			Three gui controller
 		</p>
 
-		<h2>Properties</h2>
+		<hr class="interface-line"/>
+		<h3 id="ThreeVector">ThreeVector</h3>
+		<h4>Properties</h4>
 		<p>
-			None
+			[property:number w]? -  The w.<br />			
+[property:number x] -  The x.<br />			
+[property:number y] -  The y.<br />			
+[property:number z]? -  The z.
 		</p>
 
-		<hr class="interface-line"/>
-		<h1 id="ThreeVector">ThreeVector</h1>
 
 		<p class="desc">
 			Three Vector
 		</p>
 
-		<h2>Properties</h2>
-		<p>
-			None
-		</p>
-
 		<hr class="interface-line"/>
-		<h1 id="ThreeColor">ThreeColor</h1>
+		<h3 id="ThreeColor">ThreeColor</h3>
+		<h3>[property:string|number|THREE.Color ThreeColor]</h3>
+
 
 		<p class="desc">
 			Three Color<br>
@@ -766,38 +494,36 @@
 			THREE.Color
 		</p>
 
-		<h3>[property:string|number|THREE.Color ThreeColor]</h3>
-
 		<hr class="interface-line"/>
-		<h1 id="ThreeTexture">ThreeTexture</h1>
+		<h3 id="ThreeTexture">ThreeTexture</h3>
+		<h3>[property:string|THREE.Texture|TextureOption|any ThreeTexture]</h3>
+
 
 		<p class="desc">
 			ThreeTexture
 		</p>
 
-		<h3>[property:string|THREE.Texture|TextureOption|any ThreeTexture]</h3>
-
 		<hr class="interface-line"/>
-		<h1 id="ThreeUniform">ThreeUniform</h1>
+		<h3 id="ThreeUniform">ThreeUniform</h3>
+		<h3>[property:THREE.IUniform ThreeUniform]</h3>
+
 
 		<p class="desc">
 			ThreeUniform
 		</p>
 
-		<h3>[property:THREE.IUniform ThreeUniform]</h3>
-
 		<hr class="interface-line"/>
-		<h1 id="ThreeUniforms">ThreeUniforms</h1>
-
-		<p class="desc">
-			ThreeUniforms
-		</p>
-
+		<h3 id="ThreeUniforms">ThreeUniforms</h3>
 		<h3> { [  [param:string key] ] : [param:ThreeUniform emptyName] }</h3>
 		<p>
 			
 		</p>
 
+
+
+		<p class="desc">
+			ThreeUniforms
+		</p>
 
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three//interface.ts /interface.ts]</p>

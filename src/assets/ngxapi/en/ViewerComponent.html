@@ -52,29 +52,37 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:ViewerComponent ViewerComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of viewer component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-viewer
-			[blendWindow]="..."
-			[blurEdges]="..."
-			[canvasOptions]="..."
-			[debug]="..."
-			[debugLightmap]="..."
-			[enabled]="..."
-			[height]="..."
-			[light]="..."
-			[lightMapRes]="..."
-			[mesh]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[plane]="..."
-			[tween]="..."
-			[type]="..."
-			[userData]="..."
-			[width]="..."
-			[windowExport]="..."
-			[x]="..."
-			[y]="..."
+			[ blendWindow ]="... number -- The blendWindow of viewer comp... "
+			[ blurEdges ]="... boolean -- The blurEdges of viewer compon... "
+			[ canvasOptions ]="... any -- The canvasOptions of viewer co... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ debugLightmap ]="... boolean -- The debugLightmap of viewer co... "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ height ]="... string|number -- The size of height
+- type numb... "
+			[ light ]="... MeshComponent|Light|LightComponent -- The Light of Viewer "
+			[ lightMapRes ]="... number -- The lightMapRes of Progressive... "
+			[ mesh ]="... Mesh|MeshComponent|HelperComponent -- The Mesh of Viewer "
+			( onDestory )="...($event : ViewerComponent -- Will be called when before des... )"
+			( onLoad )="...($event : ViewerComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ plane ]="... Object3D|MeshComponent|HelperComponent|Plane -- The Plane of Viewer "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The type of viewer "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ width ]="... string|number -- The size of width
+- type numbe... "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ x ]="... string|number -- The x of position "
+			[ y ]="... string|number -- The y of position "
 		&gt;&lt;/ngx3js-viewer&gt;
 		</code>
 
@@ -83,12 +91,12 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:number blendWindow]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number blendWindow] &nbsp; = 200 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The blendWindow of viewer component
 		</p>
 
-		<h3>[property:boolean blurEdges]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean blurEdges] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The blurEdges of viewer component
 		</p>
@@ -98,12 +106,12 @@
 			The canvasOptions of viewer component
 		</p>
 
-		<h3>[property:boolean debugLightmap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean debugLightmap] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The debugLightmap of viewer component
 		</p>
 
-		<h3>[property:string|number height]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number height] &nbsp; = '100%' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The size of height<br>
 			- type number<br>
@@ -120,12 +128,12 @@
 			The Light of Viewer
 		</p>
 
-		<h3>[property:number lightMapRes]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number lightMapRes] &nbsp; = 1024 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The lightMapRes of ProgressiveLightMap
 		</p>
 
-		<h3>[property:MeshComponent|Mesh|HelperComponent mesh]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:Mesh|MeshComponent|HelperComponent mesh]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Mesh of Viewer
 		</p>
@@ -135,14 +143,14 @@
 			The Plane of Viewer
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'shadowmap' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of viewer<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string|number width]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number width] &nbsp; = '100%' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The size of width<br>
 			- type number<br>
@@ -154,12 +162,12 @@
 			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
 		</p>
 
-		<h3>[property:string|number x]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number x] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The x of position
 		</p>
 
-		<h3>[property:string|number y]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number y] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The y of position
 		</p>
@@ -169,22 +177,21 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:ViewerComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of viewer component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
 		<h3>[method:Camera getCamera](  [param:any cameras]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any cameras] - (optional) The cameras.<br /><br />
-
+			[parameter:any cameras] - (optional) The cameras.
+		</p>
+		<p>
 			Gets camera<br>
 			<br>
 			Returns : camera
@@ -198,9 +205,11 @@
 		</p>
 
 		<h3>[method:Scene getScene](  [param:any scenes]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any scenes] - (optional) The scenes.<br /><br />
-
+			[parameter:any scenes] - (optional) The scenes.
+		</p>
+		<p>
 			Gets scene<br>
 			<br>
 			Returns : scene
@@ -212,12 +221,14 @@
 		</p>
 
 		<h3>[method:void render](  [param:Renderer renderer],  [param:any scenes],  [param:any cameras],  [param:RendererTimer renderTimer]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Renderer renderer] - The renderer.<br />
-			[page:any scenes] - The scenes.<br />
-			[page:any cameras] - The cameras.<br />
-			[page:RendererTimer renderTimer] - (optional) The render timer.<br /><br />
-
+			[parameter:Renderer renderer] - The renderer.<br />
+			[parameter:any scenes] - The scenes.<br />
+			[parameter:any cameras] - The cameras.<br />
+			[parameter:RendererTimer renderTimer] - (optional) The render timer.
+		</p>
+		<p>
 			Renders viewer component
 		</p>
 
@@ -226,35 +237,43 @@
 			Resizes viewer
 		</p>
 
-		<h3>[method:boolean setParent](  [param:any parent] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:boolean setParent](  [param:any parent] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any parent] - The parent.<br /><br />
-
+			[parameter:any parent] - The parent.
+		</p>
+		<p>
 			Sets parent<br>
 			<br>
 			Returns : true if parent
 		</p>
 
 		<h3>[method:void setRenderer](  [param:Renderer renderer] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Renderer renderer] - The renderer.<br /><br />
-
+			[parameter:Renderer renderer] - The renderer.
+		</p>
+		<p>
 			Sets renderer
 		</p>
 
 		<h3>[method:void setRendererSize](  [param:number width],  [param:number height],  [param:number pixelRatio] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number width] - The width.<br />
-			[page:number height] - The height.<br />
-			[page:number pixelRatio] - The pixel ratio.<br /><br />
-
+			[parameter:number width] - The width.<br />
+			[parameter:number height] - The height.<br />
+			[parameter:number pixelRatio] - The pixel ratio.
+		</p>
+		<p>
 			Sets viewer size
 		</p>
 
 		<h3>[method:void update](  [param:RendererTimer _] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererTimer _] - The _.<br /><br />
-
+			[parameter:RendererTimer _] - The _.
+		</p>
+		<p>
 			Updates viewer component
 		</p>
 

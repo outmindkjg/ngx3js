@@ -27,30 +27,36 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:TweenComponent TweenComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of tween component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-tween
-			[amplitude]="..."
-			[debug]="..."
-			[duration]="..."
-			[easing]="..."
-			[enabled]="..."
-			[linearRatio]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[overshoot]="..."
-			[period]="..."
-			[power]="..."
-			[repeat]="..."
-			[steps]="..."
-			[targets]="..."
-			[template]="..."
-			[to]="..."
-			[tween]="..."
-			[userData]="..."
-			[windowExport]="..."
-			[yoyo]="..."
-			[yoyoMode]="..."
+			[ amplitude ]="... number -- The amplitude of tween compone... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ duration ]="... number -- The duration of tween componen... "
+			[ easing ]="... string -- The Input of tween component "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ linearRatio ]="... number -- The linearRatio of tween compo... "
+			( onDestory )="...($event : TweenComponent -- Will be called when before des... )"
+			( onLoad )="...($event : TweenComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ overshoot ]="... number -- The overshoot of tween compone... "
+			[ period ]="... number -- The period of tween component "
+			[ power ]="... number -- The power of tween component "
+			[ repeat ]="... number -- The repeat of tween component "
+			[ steps ]="... number -- The steps of tween component "
+			[ targets ]="... string -- The targets of tween component "
+			[ template ]="... string -- The template of tween componen... "
+			[ to ]="... any -- The to of tween component "
+			[ tween ]="... any -- Tween animation params "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ yoyo ]="... boolean -- The yoyo of tween component "
+			[ yoyoMode ]="... boolean -- The yoyoMode of tween componen... "
 		&gt;&lt;/ngx3js-tween&gt;
 		</code>
 
@@ -136,27 +142,26 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:TweenComponent constructor](  )</h3>
-		<p>
-			Creates an instance of tween component.
-		</p>
-
 		<h3>[method:any getTween](  [param:TimelineLite|TimelineMax tween],  [param:any tweenTarget],  [param:any parentEle] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:TimelineLite|TimelineMax tween] - The tween.<br />
-			[page:any tweenTarget] - The tween target.<br />
-			[page:any parentEle] - The parent ele.<br /><br />
-
+			[parameter:TimelineLite|TimelineMax tween] - The tween.<br />
+			[parameter:any tweenTarget] - The tween target.<br />
+			[parameter:any parentEle] - The parent ele.
+		</p>
+		<p>
 			Gets tween<br>
 			<br>
 			Returns : tween
 		</p>
 
-		<h3>[method:any setTween](  [param:any to],  [param:number duration]? )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:any setTween](  [param:any to],  [param:number duration]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any to] - The to.<br />
-			[page:number duration] - (optional) The duration.<br /><br />
-
+			[parameter:any to] - The to.<br />
+			[parameter:number duration] - (optional) The duration.
+		</p>
+		<p>
 			Sets tween<br>
 			<br>
 			Returns : tween

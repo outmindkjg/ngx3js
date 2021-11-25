@@ -24,42 +24,54 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:ComposerComponent ComposerComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of composer component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-composer
-			[alpha]="..."
-			[block]="..."
-			[camera]="..."
-			[cameraDistance]="..."
-			[charSet]="..."
-			[clear]="..."
-			[color]="..."
-			[debug]="..."
-			[enabled]="..."
-			[height]="..."
-			[invert]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[reflectFromAbove]="..."
-			[renderToScreen]="..."
-			[resolution]="..."
-			[scale]="..."
-			[scene]="..."
-			[scissorHeight]="..."
-			[scissorTest]="..."
-			[scissorWidth]="..."
-			[scissorX]="..."
-			[scissorY]="..."
-			[tween]="..."
-			[tweenStart]="..."
-			[type]="..."
-			[userData]="..."
-			[viewport]="..."
-			[viewportAspect]="..."
-			[width]="..."
-			[windowExport]="..."
-			[x]="..."
-			[y]="..."
+			[ alpha ]="... boolean -- The alpha of composer componen... "
+			[ block ]="... boolean -- The block of composer componen... "
+			[ camera ]="... CameraComponent|Camera -- The camera of composer "
+			[ cameraDistance ]="... number -- The cameraDistance of composer... "
+			[ charSet ]="... string -- AsciiEffect "
+			[ clear ]="... boolean -- The clear of composer componen... "
+			[ color ]="... boolean -- The color of composer componen... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ height ]="... string|number -- The size of height
+- type numb... "
+			[ invert ]="... boolean -- The invert of composer compone... "
+			( onDestory )="...($event : ComposerComponent -- Will be called when before des... )"
+			( onLoad )="...($event : ComposerComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ reflectFromAbove ]="... boolean -- The reflectFromAbove of compos... "
+			[ renderToScreen ]="... boolean -- The renderToScreen of composer... "
+			[ resolution ]="... number -- The resolution of composer com... "
+			[ scale ]="... number -- The scale of composer componen... "
+			[ scene ]="... Scene|SceneComponent -- The scene of composer "
+			[ scissorHeight ]="... string|number -- The scissor of height
+- type n... "
+			[ scissorTest ]="... boolean -- The scissorTest of composer co... "
+			[ scissorWidth ]="... string|number -- The scissor of width
+- type nu... "
+			[ scissorX ]="... string|number -- The scissor position of left
+-... "
+			[ scissorY ]="... string|number -- The scissor position of top
+- ... "
+			[ tween ]="... any -- Tween animation params "
+			[ tweenStart ]="... boolean -- Start tween "
+			[ type ]="... string -- The type of composer "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ viewport ]="... boolean -- The viewport of composer compo... "
+			[ viewportAspect ]="... boolean -- The viewportAspect of composer... "
+			[ width ]="... string|number -- The size of width
+- type numbe... "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ x ]="... string|number -- The x of composer component "
+			[ y ]="... string|number -- The y of composer component "
 		&gt;&lt;/ngx3js-composer&gt;
 		</code>
 
@@ -96,7 +108,7 @@
 			AsciiEffect
 		</p>
 
-		<h3>[property:boolean clear]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean clear] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The clear of composer component
 		</p>
@@ -106,7 +118,7 @@
 			The color of composer component
 		</p>
 
-		<h3>[property:string|number height]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number height] &nbsp; = '100%' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The size of height<br>
 			- type number<br>
@@ -148,7 +160,7 @@
 			The scene of composer
 		</p>
 
-		<h3>[property:string|number scissorHeight]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number scissorHeight] &nbsp; = '100%' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The scissor of height<br>
 			- type number<br>
@@ -160,12 +172,12 @@
 			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
 		</p>
 
-		<h3>[property:boolean scissorTest]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean scissorTest] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The scissorTest of composer component
 		</p>
 
-		<h3>[property:string|number scissorWidth]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number scissorWidth] &nbsp; = '100%' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The scissor of width<br>
 			- type number<br>
@@ -177,7 +189,7 @@
 			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
 		</p>
 
-		<h3>[property:string|number scissorX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number scissorX] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The scissor position of left<br>
 			- type number<br>
@@ -189,7 +201,7 @@
 			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
 		</p>
 
-		<h3>[property:string|number scissorY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number scissorY] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The scissor position of top<br>
 			- type number<br>
@@ -201,24 +213,24 @@
 			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'composer' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of composer<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:boolean viewport]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean viewport] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The viewport of composer component
 		</p>
 
-		<h3>[property:boolean viewportAspect]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean viewportAspect] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The viewportAspect of composer component
 		</p>
 
-		<h3>[property:string|number width]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number width] &nbsp; = '100%' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The size of width<br>
 			- type number<br>
@@ -230,12 +242,12 @@
 			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
 		</p>
 
-		<h3>[property:string|number x]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number x] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The x of composer component
 		</p>
 
-		<h3>[property:string|number y]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number y] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The y of composer component
 		</p>
@@ -248,15 +260,12 @@
 			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
 		</p>
 
-		<h3>[method:ComposerComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of composer component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
@@ -267,7 +276,7 @@
 			Returns : composer
 		</p>
 
-		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			Gets object<br>
 			<br>
@@ -303,28 +312,34 @@
 		</p>
 
 		<h3>[method:void render](  [param:WebGLRenderer renderer],  [param:RendererTimer renderTimer] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:WebGLRenderer renderer] - The renderer.<br />
-			[page:RendererTimer renderTimer] - The render timer.<br /><br />
-
+			[parameter:WebGLRenderer renderer] - The renderer.<br />
+			[parameter:RendererTimer renderTimer] - The render timer.
+		</p>
+		<p>
 			Renders composer component
 		</p>
 
 		<h3>[method:void setRenderer](  [param:WebGLRenderer webGLRenderer],  [param:Camera camera],  [param:Scene scene] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:WebGLRenderer webGLRenderer] - The web g l renderer.<br />
-			[page:Camera camera] - The camera.<br />
-			[page:Scene scene] - The scene.<br /><br />
-
+			[parameter:WebGLRenderer webGLRenderer] - The web g l renderer.<br />
+			[parameter:Camera camera] - The camera.<br />
+			[parameter:Scene scene] - The scene.
+		</p>
+		<p>
 			Sets renderer
 		</p>
 
 		<h3>[method:void setRendererSize](  [param:number width],  [param:number height],  [param:number pixelRatio] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number width] - The width.<br />
-			[page:number height] - The height.<br />
-			[page:number pixelRatio] - The pixel ratio.<br /><br />
-
+			[parameter:number width] - The width.<br />
+			[parameter:number height] - The height.<br />
+			[parameter:number pixelRatio] - The pixel ratio.
+		</p>
+		<p>
 			Sets composer size
 		</p>
 

@@ -20,18 +20,26 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:SizeComponent SizeComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of shared component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-size
-			[debug]="..."
-			[enabled]="..."
-			[height]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[tween]="..."
-			[userData]="..."
-			[width]="..."
-			[windowExport]="..."
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ height ]="... string|number -- The size of height
+- type numb... "
+			( onDestory )="...($event : SizeComponent -- Will be called when before des... )"
+			( onLoad )="...($event : SizeComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ tween ]="... any -- Tween animation params "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ width ]="... string|number -- The size of width
+- type numbe... "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-size&gt;
 		</code>
 
@@ -40,7 +48,7 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:string|number height]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number height] &nbsp; = '100%' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The size of height<br>
 			- type number<br>
@@ -52,7 +60,7 @@
 			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
 		</p>
 
-		<h3>[property:string|number width]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number width] &nbsp; = '100%' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The size of width<br>
 			- type number<br>
@@ -69,31 +77,35 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:SizeComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of shared component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes3d
 		</p>
 
-		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			Gets object<br>
 			<br>
 			Returns : object
 		</p>
 
-		<h3>[method:void setRendererSize](  [param:number width],  [param:number height],  [param:number pixelRatio] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:Vector2 getSize](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:number width] - The width.<br />
-			[page:number height] - The height.<br />
-			[page:number pixelRatio] - The pixel ratio.<br /><br />
+			
+		</p>
 
+		<h3>[method:void setRendererSize](  [param:number width],  [param:number height],  [param:number pixelRatio] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number width] - The width.<br />
+			[parameter:number height] - The height.<br />
+			[parameter:number pixelRatio] - The pixel ratio.
+		</p>
+		<p>
 			Sets size size
 		</p>
 

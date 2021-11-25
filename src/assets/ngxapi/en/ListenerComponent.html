@@ -27,27 +27,33 @@
 			[page:AudioListener AudioListener] - THREE.AudioListener
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:ListenerComponent ListenerComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of listener component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-listener
-			[castShadow]="..."
-			[debug]="..."
-			[enabled]="..."
-			[frustumCulled]="..."
-			[geometry]="..."
-			[material]="..."
-			[materialIsArray]="..."
-			[matrixAutoUpdate]="..."
-			[name]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[receiveShadow]="..."
-			[tween]="..."
-			[tweenStart]="..."
-			[userData]="..."
-			[visible]="..."
-			[volume]="..."
-			[windowExport]="..."
+			[ castShadow ]="... boolean -- Whether the object gets render... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ frustumCulled ]="... boolean -- When this is set, it checks ev... "
+			[ geometry ]="... any -- The geometry of mesh "
+			[ material ]="... AbstractMaterialComponent|Material -- The material of mesh "
+			[ materialIsArray ]="... boolean -- The material of mesh is array "
+			[ matrixAutoUpdate ]="... boolean -- When this is set, it calculate... "
+			[ name ]="... string -- The name of the object (doesn'... "
+			( onDestory )="...($event : ListenerComponent -- Will be called when before des... )"
+			( onLoad )="...($event : ListenerComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ receiveShadow ]="... boolean -- Whether the material receives ... "
+			[ tween ]="... any -- Tween animation params "
+			[ tweenStart ]="... boolean -- Start tween "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ visible ]="... boolean -- Object gets rendered if *true*... "
+			[ volume ]="... number -- Set the volume. "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-listener&gt;
 		</code>
 
@@ -62,7 +68,7 @@
 			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common properties.
 		</p>
 
-		<h3>[property:number volume]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number volume] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Set the volume.
 		</p>
@@ -78,15 +84,12 @@
 			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
 		</p>
 
-		<h3>[method:ListenerComponent constructor](  )</h3>
+		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of listener component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes3d
 		</p>
 
@@ -97,17 +100,19 @@
 			Returns : listener
 		</p>
 
-		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			Gets object3d<br>
 			<br>
 			Returns : object3d
 		</p>
 
-		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Object3D parent] - The parent.<br /><br />
-
+			[parameter:Object3D parent] - The parent.
+		</p>
+		<p>
 			Sets parent<br>
 			<br>
 			Returns : true if parent

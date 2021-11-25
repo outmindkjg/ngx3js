@@ -27,22 +27,28 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:PhysicsComponent PhysicsComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of physics component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-physics
-			[debug]="..."
-			[enabled]="..."
-			[gravity]="..."
-			[gravityX]="..."
-			[gravityY]="..."
-			[gravityZ]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[tween]="..."
-			[type]="..."
-			[useCollision]="..."
-			[userData]="..."
-			[windowExport]="..."
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ gravity ]="... number -- The gravity of physics compone... "
+			[ gravityX ]="... number -- The gravityX of physics compon... "
+			[ gravityY ]="... number -- The gravityY of physics compon... "
+			[ gravityZ ]="... number -- The gravityZ of physics compon... "
+			( onDestory )="...($event : PhysicsComponent -- Will be called when before des... )"
+			( onLoad )="...($event : PhysicsComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The Input of physics component "
+			[ useCollision ]="... boolean -- The useCollision of physics co... "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-physics&gt;
 		</code>
 
@@ -71,14 +77,14 @@
 			The gravityZ of physics component
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of physics component<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:boolean useCollision]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean useCollision] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The useCollision of physics component
 		</p>
@@ -88,15 +94,12 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:PhysicsComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of physics component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
@@ -106,18 +109,22 @@
 		</p>
 
 		<h3>[method:any getBtVector3](  [param:any pointer] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any pointer] - The pointer.<br /><br />
-
+			[parameter:any pointer] - The pointer.
+		</p>
+		<p>
 			Gets bt vector3<br>
 			<br>
 			Returns : bt vector3
 		</p>
 
 		<h3>[method:Object3D getCollisionObject](  [param:btCollisionObject body] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:btCollisionObject body] - The body.<br /><br />
-
+			[parameter:btCollisionObject body] - The body.
+		</p>
+		<p>
 			Gets collision object<br>
 			<br>
 			Returns : collision object
@@ -138,9 +145,11 @@
 		</p>
 
 		<h3>[method:btRigidBody getRigidBody](  [param:btCollisionObject body] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:btCollisionObject body] - The body.<br /><br />
-
+			[parameter:btCollisionObject body] - The body.
+		</p>
+		<p>
 			Gets rigid body<br>
 			<br>
 			Returns : rigid body
@@ -154,9 +163,11 @@
 		</p>
 
 		<h3>[method:void update](  [param:RendererTimer timer] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererTimer timer] - The timer.<br /><br />
-
+			[parameter:RendererTimer timer] - The timer.
+		</p>
+		<p>
 			Updates physics component
 		</p>
 

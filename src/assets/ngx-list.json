@@ -80,7 +80,8 @@
         "AutoPositionController": "ngxapi/en/AutoPositionController",
         "AutoRotationController": "ngxapi/en/AutoRotationController",
         "AutoScaleController": "ngxapi/en/AutoScaleController",
-        "AutoUniformsController": "ngxapi/en/AutoUniformsController"
+        "AutoUniformsController": "ngxapi/en/AutoUniformsController",
+        "ThreeGuiController": "ngxapi/en/ThreeGuiController"
       },
       "Directive & Pipes" : {
         "AbstractThreeDirective": "ngxapi/en/AbstractThreeDirective",

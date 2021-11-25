@@ -104,101 +104,111 @@
 			[page:Group Group] - THREE.Group
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:MeshComponent MeshComponent](  [param:LocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:LocalStorageService localStorageService] - The local storage service.
+		</p>
+		<p>
+			Creates an instance of mesh component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-mesh
-			[alpha]="..."
-			[axis]="..."
-			[blobInfos]="..."
-			[castShadow]="..."
-			[centerX]="..."
-			[centerY]="..."
-			[clipBias]="..."
-			[color]="..."
-			[colors]="..."
-			[count]="..."
-			[cssStyle]="..."
-			[cssTag]="..."
-			[curve]="..."
-			[debug]="..."
-			[distance]="..."
-			[distortionScale]="..."
-			[divisions]="..."
-			[domElement]="..."
-			[enableColors]="..."
-			[enableUvs]="..."
-			[enabled]="..."
-			[encoding]="..."
-			[flowDirectionX]="..."
-			[flowDirectionY]="..."
-			[flowMap]="..."
-			[flowSpeed]="..."
-			[frustumCulled]="..."
-			[geometry]="..."
-			[helperOptions]="..."
-			[helperType]="..."
-			[index]="..."
-			[isolation]="..."
-			[lightOptions]="..."
-			[makeColor]="..."
-			[makeMatrix]="..."
-			[material]="..."
-			[materialIsArray]="..."
-			[matrixAutoUpdate]="..."
-			[metalness]="..."
-			[morphTargets]="..."
-			[moveAlongCurve]="..."
-			[moveIndividualAlongCurve]="..."
-			[name]="..."
-			[normalMap0]="..."
-			[normalMap1]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[planeInfos]="..."
-			[rayParams]="..."
-			[receiveShadow]="..."
-			[reflectivity]="..."
-			[resolution]="..."
-			[roughness]="..."
-			[scaleStep]="..."
-			[shader]="..."
-			[shareParts]="..."
-			[sharedCamera]="..."
-			[sharedMesh]="..."
-			[size]="..."
-			[skyColor]="..."
-			[skyboxCubeImage]="..."
-			[skyboxImage]="..."
-			[skyboxRate]="..."
-			[skyboxSunImage]="..."
-			[skyboxSunX]="..."
-			[skyboxSunY]="..."
-			[skyboxSunZ]="..."
-			[skyboxType]="..."
-			[storageName]="..."
-			[storageOption]="..."
-			[stormParams]="..."
-			[sunColor]="..."
-			[sunDirection]="..."
-			[sunPosition]="..."
-			[text]="..."
-			[texture]="..."
-			[textureHeight]="..."
-			[textureSize]="..."
-			[textureWidth]="..."
-			[tween]="..."
-			[tweenStart]="..."
-			[type]="..."
-			[uniforms]="..."
-			[usage]="..."
-			[useDepthTexture]="..."
-			[usePlaneStencil]="..."
-			[userData]="..."
-			[visible]="..."
-			[volumeOption]="..."
-			[waterColor]="..."
-			[waterScale]="..."
-			[windowExport]="..."
+			[ alpha ]="... number -- The alpha of water "
+			[ axis ]="... string -- The axis of mesh component "
+			[ blobInfos ]="... any -- The blobInfos of mesh componen... "
+			[ castShadow ]="... boolean -- Whether the object gets render... "
+			[ centerX ]="... number -- The centerX of mesh component "
+			[ centerY ]="... number -- The centerY of mesh component "
+			[ clipBias ]="... number -- The clip bias of Reflector "
+			[ color ]="... ThreeColor -- The color of sun etc "
+			[ colors ]="... string|number[] -- The colors of mesh component "
+			[ count ]="... number -- The count of mesh component "
+			[ cssStyle ]="... string|CssStyle -- The css style of CSS2DObject, ... "
+			[ cssTag ]="... any -- The css tag of CSS2DObject, CS... "
+			[ curve ]="... Curve|CurveComponent -- The curve "
+			[ debug ]="... boolean -- Debug this Object "
+			[ distance ]="... number -- The distance of sun "
+			[ distortionScale ]="... number -- The distortion scale of Water "
+			[ divisions ]="... number -- The divisions of mesh componen... "
+			[ domElement ]="... HTMLElement -- The domElement of CSS2DObject,... "
+			[ enableColors ]="... boolean -- The enableColors of mesh compo... "
+			[ enableUvs ]="... boolean -- The enableUvs of mesh componen... "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ encoding ]="... string -- [page:Textures THREE.LinearEnc... "
+			[ flowDirectionX ]="... number -- The flowDirectionX of mesh com... "
+			[ flowDirectionY ]="... number -- The flowDirectionY of mesh com... "
+			[ flowMap ]="... string|Texture|AbstractTextureComponent -- The flowMap of mesh component "
+			[ flowSpeed ]="... number -- The flowSpeed of mesh componen... "
+			[ frustumCulled ]="... boolean -- When this is set, it checks ev... "
+			[ geometry ]="... any -- The geometry of mesh "
+			[ helperOptions ]="... HelperOptions -- The options of helper "
+			[ helperType ]="... string -- The type of helper "
+			[ index ]="... number -- The index of mesh component "
+			[ isolation ]="... number -- The isolation of mesh componen... "
+			[ lightOptions ]="... LightOptions -- The options of light "
+			[ makeColor ]="... any"
+			[ makeMatrix ]="... any"
+			[ material ]="... AbstractMaterialComponent|Material -- The material of mesh "
+			[ materialIsArray ]="... boolean -- The material of mesh is array "
+			[ matrixAutoUpdate ]="... boolean -- When this is set, it calculate... "
+			[ metalness ]="... number -- How much the material is like ... "
+			[ morphTargets ]="... boolean -- Define whether the material us... "
+			[ moveAlongCurve ]="... number -- The moveAlongCurve of mesh com... "
+			[ moveIndividualAlongCurve ]="... string|number[] -- The moveIndividualAlongCurve o... "
+			[ name ]="... string -- The name of the object (doesn'... "
+			[ normalMap0 ]="... string|Texture|AbstractTextureComponent -- The normalMap0 of mesh compone... "
+			[ normalMap1 ]="... string|Texture|AbstractTextureComponent -- The normalMap1 of mesh compone... "
+			( onDestory )="...($event : MeshComponent -- Will be called when before des... )"
+			( onLoad )="...($event : MeshComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ planeInfos ]="... any -- The planeInfos of mesh compone... "
+			[ rayParams ]="... RayParameters -- The rayParams of geometry comp... "
+			[ receiveShadow ]="... boolean -- Whether the material receives ... "
+			[ reflectivity ]="... number -- The reflectivity of mesh compo... "
+			[ resolution ]="... number -- The resolution of mesh compone... "
+			[ roughness ]="... number -- How rough the material appears... "
+			[ scaleStep ]="... number -- The scale step of MultiMateria... "
+			[ shader ]="... string -- The shader of mesh component "
+			[ shareParts ]="... MeshComponent -- The shareParts of mesh compone... "
+			[ sharedCamera ]="... any -- The sharedCamera of mesh compo... "
+			[ sharedMesh ]="... MeshComponent -- The sharedMesh of mesh compone... "
+			[ size ]="... number -- The size of mesh component "
+			[ skyColor ]="... string|number -- The color of sky "
+			[ skyboxCubeImage ]="... string[] -- The cube image of skybox "
+			[ skyboxImage ]="... any -- The image of skybox "
+			[ skyboxRate ]="... number -- The rate of Skybox from distan... "
+			[ skyboxSunImage ]="... string -- The sun image of skybox "
+			[ skyboxSunX ]="... number -- The sun X direction in degree. "
+			[ skyboxSunY ]="... number -- The sun Y direction in degree. "
+			[ skyboxSunZ ]="... number -- The sun Z direction in degree. "
+			[ skyboxType ]="... string -- The type of skybox "
+			[ storageName ]="... string -- The storage Name "
+			[ storageOption ]="... any -- The storage Option "
+			[ stormParams ]="... StormParams -- The stormParams  of mesh compo... "
+			[ sunColor ]="... ThreeColor -- The color of sun "
+			[ sunDirection ]="... Vector3|number[] -- The direction of sun "
+			[ sunPosition ]="... Vector3|number[] -- The position of sun "
+			[ text ]="... string -- The text of mesh component "
+			[ texture ]="... Texture|AbstractTextureComponent -- The refer texture "
+			[ textureHeight ]="... number -- The texture Height "
+			[ textureSize ]="... Vector2|SizeComponent -- The texture size "
+			[ textureWidth ]="... number -- The texture Width "
+			[ tween ]="... any -- Tween animation params "
+			[ tweenStart ]="... boolean -- Start tween "
+			[ type ]="... string -- The type of mesh "
+			[ uniforms ]="... any -- The uniform of sun, sky water ... "
+			[ usage ]="... string -- The usage of InstancedMesh "
+			[ useDepthTexture ]="... boolean -- The clip bias of Reflector "
+			[ usePlaneStencil ]="... boolean -- use Plane Stencil "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ visible ]="... boolean -- Object gets rendered if *true*... "
+			[ volumeOption ]="... VolumeOptions -- The volume Option "
+			[ waterColor ]="... string|number -- The color water "
+			[ waterScale ]="... number -- The waterScale of mesh compone... "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-mesh&gt;
 		</code>
 
@@ -438,7 +448,7 @@
 			If roughnessMap is also provided, both values are multiplied.
 		</p>
 
-		<h3>[property:number scaleStep]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number scaleStep] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The scale step of MultiMaterialObject
 		</p>
@@ -483,7 +493,7 @@
 			The image of skybox
 		</p>
 
-		<h3>[property:number skyboxRate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number skyboxRate] &nbsp; = 100 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The rate of Skybox from distance
 		</p>
@@ -493,22 +503,22 @@
 			The sun image of skybox
 		</p>
 
-		<h3>[property:number skyboxSunX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number skyboxSunX] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The sun X direction in degree.
 		</p>
 
-		<h3>[property:number skyboxSunY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number skyboxSunY] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The sun Y direction in degree.
 		</p>
 
-		<h3>[property:number skyboxSunZ]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number skyboxSunZ] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The sun Z direction in degree.
 		</p>
 
-		<h3>[property:string skyboxType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string skyboxType] &nbsp; = 'auto' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of skybox<br>
 			<br>
@@ -531,7 +541,7 @@
 			Storage source of mesh component
 		</p>
 
-		<h3>[property:StormParams stormParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:StormParams stormParams] &nbsp; = ... <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The stormParams  of mesh component
 		</p>
@@ -576,7 +586,7 @@
 			The texture Width
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'mesh' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of mesh<br>
 			<br>
@@ -621,7 +631,7 @@
 			The clip bias of Reflector
 		</p>
 
-		<h3>[property:boolean usePlaneStencil]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean usePlaneStencil] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			use Plane Stencil
 		</p>
@@ -652,17 +662,12 @@
 			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
 		</p>
 
-		<h3>[method:MeshComponent constructor](  [param:LocalStorageService localStorageService] )</h3>
+		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:LocalStorageService localStorageService] - The local storage service.<br /><br />
-
-			Creates an instance of mesh component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes3d
 		</p>
 
@@ -701,7 +706,7 @@
 			Returns : mesh
 		</p>
 
-		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			Gets object3d<br>
 			<br>
@@ -734,48 +739,68 @@
 			Resets helper
 		</p>
 
-		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Object3D parent] - The parent.<br /><br />
-
+			[parameter:Object3D parent] - The parent.
+		</p>
+		<p>
 			Sets parent<br>
 			<br>
 			Returns : true if parent
 		</p>
 
 		<h3>[method:void setSavelocalStorage](  [param:string storageName] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string storageName] - The storage name.<br /><br />
-
+			[parameter:string storageName] - The storage name.
+		</p>
+		<p>
 			Sets savelocal storage
 		</p>
 
-		<h3>[method:void setVisible](  [param:boolean visible],  [param:boolean helperVisible] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:void setVisible](  [param:boolean visible],  [param:boolean helperVisible] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:boolean visible] - The visible.<br />
-			[page:boolean helperVisible] - The helper visible.<br /><br />
-
+			[parameter:boolean visible] - The visible.<br />
+			[parameter:boolean helperVisible] - The helper visible.
+		</p>
+		<p>
 			Sets visible
 		</p>
 
 		<h3>[method:void setWireFrame](  [param:boolean wireframe],  [param:Object3D child] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:boolean wireframe] - The wireframe.<br />
-			[page:Object3D child] - The child.<br /><br />
-
+			[parameter:boolean wireframe] - The wireframe.<br />
+			[parameter:Object3D child] - The child.
+		</p>
+		<p>
 			Sets wire frame
 		</p>
 
 		<hr class="interface-line"/>
-		<h1 id="VolumeOptions">VolumeOptions</h1>
+		<h3 id="VolumeOptions">VolumeOptions</h3>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean boxVisible]? - boxVisible<br />			
+[property:ThreeColor helperColor]? - helperColor<br />			
+[property:boolean helperVisible]? - helperVisible<br />			
+[property:number lowerThreshold]? - lowerThreshold<br />			
+[property:number upperThreshold]? - upperThreshold<br />			
+[property:number windowHigh]? - windowHigh<br />			
+[property:number windowLow]? - windowLow<br />			
+[property:number x]? - x<br />			
+[property:boolean xVisible]? - xVisible<br />			
+[property:number y]? - y<br />			
+[property:boolean yVisible]? - yVisible<br />			
+[property:number z]? - z<br />			
+[property:boolean zVisible]? - zVisible
+		</p>
+
 
 		<p class="desc">
 			Volume Options
-		</p>
-
-		<h2>Properties</h2>
-		<p>
-			None
 		</p>
 
 		<h2>Source</h2>

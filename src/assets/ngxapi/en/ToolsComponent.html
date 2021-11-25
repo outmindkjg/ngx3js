@@ -31,24 +31,34 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:ToolsComponent ToolsComponent](  [param:LocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:LocalStorageService localStorageService] - The local storage service.
+		</p>
+		<p>
+			Creates an instance of tools component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-tools
-			[background]="..."
-			[debug]="..."
-			[enabled]="..."
-			[encoding]="..."
-			[format]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[size]="..."
-			[storageName]="..."
-			[storageOption]="..."
-			[tween]="..."
-			[type]="..."
-			[url]="..."
-			[userData]="..."
-			[windowExport]="..."
+			[ background ]="... string|number|AbstractTextureComponent -- The background of tools compon... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ encoding ]="... string -- [page:Textures THREE.LinearEnc... "
+			[ format ]="... string -- The default is [page:Textures ... "
+			( onDestory )="...($event : ToolsComponent -- Will be called when before des... )"
+			( onLoad )="...($event : ToolsComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ size ]="... number -- The size of tools component "
+			[ storageName ]="... string -- The storageName of tools compo... "
+			[ storageOption ]="... any -- The storageOption of tools com... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The Input of tools component "
+			[ url ]="... string -- The url of tools component "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-tools&gt;
 		</code>
 
@@ -120,7 +130,7 @@
 			The storageOption of tools component
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of tools component<br>
 			<br>
@@ -135,13 +145,6 @@
 		<h2>Methods</h2>
 		<p>
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
-		</p>
-
-		<h3>[method:ToolsComponent constructor](  [param:LocalStorageService localStorageService] )</h3>
-		<p>
-			[page:LocalStorageService localStorageService] - The local storage service.<br /><br />
-
-			Creates an instance of tools component.
 		</p>
 
 		<h3>[method:AudioBuffer getAudio](  )<i class="modifier modifier-public">Public</i></h3>

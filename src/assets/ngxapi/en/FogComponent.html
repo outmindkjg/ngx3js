@@ -28,21 +28,27 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:FogComponent FogComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of fog component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-fog
-			[color]="..."
-			[debug]="..."
-			[density]="..."
-			[enabled]="..."
-			[far]="..."
-			[near]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[tween]="..."
-			[type]="..."
-			[userData]="..."
-			[windowExport]="..."
+			[ color ]="... ThreeColor -- Fog color.  Example: If set to... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ density ]="... number -- Defines how fast the fog will ... "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ far ]="... number -- The maximum distance at which ... "
+			[ near ]="... number -- The minimum distance to start ... "
+			( onDestory )="...($event : FogComponent -- Will be called when before des... )"
+			( onLoad )="...($event : FogComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The Fog type. "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-fog&gt;
 		</code>
 
@@ -56,25 +62,25 @@
 			Fog color.  Example: If set to black, far away objects will be rendered black.
 		</p>
 
-		<h3>[property:number density]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number density] &nbsp; = 0.00025 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Defines how fast the fog will grow dense.<br>
 			Default is 0.00025.
 		</p>
 
-		<h3>[property:number far]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number far] &nbsp; = 1000 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The maximum distance at which fog stops being calculated and applied. Objects that are more than 'far' units away from the active camera won't be affected by fog.<br>
 			Default is 1000.
 		</p>
 
-		<h3>[property:number near]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number near] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The minimum distance to start applying fog. Objects that are less than 'near' units from the active camera won't be affected by fog.<br>
 			Default is 1.
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'fog' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Fog type.<br>
 			<br>
@@ -87,15 +93,12 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:FogComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of fog component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes3d
 		</p>
 
@@ -107,9 +110,11 @@
 		</p>
 
 		<h3>[method:void setScene](  [param:Scene refScene] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Scene refScene] - The ref scene.<br /><br />
-
+			[parameter:Scene refScene] - The ref scene.
+		</p>
+		<p>
 			Sets scene
 		</p>
 

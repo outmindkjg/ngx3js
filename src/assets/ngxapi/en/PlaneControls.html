@@ -13,67 +13,72 @@
 			Plane controls
 		</p>
 
+		<h2>Constructor</h2>
+		<h3>new [method:PlaneControls PlaneControls](  [param:Camera camera],  [param:HTMLElement domElement] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Camera camera] - The camera.<br />
+			[parameter:HTMLElement domElement] - The dom element.
+		</p>
+		<p>
+			Creates an instance of plane controls.
+		</p>
+
 		<h2>Properties</h2>
-		<h3>[property:boolean enabled]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean enabled] &nbsp; = true <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Enabled of plane controls
 		</p>
 
-		<h3>[property:number panSpeed]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number panSpeed] &nbsp; = 0.5 <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Pan speed of plane controls
 		</p>
 
-		<h3>[property:number rotateSpeed]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number rotateSpeed] &nbsp; = 1.0 <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Rotate speed of plane controls
 		</p>
 
-		<h3>[property:any screen]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:any screen] &nbsp; = ... <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Screen of plane controls
 		</p>
 
-		<h3>[property:Vector3 target]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:Vector3 target] &nbsp; = ... <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Target of plane controls
 		</p>
 
-		<h3>[property:number xDistance]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number xDistance] &nbsp; = 2000 <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			X distance of plane controls
 		</p>
 
-		<h3>[property:number yDistance]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number yDistance] &nbsp; = 2000 <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Y distance of plane controls
 		</p>
 
-		<h3>[property:number zoomSpeed]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number zoomSpeed] &nbsp; = 1.2 <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Zoom speed of plane controls
 		</p>
 
 		<h2>Methods</h2>
-		<h3>[method:PlaneControls constructor](  [param:Camera camera],  [param:HTMLElement domElement] )</h3>
-		<p>
-			[page:Camera camera] - The camera.<br />
-			[page:HTMLElement domElement] - The dom element.<br /><br />
-
-			Creates an instance of plane controls.
-		</p>
-
 		<h3>[method:void dispose](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Disposes plane controls
 		</p>
 
 		<h3>[method:Vector2 getMouseOnScreen](  [param:Vector2 vector],  [param:number pageX],  [param:number pageY] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Vector2 vector] - The vector.<br />
-			[page:number pageX] - The page x.<br />
-			[page:number pageY] - The page y.<br /><br />
-
+			[parameter:Vector2 vector] - The vector.<br />
+			[parameter:number pageX] - The page x.<br />
+			[parameter:number pageY] - The page y.
+		</p>
+		<p>
 			Gets mouse on screen
 		</p>
 
@@ -83,16 +88,20 @@
 		</p>
 
 		<h3>[method:void setActive](  [param:boolean isActive] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:boolean isActive] - The is active.<br /><br />
-
+			[parameter:boolean isActive] - The is active.
+		</p>
+		<p>
 			Sets active
 		</p>
 
 		<h3>[method:void update](  [param:number delta] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number delta] - The delta.<br /><br />
-
+			[parameter:number delta] - The delta.
+		</p>
+		<p>
 			Updates plane controls
 		</p>
 

@@ -87,64 +87,70 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:ControlComponent ControlComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of control.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-control
-			[activeLook]="..."
-			[autoForward]="..."
-			[autoRotate]="..."
-			[autoRotateSpeed]="..."
-			[camera]="..."
-			[cascades]="..."
-			[constrainVertical]="..."
-			[dampingFactor]="..."
-			[debug]="..."
-			[dragToLook]="..."
-			[enableDamping]="..."
-			[enableKeys]="..."
-			[enablePan]="..."
-			[enableZoom]="..."
-			[enabled]="..."
-			[gizmoVisible]="..."
-			[heightCoef]="..."
-			[heightMax]="..."
-			[heightMin]="..."
-			[heightSpeed]="..."
-			[keys]="..."
-			[lightDirectionX]="..."
-			[lightDirectionY]="..."
-			[lightDirectionZ]="..."
-			[lookSpeed]="..."
-			[lookVertical]="..."
-			[maxDistance]="..."
-			[maxFar]="..."
-			[maxPolarAngle]="..."
-			[maxZoom]="..."
-			[minDistance]="..."
-			[minPolarAngle]="..."
-			[minZoom]="..."
-			[mode]="..."
-			[mouseDragOn]="..."
-			[movementSpeed]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[panSpeed]="..."
-			[rollSpeed]="..."
-			[rotateSpeed]="..."
-			[scene]="..."
-			[screenSpacePanning]="..."
-			[shadowMapSize]="..."
-			[staticMoving]="..."
-			[target]="..."
-			[tween]="..."
-			[type]="..."
-			[userData]="..."
-			[verticalMax]="..."
-			[verticalMin]="..."
-			[windowExport]="..."
-			[xDistance]="..."
-			[yDistance]="..."
-			[zoomSpeed]="..."
+			[ activeLook ]="... boolean -- The activeLook of control "
+			[ autoForward ]="... boolean -- The autoForward of control "
+			[ autoRotate ]="... boolean -- The autoRotate of control "
+			[ autoRotateSpeed ]="... number -- The autoRotateSpeed of control "
+			[ camera ]="... any -- The camera of control "
+			[ cascades ]="... number -- The cascades of control "
+			[ constrainVertical ]="... boolean -- The constrainVertical of contr... "
+			[ dampingFactor ]="... number -- The dampingFactor of control "
+			[ debug ]="... boolean -- Debug this Object "
+			[ dragToLook ]="... boolean -- The dragToLook of control "
+			[ enableDamping ]="... boolean -- The enableDamping of control "
+			[ enableKeys ]="... boolean -- The enableKeys of control "
+			[ enablePan ]="... boolean -- The enablePan of control "
+			[ enableZoom ]="... boolean -- The enableZoom of control "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ gizmoVisible ]="... boolean -- The gizmoVisible of control "
+			[ heightCoef ]="... number -- The heightCoef of control "
+			[ heightMax ]="... number -- The heightMax of control "
+			[ heightMin ]="... number -- The heightMin of control "
+			[ heightSpeed ]="... boolean -- The heightSpeed of control "
+			[ keys ]="... string[] -- The keys of control "
+			[ lightDirectionX ]="... number -- The lightDirectionX of control "
+			[ lightDirectionY ]="... number -- The lightDirectionY of control "
+			[ lightDirectionZ ]="... number -- The lightDirectionZ of control "
+			[ lookSpeed ]="... number -- The lookSpeed of control "
+			[ lookVertical ]="... boolean -- The lookVertical of control "
+			[ maxDistance ]="... number -- The maxDistance of control "
+			[ maxFar ]="... number -- The maxFar of control "
+			[ maxPolarAngle ]="... number -- The maxPolarAngle of control "
+			[ maxZoom ]="... number -- The maxZoom of control "
+			[ minDistance ]="... number -- The minDistance of control "
+			[ minPolarAngle ]="... number -- The minPolarAngle of control "
+			[ minZoom ]="... number -- The minZoom of control "
+			[ mode ]="... string -- The mode of control "
+			[ mouseDragOn ]="... boolean -- The mouseDragOn of control "
+			[ movementSpeed ]="... number -- The movementSpeed of control "
+			( onDestory )="...($event : ControlComponent -- Will be called when before des... )"
+			( onLoad )="...($event : ControlComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ panSpeed ]="... number -- The panSpeed of control "
+			[ rollSpeed ]="... number -- The rollSpeed of control "
+			[ rotateSpeed ]="... number -- The rotateSpeed of control "
+			[ scene ]="... any -- The scene of control "
+			[ screenSpacePanning ]="... boolean -- The screenSpacePanning of cont... "
+			[ shadowMapSize ]="... number -- The shadowMapSize of control "
+			[ staticMoving ]="... boolean -- The staticMoving of control "
+			[ target ]="... any -- The target of control "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The type of control "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ verticalMax ]="... number -- The verticalMax of control "
+			[ verticalMin ]="... number -- The verticalMin of control "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ xDistance ]="... number -- The xDistance of control "
+			[ yDistance ]="... number -- The yDistance of control "
+			[ zoomSpeed ]="... number -- The zoomSpeed of control "
 		&gt;&lt;/ngx3js-control&gt;
 		</code>
 
@@ -365,7 +371,7 @@
 			The target of control
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i></h3>
+		<h3>[property:string type] &nbsp; = 'orbit' <i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The type of control<br>
 			<br>
@@ -402,15 +408,12 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:ControlComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of control.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
@@ -422,25 +425,84 @@
 		</p>
 
 		<h3>[method:void render](  [param:RendererTimer renderTimer] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererTimer renderTimer] - The render timer.<br /><br />
-
+			[parameter:RendererTimer renderTimer] - The render timer.
+		</p>
+		<p>
 			Renders control component
 		</p>
 
 		<h3>[method:void setCameraDomElement](  [param:Camera camera],  [param:HTMLElement domElement],  [param:QueryList scenes],  [param:Renderer renderer],  [param:any renderCaller] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Camera camera] - The camera.<br />
-			[page:HTMLElement domElement] - The dom element.<br />
-			[page:QueryList scenes] - The scenes.<br />
-			[page:Renderer renderer] - The renderer.<br />
-			[page:any renderCaller] - The render caller.<br /><br />
-
+			[parameter:Camera camera] - The camera.<br />
+			[parameter:HTMLElement domElement] - The dom element.<br />
+			[parameter:QueryList scenes] - The scenes.<br />
+			[parameter:Renderer renderer] - The renderer.<br />
+			[parameter:any renderCaller] - The render caller.
+		</p>
+		<p>
 			Sets camera dom element
 		</p>
 
 		<hr class="interface-line"/>
-		<h1 id="ControlOptions">ControlOptions</h1>
+		<h3 id="ControlOptions">ControlOptions</h3>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean activeLook]? - The activeLook of control<br />			
+[property:boolean autoForward]? - The autoForward of control<br />			
+[property:boolean autoRotate]? - The autoRotate of control<br />			
+[property:number autoRotateSpeed]? - The autoRotateSpeed of control<br />			
+[property:any camera]? - The camera of control<br />			
+[property:number cascades]? - The cascades of control<br />			
+[property:boolean constrainVertical]? - The constrainVertical of control<br />			
+[property:number dampingFactor]? - The dampingFactor of control<br />			
+[property:boolean dragToLook]? - The dragToLook of control<br />			
+[property:boolean enableDamping]? - The enableDamping of control<br />			
+[property:boolean enableKeys]? - The enableKeys of control<br />			
+[property:boolean enablePan]? - The enablePan of control<br />			
+[property:boolean enableZoom]? - The enableZoom of control<br />			
+[property:number heightCoef]? - The heightCoef of control<br />			
+[property:number heightMax]? - The heightMax of control<br />			
+[property:number heightMin]? - The heightMin of control<br />			
+[property:boolean heightSpeed]? - The heightSpeed of control<br />			
+[property:number lightDirectionX]? - The lightDirectionX of control<br />			
+[property:number lightDirectionY]? - The lightDirectionY of control<br />			
+[property:number lightDirectionZ]? - The lightDirectionZ of control<br />			
+[property:number lookSpeed]? - The lookSpeed of control<br />			
+[property:boolean lookVertical]? - The lookVertical of control<br />			
+[property:QueryList lookatList]? - The lookat list of control<br />			
+[property:number maxDistance]? - The maxDistance of control<br />			
+[property:number maxFar]? - The maxFar of control<br />			
+[property:number maxPolarAngle]? - The maxPolarAngle of control<br />			
+[property:number maxZoom]? - The maxZoom of control<br />			
+[property:number minDistance]? - The minDistance of control<br />			
+[property:number minPolarAngle]? - The minPolarAngle of control<br />			
+[property:number minZoom]? - The minZoom of control<br />			
+[property:string mode]? - The mode of control<br>
+			<br>
+			Notice - case insensitive.<br />			
+[property:boolean mouseDragOn]? - The mouseDragOn of control<br />			
+[property:number movementSpeed]? - The movementSpeed of control<br />			
+[property:number panSpeed]? - The panSpeed of control<br />			
+[property:number rollSpeed]? - The rollSpeed of control in degree<br />			
+[property:number rotateSpeed]? - The rotateSpeed of control<br />			
+[property:any scene]? - The scene of control<br />			
+[property:boolean screenSpacePanning]? - The screenSpacePanning of control<br />			
+[property:number shadowMapSize]? - The shadowMapSize of control<br />			
+[property:boolean staticMoving]? - The staticMoving of control<br />			
+[property:any target]? - The target of control<br />			
+[property:string type]? - The type of control<br>
+			<br>
+			Notice - case insensitive.<br />			
+[property:number verticalMax]? - The verticalMax of control<br />			
+[property:number verticalMin]? - The verticalMin of control<br />			
+[property:number xDistance]? - The xDistance of control<br />			
+[property:number yDistance]? - The yDistance of control<br />			
+[property:number zoomSpeed]? - The zoomSpeed of control
+		</p>
+
 
 		<p class="desc">
 			Control options<br>
@@ -491,246 +553,6 @@
 			</code><br>
 			<br>
 			[example:ngx_control NGX Control]
-		</p>
-
-		<h2>Properties</h2>
-		<h3>[property:boolean activeLook]?</h3>
-		<p>
-			The activeLook of control
-		</p>
-
-		<h3>[property:boolean autoForward]?</h3>
-		<p>
-			The autoForward of control
-		</p>
-
-		<h3>[property:boolean autoRotate]?</h3>
-		<p>
-			The autoRotate of control
-		</p>
-
-		<h3>[property:number autoRotateSpeed]?</h3>
-		<p>
-			The autoRotateSpeed of control
-		</p>
-
-		<h3>[property:any camera]?</h3>
-		<p>
-			The camera of control
-		</p>
-
-		<h3>[property:number cascades]?</h3>
-		<p>
-			The cascades of control
-		</p>
-
-		<h3>[property:boolean constrainVertical]?</h3>
-		<p>
-			The constrainVertical of control
-		</p>
-
-		<h3>[property:number dampingFactor]?</h3>
-		<p>
-			The dampingFactor of control
-		</p>
-
-		<h3>[property:boolean dragToLook]?</h3>
-		<p>
-			The dragToLook of control
-		</p>
-
-		<h3>[property:boolean enableDamping]?</h3>
-		<p>
-			The enableDamping of control
-		</p>
-
-		<h3>[property:boolean enableKeys]?</h3>
-		<p>
-			The enableKeys of control
-		</p>
-
-		<h3>[property:boolean enablePan]?</h3>
-		<p>
-			The enablePan of control
-		</p>
-
-		<h3>[property:boolean enableZoom]?</h3>
-		<p>
-			The enableZoom of control
-		</p>
-
-		<h3>[property:number heightCoef]?</h3>
-		<p>
-			The heightCoef of control
-		</p>
-
-		<h3>[property:number heightMax]?</h3>
-		<p>
-			The heightMax of control
-		</p>
-
-		<h3>[property:number heightMin]?</h3>
-		<p>
-			The heightMin of control
-		</p>
-
-		<h3>[property:boolean heightSpeed]?</h3>
-		<p>
-			The heightSpeed of control
-		</p>
-
-		<h3>[property:number lightDirectionX]?</h3>
-		<p>
-			The lightDirectionX of control
-		</p>
-
-		<h3>[property:number lightDirectionY]?</h3>
-		<p>
-			The lightDirectionY of control
-		</p>
-
-		<h3>[property:number lightDirectionZ]?</h3>
-		<p>
-			The lightDirectionZ of control
-		</p>
-
-		<h3>[property:number lookSpeed]?</h3>
-		<p>
-			The lookSpeed of control
-		</p>
-
-		<h3>[property:boolean lookVertical]?</h3>
-		<p>
-			The lookVertical of control
-		</p>
-
-		<h3>[property:QueryList lookatList]?</h3>
-		<p>
-			The lookat list of control
-		</p>
-
-		<h3>[property:number maxDistance]?</h3>
-		<p>
-			The maxDistance of control
-		</p>
-
-		<h3>[property:number maxFar]?</h3>
-		<p>
-			The maxFar of control
-		</p>
-
-		<h3>[property:number maxPolarAngle]?</h3>
-		<p>
-			The maxPolarAngle of control
-		</p>
-
-		<h3>[property:number maxZoom]?</h3>
-		<p>
-			The maxZoom of control
-		</p>
-
-		<h3>[property:number minDistance]?</h3>
-		<p>
-			The minDistance of control
-		</p>
-
-		<h3>[property:number minPolarAngle]?</h3>
-		<p>
-			The minPolarAngle of control
-		</p>
-
-		<h3>[property:number minZoom]?</h3>
-		<p>
-			The minZoom of control
-		</p>
-
-		<h3>[property:string mode]?</h3>
-		<p>
-			The mode of control<br>
-			<br>
-			Notice - case insensitive.
-		</p>
-
-		<h3>[property:boolean mouseDragOn]?</h3>
-		<p>
-			The mouseDragOn of control
-		</p>
-
-		<h3>[property:number movementSpeed]?</h3>
-		<p>
-			The movementSpeed of control
-		</p>
-
-		<h3>[property:number panSpeed]?</h3>
-		<p>
-			The panSpeed of control
-		</p>
-
-		<h3>[property:number rollSpeed]?</h3>
-		<p>
-			The rollSpeed of control in degree
-		</p>
-
-		<h3>[property:number rotateSpeed]?</h3>
-		<p>
-			The rotateSpeed of control
-		</p>
-
-		<h3>[property:any scene]?</h3>
-		<p>
-			The scene of control
-		</p>
-
-		<h3>[property:boolean screenSpacePanning]?</h3>
-		<p>
-			The screenSpacePanning of control
-		</p>
-
-		<h3>[property:number shadowMapSize]?</h3>
-		<p>
-			The shadowMapSize of control
-		</p>
-
-		<h3>[property:boolean staticMoving]?</h3>
-		<p>
-			The staticMoving of control
-		</p>
-
-		<h3>[property:any target]?</h3>
-		<p>
-			The target of control
-		</p>
-
-		<h3>[property:string type]?</h3>
-		<p>
-			The type of control<br>
-			<br>
-			Notice - case insensitive.
-		</p>
-
-		<h3>[property:number verticalMax]?</h3>
-		<p>
-			The verticalMax of control
-		</p>
-
-		<h3>[property:number verticalMin]?</h3>
-		<p>
-			The verticalMin of control
-		</p>
-
-		<h3>[property:number xDistance]?</h3>
-		<p>
-			The xDistance of control
-		</p>
-
-		<h3>[property:number yDistance]?</h3>
-		<p>
-			The yDistance of control
-		</p>
-
-		<h3>[property:number zoomSpeed]?</h3>
-		<p>
-			The zoomSpeed of control
 		</p>
 
 		<h2>Source</h2>

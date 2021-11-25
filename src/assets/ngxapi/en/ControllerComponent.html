@@ -46,46 +46,52 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:ControllerComponent ControllerComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of controller component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-controller
-			[centerX]="..."
-			[centerY]="..."
-			[centerZ]="..."
-			[closed]="..."
-			[color]="..."
-			[controlComponent]="..."
-			[controlParams]="..."
-			[curve]="..."
-			[debug]="..."
-			[delta]="..."
-			[duration]="..."
-			[enabled]="..."
-			[eventSeqn]="..."
-			[material]="..."
-			[mstDuration]="..."
-			[multiply]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[opacity]="..."
-			[options]="..."
-			[overrideParams]="..."
-			[radius]="..."
-			[radiusX]="..."
-			[radiusY]="..."
-			[radiusZ]="..."
-			[rotationX]="..."
-			[rotationY]="..."
-			[rotationZ]="..."
-			[scale]="..."
-			[tubeRadius]="..."
-			[tubeRadiusSegments]="..."
-			[tubularSegments]="..."
-			[tween]="..."
-			[type]="..."
-			[useEvent]="..."
-			[userData]="..."
-			[visible]="..."
-			[windowExport]="..."
+			[ centerX ]="... number -- The centerX of controller comp... "
+			[ centerY ]="... number -- The centerY of controller comp... "
+			[ centerZ ]="... number -- The centerZ of controller comp... "
+			[ closed ]="... boolean -- The closed of controller compo... "
+			[ color ]="... ThreeColor -- The color of controller compon... "
+			[ controlComponent ]="... any"
+			[ controlParams ]="... any -- The controlParams of controlle... "
+			[ curve ]="... string -- The curve of controller compon... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ delta ]="... number -- The delta of controller compon... "
+			[ duration ]="... number -- The duration of controller com... "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ eventSeqn ]="... number -- The eventSeqn of controller co... "
+			[ material ]="... string -- The material of controller com... "
+			[ mstDuration ]="... number -- The mstDuration of controller ... "
+			[ multiply ]="... number -- The multiply of controller com... "
+			( onDestory )="...($event : ControllerComponent -- Will be called when before des... )"
+			( onLoad )="...($event : ControllerComponent -- Will be called when load compl... )"
+			[ opacity ]="... number -- The opacity of controller comp... "
+			[ options ]="... string -- The options of controller comp... "
+			[ overrideParams ]="... any -- The override params "
+			[ radius ]="... number -- The radius of controller compo... "
+			[ radiusX ]="... number -- The radiusX of controller comp... "
+			[ radiusY ]="... number -- The radiusY of controller comp... "
+			[ radiusZ ]="... number -- The radiusZ of controller comp... "
+			[ rotationX ]="... number -- The rotationX of controller co... "
+			[ rotationY ]="... number -- The rotationY of controller co... "
+			[ rotationZ ]="... number -- The rotationZ of controller co... "
+			[ scale ]="... number -- The scale of controller compon... "
+			[ tubeRadius ]="... number -- The tubeRadius of controller c... "
+			[ tubeRadiusSegments ]="... number -- The tubeRadiusSegments of cont... "
+			[ tubularSegments ]="... number -- The tubularSegments of control... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The type of controller compone... "
+			[ useEvent ]="... boolean -- The useEvent of controller com... "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ visible ]="... boolean -- The visible of controller comp... "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-controller&gt;
 		</code>
 
@@ -149,7 +155,7 @@
 			The duration of controller component
 		</p>
 
-		<h3>[property:number eventSeqn]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number eventSeqn] &nbsp; = 1000 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The eventSeqn of controller component
 		</p>
@@ -238,19 +244,19 @@
 			The tubularSegments of controller component
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'auto' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of controller component<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:boolean useEvent]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean useEvent] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The useEvent of controller component
 		</p>
 
-		<h3>[property:boolean visible]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean visible] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The visible of controller component
 		</p>
@@ -263,19 +269,16 @@
 			See the base [page:AbstractControllerComponent AbstractControllerComponent] class for common methods.
 		</p>
 
-		<h3>[method:ControllerComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of controller component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
-		<h3>[method:void getController](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:void getController](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			Gets controller
 		</p>
@@ -285,10 +288,12 @@
 			Refreshs ref object3d position
 		</p>
 
-		<h3>[method:void update](  [param:RendererTimer rendererTimer] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:void update](  [param:RendererTimer rendererTimer] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererTimer rendererTimer] - The renderer timer.<br /><br />
-
+			[parameter:RendererTimer rendererTimer] - The renderer timer.
+		</p>
+		<p>
 			Updates controller component
 		</p>
 

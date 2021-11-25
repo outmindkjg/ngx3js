@@ -17,39 +17,45 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:TransformComponent TransformComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of transform component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-transform
-			[anchorMaxX]="..."
-			[anchorMaxY]="..."
-			[anchorMinX]="..."
-			[anchorMinY]="..."
-			[anchorSeparat]="..."
-			[bottom]="..."
-			[debug]="..."
-			[enabled]="..."
-			[height]="..."
-			[left]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[pivotX]="..."
-			[pivotY]="..."
-			[right]="..."
-			[rotationX]="..."
-			[rotationY]="..."
-			[rotationZ]="..."
-			[scaleX]="..."
-			[scaleY]="..."
-			[scaleZ]="..."
-			[top]="..."
-			[tween]="..."
-			[userData]="..."
-			[visible]="..."
-			[width]="..."
-			[windowExport]="..."
-			[x]="..."
-			[y]="..."
-			[z]="..."
+			[ anchorMaxX ]="... number -- The anchorMaxX of transform co... "
+			[ anchorMaxY ]="... number -- The anchorMaxY of transform co... "
+			[ anchorMinX ]="... number -- The anchorMinX of transform co... "
+			[ anchorMinY ]="... number -- The anchorMinY of transform co... "
+			[ anchorSeparat ]="... boolean -- The anchorSeparat of transform... "
+			[ bottom ]="... number -- The bottom of transform compon... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ height ]="... number -- The height of transform compon... "
+			[ left ]="... number -- The left of transform componen... "
+			( onDestory )="...($event : TransformComponent -- Will be called when before des... )"
+			( onLoad )="...($event : TransformComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ pivotX ]="... number -- The pivotX of transform compon... "
+			[ pivotY ]="... number -- The pivotY of transform compon... "
+			[ right ]="... number -- The right of transform compone... "
+			[ rotationX ]="... number -- The rotationX of transform com... "
+			[ rotationY ]="... number -- The rotationY of transform com... "
+			[ rotationZ ]="... number -- The rotationZ of transform com... "
+			[ scaleX ]="... number -- The scaleX of transform compon... "
+			[ scaleY ]="... number -- The scaleY of transform compon... "
+			[ scaleZ ]="... number -- The scaleZ of transform compon... "
+			[ top ]="... number -- The top of transform component "
+			[ tween ]="... any -- Tween animation params "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ visible ]="... boolean -- The visible of transform compo... "
+			[ width ]="... number -- The width of transform compone... "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ x ]="... number -- The x of transform component "
+			[ y ]="... number -- The y of transform component "
+			[ z ]="... number -- The z of transform component "
 		&gt;&lt;/ngx3js-transform&gt;
 		</code>
 
@@ -78,7 +84,7 @@
 			The anchorMinY of transform component
 		</p>
 
-		<h3>[property:boolean anchorSeparat]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean anchorSeparat] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The anchorSeparat of transform component
 		</p>
@@ -148,7 +154,7 @@
 			The top of transform component
 		</p>
 
-		<h3>[property:boolean visible]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean visible] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The visible of transform component
 		</p>
@@ -178,11 +184,6 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:TransformComponent constructor](  )</h3>
-		<p>
-			Creates an instance of transform component.
-		</p>
-
 		<h3>[method:void applyHtmlStyle](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Applys html style
@@ -196,11 +197,13 @@
 		</p>
 
 		<h3>[method:void setParentNode](  [param:HTMLElement parentNode],  [param:Vector2 parentSize],  [param:Vector2 eleSize] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:HTMLElement parentNode] - The parent node.<br />
-			[page:Vector2 parentSize] - The parent size.<br />
-			[page:Vector2 eleSize] - The ele size.<br /><br />
-
+			[parameter:HTMLElement parentNode] - The parent node.<br />
+			[parameter:Vector2 parentSize] - The parent size.<br />
+			[parameter:Vector2 eleSize] - The ele size.
+		</p>
+		<p>
 			Sets parent node
 		</p>
 

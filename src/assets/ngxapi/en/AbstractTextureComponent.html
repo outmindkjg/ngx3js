@@ -33,12 +33,18 @@
 			[page:Texture Texture] - THREE.Texture
 		</p>
 
+		<h2>Constructor</h2>
+		<h3>new [method:AbstractTextureComponent AbstractTextureComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of abstract texture component.
+		</p>
+
 		<h2>Properties</h2>
 		<p>
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:string[] TEXTURE_ATTR]<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[property:string[] TEXTURE_ATTR] &nbsp; = [] <i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			The base attribute can be fine without re-make Texture
 		</p>
@@ -346,7 +352,7 @@
 			The Texture of abstract texture component
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'map' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Type of Texture of Matrial
 		</p>
@@ -449,42 +455,45 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:AbstractTextureComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of abstract texture component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
 		<h3>[method:void applyTexture2Material](  [param:Material material],  [param:string key],  [param:Texture texture] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Material material] - The material.<br />
-			[page:string key] - The key.<br />
-			[page:Texture texture] - The texture.<br /><br />
-
+			[parameter:Material material] - The material.<br />
+			[parameter:string key] - The key.<br />
+			[parameter:Texture texture] - The texture.
+		</p>
+		<p>
 			Applys texture2 material
 		</p>
 
 		<h3>[method:Vector2 getOffset](  [param:number defX],  [param:number defY] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number defX] - The def x.<br />
-			[page:number defY] - The def y.<br /><br />
-
+			[parameter:number defX] - The def x.<br />
+			[parameter:number defY] - The def y.
+		</p>
+		<p>
 			Gets offset<br>
 			<br>
 			Returns : offset
 		</p>
 
 		<h3>[method:Vector2 getRepeat](  [param:number defX],  [param:number defY] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number defX] - The def x.<br />
-			[page:number defY] - The def y.<br /><br />
-
+			[parameter:number defX] - The def x.<br />
+			[parameter:number defY] - The def y.
+		</p>
+		<p>
 			Gets repeat<br>
 			<br>
 			Returns : repeat
@@ -498,102 +507,124 @@
 		</p>
 
 		<h3>[method:Texture getTextureImage](  [param:string image],  [param:string[] cubeImage]?,  [param:string|CanvasFunctionType program]?,  [param:any onLoad]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string image] - The image.<br />
-			[page:string[] cubeImage] - (optional) The cube image.<br />
-			[page:string|CanvasFunctionType program] - (optional) The program.<br />
-			[page:any onLoad] - (optional) The on load.<br /><br />
-
+			[parameter:string image] - The image.<br />
+			[parameter:string[] cubeImage] - (optional) The cube image.<br />
+			[parameter:string|CanvasFunctionType program] - (optional) The program.<br />
+			[parameter:any onLoad] - (optional) The on load.
+		</p>
+		<p>
 			Gets texture image<br>
 			<br>
 			Returns : texture image
 		</p>
 
 		<h3>[method:void getTextureOptions](  [param:any options] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any options] - The options.<br /><br />
-
+			[parameter:any options] - The options.
+		</p>
+		<p>
 			Gets texture options<br>
 			<br>
 			Returns : texture options
 		</p>
 
 		<h3>[method:boolean isTexture](  [param:String type] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:String type] - The type.<br /><br />
-
+			[parameter:String type] - The type.
+		</p>
+		<p>
 			Determines whether texture is<br>
 			<br>
 			Returns : true if texture
 		</p>
 
 		<h3>[method:void setMaterial](  [param:AbstractSubscribeComponent material],  [param:string refType] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:AbstractSubscribeComponent material] - The material.<br />
-			[page:string refType] - The ref type.<br /><br />
-
+			[parameter:AbstractSubscribeComponent material] - The material.<br />
+			[parameter:string refType] - The ref type.
+		</p>
+		<p>
 			Sets material
 		</p>
 
 		<h3>[method:void setReferTexture](  [param:any texture] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any texture] - The texture.<br /><br />
-
+			[parameter:any texture] - The texture.
+		</p>
+		<p>
 			Sets refer texture
 		</p>
 
 		<h3>[method:void setTexture](  [param:Texture refTexture] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Texture refTexture] - The ref texture.<br /><br />
-
+			[parameter:Texture refTexture] - The ref texture.
+		</p>
+		<p>
 			Sets texture
 		</p>
 
 		<h3>[method:void setTextureLoaded](  [param:Texture texture] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Texture texture] - The texture.<br /><br />
-
+			[parameter:Texture texture] - The texture.
+		</p>
+		<p>
 			Sets texture loaded
 		</p>
 
 		<h3>[method:void unsetMaterial](  [param:AbstractSubscribeComponent material] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:AbstractSubscribeComponent material] - The material.<br /><br />
-
+			[parameter:AbstractSubscribeComponent material] - The material.
+		</p>
+		<p>
 			unSets object3d
 		</p>
 
 		<h3>[method:Texture getTextureImage](  [param:string image],  [param:string[] cubeImage]?,  [param:string|CanvasFunctionType program]?,  [param:any options]?,  [param:any onLoad]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string image] - The image.<br />
-			[page:string[] cubeImage] - (optional) The cube image.<br />
-			[page:string|CanvasFunctionType program] - (optional) The program.<br />
-			[page:any options] - (optional) The options.<br />
-			[page:any onLoad] - (optional) The on load.<br /><br />
-
+			[parameter:string image] - The image.<br />
+			[parameter:string[] cubeImage] - (optional) The cube image.<br />
+			[parameter:string|CanvasFunctionType program] - (optional) The program.<br />
+			[parameter:any options] - (optional) The options.<br />
+			[parameter:any onLoad] - (optional) The on load.
+		</p>
+		<p>
 			Gets texture image<br>
 			<br>
 			Returns : texture image
 		</p>
 
 		<h3>[method:Texture getTextureImageOption](  [param:any image],  [param:string optionsTxt]?,  [param:string loaderType]?,  [param:string[] cubeImage]?,  [param:any onLoad]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any image] - The image.<br />
-			[page:string optionsTxt] - (optional) The options txt.<br />
-			[page:string loaderType] - (optional) The loader type.<br />
-			[page:string[] cubeImage] - (optional) The cube image.<br />
-			[page:any onLoad] - (optional) The on load.<br /><br />
-
+			[parameter:any image] - The image.<br />
+			[parameter:string optionsTxt] - (optional) The options txt.<br />
+			[parameter:string loaderType] - (optional) The loader type.<br />
+			[parameter:string[] cubeImage] - (optional) The cube image.<br />
+			[parameter:any onLoad] - (optional) The on load.
+		</p>
+		<p>
 			Gets texture image option<br>
 			<br>
 			Returns : texture image option
 		</p>
 
 		<h3>[method:any setTextureOptions](  [param:any texture],  [param:any options] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any texture] - The texture.<br />
-			[page:any options] - The options.<br /><br />
-
+			[parameter:any texture] - The texture.<br />
+			[parameter:any options] - The options.
+		</p>
+		<p>
 			Sets texture options<br>
 			<br>
 			Returns : texture options

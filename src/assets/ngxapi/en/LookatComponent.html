@@ -30,21 +30,27 @@
 			[page:Object3D Object3D] - THREE.Object3D.lookAt
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:LookatComponent LookatComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of lookat component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-lookat
-			[debug]="..."
-			[enabled]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[refName]="..."
-			[refer]="..."
-			[tween]="..."
-			[userData]="..."
-			[windowExport]="..."
-			[x]="..."
-			[y]="..."
-			[z]="..."
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			( onDestory )="...($event : LookatComponent -- Will be called when before des... )"
+			( onLoad )="...($event : LookatComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ refName ]="... string -- The refName of rotation compon... "
+			[ refer ]="... any -- The refer of lookat component "
+			[ tween ]="... any -- Tween animation params "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ x ]="... number -- The current value of the x com... "
+			[ y ]="... number -- The current value of the y com... "
+			[ z ]="... number -- The current value of the z com... "
 		&gt;&lt;/ngx3js-lookat&gt;
 		</code>
 
@@ -63,17 +69,17 @@
 			The refer of lookat component
 		</p>
 
-		<h3>[property:number x]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number x] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The current value of the x component. Default value is *0*.
 		</p>
 
-		<h3>[property:number y]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number y] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The current value of the y component. Default value is *0*.
 		</p>
 
-		<h3>[property:number z]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number z] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The current value of the z component. Default value is *0*.
 		</p>
@@ -83,15 +89,12 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:LookatComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of lookat component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
@@ -103,42 +106,52 @@
 		</p>
 
 		<h3>[method:TagAttributes getTagAttribute](  [param:any options]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any options] - (optional) The options.<br /><br />
-
+			[parameter:any options] - (optional) The options.
+		</p>
+		<p>
 			Gets tag attribute<br>
 			<br>
 			Returns : tag attribute
 		</p>
 
 		<h3>[method:void setLookat](  [param:number x]?,  [param:number y]?,  [param:number z]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number x] - (optional) The x.<br />
-			[page:number y] - (optional) The y.<br />
-			[page:number z] - (optional) The z.<br /><br />
-
+			[parameter:number x] - (optional) The x.<br />
+			[parameter:number y] - (optional) The y.<br />
+			[parameter:number z] - (optional) The z.
+		</p>
+		<p>
 			Sets Lookat
 		</p>
 
 		<h3>[method:void setObject3d](  [param:AbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:AbstractSubscribeComponent object3d] - The object3d.<br /><br />
-
+			[parameter:AbstractSubscribeComponent object3d] - The object3d.
+		</p>
+		<p>
 			Sets object3d
 		</p>
 
 		<h3>[method:void synkObject3d](  [param:Vector3 lookat],  [param:string key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Vector3 lookat] - The lookat.<br />
-			[page:string key] - The key.<br /><br />
-
+			[parameter:Vector3 lookat] - The lookat.<br />
+			[parameter:string key] - The key.
+		</p>
+		<p>
 			Synks object3d
 		</p>
 
 		<h3>[method:void unsetObject3d](  [param:AbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:AbstractSubscribeComponent object3d] - The object3d.<br /><br />
-
+			[parameter:AbstractSubscribeComponent object3d] - The object3d.
+		</p>
+		<p>
 			unSets object3d
 		</p>
 

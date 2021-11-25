@@ -144,150 +144,162 @@
 			[page:Material Material] - THREE.Material
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:MaterialComponent MaterialComponent](  [param:LocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:LocalStorageService localStorageService] - The local storage service.
+		</p>
+		<p>
+			Creates an instance of material component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-material
-			[alphaMap]="..."
-			[alphaTest]="..."
-			[alphaToCoverage]="..."
-			[aoMap]="..."
-			[aoMapIntensity]="..."
-			[blendDst]="..."
-			[blendDstAlpha]="..."
-			[blendEquation]="..."
-			[blendEquationAlpha]="..."
-			[blendSrc]="..."
-			[blendSrcAlpha]="..."
-			[blending]="..."
-			[bumpMap]="..."
-			[bumpScale]="..."
-			[clearcoat]="..."
-			[clearcoatNormalMap]="..."
-			[clearcoatNormalScale]="..."
-			[clearcoatNormalScaleX]="..."
-			[clearcoatNormalScaleY]="..."
-			[clearcoatRoughness]="..."
-			[clipIntersection]="..."
-			[clipShadows]="..."
-			[clipping]="..."
-			[clippingPlanes]="..."
-			[color]="..."
-			[colorMultiply]="..."
-			[colorWrite]="..."
-			[combine]="..."
-			[control]="..."
-			[dashOffset]="..."
-			[dashScale]="..."
-			[dashSize]="..."
-			[dashed]="..."
-			[debug]="..."
-			[defines]="..."
-			[depthFunc]="..."
-			[depthPacking]="..."
-			[depthTest]="..."
-			[depthWrite]="..."
-			[diffuseColor]="..."
-			[diffuseColorMultiply]="..."
-			[diffuseMap]="..."
-			[displacementBias]="..."
-			[displacementMap]="..."
-			[displacementScale]="..."
-			[dithering]="..."
-			[emissive]="..."
-			[emissiveIntensity]="..."
-			[emissiveMultiply]="..."
-			[enabled]="..."
-			[envMap]="..."
-			[envMapIntensity]="..."
-			[environmentType]="..."
-			[extensions]="..."
-			[farDistance]="..."
-			[flatShading]="..."
-			[fog]="..."
-			[fragmentShader]="..."
-			[gapSize]="..."
-			[glslVersion]="..."
-			[lightMap]="..."
-			[lightMapIntensity]="..."
-			[lights]="..."
-			[linecap]="..."
-			[linejoin]="..."
-			[linewidth]="..."
-			[map]="..."
-			[matcap]="..."
-			[materialType]="..."
-			[metalness]="..."
-			[morphNormals]="..."
-			[morphTargets]="..."
-			[name]="..."
-			[nearDistance]="..."
-			[normalMap]="..."
-			[normalMapType]="..."
-			[normalScale]="..."
-			[normalScaleX]="..."
-			[normalScaleY]="..."
-			[onBeforeCompile]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[opacity]="..."
-			[overrideParams]="..."
-			[polygonOffset]="..."
-			[polygonOffsetFactor]="..."
-			[polygonOffsetUnits]="..."
-			[precision]="..."
-			[premultipliedAlpha]="..."
-			[refIndex]="..."
-			[refName]="..."
-			[refer]="..."
-			[referencePositionX]="..."
-			[referencePositionY]="..."
-			[referencePositionZ]="..."
-			[reflectivity]="..."
-			[reflector]="..."
-			[refractionRatio]="..."
-			[resolutionX]="..."
-			[resolutionY]="..."
-			[rotation]="..."
-			[roughness]="..."
-			[roughnessMap]="..."
-			[scale]="..."
-			[shader]="..."
-			[shadowSide]="..."
-			[sheen]="..."
-			[sheenMultiply]="..."
-			[shininess]="..."
-			[side]="..."
-			[size]="..."
-			[sizeAttenuation]="..."
-			[specular]="..."
-			[specularMap]="..."
-			[specularMultiply]="..."
-			[stencilFail]="..."
-			[stencilFunc]="..."
-			[stencilFuncMask]="..."
-			[stencilRef]="..."
-			[stencilWrite]="..."
-			[stencilWriteMask]="..."
-			[stencilZFail]="..."
-			[stencilZPass]="..."
-			[storageName]="..."
-			[storageOption]="..."
-			[thickness]="..."
-			[toneMapped]="..."
-			[transmission]="..."
-			[transparent]="..."
-			[tween]="..."
-			[type]="..."
-			[uniforms]="..."
-			[userData]="..."
-			[vertexColors]="..."
-			[vertexShader]="..."
-			[vertexTangents]="..."
-			[visible]="..."
-			[windowExport]="..."
-			[wireframe]="..."
-			[wireframeLinecap]="..."
-			[wireframeLinejoin]="..."
-			[wireframeLinewidth]="..."
+			[ alphaMap ]="... any -- The alpha map is a grayscale t... "
+			[ alphaTest ]="... number -- Sets the alpha value to be use... "
+			[ alphaToCoverage ]="... number -- Enables alpha to coverage. Can... "
+			[ aoMap ]="... any -- The red channel of this textur... "
+			[ aoMapIntensity ]="... number -- Intensity of the ambient occlu... "
+			[ blendDst ]="... string -- Which blending to use when dis... "
+			[ blendDstAlpha ]="... number -- The transparency of the [page:... "
+			[ blendEquation ]="... string -- Blending equation to use when ... "
+			[ blendEquationAlpha ]="... number -- The transparency of the [page:... "
+			[ blendSrc ]="... string -- Blending source. Default is [p... "
+			[ blendSrcAlpha ]="... number -- The transparency of the [page:... "
+			[ blending ]="... string -- Which blending to use when dis... "
+			[ bumpMap ]="... any -- The texture to create a bump m... "
+			[ bumpScale ]="... number -- How much the bump map affects ... "
+			[ clearcoat ]="... number -- Represents the intensity of th... "
+			[ clearcoatNormalMap ]="... any -- Can be used to enable independ... "
+			[ clearcoatNormalScale ]="... number -- How much [page:.clearcoatNorma... "
+			[ clearcoatNormalScaleX ]="... number -- How much [page:.clearcoatNorma... "
+			[ clearcoatNormalScaleY ]="... number -- How much [page:.clearcoatNorma... "
+			[ clearcoatRoughness ]="... number -- Roughness of the clear coat la... "
+			[ clipIntersection ]="... boolean -- Changes the behavior of clippi... "
+			[ clipShadows ]="... boolean -- Defines whether to clip shadow... "
+			[ clipping ]="... boolean -- Defines whether this material ... "
+			[ clippingPlanes ]="... PlaneComponent[]|Plane[] -- User-defined clipping planes s... "
+			[ color ]="... ThreeColor -- Color of the material, by defa... "
+			[ colorMultiply ]="... number -- Color of the material multiply... "
+			[ colorWrite ]="... boolean -- Whether to render the material... "
+			[ combine ]="... string -- How to combine the result of t... "
+			[ control ]="... any -- The control of abstract materi... "
+			[ dashOffset ]="... number -- The dashOffset of material com... "
+			[ dashScale ]="... number -- The dashScale of material comp... "
+			[ dashSize ]="... number -- The size of the dash. This is ... "
+			[ dashed ]="... boolean -- The dashed of material compone... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ defines ]="... any -- Custom defines to be injected ... "
+			[ depthFunc ]="... string -- Which depth function to use. D... "
+			[ depthPacking ]="... string -- Encoding for depth packing. De... "
+			[ depthTest ]="... boolean -- Whether to have depth test ena... "
+			[ depthWrite ]="... boolean -- Whether rendering this materia... "
+			[ diffuseColor ]="... ThreeColor -- Color of the material, by defa... "
+			[ diffuseColorMultiply ]="... number -- Color of the material multiply... "
+			[ diffuseMap ]="... any -- The red channel of this textur... "
+			[ displacementBias ]="... number -- The offset of the displacement... "
+			[ displacementMap ]="... any -- The displacement map affects t... "
+			[ displacementScale ]="... number -- How much the displacement map ... "
+			[ dithering ]="... boolean -- Whether to apply dithering to ... "
+			[ emissive ]="... ThreeColor -- Emissive (light) color of the ... "
+			[ emissiveIntensity ]="... number -- Intensity of the emissive ligh... "
+			[ emissiveMultiply ]="... number -- Emissive (light) color multipl... "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ envMap ]="... any -- The environment map. Default i... "
+			[ envMapIntensity ]="... number -- Scales the effect of the envir... "
+			[ environmentType ]="... string -- The environmentType of materia... "
+			[ extensions ]="... string -- An object with the following p... "
+			[ farDistance ]="... number -- Encoding for depth packing. De... "
+			[ flatShading ]="... boolean -- Define whether the material is... "
+			[ fog ]="... boolean -- Whether the material is affect... "
+			[ fragmentShader ]="... string -- Fragment shader GLSL code.  Th... "
+			[ gapSize ]="... number -- The size of the gap. Default i... "
+			[ glslVersion ]="... string -- Defines the GLSL version of cu... "
+			[ lightMap ]="... any -- The light map. Default is null... "
+			[ lightMapIntensity ]="... number -- Intensity of the baked light. ... "
+			[ lights ]="... boolean -- Defines whether this material ... "
+			[ linecap ]="... string -- Define appearance of line ends... "
+			[ linejoin ]="... string -- Define appearance of line join... "
+			[ linewidth ]="... number -- Controls line thickness. Defau... "
+			[ map ]="... any -- The color map. Default is  nul... "
+			[ matcap ]="... any -- The matcap map. Default is nul... "
+			[ materialType ]="... string -- The Material type. can be mate... "
+			[ metalness ]="... number -- How much the material is like ... "
+			[ morphNormals ]="... boolean -- Defines whether the material u... "
+			[ morphTargets ]="... boolean -- Define whether the material us... "
+			[ name ]="... string -- The name of the object (doesn'... "
+			[ nearDistance ]="... number -- The near value of the point li... "
+			[ normalMap ]="... any -- The texture to create a normal... "
+			[ normalMapType ]="... string -- The type of normal map.
+Option... "
+			[ normalScale ]="... number -- How much the normal map affect... "
+			[ normalScaleX ]="... number -- How much the normal map affect... "
+			[ normalScaleY ]="... number -- How much the normal map affect... "
+			[ onBeforeCompile ]="... any"
+			( onDestory )="...($event : MaterialComponent -- Will be called when before des... )"
+			( onLoad )="...($event : MaterialComponent -- Will be called when load compl... )"
+			[ opacity ]="... number -- Float in the range of *0.0* - ... "
+			[ overrideParams ]="... any -- The override params "
+			[ polygonOffset ]="... boolean -- Whether to use polygon offset.... "
+			[ polygonOffsetFactor ]="... number -- Sets the polygon offset factor... "
+			[ polygonOffsetUnits ]="... number -- Sets the polygon offset units.... "
+			[ precision ]="... string -- Override the renderer's defaul... "
+			[ premultipliedAlpha ]="... boolean -- Whether to premultiply the alp... "
+			[ refIndex ]="... number -- The refIndex of material compo... "
+			[ refName ]="... string|string[] -- The refName of material compon... "
+			[ refer ]="... any -- The refer Material. When this ... "
+			[ referencePositionX ]="... number -- The position of the point ligh... "
+			[ referencePositionY ]="... number -- The position of the point ligh... "
+			[ referencePositionZ ]="... number -- The position of the point ligh... "
+			[ reflectivity ]="... number -- How much the environment map a... "
+			[ reflector ]="... any -- The reflector of material comp... "
+			[ refractionRatio ]="... number -- The index of refraction (IOR) ... "
+			[ resolutionX ]="... number -- The resolutionX of material co... "
+			[ resolutionY ]="... number -- The resolutionY of material co... "
+			[ rotation ]="... number -- The rotation of the sprite in ... "
+			[ roughness ]="... number -- How rough the material appears... "
+			[ roughnessMap ]="... any -- The green channel of this text... "
+			[ scale ]="... number -- The scale of the dashed part o... "
+			[ shader ]="... string|ShaderType -- The shader type "
+			[ shadowSide ]="... string -- Defines which side of faces ca... "
+			[ sheen ]="... ThreeColor -- If a color is assigned to this... "
+			[ sheenMultiply ]="... number -- The sheenMultiply of material ... "
+			[ shininess ]="... number -- How shiny the [page:.specular]... "
+			[ side ]="... string -- Defines which side of faces wi... "
+			[ size ]="... number -- Sets the size of the points. D... "
+			[ sizeAttenuation ]="... boolean -- Specify whether points' size i... "
+			[ specular ]="... ThreeColor -- Specular color of the material... "
+			[ specularMap ]="... any -- Specular map used by the mater... "
+			[ specularMultiply ]="... number -- The specularMultiply of materi... "
+			[ stencilFail ]="... string -- Which stencil operation to per... "
+			[ stencilFunc ]="... string -- The stencil comparison functio... "
+			[ stencilFuncMask ]="... number -- The bit mask to use when compa... "
+			[ stencilRef ]="... number -- The value to use when performi... "
+			[ stencilWrite ]="... boolean -- Whether stencil operations are... "
+			[ stencilWriteMask ]="... number -- The bit mask to use when writi... "
+			[ stencilZFail ]="... string -- Which stencil operation to per... "
+			[ stencilZPass ]="... string -- Which stencil operation to per... "
+			[ storageName ]="... string -- The storage name to restore. "
+			[ storageOption ]="... any -- The storage options when resto... "
+			[ thickness ]="... number -- How much the material is like ... "
+			[ toneMapped ]="... boolean -- Defines whether this material ... "
+			[ transmission ]="... number -- Degree of transmission (or opt... "
+			[ transparent ]="... boolean -- Defines whether this material ... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The type if matrial. "
+			[ uniforms ]="... ThreeUniforms -- An object of the form:
+```json... "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ vertexColors ]="... boolean -- Defines whether vertex colorin... "
+			[ vertexShader ]="... string -- Vertex shader GLSL code.  This... "
+			[ vertexTangents ]="... boolean -- Defines whether precomputed ve... "
+			[ visible ]="... boolean -- Defines whether this material ... "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ wireframe ]="... boolean -- Render geometry as wireframe. ... "
+			[ wireframeLinecap ]="... string -- Define appearance of line ends... "
+			[ wireframeLinejoin ]="... string -- Define appearance of line join... "
+			[ wireframeLinewidth ]="... number -- Controls wireframe thickness. ... "
 		&gt;&lt;/ngx3js-material&gt;
 		</code>
 
@@ -470,7 +482,7 @@
 			Scales the effect of the environment map by multiplying its color.
 		</p>
 
-		<h3>[property:string environmentType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string environmentType] &nbsp; = 'mirror' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The environmentType of material component
 		</p>
@@ -754,7 +766,7 @@
 			When transmission is non-zero, [page:Material.opacity opacity] should be set to *1*.
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'lambert' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type if matrial.<br>
 			<br>
@@ -838,21 +850,16 @@
 			See the base [page:AbstractMaterialComponent AbstractMaterialComponent] class for common methods.
 		</p>
 
-		<h3>[method:MaterialComponent constructor](  [param:LocalStorageService localStorageService] )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:LocalStorageService localStorageService] - The local storage service.<br /><br />
-
-			Creates an instance of material component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Apply changes to material
 		</p>
 
-		<h3>[method:T getMaterial](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:T getMaterial](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			Gets material<br>
 			<br>
@@ -860,18 +867,22 @@
 		</p>
 
 		<h3>[method:Texture getTexture](  [param:string type] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string type] - The type.<br /><br />
-
+			[parameter:string type] - The type.
+		</p>
+		<p>
 			Gets texture<br>
 			<br>
 			Returns : texture
 		</p>
 
 		<h3>[method:void updateNode](  [param:any delta] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any delta] - The delta.<br /><br />
-
+			[parameter:any delta] - The delta.
+		</p>
+		<p>
 			Updates node
 		</p>
 

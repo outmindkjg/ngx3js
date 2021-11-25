@@ -43,63 +43,74 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:SvgComponent SvgComponent](  [param:ElementRef ele],  [param:LocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ElementRef ele] - The ele.<br />
+			[parameter:LocalStorageService localStorageService] - The local storage service.
+		</p>
+		<p>
+			Creates an instance of svg component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-svg
-			[align]="..."
-			[bevelEnabled]="..."
-			[bevelOffset]="..."
-			[bevelSegments]="..."
-			[bevelSize]="..."
-			[bevelThickness]="..."
-			[castShadow]="..."
-			[center]="..."
-			[closed]="..."
-			[color]="..."
-			[computeVertexNormals]="..."
-			[curvePath]="..."
-			[curvePathType]="..."
-			[curveSegments]="..."
-			[curveType]="..."
-			[debug]="..."
-			[depth]="..."
-			[enabled]="..."
-			[extrudePath]="..."
-			[extrudePathType]="..."
-			[font]="..."
-			[frustumCulled]="..."
-			[geometry]="..."
-			[geometryType]="..."
-			[isCCW]="..."
-			[material]="..."
-			[materialIsArray]="..."
-			[matrixAutoUpdate]="..."
-			[name]="..."
-			[noHoles]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[opacity]="..."
-			[overrideParams]="..."
-			[path]="..."
-			[receiveShadow]="..."
-			[shininess]="..."
-			[size]="..."
-			[steps]="..."
-			[stroke]="..."
-			[tension]="..."
-			[text]="..."
-			[textAlign]="..."
-			[translation]="..."
-			[transparent]="..."
-			[tween]="..."
-			[tweenStart]="..."
-			[type]="..."
-			[uVGenerator]="..."
-			[url]="..."
-			[userData]="..."
-			[visible]="..."
-			[weight]="..."
-			[windowExport]="..."
-			[wireframe]="..."
+			[ align ]="... string -- The align of svg component "
+			[ bevelEnabled ]="... boolean -- The bevelEnabled of svg compon... "
+			[ bevelOffset ]="... number -- The bevelOffset of svg compone... "
+			[ bevelSegments ]="... number -- The bevelSegments of svg compo... "
+			[ bevelSize ]="... number -- The bevelSize of svg component "
+			[ bevelThickness ]="... number -- The bevelThickness of svg comp... "
+			[ castShadow ]="... boolean -- Whether the object gets render... "
+			[ center ]="... boolean -- The center of svg component "
+			[ closed ]="... boolean -- The closed of svg component "
+			[ color ]="... string|number -- The color of svg component "
+			[ computeVertexNormals ]="... boolean -- The computeVertexNormals of sv... "
+			[ curvePath ]="... ThreeVector[] -- The curvePath of svg component "
+			[ curvePathType ]="... string -- The curvePathType of svg compo... "
+			[ curveSegments ]="... number -- The curveSegments of svg compo... "
+			[ curveType ]="... string -- The curveType of svg component "
+			[ debug ]="... boolean -- Debug this Object "
+			[ depth ]="... number -- The depth of svg component "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ extrudePath ]="... ThreeVector[] -- The extrudePath of svg compone... "
+			[ extrudePathType ]="... string -- The extrudePathType of svg com... "
+			[ font ]="... string -- The font of svg component "
+			[ frustumCulled ]="... boolean -- When this is set, it checks ev... "
+			[ geometry ]="... any -- The geometry of mesh "
+			[ geometryType ]="... string -- The geometryType of svg compon... "
+			[ isCCW ]="... boolean -- The isCCW of svg component "
+			[ material ]="... AbstractMaterialComponent|Material -- The material of mesh "
+			[ materialIsArray ]="... boolean -- The material of mesh is array "
+			[ matrixAutoUpdate ]="... boolean -- When this is set, it calculate... "
+			[ name ]="... string -- The name of the object (doesn'... "
+			[ noHoles ]="... boolean -- The noHoles of svg component "
+			( onDestory )="...($event : SvgComponent -- Will be called when before des... )"
+			( onLoad )="...($event : SvgComponent -- Will be called when load compl... )"
+			[ opacity ]="... number -- The opacity of svg component "
+			[ overrideParams ]="... any -- The override params "
+			[ path ]="... string -- The path of svg component "
+			[ receiveShadow ]="... boolean -- Whether the material receives ... "
+			[ shininess ]="... number -- The shininess of svg component "
+			[ size ]="... number -- The size of svg component "
+			[ steps ]="... number -- The steps of svg component "
+			[ stroke ]="... number -- The stroke of svg component "
+			[ tension ]="... number -- The tension of svg component "
+			[ text ]="... string -- The text of svg component "
+			[ textAlign ]="... string -- The textAlign of svg component "
+			[ translation ]="... TranslationComponent -- The translation of svg compone... "
+			[ transparent ]="... boolean -- The transparent of svg compone... "
+			[ tween ]="... any -- Tween animation params "
+			[ tweenStart ]="... boolean -- Start tween "
+			[ type ]="... string -- The type of svg component "
+			[ uVGenerator ]="... string -- The uVGenerator of svg compone... "
+			[ url ]="... string -- The url of svg component "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ visible ]="... boolean -- Object gets rendered if *true*... "
+			[ weight ]="... string -- The weight of svg component "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ wireframe ]="... boolean -- The wireframe of svg component "
 		&gt;&lt;/ngx3js-svg&gt;
 		</code>
 
@@ -146,7 +157,7 @@
 			The bevelThickness of svg component
 		</p>
 
-		<h3>[property:boolean center]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean center] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The center of svg component
 		</p>
@@ -161,7 +172,7 @@
 			The color of svg component
 		</p>
 
-		<h3>[property:boolean computeVertexNormals]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean computeVertexNormals] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The computeVertexNormals of svg component
 		</p>
@@ -212,7 +223,7 @@
 			The font of svg component
 		</p>
 
-		<h3>[property:string geometryType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string geometryType] &nbsp; = 'shape' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The geometryType of svg component<br>
 			<br>
@@ -291,7 +302,7 @@
 			The transparent of svg component
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'mesh' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of svg component<br>
 			<br>
@@ -333,50 +344,52 @@
 			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
 		</p>
 
-		<h3>[method:SvgComponent constructor](  [param:ElementRef ele],  [param:LocalStorageService localStorageService] )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:ElementRef ele] - The ele.<br />
-			[page:LocalStorageService localStorageService] - The local storage service.<br /><br />
-
-			Creates an instance of svg component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
 		<h3>[method:BufferGeometry applyTextAlign](  [param:BufferGeometry geometry],  [param:Sphere boundingSphere],  [param:string def] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:BufferGeometry geometry] - The geometry.<br />
-			[page:Sphere boundingSphere] - The bounding sphere.<br />
-			[page:string def] - The def.<br /><br />
-
+			[parameter:BufferGeometry geometry] - The geometry.<br />
+			[parameter:Sphere boundingSphere] - The bounding sphere.<br />
+			[parameter:string def] - The def.
+		</p>
+		<p>
 			Applys text align<br>
 			<br>
 			Returns : text align
 		</p>
 
 		<h3>[method:void getPaths](  [param:any onload] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any onload] - The onload.<br /><br />
-
+			[parameter:any onload] - The onload.
+		</p>
+		<p>
 			Gets paths
 		</p>
 
 		<h3>[method:void getSVGResult](  [param:any onload] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any onload] - The onload.<br /><br />
-
+			[parameter:any onload] - The onload.
+		</p>
+		<p>
 			Gets svgresult
 		</p>
 
 		<h3>[method:void getShapes](  [param:any onload] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any onload] - The onload.<br /><br />
-
+			[parameter:any onload] - The onload.
+		</p>
+		<p>
 			Gets shapes
 		</p>
 
@@ -385,25 +398,28 @@
 			Resets meshes
 		</p>
 
-		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Object3D parent] - The parent.<br /><br />
-
+			[parameter:Object3D parent] - The parent.
+		</p>
+		<p>
 			Sets parent<br>
 			<br>
 			Returns : true if parent
 		</p>
 
 		<hr class="interface-line"/>
-		<h1 id="SvgGeometry">SvgGeometry</h1>
+		<h3 id="SvgGeometry">SvgGeometry</h3>
+		<h4>Properties</h4>
+		<p>
+			[property:BufferGeometry geometry] -  The geometry.<br />			
+[property:any style]? -  The style.
+		</p>
+
 
 		<p class="desc">
 			Svg geometry
-		</p>
-
-		<h2>Properties</h2>
-		<p>
-			None
 		</p>
 
 		<h2>Source</h2>

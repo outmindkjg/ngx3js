@@ -73,6 +73,32 @@
 		margin-bottom: -8px;
 	}
 
+	h4 {
+		font-size: 15px;
+		line-height: 20px;
+		font-weight: normal;
+		margin-top: 20px;
+		margin-bottom: -8px;
+	}
+	h1+p,
+	h1+p+p,
+	h1+p+p+p,
+	h2+p,
+	h2+p+p,
+	h2+p+p+p,
+	h3+p,
+	h3+p+p,
+	h3+p+p+p,
+	h4+p,
+	h4+p+p,
+	h4+p+p+p{
+		margin-left : 20px;
+		a.param {
+			display: inline-block;
+			margin-top : 0.5em;
+		}
+	}
+
 	p,
 	div,
 	table,

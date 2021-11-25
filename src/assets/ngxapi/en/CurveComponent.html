@@ -27,30 +27,36 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:CurveComponent CurveComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of curve component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-curve
-			[aClockwise]="..."
-			[aEndAngle]="..."
-			[aRadius]="..."
-			[aRotation]="..."
-			[aStartAngle]="..."
-			[aX]="..."
-			[aY]="..."
-			[closed]="..."
-			[curveType]="..."
-			[debug]="..."
-			[enabled]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[points]="..."
-			[tension]="..."
-			[tween]="..."
-			[type]="..."
-			[userData]="..."
-			[windowExport]="..."
-			[xRadius]="..."
-			[yRadius]="..."
+			[ aClockwise ]="... boolean -- Whether the ellipse is drawn c... "
+			[ aEndAngle ]="... number -- The end angle of the curve in ... "
+			[ aRadius ]="... number -- The aRadius of curve component "
+			[ aRotation ]="... number -- The rotation angle of the elli... "
+			[ aStartAngle ]="... number -- The start angle of the curve i... "
+			[ aX ]="... number -- The X center of the ellipse. D... "
+			[ aY ]="... number -- The Y center of the ellipse. D... "
+			[ closed ]="... boolean -- Whether the curve is closed. D... "
+			[ curveType ]="... string -- Possible values are *centripet... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			( onDestory )="...($event : CurveComponent -- Will be called when before des... )"
+			( onLoad )="...($event : CurveComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ points ]="... ThreeVector[] -- array of [page:Vector2 Vector2... "
+			[ tension ]="... number -- When [page:.curveType] is *cat... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The curve type "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ xRadius ]="... number -- The radius of the ellipse in t... "
+			[ yRadius ]="... number -- The radius of the ellipse in t... "
 		&gt;&lt;/ngx3js-curve&gt;
 		</code>
 
@@ -118,7 +124,7 @@
 			When [page:.curveType] is *catmullrom*, defines catmullrom's tension.
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'spline' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The curve type<br>
 			<br>
@@ -152,15 +158,12 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:CurveComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of curve component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 

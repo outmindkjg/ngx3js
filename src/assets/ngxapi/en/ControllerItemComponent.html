@@ -37,59 +37,65 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:ControllerItemComponent ControllerItemComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of controller item component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-controller-item
-			[center]="..."
-			[centerX]="..."
-			[centerY]="..."
-			[centerZ]="..."
-			[closed]="..."
-			[color]="..."
-			[colorType]="..."
-			[curve]="..."
-			[debug]="..."
-			[delta]="..."
-			[duration]="..."
-			[enabled]="..."
-			[lookathead]="..."
-			[material]="..."
-			[maxValue]="..."
-			[minValue]="..."
-			[multiply]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[opacity]="..."
-			[options]="..."
-			[overrideParams]="..."
-			[radius]="..."
-			[radiusInner]="..."
-			[radiusX]="..."
-			[radiusY]="..."
-			[radiusZ]="..."
-			[rate]="..."
-			[rateX]="..."
-			[rateY]="..."
-			[rateZ]="..."
-			[refRate]="..."
-			[refValue]="..."
-			[rotation]="..."
-			[rotationX]="..."
-			[rotationY]="..."
-			[rotationZ]="..."
-			[scale]="..."
-			[tubeRadius]="..."
-			[tubeRadiusSegments]="..."
-			[tubularSegments]="..."
-			[tween]="..."
-			[type]="..."
-			[uniform]="..."
-			[userData]="..."
-			[valueType]="..."
-			[visible]="..."
-			[wave]="..."
-			[waveH]="..."
-			[waveR]="..."
-			[windowExport]="..."
+			[ center ]="... number -- The center of controller item ... "
+			[ centerX ]="... number -- The centerX of controller item... "
+			[ centerY ]="... number -- The centerY of controller item... "
+			[ centerZ ]="... number -- The centerZ of controller item... "
+			[ closed ]="... boolean -- The closed of controller item ... "
+			[ color ]="... ThreeColor -- The color of controller item c... "
+			[ colorType ]="... string -- The Input of controller item c... "
+			[ curve ]="... string -- The curve of controller item c... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ delta ]="... number -- The delta of controller item c... "
+			[ duration ]="... number -- The duration of controller ite... "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ lookathead ]="... number -- The lookathead of controller i... "
+			[ material ]="... string -- The material of controller ite... "
+			[ maxValue ]="... number -- The maxValue of controller ite... "
+			[ minValue ]="... number -- The minValue of controller ite... "
+			[ multiply ]="... number -- The multiply of controller ite... "
+			( onDestory )="...($event : ControllerItemComponent -- Will be called when before des... )"
+			( onLoad )="...($event : ControllerItemComponent -- Will be called when load compl... )"
+			[ opacity ]="... number -- The opacity of controller item... "
+			[ options ]="... string -- The Input of controller item c... "
+			[ overrideParams ]="... any -- The override params "
+			[ radius ]="... number -- The radius of controller item ... "
+			[ radiusInner ]="... number -- The radiusInner of controller ... "
+			[ radiusX ]="... number -- The radiusX of controller item... "
+			[ radiusY ]="... number -- The radiusY of controller item... "
+			[ radiusZ ]="... number -- The radiusZ of controller item... "
+			[ rate ]="... number -- The rate of controller item co... "
+			[ rateX ]="... number -- The rateX of controller item c... "
+			[ rateY ]="... number -- The rateY of controller item c... "
+			[ rateZ ]="... number -- The rateZ of controller item c... "
+			[ refRate ]="... any -- The refRate of controller item... "
+			[ refValue ]="... any -- The refValue of controller ite... "
+			[ rotation ]="... number -- The rotation of controller ite... "
+			[ rotationX ]="... number -- The rotationX of controller it... "
+			[ rotationY ]="... number -- The rotationY of controller it... "
+			[ rotationZ ]="... number -- The rotationZ of controller it... "
+			[ scale ]="... number -- The scale of controller item c... "
+			[ tubeRadius ]="... number -- The tubeRadius of controller i... "
+			[ tubeRadiusSegments ]="... number -- The tubeRadiusSegments of cont... "
+			[ tubularSegments ]="... number -- The tubularSegments of control... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The type of controller item co... "
+			[ uniform ]="... string -- The uniform of controller item... "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ valueType ]="... string -- The Input of controller item c... "
+			[ visible ]="... boolean -- The visible of controller item... "
+			[ wave ]="... number -- The wave of controller item co... "
+			[ waveH ]="... number -- The waveH of controller item c... "
+			[ waveR ]="... number -- The waveR of controller item c... "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-controller-item&gt;
 		</code>
 
@@ -128,7 +134,7 @@
 			The color of controller item component
 		</p>
 
-		<h3>[property:string colorType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string colorType] &nbsp; = 'rgb' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of controller item component<br>
 			<br>
@@ -147,7 +153,7 @@
 			The delta of controller item component
 		</p>
 
-		<h3>[property:number duration]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number duration] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The duration of controller item component
 		</p>
@@ -162,12 +168,12 @@
 			The material of controller item component
 		</p>
 
-		<h3>[property:number maxValue]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number maxValue] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The maxValue of controller item component
 		</p>
 
-		<h3>[property:number minValue]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number minValue] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The minValue of controller item component
 		</p>
@@ -214,7 +220,7 @@
 			The radiusZ of controller item component
 		</p>
 
-		<h3>[property:number rate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number rate] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The rate of controller item component
 		</p>
@@ -284,7 +290,7 @@
 			The tubularSegments of controller item component
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'position' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of controller item component
 		</p>
@@ -294,7 +300,7 @@
 			The uniform of controller item component
 		</p>
 
-		<h3>[property:string valueType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string valueType] &nbsp; = 'auto' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of controller item component<br>
 			<br>
@@ -306,17 +312,17 @@
 			The visible of controller item component
 		</p>
 
-		<h3>[property:number wave]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number wave] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The wave of controller item component
 		</p>
 
-		<h3>[property:number waveH]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number waveH] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The waveH of controller item component
 		</p>
 
-		<h3>[property:number waveR]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number waveR] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The waveR of controller item component
 		</p>
@@ -326,61 +332,73 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:ControllerItemComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of controller item component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
 		<h3>[method:ControllerItemComponent getController](  [param:ControlObjectItem controlItem],  [param:Object3D parent] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:ControlObjectItem controlItem] - The control item.<br />
-			[page:Object3D parent] - The parent.<br /><br />
-
+			[parameter:ControlObjectItem controlItem] - The control item.<br />
+			[parameter:Object3D parent] - The parent.
+		</p>
+		<p>
 			Gets controller<br>
 			<br>
 			Returns : controller
 		</p>
 
-		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			Gets object
 		</p>
 
 		<h3>[method:boolean update](  [param:RendererTimer timer],  [param:string[] events] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererTimer timer] - The timer.<br />
-			[page:string[] events] - The events.<br /><br />
-
+			[parameter:RendererTimer timer] - The timer.<br />
+			[parameter:string[] events] - The events.
+		</p>
+		<p>
 			Updates controller item component<br>
 			<br>
 			Returns : true if update
 		</p>
 
 		<h3>[method:void updateHelperPoint](  [param:RendererTimer itemTimer],  [param:number scale] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererTimer itemTimer] - The item timer.<br />
-			[page:number scale] - The scale.<br /><br />
-
+			[parameter:RendererTimer itemTimer] - The item timer.<br />
+			[parameter:number scale] - The scale.
+		</p>
+		<p>
 			Updates helper point
 		</p>
 
 		<hr class="interface-line"/>
-		<h1 id="ControlObjectItem">ControlObjectItem</h1>
+		<h3 id="ControlObjectItem">ControlObjectItem</h3>
+		<h4>Properties</h4>
+		<p>
+			[property:any attributes]? -  The attributes.<br />			
+[property:any component]? -  The component.<br />			
+[property:BufferGeometry geometry]? -  The geometry.<br />			
+[property:Material material]? -  The material.<br />			
+[property:any morphAttributes]? -  The morph attributes.<br />			
+[property:Object3D object3d]? -  The object3d.<br />			
+[property:Vector3 position]? -  The position.<br />			
+[property:Euler rotation]? -  The rotation.<br />			
+[property:Vector3 scale]? -  The scale.<br />			
+[property:any uniforms]? -  The uniforms.
+		</p>
+
 
 		<p class="desc">
 			Control object item
-		</p>
-
-		<h2>Properties</h2>
-		<p>
-			None
 		</p>
 
 		<h2>Source</h2>

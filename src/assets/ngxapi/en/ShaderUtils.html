@@ -7,84 +7,114 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		<h1>[name]</h1>
+		<h1>ShaderUtils</h1>
 
-		<p class="desc"></p>
-
-		<h2>Properties - Input</h2>
-		<h2>Properties - Output</h2>
-		<h2>Methods</h2>
-		<h3>
-			[method:void addShader]( [param:string key], [param:ShaderType shader],
-			[param:string alias][] )
-		</h3>
-		<p></p>
-
-		<h3>[method:void checkShader]( )</h3>
-		<p></p>
-
-		<h3>[method:string getFragmentShader]( [param:mixed key] )</h3>
-		<p></p>
-
-		<h3>[method:ShaderType getShader]( [param:mixed key] )</h3>
-		<p></p>
-
-		<h3>[method:ShaderType getShaderClone]( [param:string key] )</h3>
-		<p></p>
-
-		<h3>[method:void getUniforms]( [param:mixed key] )</h3>
-		<p>
-			<br />
-			{ [ key : [page:string string] ] : [page:THREE.IUniform THREE.IUniform] }
+		<p class="desc">
+			
 		</p>
 
-		<h3>[method:string getVertexShader]( [param:mixed key] )</h3>
-		<p></p>
-
-		<hr />
-		<h1 id="ShaderType">ShaderType</h1>
-
-		<p class="desc"></p>
+		<h2>Constructor</h2>
+		<p>
+			None
+		</p>
 
 		<h2>Properties</h2>
-		<h3>[property:any defines]?</h3>
 		<p>
-			<br />
-			{ [ key : [page:string string] ] : [page:any any] }
+			None
 		</p>
 
-		<h3>[property:string fragmentShader]</h3>
-		<p></p>
-
-		<h3>[property:any uniforms]?</h3>
+		<h2>Methods</h2>
+		<h3>[method:void addShader](  [param:string key],  [param:ShaderType shader],  [param:string[] alias]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			<br />
-			{ [ key : [page:string string] ] : [page:THREE.IUniform THREE.IUniform] }
+			[parameter:string key] - The key.<br />
+			[parameter:ShaderType shader] - The shader.<br />
+			[parameter:string[] alias] - (optional) The alias.
+		</p>
+		<p>
+			
 		</p>
 
-		<h3>[property:string vertexShader]?</h3>
-		<p></p>
+		<h3>[method:void checkShader](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			
+		</p>
 
-		<hr />
-		<h1 id="ShaderAliasConf">ShaderAliasConf</h1>
+		<h3>[method:string getFragmentShader](  [param:string|ShaderType key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|ShaderType key] - The key.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ShaderType getShader](  [param:string|ShaderType key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|ShaderType key] - The key.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ShaderType getShaderClone](  [param:string key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void getUniforms](  [param:string|ShaderType key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|ShaderType key] - The key.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:string getVertexShader](  [param:string|ShaderType key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|ShaderType key] - The key.
+		</p>
+		<p>
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="ShaderType">ShaderType</h3>
+		<h4>Properties</h4>
+		<p>
+			[property:any defines]? -  The defines.<br />			
+[property:string fragmentShader] -  The fragment shader.<br />			
+[property:any uniforms]? -  The uniforms.<br />			
+[property:string vertexShader]? -  The vertex shader.
+		</p>
+
 
 		<p class="desc">
-			<br />
-			{ [ key : [page:string string] ] : [page:string string] }
+			ShaderType
 		</p>
 
-		<hr />
-		<h1 id="ShaderConf">ShaderConf</h1>
+		<hr class="interface-line"/>
+		<h3 id="ShaderAliasConf">ShaderAliasConf</h3>
 
 		<p class="desc">
-			<br />
-			{ [ key : [page:string string] ] : [page:any any] }
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="ShaderConf">ShaderConf</h3>
+
+		<p class="desc">
+			
 		</p>
 
 		<h2>Source</h2>
-		<p>
-			[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three/shader/shaders/shaderUtils.ts
-			shader/shaders/shaderUtils.ts]
-		</p>
+		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three//shader/shaders/shaderUtils.ts /shader/shaders/shaderUtils.ts]</p>
 	</body>
 </html>

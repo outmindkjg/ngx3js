@@ -15,6 +15,17 @@
 			Curves normal
 		</p>
 
+		<h2>Constructor</h2>
+		<h3>new [method:CurvesNormal CurvesNormal](  [param:Curve curve],  [param:CurvesNormalParameters parameters] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Curve curve] - The curve.<br />
+			[parameter:CurvesNormalParameters parameters] - The parameters.
+		</p>
+		<p>
+			Creates an instance of curves normal.
+		</p>
+
 		<h2>Properties</h2>
 		<p>
 			See the base [page:Curve Curve] class for common properties.
@@ -35,111 +46,134 @@
 			See the base [page:Curve Curve] class for common methods.
 		</p>
 
-		<h3>[method:CurvesNormal constructor](  [param:Curve curve],  [param:CurvesNormalParameters parameters] )</h3>
+		<h3>[method:Vector3 getPoint](  [param:number t],  [param:Vector3 optionalTarget]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Curve curve] - The curve.<br />
-			[page:CurvesNormalParameters parameters] - The parameters.<br /><br />
-
-			Creates an instance of curves normal.
+			[parameter:number t] - The t.<br />
+			[parameter:Vector3 optionalTarget] - (optional) The optional target.
 		</p>
-
-		<h3>[method:Vector3 getPoint](  [param:number t],  [param:Vector3 optionalTarget]? )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:number t] - The t.<br />
-			[page:Vector3 optionalTarget] - (optional) The optional target.<br /><br />
-
 			Gets point<br>
 			<br>
 			Returns : point
 		</p>
 
 		<h3>[method:Color getPointColor](  [param:RendererTimer timer],  [param:Color p] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererTimer timer] - The timer.<br />
-			[page:Color p] - The p.<br /><br />
-
+			[parameter:RendererTimer timer] - The timer.<br />
+			[parameter:Color p] - The p.
+		</p>
+		<p>
 			Gets point color<br>
 			<br>
 			Returns : point color
 		</p>
 
 		<h3>[method:Euler getPointEuler](  [param:RendererTimer timer],  [param:Euler p] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererTimer timer] - The timer.<br />
-			[page:Euler p] - The p.<br /><br />
-
+			[parameter:RendererTimer timer] - The timer.<br />
+			[parameter:Euler p] - The p.
+		</p>
+		<p>
 			Gets point euler<br>
 			<br>
 			Returns : point euler
 		</p>
 
 		<h3>[method:number getPointFloat](  [param:RendererTimer timer],  [param:number min],  [param:number max] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererTimer timer] - The timer.<br />
-			[page:number min] - The min.<br />
-			[page:number max] - The max.<br /><br />
-
+			[parameter:RendererTimer timer] - The timer.<br />
+			[parameter:number min] - The min.<br />
+			[parameter:number max] - The max.
+		</p>
+		<p>
 			Gets point float<br>
 			<br>
 			Returns : point float
 		</p>
 
 		<h3>[method:Vector2 getPointV2](  [param:RendererTimer timer],  [param:Vector2 p] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererTimer timer] - The timer.<br />
-			[page:Vector2 p] - The p.<br /><br />
-
+			[parameter:RendererTimer timer] - The timer.<br />
+			[parameter:Vector2 p] - The p.
+		</p>
+		<p>
 			Gets point v2<br>
 			<br>
 			Returns : point v2
 		</p>
 
 		<h3>[method:Vector3 getPointV3](  [param:RendererTimer timer],  [param:Vector3 p] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:RendererTimer timer] - The timer.<br />
-			[page:Vector3 p] - The p.<br /><br />
-
+			[parameter:RendererTimer timer] - The timer.<br />
+			[parameter:Vector3 p] - The p.
+		</p>
+		<p>
 			Gets point v3<br>
 			<br>
 			Returns : point v3
 		</p>
 
 		<h3>[method:void setCurve](  [param:Curve curve] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Curve curve] - The curve.<br /><br />
-
+			[parameter:Curve curve] - The curve.
+		</p>
+		<p>
 			Sets curve
 		</p>
 
 		<h3>[method:void setOptions](  [param:string options] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string options] - The options.<br /><br />
-
+			[parameter:string options] - The options.
+		</p>
+		<p>
 			Sets options
 		</p>
 
 		<hr class="interface-line"/>
-		<h1 id="CurveClass">CurveClass</h1>
+		<h3 id="CurveClass">CurveClass</h3>
+		<h4>Properties</h4>
+		<p>
+			
+		</p>
+
+		<p>
+			None
+		</p>
+
 
 		<p class="desc">
 			Curve class
 		</p>
 
-		<h2>Properties</h2>
+		<hr class="interface-line"/>
+		<h3 id="CurvesNormalParameters">CurvesNormalParameters</h3>
+		<h4>Properties</h4>
 		<p>
-			None
+			[property:Vector3 center]? -  The center.<br />			
+[property:number multiply]? -  The multiply.<br />			
+[property:string options]? -  The options.<br />			
+[property:Euler rotation]? -  The rotation.<br />			
+[property:Vector3 scale]? -  The scale.
 		</p>
 
-		<hr class="interface-line"/>
-		<h1 id="CurvesNormalParameters">CurvesNormalParameters</h1>
 
 		<p class="desc">
 			Curves normal parameters
 		</p>
 
-		<h2>Properties</h2>
-		<p>
-			None
+		<hr class="interface-line"/>
+		<h3 id="CurveConf">CurveConf</h3>
+
+		<p class="desc">
+			
 		</p>
 
 		<h2>Source</h2>

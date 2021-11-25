@@ -139,100 +139,108 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:PassComponent PassComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of pass component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-pass
-			[accumulate]="..."
-			[adaptive]="..."
-			[angle]="..."
-			[aperture]="..."
-			[aspect]="..."
-			[bloomTexture]="..."
-			[camera]="..."
-			[centerX]="..."
-			[centerY]="..."
-			[clear]="..."
-			[clearAlpha]="..."
-			[clearColor]="..."
-			[damp]="..."
-			[debug]="..."
-			[depthTexture]="..."
-			[downSampleRatio]="..."
-			[dtSize]="..."
-			[edgeGlow]="..."
-			[edgeStrength]="..."
-			[edgeThickness]="..."
-			[enabled]="..."
-			[encoding]="..."
-			[envMap]="..."
-			[focus]="..."
-			[fragmentShader]="..."
-			[goWild]="..."
-			[grayscale]="..."
-			[height]="..."
-			[hiddenEdgeColor]="..."
-			[intensity]="..."
-			[inverse]="..."
-			[kernelRadius]="..."
-			[kernelSize]="..."
-			[lut]="..."
-			[map]="..."
-			[materialShader]="..."
-			[maxDistance]="..."
-			[maxblur]="..."
-			[mesh]="..."
-			[minDistance]="..."
-			[morphTargets]="..."
-			[needsSwap]="..."
-			[noiseIntensity]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[opacity]="..."
-			[output]="..."
-			[overrideMaterial]="..."
-			[overrideParams]="..."
-			[params]="..."
-			[patternTexture]="..."
-			[pulsePeriod]="..."
-			[radius]="..."
-			[refer]="..."
-			[renderTarget]="..."
-			[renderToScreen]="..."
-			[resolution]="..."
-			[sampleLevel]="..."
-			[saoBias]="..."
-			[saoBlur]="..."
-			[saoBlurDepthCutoff]="..."
-			[saoBlurRadius]="..."
-			[saoBlurStdDev]="..."
-			[saoIntensity]="..."
-			[saoKernelRadius]="..."
-			[saoMinResolution]="..."
-			[saoScale]="..."
-			[scale]="..."
-			[scanlinesCount]="..."
-			[scanlinesIntensity]="..."
-			[scene]="..."
-			[selectedObjects]="..."
-			[selects]="..."
-			[shader]="..."
-			[sigma]="..."
-			[size]="..."
-			[strength]="..."
-			[texture]="..."
-			[textureId]="..."
-			[threshold]="..."
-			[tween]="..."
-			[type]="..."
-			[unbiased]="..."
-			[uniforms]="..."
-			[use2DLut]="..."
-			[useNormals]="..."
-			[usePatternTexture]="..."
-			[userData]="..."
-			[vertexShader]="..."
-			[visibleEdgeColor]="..."
-			[width]="..."
-			[windowExport]="..."
+			[ accumulate ]="... boolean -- The accumulate of pass compone... "
+			[ adaptive ]="... boolean -- The adaptive of pass component "
+			[ angle ]="... number -- The angle of pass component "
+			[ aperture ]="... number -- The aperture of pass component "
+			[ aspect ]="... number -- The aspect of pass component "
+			[ bloomTexture ]="... any -- The bloomTexture of pass compo... "
+			[ camera ]="... any -- The camera of pass component "
+			[ centerX ]="... number -- The centerX of pass component "
+			[ centerY ]="... number -- The centerY of pass component "
+			[ clear ]="... boolean -- The clear of pass component "
+			[ clearAlpha ]="... number -- The clearAlpha of pass compone... "
+			[ clearColor ]="... string|number|Color -- The clearColor of pass compone... "
+			[ damp ]="... number -- The damp of pass component "
+			[ debug ]="... boolean -- Debug this Object "
+			[ depthTexture ]="... boolean -- The depthTexture of pass compo... "
+			[ downSampleRatio ]="... number -- The downSampleRatio of pass co... "
+			[ dtSize ]="... number -- The dtSize of pass component "
+			[ edgeGlow ]="... number -- The edgeGlow of pass component "
+			[ edgeStrength ]="... number -- The edgeStrength of pass compo... "
+			[ edgeThickness ]="... number -- The edgeThickness of pass comp... "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ encoding ]="... string -- [page:Textures THREE.LinearEnc... "
+			[ envMap ]="... CubeTexture|TextureComponent -- The envMap of pass component "
+			[ focus ]="... number -- The focus of pass component "
+			[ fragmentShader ]="... string -- The fragmentShader of pass com... "
+			[ goWild ]="... boolean -- The goWild of pass component "
+			[ grayscale ]="... boolean -- The grayscale of pass componen... "
+			[ height ]="... number -- The size of height
+- type numb... "
+			[ hiddenEdgeColor ]="... ThreeColor -- The hiddenEdgeColor of pass co... "
+			[ intensity ]="... number -- The intensity of pass componen... "
+			[ inverse ]="... boolean -- The inverse of pass component "
+			[ kernelRadius ]="... number -- The kernelRadius of pass compo... "
+			[ kernelSize ]="... number -- The kernelSize of pass compone... "
+			[ lut ]="... string -- The Input of pass component "
+			[ map ]="... any -- The map of pass component "
+			[ materialShader ]="... string -- The Input of pass component "
+			[ maxDistance ]="... number -- The maxDistance of pass compon... "
+			[ maxblur ]="... number -- The maxblur of pass component "
+			[ mesh ]="... any -- Define whether the material us... "
+			[ minDistance ]="... number -- The minDistance of pass compon... "
+			[ morphTargets ]="... boolean -- Define whether the material us... "
+			[ needsSwap ]="... boolean -- The needsSwap of pass componen... "
+			[ noiseIntensity ]="... number -- The noiseIntensity of pass com... "
+			( onDestory )="...($event : PassComponent -- Will be called when before des... )"
+			( onLoad )="...($event : PassComponent -- Will be called when load compl... )"
+			[ opacity ]="... number -- The opacity of pass component "
+			[ output ]="... string -- The Input of pass component "
+			[ overrideMaterial ]="... Material -- The overrideMaterial of pass c... "
+			[ overrideParams ]="... any -- The override params "
+			[ params ]="... BokehPassParamters -- The params of pass component "
+			[ patternTexture ]="... Texture|TextureComponent -- The patternTexture of pass com... "
+			[ pulsePeriod ]="... number -- The pulsePeriod of pass compon... "
+			[ radius ]="... number -- The radius of pass component "
+			[ refer ]="... PassComponent -- The refer of pass component "
+			[ renderTarget ]="... WebGLRenderTarget -- The renderTarget of pass compo... "
+			[ renderToScreen ]="... boolean -- The renderToScreen of pass com... "
+			[ resolution ]="... number -- The resolution of pass compone... "
+			[ sampleLevel ]="... number -- The sampleLevel of pass compon... "
+			[ saoBias ]="... number -- The saoBias of pass component "
+			[ saoBlur ]="... boolean -- The saoBlur of pass component "
+			[ saoBlurDepthCutoff ]="... number -- The saoBlurDepthCutoff of pass... "
+			[ saoBlurRadius ]="... number -- The saoBlurRadius of pass comp... "
+			[ saoBlurStdDev ]="... number -- The saoBlurStdDev of pass comp... "
+			[ saoIntensity ]="... number -- The saoIntensity of pass compo... "
+			[ saoKernelRadius ]="... number -- The saoKernelRadius of pass co... "
+			[ saoMinResolution ]="... number -- The saoMinResolution of pass c... "
+			[ saoScale ]="... number -- The saoScale of pass component "
+			[ scale ]="... number -- The scale of pass component "
+			[ scanlinesCount ]="... number -- The scanlinesCount of pass com... "
+			[ scanlinesIntensity ]="... number -- The scanlinesIntensity of pass... "
+			[ scene ]="... any -- The scene of pass component "
+			[ selectedObjects ]="... any[] -- The selectedObjects of pass co... "
+			[ selects ]="... Mesh[] -- Define whether the material us... "
+			[ shader ]="... string -- The Input of pass component "
+			[ sigma ]="... number -- The sigma of pass component "
+			[ size ]="... Vector2|SizeComponent -- The size of pass component "
+			[ strength ]="... number -- The strength of pass component "
+			[ texture ]="... Texture|TextureComponent -- The texture of pass component "
+			[ textureId ]="... string -- The textureId of pass componen... "
+			[ threshold ]="... number -- The threshold of pass componen... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The Input of pass component "
+			[ unbiased ]="... boolean -- The unbiased of pass component "
+			[ uniforms ]="... any -- The uniforms of pass component "
+			[ use2DLut ]="... boolean -- The use2DLut of pass component "
+			[ useNormals ]="... boolean -- The useNormals of pass compone... "
+			[ usePatternTexture ]="... boolean -- The usePatternTexture of pass ... "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ vertexShader ]="... string -- The vertexShader of pass compo... "
+			[ visibleEdgeColor ]="... ThreeColor -- The visibleEdgeColor of pass c... "
+			[ width ]="... number -- The size of width
+- type numbe... "
+			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-pass&gt;
 		</code>
 
@@ -645,7 +653,7 @@
 			The threshold of pass component
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of pass component
 		</p>
@@ -702,19 +710,16 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:PassComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of pass component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
-		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			Gets object<br>
 			<br>
@@ -729,19 +734,23 @@
 		</p>
 
 		<h3>[method:void setEffectComposer](  [param:Scene scene]?,  [param:Camera camera]?,  [param:EffectComposer effectComposer]?,  [param:WebGLRenderer renderer]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Scene scene] - (optional) The scene.<br />
-			[page:Camera camera] - (optional) The camera.<br />
-			[page:EffectComposer effectComposer] - (optional) The effect composer.<br />
-			[page:WebGLRenderer renderer] - (optional) The renderer.<br /><br />
-
+			[parameter:Scene scene] - (optional) The scene.<br />
+			[parameter:Camera camera] - (optional) The camera.<br />
+			[parameter:EffectComposer effectComposer] - (optional) The effect composer.<br />
+			[parameter:WebGLRenderer renderer] - (optional) The renderer.
+		</p>
+		<p>
 			Sets effect composer
 		</p>
 
 		<h3>[method:void setScene](  [param:Scene scene]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Scene scene] - (optional) The scene.<br /><br />
-
+			[parameter:Scene scene] - (optional) The scene.
+		</p>
+		<p>
 			Sets scene
 		</p>
 

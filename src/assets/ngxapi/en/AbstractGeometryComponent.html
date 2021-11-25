@@ -31,12 +31,18 @@
 			</code>
 		</p>
 
+		<h2>Constructor</h2>
+		<h3>new [method:AbstractGeometryComponent AbstractGeometryComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of abstract geometry component.
+		</p>
+
 		<h2>Properties</h2>
 		<p>
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:string[] GEOMETRY_ATTR]<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[property:string[] GEOMETRY_ATTR] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			Geometry attr of abstract geometry component
 		</p>
@@ -60,7 +66,7 @@
 			The attrColorKey of abstract geometry component
 		</p>
 
-		<h3>[property:boolean attrColorNormalized]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean attrColorNormalized] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrColorNormalized of abstract geometry component
 		</p>
@@ -100,7 +106,7 @@
 			The attrNormal of abstract geometry component
 		</p>
 
-		<h3>[property:boolean attrNormalNormalized]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean attrNormalNormalized] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The attrNormalNormalized of abstract geometry component
 		</p>
@@ -227,7 +233,7 @@
 			The autoCustomColorKey of abstract geometry component
 		</p>
 
-		<h3>[property:number autoCustomColorSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number autoCustomColorSize] &nbsp; = 3 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The autoCustomColorSize of abstract geometry component
 		</p>
@@ -237,7 +243,7 @@
 			The autoDisplacement of abstract geometry component
 		</p>
 
-		<h3>[property:number autoDisplacementSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number autoDisplacementSize] &nbsp; = 3 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The autoDisplacementSize of abstract geometry component
 		</p>
@@ -247,12 +253,12 @@
 			The autoSize of abstract geometry component
 		</p>
 
-		<h3>[property:number autoSizeSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number autoSizeSize] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The autoSizeSize of abstract geometry component
 		</p>
 
-		<h3>[property:boolean center]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean center] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Center the geometry based on the bounding box.
 		</p>
@@ -283,23 +289,23 @@
 			The compressUvs
 		</p>
 
-		<h3>[property:boolean computeBoundingBox]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean computeBoundingBox] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Computes bounding box of the geometry, updating [page:.boundingBox] attribute. Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
 		</p>
 
-		<h3>[property:boolean computeBoundingSphere]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean computeBoundingSphere] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Computes bounding sphere of the geometry, updating [page:.boundingSphere] attribute. Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
 		</p>
 
-		<h3>[property:boolean computeTangents]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean computeTangents] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Calculates and adds a tangent attribute to this geometry.<br>
 			The computation is only supported for indexed geometries and if position, normal, and uv attributes are defined.
 		</p>
 
-		<h3>[property:boolean computeVertexNormals]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean computeVertexNormals] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Computes vertex normals by averaging face normals.
 		</p>
@@ -451,35 +457,36 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:AbstractGeometryComponent constructor](  )</h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			Creates an instance of abstract geometry component.
+			[parameter:string[] changes] - The changes.
 		</p>
-
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
 			Applys changes
 		</p>
 
 		<h3>[method:BufferAttribute getAttribute](  [param:AttrBufferAttribute value],  [param:number itemSize],  [param:string usage]?,  [param:string bufferType]?,  [param:boolean normalized]? )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:AttrBufferAttribute value] - The value.<br />
-			[page:number itemSize] - The item size.<br />
-			[page:string usage] - (optional) The usage.<br />
-			[page:string bufferType] - (optional) The buffer type.<br />
-			[page:boolean normalized] - (optional) The normalized.<br /><br />
-
+			[parameter:AttrBufferAttribute value] - The value.<br />
+			[parameter:number itemSize] - The item size.<br />
+			[parameter:string usage] - (optional) The usage.<br />
+			[parameter:string bufferType] - (optional) The buffer type.<br />
+			[parameter:boolean normalized] - (optional) The normalized.
+		</p>
+		<p>
 			Gets attribute<br>
 			<br>
 			Returns : attribute
 		</p>
 
 		<h3>[method:void getAttributes](  [param:string colorType] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string colorType] - The color type.<br /><br />
-
+			[parameter:string colorType] - The color type.
+		</p>
+		<p>
 			Gets attributes<br>
 			<br>
 			Returns : attributes
@@ -507,46 +514,52 @@
 		</p>
 
 		<h3>[method:void setGeometry](  [param:BufferGeometry geometry] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:BufferGeometry geometry] - The geometry.<br /><br />
-
+			[parameter:BufferGeometry geometry] - The geometry.
+		</p>
+		<p>
 			Sets geometry
 		</p>
 
 		<h3>[method:void setObject3d](  [param:AbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:AbstractSubscribeComponent object3d] - The object3d.<br /><br />
-
+			[parameter:AbstractSubscribeComponent object3d] - The object3d.
+		</p>
+		<p>
 			Sets object3d
 		</p>
 
 		<h3>[method:void unsetObject3d](  [param:AbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:AbstractSubscribeComponent object3d] - The object3d.<br /><br />
-
+			[parameter:AbstractSubscribeComponent object3d] - The object3d.
+		</p>
+		<p>
 			unSets object3d
 		</p>
 
 		<hr class="interface-line"/>
-		<h1 id="GeometriesParametric">GeometriesParametric</h1>
+		<h3 id="GeometriesParametric">GeometriesParametric</h3>
+		<h4>Properties</h4>
+		<p>
+			None
+		</p>
+
 
 		<p class="desc">
 			
 		</p>
 
-		<h2>Properties</h2>
-		<p>
-			None
-		</p>
-
 		<hr class="interface-line"/>
-		<h1 id="AttrBufferAttribute">AttrBufferAttribute</h1>
+		<h3 id="AttrBufferAttribute">AttrBufferAttribute</h3>
+		<h3>[property:number[]|Int8Array|Int16Array|Int32Array|Uint8Array|Uint16Array|Uint32Array|Float32Array|Float64Array|THREE.BufferAttribute AttrBufferAttribute]</h3>
+
 
 		<p class="desc">
 			Attr Buffer Attribute
 		</p>
-
-		<h3>[property:number[]|Int8Array|Int16Array|Int32Array|Uint8Array|Uint16Array|Uint32Array|Float32Array|Float64Array|THREE.BufferAttribute AttrBufferAttribute]</h3>
 
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/three-sample/tree/master/src/app/three//geometry.abstract.ts /geometry.abstract.ts]</p>

@@ -28,30 +28,35 @@
 			</code>
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<p>
+			None
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-position
-			[camera]="..."
-			[debug]="..."
-			[enabled]="..."
-			[multiply]="..."
-			[normalize]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[phi]="..."
-			[radius]="..."
-			[refName]="..."
-			[refer]="..."
-			[setfrom]="..."
-			[theta]="..."
-			[tween]="..."
-			[tweenStart]="..."
-			[type]="..."
-			[userData]="..."
-			[windowExport]="..."
-			[x]="..."
-			[y]="..."
-			[z]="..."
+			[ camera ]="... any -- The camera of position compone... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ multiply ]="... number -- Multiplies this vector by scal... "
+			[ normalize ]="... boolean -- Converts this vector to a [lin... "
+			( onDestory )="...($event : PositionComponent -- Will be called when before des... )"
+			( onLoad )="...($event : PositionComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ phi ]="... number -- The phi of position component "
+			[ radius ]="... number -- The radius of position compone... "
+			[ refName ]="... string -- The refName of position compon... "
+			[ refer ]="... any -- The refer of position componen... "
+			[ setfrom ]="... string -- The Input of position componen... "
+			[ theta ]="... number -- The theta of position componen... "
+			[ tween ]="... any -- Tween animation params "
+			[ tweenStart ]="... boolean -- Start tween "
+			[ type ]="... string -- The type of position component "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ x ]="... number -- The current value of the x com... "
+			[ y ]="... number -- The current value of the y com... "
+			[ z ]="... number -- The current value of the z com... "
 		&gt;&lt;/ngx3js-position&gt;
 		</code>
 
@@ -73,7 +78,7 @@
 			Multiplies this vector by scalar [page:Float s].
 		</p>
 
-		<h3>[property:boolean normalize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean normalize] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Converts this vector to a [link:https://en.wikipedia.org/wiki/Unit_vector unit vector] - that is, sets it equal to a vector with the same direction as this one, but [page:.length length] 1.
 		</p>
@@ -110,7 +115,7 @@
 			The theta of position component
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'position' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of position component<br>
 			<br>
@@ -150,10 +155,12 @@
 			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
+			[parameter:string[] changes] - The changes.
+		</p>
+		<p>
 			Applys changes
 		</p>
 
@@ -165,34 +172,42 @@
 		</p>
 
 		<h3>[method:TagAttributes getTagAttribute](  [param:any options]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any options] - (optional) The options.<br /><br />
-
+			[parameter:any options] - (optional) The options.
+		</p>
+		<p>
 			Gets tag attribute<br>
 			<br>
 			Returns : tag attribute
 		</p>
 
 		<h3>[method:void setObject3d](  [param:AbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:AbstractSubscribeComponent object3d] - The object3d.<br /><br />
-
+			[parameter:AbstractSubscribeComponent object3d] - The object3d.
+		</p>
+		<p>
 			Sets object3d
 		</p>
 
 		<h3>[method:void setPosition](  [param:number x]?,  [param:number y]?,  [param:number z]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number x] - (optional) The x.<br />
-			[page:number y] - (optional) The y.<br />
-			[page:number z] - (optional) The z.<br /><br />
-
+			[parameter:number x] - (optional) The x.<br />
+			[parameter:number y] - (optional) The y.<br />
+			[parameter:number z] - (optional) The z.
+		</p>
+		<p>
 			Sets position
 		</p>
 
 		<h3>[method:void unsetObject3d](  [param:AbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:AbstractSubscribeComponent object3d] - The object3d.<br /><br />
-
+			[parameter:AbstractSubscribeComponent object3d] - The object3d.
+		</p>
+		<p>
 			unSets object3d
 		</p>
 

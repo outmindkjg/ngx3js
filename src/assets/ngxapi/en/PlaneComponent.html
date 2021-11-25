@@ -15,20 +15,26 @@
 			PlaneComponent
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:PlaneComponent PlaneComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of plane component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-plane
-			[debug]="..."
-			[enabled]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[overrideParams]="..."
-			[tween]="..."
-			[userData]="..."
-			[w]="..."
-			[windowExport]="..."
-			[x]="..."
-			[y]="..."
-			[z]="..."
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			( onDestory )="...($event : PlaneComponent -- Will be called when before des... )"
+			( onLoad )="...($event : PlaneComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ tween ]="... any -- Tween animation params "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ w ]="... number -- The w of plane component "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ x ]="... number -- The x of plane component "
+			[ y ]="... number -- The y of plane component "
+			[ z ]="... number -- The z of plane component "
 		&gt;&lt;/ngx3js-plane&gt;
 		</code>
 
@@ -62,11 +68,6 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:PlaneComponent constructor](  )</h3>
-		<p>
-			Creates an instance of plane component.
-		</p>
-
 		<h3>[method:Plane getPlane](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets plane<br>
@@ -75,21 +76,25 @@
 		</p>
 
 		<h3>[method:Plane getWorldPlane](  [param:Matrix4 matrixWorld]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:Matrix4 matrixWorld] - (optional) The matrix world.<br /><br />
-
+			[parameter:Matrix4 matrixWorld] - (optional) The matrix world.
+		</p>
+		<p>
 			Gets world plane<br>
 			<br>
 			Returns : world plane
 		</p>
 
 		<h3>[method:void setPlane](  [param:number x],  [param:number y],  [param:number z],  [param:number w] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number x] - The x.<br />
-			[page:number y] - The y.<br />
-			[page:number z] - The z.<br />
-			[page:number w] - The w.<br /><br />
-
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:number w] - The w.
+		</p>
+		<p>
 			Sets plane
 		</p>
 

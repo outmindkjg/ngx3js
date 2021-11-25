@@ -30,58 +30,64 @@
 			[page:WebGLRenderer WebGLRenderer] - THREE.WebGLRenderer
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:RendererComponent RendererComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of renderer component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-renderer
-			[afterRender]="..."
-			[alpha]="..."
-			[antialias]="..."
-			[autoClear]="..."
-			[autoClearColor]="..."
-			[beforeRender]="..."
-			[camera]="..."
-			[clearAlpha]="..."
-			[clearColor]="..."
-			[composerEnable]="..."
-			[controlOptions]="..."
-			[controlType]="..."
-			[cssClass]="..."
-			[cssType]="..."
-			[debug]="..."
-			[enabled]="..."
-			[gammaFactor]="..."
-			[globalClippingEnabled]="..."
-			[guiControl]="..."
-			[guiOpen]="..."
-			[guiParams]="..."
-			[guiStyle]="..."
-			[height]="..."
-			[localClippingEnabled]="..."
-			[logarithmicDepthBuffer]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[outputEncoding]="..."
-			[overrideParams]="..."
-			[physicallyCorrectLights]="..."
-			[preserveDrawingBuffer]="..."
-			[quality]="..."
-			[requiredExtensions]="..."
-			[scene]="..."
-			[shadowMapEnabled]="..."
-			[shadowMapType]="..."
-			[sizeType]="..."
-			[statsMode]="..."
-			[statsStyle]="..."
-			[toneMapping]="..."
-			[toneMappingExposure]="..."
-			[tween]="..."
-			[type]="..."
-			[useEvent]="..."
-			[userData]="..."
-			[width]="..."
-			[windowExport]="..."
-			[x]="..."
-			[xrEnabled]="..."
-			[y]="..."
+			[ afterRender ]="... any"
+			[ alpha ]="... boolean -- whether to perform alpha. Defa... "
+			[ antialias ]="... boolean -- whether to perform antialiasin... "
+			[ autoClear ]="... boolean -- Defines whether the renderer s... "
+			[ autoClearColor ]="... boolean -- If [page:.autoClear autoClear]... "
+			[ beforeRender ]="... any"
+			[ camera ]="... CameraComponent -- The camera of renderer compone... "
+			[ clearAlpha ]="... number -- Sets the alpha of the clear co... "
+			[ clearColor ]="... string|number -- Sets the clear color "
+			[ composerEnable ]="... boolean -- The guiOpen of GUI "
+			[ controlOptions ]="... ControlOptions -- The options of control "
+			[ controlType ]="... string -- The type of control "
+			[ cssClass ]="... string -- The type of css canvas class "
+			[ cssType ]="... string -- The type of css renderer "
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ gammaFactor ]="... number -- Converts this color from gamma... "
+			[ globalClippingEnabled ]="... boolean -- User-defined clipping planes s... "
+			[ guiControl ]="... any -- The guiControl of GUI "
+			[ guiOpen ]="... boolean -- The guiOpen of GUI "
+			[ guiParams ]="... GuiControlParam[] -- The guiParams of GUI "
+			[ guiStyle ]="... any -- The guiStyle of GUI "
+			[ height ]="... string|number -- The height of renderer "
+			[ localClippingEnabled ]="... boolean -- Defines whether the renderer r... "
+			[ logarithmicDepthBuffer ]="... boolean -- whether to use a logarithmic d... "
+			( onDestory )="...($event : RendererComponent -- Will be called when before des... )"
+			( onLoad )="...($event : RendererComponent -- Will be called when load compl... )"
+			[ outputEncoding ]="... string -- Defines the output encoding of... "
+			[ overrideParams ]="... any -- The override params "
+			[ physicallyCorrectLights ]="... boolean -- Whether to use physically corr... "
+			[ preserveDrawingBuffer ]="... boolean -- whether to preserve the buffer... "
+			[ quality ]="... string -- The quality of SVGRenderer "
+			[ requiredExtensions ]="... string[] -- The requiredExtensions of rend... "
+			[ scene ]="... SceneComponent -- The scene of renderer componen... "
+			[ shadowMapEnabled ]="... boolean -- If set, use shadow maps in the... "
+			[ shadowMapType ]="... string -- Defines shadow map type (unfil... "
+			[ sizeType ]="... string -- The Input of renderer componen... "
+			[ statsMode ]="... number -- the stats mode  of stats modul... "
+			[ statsStyle ]="... any -- The statsStyle of stats module "
+			[ toneMapping ]="... string -- Default is [page:Renderer NoTo... "
+			[ toneMappingExposure ]="... number -- Exposure level of tone mapping... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The type of renderer "
+			[ useEvent ]="... string -- The Input of renderer componen... "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ width ]="... string|number -- The width of renderer "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ x ]="... string|number -- The x position of renderer "
+			[ xrEnabled ]="... boolean -- The xrEnabled of renderer comp... "
+			[ y ]="... string|number -- The y position of renderer "
 		&gt;&lt;/ngx3js-renderer&gt;
 		</code>
 
@@ -90,17 +96,17 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>[property:Subject _sizeSubject]<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[property:Subject _sizeSubject] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			Size subject of renderer component
 		</p>
 
-		<h3>[property:Subject _updateSubject]<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[property:Subject _updateSubject] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			Update subject of renderer component
 		</p>
 
-		<h3>[property:Subject _userGestureSubject]<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[property:Subject _userGestureSubject] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			User gesture subject of renderer component
 		</p>
@@ -110,22 +116,22 @@
 			
 		</p>
 
-		<h3>[property:boolean alpha]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean alpha] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			whether to perform alpha. Default is *false*.
 		</p>
 
-		<h3>[property:boolean antialias]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean antialias] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			whether to perform antialiasing. Default is *false*.
 		</p>
 
-		<h3>[property:boolean autoClear]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean autoClear] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Defines whether the renderer should automatically clear its output before rendering a frame.
 		</p>
 
-		<h3>[property:boolean autoClearColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean autoClearColor] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			If [page:.autoClear autoClear] is true, defines whether the renderer should clear the color buffer.<br>
 				Default is *true*.
@@ -151,7 +157,7 @@
 			Sets the clear color
 		</p>
 
-		<h3>[property:boolean composerEnable]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean composerEnable] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The guiOpen of GUI
 		</p>
@@ -161,19 +167,19 @@
 			The options of control
 		</p>
 
-		<h3>[property:string controlType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string controlType] &nbsp; = 'none' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of control<br>
 			<br>
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string cssClass]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string cssClass] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of css canvas class
 		</p>
 
-		<h3>[property:string cssType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string cssType] &nbsp; = 'none' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of css renderer<br>
 			<br>
@@ -185,7 +191,7 @@
 			Converts this color from gamma space to linear space by taking [page:.r r], [page:.g g] and [page:.b b] to the power of [page:Float gammaFactor].
 		</p>
 
-		<h3>[property:boolean globalClippingEnabled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean globalClippingEnabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			User-defined clipping planes specified as THREE.Plane objects in world space.
 		</p>
@@ -200,12 +206,12 @@
 			The guiControl of GUI
 		</p>
 
-		<h3>[property:boolean guiOpen]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean guiOpen] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The guiOpen of GUI
 		</p>
 
-		<h3>[property:GuiControlParam[] guiParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:GuiControlParam[] guiParams] &nbsp; = [] <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The guiParams of GUI
 		</p>
@@ -215,17 +221,17 @@
 			The guiStyle of GUI
 		</p>
 
-		<h3>[property:string|number height]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number height] &nbsp; = -1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The height of renderer
 		</p>
 
-		<h3>[property:boolean localClippingEnabled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean localClippingEnabled] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Defines whether the renderer respects object-level clipping planes. Default is *false*.
 		</p>
 
-		<h3>[property:boolean logarithmicDepthBuffer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean logarithmicDepthBuffer] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			whether to use a logarithmic depth buffer. It may be neccesary to use this if dealing with huge differences in scale in a single scene. Note that this setting uses gl_FragDepth if available which disables the [link:https://www.khronos.org/opengl/wiki/Early_Fragment_Test Early Fragment Test] optimization and can cause a decrease in performance.<br>
 			Default is *false*. See the [example:webgl_camera_logarithmicdepthbuffer camera / logarithmicdepthbuffer] example.
@@ -256,7 +262,7 @@
 			See the [example:webgl_lights_physical lights / physical] example.
 		</p>
 
-		<h3>[property:boolean preserveDrawingBuffer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean preserveDrawingBuffer] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			whether to preserve the buffers until manually cleared or overwritten. Default is *false*.
 		</p>
@@ -276,12 +282,12 @@
 			The Renderer of renderer component
 		</p>
 
-		<h3>[property:number rendererHeight]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number rendererHeight] &nbsp; = 768 <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Renderer height of renderer component
 		</p>
 
-		<h3>[property:number rendererWidth]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number rendererWidth] &nbsp; = 1024 <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Renderer width of renderer component
 		</p>
@@ -296,7 +302,7 @@
 			The scene of renderer component
 		</p>
 
-		<h3>[property:boolean shadowMapEnabled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean shadowMapEnabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			If set, use shadow maps in the scene. Default is *true*.
 		</p>
@@ -309,7 +315,7 @@
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string sizeType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string sizeType] &nbsp; = 'auto' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of renderer component<br>
 			<br>
@@ -319,7 +325,7 @@
 			fixed - use fixed size of renderer.
 		</p>
 
-		<h3>[property:number statsMode]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:number statsMode] &nbsp; = -1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			the stats mode  of stats module
 		</p>
@@ -348,7 +354,7 @@
 			Exposure level of tone mapping. Default is *1*.
 		</p>
 
-		<h3>[property:string type]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'webgl' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of renderer<br>
 			<br>
@@ -377,12 +383,12 @@
 			mouseout - mouseout, out.
 		</p>
 
-		<h3>[property:string|number width]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number width] &nbsp; = -1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The width of renderer
 		</p>
 
-		<h3>[property:string|number x]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number x] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The x position of renderer<br>
 			<br>
@@ -391,12 +397,12 @@
 			string : % -/+ number - the percent of renderer and add some value.
 		</p>
 
-		<h3>[property:boolean xrEnabled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean xrEnabled] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The xrEnabled of renderer component
 		</p>
 
-		<h3>[property:string|number y]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|number y] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The y position of renderer<br>
 			<br>
@@ -410,23 +416,22 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:RendererComponent constructor](  )</h3>
-		<p>
-			Creates an instance of renderer component.
-		</p>
-
 		<h3>[method:any addEvent](  [param:string type],  [param:any listener] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string type] - The type.<br />
-			[page:any listener] - The listener.<br /><br />
-
+			[parameter:string type] - The type.<br />
+			[parameter:any listener] - The listener.
+		</p>
+		<p>
 			Adds event
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:string[] changes] - The changes.<br /><br />
-
+			[parameter:string[] changes] - The changes.
+		</p>
+		<p>
 			Applys changes
 		</p>
 
@@ -436,14 +441,16 @@
 		</p>
 
 		<h3>[method:void getCanvasJson](  [param:any callback],  [param:any options]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:any callback] - The callback.<br />
-			[page:any options] - (optional) The options.<br /><br />
-
+			[parameter:any callback] - The callback.<br />
+			[parameter:any options] - (optional) The options.
+		</p>
+		<p>
 			Gets canvas json
 		</p>
 
-		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			Gets Object<br>
 			<br>
@@ -477,10 +484,12 @@
 		</p>
 
 		<h3>[method:void resizeCanvas](  [param:number width],  [param:number height] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number width] - The width.<br />
-			[page:number height] - The height.<br /><br />
-
+			[parameter:number width] - The width.<br />
+			[parameter:number height] - The height.
+		</p>
+		<p>
 			Resizes canvas
 		</p>
 
@@ -490,10 +499,12 @@
 		</p>
 
 		<h3>[method:void setSize](  [param:number width],  [param:number height] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:number width] - The width.<br />
-			[page:number height] - The height.<br /><br />
-
+			[parameter:number width] - The width.<br />
+			[parameter:number height] - The height.
+		</p>
+		<p>
 			Sets size
 		</p>
 
@@ -512,9 +523,11 @@
 		</p>
 
 		<h3>[method:Observable userGestureSubscribe](  [param:HTMLElement ele]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:HTMLElement ele] - (optional) The ele.<br /><br />
-
+			[parameter:HTMLElement ele] - (optional) The ele.
+		</p>
+		<p>
 			Users gesture subscribe<br>
 			<br>
 			Returns : gesture subscribe

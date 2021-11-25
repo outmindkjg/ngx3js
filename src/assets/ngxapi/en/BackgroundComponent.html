@@ -17,74 +17,80 @@
 			The background shorthand CSS property sets all background style properties at once, such as color, image, origin and size, or repeat method.
 		</p>
 
-		<h2>Component</h2>
+		<h2>Constructor</h2>
+		<h3>new [method:BackgroundComponent BackgroundComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of background component.
+		</p>
+
+		<h3>Angular Html Template</h3>
 		<code data-type="html">&lt;ngx3js-background
-			[backgroundAlpha]="..."
-			[backgroundClip]="..."
-			[backgroundColor]="..."
-			[backgroundImage]="..."
-			[backgroundPosition]="..."
-			[backgroundPositionX]="..."
-			[backgroundPositionY]="..."
-			[backgroundRepeat]="..."
-			[backgroundRepeatX]="..."
-			[backgroundRepeatY]="..."
-			[backgroundSize]="..."
-			[backgroundSizeX]="..."
-			[backgroundSizeY]="..."
-			[border]="..."
-			[borderBottom]="..."
-			[borderColor]="..."
-			[borderImage]="..."
-			[borderImageOutset]="..."
-			[borderImageRepeat]="..."
-			[borderImageSlice]="..."
-			[borderImageSource]="..."
-			[borderImageWidth]="..."
-			[borderLeft]="..."
-			[borderRadius]="..."
-			[borderRight]="..."
-			[borderStyle]="..."
-			[borderTop]="..."
-			[borderWidth]="..."
-			[color]="..."
-			[content]="..."
-			[debug]="..."
-			[enabled]="..."
-			[fontFamily]="..."
-			[fontSize]="..."
-			[fontStyle]="..."
-			[fontWeight]="..."
-			[letterSpacing]="..."
-			[margin]="..."
-			[marginBottom]="..."
-			[marginLeft]="..."
-			[marginRight]="..."
-			[marginTop]="..."
-			(onDestory)="...($event)"
-			(onLoad)="...($event)"
-			[opacity]="..."
-			[overrideParams]="..."
-			[padding]="..."
-			[paddingBottom]="..."
-			[paddingLeft]="..."
-			[paddingRight]="..."
-			[paddingTop]="..."
-			[pseudo]="..."
-			[textAlign]="..."
-			[textDecoration]="..."
-			[textIndent]="..."
-			[textJustify]="..."
-			[textSizeAdjust]="..."
-			[textTransform]="..."
-			[transition]="..."
-			[tween]="..."
-			[userData]="..."
-			[visible]="..."
-			[whiteSpace]="..."
-			[windowExport]="..."
-			[wordBreak]="..."
-			[wordSpacing]="..."
+			[ backgroundAlpha ]="... number -- The background-color CSS prope... "
+			[ backgroundClip ]="... string -- The background-clip CSS proper... "
+			[ backgroundColor ]="... string|number -- The background-color CSS prope... "
+			[ backgroundImage ]="... string -- The background-image CSS prope... "
+			[ backgroundPosition ]="... string -- The background-position CSS pr... "
+			[ backgroundPositionX ]="... string -- The background-position CSS pr... "
+			[ backgroundPositionY ]="... string -- The background-position CSS pr... "
+			[ backgroundRepeat ]="... string -- The background-repeat CSS prop... "
+			[ backgroundRepeatX ]="... string -- The background-repeat CSS prop... "
+			[ backgroundRepeatY ]="... string -- The background-repeat CSS prop... "
+			[ backgroundSize ]="... string -- The background-size CSS proper... "
+			[ backgroundSizeX ]="... string -- The background-size CSS proper... "
+			[ backgroundSizeY ]="... string -- The background-size CSS proper... "
+			[ border ]="... string|number -- The border shorthand CSS prope... "
+			[ borderBottom ]="... string|number -- The border-bottom shorthand CS... "
+			[ borderColor ]="... string|number -- The border-color shorthand CSS... "
+			[ borderImage ]="... string -- The border-image CSS property ... "
+			[ borderImageOutset ]="... string|number -- The border-image-outset CSS pr... "
+			[ borderImageRepeat ]="... string -- The border-image-repeat CSS pr... "
+			[ borderImageSlice ]="... string|number -- The border-image-slice CSS pro... "
+			[ borderImageSource ]="... string -- The border-image-source CSS pr... "
+			[ borderImageWidth ]="... string|number -- The border-image-width CSS pro... "
+			[ borderLeft ]="... string|number -- The border-left shorthand CSS ... "
+			[ borderRadius ]="... string|number -- The border-radius CSS property... "
+			[ borderRight ]="... string|number -- The border-right shorthand CSS... "
+			[ borderStyle ]="... string -- The border-style shorthand CSS... "
+			[ borderTop ]="... string|number -- The border-top shorthand CSS p... "
+			[ borderWidth ]="... string|number -- The border-width shorthand CSS... "
+			[ color ]="... string|number -- The color CSS property sets th... "
+			[ content ]="... string -- The content of background comp... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ fontFamily ]="... string -- The font-family CSS property s... "
+			[ fontSize ]="... number -- The font-size CSS property set... "
+			[ fontStyle ]="... string -- The font-style CSS property se... "
+			[ fontWeight ]="... string -- The font-weight CSS property s... "
+			[ letterSpacing ]="... string -- The letter-spacing CSS propert... "
+			[ margin ]="... string|number -- The margin CSS shorthand prope... "
+			[ marginBottom ]="... string|number -- The margin-bottom CSS property... "
+			[ marginLeft ]="... string|number -- The margin-left CSS property s... "
+			[ marginRight ]="... string|number -- The margin-right CSS property ... "
+			[ marginTop ]="... string|number -- The margin-top CSS property se... "
+			( onDestory )="...($event : BackgroundComponent -- Will be called when before des... )"
+			( onLoad )="...($event : BackgroundComponent -- Will be called when load compl... )"
+			[ opacity ]="... number -- The opacity CSS property sets ... "
+			[ overrideParams ]="... any -- The override params "
+			[ padding ]="... string|number -- The padding CSS shorthand prop... "
+			[ paddingBottom ]="... string|number -- The padding-right CSS property... "
+			[ paddingLeft ]="... string|number -- The padding-left CSS property ... "
+			[ paddingRight ]="... string|number -- The padding-right CSS property... "
+			[ paddingTop ]="... string|number -- The padding-top CSS property s... "
+			[ pseudo ]="... string -- The pseudo of background compo... "
+			[ textAlign ]="... string -- The text-align CSS property se... "
+			[ textDecoration ]="... string -- The text-decoration shorthand ... "
+			[ textIndent ]="... string -- The text-indent CSS property s... "
+			[ textJustify ]="... string -- The text-justify CSS property ... "
+			[ textSizeAdjust ]="... string -- The text-size-adjust CSS prope... "
+			[ textTransform ]="... string -- The text-transform CSS propert... "
+			[ transition ]="... string[] -- The transition of background c... "
+			[ tween ]="... any -- Tween animation params "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ visible ]="... boolean -- The visible of background comp... "
+			[ whiteSpace ]="... string -- The white-space CSS property s... "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ wordBreak ]="... string -- The word-break CSS property se... "
+			[ wordSpacing ]="... string -- The word-spacing CSS property ... "
 		&gt;&lt;/ngx3js-background&gt;
 		</code>
 
@@ -364,7 +370,7 @@
 			The transition of background component
 		</p>
 
-		<h3>[property:boolean visible]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean visible] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The visible of background component
 		</p>
@@ -389,11 +395,6 @@
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>[method:BackgroundComponent constructor](  )</h3>
-		<p>
-			Creates an instance of background component.
-		</p>
-
 		<h3>[method:void applyHtmlStyle](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Applys html style
@@ -407,9 +408,11 @@
 		</p>
 
 		<h3>[method:void setParentNode](  [param:HTMLElement parentNode] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			[page:HTMLElement parentNode] - The parent node.<br /><br />
-
+			[parameter:HTMLElement parentNode] - The parent node.
+		</p>
+		<p>
 			Sets parent node
 		</p>
 
