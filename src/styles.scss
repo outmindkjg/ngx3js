@@ -296,5 +296,11 @@ div#viewer {
 			height: calc(100% - var(--header-height));
 			padding-left: 0;
 		}
+		pre.prettyprint,
+		code.prettyprint {
+			&:hover {
+				border-radius: 0px;
+			}
+		}		
 	}
 }

@@ -59,4 +59,18 @@ export class MenuComponent implements OnInit, OnDestroy {
 			this.expandButton.nativeElement.parentNode.parentNode.parentNode;
 		ele.classList.toggle('open');
 	}
+
+	/**
+	 * Closes menu
+	 */
+	closeMenu(isOpen : boolean) {
+		const ele =
+			this.expandButton.nativeElement.parentNode.parentNode.parentNode;
+		if (isOpen) {
+			ele.classList.add('open');
+		} else {
+			ele.classList.remove('open');
+		}
+	}
+
 }

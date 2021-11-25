@@ -90,6 +90,7 @@ export class DocsComponent implements OnInit {
 
 	setFocus(menuId: string) {
 		setTimeout(() => {
+			this.menu.closeMenu(true);
 			const links: HTMLAnchorElement[] =
 				this.ele.nativeElement.getElementsByTagName('a');
 			let selected: HTMLAnchorElement = null;
@@ -100,8 +101,14 @@ export class DocsComponent implements OnInit {
 				}
 			}
 			if (selected !== null) {
-				this.menu.toggleMenu();
 				selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+				setTimeout(() => {
+					this.menu.closeMenu(false);
+				}, 1500);
+			} else {
+				setTimeout(() => {
+					this.menu.closeMenu(false);
+				}, 1500);
 			}
 		}, 1000);
 	}

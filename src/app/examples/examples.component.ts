@@ -73,6 +73,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 
 	setFocus(menuId: string) {
 		setTimeout(() => {
+			this.menu.closeMenu(true);
 			const links: HTMLAnchorElement[] =
 				this.ele.nativeElement.getElementsByTagName('a');
 			let selected: HTMLAnchorElement = null;
@@ -83,8 +84,14 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 				}
 			}
 			if (selected !== null) {
-				this.menu.toggleMenu();
 				selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+				setTimeout(() => {
+					this.menu.closeMenu(false);
+				}, 1500);
+			} else {
+				setTimeout(() => {
+					this.menu.closeMenu(false);
+				}, 1500);
 			}
 		}, 1000);
 	}
