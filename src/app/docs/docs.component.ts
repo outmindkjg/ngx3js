@@ -373,7 +373,7 @@ export class DocsComponent implements OnInit {
 								gchild.id.startsWith('/docs/ngxmanual/')
 							) {
 								this.gitHub.nativeElement.href =
-									'https://github.com/outmindkjg/three-sample/tree/master/src/assets/' +
+									'https://github.com/outmindkjg/ngx3js/tree/master/src/assets/' +
 									gchild.id.substr(6) +
 									'.html';
 							} else {
