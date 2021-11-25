@@ -198,7 +198,11 @@ export class DocsComponent implements OnInit {
 					} catch(ex : any){ }
 					break;
 				default :
-					console.log(this.loadedPageInfo, pageName);
+					if (pageName.startsWith('examples/')) {
+						this.router.navigateByUrl(pageName);
+					} else {
+						console.log(this.loadedPageInfo, pageName);
+					}
 					break;
 			}
 		}

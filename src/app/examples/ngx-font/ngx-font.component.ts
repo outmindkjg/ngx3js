@@ -66,11 +66,11 @@ export class NgxFontComponent extends BaseComponent<{
 					text: 'The quick brown fox',
 				},
 				korean: {
-					font: 'fonts/nanum/nanumgothic_regular.typeface.json',
+					font: 'fonts/ttf/ko/Cute_Font/CuteFont-Regular.ttf',
 					text: '다람쥐헌쳇바퀴.',
 				},
 				japanese: {
-					font: 'fonts/ttf/jp/Potta_One/PottaOne-Regular.ttf',
+					font: 'fonts/ttf/jp/Rampart_One/RampartOne-Regular.ttf',
 					text: 'コンピュータの世界',
 				},
 				chinese: {
