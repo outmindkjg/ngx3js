@@ -12,130 +12,131 @@
 		<h1>PassComponent</h1>
 
 		<p class="desc">
-			PassComponent<br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-composer&gt;<br>
-				&lt;ngx3js-pass [type]="'RenderPass'"&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'FilmPass'"<br>
-					[noiseIntensity]="0.35"<br>
-					[scanlinesIntensity]="0.75"<br>
-					[scanlinesCount]="2048"<br>
-					[grayscale]="false"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					#copyPass<br>
-					[type]="'ShaderPass'"<br>
-					[shader]="'CopyShader'"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass [type]="'bloom'" [strength]="0.75"&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'film'"<br>
-					[noiseIntensity]="0.5"<br>
-					[scanlinesIntensity]="0.5"<br>
-					[scanlinesCount]="1448"<br>
-					[grayscale]="false"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'shader'"<br>
-					[shader]="'focus'"<br>
-					[uniforms]="{ screenWidth: 2048, screenHeight: 2048 }"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'ShaderPass'"<br>
-					[shader]="'DotScreen'"<br>
-					[uniforms]="{ scale: 2 }"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'ShaderPass'"<br>
-					[shader]="'RGBShift'"<br>
-					[uniforms]="{ amount: 0.0015 }"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'ShaderPass'"<br>
-					[shader]="'BleachBypassShader'"<br>
-					[uniforms]="{ opacity: 0.95 }"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					#effectSepia<br>
-					[type]="'ShaderPass'"<br>
-					[shader]="'SepiaShader'"<br>
-					[uniforms]="{ amount: 0.9 }"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'ShaderPass'"<br>
-					[shader]="'VignetteShader'"<br>
-					[uniforms]="{ offset: 0.95, darkness: 1.6 }"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'ShaderPass'"<br>
-					[shader]="'GammaCorrectionShader'"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'BloomPass'"<br>
-					[strength]="0.5"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'FilmPass'"<br>
-					[noiseIntensity]="0.35"<br>
-					[scanlinesIntensity]="0.025"<br>
-					[scanlinesCount]="648"<br>
-					[grayscale]="false"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'FilmPass'"<br>
-					[noiseIntensity]="0.35"<br>
-					[scanlinesIntensity]="0.5"<br>
-					[scanlinesCount]="2048"<br>
-					[grayscale]="true"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'DotScreenPass'"<br>
-					[centerX]="0"<br>
-					[centerY]="0"<br>
-					[angle]="28"<br>
-					[scale]="0.8"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'ShaderPass'"<br>
-					[shader]="'HorizontalBlurShader'"<br>
-					[uniforms]="{ h: 2 / 400 }"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'ShaderPass'"<br>
-					[shader]="'VerticalBlurShader'"<br>
-					[uniforms]="{ v: 2 / 400 }"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'ShaderPass'"<br>
-					[shader]="'ColorifyShader'"<br>
-					[uniforms]="{ color: '0xffc0c0' }"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'ShaderPass'"<br>
-					[shader]="'ColorifyShader'"<br>
-					[uniforms]="{ color: '0xffb0b0' }"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass #clearMask [type]="'ClearMaskPass'"&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass #renderMask [type]="'MaskPass'"&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'MaskPass'"<br>
-					[inverse]="true"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'RenderPass'"<br>
-					[scene]="sceneBG"<br>
-					[camera]="cameraOrtho"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-				&lt;ngx3js-pass<br>
-					[type]="'RenderPass'"<br>
-					[clear]="false"<br>
-					[scene]="scene"<br>
-					[camera]="camera"<br>
-				&gt;&lt;/ngx3js-pass&gt;<br>
-			&lt;/ngx3js-composer&gt;<br>
-			<br>
+			The Pass component.<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/PassComponent ngx3js docs] page for details.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-composer&gt;<br />
+				&lt;ngx3js-pass [type]="'RenderPass'"&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'FilmPass'"<br />
+					[noiseIntensity]="0.35"<br />
+					[scanlinesIntensity]="0.75"<br />
+					[scanlinesCount]="2048"<br />
+					[grayscale]="false"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					#copyPass<br />
+					[type]="'ShaderPass'"<br />
+					[shader]="'CopyShader'"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass [type]="'bloom'" [strength]="0.75"&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'film'"<br />
+					[noiseIntensity]="0.5"<br />
+					[scanlinesIntensity]="0.5"<br />
+					[scanlinesCount]="1448"<br />
+					[grayscale]="false"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'shader'"<br />
+					[shader]="'focus'"<br />
+					[uniforms]="{ screenWidth: 2048, screenHeight: 2048 }"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'ShaderPass'"<br />
+					[shader]="'DotScreen'"<br />
+					[uniforms]="{ scale: 2 }"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'ShaderPass'"<br />
+					[shader]="'RGBShift'"<br />
+					[uniforms]="{ amount: 0.0015 }"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'ShaderPass'"<br />
+					[shader]="'BleachBypassShader'"<br />
+					[uniforms]="{ opacity: 0.95 }"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					#effectSepia<br />
+					[type]="'ShaderPass'"<br />
+					[shader]="'SepiaShader'"<br />
+					[uniforms]="{ amount: 0.9 }"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'ShaderPass'"<br />
+					[shader]="'VignetteShader'"<br />
+					[uniforms]="{ offset: 0.95, darkness: 1.6 }"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'ShaderPass'"<br />
+					[shader]="'GammaCorrectionShader'"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'BloomPass'"<br />
+					[strength]="0.5"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'FilmPass'"<br />
+					[noiseIntensity]="0.35"<br />
+					[scanlinesIntensity]="0.025"<br />
+					[scanlinesCount]="648"<br />
+					[grayscale]="false"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'FilmPass'"<br />
+					[noiseIntensity]="0.35"<br />
+					[scanlinesIntensity]="0.5"<br />
+					[scanlinesCount]="2048"<br />
+					[grayscale]="true"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'DotScreenPass'"<br />
+					[centerX]="0"<br />
+					[centerY]="0"<br />
+					[angle]="28"<br />
+					[scale]="0.8"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'ShaderPass'"<br />
+					[shader]="'HorizontalBlurShader'"<br />
+					[uniforms]="{ h: 2 / 400 }"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'ShaderPass'"<br />
+					[shader]="'VerticalBlurShader'"<br />
+					[uniforms]="{ v: 2 / 400 }"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'ShaderPass'"<br />
+					[shader]="'ColorifyShader'"<br />
+					[uniforms]="{ color: '0xffc0c0' }"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'ShaderPass'"<br />
+					[shader]="'ColorifyShader'"<br />
+					[uniforms]="{ color: '0xffb0b0' }"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass #clearMask [type]="'ClearMaskPass'"&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass #renderMask [type]="'MaskPass'"&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'MaskPass'"<br />
+					[inverse]="true"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'RenderPass'"<br />
+					[scene]="sceneBG"<br />
+					[camera]="cameraOrtho"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass<br />
+					[type]="'RenderPass'"<br />
+					[clear]="false"<br />
+					[scene]="scene"<br />
+					[camera]="camera"<br />
+				&gt;&lt;/ngx3js-pass&gt;<br />
+			&lt;/ngx3js-composer&gt;<br />
+			<br />
 			</code>
 		</p>
 
@@ -168,7 +169,7 @@
 			[ edgeStrength ]="... number -- The edgeStrength of pass compo... "
 			[ edgeThickness ]="... number -- The edgeThickness of pass comp... "
 			[ enabled ]="... boolean -- Enabled or Not "
-			[ encoding ]="... string -- [page:Textures THREE.LinearEnc... "
+			[ encoding ]="... string -- [THREE.LinearEncoding](https:/... "
 			[ envMap ]="... CubeTexture|TextureComponent -- The envMap of pass component "
 			[ focus ]="... number -- The focus of pass component "
 			[ fragmentShader ]="... string -- The fragmentShader of pass com... "
@@ -344,20 +345,19 @@
 
 		<h3>[property:string encoding]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:Textures THREE.LinearEncoding] is the default.<br>
-			See the [page:Textures texture constants] page for details of other formats.<br>
-			Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br>
-			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br>
-			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br>
-			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br>
-			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br>
-			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br>
-			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br>
-			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br>
+			[THREE.LinearEncoding](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) is the default.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details of other formats.<br />
+			Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br />
+			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br />
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br />
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br />
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br />
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br />
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br />
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br />
 			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
 		</p>
 
@@ -388,13 +388,13 @@
 
 		<h3>[property:number height]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The size of height<br>
-			- type number<br>
-			 fixed size<br>
-			- type string with include %<br>
-			 relative size from renderer size<br>
-			 for example<br>
-			   in case renderer = 1024<br>
+			The size of height<br />
+			- type number<br />
+			 fixed size<br />
+			- type string with include %<br />
+			 relative size from renderer size<br />
+			 for example<br />
+			   in case renderer = 1024<br />
 			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
 		</p>
 
@@ -425,8 +425,7 @@
 
 		<h3>[property:string lut]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of pass component<br>
-			<br>
+			The Input of pass component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -437,8 +436,7 @@
 
 		<h3>[property:string materialShader]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of pass component<br>
-			<br>
+			The Input of pass component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -484,8 +482,7 @@
 
 		<h3>[property:string output]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of pass component<br>
-			<br>
+			The Input of pass component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -616,8 +613,7 @@
 
 		<h3>[property:string shader]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of pass component<br>
-			<br>
+			The Input of pass component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -693,13 +689,13 @@
 
 		<h3>[property:number width]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The size of width<br>
-			- type number<br>
-			 fixed size<br>
-			- type string with include %<br>
-			 relative size from renderer size<br>
-			 for example<br>
-			   in case renderer = 1024<br>
+			The size of width<br />
+			- type number<br />
+			 fixed size<br />
+			- type string with include %<br />
+			 relative size from renderer size<br />
+			 for example<br />
+			   in case renderer = 1024<br />
 			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
 		</p>
 
@@ -719,15 +715,15 @@
 
 		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Gets object<br>
-			<br>
+			Gets object<br />
+			<br />
 			Returns : object
 		</p>
 
 		<h3>[method:T getPass](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets pass<br>
-			<br>
+			Gets pass<br />
+			<br />
 			Returns : pass
 		</p>
 

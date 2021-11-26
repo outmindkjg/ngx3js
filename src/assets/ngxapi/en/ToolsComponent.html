@@ -12,22 +12,19 @@
 		<h1>ToolsComponent</h1>
 
 		<p class="desc">
-			ToolsComponent<br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-tools<br>
-				[type]="'audio'"<br>
-				[url]="'sounds/ping_pong.mp3'"<br>
-			&gt;&lt;/ngx3js-tools&gt;<br>
-			&lt;ngx3js-tools<br>
-				[type]="'pmremtexture'"<br>
-				[background]="'0xcccccc'"<br>
-			&gt;&lt;/ngx3js-tools&gt;<br>
-			&lt;ngx3js-tools<br>
-				[type]="'pmremtexture'"<br>
-				[storageName]="'spot1Lux.hdr'"<br>
-				[storageOption]="{ path: 'textures/equirectangular/' }"<br>
-			&gt;&lt;/ngx3js-tools&gt;<br>
+			Tools Component<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/ToolsComponent ngx3js docs] page for details.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-tools<br />
+				[type]="'audio'" [url]="'sounds/ping_pong.mp3'"<br />
+			&gt;&lt;/ngx3js-tools&gt;<br />
+			&lt;ngx3js-tools<br />
+				[type]="'pmremtexture'" [background]="'0xcccccc'"<br />
+			&gt;&lt;/ngx3js-tools&gt;<br />
+			&lt;ngx3js-tools<br />
+				[type]="'pmremtexture'" [storageName]="'spot1Lux.hdr'" [storageOption]="{ path: 'textures/equirectangular/' }"<br />
+			&gt;&lt;/ngx3js-tools&gt;<br />
 			</code>
 		</p>
 
@@ -46,8 +43,8 @@
 			[ background ]="... string|number|AbstractTextureComponent -- The background of tools compon... "
 			[ debug ]="... boolean -- Debug this Object "
 			[ enabled ]="... boolean -- Enabled or Not "
-			[ encoding ]="... string -- [page:Textures THREE.LinearEnc... "
-			[ format ]="... string -- The default is [page:Textures ... "
+			[ encoding ]="... string -- [THREE.LinearEncoding](https:/... "
+			[ format ]="... string -- The default is [THREE.RGBAForm... "
 			( onDestory )="...($event : ToolsComponent -- Will be called when before des... )"
 			( onLoad )="...($event : ToolsComponent -- Will be called when load compl... )"
 			[ overrideParams ]="... any -- The override params "
@@ -74,44 +71,42 @@
 
 		<h3>[property:string encoding]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:Textures THREE.LinearEncoding] is the default.<br>
-			See the [page:Textures texture constants] page for details of other formats.<br>
-			Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br>
-			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br>
-			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br>
-			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br>
-			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br>
-			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br>
-			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br>
-			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br>
+			[THREE.LinearEncoding](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) is the default.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details of other formats.<br />
+			Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br />
+			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br />
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br />
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br />
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br />
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br />
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br />
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br />
 			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
 		</p>
 
 		<h3>[property:string format]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The default is [page:Textures THREE.RGBAFormat], although the [page:TextureLoader TextureLoader] will automatically set this to [page:Textures THREE.RGBFormat] for JPG images.<br>
-			See the [page:Textures texture constants] page for details of other formats.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:PixelFormat PixelFormat] - THREE.PixelFormat<br>
-			[page:AlphaFormat AlphaFormat] - THREE.AlphaFormat - AlphaFormat, Alpha<br>
-			[page:RedFormat RedFormat] - THREE.RedFormat - RedFormat, Red<br>
-			[page:RedIntegerFormat RedIntegerFormat] - THREE.RedIntegerFormat - RedIntegerFormat, RedInteger<br>
-			[page:RGFormat RGFormat] - THREE.RGFormat - RGFormat, RG<br>
-			[page:RGIntegerFormat RGIntegerFormat] - THREE.RGIntegerFormat - RGIntegerFormat, RGInteger<br>
-			[page:RGBFormat RGBFormat] - THREE.RGBFormat - RGBFormat, RGB<br>
-			[page:RGBIntegerFormat RGBIntegerFormat] - THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger<br>
-			[page:RGBAIntegerFormat RGBAIntegerFormat] - THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger<br>
-			[page:LuminanceFormat LuminanceFormat] - THREE.LuminanceFormat - LuminanceFormat, Luminance<br>
-			[page:LuminanceAlphaFormat LuminanceAlphaFormat] - THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha<br>
-			[page:RGBEFormat RGBEFormat] - THREE.RGBEFormat - RGBEFormat, RGBE<br>
-			[page:DepthFormat DepthFormat] - THREE.DepthFormat - DepthFormat, Depth<br>
-			[page:DepthStencilFormat DepthStencilFormat] - THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil<br>
+			The default is [THREE.RGBAFormat](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), although the [TextureLoader](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/TextureLoader) will automatically set this to [THREE.RGBFormat](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) for JPG images.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details of other formats.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:PixelFormat PixelFormat] - THREE.PixelFormat<br />
+			[page:AlphaFormat AlphaFormat] - THREE.AlphaFormat - AlphaFormat, Alpha<br />
+			[page:RedFormat RedFormat] - THREE.RedFormat - RedFormat, Red<br />
+			[page:RedIntegerFormat RedIntegerFormat] - THREE.RedIntegerFormat - RedIntegerFormat, RedInteger<br />
+			[page:RGFormat RGFormat] - THREE.RGFormat - RGFormat, RG<br />
+			[page:RGIntegerFormat RGIntegerFormat] - THREE.RGIntegerFormat - RGIntegerFormat, RGInteger<br />
+			[page:RGBFormat RGBFormat] - THREE.RGBFormat - RGBFormat, RGB<br />
+			[page:RGBIntegerFormat RGBIntegerFormat] - THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger<br />
+			[page:RGBAIntegerFormat RGBAIntegerFormat] - THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger<br />
+			[page:LuminanceFormat LuminanceFormat] - THREE.LuminanceFormat - LuminanceFormat, Luminance<br />
+			[page:LuminanceAlphaFormat LuminanceAlphaFormat] - THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha<br />
+			[page:RGBEFormat RGBEFormat] - THREE.RGBEFormat - RGBEFormat, RGBE<br />
+			[page:DepthFormat DepthFormat] - THREE.DepthFormat - DepthFormat, Depth<br />
+			[page:DepthStencilFormat DepthStencilFormat] - THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil<br />
 			[page:RGBAFormat RGBAFormat] - THREE.RGBAFormat - RGBAFormat, RGBA
 		</p>
 
@@ -132,8 +127,7 @@
 
 		<h3>[property:string type] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of tools component<br>
-			<br>
+			The Input of tools component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -149,22 +143,22 @@
 
 		<h3>[method:AudioBuffer getAudio](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets audio<br>
-			<br>
+			Gets audio<br />
+			<br />
 			Returns : audio
 		</p>
 
 		<h3>[method:Texture getTexture](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets texture<br>
-			<br>
+			Gets texture<br />
+			<br />
 			Returns : texture
 		</p>
 
 		<h3>[method:any getTool](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets tool<br>
-			<br>
+			Gets tool<br />
+			<br />
 			Returns : tool
 		</p>
 

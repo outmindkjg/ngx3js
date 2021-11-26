@@ -12,22 +12,23 @@
 		<h1>AbstractObject3dComponent</h1>
 
 		<p class="desc">
-			AbstractObject3dComponent<br>
-			<br>
-			<code data-type="typescript"><br>
-			@Component({<br>
-				providers: [<br>
-					{<br>
-						provide: AbstractObject3dComponent,<br>
-						useExisting: forwardRef(() =&gt; XxxComponent),<br>
-					},<br>
-				],<br>
-			})<br>
-			export class XxxComponent extends AbstractObject3dComponent implements OnInit {<br>
-				constructor() {<br>
-					super();<br>
-				}<br>
-			}<br>
+			The Abstract Object3d component.<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/AbstractObject3dComponent ngx3js docs] page for details.<br />
+			<br />
+			<code data-type="typescript"><br />
+			@Component({<br />
+				providers: [<br />
+					{<br />
+						provide: AbstractObject3dComponent,<br />
+						useExisting: forwardRef(() =&gt; XxxComponent),<br />
+					},<br />
+				],<br />
+			})<br />
+			export class XxxComponent extends AbstractObject3dComponent implements OnInit {<br />
+				constructor() {<br />
+					super();<br />
+				}<br />
+			}<br />
 			</code>
 		</p>
 
@@ -122,7 +123,7 @@
 
 		<h3>[property:boolean matrixAutoUpdate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate] (true).
+			When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate Object3D.DefaultMatrixAutoUpdate] (true).
 		</p>
 
 		<h3>[property:string name] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -181,8 +182,8 @@
 			[parameter:string prefix] - The prefix.
 		</p>
 		<p>
-			Adds debug line<br>
-			<br>
+			Adds debug line<br />
+			<br />
 			Returns : debug line
 		</p>
 
@@ -204,8 +205,8 @@
 			[parameter:number z] - The z.
 		</p>
 		<p>
-			Adds position<br>
-			<br>
+			Adds position<br />
+			<br />
 			Returns : position
 		</p>
 
@@ -217,8 +218,8 @@
 			[parameter:number z] - The z.
 		</p>
 		<p>
-			Adds rotation<br>
-			<br>
+			Adds rotation<br />
+			<br />
 			Returns : rotation
 		</p>
 
@@ -242,8 +243,8 @@
 
 		<h3>[method:BufferGeometry getGeometry](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets geometry<br>
-			<br>
+			Gets geometry<br />
+			<br />
 			Returns : geometry
 		</p>
 
@@ -254,8 +255,8 @@
 			[parameter:boolean required] - The required.
 		</p>
 		<p>
-			Gets material one<br>
-			<br>
+			Gets material one<br />
+			<br />
 			Returns : material one
 		</p>
 
@@ -266,8 +267,8 @@
 			[parameter:boolean required] - The required.
 		</p>
 		<p>
-			Gets materials<br>
-			<br>
+			Gets materials<br />
+			<br />
 			Returns : materials
 		</p>
 
@@ -278,8 +279,8 @@
 			[parameter:boolean required] - The required.
 		</p>
 		<p>
-			Gets materials multi<br>
-			<br>
+			Gets materials multi<br />
+			<br />
 			Returns : materials multi
 		</p>
 
@@ -289,15 +290,15 @@
 			[parameter:string def] - (optional) The def.
 		</p>
 		<p>
-			Gets name<br>
-			<br>
+			Gets name<br />
+			<br />
 			Returns : name
 		</p>
 
 		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets object3d<br>
-			<br>
+			Gets object3d<br />
+			<br />
 			Returns : object3d
 		</p>
 
@@ -307,8 +308,8 @@
 			[parameter:number id] - The id.
 		</p>
 		<p>
-			Gets object by id<br>
-			<br>
+			Gets object by id<br />
+			<br />
 			Returns : object by id
 		</p>
 
@@ -318,8 +319,8 @@
 			[parameter:string name] - The name.
 		</p>
 		<p>
-			Gets object by name<br>
-			<br>
+			Gets object by name<br />
+			<br />
 			Returns : object by name
 		</p>
 
@@ -330,36 +331,36 @@
 			[parameter:string value] - The value.
 		</p>
 		<p>
-			Gets object by property<br>
-			<br>
+			Gets object by property<br />
+			<br />
 			Returns : object by property
 		</p>
 
 		<h3>[method:Object3D getObjectTop](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets object top<br>
-			<br>
+			Gets object top<br />
+			<br />
 			Returns : object top
 		</p>
 
 		<h3>[method:Vector3 getPosition](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets position<br>
-			<br>
+			Gets position<br />
+			<br />
 			Returns : position
 		</p>
 
 		<h3>[method:Euler getRotation](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets rotation<br>
-			<br>
+			Gets rotation<br />
+			<br />
 			Returns : rotation
 		</p>
 
 		<h3>[method:Vector3 getScale](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets scale<br>
-			<br>
+			Gets scale<br />
+			<br />
 			Returns : scale
 		</p>
 
@@ -378,8 +379,8 @@
 			[parameter:boolean def] - (optional) The def.
 		</p>
 		<p>
-			Gets visible<br>
-			<br>
+			Gets visible<br />
+			<br />
 			Returns : true if visible
 		</p>
 
@@ -391,8 +392,8 @@
 			[parameter:number z] - The z.
 		</p>
 		<p>
-			Sets lookat<br>
-			<br>
+			Sets lookat<br />
+			<br />
 			Returns : lookat
 		</p>
 
@@ -411,8 +412,8 @@
 			[parameter:Object3D parent] - The parent.
 		</p>
 		<p>
-			Sets parent<br>
-			<br>
+			Sets parent<br />
+			<br />
 			Returns : true if parent
 		</p>
 
@@ -433,8 +434,8 @@
 			[parameter:number z] - The z.
 		</p>
 		<p>
-			Sets position<br>
-			<br>
+			Sets position<br />
+			<br />
 			Returns : position
 		</p>
 
@@ -446,8 +447,8 @@
 			[parameter:number z] - The z.
 		</p>
 		<p>
-			Sets rotation<br>
-			<br>
+			Sets rotation<br />
+			<br />
 			Returns : rotation
 		</p>
 
@@ -459,8 +460,8 @@
 			[parameter:number z] - The z.
 		</p>
 		<p>
-			Sets scale<br>
-			<br>
+			Sets scale<br />
+			<br />
 			Returns : scale
 		</p>
 
@@ -470,8 +471,8 @@
 			[parameter:number scalar] - The scalar.
 		</p>
 		<p>
-			Sets scale scalar<br>
-			<br>
+			Sets scale scalar<br />
+			<br />
 			Returns : scale scalar
 		</p>
 
@@ -501,24 +502,24 @@
 			[property:AnimationGroupComponent|AnimationObjectGroup animationGroup]? - The animaion group of this object 3d<br />
 			[property:boolean castShadow]? - Whether the object gets rendered into shadow map. Default is *false*.<br />
 			[property:AbstractControllerComponent controller]? -  The controller.<br />
-			[property:any customDepth]? - Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br>
-			When shadow-casting with a [page:DirectionalLight] or [page:SpotLight], if you are (a) modifying vertex positions in the vertex shader, (b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a transparent texture with alphaTest, you must specify a customDepthMaterial for proper shadows. Default is *undefined*.<br />
-			[property:any customDistance]? - Same as [page:.customDepthMaterial customDepthMaterial], but used with [page:PointLight]. Default is *undefined*.<br />
+			[property:any customDepth]? - Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br />
+			When shadow-casting with a [page:DirectionalLight DirectionalLight] or [page:SpotLight SpotLight], if you are (a) modifying vertex positions in the vertex shader, (b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a transparent texture with alphaTest, you must specify a customDepthMaterial for proper shadows. Default is *undefined*.<br />
+			[property:any customDistance]? - Same as [page:Object3D.customDepthMaterial Object3D.customDepthMaterial], but used with [page:PointLight PointLight]. Default is *undefined*.<br />
 			[property:boolean frustumCulled]? - When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object. If set to `false` the object gets rendered every frame even if it is not in the frustum of the camera. Default is `true`.<br />
-			[property:number[] layers]? - The layer membership of the object. The object is only visible if it has at least one layer in common with the [page:Camera] in use. This property can also be used to filter out unwanted objects in ray-intersection tests when using [page:Raycaster].<br />
+			[property:number[] layers]? - The layer membership of the object. The object is only visible if it has at least one layer in common with the [page:Camera Camera] in use. This property can also be used to filter out unwanted objects in ray-intersection tests when using [page:Raycaster Raycaster].<br />
 			[property:number loDistance]? - The distance at which to display this level of detail.<br />
-			[property:any lookat]? - vector - A vector representing a position in world space.<br>
-			Optionally, the [page:.x x], [page:.y y] and [page:.z z] components of the world space position.<br>
-			Rotates the object to face a point in world space.<br>
+			[property:any lookat]? - vector - A vector representing a position in world space.<br />
+			Optionally, the [page:Object3D.x Object3D.x], [page:Object3D.y Object3D.y] and [page:Object3D.z Object3D.z] components of the world space position.<br />
+			Rotates the object to face a point in world space.<br />
 			This method does not support objects having non-uniformly-scaled parent(s).<br />
-			[property:boolean matrixAutoUpdate]? - When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate] (true).<br />
+			[property:boolean matrixAutoUpdate]? - When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate Object3D.DefaultMatrixAutoUpdate] (true).<br />
 			[property:string name]? - The name of the object (doesn't need to be unique). Default is an empty string.<br />
-			[property:any position]? - A [page:Vector3] representing the object's local position. Default is (0, 0, 0).<br />
+			[property:any position]? - A [page:Vector3 Vector3] representing the object's local position. Default is (0, 0, 0).<br />
 			[property:boolean receiveShadow]? - Whether the material receives shadows. Default is *false*.<br />
-			[property:number renderOrder]? - This value allows the default rendering order of [link:https://en.wikipedia.org/wiki/Scene_graph scene graph] objects to be overridden although opaque and transparent objects remain sorted independently. When this property is set for an instance of [page:Group Group], all descendants objects will be sorted and rendered together.<br>
+			[property:number renderOrder]? - This value allows the default rendering order of [link:https://en.wikipedia.org/wiki/Scene_graph scene graph] objects to be overridden although opaque and transparent objects remain sorted independently. When this property is set for an instance of [page:Group Group], all descendants objects will be sorted and rendered together.<br />
 			Sorting is from lowest to highest renderOrder. Default value is *0*.<br />
 			[property:any rotation]? - Object's local rotation (see [link:https://en.wikipedia.org/wiki/Euler_angles Euler angles]), in radians.<br />
-			[property:any scale]? - The object's local scale. Default is [page:Vector3]( 1, 1, 1 ).<br />
+			[property:any scale]? - The object's local scale. Default is [page:Vector3 Vector3]( 1, 1, 1 ).<br />
 			[property:boolean visible]? - Object gets rendered if *true*. Default is *true*.
 		</p>
 

@@ -12,43 +12,29 @@
 		<h1>AudioComponent</h1>
 
 		<p class="desc">
-			AudioComponent<br>
-			<br>
-			Create a ( global ) audio object.<br>
-			<br>
-			This uses the [link:https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API Web Audio API].<br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3-audio<br>
-				[type]="'audio'"<br>
-				[url]="'sounds/376737_Skullbeatz___Bad_Cat_Maste.mp3'"<br>
-				[refDistance]="1"<br>
-				[coneInnerAngle]="180"<br>
-				[coneOuterAngle]="230"<br>
-				[cconeOuterGain]="0.1"<br>
-			&gt;&lt;/ngx3-audio&gt;<br>
-			&lt;ngx3js-audio<br>
-				[type]="'audio'"<br>
-				[url]="'sounds/Project_Utopia.ogg'"<br>
-				[volume]="0.5"<br>
-				[loop]="true"<br>
-				[autoplay]="true"<br>
-			&gt;&lt;/ngx3js-audio&gt;<br>
-			&lt;ngx3js-audio<br>
-				[type]="'PositionalAudio'"<br>
-				[url]="'sounds/358232_j_s_song.ogg'"<br>
-				[refDistance]="20"<br>
-				[autoplay]="true"<br>
-			&gt;&lt;/ngx3js-audio&gt;<br>
-			&lt;ngx3js-audio<br>
-				[type]="'PositionalAudio'"<br>
-				[urlType]="'listener'"<br>
-				[volume]="0.5"<br>
-				[refDistance]="20"<br>
-			&gt;&lt;/ngx3js-audio&gt;<br>
-			</code><br>
-			<br>
-			[page:PositionalAudio PositionalAudio] - THREE.PositionalAudio - PositionalAudio, Positional, Position<br>
+			The Audio component.<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/AudioComponent ngx3js docs] page for details.<br />
+			<br />
+			Create a ( global ) audio object.<br />
+			<br />
+			This uses the [link:https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API Web Audio API].<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3-audio<br />
+				[type]="'audio'" [url]="'sounds/376737_Skullbeatz___Bad_Cat_Maste.mp3'" [refDistance]="1 " [coneInnerAngle]="180 " [coneOuterAngle]="230 " [cconeOuterGain]="0.1"<br />
+			&gt;&lt;/ngx3-audio&gt;<br />
+			&lt;ngx3js-audio<br />
+				[type]="'audio'" [url]="'sounds/Project_Utopia.ogg'" [volume]="0.5 " [loop]="true " [autoplay]="true"<br />
+			&gt;&lt;/ngx3js-audio&gt;<br />
+			&lt;ngx3js-audio<br />
+				[type]="'PositionalAudio'" [url]="'sounds/358232_j_s_song.ogg'" [refDistance]="20 " [autoplay]="true"<br />
+			&gt;&lt;/ngx3js-audio&gt;<br />
+			&lt;ngx3js-audio<br />
+				[type]="'PositionalAudio'" [urlType]="'listener'" [volume]="0.5 " [refDistance]="20"<br />
+			&gt;&lt;/ngx3js-audio&gt;<br />
+			</code><br />
+			<br />
+			[page:PositionalAudio PositionalAudio] - THREE.PositionalAudio - PositionalAudio, Positional, Position<br />
 			[page:Audio Audio] - THREE.Audio - Audio
 		</p>
 
@@ -65,24 +51,24 @@
 			[ coneOuterAngle ]="... number -- This method can be used in ord... "
 			[ coneOuterGain ]="... number -- This method can be used in ord... "
 			[ debug ]="... boolean -- Debug this Object "
-			[ distanceModel ]="... string -- Sets the value of [link:https:... "
+			[ distanceModel ]="... string -- Sets the value of [panner.dist... "
 			[ enabled ]="... boolean -- Enabled or Not "
 			[ fftSize ]="... number -- A non-zero power of two up to ... "
 			[ frustumCulled ]="... boolean -- When this is set, it checks ev... "
 			[ geometry ]="... any -- The geometry of mesh "
-			[ loop ]="... boolean -- Set [link:https://developer.mo... "
+			[ loop ]="... boolean -- Set [source.loop](https://deve... "
 			[ material ]="... AbstractMaterialComponent|Material -- The material of mesh "
 			[ materialIsArray ]="... boolean -- The material of mesh is array "
 			[ matrixAutoUpdate ]="... boolean -- When this is set, it calculate... "
-			[ maxDistance ]="... number -- Sets the value of [link:https:... "
+			[ maxDistance ]="... number -- Sets the value of [panner.maxD... "
 			[ name ]="... string -- The name of the object (doesn'... "
 			( onDestory )="...($event : AudioComponent -- Will be called when before des... )"
 			( onLoad )="...($event : AudioComponent -- Will be called when load compl... )"
 			[ overrideParams ]="... any -- The override params "
-			[ play ]="... boolean -- Setup the [page:Audio.source s... "
+			[ play ]="... boolean -- Setup the [source](https://out... "
 			[ receiveShadow ]="... boolean -- Whether the material receives ... "
-			[ refDistance ]="... number -- Sets the value of [link:https:... "
-			[ rolloffFactor ]="... number -- Sets the value of [link:https:... "
+			[ refDistance ]="... number -- Sets the value of [panner.refD... "
+			[ rolloffFactor ]="... number -- Sets the value of [panner.roll... "
 			[ tween ]="... any -- Tween animation params "
 			[ tweenStart ]="... boolean -- Start tween "
 			[ type ]="... string -- The type of audio component "
@@ -128,20 +114,19 @@
 
 		<h3>[property:string distanceModel]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Sets the value of [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/distanceModel panner.distanceModel].<br>
-			<br>
+			Sets the value of [panner.distanceModel](https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/distanceModel).<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:number fftSize] &nbsp; = 128 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			A non-zero power of two up to 2048, representing the size of the FFT (Fast Fourier Transform) to be used to determine the frequency domain.<br>
+			A non-zero power of two up to 2048, representing the size of the FFT (Fast Fourier Transform) to be used to determine the frequency domain.<br />
 			See [link:https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/fftSize this page] for details.
 		</p>
 
 		<h3>[property:boolean loop] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Set [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loop source.loop] to *value*<br>
+			Set [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loop source.loop] to *value*<br />
 			(whether playback should loop).
 		</p>
 
@@ -152,7 +137,7 @@
 
 		<h3>[property:boolean play] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Setup the [page:Audio.source source] to the audioBuffer, and sets [page:Audio.sourceType sourceType] to 'buffer'.<br>
+			Setup the [page:Audio.source source] to the audioBuffer, and sets [page:Audio.sourceType sourceType] to 'buffer'.<br />
 			If [page:Audio.autoplay autoplay], also starts playback.
 		</p>
 
@@ -168,11 +153,10 @@
 
 		<h3>[property:string type] &nbsp; = 'position' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The type  of audio component<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:PositionalAudio PositionalAudio] - THREE.PositionalAudio - PositionalAudio, Positional, Position<br>
+			The type  of audio component<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:PositionalAudio PositionalAudio] - THREE.PositionalAudio - PositionalAudio, Positional, Position<br />
 			[page:Audio Audio] - THREE.Audio - Audio
 		</p>
 
@@ -183,9 +167,8 @@
 
 		<h3>[property:string urlType] &nbsp; = 'auto' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Url Type<br>
-			<br>
-			Notice - case insensitive.<br>
+			The Url Type<br />
+			Notice - case insensitive.<br />
 			audio, video, listener, auto,
 		</p>
 
@@ -220,36 +203,36 @@
 			[parameter:number fftSize] - (optional) The fft size.
 		</p>
 		<p>
-			Gets analyser<br>
-			<br>
+			Gets analyser<br />
+			<br />
 			Returns : analyser
 		</p>
 
 		<h3>[method:T getAudio](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets audio<br>
-			<br>
+			Gets audio<br />
+			<br />
 			Returns : audio
 		</p>
 
 		<h3>[method:void getNumber](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets number<br>
-			<br>
+			Gets number<br />
+			<br />
 			Returns : number
 		</p>
 
 		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Gets object3d<br>
-			<br>
+			Gets object3d<br />
+			<br />
 			Returns : object3d
 		</p>
 
 		<h3>[method:Texture getTexture](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets texture<br>
-			<br>
+			Gets texture<br />
+			<br />
 			Returns : texture
 		</p>
 
@@ -269,8 +252,8 @@
 			[parameter:Object3D parent] - The parent.
 		</p>
 		<p>
-			Sets parent<br>
-			<br>
+			Sets parent<br />
+			<br />
 			Returns : true if parent
 		</p>
 

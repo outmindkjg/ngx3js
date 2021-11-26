@@ -12,56 +12,40 @@
 		<h1>LightComponent</h1>
 
 		<p class="desc">
-			LightComponent<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-light<br>
-				[type]="'Hemisphere'"<br>
-				[skyColor]="'0xffffff'"<br>
-				[groundColor]="'0x444444'"<br>
-			&gt;<br>
-				&lt;ngx3js-position [x]="0" [y]="20" [z]="0"&gt;&lt;/ngx3js-position&gt;<br>
-			&lt;/ngx3js-light&gt;<br>
-			&lt;ngx3js-light<br>
-				[type]="'directional'"<br>
-				[color]="'0xffffff'"<br>
-				[intensity]="1"<br>
-			&gt;<br>
-				&lt;ngx3js-position [x]="-3" [y]="10" [z]="-10"&gt;&lt;/ngx3js-position&gt;<br>
-			&lt;/ngx3js-light&gt;<br>
-			&lt;ngx3js-light<br>
-				[type]="'AmbientLight'"<br>
-				[color]="'0x6688cc'"<br>
-			&gt;&lt;/ngx3js-light&gt;<br>
-			&lt;ngx3js-light<br>
-				[type]="'SpotLight'"<br>
-				[color]="'0xffffff'"<br>
-				[intensity]="1.5"<br>
-				[angle]="180 / 9"<br>
-				[castShadow]="true"<br>
-				[shadowCameraTop]="2"<br>
-				[shadowCameraBottom]="-2"<br>
-				[shadowCameraLeft]="-2"<br>
-				[shadowCameraRight]="2"<br>
-				[shadowCameraNear]="1000"<br>
-				[shadowCameraFar]="4000"<br>
-				[shadowMapSize]="1024"<br>
-			&gt;<br>
-				&lt;ngx3js-position [x]="0" [y]="500" [z]="2000"&gt;&lt;/ngx3js-position&gt;<br>
-			&lt;/ngx3js-light&gt;<br>
-			&lt;ngx3js-light<br>
-				[type]="'SpotLight'"<br>
-				[color]="'0xffffff'"<br>
-				[intensity]="1.5"<br>
-				[angle]="20"<br>
-				[castShadow]="true"<br>
-				[shadowCameraNear]="1000"<br>
-				[shadowCameraFar]="4000"<br>
-				[shadowMapSize]="1024"<br>
-			&gt;<br>
-				&lt;ngx3js-position [x]="0" [y]="500" [z]="2000"&gt;&lt;/ngx3js-position&gt;<br>
-			&lt;/ngx3js-light&gt;<br>
-			</code><br>
-			<br>
+			The Light component.<br />
+			<br />
+			<h3>Preview - ngx light</h3><br />
+			<iframe src="#/viewer/ngx_light"></iframe><br />
+			<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/LightComponent ngx3js docs] page for details.<br />
+			See the [example:ngx_light ngx light] page for a live demo.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-light<br />
+				[type]="'Hemisphere'" [skyColor]="'0xffffff'" [groundColor]="'0x444444'"<br />
+			&gt;<br />
+				&lt;ngx3js-position [x]="0" [y]="20" [z]="0"&gt;&lt;/ngx3js-position&gt;<br />
+			&lt;/ngx3js-light&gt;<br />
+			&lt;ngx3js-light<br />
+				[type]="'directional'" [color]="'0xffffff'" [intensity]="1"<br />
+			&gt;<br />
+				&lt;ngx3js-position [x]="-3" [y]="10" [z]="-10"&gt;&lt;/ngx3js-position&gt;<br />
+			&lt;/ngx3js-light&gt;<br />
+			&lt;ngx3js-light<br />
+				[type]="'AmbientLight'" [color]="'0x6688cc'"<br />
+			&gt;&lt;/ngx3js-light&gt;<br />
+			&lt;ngx3js-light<br />
+				[type]="'SpotLight'" [color]="'0xffffff'" [intensity]="1.5 " [angle]="180 / 9 " [castShadow]="true " [shadowCameraTop]="2 " [shadowCameraBottom]="-2 " [shadowCameraLeft]="-2 " [shadowCameraRight]="2 " [shadowCameraNear]="1000 " [shadowCameraFar]="4000 " [shadowMapSize]="1024"<br />
+			&gt;<br />
+				&lt;ngx3js-position [x]="0" [y]="500" [z]="2000"&gt;&lt;/ngx3js-position&gt;<br />
+			&lt;/ngx3js-light&gt;<br />
+			&lt;ngx3js-light<br />
+				[type]="'SpotLight'" [color]="'0xffffff'" [intensity]="1.5 " [angle]="20 " [castShadow]="true " [shadowCameraNear]="1000 " [shadowCameraFar]="4000 " [shadowMapSize]="1024"<br />
+			&gt;<br />
+				&lt;ngx3js-position [x]="0" [y]="500" [z]="2000"&gt;&lt;/ngx3js-position&gt;<br />
+			&lt;/ngx3js-light&gt;<br />
+			</code><br />
+			<br />
 			[page:Light Light] - THREE.Light
 		</p>
 
@@ -96,7 +80,7 @@
 			[ receiveShadow ]="... boolean -- Whether the material receives ... "
 			[ renderTarget ]="... any -- The renderTarget of light comp... "
 			[ renderer ]="... any -- The renderer of light componen... "
-			[ sh ]="... string -- An instance of [page:Spherical... "
+			[ sh ]="... string -- An instance of [SphericalHarmo... "
 			[ shadowBias ]="... number -- Shadow map bias, how much to a... "
 			[ shadowCameraBottom ]="... number -- Camera frustum bottom plane. "
 			[ shadowCameraFar ]="... number -- Camera frustum far plane. Defa... "
@@ -107,9 +91,9 @@
 			[ shadowCameraTop ]="... number -- Camera frustum top plane. "
 			[ shadowCameraZoom ]="... number -- Gets or sets the zoom factor o... "
 			[ shadowFocus ]="... number -- Used to focus the shadow camer... "
-			[ shadowMapSize ]="... number -- A [Page:Vector2] defining the ... "
-			[ shadowMapSizeHeight ]="... number -- A [Page:Vector2] defining the ... "
-			[ shadowMapSizeWidth ]="... number -- A [Page:Vector2] defining the ... "
+			[ shadowMapSize ]="... number -- A [Vector2](https://outmindkjg... "
+			[ shadowMapSizeHeight ]="... number -- A [Vector2](https://outmindkjg... "
+			[ shadowMapSizeWidth ]="... number -- A [Vector2](https://outmindkjg... "
 			[ shadowRadius ]="... number -- Setting this to values greater... "
 			[ skyColor ]="... ThreeColor -- hexadecimal color of the sky. ... "
 			[ target ]="... any -- The target of light component "
@@ -190,12 +174,12 @@
 
 		<h3>[property:string sh]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			An instance of [page:SphericalHarmonics3].
+			An instance of [page:SphericalHarmonics3 SphericalHarmonics3].
 		</p>
 
 		<h3>[property:number shadowBias]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.<br>
+			Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.<br />
 			The default is 0. Very tiny adjustments here (in the order of 0.0001) may help reduce artefacts in shadows
 		</p>
 
@@ -206,8 +190,8 @@
 
 		<h3>[property:number shadowCameraFar]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Camera frustum far plane. Default is *2000*.<br>
-			Must be greater than the current value of [page:.near near] plane.
+			Camera frustum far plane. Default is *2000*.<br />
+			Must be greater than the current value of [page:Camera.near Camera.near] plane.
 		</p>
 
 		<h3>[property:number shadowCameraFov]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -247,27 +231,27 @@
 
 		<h3>[property:number shadowMapSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			A [Page:Vector2] defining the width and height of the shadow map.
+			A [page:Vector2 Vector2] defining the width and height of the shadow map.
 		</p>
 
 		<h3>[property:number shadowMapSizeHeight]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			A [Page:Vector2] defining the width and height of the shadow map.<br>
+			A [page:Vector2 Vector2] defining the width and height of the shadow map.<br />
 			vector2.height
 		</p>
 
 		<h3>[property:number shadowMapSizeWidth]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			A [Page:Vector2] defining the width and height of the shadow map.<br>
+			A [page:Vector2 Vector2] defining the width and height of the shadow map.<br />
 			vector2.width
 		</p>
 
 		<h3>[property:number shadowRadius]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Setting this to values greater than 1 will blur the edges of the shadow.<br>
-			High values will cause unwanted banding effects in the shadows - a greater [page:.mapSize mapSize] will allow for a higher value to be used here before these effects become visible.<br>
-			If [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer PCFSoftShadowMap], radius has no effect and it is recommended to increase softness by decreasing [page:.mapSize mapSize] instead.<br>
-			Note that this has no effect if the [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer BasicShadowMap].
+			Setting this to values greater than 1 will blur the edges of the shadow.<br />
+			High values will cause unwanted banding effects in the shadows - a greater [page:LightShadow.mapSize LightShadow.mapSize] will allow for a higher value to be used here before these effects become visible.<br />
+			If [page:WebGLRenderer.shadowMap.type WebGLRenderer.shadowMap.type] is set to [page:Renderer PCFSoftShadowMap], radius has no effect and it is recommended to increase softness by decreasing [page:LightShadow.mapSize LightShadow.mapSize] instead.<br />
+			Note that this has no effect if the [page:WebGLRenderer.shadowMap.type WebGLRenderer.shadowMap.type] is set to [page:Renderer BasicShadowMap].
 		</p>
 
 		<h3>[property:ThreeColor skyColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -302,16 +286,15 @@
 
 		<h3>[property:string type] &nbsp; = 'spot' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The type of light<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:PointLight PointLight] - THREE.PointLight - PointLight, Point<br>
-			[page:RectAreaLight RectAreaLight] - THREE.RectAreaLight - RectAreaLight, RectArea<br>
-			[page:SpotLight SpotLight] - THREE.SpotLight - SpotLight, Spot<br>
-			[page:DirectionalLight DirectionalLight] - THREE.DirectionalLight - DirectionalLight, Directional<br>
-			[page:HemisphereLight HemisphereLight] - THREE.HemisphereLight - HemisphereLight, Hemisphere<br>
-			[page:LightProbe LightProbe] - THREE.LightProbe - LightProbe, Probe<br>
+			The type of light<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:PointLight PointLight] - THREE.PointLight - PointLight, Point<br />
+			[page:RectAreaLight RectAreaLight] - THREE.RectAreaLight - RectAreaLight, RectArea<br />
+			[page:SpotLight SpotLight] - THREE.SpotLight - SpotLight, Spot<br />
+			[page:DirectionalLight DirectionalLight] - THREE.DirectionalLight - DirectionalLight, Directional<br />
+			[page:HemisphereLight HemisphereLight] - THREE.HemisphereLight - HemisphereLight, Hemisphere<br />
+			[page:LightProbe LightProbe] - THREE.LightProbe - LightProbe, Probe<br />
 			[page:AmbientLight AmbientLight] - THREE.AmbientLight - AmbientLight, Ambient
 		</p>
 
@@ -342,15 +325,15 @@
 
 		<h3>[method:T getLight](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets light<br>
-			<br>
+			Gets light<br />
+			<br />
 			Returns : light
 		</p>
 
 		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Gets object3d<br>
-			<br>
+			Gets object3d<br />
+			<br />
 			Returns : object3d
 		</p>
 
@@ -365,8 +348,8 @@
 
 		<h3>[method:Renderer getThreeRenderer](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets three renderer<br>
-			<br>
+			Gets three renderer<br />
+			<br />
 			Returns : three renderer
 		</p>
 
@@ -376,8 +359,8 @@
 			[parameter:Object3D parent] - The parent.
 		</p>
 		<p>
-			Sets parent<br>
-			<br>
+			Sets parent<br />
+			<br />
 			Returns : true if parent
 		</p>
 
@@ -401,12 +384,12 @@
 			[property:number penumbra]? - Percent of the spotlight cone that is attenuated due to penumbra. Takes values between zero and 1. Default is zero.<br />
 			[property:any renderTarget]? - The Input of light component<br />
 			[property:any renderer]? - The Input of light component<br />
-			[property:string sh]? - An instance of [page:SphericalHarmonics3].<br />
-			[property:number shadowBias]? - Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.<br>
+			[property:string sh]? - An instance of [page:SphericalHarmonics3 SphericalHarmonics3].<br />
+			[property:number shadowBias]? - Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.<br />
 			The default is 0. Very tiny adjustments here (in the order of 0.0001) may help reduce artefacts in shadows<br />
 			[property:number shadowCameraBottom]? - Camera frustum bottom plane.<br />
-			[property:number shadowCameraFar]? - Camera frustum far plane. Default is *2000*.<br>
-			Must be greater than the current value of [page:.near near] plane.<br />
+			[property:number shadowCameraFar]? - Camera frustum far plane. Default is *2000*.<br />
+			Must be greater than the current value of [page:Camera.near Camera.near] plane.<br />
 			[property:number shadowCameraFov]? - Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is *50*.<br />
 			[property:number shadowCameraLeft]? - Camera frustum left plane.<br />
 			[property:number shadowCameraNear]? - Camera frustum near plane.<br />
@@ -414,31 +397,30 @@
 			[property:number shadowCameraTop]? - Camera frustum top plane.<br />
 			[property:number shadowCameraZoom]? - Gets or sets the zoom factor of the camera. Default is *1*.<br />
 			[property:number shadowFocus]? - Used to focus the shadow camera. The camera's field of view is set as a percentage of the spotlight's field-of-view. Range is [0, 1]. Default is 1.0.<br />
-			[property:number shadowMapSize]? - A [Page:Vector2] defining the width and height of the shadow map.<br />
-			[property:number shadowMapSizeHeight]? - A [Page:Vector2] defining the width and height of the shadow map.<br>
+			[property:number shadowMapSize]? - A [page:Vector2 Vector2] defining the width and height of the shadow map.<br />
+			[property:number shadowMapSizeHeight]? - A [page:Vector2 Vector2] defining the width and height of the shadow map.<br />
 			vector2.height<br />
-			[property:number shadowMapSizeWidth]? - A [Page:Vector2] defining the width and height of the shadow map.<br>
+			[property:number shadowMapSizeWidth]? - A [page:Vector2 Vector2] defining the width and height of the shadow map.<br />
 			vector2.width<br />
-			[property:number shadowRadius]? - Setting this to values greater than 1 will blur the edges of the shadow.<br>
-			High values will cause unwanted banding effects in the shadows - a greater [page:.mapSize mapSize] will allow for a higher value to be used here before these effects become visible.<br>
-			If [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer PCFSoftShadowMap], radius has no effect and it is recommended to increase softness by decreasing [page:.mapSize mapSize] instead.<br>
-			Note that this has no effect if the [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer BasicShadowMap].<br />
+			[property:number shadowRadius]? - Setting this to values greater than 1 will blur the edges of the shadow.<br />
+			High values will cause unwanted banding effects in the shadows - a greater [page:LightShadow.mapSize LightShadow.mapSize] will allow for a higher value to be used here before these effects become visible.<br />
+			If [page:WebGLRenderer.shadowMap.type WebGLRenderer.shadowMap.type] is set to [page:Renderer PCFSoftShadowMap], radius has no effect and it is recommended to increase softness by decreasing [page:LightShadow.mapSize LightShadow.mapSize] instead.<br />
+			Note that this has no effect if the [page:WebGLRenderer.shadowMap.type WebGLRenderer.shadowMap.type] is set to [page:Renderer BasicShadowMap].<br />
 			[property:ThreeColor skyColor]? - hexadecimal color of the sky. Default is 0xffffff.<br />
 			[property:any target]? - The Input of light component<br />
 			[property:number targetX]? - The Input of light component<br />
 			[property:number targetY]? - The Input of light component<br />
 			[property:number targetZ]? - The Input of light component<br />
 			[property:AbstractTextureComponent texture]? - The Input of light component<br />
-			[property:string type]? - The type of light<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:PointLight PointLight] - THREE.PointLight - PointLight, Point<br>
-			[page:RectAreaLight RectAreaLight] - THREE.RectAreaLight - RectAreaLight, RectArea<br>
-			[page:SpotLight SpotLight] - THREE.SpotLight - SpotLight, Spot<br>
-			[page:DirectionalLight DirectionalLight] - THREE.DirectionalLight - DirectionalLight, Directional<br>
-			[page:HemisphereLight HemisphereLight] - THREE.HemisphereLight - HemisphereLight, Hemisphere<br>
-			[page:LightProbe LightProbe] - THREE.LightProbe - LightProbe, Probe<br>
+			[property:string type]? - The type of light<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:PointLight PointLight] - THREE.PointLight - PointLight, Point<br />
+			[page:RectAreaLight RectAreaLight] - THREE.RectAreaLight - RectAreaLight, RectArea<br />
+			[page:SpotLight SpotLight] - THREE.SpotLight - SpotLight, Spot<br />
+			[page:DirectionalLight DirectionalLight] - THREE.DirectionalLight - DirectionalLight, Directional<br />
+			[page:HemisphereLight HemisphereLight] - THREE.HemisphereLight - HemisphereLight, Hemisphere<br />
+			[page:LightProbe LightProbe] - THREE.LightProbe - LightProbe, Probe<br />
 			[page:AmbientLight AmbientLight] - THREE.AmbientLight - AmbientLight, Ambient<br />
 			[property:number width]? - width of the light. Default is 10.
 		</p>

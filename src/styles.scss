@@ -2,6 +2,7 @@
 @import './page';
 @import './prettify';
 
+
 pre.prettyprint,
 code.prettyprint {
 	font-family: 'Roboto Mono', monospace;
@@ -186,8 +187,15 @@ code.prettyprint {
 	}
 }
 
+div#example-iframe,
 div#example,
 div#docs {
+	#inputWrapper>input::placeholder {
+		padding-left: 10px;
+		color:var(--text-color);
+		opacity: 0.2;
+		font-style: italic;
+	}
 	div.doc-body {
 		.doc-top,
 		a[id],
@@ -266,6 +274,7 @@ div#docs {
 	}
 }
 
+div#example-iframe #viewer-inner,
 div#example div#viewer #viewer-inner {
 	overflow: hidden;
 }
@@ -291,6 +300,7 @@ div#viewer {
 
 @media all and (max-width: 640px) {
 	div#docs,
+	div#example-iframe,
 	div#example {
 		div#viewer {
 			height: calc(100% - var(--header-height));

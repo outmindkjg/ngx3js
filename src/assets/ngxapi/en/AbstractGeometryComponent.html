@@ -12,22 +12,28 @@
 		<h1>AbstractGeometryComponent</h1>
 
 		<p class="desc">
-			AbstractGeometry Component<br>
-			<br>
-			<code data-type="typescript"><br>
-			@Component({<br>
-				providers: [<br>
-					{<br>
-						provide: AbstractGeometryComponent,<br>
-						useExisting: forwardRef(() =&gt; XxxComponent),<br>
-					},<br>
-				],<br>
-			})<br>
-			export class XxxComponent extends AbstractGeometryComponent implements OnInit {<br>
-				constructor() {<br>
-					super();<br>
-				}<br>
-			}<br>
+			The Abstract Geometry component.<br />
+			<br />
+			<h3>Preview - ngx geometey</h3><br />
+			<iframe src="#/viewer/ngx_geometry"></iframe><br />
+			<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/AbstractGeometryComponent ngx3js docs] page for details.<br />
+			See the [example:ngx_geometry ngx geometey] page for a live demo.<br />
+			<br />
+			<code data-type="typescript"><br />
+			@Component({<br />
+				providers: [<br />
+					{<br />
+						provide: AbstractGeometryComponent,<br />
+						useExisting: forwardRef(() =&gt; XxxComponent),<br />
+					},<br />
+				],<br />
+			})<br />
+			export class XxxComponent extends AbstractGeometryComponent implements OnInit {<br />
+				constructor() {<br />
+					super();<br />
+				}<br />
+			}<br />
 			</code>
 		</p>
 
@@ -49,10 +55,9 @@
 
 		<h3>[property:string align]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The align of geometry<br>
-			<br>
-			left, center, right, top, bottom, front, back, double<br>
-			<br>
+			The align of geometry<br />
+			left, center, right, top, bottom, front, back, double<br />
+			<br />
 			Notice - case insensitive. mixed
 		</p>
 
@@ -173,7 +178,7 @@
 
 		<h3>[property:string attrSizeUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the *usage* parameter of<br>
+			Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the *usage* parameter of<br />
 			[link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().
 		</p>
 
@@ -219,8 +224,8 @@
 
 		<h3>[property:any attributes]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			This hashmap has as id the name of the attribute to be set and as value the [page:BufferAttribute buffer] to set it to.<br>
-			Rather than accessing this property directly, use [page:.setAttribute] and [page:.getAttribute] to access attributes of this geometry.
+			This hashmap has as id the name of the attribute to be set and as value the [page:BufferAttribute buffer] to set it to.<br />
+			Rather than accessing this property directly, use [page:BufferGeometry.setAttribute BufferGeometry.setAttribute] and [page:BufferGeometry.getAttribute BufferGeometry.getAttribute] to access attributes of this geometry.
 		</p>
 
 		<h3>[property:boolean autoCustomColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -265,17 +270,16 @@
 
 		<h3>[property:string compressNormals]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Make the input mesh.geometry's normal attribute encoded and compressed by 3 different methods.<br>
-			Also will change the mesh.material to `PackedPhongMaterial` which let the vertex shader program decode the normal data.<br>
-			<br>
-			"DEFAULT" || "OCT1Byte" || "OCT2Byte" || "ANGLES"<br>
-			<br>
-			"OCT1Byte"<br>
-			It is not recommended to use 1-byte octahedron normals encoding unless you want to extremely reduce the memory usage<br>
-			As it makes vertex data not aligned to a 4 byte boundary which may harm some WebGL implementations and sometimes the normal distortion is visible<br>
-			Please refer to @zeux 's comments in https://github.com/mrdoob/three.js/pull/18208<br>
-			<br>
-			"OCT2Byte"<br>
+			Make the input mesh.geometry's normal attribute encoded and compressed by 3 different methods.<br />
+			Also will change the mesh.material to `PackedPhongMaterial` which let the vertex shader program decode the normal data.<br />
+			"DEFAULT" || "OCT1Byte" || "OCT2Byte" || "ANGLES"<br />
+			<br />
+			"OCT1Byte"<br />
+			It is not recommended to use 1-byte octahedron normals encoding unless you want to extremely reduce the memory usage<br />
+			As it makes vertex data not aligned to a 4 byte boundary which may harm some WebGL implementations and sometimes the normal distortion is visible<br />
+			Please refer to @zeux 's comments in https://github.com/mrdoob/three.js/pull/18208<br />
+			<br />
+			"OCT2Byte"<br />
 			"ANGLES"
 		</p>
 
@@ -291,17 +295,17 @@
 
 		<h3>[property:boolean computeBoundingBox] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Computes bounding box of the geometry, updating [page:.boundingBox] attribute. Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
+			Computes bounding box of the geometry, updating [page:BufferGeometry.boundingBox BufferGeometry.boundingBox] attribute. Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
 		</p>
 
 		<h3>[property:boolean computeBoundingSphere] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Computes bounding sphere of the geometry, updating [page:.boundingSphere] attribute. Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
+			Computes bounding sphere of the geometry, updating [page:BufferGeometry.boundingSphere BufferGeometry.boundingSphere] attribute. Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
 		</p>
 
 		<h3>[property:boolean computeTangents] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Calculates and adds a tangent attribute to this geometry.<br>
+			Calculates and adds a tangent attribute to this geometry.<br />
 			The computation is only supported for indexed geometries and if position, normal, and uv attributes are defined.
 		</p>
 
@@ -322,15 +326,15 @@
 
 		<h3>[property:number drawRangeCount]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			drawRangeCount of abstract geometry component<br>
-			<br>
+			drawRangeCount of abstract geometry component<br />
+			<br />
 			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry setDrawRange
 		</p>
 
 		<h3>[property:number drawRangeStart]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			drawRangeStart of abstract geometry component<br>
-			<br>
+			drawRangeStart of abstract geometry component<br />
+			<br />
 			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry setDrawRange
 		</p>
 
@@ -351,9 +355,9 @@
 
 		<h3>[property:string lineType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The lineType of abstract geometry component<br>
-			<br>
-			[page:EdgesGeometry EdgesGeometry] - THREE.EdgesGeometry - EdgesGeometry, Edges<br>
+			The lineType of abstract geometry component<br />
+			<br />
+			[page:EdgesGeometry EdgesGeometry] - THREE.EdgesGeometry - EdgesGeometry, Edges<br />
 			[page:WireframeGeometry WireframeGeometry] - THREE.WireframeGeometry - WireframeGeometry, Wireframe
 		</p>
 
@@ -369,20 +373,19 @@
 
 		<h3>[property:boolean mergeVertices]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			geometry -- Instance of [page:BufferGeometry BufferGeometry] to merge the vertices of.<br>
-			tolerance -- The maximum allowable difference between vertex attributes to merge. Defaults to 1e-4.<br>
+			geometry -- Instance of [page:BufferGeometry BufferGeometry] to merge the vertices of.<br />
+			tolerance -- The maximum allowable difference between vertex attributes to merge. Defaults to 1e-4.<br />
 			Returns a new [page:BufferGeometry BufferGeometry] with vertices for which all similar vertex attributes (within tolerance) are merged.
 		</p>
 
 		<h3>[property:any morphAttributes]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Hashmap of [page:BufferAttribute]s holding details of the geometry's morph targets.
+			Hashmap of [page:BufferAttribute BufferAttribute]s holding details of the geometry's morph targets.
 		</p>
 
 		<h3>[property:string name]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The name of the object (doesn't need to be unique). Default is an empty string.<br>
-			<br>
+			The name of the object (doesn't need to be unique). Default is an empty string.<br />
 			Notice - case insensitive.
 		</p>
 
@@ -408,7 +411,7 @@
 
 		<h3>[property:number scale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Scale the geometry data. This is typically done as a one time operation, and not during a loop. Use [page:Object3D.scale] for typical real-time mesh scaling.
+			Scale the geometry data. This is typically done as a one time operation, and not during a loop. Use [page:Object3D.scale Object3D.scale] for typical real-time mesh scaling.
 		</p>
 
 		<h3>[property:boolean simplify]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -418,7 +421,7 @@
 
 		<h3>[property:number sphereScale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Scale the geometry data. This is typically done as a one time operation, and not during a loop. Use [page:Object3D.scale] for typical real-time mesh scaling.
+			Scale the geometry data. This is typically done as a one time operation, and not during a loop. Use [page:Object3D.scale Object3D.scale] for typical real-time mesh scaling.
 		</p>
 
 		<h3>[property:boolean tessellate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -438,7 +441,7 @@
 
 		<h3>[property:boolean tryKeepNormals]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Set to true to keep the normal values for vertices that won't be split.<br>
+			Set to true to keep the normal values for vertices that won't be split.<br />
 			To use this feature, you also need to pass an indexed geometry with a 'normal' BufferAttribute
 		</p>
 
@@ -476,8 +479,8 @@
 			[parameter:boolean normalized] - (optional) The normalized.
 		</p>
 		<p>
-			Gets attribute<br>
-			<br>
+			Gets attribute<br />
+			<br />
 			Returns : attribute
 		</p>
 
@@ -487,29 +490,29 @@
 			[parameter:string colorType] - The color type.
 		</p>
 		<p>
-			Gets attributes<br>
-			<br>
+			Gets attributes<br />
+			<br />
 			Returns : attributes
 		</p>
 
 		<h3>[method:T getGeometry](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets geometry<br>
-			<br>
+			Gets geometry<br />
+			<br />
 			Returns : geometry
 		</p>
 
 		<h3>[method:void getMorphAttributes](  )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			Gets morph attributes<br>
-			<br>
+			Gets morph attributes<br />
+			<br />
 			Returns : morph attributes
 		</p>
 
 		<h3>[method:boolean isGeometryType](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Determines whether Geometry type is<br>
-			<br>
+			Determines whether Geometry type is<br />
+			<br />
 			Returns : true if Geometry type
 		</p>
 

@@ -12,43 +12,25 @@
 		<h1>ViewerComponent</h1>
 
 		<p class="desc">
-			ViewerComponent<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-viewer<br>
-				[type]="'canvas'"<br>
-				[canvasOptions]="canvasOptions"<br>
-				[x]="viewPort.x"<br>
-				[y]="viewPort.y"<br>
-				[width]="viewPort.width"<br>
-				[height]="viewPort.height"<br>
-			&gt;&lt;/ngx3js-viewer&gt;<br>
-			&lt;ngx3js-viewer<br>
-				[type]="'canvas'"<br>
-				[canvasOptions]="canvasOptions"<br>
-			&gt;&lt;/ngx3js-viewer&gt;<br>
-			&lt;ngx3js-viewer<br>
-				[type]="'shadowmapviewer'"<br>
-				[x]="10"<br>
-				[y]="-10"<br>
-				[width]="'25%'"<br>
-				[height]="'25%'"<br>
-				[light]="spotLight"<br>
-				[enabled]="controls.hudEnable"<br>
-			&gt;&lt;/ngx3js-viewer&gt;<br>
-			&lt;ngx3js-viewer<br>
-				[type]="'shadowmapviewer'"<br>
-				[x]="-10"<br>
-				[y]="-10"<br>
-				[width]="'15%'"<br>
-				[height]="'width'"<br>
-				[light]="spotLight"<br>
-			&gt;&lt;/ngx3js-viewer&gt;<br>
-			&lt;ngx3js-viewer<br>
-				[type]="'shadowmesh'"<br>
-				[mesh]="cube"<br>
-				[light]="sunLight"<br>
-				[plane]="plane"<br>
-			&gt;&lt;/ngx3js-viewer&gt;<br>
+			The Viewer component.<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/ViewerComponent ngx3js docs] page for details.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-viewer<br />
+				[type]="'canvas'" [canvasOptions]="canvasOptions " [x]="viewPort.x " [y]="viewPort.y " [width]="viewPort.width " [height]="viewPort.height"<br />
+			&gt;&lt;/ngx3js-viewer&gt;<br />
+			&lt;ngx3js-viewer<br />
+				[type]="'canvas'" [canvasOptions]="canvasOptions"<br />
+			&gt;&lt;/ngx3js-viewer&gt;<br />
+			&lt;ngx3js-viewer<br />
+				[type]="'shadowmapviewer'" [x]="10 " [y]="-10 " [width]="'25%'" [height]="'25%'" [light]="spotLight " [enabled]="controls.hudEnable"<br />
+			&gt;&lt;/ngx3js-viewer&gt;<br />
+			&lt;ngx3js-viewer<br />
+				[type]="'shadowmapviewer'" [x]="-10 " [y]="-10 " [width]="'15%'" [height]="'width'" [light]="spotLight"<br />
+			&gt;&lt;/ngx3js-viewer&gt;<br />
+			&lt;ngx3js-viewer<br />
+				[type]="'shadowmesh'" [mesh]="cube " [light]="sunLight " [plane]="plane"<br />
+			&gt;&lt;/ngx3js-viewer&gt;<br />
 			</code>
 		</p>
 
@@ -111,13 +93,13 @@
 
 		<h3>[property:string|number height] &nbsp; = '100%' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The size of height<br>
-			- type number<br>
-			 fixed size<br>
-			- type string with include %<br>
-			 relative size from renderer size<br>
-			 for example<br>
-			   in case renderer = 1024<br>
+			The size of height<br />
+			- type number<br />
+			 fixed size<br />
+			- type string with include %<br />
+			 relative size from renderer size<br />
+			 for example<br />
+			   in case renderer = 1024<br />
 			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
 		</p>
 
@@ -143,20 +125,19 @@
 
 		<h3>[property:string type] &nbsp; = 'shadowmap' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The type of viewer<br>
-			<br>
+			The type of viewer<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:string|number width] &nbsp; = '100%' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The size of width<br>
-			- type number<br>
-			 fixed size<br>
-			- type string with include %<br>
-			 relative size from renderer size<br>
-			 for example<br>
-			   in case renderer = 1024<br>
+			The size of width<br />
+			- type number<br />
+			 fixed size<br />
+			- type string with include %<br />
+			 relative size from renderer size<br />
+			 for example<br />
+			   in case renderer = 1024<br />
 			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
 		</p>
 
@@ -190,15 +171,15 @@
 			[parameter:any cameras] - (optional) The cameras.
 		</p>
 		<p>
-			Gets camera<br>
-			<br>
+			Gets camera<br />
+			<br />
 			Returns : camera
 		</p>
 
 		<h3>[method:Renderer getRenderer](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets renderer<br>
-			<br>
+			Gets renderer<br />
+			<br />
 			Returns : renderer
 		</p>
 
@@ -208,8 +189,8 @@
 			[parameter:any scenes] - (optional) The scenes.
 		</p>
 		<p>
-			Gets scene<br>
-			<br>
+			Gets scene<br />
+			<br />
 			Returns : scene
 		</p>
 
@@ -241,8 +222,8 @@
 			[parameter:any parent] - The parent.
 		</p>
 		<p>
-			Sets parent<br>
-			<br>
+			Sets parent<br />
+			<br />
 			Returns : true if parent
 		</p>
 

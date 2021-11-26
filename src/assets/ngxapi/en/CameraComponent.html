@@ -12,43 +12,34 @@
 		<h1>CameraComponent</h1>
 
 		<p class="desc">
-			CameraComponent<br>
-			<br>
-			Abstract base class for cameras. This class should always be inherited when you build a new camera.<br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-camera<br>
-				[type]="'perspective'"<br>
-				[fov]="45"<br>
-				[near]="0.1"<br>
-				[far]="200"<br>
-			&gt;&lt;/ngx3js-camera&gt;<br>
-			&lt;ngx3js-camera<br>
-				[type]="'OrthographicCamera'"<br>
-				[orthoSize]="500"<br>
-				[fov]="45"<br>
-				[near]="1"<br>
-				[far]="1000"<br>
-			&gt;&lt;/ngx3js-camera&gt;<br>
-			&lt;ngx3js-camera<br>
-				[type]="'cube'"<br>
-				[fov]="40"<br>
-				[near]="1"<br>
-				[far]="1000"<br>
-			&gt;&lt;/ngx3js-camera&gt;<br>
-			&lt;ngx3js-camera<br>
-				[type]="'CubePingPong'"<br>
-				[near]="1"<br>
-				[far]="1000"<br>
-			&gt;&lt;/ngx3js-camera&gt;<br>
-			&lt;ngx3js-camera<br>
-				[type]="'Cinematic'"<br>
-				[fov]="60"<br>
-				[near]="1"<br>
-				[far]="1000"<br>
-			&gt;&lt;/ngx3js-camera&gt;<br>
-			</code><br>
-			<br>
+			The Camera component.<br />
+			<br />
+			<h3>Preview - ngx camera</h3><br />
+			<iframe src="#/viewer/ngx_camera"></iframe><br />
+			<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/CameraComponent ngx3js docs] page for details.<br />
+			See the [example:ngx_camera ngx camera] page for a live demo.<br />
+			<br />
+			Abstract base class for cameras. This class should always be inherited when you build a new camera.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-camera<br />
+				[type]="'perspective'" [fov]="45 " [near]="0.1 " [far]="200"<br />
+			&gt;&lt;/ngx3js-camera&gt;<br />
+			&lt;ngx3js-camera<br />
+				[type]="'OrthographicCamera'" [orthoSize]="500 " [fov]="45 " [near]="1 " [far]="1000"<br />
+			&gt;&lt;/ngx3js-camera&gt;<br />
+			&lt;ngx3js-camera<br />
+				[type]="'cube'" [fov]="40 " [near]="1 " [far]="1000"<br />
+			&gt;&lt;/ngx3js-camera&gt;<br />
+			&lt;ngx3js-camera<br />
+				[type]="'CubePingPong'" [near]="1 " [far]="1000"<br />
+			&gt;&lt;/ngx3js-camera&gt;<br />
+			&lt;ngx3js-camera<br />
+				[type]="'Cinematic'" [fov]="60 " [near]="1 " [far]="1000"<br />
+			&gt;&lt;/ngx3js-camera&gt;<br />
+			</code><br />
+			<br />
 			[page:Camera Camera] - THREE.Camera
 		</p>
 
@@ -158,8 +149,8 @@
 
 		<h3>[property:boolean clear]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Tells the renderer to clear its color, depth or stencil drawing buffer(s).<br>
-			This method initializes the color buffer to the current clear color value.<br>
+			Tells the renderer to clear its color, depth or stencil drawing buffer(s).<br />
+			This method initializes the color buffer to the current clear color value.<br />
 			Arguments default to *true*.
 		</p>
 
@@ -180,20 +171,19 @@
 
 		<h3>[property:string controlType] &nbsp; = 'none' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The controlType of camera component<br>
-			<br>
+			The controlType of camera component<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:string|number far]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Camera frustum far plane. Default is *2000*.<br>
-			Must be greater than the current value of [page:.near near] plane.
+			Camera frustum far plane. Default is *2000*.<br />
+			Must be greater than the current value of [page:Camera.near Camera.near] plane.
 		</p>
 
 		<h3>[property:number focalLength]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Sets the FOV by focal length in respect to the current [page:PerspectiveCamera.filmGauge .filmGauge].<br>
+			Sets the FOV by focal length in respect to the current [page:PerspectiveCamera.filmGauge .filmGauge].<br />
 			By default, the focal length is specified for a 35mm (full frame) camera.
 		</p>
 
@@ -204,15 +194,15 @@
 
 		<h3>[property:string|number height] &nbsp; = '100%' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The size of height<br>
-			- type number<br>
-			 fixed size<br>
-			- type string with include %<br>
-			 relative size from renderer size<br>
-			 for example<br>
-			   in case renderer = 1024<br>
-			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542<br>
-			- type string const refer<br>
+			The size of height<br />
+			- type number<br />
+			 fixed size<br />
+			- type string with include %<br />
+			 relative size from renderer size<br />
+			 for example<br />
+			   in case renderer = 1024<br />
+			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542<br />
+			- type string const refer<br />
 			  width,height,x,y,
 		</p>
 
@@ -223,9 +213,9 @@
 
 		<h3>[property:string|number near]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Camera frustum near plane. Default is *0.1*.<br>
-			The valid range is between 0 and the current value of the [page:.far far] plane.<br>
-			Note that, unlike for the [page:PerspectiveCamera], *0* is a valid value for an<br>
+			Camera frustum near plane. Default is *0.1*.<br />
+			The valid range is between 0 and the current value of the [page:Camera.far Camera.far] plane.<br />
+			Note that, unlike for the [page:PerspectiveCamera PerspectiveCamera], *0* is a valid value for an<br />
 			OrthographicCamera's near plane.
 		</p>
 
@@ -256,7 +246,7 @@
 
 		<h3>[property:string|number scissorHeight] &nbsp; = '100%' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br>
+			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br />
 			Vector4.height
 		</p>
 
@@ -267,19 +257,19 @@
 
 		<h3>[property:string|number scissorWidth] &nbsp; = '100%' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br>
+			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br />
 			Vector4.width
 		</p>
 
 		<h3>[property:string|number scissorX] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br>
+			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br />
 			Vector4.x
 		</p>
 
 		<h3>[property:string|number scissorY] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br>
+			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.<br />
 			Vector4.y
 		</p>
 
@@ -295,17 +285,16 @@
 
 		<h3>[property:string type] &nbsp; = 'perspective' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The type of camera<br>
-			<br>
-			PingPong - When use "PingPongCamera", the camera muse be located in scene<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:PerspectiveCamera PerspectiveCamera] - THREE.PerspectiveCamera - PerspectiveCamera, Perspective<br>
-			[page:ArrayCamera ArrayCamera] - THREE.ArrayCamera       - ArrayCamera, Array<br>
-			[page:CubeCamera CubeCamera] - THREE.CubeCamera        - CubeCamera, Cube, CubePingPong<br>
-			[page:CubeCamera CubeCamera] - THREE.CubeCamera        - PingPong, CubePingPong, CubePingPongCamera, PingPongCamera<br>
-			[page:OrthographicCamera OrthographicCamera] - THREE.OrthographicCamera - OrthographicCamera, Orthographic<br>
+			The type of camera<br />
+			PingPong - When use "PingPongCamera", the camera muse be located in scene<br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:PerspectiveCamera PerspectiveCamera] - THREE.PerspectiveCamera - PerspectiveCamera, Perspective<br />
+			[page:ArrayCamera ArrayCamera] - THREE.ArrayCamera       - ArrayCamera, Array<br />
+			[page:CubeCamera CubeCamera] - THREE.CubeCamera        - CubeCamera, Cube, CubePingPong<br />
+			[page:CubeCamera CubeCamera] - THREE.CubeCamera        - PingPong, CubePingPong, CubePingPongCamera, PingPongCamera<br />
+			[page:OrthographicCamera OrthographicCamera] - THREE.OrthographicCamera - OrthographicCamera, Orthographic<br />
 			[page:StereoCamera StereoCamera] - THREE.StereoCamera      - StereoCamera, Stereo
 		</p>
 
@@ -316,39 +305,38 @@
 
 		<h3>[property:string viewportType] &nbsp; = 'renderer' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The viewport of this render target.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:WebGLRenderer WebGLRenderer] - THREE.WebGLRenderer#setViewport - renderer<br>
-			[page:PerspectiveCamera PerspectiveCamera] - THREE.PerspectiveCamera#setViewOffset - viewoffset, offset<br>
-			[page:OrthographicCamera OrthographicCamera] - THREE.OrthographicCamera#setViewOffset - viewoffset, offset<br>
+			The viewport of this render target.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:WebGLRenderer WebGLRenderer] - THREE.WebGLRenderer#setViewport - renderer<br />
+			[page:PerspectiveCamera PerspectiveCamera] - THREE.PerspectiveCamera#setViewOffset - viewoffset, offset<br />
+			[page:OrthographicCamera OrthographicCamera] - THREE.OrthographicCamera#setViewOffset - viewoffset, offset<br />
 			[page:PerspectiveCamera PerspectiveCamera] - THREE.PerspectiveCamera - #viewport - camera
 		</p>
 
 		<h3>[property:string|number width] &nbsp; = '100%' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The size of width<br>
-			- type number<br>
-			 fixed size<br>
-			- type string with include %<br>
-			 relative size from renderer size<br>
-			 for example<br>
-			   in case renderer = 1024<br>
-			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542<br>
-			- type string const refer<br>
+			The size of width<br />
+			- type number<br />
+			 fixed size<br />
+			- type string with include %<br />
+			 relative size from renderer size<br />
+			 for example<br />
+			   in case renderer = 1024<br />
+			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542<br />
+			- type string const refer<br />
 			  width,height,x,y,
 		</p>
 
 		<h3>[property:string|number x] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The viewport of this render target.<br>
+			The viewport of this render target.<br />
 			Vector4.x
 		</p>
 
 		<h3>[property:string|number y] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The viewport of this render target.<br>
+			The viewport of this render target.<br />
 			Vector4.y
 		</p>
 
@@ -379,15 +367,15 @@
 
 		<h3>[method:T getCamera](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets camera<br>
-			<br>
+			Gets camera<br />
+			<br />
 			Returns : camera
 		</p>
 
 		<h3>[method:WebGLCubeRenderTarget getCubeRenderTarget](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets cube render target<br>
-			<br>
+			Gets cube render target<br />
+			<br />
 			Returns : cube render target
 		</p>
 
@@ -399,8 +387,8 @@
 			[parameter:boolean recursive] - The recursive.
 		</p>
 		<p>
-			Gets intersection<br>
-			<br>
+			Gets intersection<br />
+			<br />
 			Returns : intersection
 		</p>
 
@@ -412,15 +400,15 @@
 			[parameter:boolean recursive] - The recursive.
 		</p>
 		<p>
-			Gets intersections<br>
-			<br>
+			Gets intersections<br />
+			<br />
 			Returns : intersections
 		</p>
 
 		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Gets object3d<br>
-			<br>
+			Gets object3d<br />
+			<br />
 			Returns : object3d
 		</p>
 
@@ -430,15 +418,15 @@
 			[parameter:Vector2 mouse] - The mouse.
 		</p>
 		<p>
-			Gets raycaster<br>
-			<br>
+			Gets raycaster<br />
+			<br />
 			Returns : raycaster
 		</p>
 
 		<h3>[method:Renderer getRenderer](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets renderer<br>
-			<br>
+			Gets renderer<br />
+			<br />
 			Returns : renderer
 		</p>
 
@@ -448,22 +436,22 @@
 			[parameter:any scenes] - (optional) The scenes.
 		</p>
 		<p>
-			Gets scene<br>
-			<br>
+			Gets scene<br />
+			<br />
 			Returns : scene
 		</p>
 
 		<h3>[method:Vector2 getSize](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets size<br>
-			<br>
+			Gets size<br />
+			<br />
 			Returns : size
 		</p>
 
 		<h3>[method:WebGLCubeRenderTarget getTexture](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets texture<br>
-			<br>
+			Gets texture<br />
+			<br />
 			Returns : texture
 		</p>
 
@@ -485,8 +473,8 @@
 			[parameter:Object3D parent] - The parent.
 		</p>
 		<p>
-			Sets parent<br>
-			<br>
+			Sets parent<br />
+			<br />
 			Returns : true if parent
 		</p>
 

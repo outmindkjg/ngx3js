@@ -12,40 +12,31 @@
 		<h1>MixerComponent</h1>
 
 		<p class="desc">
-			MixerComponent<br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-mixer [action]="'default'"&gt;<br>
-				&lt;ngx3js-clip [name]="'default'" [index]="0"&gt;&lt;/ngx3js-clip&gt;<br>
-			&lt;/ngx3js-mixer&gt;<br>
-			&lt;ngx3js-mixer<br>
-				[action]="controls.animation"<br>
-				[type]="'Character'"<br>
-				[skin]="controls.skinIdx"<br>
-				[weapon]="controls.weaponIdx"<br>
-			&gt;&lt;/ngx3js-mixer&gt;<br>
-			&lt;ngx3js-mixer<br>
-				[type]="'MMDAnimationHelper'"<br>
-				[mmdHelpers]="['iksolver', 'physics']"<br>
-				[afterglow]="2.0"<br>
-				[gravity]="-9.8 * 10"<br>
-				[physics]="true"<br>
-				(onLoad)="setMixer($event)"<br>
-			&gt;&lt;/ngx3js-mixer&gt;<br>
-			&lt;ngx3js-mixer<br>
-				[type]="'MMDAnimationHelper'"<br>
-				[animationHelper]="animationHelper"<br>
-			&gt;&lt;/ngx3js-mixer&gt;<br>
-			&lt;ngx3js-mixer<br>
-				[type]="'MMDAnimationHelper'"<br>
-				#animationHelper<br>
-				[afterglow]="2.0"<br>
-				[gravity]="-9.8 * 10"<br>
-				[physics]="true"<br>
-			&gt;&lt;/ngx3js-mixer&gt;<br>
-			&lt;ngx3js-mixer [action]="'run'" [delayTime]="info.delay"&gt;<br>
-				&lt;ngx3js-clip [name]="'run'" [index]="0"&gt;&lt;/ngx3js-clip&gt;<br>
-			&lt;/ngx3js-mixer&gt;<br>
+			The Mixer component.<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/MixerComponent ngx3js docs] page for details.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-mixer [action]="'default'"&gt;<br />
+				&lt;ngx3js-clip [name]="'default'" [index]="0"&gt;&lt;/ngx3js-clip&gt;<br />
+			&lt;/ngx3js-mixer&gt;<br />
+			&lt;ngx3js-mixer<br />
+				[action]="controls.animation " [type]="'Character'" [skin]="controls.skinIdx " [weapon]="controls.weaponIdx"<br />
+			&gt;&lt;/ngx3js-mixer&gt;<br />
+			&lt;ngx3js-mixer<br />
+				[type]="'MMDAnimationHelper'" [mmdHelpers]="['iksolver', 'physics'] " [afterglow]="2.0 " [gravity]="-9.8 * 10 " [physics]="true"<br />
+				(onLoad)="setMixer($event)"<br />
+			&gt;&lt;/ngx3js-mixer&gt;<br />
+			&lt;ngx3js-mixer<br />
+				[type]="'MMDAnimationHelper'" [animationHelper]="animationHelper"<br />
+			&gt;&lt;/ngx3js-mixer&gt;<br />
+			&lt;ngx3js-mixer<br />
+				[type]="'MMDAnimationHelper'"<br />
+				#animationHelper<br />
+				[afterglow]="2.0 " [gravity]="-9.8 * 10 " [physics]="true"<br />
+			&gt;&lt;/ngx3js-mixer&gt;<br />
+			&lt;ngx3js-mixer [action]="'run'" [delayTime]="info.delay"&gt;<br />
+				&lt;ngx3js-clip [name]="'run'" [index]="0"&gt;&lt;/ngx3js-clip&gt;<br />
+			&lt;/ngx3js-mixer&gt;<br />
 			</code>
 		</p>
 
@@ -85,7 +76,7 @@
 			[ scale ]="... number -- The rate of MD2Character "
 			[ skin ]="... string|number -- The skin of mixer component "
 			[ sync ]="... boolean -- The sync of mixer component "
-			[ timeScale ]="... number -- Scaling factor for the [page:.... "
+			[ timeScale ]="... number -- Scaling factor for the [Keyfra... "
 			[ transitionFrames ]="... number -- The rate of MD2Character "
 			[ tween ]="... any -- Tween animation params "
 			[ type ]="... string -- The Input of mixer component "
@@ -105,8 +96,7 @@
 
 		<h3>[property:string action] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of mixer component<br>
-			<br>
+			The Input of mixer component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -147,7 +137,7 @@
 
 		<h3>[property:number duration] &nbsp; = 0.5 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Sets the duration for a single loop of this action (by adjusting [page:.timeScale timeScale] and stopping any scheduled warping). This method can be chained.
+			Sets the duration for a single loop of this action (by adjusting [page:AnimationAction.timeScale AnimationAction.timeScale] and stopping any scheduled warping). This method can be chained.
 		</p>
 
 		<h3>[property:number fps]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -222,7 +212,7 @@
 
 		<h3>[property:number timeScale] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Scaling factor for the [page:.time time]. A value of 0 causes the animation to pause. Negative values cause the animation to play backwards. Default is 1.<br>
+			Scaling factor for the [page:KeyframeTrack.time KeyframeTrack.time]. A value of 0 causes the animation to pause. Negative values cause the animation to play backwards. Default is 1.<br />
 			Properties/methods concerning *timeScale* (respectively *time*)
 		</p>
 
@@ -233,8 +223,7 @@
 
 		<h3>[property:string type] &nbsp; = 'mixer' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of mixer component<br>
-			<br>
+			The Input of mixer component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -300,15 +289,15 @@
 
 		<h3>[method:MMDAnimationHelper getMmdAnimationHelper](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets mmd animation helper<br>
-			<br>
+			Gets mmd animation helper<br />
+			<br />
 			Returns : mmd animation helper
 		</p>
 
 		<h3>[method:Object3D[] getMmdAnimationHelperObject3D](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets mmd animation helper object3 d<br>
-			<br>
+			Gets mmd animation helper object3 d<br />
+			<br />
 			Returns : mmd animation helper object3 d
 		</p>
 
@@ -319,8 +308,8 @@
 			[parameter:number duration] - The duration.
 		</p>
 		<p>
-			Plays mixer component<br>
-			<br>
+			Plays mixer component<br />
+			<br />
 			Returns : true if play
 		</p>
 
@@ -330,8 +319,8 @@
 			[parameter:AnimationObjectGroup|Object3D parent] - The parent.
 		</p>
 		<p>
-			Sets parent<br>
-			<br>
+			Sets parent<br />
+			<br />
 			Returns : true if parent
 		</p>
 

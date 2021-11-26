@@ -12,81 +12,55 @@
 		<h1>TextureComponent</h1>
 
 		<p class="desc">
-			TextureComponent<br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-texture<br>
-				[type]="'environment'"<br>
-				[storageName]="'textures/equirectangular/venice_sunset_1k.hdr'"<br>
-				[mapping]="'EquirectangularReflectionMapping'"<br>
-			&gt;&lt;/ngx3js-texture&gt;<br>
-			&lt;ngx3js-texture<br>
-				[type]="'map'"<br>
-				[image]="'models/obj/cerberus/Cerberus_A.jpg'"<br>
-				[encoding]="'sRGBEncoding'"<br>
-				[wrapS]="'RepeatWrapping'"<br>
-			&gt;&lt;/ngx3js-texture&gt;<br>
-			&lt;ngx3js-texture<br>
-				[type]="'metalnessMap'"<br>
-				[image]="'models/obj/cerberus/Cerberus_RM.jpg'"<br>
-				[wrapS]="'RepeatWrapping'"<br>
-			&gt;&lt;/ngx3js-texture&gt;<br>
-			&lt;ngx3js-texture<br>
-				[type]="'roughnessMap'"<br>
-				[image]="'models/obj/cerberus/Cerberus_RM.jpg'"<br>
-				[wrapS]="'RepeatWrapping'"<br>
-			&gt;&lt;/ngx3js-texture&gt;<br>
-			&lt;ngx3js-texture<br>
-				[type]="'normalMap'"<br>
-				[image]="'models/obj/cerberus/Cerberus_N.jpg'"<br>
-				[wrapS]="'RepeatWrapping'"<br>
-			&gt;&lt;/ngx3js-texture&gt;<br>
-			&lt;ngx3js-texture<br>
-				[type]="'map'"<br>
-				[image]="'textures/planets/earth_atmos_2048.jpg'"<br>
-			&gt;&lt;/ngx3js-texture&gt;<br>
-			&lt;ngx3js-texture<br>
-				[type]="'specularMap'"<br>
-				[image]="'textures/planets/earth_specular_2048.jpg'"<br>
-			&gt;&lt;/ngx3js-texture&gt;<br>
-			&lt;ngx3js-texture<br>
-				[type]="'normalMap'"<br>
-				[image]="'textures/planets/earth_normal_2048.jpg'"<br>
-			&gt;&lt;/ngx3js-texture&gt;<br>
-			&lt;ngx3js-texture<br>
-				[program]="'shadow2'"<br>
-				[width]="128"<br>
-				[height]="128"<br>
-			&gt;&lt;/ngx3js-texture&gt;<br>
-			&lt;ngx3js-texture<br>
-				[type]="'background-environment'"<br>
-				[storageName]="'textures/equirectangular/venice_sunset_1k.hdr'"<br>
-				[cubeType]="'Equirectangular'"<br>
-			&gt;&lt;/ngx3js-texture&gt;<br>
-			&lt;ngx3js-texture<br>
-				[type]="'map'"<br>
-				[image]="'textures/uv_grid_opengl.jpg'"<br>
-				[wrap]="'RepeatWrapping'"<br>
-			&gt;&lt;/ngx3js-texture&gt;<br>
-			&lt;ngx3js-texture<br>
-				[image]="'textures/grid.png'"<br>
-				[wrap]="'RepeatWrapping'"<br>
-				[repeat]="40"<br>
-			&gt;&lt;/ngx3js-texture&gt;<br>
-			&lt;ngx3js-texture<br>
-				[image]="'textures/grid.png'"<br>
-				[wrap]="'RepeatWrapping'"<br>
-				[repeatX]="4 * 5"<br>
-				[repeatY]="3 * 5"<br>
-			&gt;&lt;/ngx3js-texture&gt;<br>
-			&lt;ngx3js-texture<br>
-				[image]="'textures/patterns/circuit_pattern.png'"<br>
-				[anisotropy]="16"<br>
-			&gt;&lt;/ngx3js-texture&gt;<br>
-			&lt;ngx3js-texture<br>
-				[image]="'textures/crate.gif'"<br>
-				[flipY]="true"<br>
-			&gt;&lt;/ngx3js-texture&gt;<br>
+			Texture Component<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/TextureComponent ngx3js docs] page for details.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-texture<br />
+				[type]="'environment'" [storageName]="'textures/equirectangular/venice_sunset_1k.hdr'" [mapping]="'EquirectangularReflectionMapping'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'map'" [image]="'models/obj/cerberus/Cerberus_A.jpg'" [encoding]="'sRGBEncoding'" [wrapS]="'RepeatWrapping'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'metalnessMap'" [image]="'models/obj/cerberus/Cerberus_RM.jpg'" [wrapS]="'RepeatWrapping'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'roughnessMap'" [image]="'models/obj/cerberus/Cerberus_RM.jpg'" [wrapS]="'RepeatWrapping'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'normalMap'" [image]="'models/obj/cerberus/Cerberus_N.jpg'" [wrapS]="'RepeatWrapping'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'map'" [image]="'textures/planets/earth_atmos_2048.jpg'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'specularMap'" [image]="'textures/planets/earth_specular_2048.jpg'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'normalMap'" [image]="'textures/planets/earth_normal_2048.jpg'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[program]="'shadow2'" [width]="128 " [height]="128"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'background-environment'" [storageName]="'textures/equirectangular/venice_sunset_1k.hdr'" [cubeType]="'Equirectangular'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'map'" [image]="'textures/uv_grid_opengl.jpg'" [wrap]="'RepeatWrapping'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[image]="'textures/grid.png'" [wrap]="'RepeatWrapping'" [repeat]="40"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[image]="'textures/grid.png'" [wrap]="'RepeatWrapping'" [repeatX]="4 * 5 " [repeatY]="3 * 5"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[image]="'textures/patterns/circuit_pattern.png'" [anisotropy]="16"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[image]="'textures/crate.gif'" [flipY]="true"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
 			</code>
 		</p>
 
@@ -112,14 +86,14 @@
 			[ cubeImage ]="... string[] -- The cubeImage of texture compo... "
 			[ cubeType ]="... string -- The CubeType of Texture - "
 			[ data ]="... number[]|BufferSource -- The data of DataTexture "
-			[ dataType ]="... string -- This must correspond to the [p... "
+			[ dataType ]="... string -- This must correspond to the [.... "
 			[ debug ]="... boolean -- Debug this Object "
 			[ depth ]="... number -- depth of the texture. "
 			[ enabled ]="... boolean -- Enabled or Not "
-			[ encoding ]="... string -- [page:Textures THREE.LinearEnc... "
+			[ encoding ]="... string -- [THREE.LinearEncoding](https:/... "
 			[ filter ]="... string -- The Default Value of magFilter... "
 			[ flipY ]="... boolean -- If set to *true*, the texture ... "
-			[ format ]="... string -- The default is [page:Textures ... "
+			[ format ]="... string -- The default is [THREE.RGBAForm... "
 			[ generateMipmaps ]="... boolean -- Whether to generate mipmaps (i... "
 			[ height ]="... number -- height of the texture. "
 			[ image ]="... string -- The image of texture component "
@@ -262,8 +236,8 @@
 
 		<h3>[method:T getTexture](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Gets texture<br>
-			<br>
+			Gets texture<br />
+			<br />
 			Returns : texture
 		</p>
 

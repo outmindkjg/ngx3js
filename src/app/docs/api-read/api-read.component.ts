@@ -113,6 +113,7 @@ export class ApiReadComponent implements OnInit {
 		text = text.replace(/\[parameter:([\w\.]+)(\[\]|)\]/gi, '[parameter:$1$2 $1]'); // [parameter:name] to [parameter:name title]
 		
 		text = text.replace(/src=\"scenes\/([^\"]+)\"/gi, 'src="assets/scenes/$1"'); // [page:name] to [page:name title]
+		text = text.replace(/src=\"viewer\/([^\"]+)\"/gi, 'src="#/viewer/$1"'); // [page:name] to [page:name title]
 
 		text = text.replace(
 			/\[page:\.([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
@@ -214,7 +215,7 @@ export class ApiReadComponent implements OnInit {
 		text = text.replace(/\[link:([\w|\:|\/|\.|\-|\_]+)\]/gi, '[link:$1 $1]'); // [link:url] to [link:url title]
 		text = text.replace(
 			/\[link:([\w|\:|\/|\.|\-|\_|\(|\)|\?|\#|\=|\!]+) ([\w|\:|\/|\.|\-|\_|\s]+)\]/gi,
-			'<a href="$1"  target="_blank">$2</a>'
+			'<a href="$1" target="_blank">$2</a>'
 		); // [link:url title]
 		text = text.replace(
 			/\*([\w|\d|\"|\-|\(][\w|\d|\ |\-|\/|\+|\-|\(|\)|\=|\,|\.\"]*[\w|\d|\"|\)]|\w)\*/gi,

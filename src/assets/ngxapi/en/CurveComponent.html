@@ -12,18 +12,16 @@
 		<h1>CurveComponent</h1>
 
 		<p class="desc">
-			CurveComponent<br>
-			<br>
-			An abstract base class for creating a [name] object that contains methods for interpolation.<br>
-			For an array of [name]s see [page:CurvePath].<br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-curve<br>
-				[type]="'catmullrom'"<br>
-				[points]="curvePath"<br>
-				[closed]="true"<br>
-				[curveType]="'centripetal'"<br>
-			&gt;&lt;/ngx3js-curve&gt;<br>
+			The Curve component.<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/CurveComponent ngx3js docs] page for details.<br />
+			<br />
+			An abstract base class for creating a [name] object that contains methods for interpolation.<br />
+			For an array of [name]s see [page:CurvePath CurvePath].<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-curve<br />
+				[type]="'catmullrom'" [points]="curvePath " [closed]="true " [curveType]="'centripetal'"<br />
+			&gt;&lt;/ngx3js-curve&gt;<br />
 			</code>
 		</p>
 
@@ -49,8 +47,8 @@
 			( onDestory )="...($event : CurveComponent -- Will be called when before des... )"
 			( onLoad )="...($event : CurveComponent -- Will be called when load compl... )"
 			[ overrideParams ]="... any -- The override params "
-			[ points ]="... ThreeVector[] -- array of [page:Vector2 Vector2... "
-			[ tension ]="... number -- When [page:.curveType] is *cat... "
+			[ points ]="... ThreeVector[] -- array of [Vector2s](https://ou... "
+			[ tension ]="... number -- When [CatmullRomCurve3.curveTy... "
 			[ tween ]="... any -- Tween animation params "
 			[ type ]="... string -- The curve type "
 			[ userData ]="... any -- An object that can be used to ... "
@@ -107,39 +105,37 @@
 
 		<h3>[property:string curveType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Possible values are *centripetal*, *chordal* and *catmullrom*.<br>
-			<br>
+			Possible values are *centripetal*, *chordal* and *catmullrom*.<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:ThreeVector[] points]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			array of [page:Vector2 Vector2s].<br>
-			Creates a Path from the points. The first point defines the offset, then successive points are added to the [page:CurvePath.curves curves] array as [page:LineCurve LineCurves].<br>
-			If no points are specified, an empty path is created and the [page:.currentPoint] is set to the origin.
+			array of [page:Vector2 Vector2s].<br />
+			Creates a Path from the points. The first point defines the offset, then successive points are added to the [page:CurvePath.curves curves] array as [page:LineCurve LineCurves].<br />
+			If no points are specified, an empty path is created and the [page:LineCurve.currentPoint LineCurve.currentPoint] is set to the origin.
 		</p>
 
 		<h3>[property:number tension]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			When [page:.curveType] is *catmullrom*, defines catmullrom's tension.
+			When [page:CatmullRomCurve3.curveType CatmullRomCurve3.curveType] is *catmullrom*, defines catmullrom's tension.
 		</p>
 
 		<h3>[property:string type] &nbsp; = 'spline' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The curve type<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:Curve Curve] - THREE.Curve<THREE.Vector><br>
-			[page:ArcCurve ArcCurve] - THREE.ArcCurve - ArcCurve, Arc<br>
-			[page:CatmullRomCurve3 CatmullRomCurve3] - THREE.CatmullRomCurve3 - CatmullRomCurve3, Spline3, Catmullrom<br>
-			[page:CubicBezierCurve CubicBezierCurve] - THREE.CubicBezierCurve - CubicBezierCurve, CubicBezier<br>
-			[page:CubicBezierCurve3 CubicBezierCurve3] - THREE.CubicBezierCurve3 - CubicBezierCurve3, CubicBezier3<br>
-			[page:EllipseCurve EllipseCurve] - THREE.EllipseCurve - EllipseCurve, Ellipse<br>
-			[page:LineCurve LineCurve] - THREE.LineCurve - LineCurve, Line<br>
-			[page:LineCurve3 LineCurve3] - THREE.LineCurve3 - LineCurve3, Line3<br>
-			[page:QuadraticBezierCurve QuadraticBezierCurve] - THREE.QuadraticBezierCurve - QuadraticBezierCurve, QuadraticBezier<br>
-			[page:QuadraticBezierCurve3 QuadraticBezierCurve3] - THREE.QuadraticBezierCurve3 - QuadraticBezierCurve3, QuadraticBezier3<br>
+			The curve type<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:Curve Curve] - THREE.Curve<THREE.Vector><br />
+			[page:ArcCurve ArcCurve] - THREE.ArcCurve - ArcCurve, Arc<br />
+			[page:CatmullRomCurve3 CatmullRomCurve3] - THREE.CatmullRomCurve3 - CatmullRomCurve3, Spline3, Catmullrom<br />
+			[page:CubicBezierCurve CubicBezierCurve] - THREE.CubicBezierCurve - CubicBezierCurve, CubicBezier<br />
+			[page:CubicBezierCurve3 CubicBezierCurve3] - THREE.CubicBezierCurve3 - CubicBezierCurve3, CubicBezier3<br />
+			[page:EllipseCurve EllipseCurve] - THREE.EllipseCurve - EllipseCurve, Ellipse<br />
+			[page:LineCurve LineCurve] - THREE.LineCurve - LineCurve, Line<br />
+			[page:LineCurve3 LineCurve3] - THREE.LineCurve3 - LineCurve3, Line3<br />
+			[page:QuadraticBezierCurve QuadraticBezierCurve] - THREE.QuadraticBezierCurve - QuadraticBezierCurve, QuadraticBezier<br />
+			[page:QuadraticBezierCurve3 QuadraticBezierCurve3] - THREE.QuadraticBezierCurve3 - QuadraticBezierCurve3, QuadraticBezier3<br />
 			[page:SplineCurve SplineCurve] - THREE.SplineCurve - SplineCurve, Spline
 		</p>
 
@@ -169,8 +165,8 @@
 
 		<h3>[method:Curve getCurve](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets curve<br>
-			<br>
+			Gets curve<br />
+			<br />
 			Returns : curve
 		</p>
 

@@ -12,22 +12,23 @@
 		<h1>AbstractControllerComponent</h1>
 
 		<p class="desc">
-			AbstractControllerComponent Component<br>
-			<br>
-			<code data-type="typescript"><br>
-			@Component({<br>
-				providers: [<br>
-					{<br>
-						provide: AbstractControllerComponent,<br>
-						useExisting: forwardRef(() =&gt; XxxComponent),<br>
-					},<br>
-				],<br>
-			})<br>
-			export class XxxComponent extends AbstractControllerComponent implements OnInit {<br>
-				constructor() {<br>
-					super();<br>
-				}<br>
-			}<br>
+			The Abstract Controller component.<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/AbstractControllerComponent ngx3js docs] page for details.<br />
+			<br />
+			<code data-type="typescript"><br />
+			@Component({<br />
+				providers: [<br />
+					{<br />
+						provide: AbstractControllerComponent,<br />
+						useExisting: forwardRef(() =&gt; XxxComponent),<br />
+					},<br />
+				],<br />
+			})<br />
+			export class XxxComponent extends AbstractControllerComponent implements OnInit {<br />
+				constructor() {<br />
+					super();<br />
+				}<br />
+			}<br />
 			</code>
 		</p>
 

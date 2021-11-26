@@ -12,21 +12,21 @@
 		<h1>RendererComponent</h1>
 
 		<p class="desc">
-			RendererComponent<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-renderer<br>
-				[controlType]="'orbit'"<br>
-				[controlOptions]="{ enablePan: false, enableDamping: true }"<br>
-				[cssType]="'css2d'"<br>
-				[statsMode]="0"<br>
-				[antialias]="true"<br>
-				[shadowMapEnabled]="true"<br>
-				[guiControl]="controls"<br>
-				[guiParams]="controlsParams"<br>
-				(onRender)="onRender($event)"<br>
-			&gt;&lt;/ngx3js-renderer&gt;<br>
-			</code><br>
-			<br>
+			The Renderer component.<br />
+			<br />
+			<h3>Preview - ngx renderer</h3><br />
+			<iframe src="#/viewer/ngx_renderer"></iframe><br />
+			<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/RendererComponent ngx3js docs] page for details.<br />
+			See the [example:ngx_renderer ngx renderer] page for a live demo.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-renderer<br />
+				[controlType]="'orbit'" [controlOptions]="{ enablePan: false, enableDamping: true } " [cssType]="'css2d'" [statsMode]="0 " [antialias]="true " [shadowMapEnabled]="true " [guiControl]="controls " [guiParams]="controlsParams"<br />
+				(onRender)="onRender($event)"<br />
+			&gt;&lt;/ngx3js-renderer&gt;<br />
+			</code><br />
+			<br />
 			[page:WebGLRenderer WebGLRenderer] - THREE.WebGLRenderer
 		</p>
 
@@ -42,7 +42,7 @@
 			[ alpha ]="... boolean -- whether to perform alpha. Defa... "
 			[ antialias ]="... boolean -- whether to perform antialiasin... "
 			[ autoClear ]="... boolean -- Defines whether the renderer s... "
-			[ autoClearColor ]="... boolean -- If [page:.autoClear autoClear]... "
+			[ autoClearColor ]="... boolean -- If [WebGLRenderer.autoClear](h... "
 			[ beforeRender ]="... any"
 			[ camera ]="... CameraComponent -- The camera of renderer compone... "
 			[ clearAlpha ]="... number -- Sets the alpha of the clear co... "
@@ -77,7 +77,7 @@
 			[ sizeType ]="... string -- The Input of renderer componen... "
 			[ statsMode ]="... number -- the stats mode of stats module "
 			[ statsStyle ]="... any -- The statsStyle of stats module "
-			[ toneMapping ]="... string -- Default is [page:Renderer NoTo... "
+			[ toneMapping ]="... string -- Default is [NoToneMapping](htt... "
 			[ toneMappingExposure ]="... number -- Exposure level of tone mapping... "
 			[ tween ]="... any -- Tween animation params "
 			[ type ]="... string -- The type of renderer "
@@ -133,7 +133,7 @@
 
 		<h3>[property:boolean autoClearColor] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			If [page:.autoClear autoClear] is true, defines whether the renderer should clear the color buffer.<br>
+			If [page:WebGLRenderer.autoClear WebGLRenderer.autoClear] is true, defines whether the renderer should clear the color buffer.<br />
 				Default is *true*.
 		</p>
 
@@ -169,8 +169,7 @@
 
 		<h3>[property:string controlType] &nbsp; = 'none' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The type of control<br>
-			<br>
+			The type of control<br />
 			Notice - case insensitive.
 		</p>
 
@@ -181,14 +180,13 @@
 
 		<h3>[property:string cssType] &nbsp; = 'none' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The type of css renderer<br>
-			<br>
+			The type of css renderer<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:number gammaFactor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Converts this color from gamma space to linear space by taking [page:.r r], [page:.g g] and [page:.b b] to the power of [page:Float gammaFactor].
+			Converts this color from gamma space to linear space by taking [page:Color.r Color.r], [page:Color.g Color.g] and [page:Color.b Color.b] to the power of gammaFactor.
 		</p>
 
 		<h3>[property:boolean globalClippingEnabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -233,32 +231,37 @@
 
 		<h3>[property:boolean logarithmicDepthBuffer] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			whether to use a logarithmic depth buffer. It may be neccesary to use this if dealing with huge differences in scale in a single scene. Note that this setting uses gl_FragDepth if available which disables the [link:https://www.khronos.org/opengl/wiki/Early_Fragment_Test Early Fragment Test] optimization and can cause a decrease in performance.<br>
+			<h3>Preview - camera / logarithmicdepthbuffer</h3><br />
+			<iframe src="#/viewer/webgl_camera_logarithmicdepthbuffer"></iframe><br />
+			<br />
+			whether to use a logarithmic depth buffer. It may be neccesary to use this if dealing with huge differences in scale in a single scene. Note that this setting uses gl_FragDepth if available which disables the [link:https://www.khronos.org/opengl/wiki/Early_Fragment_Test Early Fragment Test] optimization and can cause a decrease in performance.<br />
 			Default is *false*. See the [example:webgl_camera_logarithmicdepthbuffer camera / logarithmicdepthbuffer] example.
 		</p>
 
 		<h3>[property:string outputEncoding]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Defines the output encoding of the renderer. Default is [page:Textures THREE.LinearEncoding].<br>
-			If a render target has been set using [page:WebGLRenderer.setRenderTarget .setRenderTarget] then renderTarget.texture.encoding will be used instead.<br>
-			See the [page:Textures texture constants] page for details of other formats.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br>
-			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding, sRGB<br>
-			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding, Gamma<br>
-			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding, RGBE<br>
-			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding, LogLuv<br>
-			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding, RGBM7<br>
-			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding, RGBM16<br>
-			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding, RGBD<br>
+			Defines the output encoding of the renderer. Default is [THREE.LinearEncoding](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures).<br />
+			If a render target has been set using [.setRenderTarget](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/renderers/WebGLRenderer.setRenderTarget) then renderTarget.texture.encoding will be used instead.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details of other formats.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br />
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding, sRGB<br />
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding, Gamma<br />
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding, RGBE<br />
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding, LogLuv<br />
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding, RGBM7<br />
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding, RGBM16<br />
+			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding, RGBD<br />
 			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding, Linear
 		</p>
 
 		<h3>[property:boolean physicallyCorrectLights]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Whether to use physically correct lighting mode. Default is *false*.<br>
+			<h3>Preview - lights / physical</h3><br />
+			<iframe src="#/viewer/webgl_lights_physical"></iframe><br />
+			<br />
+			Whether to use physically correct lighting mode. Default is *false*.<br />
 			See the [example:webgl_lights_physical lights / physical] example.
 		</p>
 
@@ -269,11 +272,10 @@
 
 		<h3>[property:string quality]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The quality of SVGRenderer<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			high - high quality.<br>
+			The quality of SVGRenderer<br />
+			Notice - case insensitive.<br />
+			<br />
+			high - high quality.<br />
 			low - low quality.
 		</p>
 
@@ -309,19 +311,17 @@
 
 		<h3>[property:string shadowMapType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Defines shadow map type (unfiltered, percentage close filtering, percentage close filtering with bilinear filtering in shader)<br>
-			Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftShadowMap and THREE.VSMShadowMap. See [page:Renderer Renderer constants] for details.<br>
-			<br>
+			Defines shadow map type (unfiltered, percentage close filtering, percentage close filtering with bilinear filtering in shader)<br />
+			Options are THREE.BasicShadowMap, THREE.PCFShadowMap (default), THREE.PCFSoftShadowMap and THREE.VSMShadowMap. See [Renderer constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Renderer) for details.<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:string sizeType] &nbsp; = 'auto' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of renderer component<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			auto - auto fix the size of renderer.<br>
+			The Input of renderer component<br />
+			Notice - case insensitive.<br />
+			<br />
+			auto - auto fix the size of renderer.<br />
 			fixed - use fixed size of renderer.
 		</p>
 
@@ -337,15 +337,14 @@
 
 		<h3>[property:string toneMapping]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Default is [page:Renderer NoToneMapping]. See the [page:Renderer Renderer constants] for other choices.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:ToneMapping ToneMapping] - THREE.ToneMapping<br>
-			[page:LinearToneMapping LinearToneMapping] - THREE.LinearToneMapping - LinearToneMapping, Linear<br>
-			[page:ReinhardToneMapping ReinhardToneMapping] - THREE.ReinhardToneMapping - ReinhardToneMapping, Reinhard<br>
-			[page:CineonToneMapping CineonToneMapping] - THREE.CineonToneMapping - CineonToneMapping, CineonTone<br>
-			[page:ACESFilmicToneMapping ACESFilmicToneMapping] - THREE.ACESFilmicToneMapping - ACESFilmicToneMapping, ACESFilmic<br>
+			Default is [NoToneMapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Renderer). See the [Renderer constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Renderer) for other choices.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:ToneMapping ToneMapping] - THREE.ToneMapping<br />
+			[page:LinearToneMapping LinearToneMapping] - THREE.LinearToneMapping - LinearToneMapping, Linear<br />
+			[page:ReinhardToneMapping ReinhardToneMapping] - THREE.ReinhardToneMapping - ReinhardToneMapping, Reinhard<br />
+			[page:CineonToneMapping CineonToneMapping] - THREE.CineonToneMapping - CineonToneMapping, CineonTone<br />
+			[page:ACESFilmicToneMapping ACESFilmicToneMapping] - THREE.ACESFilmicToneMapping - ACESFilmicToneMapping, ACESFilmic<br />
 			[page:NoToneMapping NoToneMapping] - THREE.NoToneMapping - NoToneMapping, No
 		</p>
 
@@ -356,30 +355,28 @@
 
 		<h3>[property:string type] &nbsp; = 'webgl' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The type of renderer<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
+			The type of renderer<br />
+			Notice - case insensitive.<br />
+			<br />
 			[page:WebGLRenderer WebGLRenderer] - THREE.WebGLRenderer - WebGLRenderer, WebGL, GL, WebGL2
 		</p>
 
 		<h3>[property:string useEvent]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of renderer component<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			string join by ,<br>
-			<br>
-			change - change.<br>
-			pointerdown, mousedown, down - pointerdown.<br>
-			pointerup, mouseup, up - pointerup.<br>
-			pointermove, mousemove, move - pointermove.<br>
-			keydown - keydown.<br>
-			keyup - keyup.<br>
-			keypress - keypress.<br>
-			click - click.<br>
-			mouseover - mouseover, over.<br>
+			The Input of renderer component<br />
+			Notice - case insensitive.<br />
+			<br />
+			string join by ,<br />
+			<br />
+			change - change.<br />
+			pointerdown, mousedown, down - pointerdown.<br />
+			pointerup, mouseup, up - pointerup.<br />
+			pointermove, mousemove, move - pointermove.<br />
+			keydown - keydown.<br />
+			keyup - keyup.<br />
+			keypress - keypress.<br />
+			click - click.<br />
+			mouseover - mouseover, over.<br />
 			mouseout - mouseout, out.
 		</p>
 
@@ -390,10 +387,9 @@
 
 		<h3>[property:string|number x] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The x position of renderer<br>
-			<br>
-			number : fixed position.<br>
-			string : % - the percent of renderer.<br>
+			The x position of renderer<br />
+			number : fixed position.<br />
+			string : % - the percent of renderer.<br />
 			string : % -/+ number - the percent of renderer and add some value.
 		</p>
 
@@ -404,10 +400,9 @@
 
 		<h3>[property:string|number y] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The y position of renderer<br>
-			<br>
-			number : fixed position.<br>
-			string : % - the percent of renderer.<br>
+			The y position of renderer<br />
+			number : fixed position.<br />
+			string : % - the percent of renderer.<br />
 			string : % -/+ number - the percent of renderer and add some value.
 		</p>
 
@@ -452,29 +447,29 @@
 
 		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Gets Object<br>
-			<br>
+			Gets Object<br />
+			<br />
 			Returns : Object
 		</p>
 
 		<h3>[method:ControlComponent getRenderControl](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets Render controls<br>
-			<br>
+			Gets Render controls<br />
+			<br />
 			Returns : controls
 		</p>
 
 		<h3>[method:Renderer getRenderer](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets Renderer<br>
-			<br>
+			Gets Renderer<br />
+			<br />
 			Returns : Renderer
 		</p>
 
 		<h3>[method:Vector2 getSize](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets size<br>
-			<br>
+			Gets size<br />
+			<br />
 			Returns : size
 		</p>
 
@@ -510,15 +505,15 @@
 
 		<h3>[method:Observable sizeSubscribe](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Sizes subscribe<br>
-			<br>
+			Sizes subscribe<br />
+			<br />
 			Returns : subscribe
 		</p>
 
 		<h3>[method:Observable updateSubscribe](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Updates subscribe<br>
-			<br>
+			Updates subscribe<br />
+			<br />
 			Returns : subscribe
 		</p>
 
@@ -528,8 +523,8 @@
 			[parameter:HTMLElement ele] - (optional) The ele.
 		</p>
 		<p>
-			Users gesture subscribe<br>
-			<br>
+			Users gesture subscribe<br />
+			<br />
 			Returns : gesture subscribe
 		</p>
 

@@ -12,19 +12,16 @@
 		<h1>PositionComponent</h1>
 
 		<p class="desc">
-			PositionComponent<br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-position<br>
-				[x]="0"<br>
-				[y]="7.5"<br>
-				[z]="0"<br>
-				[multiply]="10"<br>
-				[normalize]="false"<br>
-			&gt;&lt;/ngx3js-position&gt;<br>
-			&lt;ngx3js-geometry&gt;<br>
-				&lt;ngx3js-position [type]="'scale'" [x]="2" [y]="2" [z]="2"&gt;&lt;/ngx3js-position&gt;<br>
-			&lt;/ngx3js-geometry&gt;<br>
+			The Position component.<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/PositionComponent ngx3js docs] page for details.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-position<br />
+				[x]="0 " [y]="7.5 " [z]="0 " [multiply]="10 " [normalize]="false"<br />
+			&gt;&lt;/ngx3js-position&gt;<br />
+			&lt;ngx3js-geometry&gt;<br />
+				&lt;ngx3js-position [type]="'scale'" [x]="2" [y]="2" [z]="2"&gt;&lt;/ngx3js-position&gt;<br />
+			&lt;/ngx3js-geometry&gt;<br />
 			</code>
 		</p>
 
@@ -39,7 +36,7 @@
 			[ debug ]="... boolean -- Debug this Object "
 			[ enabled ]="... boolean -- Enabled or Not "
 			[ multiply ]="... number -- Multiplies this vector by scal... "
-			[ normalize ]="... boolean -- Converts this vector to a [lin... "
+			[ normalize ]="... boolean -- Converts this vector to a [uni... "
 			( onDestory )="...($event : PositionComponent -- Will be called when before des... )"
 			( onLoad )="...($event : PositionComponent -- Will be called when load compl... )"
 			[ overrideParams ]="... any -- The override params "
@@ -75,12 +72,12 @@
 
 		<h3>[property:number multiply]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Multiplies this vector by scalar [page:Float s].
+			Multiplies this vector by scalar s.
 		</p>
 
 		<h3>[property:boolean normalize] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Converts this vector to a [link:https://en.wikipedia.org/wiki/Unit_vector unit vector] - that is, sets it equal to a vector with the same direction as this one, but [page:.length length] 1.
+			Converts this vector to a [link:https://en.wikipedia.org/wiki/Unit_vector unit vector] - that is, sets it equal to a vector with the same direction as this one, but [page:Vector3.length Vector3.length] 1.
 		</p>
 
 		<h3>[property:number phi]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -105,8 +102,7 @@
 
 		<h3>[property:string setfrom]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of position component<br>
-			<br>
+			The Input of position component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -117,18 +113,17 @@
 
 		<h3>[property:string type] &nbsp; = 'position' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The type of position component<br>
-			<br>
-			position - the position of Object3D.<br>
-			rotate - the rotation angular of geometry.<br>
-			scale - the scale of geometry.<br>
-			translate - the traslate of geometry.<br>
-			<br>
-			[page:Object3D Object3D] - THREE.Object3D#position<br>
-			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry#rotateX<br>
-			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry#rotateY<br>
-			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry#rotateZ<br>
-			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry#translate<br>
+			The type of position component<br />
+			position - the position of Object3D.<br />
+			rotate - the rotation angular of geometry.<br />
+			scale - the scale of geometry.<br />
+			translate - the traslate of geometry.<br />
+			<br />
+			[page:Object3D Object3D] - THREE.Object3D#position<br />
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry#rotateX<br />
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry#rotateY<br />
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry#rotateZ<br />
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry#translate<br />
 			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry#scale
 		</p>
 
@@ -166,8 +161,8 @@
 
 		<h3>[method:Vector3 getPosition](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets position<br>
-			<br>
+			Gets position<br />
+			<br />
 			Returns : position
 		</p>
 
@@ -177,8 +172,8 @@
 			[parameter:any options] - (optional) The options.
 		</p>
 		<p>
-			Gets tag attribute<br>
-			<br>
+			Gets tag attribute<br />
+			<br />
 			Returns : tag attribute
 		</p>
 

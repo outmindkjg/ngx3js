@@ -12,24 +12,25 @@
 		<h1>AbstractTextureComponent</h1>
 
 		<p class="desc">
-			AbstractTextureComponent<br>
-			<br>
-			<code data-type="typescript"><br>
-			@Component({<br>
-				providers: [<br>
-					{<br>
-						provide: AbstractTextureComponent,<br>
-						useExisting: forwardRef(() =&gt; XxxComponent),<br>
-					},<br>
-				],<br>
-			})<br>
-			export class XxxComponent extends AbstractTextureComponent implements OnInit {<br>
-				constructor() {<br>
-					super();<br>
-				}<br>
-			}<br>
-			</code><br>
-			<br>
+			The Abstract Texture component.<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/AbstractTextureComponent ngx3js docs] page for details.<br />
+			<br />
+			<code data-type="typescript"><br />
+			@Component({<br />
+				providers: [<br />
+					{<br />
+						provide: AbstractTextureComponent,<br />
+						useExisting: forwardRef(() =&gt; XxxComponent),<br />
+					},<br />
+				],<br />
+			})<br />
+			export class XxxComponent extends AbstractTextureComponent implements OnInit {<br />
+				constructor() {<br />
+					super();<br />
+				}<br />
+			}<br />
+			</code><br />
+			<br />
 			[page:Texture Texture] - THREE.Texture
 		</p>
 
@@ -51,35 +52,31 @@
 
 		<h3>[property:number anisotropy]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The number of samples taken along the axis through the pixel that has the highest density of texels.<br>
+			The number of samples taken along the axis through the pixel that has the highest density of texels.<br />
 			By default, this value is 1. A higher value gives a less blurry result than a basic mipmap, at the cost of more texture samples being used. Use [page:WebGLRenderer.getMaxAnisotropy renderer.getMaxAnisotropy]() to find the maximum valid anisotropy value for the GPU; this value is usually a power of 2.
 		</p>
 
 		<h3>[property:number center]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.<br>
-			<br>
+			The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.<br />
 			The default value of centerX, centerY
 		</p>
 
 		<h3>[property:number centerX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.<br>
-			<br>
+			The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.<br />
 			The value of center.x
 		</p>
 
 		<h3>[property:number centerY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.<br>
-			<br>
+			The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.<br />
 			The value of center.y
 		</p>
 
 		<h3>[property:string cubeType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The CubeType of Texture -<br>
-			<br>
+			The CubeType of Texture -<br />
 			Notice - case insensitive.
 		</p>
 
@@ -90,23 +87,22 @@
 
 		<h3>[property:string dataType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			This must correspond to the [page:Texture.format .format]. The default is [page:Textures THREE.UnsignedByteType], which will be used for most texture formats.<br>
-			See the [page:Textures texture constants] page for details of other formats.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:TextureDataType TextureDataType] - THREE.TextureDataType <br>
-			[page:UnsignedByteType UnsignedByteType] - THREE.UnsignedByteType - UnsignedByteType , UnsignedByte<br>
-			[page:ByteType ByteType] - THREE.ByteType - ByteType , Byte<br>
-			[page:ShortType ShortType] - THREE.ShortType - ShortType , Short<br>
-			[page:UnsignedShortType UnsignedShortType] - THREE.UnsignedShortType - UnsignedShortType , UnsignedShort<br>
-			[page:IntType IntType] - THREE.IntType - IntType , Int<br>
-			[page:UnsignedIntType UnsignedIntType] - THREE.UnsignedIntType - UnsignedIntType , UnsignedInt<br>
-			[page:FloatType FloatType] - THREE.FloatType - FloatType , Float<br>
-			[page:HalfFloatType HalfFloatType] - THREE.HalfFloatType - HalfFloatType , HalfFloat<br>
-			[page:UnsignedShort4444Type UnsignedShort4444Type] - THREE.UnsignedShort4444Type - UnsignedShort4444Type , UnsignedShort4444<br>
-			[page:UnsignedShort5551Type UnsignedShort5551Type] - THREE.UnsignedShort5551Type - UnsignedShort5551Type , UnsignedShort5551<br>
-			[page:UnsignedShort565Type UnsignedShort565Type] - THREE.UnsignedShort565Type - UnsignedShort565Type , UnsignedShort565<br>
+			This must correspond to the [.format](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/Texture.format). The default is [THREE.UnsignedByteType](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), which will be used for most texture formats.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details of other formats.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureDataType TextureDataType] - THREE.TextureDataType <br />
+			[page:UnsignedByteType UnsignedByteType] - THREE.UnsignedByteType - UnsignedByteType , UnsignedByte<br />
+			[page:ByteType ByteType] - THREE.ByteType - ByteType , Byte<br />
+			[page:ShortType ShortType] - THREE.ShortType - ShortType , Short<br />
+			[page:UnsignedShortType UnsignedShortType] - THREE.UnsignedShortType - UnsignedShortType , UnsignedShort<br />
+			[page:IntType IntType] - THREE.IntType - IntType , Int<br />
+			[page:UnsignedIntType UnsignedIntType] - THREE.UnsignedIntType - UnsignedIntType , UnsignedInt<br />
+			[page:FloatType FloatType] - THREE.FloatType - FloatType , Float<br />
+			[page:HalfFloatType HalfFloatType] - THREE.HalfFloatType - HalfFloatType , HalfFloat<br />
+			[page:UnsignedShort4444Type UnsignedShort4444Type] - THREE.UnsignedShort4444Type - UnsignedShort4444Type , UnsignedShort4444<br />
+			[page:UnsignedShort5551Type UnsignedShort5551Type] - THREE.UnsignedShort5551Type - UnsignedShort5551Type , UnsignedShort5551<br />
+			[page:UnsignedShort565Type UnsignedShort565Type] - THREE.UnsignedShort565Type - UnsignedShort565Type , UnsignedShort565<br />
 			[page:UnsignedInt248Type UnsignedInt248Type] - THREE.UnsignedInt248Type - UnsignedInt248Type , UnsignedInt248
 		</p>
 
@@ -117,66 +113,63 @@
 
 		<h3>[property:string encoding]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:Textures THREE.LinearEncoding] is the default.<br>
-			See the [page:Textures texture constants] page for details of other formats.<br>
-			Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br>
-			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br>
-			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br>
-			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br>
-			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br>
-			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br>
-			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br>
-			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br>
+			[THREE.LinearEncoding](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) is the default.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details of other formats.<br />
+			Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br />
+			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br />
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br />
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br />
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br />
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br />
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br />
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br />
 			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
 		</p>
 
 		<h3>[property:string filter]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Default Value of magFilter, minFilter<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br>
-			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br>
-			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br>
-			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br>
-			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br>
-			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br>
+			The Default Value of magFilter, minFilter<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br />
+			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br />
+			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br />
+			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br />
+			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br />
+			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br />
 			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
 		</p>
 
 		<h3>[property:boolean flipY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			If set to *true*, the texture is flipped along the vertical axis when uploaded to the GPU. Default is *true*.<br>
-			Note that this property has no effect for [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap].<br>
-			You need to configure on bitmap creation instead. See [page:ImageBitmapLoader].
+			If set to *true*, the texture is flipped along the vertical axis when uploaded to the GPU. Default is *true*.<br />
+			Note that this property has no effect for [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap].<br />
+			You need to configure on bitmap creation instead. See [page:ImageBitmapLoader ImageBitmapLoader].
 		</p>
 
 		<h3>[property:string format]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The default is [page:Textures THREE.RGBAFormat], although the [page:TextureLoader TextureLoader] will automatically set this to [page:Textures THREE.RGBFormat] for JPG images.<br>
-			See the [page:Textures texture constants] page for details of other formats.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:PixelFormat PixelFormat] - THREE.PixelFormat<br>
-			[page:AlphaFormat AlphaFormat] - THREE.AlphaFormat - AlphaFormat, Alpha<br>
-			[page:RedFormat RedFormat] - THREE.RedFormat - RedFormat, Red<br>
-			[page:RedIntegerFormat RedIntegerFormat] - THREE.RedIntegerFormat - RedIntegerFormat, RedInteger<br>
-			[page:RGFormat RGFormat] - THREE.RGFormat - RGFormat, RG<br>
-			[page:RGIntegerFormat RGIntegerFormat] - THREE.RGIntegerFormat - RGIntegerFormat, RGInteger<br>
-			[page:RGBFormat RGBFormat] - THREE.RGBFormat - RGBFormat, RGB<br>
-			[page:RGBIntegerFormat RGBIntegerFormat] - THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger<br>
-			[page:RGBAIntegerFormat RGBAIntegerFormat] - THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger<br>
-			[page:LuminanceFormat LuminanceFormat] - THREE.LuminanceFormat - LuminanceFormat, Luminance<br>
-			[page:LuminanceAlphaFormat LuminanceAlphaFormat] - THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha<br>
-			[page:RGBEFormat RGBEFormat] - THREE.RGBEFormat - RGBEFormat, RGBE<br>
-			[page:DepthFormat DepthFormat] - THREE.DepthFormat - DepthFormat, Depth<br>
-			[page:DepthStencilFormat DepthStencilFormat] - THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil<br>
+			The default is [THREE.RGBAFormat](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), although the [TextureLoader](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/TextureLoader) will automatically set this to [THREE.RGBFormat](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) for JPG images.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details of other formats.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:PixelFormat PixelFormat] - THREE.PixelFormat<br />
+			[page:AlphaFormat AlphaFormat] - THREE.AlphaFormat - AlphaFormat, Alpha<br />
+			[page:RedFormat RedFormat] - THREE.RedFormat - RedFormat, Red<br />
+			[page:RedIntegerFormat RedIntegerFormat] - THREE.RedIntegerFormat - RedIntegerFormat, RedInteger<br />
+			[page:RGFormat RGFormat] - THREE.RGFormat - RGFormat, RG<br />
+			[page:RGIntegerFormat RGIntegerFormat] - THREE.RGIntegerFormat - RGIntegerFormat, RGInteger<br />
+			[page:RGBFormat RGBFormat] - THREE.RGBFormat - RGBFormat, RGB<br />
+			[page:RGBIntegerFormat RGBIntegerFormat] - THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger<br />
+			[page:RGBAIntegerFormat RGBAIntegerFormat] - THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger<br />
+			[page:LuminanceFormat LuminanceFormat] - THREE.LuminanceFormat - LuminanceFormat, Luminance<br />
+			[page:LuminanceAlphaFormat LuminanceAlphaFormat] - THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha<br />
+			[page:RGBEFormat RGBEFormat] - THREE.RGBEFormat - RGBEFormat, RGBE<br />
+			[page:DepthFormat DepthFormat] - THREE.DepthFormat - DepthFormat, Depth<br />
+			[page:DepthStencilFormat DepthStencilFormat] - THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil<br />
 			[page:RGBAFormat RGBAFormat] - THREE.RGBAFormat - RGBAFormat, RGBA
 		</p>
 
@@ -192,68 +185,64 @@
 
 		<h3>[property:string loaderType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The LoadType of Texture - video, image etc<br>
-			 hdrcube, hdrcubetexture -<br>
-			 rgbm, rgbmtexture<br>
-			 auto<br>
-			 video<br>
-			 imagebitmap<br>
-			 image<br>
-			 texture, texture2d, texture3d<br>
-			 datatexture, datatexture2d, datatexture3d<br>
-			<br>
+			The LoadType of Texture - video, image etc<br />
+			 hdrcube, hdrcubetexture -<br />
+			 rgbm, rgbmtexture<br />
+			 auto<br />
+			 video<br />
+			 imagebitmap<br />
+			 image<br />
+			 texture, texture2d, texture3d<br />
+			 datatexture, datatexture2d, datatexture3d<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:string magFilter]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How the texture is sampled when a texel covers more than one pixel. The default is<br>
-			[page:Textures THREE.LinearFilter], which takes the four closest texels and bilinearly interpolates among them.<br>
-			The other option is [page:Textures THREE.NearestFilter], which uses the value of the closest texel.<br>
-			See the [page:Textures texture constants] page for details.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br>
-			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br>
-			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br>
-			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br>
-			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br>
-			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br>
+			How the texture is sampled when a texel covers more than one pixel. The default is<br />
+			[THREE.LinearFilter](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), which takes the four closest texels and bilinearly interpolates among them.<br />
+			The other option is [THREE.NearestFilter](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), which uses the value of the closest texel.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br />
+			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br />
+			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br />
+			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br />
+			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br />
+			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br />
 			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
 		</p>
 
 		<h3>[property:string mapping]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How the image is applied to the object. An object type of [page:Textures THREE.UVMapping] is the default, where the U,V coordinates are used to apply the map.<br>
-			See the [page:Textures texture constants] page for other mapping types.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:UVMapping UVMapping] - THREE.UVMapping               - UVMapping, uv<br>
-			[page:CubeReflectionMapping CubeReflectionMapping] - THREE.CubeReflectionMapping   - CubeReflectionMapping, cubereflection<br>
-			[page:CubeRefractionMapping CubeRefractionMapping] - THREE.CubeRefractionMapping   - CubeRefractionMapping, cuberefraction<br>
-			[page:EquirectangularReflectionMapping EquirectangularReflectionMapping] - THREE.EquirectangularReflectionMapping   - EquirectangularReflectionMapping, equirectangularreflection<br>
-			[page:EquirectangularRefractionMapping EquirectangularRefractionMapping] - THREE.EquirectangularRefractionMapping   - EquirectangularRefractionMapping, equirectangularrefraction<br>
-			[page:CubeUVReflectionMapping CubeUVReflectionMapping] - THREE.CubeUVReflectionMapping   - CubeUVReflectionMapping, cubeuvreflection<br>
-			[page:CubeUVRefractionMapping CubeUVRefractionMapping] - THREE.CubeUVRefractionMapping   - CubeUVRefractionMapping, cubeuvrefraction<br>
+			How the image is applied to the object. An object type of [THREE.UVMapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) is the default, where the U,V coordinates are used to apply the map.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for other mapping types.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:UVMapping UVMapping] - THREE.UVMapping               - UVMapping, uv<br />
+			[page:CubeReflectionMapping CubeReflectionMapping] - THREE.CubeReflectionMapping   - CubeReflectionMapping, cubereflection<br />
+			[page:CubeRefractionMapping CubeRefractionMapping] - THREE.CubeRefractionMapping   - CubeRefractionMapping, cuberefraction<br />
+			[page:EquirectangularReflectionMapping EquirectangularReflectionMapping] - THREE.EquirectangularReflectionMapping   - EquirectangularReflectionMapping, equirectangularreflection<br />
+			[page:EquirectangularRefractionMapping EquirectangularRefractionMapping] - THREE.EquirectangularRefractionMapping   - EquirectangularRefractionMapping, equirectangularrefraction<br />
+			[page:CubeUVReflectionMapping CubeUVReflectionMapping] - THREE.CubeUVReflectionMapping   - CubeUVReflectionMapping, cubeuvreflection<br />
+			[page:CubeUVRefractionMapping CubeUVRefractionMapping] - THREE.CubeUVRefractionMapping   - CubeUVRefractionMapping, cubeuvrefraction<br />
 			[page:Texture Texture] - THREE.Texture.DEFAULT_MAPPING   - default
 		</p>
 
 		<h3>[property:string minFilter]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How the texture is sampled when a texel covers less than one pixel. The default is<br>
-			[page:Textures THREE.LinearMipmapLinearFilter], which uses mipmapping and a trilinear filter.<br>
-			See the [page:Textures texture constants] page for all possible choices.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br>
-			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br>
-			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br>
-			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br>
-			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br>
-			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br>
+			How the texture is sampled when a texel covers less than one pixel. The default is<br />
+			[THREE.LinearMipmapLinearFilter](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), which uses mipmapping and a trilinear filter.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for all possible choices.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br />
+			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br />
+			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br />
+			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br />
+			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br />
+			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br />
 			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
 		</p>
 
@@ -264,33 +253,30 @@
 
 		<h3>[property:number offset]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br>
-			Typical range is *0.0* to *1.0*.<br>
-			<br>
+			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br />
+			Typical range is *0.0* to *1.0*.<br />
 			The default value of offsetX, offsetY
 		</p>
 
 		<h3>[property:number offsetX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br>
-			Typical range is *0.0* to *1.0*.<br>
-			<br>
+			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br />
+			Typical range is *0.0* to *1.0*.<br />
 			The value of offset.x
 		</p>
 
 		<h3>[property:number offsetY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br>
-			Typical range is *0.0* to *1.0*.<br>
-			<br>
+			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br />
+			Typical range is *0.0* to *1.0*.<br />
 			The value of offset.y
 		</p>
 
 		<h3>[property:boolean premultiplyAlpha]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			If set to *true*, the alpha channel, if present, is multiplied into the color channels when the texture is uploaded to the GPU. Default is *false*.<br>
-			Note that this property has no effect for [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap].<br>
-			You need to configure on bitmap creation instead. See [page:ImageBitmapLoader].
+			If set to *true*, the alpha channel, if present, is multiplied into the color channels when the texture is uploaded to the GPU. Default is *false*.<br />
+			Note that this property has no effect for [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap].<br />
+			You need to configure on bitmap creation instead. See [page:ImageBitmapLoader ImageBitmapLoader].
 		</p>
 
 		<h3>[property:any[] programMipmaps]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -310,25 +296,22 @@
 
 		<h3>[property:number repeat]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to<br>
-			[page:Textures THREE.RepeatWrapping] or [page:Textures THREE.MirroredRepeatWrapping] to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [page:.offset].<br>
-			<br>
+			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to<br />
+			[THREE.RepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) or [THREE.MirroredRepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [Texture.offset](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/Texture.offset).<br />
 			The default value of repeatX , repeatY
 		</p>
 
 		<h3>[property:number repeatX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to<br>
-			[page:Textures THREE.RepeatWrapping] or [page:Textures THREE.MirroredRepeatWrapping] to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [page:.offset].<br>
-			<br>
+			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to<br />
+			[THREE.RepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) or [THREE.MirroredRepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [Texture.offset](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/Texture.offset).<br />
 			The value of repeat.x
 		</p>
 
 		<h3>[property:number repeatY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to<br>
-			[page:Textures THREE.RepeatWrapping] or [page:Textures THREE.MirroredRepeatWrapping] to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [page:.offset].<br>
-			<br>
+			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to<br />
+			[THREE.RepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) or [THREE.MirroredRepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [Texture.offset](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/Texture.offset).<br />
 			The value of repeat.y
 		</p>
 
@@ -359,8 +342,8 @@
 
 		<h3>[property:number unpackAlignment]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			4 by default. Specifies the alignment requirements for the start of each pixel row in memory.<br>
-			The allowable values are 1 (byte-alignment), 2 (rows aligned to even-numbered bytes), 4 (word-alignment), and 8 (rows start on double-word boundaries).<br>
+			4 by default. Specifies the alignment requirements for the start of each pixel row in memory.<br />
+			The allowable values are 1 (byte-alignment), 2 (rows aligned to even-numbered bytes), 4 (word-alignment), and 8 (rows start on double-word boundaries).<br />
 			See [link:http://www.khronos.org/opengles/sdk/docs/man/xhtml/glPixelStorei.xml glPixelStorei] for more information.
 		</p>
 
@@ -371,47 +354,44 @@
 
 		<h3>[property:string wrap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br>
-			The default is [page:Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.<br>
-			The other two choices are [page:Textures THREE.RepeatWrapping] and [page:Textures THREE.MirroredRepeatWrapping].<br>
-			See the [page:Textures texture constants] page for details.<br>
-			<br>
-			The Default Value of wrapS, wrapT.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br>
-			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat<br>
+			This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br />
+			The default is [THREE.ClampToEdgeWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), where the edge is clamped to the outer edge texels.<br />
+			The other two choices are [THREE.RepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) and [THREE.MirroredRepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures).<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details.<br />
+			The Default Value of wrapS, wrapT.<br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br />
+			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat<br />
 			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
 		</p>
 
 		<h3>[property:string wrapS]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br>
-			The default is [page:Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.<br>
-			The other two choices are [page:Textures THREE.RepeatWrapping] and [page:Textures THREE.MirroredRepeatWrapping].<br>
-			See the [page:Textures texture constants] page for details.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br>
-			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat<br>
+			This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br />
+			The default is [THREE.ClampToEdgeWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), where the edge is clamped to the outer edge texels.<br />
+			The other two choices are [THREE.RepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) and [THREE.MirroredRepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures).<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br />
+			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat<br />
 			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
 		</p>
 
 		<h3>[property:string wrapT]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			This defines how the texture is wrapped vertically and corresponds to *V* in UV mapping.<br>
-			The same choices are available as for [property:number wrapS].<br>
-			NOTE: tiling of images in textures only functions if image dimensions are powers of two<br>
-			(2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...) in terms of pixels.<br>
-			Individual dimensions need not be equal, but each must be a power of two.<br>
-			This is a limitation of WebGL, not three.js.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br>
-			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat<br>
+			This defines how the texture is wrapped vertically and corresponds to *V* in UV mapping.<br />
+			The same choices are available as for [property:number wrapS].<br />
+			NOTE: tiling of images in textures only functions if image dimensions are powers of two<br />
+			(2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...) in terms of pixels.<br />
+			Individual dimensions need not be equal, but each must be a power of two.<br />
+			This is a limitation of WebGL, not three.js.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br />
+			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat<br />
 			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
 		</p>
 
@@ -482,8 +462,8 @@
 			[parameter:number defY] - The def y.
 		</p>
 		<p>
-			Gets offset<br>
-			<br>
+			Gets offset<br />
+			<br />
 			Returns : offset
 		</p>
 
@@ -494,15 +474,15 @@
 			[parameter:number defY] - The def y.
 		</p>
 		<p>
-			Gets repeat<br>
-			<br>
+			Gets repeat<br />
+			<br />
 			Returns : repeat
 		</p>
 
 		<h3>[method:T getTexture](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets texture<br>
-			<br>
+			Gets texture<br />
+			<br />
 			Returns : texture
 		</p>
 
@@ -515,8 +495,8 @@
 			[parameter:any onLoad] - (optional) The on load.
 		</p>
 		<p>
-			Gets texture image<br>
-			<br>
+			Gets texture image<br />
+			<br />
 			Returns : texture image
 		</p>
 
@@ -526,8 +506,8 @@
 			[parameter:any options] - The options.
 		</p>
 		<p>
-			Gets texture options<br>
-			<br>
+			Gets texture options<br />
+			<br />
 			Returns : texture options
 		</p>
 
@@ -537,8 +517,8 @@
 			[parameter:String type] - The type.
 		</p>
 		<p>
-			Determines whether texture is<br>
-			<br>
+			Determines whether texture is<br />
+			<br />
 			Returns : true if texture
 		</p>
 
@@ -598,8 +578,8 @@
 			[parameter:any onLoad] - (optional) The on load.
 		</p>
 		<p>
-			Gets texture image<br>
-			<br>
+			Gets texture image<br />
+			<br />
 			Returns : texture image
 		</p>
 
@@ -613,8 +593,8 @@
 			[parameter:any onLoad] - (optional) The on load.
 		</p>
 		<p>
-			Gets texture image option<br>
-			<br>
+			Gets texture image option<br />
+			<br />
 			Returns : texture image option
 		</p>
 
@@ -625,8 +605,8 @@
 			[parameter:any options] - The options.
 		</p>
 		<p>
-			Sets texture options<br>
-			<br>
+			Sets texture options<br />
+			<br />
 			Returns : texture options
 		</p>
 

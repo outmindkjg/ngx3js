@@ -12,78 +12,63 @@
 		<h1>ControlComponent</h1>
 
 		<p class="desc">
-			ControlComponent<br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-renderer<br>
-				[controlType]="'orbit'"<br>
-				[controlOptions]="{ enablePan: false, enableDamping: true }"<br>
-			&gt;&lt;/ngx3js-renderer&gt;<br>
-			&lt;ngx3js-control<br>
-				[type]="'arcball'"<br>
-				[gizmoVisible]="true"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-control<br>
-				[type]="'DeviceOrientationControls'"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-control<br>
-				[type]="'plane'"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-control<br>
-				[type]="'FlyControls'"<br>
-				[movementSpeed]="1000"<br>
-				[rollSpeed]="7.5"<br>
-				[autoForward]="false"<br>
-				[dragToLook]="false"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-control<br>
-				[type]="'PointerLockControls'"<br>
-				(onLoad)="setPointerLock($event)"<br>
-			&gt;<br>
-			&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-control<br>
-				[type]="'DragControls'"<br>
-				(onLoad)="setDragControl($event)"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-renderer<br>
-				[controlType]="'FirstPerson'"<br>
-				[controlOptions]="{<br>
-					enablePan: false,<br>
-					enableDamping: true,<br>
-					movementSpeed: 1000,<br>
-					lookSpeed: 0.125,<br>
-					lookVertical: true<br>
-				}"<br>
-			&gt;&lt;/ngx3js-renderer&gt;<br>
-			&lt;ngx3js-control<br>
-				[type]="'TransformControls'"<br>
-				(eventListener)="setTransformEventListener($event)"<br>
-				(onLoad)="setTransformControl($event)"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-control<br>
-				[type]="'TrackballControls'"<br>
-				[rollSpeed]="1.0"<br>
-				[zoomSpeed]="1.2"<br>
-				[panSpeed]="0.8"<br>
-				[keys]="['KeyA', 'KeyS', 'KeyD']"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-renderer<br>
-				[controlType]="'selectbox'"<br>
-				[controlOptions]="{ enablePan: false, enableDamping: true }"<br>
-			&gt;&lt;/ngx3js-renderer&gt;<br>
-			&lt;ngx3js-control<br>
-				[type]="'csm'"<br>
-				[maxFar]="1000"<br>
-				[cascades]="4"<br>
-				[mode]="'practical'"<br>
-				[scene]="scene"<br>
-				[shadowMapSize]="1024"<br>
-				[lightDirectionX]="-1"<br>
-				[lightDirectionY]="-1"<br>
-				[lightDirectionZ]="-1"<br>
-				[camera]="camera"<br>
-				(onLoad)="setCsm($event)"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
+			ControlComponent<br />
+			<br />
+			<h3>Preview - ngx control</h3><br />
+			<iframe src="#/viewer/ngx_control"></iframe><br />
+			<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/ControlComponent ngx3js docs] page for details.<br />
+			See the [example:ngx_control ngx control] page for a live demo.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-renderer<br />
+				[controlType]="'orbit'" [controlOptions]="{ enablePan: false, enableDamping: true }"<br />
+			&gt;&lt;/ngx3js-renderer&gt;<br />
+			&lt;ngx3js-control<br />
+				[type]="'arcball'" [gizmoVisible]="true"<br />
+			&gt;&lt;/ngx3js-control&gt;<br />
+			&lt;ngx3js-control<br />
+				[type]="'DeviceOrientationControls'"<br />
+			&gt;&lt;/ngx3js-control&gt;<br />
+			&lt;ngx3js-control<br />
+				[type]="'plane'"<br />
+			&gt;&lt;/ngx3js-control&gt;<br />
+			&lt;ngx3js-control<br />
+				[type]="'FlyControls'" [movementSpeed]="1000 " [rollSpeed]="7.5 " [autoForward]="false " [dragToLook]="false"<br />
+			&gt;&lt;/ngx3js-control&gt;<br />
+			&lt;ngx3js-control<br />
+				[type]="'PointerLockControls'"<br />
+				(onLoad)="setPointerLock($event)"<br />
+			&gt;<br />
+			&lt;/ngx3js-control&gt;<br />
+			&lt;ngx3js-control<br />
+				[type]="'DragControls'"<br />
+				(onLoad)="setDragControl($event)"<br />
+			&gt;&lt;/ngx3js-control&gt;<br />
+			&lt;ngx3js-renderer<br />
+				[controlType]="'FirstPerson'" [controlOptions]="{<br />
+					enablePan: false,<br />
+					enableDamping: true,<br />
+					movementSpeed: 1000,<br />
+					lookSpeed: 0.125,<br />
+					lookVertical: true<br />
+				}"<br />
+			&gt;&lt;/ngx3js-renderer&gt;<br />
+			&lt;ngx3js-control<br />
+				[type]="'TransformControls'"<br />
+				(eventListener)="setTransformEventListener($event)"<br />
+				(onLoad)="setTransformControl($event)"<br />
+			&gt;&lt;/ngx3js-control&gt;<br />
+			&lt;ngx3js-control<br />
+				[type]="'TrackballControls'" [rollSpeed]="1.0 " [zoomSpeed]="1.2 " [panSpeed]="0.8 " [keys]="['KeyA', 'KeyS', 'KeyD']"<br />
+			&gt;&lt;/ngx3js-control&gt;<br />
+			&lt;ngx3js-renderer<br />
+				[controlType]="'selectbox'" [controlOptions]="{ enablePan: false, enableDamping: true }"<br />
+			&gt;&lt;/ngx3js-renderer&gt;<br />
+			&lt;ngx3js-control<br />
+				[type]="'csm'" [maxFar]="1000 " [cascades]="4 " [mode]="'practical'" [scene]="scene " [shadowMapSize]="1024 " [lightDirectionX]="-1 " [lightDirectionY]="-1 " [lightDirectionZ]="-1 " [camera]="camera"<br />
+				(onLoad)="setCsm($event)"<br />
+			&gt;&lt;/ngx3js-control&gt;<br />
 			</code>
 		</p>
 
@@ -316,8 +301,7 @@
 
 		<h3>[property:string mode]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The mode of control<br>
-			<br>
+			The mode of control<br />
 			Notice - case insensitive.
 		</p>
 
@@ -373,8 +357,7 @@
 
 		<h3>[property:string type] &nbsp; = 'orbit' <i class="modifier modifier-input">Input</i></h3>
 		<p>
-			The type of control<br>
-			<br>
+			The type of control<br />
 			Notice - case insensitive.
 		</p>
 
@@ -419,8 +402,8 @@
 
 		<h3>[method:any getControl](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets control<br>
-			<br>
+			Gets control<br />
+			<br />
 			Returns : control
 		</p>
 
@@ -480,8 +463,7 @@
 			[property:number minDistance]? - The minDistance of control<br />
 			[property:number minPolarAngle]? - The minPolarAngle of control<br />
 			[property:number minZoom]? - The minZoom of control<br />
-			[property:string mode]? - The mode of control<br>
-			<br>
+			[property:string mode]? - The mode of control<br />
 			Notice - case insensitive.<br />
 			[property:boolean mouseDragOn]? - The mouseDragOn of control<br />
 			[property:number movementSpeed]? - The movementSpeed of control<br />
@@ -493,8 +475,7 @@
 			[property:number shadowMapSize]? - The shadowMapSize of control<br />
 			[property:boolean staticMoving]? - The staticMoving of control<br />
 			[property:any target]? - The target of control<br />
-			[property:string type]? - The type of control<br>
-			<br>
+			[property:string type]? - The type of control<br />
 			Notice - case insensitive.<br />
 			[property:number verticalMax]? - The verticalMax of control<br />
 			[property:number verticalMin]? - The verticalMin of control<br />
@@ -505,54 +486,7 @@
 
 
 		<p class="desc">
-			Control options<br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-control <br>
-				[type]="'arcball'" <br>
-				[gizmoVisible]="true" <br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-control <br>
-				[type]="'DeviceOrientationControls'"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-control <br>
-				[type]="'DragControls'"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-control <br>
-				[type]="'FlyControls'" <br>
-				[movementSpeed]="1000" <br>
-				[rollSpeed]="7.5" <br>
-				[autoForward]="false" <br>
-				[dragToLook]="false"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-control <br>
-				[type]="'OrbitControls'" <br>
-				[enableDamping]="true" <br>
-				[dampingFactor]="0.05" <br>
-				[screenSpacePanning]="false" <br>
-				[minDistance]="100" <br>
-				[maxDistance]="500" <br>
-				[maxPolarAngle]="90"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-control <br>
-				[type]="'PointerLockControls'"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-control <br>
-				[type]="'TrackballControls'" <br>
-				[rollSpeed]="1.0" <br>
-				[zoomSpeed]="1.2" <br>
-				[panSpeed]="0.8" <br>
-				[keys]="['KeyA', 'KeyS', 'KeyD']"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-control <br>
-				[type]="'Transform'"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			&lt;ngx3js-control <br>
-				[type]="'plane'"<br>
-			&gt;&lt;/ngx3js-control&gt;<br>
-			</code><br>
-			<br>
-			[example:ngx_control NGX Control]
+			Control options
 		</p>
 
 		<br /><br />

@@ -12,19 +12,16 @@
 		<h1>FogComponent</h1>
 
 		<p class="desc">
-			FogComponent<br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-fog<br>
-				[color]="'0xa0a0a0'"<br>
-				[near]="10"<br>
-				[far]="50"<br>
-			&gt;&lt;/ngx3js-fog&gt;<br>
-			&lt;ngx3js-fog<br>
-				[type]="'FogExp2'"<br>
-				[color]="'0x000000'"<br>
-				[density]="0.00000025"<br>
-			&gt;&lt;/ngx3js-fog&gt;<br>
+			The Fog component.<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/FogComponent ngx3js docs] page for details.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-fog<br />
+				[color]="'0xa0a0a0'" [near]="10 " [far]="50"<br />
+			&gt;&lt;/ngx3js-fog&gt;<br />
+			&lt;ngx3js-fog<br />
+				[type]="'FogExp2'" [color]="'0x000000'" [density]="0.00000025"<br />
+			&gt;&lt;/ngx3js-fog&gt;<br />
 			</code>
 		</p>
 
@@ -64,27 +61,27 @@
 
 		<h3>[property:number density] &nbsp; = 0.00025 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Defines how fast the fog will grow dense.<br>
+			Defines how fast the fog will grow dense.<br />
 			Default is 0.00025.
 		</p>
 
 		<h3>[property:number far] &nbsp; = 1000 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The maximum distance at which fog stops being calculated and applied. Objects that are more than 'far' units away from the active camera won't be affected by fog.<br>
+			The maximum distance at which fog stops being calculated and applied. Objects that are more than 'far' units away from the active camera won't be affected by fog.<br />
 			Default is 1000.
 		</p>
 
 		<h3>[property:number near] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The minimum distance to start applying fog. Objects that are less than 'near' units from the active camera won't be affected by fog.<br>
+			The minimum distance to start applying fog. Objects that are less than 'near' units from the active camera won't be affected by fog.<br />
 			Default is 1.
 		</p>
 
 		<h3>[property:string type] &nbsp; = 'fog' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Fog type.<br>
-			<br>
-			[page:Fog Fog] - THREE.Fog - fog (default)<br>
+			The Fog type.<br />
+			<br />
+			[page:Fog Fog] - THREE.Fog - fog (default)<br />
 			[page:FogExp2 FogExp2] - THREE.FogExp2 - fogexp2, exp, exp2
 		</p>
 
@@ -104,8 +101,8 @@
 
 		<h3>[method:FogBase getFog](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets fog<br>
-			<br>
+			Gets fog<br />
+			<br />
 			Returns : fog
 		</p>
 

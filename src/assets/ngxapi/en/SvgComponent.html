@@ -12,34 +12,32 @@
 		<h1>SvgComponent</h1>
 
 		<p class="desc">
-			SvgComponent<br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-geometry<br>
-				[type]="'Extrude'"<br>
-				[depth]="map.depth"<br>
-				[steps]="1"<br>
-				[bevelEnabled]="false"<br>
-			&gt;<br>
-				&lt;ngx3js-svg [path]="map.path"&gt;&lt;/ngx3js-svg&gt;<br>
-			&lt;/ngx3js-geometry&gt;<br>
-			&lt;ngx3js-mesh&gt;<br>
-				&lt;ngx3js-svg<br>
-					[type]="'line'"<br>
-					[geometryType]="'buffer'"<br>
-					[text]="'   Three.js\nSimple text.'"<br>
-					[align]="'center'"<br>
-					[font]="'helvetiker'"<br>
-					[weight]="'regular'"<br>
-					[size]="100"<br>
-				&gt;<br>
-					&lt;ngx3js-material<br>
-						[type]="'LineBasic'"<br>
-						[color]="'0x006699'"<br>
-						[side]="'double'"<br>
-					&gt;&lt;/ngx3js-material&gt;<br>
-				&lt;/ngx3js-svg&gt;<br>
-			&lt;/ngx3js-mesh&gt;<br>
+			The Svg component.<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/SvgComponent ngx3js docs] page for details.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-geometry<br />
+				[type]="'Extrude'" [depth]="map.depth " [steps]="1 " [bevelEnabled]="false"<br />
+			&gt;<br />
+				&lt;ngx3js-svg [path]="map.path"&gt;&lt;/ngx3js-svg&gt;<br />
+			&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-mesh&gt;<br />
+				&lt;ngx3js-svg<br />
+					[type]="'line'"<br />
+					[geometryType]="'buffer'"<br />
+					[text]="'   Three.js\nSimple text.'"<br />
+					[align]="'center'"<br />
+					[font]="'helvetiker'"<br />
+					[weight]="'regular'"<br />
+					[size]="100"<br />
+				&gt;<br />
+					&lt;ngx3js-material<br />
+						[type]="'LineBasic'"<br />
+						[color]="'0x006699'"<br />
+						[side]="'double'"<br />
+					&gt;&lt;/ngx3js-material&gt;<br />
+				&lt;/ngx3js-svg&gt;<br />
+			&lt;/ngx3js-mesh&gt;<br />
 			</code>
 		</p>
 
@@ -127,8 +125,7 @@
 
 		<h3>[property:string align]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The align of svg component<br>
-			<br>
+			The align of svg component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -184,8 +181,7 @@
 
 		<h3>[property:string curvePathType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The curvePathType of svg component<br>
-			<br>
+			The curvePathType of svg component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -196,8 +192,7 @@
 
 		<h3>[property:string curveType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The curveType of svg component<br>
-			<br>
+			The curveType of svg component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -213,8 +208,7 @@
 
 		<h3>[property:string extrudePathType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The extrudePathType of svg component<br>
-			<br>
+			The extrudePathType of svg component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -225,8 +219,7 @@
 
 		<h3>[property:string geometryType] &nbsp; = 'shape' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The geometryType of svg component<br>
-			<br>
+			The geometryType of svg component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -287,8 +280,7 @@
 
 		<h3>[property:string textAlign]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The textAlign of svg component<br>
-			<br>
+			The textAlign of svg component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -304,15 +296,13 @@
 
 		<h3>[property:string type] &nbsp; = 'mesh' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The type of svg component<br>
-			<br>
+			The type of svg component<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:string uVGenerator]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The uVGenerator of svg component<br>
-			<br>
+			The uVGenerator of svg component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -323,8 +313,7 @@
 
 		<h3>[property:string weight]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The weight of svg component<br>
-			<br>
+			The weight of svg component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -361,8 +350,8 @@
 			[parameter:string def] - The def.
 		</p>
 		<p>
-			Applys text align<br>
-			<br>
+			Applys text align<br />
+			<br />
 			Returns : text align
 		</p>
 
@@ -404,8 +393,8 @@
 			[parameter:Object3D parent] - The parent.
 		</p>
 		<p>
-			Sets parent<br>
-			<br>
+			Sets parent<br />
+			<br />
 			Returns : true if parent
 		</p>
 

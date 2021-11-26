@@ -12,95 +12,55 @@
 		<h1>MeshComponent</h1>
 
 		<p class="desc">
-			MeshComponent<br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-mesh [type]="'skybox'"<br>
-				[skyboxType]="'sun'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'HTMLMesh'"<br>
-				[domElement]="domElement"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'SVGObject'"<br>
-				[cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'CSS2DObject'"<br>
-				[cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'CSS3DSprite'"<br>
-				[cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Reflector'"<br>
-				[color]="'0x889999'"<br>
-				[clipBias]="0.003"<br>
-				[textureWidth]="1024"<br>
-				[textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'ReflectorRTT'"<br>
-				[color]="'0x889999'"<br>
-				[clipBias]="0.003"<br>
-				[textureWidth]="1024"<br>
-				[textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Refractor'"<br>
-				[color]="'0x999999'"<br>
-				[textureWidth]="1024"<br>
-				[textureHeight]="1024"<br>
-				[shader]="'WaterRefraction'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'ReflectorRTT'"<br>
-				[color]="'0x889999'"<br>
-				[clipBias]="0.003"<br>
-				[textureWidth]="1024"<br>
-				[textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'ReflectorForSSRPass'"<br>
-				[color]="'0x889999'"<br>
-				[clipBias]="0.003"<br>
-				[textureWidth]="1024"<br>
-				[textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Water'"<br>
-				[sunColor]="'0xffffff'"<br>
-				[waterColor]="'0x001e0f'"<br>
-				[sunDirection]="sunDirection"<br>
-				[textureWidth]="512"<br>
-				[textureHeight]="512"<br>
-				[alpha]="alpha"<br>
-				[distortionScale]="distortionScale"<br>
-				[uniforms]="uniforms"<br>
-			&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Water2'"<br>
-				[color]="'#ffffff'"<br>
-				[waterScale]="4"<br>
-				[reflectivity]="0.02"<br>
-				[flowDirectionX]="1"<br>
-				[flowDirectionY]="1"<br>
-				[textureWidth]="1024"<br>
-				[textureHeight]="1024"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Sky'"<br>
-				[uniforms]="{<br>
-					sunPosition: { type: 'v3', value: sunDirection },<br>
-					turbidity: { type: 'number', value: 10 },<br>
-					rayleigh: { type: 'number', value: 2 },<br>
-					mieCoefficient: { type: 'number', value: 0.005 },<br>
-					mieDirectionalG: { type: 'number', value: 0.8 }}"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Flow'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'InstancedFlow'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'LineLoop'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Light'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Lensflare'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'InstancedMesh'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'merged'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'naive'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'multimaterial'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Sprite'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Wireframe'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'LOD'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'MarchingCubes'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Points'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Line'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'TubePainter'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Text'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Line2'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'LineSegments'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'MD2CharacterComplex'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'InteractiveGroup'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Group'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			&lt;ngx3js-mesh [type]="'Mesh'"&gt;&lt;/ngx3js-mesh&gt;<br>
-			</code><br>
-			<br>
-			[page:Mesh Mesh] - THREE.Mesh<br>
+			The Mesh component.<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/MeshComponent ngx3js docs] page for details.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-mesh [type]="'skybox'" [skyboxType]="'sun'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'HTMLMesh'" [domElement]="domElement"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'SVGObject'" [cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'CSS2DObject'" [cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'CSS3DSprite'" [cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Reflector'" [color]="'0x889999'" [clipBias]="0.003 " [textureWidth]="1024 " [textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'ReflectorRTT'" [color]="'0x889999'" [clipBias]="0.003 " [textureWidth]="1024 " [textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Refractor'" [color]="'0x999999'" [textureWidth]="1024 " [textureHeight]="1024 " [shader]="'WaterRefraction'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'ReflectorRTT'" [color]="'0x889999'" [clipBias]="0.003 " [textureWidth]="1024 " [textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'ReflectorForSSRPass'" [color]="'0x889999'" [clipBias]="0.003 " [textureWidth]="1024 " [textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Water'" [sunColor]="'0xffffff'" [waterColor]="'0x001e0f'" [sunDirection]="sunDirection " [textureWidth]="512 " [textureHeight]="512 " [alpha]="alpha " [distortionScale]="distortionScale " [uniforms]="uniforms"<br />
+			&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Water2'" [color]="'#ffffff'" [waterScale]="4 " [reflectivity]="0.02 " [flowDirectionX]="1 " [flowDirectionY]="1 " [textureWidth]="1024 " [textureHeight]="1024"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Sky'" [uniforms]="{<br />
+					sunPosition: { type: 'v3', value: sunDirection },<br />
+					turbidity: { type: 'number', value: 10 },<br />
+					rayleigh: { type: 'number', value: 2 },<br />
+					mieCoefficient: { type: 'number', value: 0.005 },<br />
+					mieDirectionalG: { type: 'number', value: 0.8 }}"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Flow'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'InstancedFlow'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'LineLoop'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Light'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Lensflare'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'InstancedMesh'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'merged'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'naive'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'multimaterial'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Sprite'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Wireframe'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'LOD'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'MarchingCubes'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Points'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Line'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'TubePainter'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Text'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Line2'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'LineSegments'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'MD2CharacterComplex'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'InteractiveGroup'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Group'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Mesh'"&gt;&lt;/ngx3js-mesh&gt;<br />
+			</code><br />
+			<br />
+			[page:Mesh Mesh] - THREE.Mesh<br />
 			[page:Group Group] - THREE.Group
 		</p>
 
@@ -137,7 +97,7 @@
 			[ enableColors ]="... boolean -- The enableColors of mesh compo... "
 			[ enableUvs ]="... boolean -- The enableUvs of mesh componen... "
 			[ enabled ]="... boolean -- Enabled or Not "
-			[ encoding ]="... string -- [page:Textures THREE.LinearEnc... "
+			[ encoding ]="... string -- [THREE.LinearEncoding](https:/... "
 			[ flowDirectionX ]="... number -- The flowDirectionX of mesh com... "
 			[ flowDirectionY ]="... number -- The flowDirectionY of mesh com... "
 			[ flowMap ]="... string|Texture|AbstractTextureComponent -- The flowMap of mesh component "
@@ -315,20 +275,19 @@
 
 		<h3>[property:string encoding]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[page:Textures THREE.LinearEncoding] is the default.<br>
-			See the [page:Textures texture constants] page for details of other formats.<br>
-			Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br>
-			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br>
-			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br>
-			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br>
-			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br>
-			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br>
-			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br>
-			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br>
+			[THREE.LinearEncoding](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) is the default.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details of other formats.<br />
+			Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br />
+			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br />
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br />
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br />
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br />
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br />
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br />
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br />
 			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
 		</p>
 
@@ -444,7 +403,7 @@
 
 		<h3>[property:number roughness]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How rough the material appears. 0.0 means a smooth mirror reflection, 1.0 means fully diffuse. Default is 1.0.<br>
+			How rough the material appears. 0.0 means a smooth mirror reflection, 1.0 means fully diffuse. Default is 1.0.<br />
 			If roughnessMap is also provided, both values are multiplied.
 		</p>
 
@@ -520,9 +479,9 @@
 
 		<h3>[property:string skyboxType] &nbsp; = 'auto' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The type of skybox<br>
-			<br>
-			[page:BoxGeometry BoxGeometry] - THREE.BoxGeometry - box<br>
+			The type of skybox<br />
+			<br />
+			[page:BoxGeometry BoxGeometry] - THREE.BoxGeometry - box<br />
 			[page:SphereGeometry SphereGeometry] - THREE.SphereGeometry - sphere
 		</p>
 
@@ -588,19 +547,18 @@
 
 		<h3>[property:string type] &nbsp; = 'mesh' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The type of mesh<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:Light Light] - THREE.Light - light<br>
-			[page:LineLoop LineLoop] - THREE.LineLoop - LineLoop<br>
-			[page:InstancedMesh InstancedMesh] - THREE.InstancedMesh - InstancedMesh, Instanced<br>
-			[page:Sprite Sprite] - THREE.Sprite - Sprite<br>
-			[page:LOD LOD] - THREE.LOD - lod<br>
-			[page:Points Points] - THREE.Points - points<br>
-			[page:Line Line] - THREE.Line - Line<br>
-			[page:LineSegments LineSegments] - THREE.LineSegments - linesegments<br>
-			[page:Group Group] - THREE.Group - group<br>
+			The type of mesh<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:Light Light] - THREE.Light - light<br />
+			[page:LineLoop LineLoop] - THREE.LineLoop - LineLoop<br />
+			[page:InstancedMesh InstancedMesh] - THREE.InstancedMesh - InstancedMesh, Instanced<br />
+			[page:Sprite Sprite] - THREE.Sprite - Sprite<br />
+			[page:LOD LOD] - THREE.LOD - lod<br />
+			[page:Points Points] - THREE.Points - points<br />
+			[page:Line Line] - THREE.Line - Line<br />
+			[page:LineSegments LineSegments] - THREE.LineSegments - linesegments<br />
+			[page:Group Group] - THREE.Group - group<br />
 			[page:Mesh Mesh] - THREE.Mesh - mesh
 		</p>
 
@@ -611,18 +569,17 @@
 
 		<h3>[property:string usage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The usage of InstancedMesh<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:StaticDrawUsage StaticDrawUsage] - THREE.StaticDrawUsage - StaticDrawUsage, StaticDraw<br>
-			[page:DynamicDrawUsage DynamicDrawUsage] - THREE.DynamicDrawUsage - DynamicDrawUsage, DynamicDraw<br>
-			[page:StreamDrawUsage StreamDrawUsage] - THREE.StreamDrawUsage - StreamDrawUsage, StreamDraw<br>
-			[page:StaticReadUsage StaticReadUsage] - THREE.StaticReadUsage - StaticReadUsage, StaticRead<br>
-			[page:DynamicReadUsage DynamicReadUsage] - THREE.DynamicReadUsage - DynamicReadUsage, DynamicRead<br>
-			[page:StreamReadUsage StreamReadUsage] - THREE.StreamReadUsage - StreamReadUsage, StreamRead<br>
-			[page:StaticCopyUsage StaticCopyUsage] - THREE.StaticCopyUsage - StaticCopyUsage, StaticCopy<br>
-			[page:DynamicCopyUsage DynamicCopyUsage] - THREE.DynamicCopyUsage - DynamicCopyUsage, DynamicCopy<br>
+			The usage of InstancedMesh<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:StaticDrawUsage StaticDrawUsage] - THREE.StaticDrawUsage - StaticDrawUsage, StaticDraw<br />
+			[page:DynamicDrawUsage DynamicDrawUsage] - THREE.DynamicDrawUsage - DynamicDrawUsage, DynamicDraw<br />
+			[page:StreamDrawUsage StreamDrawUsage] - THREE.StreamDrawUsage - StreamDrawUsage, StreamDraw<br />
+			[page:StaticReadUsage StaticReadUsage] - THREE.StaticReadUsage - StaticReadUsage, StaticRead<br />
+			[page:DynamicReadUsage DynamicReadUsage] - THREE.DynamicReadUsage - DynamicReadUsage, DynamicRead<br />
+			[page:StreamReadUsage StreamReadUsage] - THREE.StreamReadUsage - StreamReadUsage, StreamRead<br />
+			[page:StaticCopyUsage StaticCopyUsage] - THREE.StaticCopyUsage - StaticCopyUsage, StaticCopy<br />
+			[page:DynamicCopyUsage DynamicCopyUsage] - THREE.DynamicCopyUsage - DynamicCopyUsage, DynamicCopy<br />
 			[page:StreamCopyUsage StreamCopyUsage] - THREE.StreamCopyUsage - StreamCopyUsage, StreamCopy
 		</p>
 
@@ -673,64 +630,64 @@
 
 		<h3>[method:any getClips](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets clips<br>
-			<br>
+			Gets clips<br />
+			<br />
 			Returns : clips
 		</p>
 
 		<h3>[method:Curve getCurve](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets curve<br>
-			<br>
+			Gets curve<br />
+			<br />
 			Returns : curve
 		</p>
 
 		<h3>[method:any getJson](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets json<br>
-			<br>
+			Gets json<br />
+			<br />
 			Returns : json
 		</p>
 
 		<h3>[method:Material getMaterial](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets material<br>
-			<br>
+			Gets material<br />
+			<br />
 			Returns : material
 		</p>
 
 		<h3>[method:T getMesh](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets mesh<br>
-			<br>
+			Gets mesh<br />
+			<br />
 			Returns : mesh
 		</p>
 
 		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Gets object3d<br>
-			<br>
+			Gets object3d<br />
+			<br />
 			Returns : object3d
 		</p>
 
 		<h3>[method:Mesh|Line|Points|LineSegments getRealMesh](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets real mesh<br>
-			<br>
+			Gets real mesh<br />
+			<br />
 			Returns : real mesh
 		</p>
 
 		<h3>[method:any getStorageSource](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets storage source<br>
-			<br>
+			Gets storage source<br />
+			<br />
 			Returns : storage source
 		</p>
 
 		<h3>[method:void getUniforms](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Gets uniforms<br>
-			<br>
+			Gets uniforms<br />
+			<br />
 			Returns : uniforms
 		</p>
 
@@ -745,8 +702,8 @@
 			[parameter:Object3D parent] - The parent.
 		</p>
 		<p>
-			Sets parent<br>
-			<br>
+			Sets parent<br />
+			<br />
 			Returns : true if parent
 		</p>
 

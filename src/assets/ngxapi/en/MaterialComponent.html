@@ -12,135 +12,85 @@
 		<h1>MaterialComponent</h1>
 
 		<p class="desc">
-			MaterialComponent<br>
-			<br>
-			Abstract base class for materials.<br>
-			<br>
-			Materials describe the appearance of [page:Object objects].<br>
-			They are defined in a (mostly) renderer-independent way, so you don't have to<br>
-			rewrite materials if you decide to use a different renderer.<br>
-			<br>
-			The following properties and methods are inherited by all other material types<br>
-			(although they may have different defaults).<br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-material<br>
-				[type]="'LineBasicMaterial'"<br>
-				[color]="'0xffff00'"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				[type]="'LineDashedMaterial'"<br>
-				[color]="'blue'"<br>
-				[linewidth]="1"<br>
-				[dashSize]="10"<br>
-				[gapSize]="10"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				[type]="'MeshBasicMaterial'"<br>
-				[color]="'0x000000'"<br>
-				[wireframe]="true"<br>
-				[wireframeLinewidth]="1"<br>
-				[side]="'double'"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				[materialType]="'overrideMaterial'"<br>
-				[type]="'MeshDepthMaterial'"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				[type]="'MeshDepth'"<br>
-				[depthPacking]="'RGBA'"<br>
-				[displacementMap]="displacementMap"<br>
-				[displacementScale]="2.436143"<br>
-				[displacementBias]="-0.428408"<br>
-				[side]="controls.side"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				[type]="'MeshDistance'"<br>
-				[materialType]="'customdistance'"<br>
-				[alphaTest]="0.5"<br>
-				[alphaMap]="alphaMap"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				[type]="'MeshMatcapMaterial'"<br>
-				[color]="'0xaa24df'"<br>
-				[matcap]="texture"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				[type]="'MeshNormal'"<br>
-				[color]="'0xff0000'"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				[type]="'MeshPhongMaterial'"<br>
-				[specular]="'0x333333'"<br>
-				[shininess]="5"<br>
-				[map]="'textures/planets/earth_atmos_2048.jpg'"<br>
-				[specularMap]="'textures/planets/earth_specular_2048.jpg'"<br>
-				[normalMap]="'textures/planets/earth_normal_2048.jpg'"<br>
-				[normalScale]="0.85"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				[type]="'MeshPhysicalMaterial'"<br>
-				[roughness]="info.roughness"<br>
-				[metalness]="info.metalness"<br>
-				[color]="'0xffffff'"<br>
-				[envMap]="radianceMap"<br>
-				[envMapIntensity]="1"<br>
-				[reflectivity]="1"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				#sphereMaterial<br>
-				[type]="'MeshStandardMaterial'"<br>
-				[color]="'0x888855'"<br>
-				[roughness]="0.8"<br>
-				[metalness]="0.5"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material [type]="'MeshToonMaterial'" [color]="info.color"&gt;&lt;/ngx3js-texture&gt;<br>
-			&lt;ngx3js-material<br>
-				[type]="'PointsMaterial'"<br>
-				[color]="'0xffff00'"<br>
-				[size]="5"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				[type]="'RawShaderMaterial'"<br>
-				[uniforms]="{<br>
-					time: { type: 'number', value: 1.0 },<br>
-					sineTime: { type: 'number', value: 1.0 }<br>
-				}"<br>
-				[shader]="'instancing'"<br>
-				[side]="'double'"<br>
-				[transparent]="true"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				[type]="'ShaderMaterial'"<br>
-				[shader]="'audioVisualizer'"<br>
-				[uniforms]="{ tAudioData: { type: 'DataTexture', value: audio } }"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				[type]="'ShadowMaterial'"<br>
-				[color]="'0x111111'"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				[type]="'Line'"<br>
-				[color]="'0x4080ff'"<br>
-				[linewidth]="5"<br>
-				[dashed]="true"<br>
-				[dashScale]="5"<br>
-				[dashSize]="2"<br>
-				[gapSize]="3"<br>
-				[resolutionX]="1024"<br>
-				[resolutionY]="1024"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				[type]="'SpriteMaterial'"<br>
-				[color]="info.color"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			&lt;ngx3js-material<br>
-				[type]="'meshlambert'"<br>
-				[color]="'0xff0000'"<br>
-			&gt;&lt;/ngx3js-material&gt;<br>
-			</code><br>
-			<br>
-			[example:ngx_material NGX Material] <br>
+			The Material component.<br />
+			<br />
+			<h3>Preview - ngx material</h3><br />
+			<iframe src="#/viewer/ngx_material"></iframe><br />
+			<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/MaterialComponent ngx3js docs] page for details.<br />
+			See the [example:ngx_material ngx material] page for a live demo.<br />
+			<br />
+			Abstract base class for materials.<br />
+			<br />
+			Materials describe the appearance of objects.<br />
+			They are defined in a (mostly) renderer-independent way, so you don't have to<br />
+			rewrite materials if you decide to use a different renderer.<br />
+			<br />
+			The following properties and methods are inherited by all other material types<br />
+			(although they may have different defaults).<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-material<br />
+				[type]="'LineBasicMaterial'" [color]="'0xffff00'"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				[type]="'LineDashedMaterial'" [color]="'blue'" [linewidth]="1 " [dashSize]="10 " [gapSize]="10"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				[type]="'MeshBasicMaterial'" [color]="'0x000000'" [wireframe]="true " [wireframeLinewidth]="1 " [side]="'double'"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				[materialType]="'overrideMaterial'" [type]="'MeshDepthMaterial'"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				[type]="'MeshDepth'" [depthPacking]="'RGBA'" [displacementMap]="displacementMap " [displacementScale]="2.436143 " [displacementBias]="-0.428408 " [side]="controls.side"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				[type]="'MeshDistance'" [materialType]="'customdistance'" [alphaTest]="0.5 " [alphaMap]="alphaMap"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				[type]="'MeshMatcapMaterial'" [color]="'0xaa24df'" [matcap]="texture"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				[type]="'MeshNormal'" [color]="'0xff0000'"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				[type]="'MeshPhongMaterial'" [specular]="'0x333333'" [shininess]="5 " [map]="'textures/planets/earth_atmos_2048.jpg'" [specularMap]="'textures/planets/earth_specular_2048.jpg'" [normalMap]="'textures/planets/earth_normal_2048.jpg'" [normalScale]="0.85"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				[type]="'MeshPhysicalMaterial'" [roughness]="info.roughness " [metalness]="info.metalness " [color]="'0xffffff'" [envMap]="radianceMap " [envMapIntensity]="1 " [reflectivity]="1"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				#sphereMaterial<br />
+				[type]="'MeshStandardMaterial'" [color]="'0x888855'" [roughness]="0.8 " [metalness]="0.5"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material [type]="'MeshToonMaterial'" [color]="info.color"&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-material<br />
+				[type]="'PointsMaterial'" [color]="'0xffff00'" [size]="5"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				[type]="'RawShaderMaterial'" [uniforms]="{<br />
+					time: { type: 'number', value: 1.0 },<br />
+					sineTime: { type: 'number', value: 1.0 }<br />
+				} " [shader]="'instancing'" [side]="'double'" [transparent]="true"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				[type]="'ShaderMaterial'" [shader]="'audioVisualizer'" [uniforms]="{ tAudioData: { type: 'DataTexture', value: audio } }"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				[type]="'ShadowMaterial'" [color]="'0x111111'"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				[type]="'Line'" [color]="'0x4080ff'" [linewidth]="5 " [dashed]="true " [dashScale]="5 " [dashSize]="2 " [gapSize]="3 " [resolutionX]="1024 " [resolutionY]="1024"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				[type]="'SpriteMaterial'" [color]="info.color"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			&lt;ngx3js-material<br />
+				[type]="'meshlambert'" [color]="'0xff0000'"<br />
+			&gt;&lt;/ngx3js-material&gt;<br />
+			</code><br />
+			<br />
 			[page:Material Material] - THREE.Material
 		</p>
 
@@ -162,19 +112,19 @@
 			[ aoMap ]="... any -- The red channel of this textur... "
 			[ aoMapIntensity ]="... number -- Intensity of the ambient occlu... "
 			[ blendDst ]="... string -- Which blending to use when dis... "
-			[ blendDstAlpha ]="... number -- The transparency of the [page:... "
+			[ blendDstAlpha ]="... number -- The transparency of the [Mater... "
 			[ blendEquation ]="... string -- Blending equation to use when ... "
-			[ blendEquationAlpha ]="... number -- The transparency of the [page:... "
-			[ blendSrc ]="... string -- Blending source. Default is [p... "
-			[ blendSrcAlpha ]="... number -- The transparency of the [page:... "
+			[ blendEquationAlpha ]="... number -- The transparency of the [Mater... "
+			[ blendSrc ]="... string -- Blending source. Default is [S... "
+			[ blendSrcAlpha ]="... number -- The transparency of the [Mater... "
 			[ blending ]="... string -- Which blending to use when dis... "
 			[ bumpMap ]="... any -- The texture to create a bump m... "
 			[ bumpScale ]="... number -- How much the bump map affects ... "
 			[ clearcoat ]="... number -- Represents the intensity of th... "
 			[ clearcoatNormalMap ]="... any -- Can be used to enable independ... "
-			[ clearcoatNormalScale ]="... number -- How much [page:.clearcoatNorma... "
-			[ clearcoatNormalScaleX ]="... number -- How much [page:.clearcoatNorma... "
-			[ clearcoatNormalScaleY ]="... number -- How much [page:.clearcoatNorma... "
+			[ clearcoatNormalScale ]="... number -- How much [MeshPhysicalMaterial... "
+			[ clearcoatNormalScaleX ]="... number -- How much [MeshPhysicalMaterial... "
+			[ clearcoatNormalScaleY ]="... number -- How much [MeshPhysicalMaterial... "
 			[ clearcoatRoughness ]="... number -- Roughness of the clear coat la... "
 			[ clipIntersection ]="... boolean -- Changes the behavior of clippi... "
 			[ clipShadows ]="... boolean -- Defines whether to clip shadow... "
@@ -264,7 +214,7 @@
 			[ shadowSide ]="... string -- Defines which side of faces ca... "
 			[ sheen ]="... ThreeColor -- If a color is assigned to this... "
 			[ sheenMultiply ]="... number -- The sheenMultiply of material ... "
-			[ shininess ]="... number -- How shiny the [page:.specular]... "
+			[ shininess ]="... number -- How shiny the [MeshPhongMateri... "
 			[ side ]="... string -- Defines which side of faces wi... "
 			[ size ]="... number -- Sets the size of the points. D... "
 			[ sizeAttenuation ]="... boolean -- Specify whether points' size i... "
@@ -311,14 +261,14 @@
 
 		<h3>[property:any alphaMap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The alpha map is a grayscale texture that controls the opacity across the surface (black: fully transparent; white: fully opaque). Default is null.<br>
-			Only the color of the texture is used, ignoring the alpha channel if one exists.<br>
+			The alpha map is a grayscale texture that controls the opacity across the surface (black: fully transparent; white: fully opaque). Default is null.<br />
+			Only the color of the texture is used, ignoring the alpha channel if one exists.<br />
 			For RGB and RGBA textures, the [page:WebGLRenderer WebGL] renderer will use the green channel when sampling this texture due to the extra bit of precision provided for green in DXT-compressed and uncompressed RGB 565 formats. Luminance-only and luminance/alpha textures will also still work as expected.
 		</p>
 
 		<h3>[property:any aoMap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The red channel of this texture is used as the ambient occlusion map. Default is null.<br>
+			The red channel of this texture is used as the ambient occlusion map. Default is null.<br />
 			The aoMap requires a second set of UVs.
 		</p>
 
@@ -329,7 +279,7 @@
 
 		<h3>[property:any bumpMap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The texture to create a bump map. The black and white values map to the perceived depth in relation to the lights.<br>
+			The texture to create a bump map. The black and white values map to the perceived depth in relation to the lights.<br />
 			Bump doesn't actually affect the geometry of the object, only the lighting. If a normal map is defined this will be ignored.
 		</p>
 
@@ -340,7 +290,7 @@
 
 		<h3>[property:number clearcoat]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Represents the intensity of the clear coat layer, from *0.0* to *1.0*.<br>
+			Represents the intensity of the clear coat layer, from *0.0* to *1.0*.<br />
 			Use clear coat related properties to enable multilayer materials that have a thin translucent layer over the base layer. Default is *0.0*.
 		</p>
 
@@ -351,17 +301,17 @@
 
 		<h3>[property:number clearcoatNormalScale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How much [page:.clearcoatNormalMap] affects the clear coat layer, from *(0,0)* to *(1,1)*. Default is *(1,1)*.
+			How much [page:MeshPhysicalMaterial.clearcoatNormalMap MeshPhysicalMaterial.clearcoatNormalMap] affects the clear coat layer, from *(0,0)* to *(1,1)*. Default is *(1,1)*.
 		</p>
 
 		<h3>[property:number clearcoatNormalScaleX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How much [page:.clearcoatNormalMap] affects the clear coat layer, from *(0,0)* to *(1,1)*. Default is *(1,1)*.
+			How much [page:MeshPhysicalMaterial.clearcoatNormalMap MeshPhysicalMaterial.clearcoatNormalMap] affects the clear coat layer, from *(0,0)* to *(1,1)*. Default is *(1,1)*.
 		</p>
 
 		<h3>[property:number clearcoatNormalScaleY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How much [page:.clearcoatNormalMap] affects the clear coat layer, from *(0,0)* to *(1,1)*. Default is *(1,1)*.
+			How much [page:MeshPhysicalMaterial.clearcoatNormalMap MeshPhysicalMaterial.clearcoatNormalMap] affects the clear coat layer, from *(0,0)* to *(1,1)*. Default is *(1,1)*.
 		</p>
 
 		<h3>[property:number clearcoatRoughness]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -386,13 +336,12 @@
 
 		<h3>[property:string combine]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How to combine the result of the surface's color with the environment map, if any.<br>
-			Options are [page:Materials THREE.Multiply] (default), [page:Materials THREE.MixOperation], [page:Materials THREE.AddOperation]. If mix is chosen, the [page:.reflectivity] is used to blend between the two colors.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:MultiplyOperation MultiplyOperation] - THREE.MultiplyOperation - MultiplyOperation, Multiply<br>
-			[page:MixOperation MixOperation] - THREE.MixOperation - MixOperation, Mix<br>
+			How to combine the result of the surface's color with the environment map, if any.<br />
+			Options are [THREE.Multiply](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials) (default), [THREE.MixOperation](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials), [THREE.AddOperation](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials). If mix is chosen, the [MeshBasicMaterial.reflectivity](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/materials/MeshBasicMaterial.reflectivity) is used to blend between the two colors.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:MultiplyOperation MultiplyOperation] - THREE.MultiplyOperation - MultiplyOperation, Multiply<br />
+			[page:MixOperation MixOperation] - THREE.MixOperation - MixOperation, Mix<br />
 			[page:AddOperation AddOperation] - THREE.AddOperation - AddOperation, Add
 		</p>
 
@@ -433,13 +382,13 @@
 
 		<h3>[property:any diffuseMap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The red channel of this texture is used as the ambient occlusion map. Default is null.<br>
+			The red channel of this texture is used as the ambient occlusion map. Default is null.<br />
 			The aoMap requires a second set of UVs.
 		</p>
 
 		<h3>[property:number displacementBias]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The offset of the displacement map's values on the mesh's vertices.<br>
+			The offset of the displacement map's values on the mesh's vertices.<br />
 			Without a displacement map set, this value is not applied. Default is 0.
 		</p>
 
@@ -450,13 +399,13 @@
 
 		<h3>[property:number displacementScale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How much the displacement map affects the mesh (where black is no displacement, and white is maximum displacement). Without a displacement map set, this value is not applied.<br>
+			How much the displacement map affects the mesh (where black is no displacement, and white is maximum displacement). Without a displacement map set, this value is not applied.<br />
 			Default is 1.
 		</p>
 
 		<h3>[property:ThreeColor emissive]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Emissive (light) color of the material, essentially a solid color unaffected by other lighting.<br>
+			Emissive (light) color of the material, essentially a solid color unaffected by other lighting.<br />
 			Default is black.
 		</p>
 
@@ -487,16 +436,15 @@
 
 		<h3>[property:string extensions]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			An object with the following properties:<br>
-			<code data-type="typescript"><br>
-			this.extensions = {<br>
-				derivatives: false, // set to use derivatives<br>
-				fragDepth: false, // set to use fragment depth values<br>
-				drawBuffers: false, // set to use draw buffers<br>
-				shaderTextureLOD: false // set to use shader texture LOD<br>
-			};<br>
-			</code><br>
-			<br>
+			An object with the following properties:<br />
+			<code data-type="typescript"><br />
+			this.extensions = {<br />
+				derivatives: false, // set to use derivatives<br />
+				fragDepth: false, // set to use fragment depth values<br />
+				drawBuffers: false, // set to use draw buffers<br />
+				shaderTextureLOD: false // set to use shader texture LOD<br />
+			};<br />
+			</code><br />
 			Notice - case insensitive.
 		</p>
 
@@ -517,8 +465,7 @@
 
 		<h3>[property:string glslVersion]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Defines the GLSL version of custom shader code. Only relevant for WebGL 2 in order to define whether to specify GLSL 3.0 or not. Valid values are *THREE.GLSL1* or *THREE.GLSL3*. Default is *null*.<br>
-			<br>
+			Defines the GLSL version of custom shader code. Only relevant for WebGL 2 in order to define whether to specify GLSL 3.0 or not. Valid values are *THREE.GLSL1* or *THREE.GLSL3*. Default is *null*.<br />
 			Notice - case insensitive.
 		</p>
 
@@ -539,24 +486,22 @@
 
 		<h3>[property:string linecap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Define appearance of line ends. Possible values are 'butt', 'round' and 'square'.<br>
-			Default is 'round'.<br>
-			This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap 2D Canvas lineCap] property and it is ignored by the [page:WebGLRenderer WebGL] renderer.<br>
-			<br>
+			Define appearance of line ends. Possible values are 'butt', 'round' and 'square'.<br />
+			Default is 'round'.<br />
+			This corresponds to the [2D Canvas lineCap](https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap) property and it is ignored by the [WebGL](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/renderers/WebGLRenderer) renderer.<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:string linejoin]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Define appearance of line joints. Possible values are 'round', 'bevel' and 'miter'. Default is 'round'.<br>
-			This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin 2D Canvas lineJoin] property and it is ignored by the [page:WebGLRenderer WebGL] renderer.<br>
-			<br>
+			Define appearance of line joints. Possible values are 'round', 'bevel' and 'miter'. Default is 'round'.<br />
+			This corresponds to the [2D Canvas lineJoin](https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin) property and it is ignored by the [WebGL](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/renderers/WebGLRenderer) renderer.<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:number linewidth]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Controls line thickness. Default is *1*.<br>
+			Controls line thickness. Default is *1*.<br />
 			Due to limitations of the [link:https://www.khronos.org/registry/OpenGL/specs/gl/glspec46.core.pdf OpenGL Core Profile] with the [page:WebGLRenderer WebGL] renderer on most platforms linewidth will always be 1 regardless of the set value.
 		</p>
 
@@ -592,34 +537,33 @@
 
 		<h3>[property:any normalMap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The texture to create a normal map. The RGB values affect the surface normal for each pixel fragment and change the way the color is lit. Normal maps do not change the actual shape of the surface, only the lighting.<br>
+			The texture to create a normal map. The RGB values affect the surface normal for each pixel fragment and change the way the color is lit. Normal maps do not change the actual shape of the surface, only the lighting.<br />
 			In case the material has a normal map authored using the left handed convention, the y component of normalScale should be negated to compensate for the different handedness.
 		</p>
 
 		<h3>[property:string normalMapType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The type of normal map.<br>
-			Options are [page:constant THREE.TangentSpaceNormalMap] (default), and [page:constant THREE.ObjectSpaceNormalMap].<br>
-			<br>
+			The type of normal map.<br />
+			Options are [THREE.TangentSpaceNormalMap](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials.THREE.TangentSpaceNormalMap) (default), and [THREE.ObjectSpaceNormalMap](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials.THREE.ObjectSpaceNormalMap).<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:number normalScale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How much the normal map affects the material. Typical ranges are 0-1.<br>
-			Default is a [page:Vector2] set to (1,1) *1*.
+			How much the normal map affects the material. Typical ranges are 0-1.<br />
+			Default is a [page:Vector2 Vector2] set to (1,1) *1*.
 		</p>
 
 		<h3>[property:number normalScaleX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How much the normal map affects the material. Typical ranges are 0-1.<br>
-			Default is a [page:Vector2] set to (1,1).
+			How much the normal map affects the material. Typical ranges are 0-1.<br />
+			Default is a [page:Vector2 Vector2] set to (1,1).
 		</p>
 
 		<h3>[property:number normalScaleY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How much the normal map affects the material. Typical ranges are 0-1.<br>
-			Default is a [page:Vector2] set to (1,1).
+			How much the normal map affects the material. Typical ranges are 0-1.<br />
+			Default is a [page:Vector2 Vector2] set to (1,1).
 		</p>
 
 		<h3>[property:number referencePositionX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -639,7 +583,7 @@
 
 		<h3>[property:number reflectivity]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How much the environment map affects the surface; also see [page:.combine].<br>
+			How much the environment map affects the surface; also see [page:MeshBasicMaterial.combine MeshBasicMaterial.combine].<br />
 			The default value is 1 and the valid range is between 0 (no reflections) and 1 (full reflections).
 		</p>
 
@@ -650,8 +594,8 @@
 
 		<h3>[property:number refractionRatio]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The index of refraction (IOR) of air (approximately 1) divided by the index of refraction of the material.<br>
-			It is used with environment mapping modes [page:Textures THREE.CubeRefractionMapping] and [page:Textures THREE.EquirectangularRefractionMapping].<br>
+			The index of refraction (IOR) of air (approximately 1) divided by the index of refraction of the material.<br />
+			It is used with environment mapping modes [page:Textures THREE.CubeRefractionMapping] and [page:Textures THREE.EquirectangularRefractionMapping].<br />
 			The refraction ratio should not exceed 1. Default is *0.98*.
 		</p>
 
@@ -672,7 +616,7 @@
 
 		<h3>[property:number roughness]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How rough the material appears. 0.0 means a smooth mirror reflection, 1.0 means fully diffuse. Default is 1.0.<br>
+			How rough the material appears. 0.0 means a smooth mirror reflection, 1.0 means fully diffuse. Default is 1.0.<br />
 			If roughnessMap is also provided, both values are multiplied.
 		</p>
 
@@ -688,14 +632,13 @@
 
 		<h3>[property:string|ShaderType shader]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The shader type<br>
-			<br>
+			The shader type<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:ThreeColor sheen]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			If a color is assigned to this property, the material will use a special sheen BRDF intended for rendering cloth materials such as velvet.<br>
+			If a color is assigned to this property, the material will use a special sheen BRDF intended for rendering cloth materials such as velvet.<br />
 			The sheen color provides the ability to create two-tone specular materials. *null* by default.
 		</p>
 
@@ -706,12 +649,12 @@
 
 		<h3>[property:number shininess]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How shiny the [page:.specular] highlight is; a higher value gives a sharper highlight. Default is *30*.
+			How shiny the [page:MeshPhongMaterial.specular MeshPhongMaterial.specular] highlight is; a higher value gives a sharper highlight. Default is *30*.
 		</p>
 
 		<h3>[property:number size]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Sets the size of the points. Default is 1.0.<br>
+			Sets the size of the points. Default is 1.0.<br />
 			Will be capped if it exceeds the hardware dependent parameter [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getParameter gl.ALIASED_POINT_SIZE_RANGE].
 		</p>
 
@@ -722,7 +665,7 @@
 
 		<h3>[property:ThreeColor specular]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Specular color of the material. Default is a [page:Color] set to *0x111111* (very dark grey).<br>
+			Specular color of the material. Default is a [page:Color Color] set to *0x111111* (very dark grey).<br />
 			This defines how shiny the material is and the color of its shine.
 		</p>
 
@@ -758,48 +701,47 @@
 
 		<h3>[property:number transmission]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Degree of transmission (or optical transparency), from *0.0* to *1.0*. Default is *0.0*.<br>
-			Thin, transparent or semitransparent, plastic or glass materials remain largely reflective even if they are fully transmissive.<br>
-			The transmission property can be used to model these materials.<br>
+			Degree of transmission (or optical transparency), from *0.0* to *1.0*. Default is *0.0*.<br />
+			Thin, transparent or semitransparent, plastic or glass materials remain largely reflective even if they are fully transmissive.<br />
+			The transmission property can be used to model these materials.<br />
 			When transmission is non-zero, [page:Material.opacity opacity] should be set to *1*.
 		</p>
 
 		<h3>[property:string type] &nbsp; = 'lambert' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The type if matrial.<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:Material Material] - THREE.Material<br>
-			[page:LineBasicMaterial LineBasicMaterial] - THREE.LineBasicMaterial - LineBasicMaterial, LineBasic<br>
-			[page:LineDashedMaterial LineDashedMaterial] - THREE.LineDashedMaterial - LineDashedMaterial, LineDashed<br>
-			[page:MeshBasicMaterial MeshBasicMaterial] - THREE.MeshBasicMaterial - MeshBasicMaterial, MeshBasic<br>
-			[page:MeshDepthMaterial MeshDepthMaterial] - THREE.MeshDepthMaterial - MeshDepthMaterial, MeshDepth<br>
-			[page:MeshDistanceMaterial MeshDistanceMaterial] - THREE.MeshDistanceMaterial - MeshDistanceMaterial, MeshDistance<br>
-			[page:MeshMatcapMaterial MeshMatcapMaterial] - THREE.MeshMatcapMaterial - MeshMatcapMaterial, MeshMatcap<br>
-			[page:MeshNormalMaterial MeshNormalMaterial] - THREE.MeshNormalMaterial - MeshNormalMaterial, MeshNormal<br>
-			[page:MeshPhongMaterial MeshPhongMaterial] - THREE.MeshPhongMaterial - MeshPhongMaterial, MeshPhong<br>
-			[page:MeshPhysicalMaterial MeshPhysicalMaterial] - THREE.MeshPhysicalMaterial - MeshPhysicalMaterial, MeshPhysical<br>
-			[page:MeshStandardMaterial MeshStandardMaterial] - THREE.MeshStandardMaterial - MeshStandardMaterial, MeshStandard<br>
-			[page:MeshToonMaterial MeshToonMaterial] - THREE.MeshToonMaterial - MeshToonMaterial, MeshToon<br>
-			[page:PointsMaterial PointsMaterial] - THREE.PointsMaterial - PointsMaterial, Points<br>
-			[page:RawShaderMaterial RawShaderMaterial] - THREE.RawShaderMaterial - RawShaderMaterial, RawShader<br>
-			[page:ShaderMaterial ShaderMaterial] - THREE.ShaderMaterial - ShaderMaterial, Shader<br>
-			[page:ShadowMaterial ShadowMaterial] - THREE.ShadowMaterial - ShadowMaterial, Shadow<br>
-			[page:SpriteMaterial SpriteMaterial] - THREE.SpriteMaterial - SpriteMaterial, Sprite<br>
+			The type if matrial.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:Material Material] - THREE.Material<br />
+			[page:LineBasicMaterial LineBasicMaterial] - THREE.LineBasicMaterial - LineBasicMaterial, LineBasic<br />
+			[page:LineDashedMaterial LineDashedMaterial] - THREE.LineDashedMaterial - LineDashedMaterial, LineDashed<br />
+			[page:MeshBasicMaterial MeshBasicMaterial] - THREE.MeshBasicMaterial - MeshBasicMaterial, MeshBasic<br />
+			[page:MeshDepthMaterial MeshDepthMaterial] - THREE.MeshDepthMaterial - MeshDepthMaterial, MeshDepth<br />
+			[page:MeshDistanceMaterial MeshDistanceMaterial] - THREE.MeshDistanceMaterial - MeshDistanceMaterial, MeshDistance<br />
+			[page:MeshMatcapMaterial MeshMatcapMaterial] - THREE.MeshMatcapMaterial - MeshMatcapMaterial, MeshMatcap<br />
+			[page:MeshNormalMaterial MeshNormalMaterial] - THREE.MeshNormalMaterial - MeshNormalMaterial, MeshNormal<br />
+			[page:MeshPhongMaterial MeshPhongMaterial] - THREE.MeshPhongMaterial - MeshPhongMaterial, MeshPhong<br />
+			[page:MeshPhysicalMaterial MeshPhysicalMaterial] - THREE.MeshPhysicalMaterial - MeshPhysicalMaterial, MeshPhysical<br />
+			[page:MeshStandardMaterial MeshStandardMaterial] - THREE.MeshStandardMaterial - MeshStandardMaterial, MeshStandard<br />
+			[page:MeshToonMaterial MeshToonMaterial] - THREE.MeshToonMaterial - MeshToonMaterial, MeshToon<br />
+			[page:PointsMaterial PointsMaterial] - THREE.PointsMaterial - PointsMaterial, Points<br />
+			[page:RawShaderMaterial RawShaderMaterial] - THREE.RawShaderMaterial - RawShaderMaterial, RawShader<br />
+			[page:ShaderMaterial ShaderMaterial] - THREE.ShaderMaterial - ShaderMaterial, Shader<br />
+			[page:ShadowMaterial ShadowMaterial] - THREE.ShadowMaterial - ShadowMaterial, Shadow<br />
+			[page:SpriteMaterial SpriteMaterial] - THREE.SpriteMaterial - SpriteMaterial, Sprite<br />
 			[page:MeshLambertMaterial MeshLambertMaterial] - THREE.MeshLambertMaterial - MeshLambertMaterial, MeshLambert
 		</p>
 
 		<h3>[property:ThreeUniforms uniforms]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			An object of the form:<br>
-			<code data-type="text">json<br>
-			{ "uniform1": { value: 1.0 }, "uniform2": { value: 2 } }<br>
-			</code><br>
-			specifying the uniforms to be passed to the shader code; keys are uniform names, values are definitions of the form<br>
-			<code data-type="text">json<br>
-			{ value: 1.0 }<br>
-			</code><br>
+			An object of the form:<br />
+			<code data-type="text">json<br />
+			{ "uniform1": { value: 1.0 }, "uniform2": { value: 2 } }<br />
+			</code><br />
+			specifying the uniforms to be passed to the shader code; keys are uniform names, values are definitions of the form<br />
+			<code data-type="text">json<br />
+			{ value: 1.0 }<br />
+			</code><br />
 			where *value* is the value of the uniform. Names must match the name of the uniform, as defined in the GLSL code. Note that uniforms are refreshed on every frame, so updating the value of the uniform will immediately update the value available to the GLSL code.
 		</p>
 
@@ -820,23 +762,21 @@
 
 		<h3>[property:string wireframeLinecap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Define appearance of line ends. Possible values are "butt", "round" and "square". Default is 'round'.<br>
-			This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap 2D Canvas lineCap] roperty and it is ignored by the [page:WebGLRenderer WebGL] renderer.<br>
-			<br>
+			Define appearance of line ends. Possible values are "butt", "round" and "square". Default is 'round'.<br />
+			This corresponds to the [2D Canvas lineCap](https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap) roperty and it is ignored by the [WebGL](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/renderers/WebGLRenderer) renderer.<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:string wireframeLinejoin]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Define appearance of line joints. Possible values are "round", "bevel" and "miter". Default is 'round'.<br>
-			This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin 2D Canvas lineJoin] property and it is ignored by the [page:WebGLRenderer WebGL] renderer.<br>
-			<br>
+			Define appearance of line joints. Possible values are "round", "bevel" and "miter". Default is 'round'.<br />
+			This corresponds to the [2D Canvas lineJoin](https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin) property and it is ignored by the [WebGL](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/renderers/WebGLRenderer) renderer.<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:number wireframeLinewidth]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Controls wireframe thickness. Default is 1.<br>
+			Controls wireframe thickness. Default is 1.<br />
 			Due to limitations of the [link:https://www.khronos.org/registry/OpenGL/specs/gl/glspec46.core.pdf OpenGL Core Profile] with the [page:WebGLRenderer WebGL] renderer on most platforms linewidth will always be 1 regardless of the set value.
 		</p>
 
@@ -859,8 +799,8 @@
 
 		<h3>[method:T getMaterial](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Gets material<br>
-			<br>
+			Gets material<br />
+			<br />
 			Returns : material
 		</p>
 
@@ -870,8 +810,8 @@
 			[parameter:string type] - The type.
 		</p>
 		<p>
-			Gets texture<br>
-			<br>
+			Gets texture<br />
+			<br />
 			Returns : texture
 		</p>
 

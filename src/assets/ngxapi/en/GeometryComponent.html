@@ -12,161 +12,142 @@
 		<h1>GeometryComponent</h1>
 
 		<p class="desc">
-			GeometryComponent<br>
-			<br>
-			<code data-type="text"><br>
-			A representation of mesh, line, or point geometry. Includes vertex positions, face indices, normals, colors, UVs, and custom attributes within buffers, reducing the cost of passing all this data to the GPU.<br>
-			To read and edit data in BufferGeometry attributes, see [page:BufferAttribute] documentation.<br>
-			</code><br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-geometry<br>
-				[type]="'BoxGeometry'"<br>
-				[width]="16"<br>
-				[height]="16"<br>
-				[depth]="16"<br>
-				[widthSegments]="3"<br>
-				[heightSegments]="3"<br>
-				[depthSegments]="3"&gt;&lt;/ngx3js-geometry&gt;<br>
-			&lt;ngx3js-geometry<br>
-				[type]="'IcosahedronGeometry'"<br>
-				[radius]="8"<br>
-				[detail]="1"&gt;&lt;/ngx3js-geometry&gt;<br>
-			&lt;ngx3js-geometry<br>
-				[type]="'PlaneGeometry'"<br>
-				[width]="16"<br>
-				[height]="16"<br>
-				[widthSegments]="3"<br>
-				[heightSegments]="3"&gt;&lt;/ngx3js-geometry&gt;<br>
-			&lt;ngx3js-geometry<br>
-				[type]="'SphereGeometry'"<br>
-				[radius]="0.4"<br>
-				[widthSegments]="14"<br>
-				[heightSegments]="10"&gt;&lt;/ngx3js-geometry&gt;<br>
-			&lt;ngx3js-geometry<br>
-				[type]="'TextGeometry'"<br>
-				[font]="'helvetiker'"<br>
-				[align]="'center bottom'"<br>
-				[text]="'test contents'"<br>
-				[size]="10"&gt;&lt;/ngx3js-geometry&gt;<br>
-			&lt;ngx3js-geometry<br>
-				[type]="'TorusKnotGeometry'"<br>
-				[radius]="0.4"<br>
-				[tube]="0.08"<br>
-				[radialSegments]="95"<br>
-				[tubularSegments]="20" &gt;&lt;/ngx3js-geometry&gt;<br>
-				&lt;ngx3js-geometry<br>
-					[type]="'TeapotGeometry'"<br>
-					[size]="400"<br>
-					[segments]="controls.newTess"<br>
-					[bottom]="controls.bottom"<br>
-					[lid]="controls.lid"<br>
-					[body]="controls.body"<br>
-					[fitLid]="controls.fitLid"<br>
-					[blinn]="!controls.nonblinn"<br>
-				&gt;&lt;/ngx3js-geometry&gt;<br>
-				&lt;ngx3js-geometry<br>
-					[type]="'perlin'"<br>
-					[perlinType]="'minecraft'"<br>
-					[width]="100"<br>
-					[height]="100"<br>
-					[depth]="100"<br>
-					[widthSegments]="128"<br>
-					[depthSegments]="128"<br>
-					[quality]="2"<br>
-				&gt;&lt;/ngx3js-geometry&gt;<br>
-				&lt;ngx3js-geometry<br>
-					[type]="'RopeGeometry'"<br>
-					[width]="4"<br>
-					[widthSegments]="10"<br>
-				&gt;&lt;/ngx3js-geometry&gt;<br>
-				&lt;ngx3js-geometry<br>
-					[type]="'RoundedBox'"<br>
-					[width]="1"<br>
-					[height]="1"<br>
-					[depth]="1"<br>
-					[segments]="7"<br>
-					[radius]="0.2"<br>
-				&gt;&lt;/ngx3js-geometry&gt;<br>
-				&lt;ngx3js-geometry<br>
-					[type]="'BoxLineGeometry'"<br>
-					[width]="6"<br>
-					[height]="6"<br>
-					[depth]="6"<br>
-					[widthSegments]="10"<br>
-					[heightSegments]="10"<br>
-					[depthSegments]="10"<br>
-				&gt;&lt;/ngx3js-geometry&gt;<br>
-				&lt;ngx3js-geometry<br>
-					[type]="'CircleGeometry'"<br>
-					[radius]="50"<br>
-					[radialSegments]="20"<br>
-					[thetaStart]="0"<br>
-					[thetaLength]="360"<br>
-				&gt;&lt;/ngx3js-geometry&gt;<br>
-				&lt;ngx3js-geometry<br>
-					[type]="'star'"<br>
-					[outerRadius]="1"<br>
-					[innerRadius]="0.5"<br>
-					[depth]="0.5"<br>
-					[depthRate]="controls.depthRate"<br>
-					[thetaStart]="0"<br>
-					[thetaLength]="220"<br>
-				&gt;&lt;/ngx3js-geometry&gt;<br>
-				&lt;ngx3js-geometry<br>
-					[type]="'ConeGeometry'"<br>
-					[radius]="0.2"<br>
-					[height]="0.2"<br>
-					[radiusSegments]="64"<br>
-				&gt;&lt;/ngx3js-geometry&gt;<br>
-				&lt;ngx3js-geometry<br>
-					#dodecahedron<br>
-					[type]="'Dodecahedron'"<br>
-					[radius]="10"<br>
-				&gt;&lt;/ngx3js-geometry&gt;<br>
-				&lt;ngx3js-geometry<br>
-					[type]="'mergebuffergeometry'"<br>
-					[autoCustomColor]="true"<br>
-					[autoCustomColorKey]="'ca'"<br>
-					[autoCustomColorSize]="3"<br>
-					[autoSize]="true"<br>
-					[autoSizeSize]="1"<br>
-				&gt;&lt;/ngx3js-geometry&gt;<br>
-				&lt;ngx3js-geometry<br>
-					[type]="'shape'"<br>
-					[text]="'   Three.js\nSimple text.'"<br>
-					[align]="'center'"<br>
-					[font]="'helvetiker'"<br>
-					[weight]="'regular'"<br>
-					[size]="100"<br>
-				&gt;&lt;/ngx3js-geometry&gt;<br>
-				&lt;ngx3js-geometry<br>
-					[type]="'Extrude'"<br>
-					[shapes]="shapes1"<br>
-					[steps]="100"<br>
-					[bevelEnabled]="false"<br>
-					[extrudePath]="extrudePath"<br>
-					[closed]="true"<br>
-				&gt;&lt;/ngx3js-geometry&gt;<br>
-				&lt;ngx3js-geometry<br>
-					[type]="'Icosahedron'"<br>
-					[radius]="75"<br>
-					[detail]="1"<br>
-				&gt;&lt;/ngx3js-geometry&gt;<br>
-				&lt;ngx3js-geometry<br>
-					[type]="'LatheGeometry'"<br>
-					[points]="lathePoints"<br>
-					[segments]="20"<br>
-				&gt;&lt;/ngx3js-geometry&gt;<br>
-				&lt;ngx3js-geometry<br>
-					[type]="'Octahedron'"<br>
-					[radius]="75"<br>
-					[detail]="2"<br>
-				&gt;&lt;/ngx3js-geometry&gt;<br>
-			<br>
-			</code><br>
-			<br>
-			[example:ngx_geometry NGX Geometey] <br>
+			The Geometry component.<br />
+			<br />
+			<h3>Preview - ngx geometey</h3><br />
+			<iframe src="#/viewer/ngx_geometry"></iframe><br />
+			<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/GeometryComponent ngx3js docs] page for details.<br />
+			See the [example:ngx_geometry ngx geometey] page for a live demo.<br />
+			See the [example:ngx_font ngx font] page for a live demo.<br />
+			<br />
+			A representation of mesh, line, or point geometry. Includes vertex positions, face indices, normals, colors, UVs, and custom attributes within buffers, reducing the cost of passing all this data to the GPU.<br />
+			To read and edit data in BufferGeometry attributes, see [page:BufferAttribute BufferAttribute] documentation.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-geometry<br />
+				[type]="'BoxGeometry'" [width]="16 " [height]="16 " [depth]="16 " [widthSegments]="3 " [heightSegments]="3 " [depthSegments]="3"&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'IcosahedronGeometry'" [radius]="8 " [detail]="1"&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'PlaneGeometry'" [width]="16 " [height]="16 " [widthSegments]="3 " [heightSegments]="3"&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'SphereGeometry'" [radius]="0.4 " [widthSegments]="14 " [heightSegments]="10"&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'TextGeometry'" [font]="'helvetiker'" [align]="'center bottom'" [text]="'test contents'" [size]="10"&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'TorusKnotGeometry'" [radius]="0.4 " [tube]="0.08 " [radialSegments]="95 " [tubularSegments]="20" &gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-geometry<br />
+					[type]="'TeapotGeometry'"<br />
+					[size]="400"<br />
+					[segments]="controls.newTess"<br />
+					[bottom]="controls.bottom"<br />
+					[lid]="controls.lid"<br />
+					[body]="controls.body"<br />
+					[fitLid]="controls.fitLid"<br />
+					[blinn]="!controls.nonblinn"<br />
+				&gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-geometry<br />
+					[type]="'perlin'"<br />
+					[perlinType]="'minecraft'"<br />
+					[width]="100"<br />
+					[height]="100"<br />
+					[depth]="100"<br />
+					[widthSegments]="128"<br />
+					[depthSegments]="128"<br />
+					[quality]="2"<br />
+				&gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-geometry<br />
+					[type]="'RopeGeometry'"<br />
+					[width]="4"<br />
+					[widthSegments]="10"<br />
+				&gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-geometry<br />
+					[type]="'RoundedBox'"<br />
+					[width]="1"<br />
+					[height]="1"<br />
+					[depth]="1"<br />
+					[segments]="7"<br />
+					[radius]="0.2"<br />
+				&gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-geometry<br />
+					[type]="'BoxLineGeometry'"<br />
+					[width]="6"<br />
+					[height]="6"<br />
+					[depth]="6"<br />
+					[widthSegments]="10"<br />
+					[heightSegments]="10"<br />
+					[depthSegments]="10"<br />
+				&gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-geometry<br />
+					[type]="'CircleGeometry'"<br />
+					[radius]="50"<br />
+					[radialSegments]="20"<br />
+					[thetaStart]="0"<br />
+					[thetaLength]="360"<br />
+				&gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-geometry<br />
+					[type]="'star'"<br />
+					[outerRadius]="1"<br />
+					[innerRadius]="0.5"<br />
+					[depth]="0.5"<br />
+					[depthRate]="controls.depthRate"<br />
+					[thetaStart]="0"<br />
+					[thetaLength]="220"<br />
+				&gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-geometry<br />
+					[type]="'ConeGeometry'"<br />
+					[radius]="0.2"<br />
+					[height]="0.2"<br />
+					[radiusSegments]="64"<br />
+				&gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-geometry<br />
+					#dodecahedron<br />
+					[type]="'Dodecahedron'"<br />
+					[radius]="10"<br />
+				&gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-geometry<br />
+					[type]="'mergebuffergeometry'"<br />
+					[autoCustomColor]="true"<br />
+					[autoCustomColorKey]="'ca'"<br />
+					[autoCustomColorSize]="3"<br />
+					[autoSize]="true"<br />
+					[autoSizeSize]="1"<br />
+				&gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-geometry<br />
+					[type]="'shape'"<br />
+					[text]="'   Three.js\nSimple text.'"<br />
+					[align]="'center'"<br />
+					[font]="'helvetiker'"<br />
+					[weight]="'regular'"<br />
+					[size]="100"<br />
+				&gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-geometry<br />
+					[type]="'Extrude'"<br />
+					[shapes]="shapes1"<br />
+					[steps]="100"<br />
+					[bevelEnabled]="false"<br />
+					[extrudePath]="extrudePath"<br />
+					[closed]="true"<br />
+				&gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-geometry<br />
+					[type]="'Icosahedron'"<br />
+					[radius]="75"<br />
+					[detail]="1"<br />
+				&gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-geometry<br />
+					[type]="'LatheGeometry'"<br />
+					[points]="lathePoints"<br />
+					[segments]="20"<br />
+				&gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-geometry<br />
+					[type]="'Octahedron'"<br />
+					[radius]="75"<br />
+					[detail]="2"<br />
+				&gt;&lt;/ngx3js-geometry&gt;<br />
+			<br />
+			</code><br />
+			<br />
 			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry
 		</p>
 
@@ -277,9 +258,9 @@
 			[ lineType ]="... string -- The lineType of abstract geome... "
 			[ maxEdgeLength ]="... number -- The maxEdgeLength of abstract ... "
 			[ maxIterations ]="... number -- The maxIterations of abstract ... "
-			[ mergeVertices ]="... boolean -- geometry -- Instance of [page:... "
+			[ mergeVertices ]="... boolean -- geometry -- Instance of [Buffe... "
 			[ mesh ]="... any -- The mesh of geometry component "
-			[ morphAttributes ]="... any -- Hashmap of [page:BufferAttribu... "
+			[ morphAttributes ]="... any -- Hashmap of [BufferAttribute](h... "
 			[ name ]="... string -- The name of the object (doesn'... "
 			( onDestory )="...($event : GeometryComponent -- Will be called when before des... )"
 			[ onInit ]="... any"
@@ -456,8 +437,7 @@
 
 		<h3>[property:string curvePathType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of geometry component<br>
-			<br>
+			The Input of geometry component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -468,8 +448,7 @@
 
 		<h3>[property:string curveType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of geometry component<br>
-			<br>
+			The Input of geometry component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -500,8 +479,7 @@
 
 		<h3>[property:string extrudePathType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of geometry component<br>
-			<br>
+			The Input of geometry component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -582,15 +560,13 @@
 
 		<h3>[property:any parametric]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of geometry component<br>
-			<br>
+			The Input of geometry component<br />
 			Notice - case insensitive.
 		</p>
 
 		<h3>[property:string perlinType] &nbsp; = 'minecraft' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of geometry component<br>
-			<br>
+			The Input of geometry component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -691,8 +667,7 @@
 
 		<h3>[property:string refType] &nbsp; = 'targetMesh' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of geometry component<br>
-			<br>
+			The Input of geometry component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -798,38 +773,36 @@
 
 		<h3>[property:string type] &nbsp; = 'sphere' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The type  of geometry<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry<br>
-			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry - BufferGeometry, CustomGeometry,  Custom, Buffer<br>
-			[page:InstancedBufferGeometry InstancedBufferGeometry] - THREE.InstancedBufferGeometry - InstancedBufferGeometry, InstancedBuffer, Instanced<br>
-			[page:BoxGeometry BoxGeometry] - THREE.BoxGeometry - BoxGeometry, Box<br>
-			[page:CircleGeometry CircleGeometry] - THREE.CircleGeometry - CircleGeometry, Circle<br>
-			[page:ConeGeometry ConeGeometry] - THREE.ConeGeometry - ConeGeometry, Cone<br>
-			[page:CylinderGeometry CylinderGeometry] - THREE.CylinderGeometry - CylinderGeometry, Cylinder<br>
-			[page:DodecahedronGeometry DodecahedronGeometry] - THREE.DodecahedronGeometry - DodecahedronGeometry, Dodecahedron<br>
-			[page:ShapeGeometry ShapeGeometry] - THREE.ShapeGeometry - ShapeGeometry, Shape<br>
-			[page:IcosahedronGeometry IcosahedronGeometry] - THREE.IcosahedronGeometry - IcosahedronGeometry, Icosahedron<br>
-			[page:LatheGeometry LatheGeometry] - THREE.LatheGeometry - LatheGeometry, Lathe<br>
-			[page:OctahedronGeometry OctahedronGeometry] - THREE.OctahedronGeometry - OctahedronGeometry, Octahedron<br>
-			[page:ParametricBufferGeometry ParametricBufferGeometry] - THREE.ParametricBufferGeometry - ParametricBufferGeometry, ParametricBuffer, ParametricBuffer<br>
-			[page:ParametricGeometry ParametricGeometry] - THREE.ParametricGeometry - ParametricGeometry , Parametric<br>
-			[page:PlaneGeometry PlaneGeometry] - THREE.PlaneGeometry - PlaneGeometry, Plane<br>
-			[page:RingGeometry RingGeometry] - THREE.RingGeometry - RingGeometry, Ring<br>
-			[page:SphereGeometry SphereGeometry] - THREE.SphereGeometry - SphereGeometry, Sphere<br>
-			[page:TetrahedronGeometry TetrahedronGeometry] - THREE.TetrahedronGeometry - TetrahedronGeometry, Tetrahedron<br>
-			[page:TextBufferGeometry TextBufferGeometry] - THREE.TextBufferGeometry - TextBufferGeometry, TextGeometry, TextBuffer, Text<br>
-			[page:TorusGeometry TorusGeometry] - THREE.TorusGeometry - TorusGeometry, Torus<br>
-			[page:TorusKnotGeometry TorusKnotGeometry] - THREE.TorusKnotGeometry - TorusKnotGeometry, TorusKnot<br>
+			The type  of geometry<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry<br />
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry - BufferGeometry, CustomGeometry,  Custom, Buffer<br />
+			[page:InstancedBufferGeometry InstancedBufferGeometry] - THREE.InstancedBufferGeometry - InstancedBufferGeometry, InstancedBuffer, Instanced<br />
+			[page:BoxGeometry BoxGeometry] - THREE.BoxGeometry - BoxGeometry, Box<br />
+			[page:CircleGeometry CircleGeometry] - THREE.CircleGeometry - CircleGeometry, Circle<br />
+			[page:ConeGeometry ConeGeometry] - THREE.ConeGeometry - ConeGeometry, Cone<br />
+			[page:CylinderGeometry CylinderGeometry] - THREE.CylinderGeometry - CylinderGeometry, Cylinder<br />
+			[page:DodecahedronGeometry DodecahedronGeometry] - THREE.DodecahedronGeometry - DodecahedronGeometry, Dodecahedron<br />
+			[page:ShapeGeometry ShapeGeometry] - THREE.ShapeGeometry - ShapeGeometry, Shape<br />
+			[page:IcosahedronGeometry IcosahedronGeometry] - THREE.IcosahedronGeometry - IcosahedronGeometry, Icosahedron<br />
+			[page:LatheGeometry LatheGeometry] - THREE.LatheGeometry - LatheGeometry, Lathe<br />
+			[page:OctahedronGeometry OctahedronGeometry] - THREE.OctahedronGeometry - OctahedronGeometry, Octahedron<br />
+			[page:ParametricBufferGeometry ParametricBufferGeometry] - THREE.ParametricBufferGeometry - ParametricBufferGeometry, ParametricBuffer, ParametricBuffer<br />
+			[page:ParametricGeometry ParametricGeometry] - THREE.ParametricGeometry - ParametricGeometry , Parametric<br />
+			[page:PlaneGeometry PlaneGeometry] - THREE.PlaneGeometry - PlaneGeometry, Plane<br />
+			[page:RingGeometry RingGeometry] - THREE.RingGeometry - RingGeometry, Ring<br />
+			[page:SphereGeometry SphereGeometry] - THREE.SphereGeometry - SphereGeometry, Sphere<br />
+			[page:TetrahedronGeometry TetrahedronGeometry] - THREE.TetrahedronGeometry - TetrahedronGeometry, Tetrahedron<br />
+			[page:TextBufferGeometry TextBufferGeometry] - THREE.TextBufferGeometry - TextBufferGeometry, TextGeometry, TextBuffer, Text<br />
+			[page:TorusGeometry TorusGeometry] - THREE.TorusGeometry - TorusGeometry, Torus<br />
+			[page:TorusKnotGeometry TorusKnotGeometry] - THREE.TorusKnotGeometry - TorusKnotGeometry, TorusKnot<br />
 			[page:TubeGeometry TubeGeometry] - THREE.TubeGeometry - TubeGeometry, Tube
 		</p>
 
 		<h3>[property:string uVGenerator]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The Input of geometry component<br>
-			<br>
+			The Input of geometry component<br />
 			Notice - case insensitive.
 		</p>
 
@@ -858,8 +831,8 @@
 
 		<h3>[method:T getGeometry](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Gets geometry<br>
-			<br>
+			Gets geometry<br />
+			<br />
 			Returns : geometry
 		</p>
 

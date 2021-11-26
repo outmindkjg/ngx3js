@@ -12,19 +12,20 @@
 		<h1>ClipComponent</h1>
 
 		<p class="desc">
-			ClipComponent<br>
-			<br>
-			An AnimationClip is a reusable set of keyframe tracks which represent an animation.<br>
-			<br>
-			For an overview of the different elements of the three.js animation system see the "Animation System" article in the "Next Steps" section of the manual.<br>
-			<br>
-			<code data-type="html"><br>
-			&lt;ngx3js-mixer [action]="'base'"&gt;<br>
-				&lt;ngx3js-clip [name]="'base'" [index]="0"&gt;&lt;/ngx3js-clip&gt;<br>
-			&lt;/ngx3js-mixer&gt;<br>
-			&lt;ngx3js-mixer [action]="'Run'"&gt;<br>
-				&lt;ngx3js-clip [name]="'Run'"&gt;&lt;/ngx3js-clip&gt;<br>
-			&lt;/ngx3js-mixer&gt;<br>
+			The Clip component.<br />
+			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/ClipComponent ngx3js docs] page for details.<br />
+			<br />
+			An AnimationClip is a reusable set of keyframe tracks which represent an animation.<br />
+			<br />
+			For an overview of the different elements of the three.js animation system see the "Animation System" article in the "Next Steps" section of the manual.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-mixer [action]="'base'"&gt;<br />
+				&lt;ngx3js-clip [name]="'base'" [index]="0"&gt;&lt;/ngx3js-clip&gt;<br />
+			&lt;/ngx3js-mixer&gt;<br />
+			&lt;ngx3js-mixer [action]="'Run'"&gt;<br />
+				&lt;ngx3js-clip [name]="'Run'"&gt;&lt;/ngx3js-clip&gt;<br />
+			&lt;/ngx3js-mixer&gt;<br />
 			</code>
 		</p>
 
@@ -52,7 +53,7 @@
 			[ overrideParams ]="... any -- The override params "
 			[ startFrame ]="... number -- Creates a new clip, containing... "
 			[ subclip ]="... boolean -- subclip "
-			[ timeScale ]="... number -- Scaling factor for the [page:.... "
+			[ timeScale ]="... number -- Scaling factor for the [Animat... "
 			[ tween ]="... any -- Tween animation params "
 			[ userData ]="... any -- An object that can be used to ... "
 			[ weight ]="... number -- The degree of influence of thi... "
@@ -72,33 +73,32 @@
 
 		<h3>[property:boolean additive] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			makeClipAdditive<br>
-			<br>
+			makeClipAdditive<br />
+			<br />
 			[page:AnimationUtils AnimationUtils] - THREE.AnimationUtils.makeClipAdditive
 		</p>
 
 		<h3>[property:string blendMode] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The blendMode of clip component<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:AnimationBlendMode AnimationBlendMode] - THREE.AnimationBlendMode<br>
-			[page:NormalAnimationBlendMode NormalAnimationBlendMode] - THREE.NormalAnimationBlendMode - NormalAnimationBlendMode, NormalAnimation, Normal<br>
+			The blendMode of clip component<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:AnimationBlendMode AnimationBlendMode] - THREE.AnimationBlendMode<br />
+			[page:NormalAnimationBlendMode NormalAnimationBlendMode] - THREE.NormalAnimationBlendMode - NormalAnimationBlendMode, NormalAnimation, Normal<br />
 			[page:AdditiveAnimationBlendMode AdditiveAnimationBlendMode] - THREE.AdditiveAnimationBlendMode - AdditiveAnimationBlendMode, AdditiveAnimation, Additive
 		</p>
 
 		<h3>[property:boolean clampWhenFinished] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			If *clampWhenFinished* is set to true the animation will automatically be [page:.paused paused] on its last frame.<br>
-			If *clampWhenFinished* is set to false, [page:.enabled enabled] will automatically be switched to false when the last loop of the action has finished, so that this action has no further impact.<br>
-			Default is false.<br>
+			If *clampWhenFinished* is set to true the animation will automatically be [page:AnimationClip.paused AnimationClip.paused] on its last frame.<br />
+			If *clampWhenFinished* is set to false, [page:AnimationClip.enabled AnimationClip.enabled] will automatically be switched to false when the last loop of the action has finished, so that this action has no further impact.<br />
+			Default is false.<br />
 			Note: *clampWhenFinished* has no impact if the action is interrupted (it has only an effect if its last loop has really finished).
 		</p>
 
 		<h3>[property:number duration] &nbsp; = 3 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The duration of this clip (in seconds). This can be calculated from the [page:.tracks tracks] array via [page:.resetDuration resetDuration].
+			The duration of this clip (in seconds). This can be calculated from the [page:AnimationClip.tracks AnimationClip.tracks] array via [page:AnimationClip.resetDuration AnimationClip.resetDuration].
 		</p>
 
 		<h3>[property:number endFrame] &nbsp; = 3 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -118,19 +118,18 @@
 
 		<h3>[property:string loop]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The looping mode (can be changed with [page:.setLoop setLoop]). Default is [page:Animation THREE.LoopRepeat] (with an infinite number of [page:.repetitions repetitions])<br>
-			<br>
-			Notice - case insensitive.<br>
-			<br>
-			[page:AnimationActionLoopStyles AnimationActionLoopStyles] - THREE.AnimationActionLoopStyles<br>
-			[page:LoopOnce LoopOnce] - THREE.LoopOnce - LoopOnce, Once<br>
-			[page:LoopRepeat LoopRepeat] - THREE.LoopRepeat - LoopRepeat, Repeat<br>
+			The looping mode (can be changed with [AnimationClip.setLoop](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/animation/AnimationClip.setLoop)). Default is [THREE.LoopRepeat](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/animation/Animation) (with an infinite number of [AnimationClip.repetitions](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/animation/AnimationClip.repetitions))<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:AnimationActionLoopStyles AnimationActionLoopStyles] - THREE.AnimationActionLoopStyles<br />
+			[page:LoopOnce LoopOnce] - THREE.LoopOnce - LoopOnce, Once<br />
+			[page:LoopRepeat LoopRepeat] - THREE.LoopRepeat - LoopRepeat, Repeat<br />
 			[page:LoopPingPong LoopPingPong] - THREE.LoopPingPong - LoopPingPong, PingPong
 		</p>
 
 		<h3>[property:string name] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			A name for this clip. A certain clip can be searched via [page:.findByName findByName].
+			A name for this clip. A certain clip can be searched via [page:AnimationClip.findByName AnimationClip.findByName].
 		</p>
 
 		<h3>[property:number startFrame] &nbsp; = 2 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -140,20 +139,20 @@
 
 		<h3>[property:boolean subclip] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			subclip<br>
-			<br>
+			subclip<br />
+			<br />
 			[page:AnimationUtils AnimationUtils] - THREE.AnimationUtils.subclip
 		</p>
 
 		<h3>[property:number timeScale] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Scaling factor for the [page:.time time]. A value of 0 causes the animation to pause. Negative values cause the animation to play backwards. Default is 1.
+			Scaling factor for the [page:AnimationClip.time AnimationClip.time]. A value of 0 causes the animation to pause. Negative values cause the animation to play backwards. Default is 1.
 		</p>
 
 		<h3>[property:number weight] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The degree of influence of this action (in the interval [0, 1]). Values between 0 (no impact)<br>
-			and 1 (full impact) can be used to blend between several actions. Default is 1.<br>
+			The degree of influence of this action (in the interval [0, 1]). Values between 0 (no impact)<br />
+			and 1 (full impact) can be used to blend between several actions. Default is 1.<br />
 			Properties/methods concerning  *weight* are:
 		</p>
 
@@ -206,8 +205,8 @@
 
 		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Gets object<br>
-			<br>
+			Gets object<br />
+			<br />
 			Returns : object
 		</p>
 
