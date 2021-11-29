@@ -19,12 +19,13 @@
           "options": {
             "preserveSymlinks": true,
             "allowedCommonJsDependencies": [
-              "fs", 
+              "fs",
               "three/examples/js/libs/lottie_canvas",
               "three/examples/js/libs/draco/draco_encoder",
               "crypto",
               "crypto-js",
-              "highlight.js"
+              "highlight.js",
+              "fs"
             ],
             "outputPath": "dist/ngx3js-doc",
             "index": "src/index.html",
