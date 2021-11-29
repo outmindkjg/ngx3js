@@ -222,9 +222,9 @@ export class ApiReadComponent implements OnInit {
 			'<strong>$1</strong>'
 		); // *
 
-		text = text.replace(/\[example:([\w\_]+)\]/gi, '[example:$1 $1]'); // [example:name] to [example:name title]
+		text = text.replace(/\[example:([\w\_/]+)\]/gi, '[example:$1 $1]'); // [example:name] to [example:name title]
 		text = text.replace(
-			/\[example:([\w\_]+) ([\w\:\/\.\-\_ \s]+)\]/gi,
+			/\[example:([\w\_/]+) ([\w\:\/\.\-\_ \s]+)\]/gi,
 			'<a href="#examples/$1">$2</a>'
 		); // [example:name title]
 

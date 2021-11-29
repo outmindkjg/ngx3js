@@ -196,17 +196,6 @@ code.prettyprint {
 		padding: 0;
 	}
 }
-#example-iframe #viewer-inner {
-	.debug {
-		pointer-events: all;
-		left : -70px;
-		transition: left 0.5s;
-		&:hover {
-			left : 0;
-		}
-	}
-	
-}
 
 #example-iframe #viewer-inner,
 #example #viewer-inner {
@@ -325,6 +314,21 @@ div#viewer {
 	}
 }
 
+#example-iframe #viewer-inner .debug {
+
+	div.debug-stats {
+		left : -70px;
+		&:hover {
+			left: 0;
+		}
+	}
+	div.debug-controls {
+		right : -200px;
+		&:hover {
+			right: 0;
+		}
+	}
+}
 /* mobile */
 
 @media all and (max-width: 640px) {

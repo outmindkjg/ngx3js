@@ -30,7 +30,7 @@ export class NgxCurveComponent extends BaseComponent<{
 					options : 'None'
 				},
 				tube : {
-					radius : 0.1,
+					radius : 0.05,
 					radiusSegments : 10,
 					tubularSegments : 100,
 					color : 0xff0000,
