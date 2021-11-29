@@ -4,7 +4,12 @@
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
-	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[controlOptions]="{ 
+		enablePan: false, 
+		enableDamping: true, 
+		minDistance: 5,
+		maxDistance: 20
+	}"
 	[statsMode]="0"
 	[antialias]="true"
 	[shadowMapEnabled]="true"
