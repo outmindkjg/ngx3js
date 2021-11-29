@@ -1,0 +1,67 @@
+<div class="info">
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	ngx rotation
+</div>
+<ngx3js-renderer
+	[statsMode]="0"
+	[antialias]="true"
+	[controlType]="'orbit'"
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
+		minDistance: 5,
+		maxDistance: 20
+	}"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
+		<ngx3js-position [x]="3" [y]="5" [z]="10"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene >
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[castShadow]="true"
+		>
+			<ngx3js-position [x]="-3" [y]="10" [z]="10"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0x6688cc'" [intensity]="0.5"></ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-material
+				#material
+				[type]="'MeshStandardMaterial'"
+				[color]="controls.tube.color"
+				[wireframe]="controls.tube.wireframe"
+			>
+			</ngx3js-material>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh [material]="material">
+				<ngx3js-geometry
+					[type]="'tubegeometry'"
+					[curve]="controls.curve.type"
+					[curveNormal]="true"
+					[curveNormalOption]="controls.curve.options"
+					[scale]="3"
+					[radius]="controls.tube.radius"
+					[radiusSegments]="controls.tube.radiusSegments"
+					[tubularSegments]="controls.tube.tubularSegments"
+					[closed]="controls.tube.closed"
+				></ngx3js-geometry>
+			</ngx3js-mesh>
+			<ngx3js-mesh [visible]="controls.tube.showGuide">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-geometry [type]="'box'" [width]="6" [height]="6" [depth]="6" [widthSegments]="10" [heightSegments]="10" [depthSegments]="10"></ngx3js-geometry>
+				<ngx3js-material [type]="'MeshPhongMaterial'" [transparent]="true" [opacity]="0.1" [color]="'0xffffff'" [side]="'back'"></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+		</ngx3js-mesh>
+		<ngx3js-mesh [type]="'text'" [text]="'Curve : ' + controls.curve.type + ' / ' + controls.curve.options "  [size]="0.2">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>

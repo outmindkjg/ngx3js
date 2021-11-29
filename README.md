@@ -33,7 +33,7 @@ npm install
 # install by npm
 npm install -g @angular/cli
 npm install ngx3js
-npm install three@0.134.0
+npm install three@0.135.0
 npm install --save-dev @types/three@0.134.0
 npm install gsap
 npm install lil-gui

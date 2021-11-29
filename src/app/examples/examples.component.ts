@@ -64,7 +64,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 	private menuId: string = '';
 
 	changeRouter(url: string) {
-		this.menuId = url;
+		this.menuId ='/examples/' + url.split('/')[2];
 		if (this.menuId !== null && this.menuId !== undefined) {
 			this.checkSearchMenuSelected(this.searchMenu);
 			this.setFocus(this.menuId);

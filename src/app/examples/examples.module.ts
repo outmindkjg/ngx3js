@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { Ngx3JsModule } from 'ngx3js';
 import { Css2dLabelComponent } from './css2d-label/css2d-label.component';
 import { Css3dMoleculesComponent } from './css3d-molecules/css3d-molecules.component';
@@ -47,6 +46,7 @@ import { NgxChartPolarComponent } from './ngx-chart-polar/ngx-chart-polar.compon
 import { NgxChartRadarComponent } from './ngx-chart-radar/ngx-chart-radar.component';
 import { NgxChartScatterComponent } from './ngx-chart-scatter/ngx-chart-scatter.component';
 import { NgxControlComponent } from './ngx-control/ngx-control.component';
+import { NgxCurveComponent } from './ngx-curve/ngx-curve.component';
 import { NgxDirectivesComponent } from './ngx-directives/ngx-directives.component';
 import { NgxFontComponent } from './ngx-font/ngx-font.component';
 import { NgxGeometryComponent } from './ngx-geometry/ngx-geometry.component';
@@ -55,7 +55,10 @@ import { NgxLightComponent } from './ngx-light/ngx-light.component';
 import { NgxMaterialComponent } from './ngx-material/ngx-material.component';
 import { NgxPhysicsComponent } from './ngx-physics/ngx-physics.component';
 import { NgxPipesComponent } from './ngx-pipes/ngx-pipes.component';
+import { NgxPositionComponent } from './ngx-position/ngx-position.component';
 import { NgxRendererComponent } from './ngx-renderer/ngx-renderer.component';
+import { NgxRotationComponent } from './ngx-rotation/ngx-rotation.component';
+import { NgxScaleComponent } from './ngx-scale/ngx-scale.component';
 import { NgxSceneComponent } from './ngx-scene/ngx-scene.component';
 import { PhysicsAmmoBreakComponent } from './physics-ammo-break/physics-ammo-break.component';
 import { PhysicsAmmoClothComponent } from './physics-ammo-cloth/physics-ammo-cloth.component';
@@ -850,6 +853,10 @@ import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component
 		NgxPipesComponent,
 		NgxDirectivesComponent,
 		NgxPhysicsComponent,
+		NgxPositionComponent,
+		NgxRotationComponent,
+		NgxScaleComponent,
+		NgxCurveComponent,
 		WebgpuInstanceUniformComponent,
 		WebgpuLightsCustomComponent,
 		WebgpuLightsSelectiveComponent,

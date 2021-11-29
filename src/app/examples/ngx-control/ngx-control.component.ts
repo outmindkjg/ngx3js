@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BaseComponent, ControlComponent, RendererTimer } from 'ngx3js';
 
 @Component({
@@ -9,7 +10,7 @@ import { BaseComponent, ControlComponent, RendererTimer } from 'ngx3js';
 export class NgxControlComponent extends BaseComponent<{
 	controlType: string;
 }> {
-	constructor() {
+	constructor(private route: ActivatedRoute) {
 		super(
 			{
 				controlType: 'OrbitControls',
@@ -18,6 +19,14 @@ export class NgxControlComponent extends BaseComponent<{
 				this.resetCamera();
 			} }]
 		, true, false);
+	}
+
+	ngOnInit() {
+		this.subscribeRefer('router', this.route.params.subscribe((params) => {
+			if (params['type']) {
+				this.controls.controlType = params['type'];
+			}
+		}))
 	}
 
 	control : any = null;
