@@ -10,14 +10,14 @@
 	[guiParams]="controlsParams"
 	(onRender)="onRender($event)"
 >
-	<ngx3js-control [type]="controls.controlType" [enablePan]="false" [enableDamping]="true" (onLoad)="setControl($event)">
+	<ngx3js-control [type]="controls.controlType" [minDistance]="controls.minDistance" [maxDistance]="controls.maxDistance" [enablePan]="false" [enableDamping]="true" (onLoad)="setControl($event)">
 		<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	</ngx3js-control>
 	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
 		<ngx3js-position [x]="0" [y]="5" [z]="10"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-scene #scene [background]="'0x000000'">
-		<ngx3js-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></ngx3js-fog>
+		<ngx3js-fog [color]="'0x000000'" [near]="10" [far]="50"></ngx3js-fog>
 		<ngx3js-light
 			[type]="'Hemisphere'"
 			[skyColor]="'0xffffff'"

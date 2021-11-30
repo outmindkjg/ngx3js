@@ -145,7 +145,7 @@ export class ApiReadComponent implements OnInit {
 
 		
 		text = text.replace(
-			/\[(member|property|method|param):([\w\.]+)(\[\]|)\]/gi,
+			/\[(member|property|method|param|constructor):([\w\.]+)(\[\]|)\]/gi,
 			'[$1:$2$3 $2]'
 		); // [member:name] to [member:name title]
 		text = text.replace(
@@ -198,6 +198,18 @@ export class ApiReadComponent implements OnInit {
 				name +
 				'.$2" id="$2">$2</a> $3 : <span class="param">$1</span>'
 		);
+		text = text.replace(
+			/\[(?:constructor):([\w\.]+)(\[\]|) ([\w\.\s]+)\]\s*(\(.*\)|\?)?/gi,
+			'<a href="#' +
+				name +
+				'.$3" title="' +
+				name +
+				'.$3" class="permalink">#</a> <a href="#' +
+				name +
+				'.$3" id="$3">new $3</a> $4 : <a class="param" href="#$1">$1</a>$2'
+		);
+
+		
 
 		
 		text = text.replace(

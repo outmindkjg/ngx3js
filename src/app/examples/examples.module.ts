@@ -45,6 +45,7 @@ import { NgxChartMixedComponent } from './ngx-chart-mixed/ngx-chart-mixed.compon
 import { NgxChartPolarComponent } from './ngx-chart-polar/ngx-chart-polar.component';
 import { NgxChartRadarComponent } from './ngx-chart-radar/ngx-chart-radar.component';
 import { NgxChartScatterComponent } from './ngx-chart-scatter/ngx-chart-scatter.component';
+import { NgxComposerComponent } from './ngx-composer/ngx-composer.component';
 import { NgxControlComponent } from './ngx-control/ngx-control.component';
 import { NgxCurveComponent } from './ngx-curve/ngx-curve.component';
 import { NgxDirectivesComponent } from './ngx-directives/ngx-directives.component';
@@ -857,6 +858,7 @@ import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component
 		NgxRotationComponent,
 		NgxScaleComponent,
 		NgxCurveComponent,
+		NgxComposerComponent,
 		WebgpuInstanceUniformComponent,
 		WebgpuLightsCustomComponent,
 		WebgpuLightsSelectiveComponent,

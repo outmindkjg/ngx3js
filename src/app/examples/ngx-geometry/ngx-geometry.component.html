@@ -19,9 +19,9 @@
 >
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-		<ngx3js-position [x]="0" [y]="5" [z]="10"></ngx3js-position>
+		<ngx3js-position [x]="0" [y]="3" [z]="10"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-scene #scene [background]="'0x000000'">
+	<ngx3js-scene #scene [background]="textureCube">
 		<ngx3js-fog [color]="'0xa0a0a0'" [near]="10" [far]="50"></ngx3js-fog>
 		<ngx3js-light
 			[type]="'Hemisphere'"
@@ -46,130 +46,124 @@
 			<ngx3js-position [x]="-3" [y]="10" [z]="10"></ngx3js-position>
 		</ngx3js-light>
 		<ngx3js-shared>
+			<ngx3js-texture
+				#textureCube
+				[image]="'textures/cube/Park3Med/'"
+				[cubeImage]="['', 'jpg']"
+				[mapping]="'CubeRefraction'"
+			></ngx3js-texture>
 			<ngx3js-material
-				#material
-				[type]="'MeshPhongMaterial'"
+				#materialBase
+				[type]="'MeshPhysicalMaterial'"
 				[color]="controls.color"
-				[side]="'double'"
+				[envMap]="textureCube"
+				[metalness]="0.9"
+				[roughness]="0.1"
 			>
 				<ngx3js-texture
 					[type]="'map'"
 					[image]="'textures/crate.gif'"
 				></ngx3js-texture>
 			</ngx3js-material>
+			<ngx3js-material
+				#materialWireframe
+				[type]="'MeshPhongMaterial'"
+				[color]="controls.color"
+				[wireframe]="true"
+			></ngx3js-material>
+			<ngx3js-material
+				#materialNormal
+				[type]="'MeshNormalMaterial'"
+				[color]="controls.color"
+			></ngx3js-material>
+			<ngx3js-material
+				#materialToon
+				[type]="'MeshPhongMaterial'"
+				[color]="controls.color"
+			></ngx3js-material>
+			<ngx3js-material
+				#materialLambert
+				[type]="'MeshPhongMaterial'"
+				[color]="controls.color"
+				[envMap]="textureCube"
+				[refractionRatio]="0.88"
+			></ngx3js-material>
+			<ngx3js-material
+				#materialPhysical
+				[type]="'MeshPhysicalMaterial'"
+				[color]="controls.color"
+				[metalness]="0"
+				[roughness]="0"
+				[reflectivity]="0.5"
+				[alphaTest]="0.5"
+				[depthWrite]="false"
+				[transmission]="0.9"
+				[opacity]="1"
+				[side]="'DoubleSide'"
+				[transparent]="true"
+			>
+				<ngx3js-texture
+					[type]="'alphaMap'"
+					[canvas]="'white'"
+					[magFilter]="'NearestFilter'"
+					[wrap]="'RepeatWrapping'"
+					[repeatX]="3.5"
+					[repeatY]="3.5"
+				></ngx3js-texture>
+			</ngx3js-material>
+			<ngx3js-geometry
+				#dodecahedron
+				[type]="'Dodecahedron'"
+				[radius]="1"
+			></ngx3js-geometry>
+			<ngx3js-geometry
+				#geometry
+				[type]="controls.geometry.type"
+				[width]="controls.geometry.width"
+				[height]="controls.geometry.height"
+				[depth]="controls.geometry.depth"
+				[radius]="controls.geometry.radius"
+				[segments]="controls.geometry.segments"
+				[text]="'A'"
+				[pointsGeometry]="dodecahedron"
+			></ngx3js-geometry>
 		</ngx3js-shared>
-		<ngx3js-helper
-			[name]="'gridHelper'"
-			[type]="'GridHelper'"
-			[size]="100"
-			[divisions]="10"
-			[color1]="'0x888888'"
-			[color2]="'0x444444'"
-		>
-			<ngx3js-position [x]="0" [y]="-1" [z]="0"></ngx3js-position>
-		</ngx3js-helper>
 		<ngx3js-mesh (onLoad)="setMesh($event)">
-
-			<ngx3js-mesh [material]="material">
-				<ngx3js-mesh [type]="'text'" [text]="'PlaneGeometry'" [size]="0.15">
-					<ngx3js-position [x]="0" [y]="1.2" [z]="0"></ngx3js-position>
-				</ngx3js-mesh>
-				<ngx3js-position [x]="-3" [y]="0" [z]="-3"></ngx3js-position>
-				<ngx3js-geometry
-					[type]="'PlaneGeometry'"
-					[width]="2"
-					[height]="2"
-				></ngx3js-geometry>
-			</ngx3js-mesh>
-			<ngx3js-mesh [material]="material">
-				<ngx3js-mesh [type]="'text'" [text]="'RingGeometry'" [size]="0.15">
-					<ngx3js-position [x]="0" [y]="1.2" [z]="0"></ngx3js-position>
-				</ngx3js-mesh>
-				<ngx3js-position [x]="0" [y]="0" [z]="-3"></ngx3js-position>
-				<ngx3js-geometry
-					[type]="'RingGeometry'"
-					[innerRadius]="0.7"
-					[outerRadius]="1"
-				></ngx3js-geometry>
-			</ngx3js-mesh>
-			<ngx3js-mesh [material]="material">
-				<ngx3js-mesh [type]="'text'" [text]="'CircleGeometry'" [size]="0.15">
-					<ngx3js-position [x]="0" [y]="1.2" [z]="0"></ngx3js-position>
-				</ngx3js-mesh>
-				<ngx3js-position [x]="3" [y]="0" [z]="-3"></ngx3js-position>
-				<ngx3js-geometry
-					[type]="'CircleGeometry'"
-					[radius]="1"
-				></ngx3js-geometry>
-			</ngx3js-mesh>
-
-			<ngx3js-mesh [material]="material">
-				<ngx3js-mesh [type]="'text'" [text]="'DodecahedronGeometry'" [size]="0.15">
-					<ngx3js-position [x]="0" [y]="1.2" [z]="0"></ngx3js-position>
-				</ngx3js-mesh>
-				<ngx3js-position [x]="-3" [y]="0" [z]="0"></ngx3js-position>
-				<ngx3js-geometry
-					[type]="'DodecahedronGeometry'"
-					[radius]="1"
-					[detail]="0"
-				></ngx3js-geometry>
-			</ngx3js-mesh>
-			<ngx3js-mesh [material]="material">
-				<ngx3js-mesh [type]="'text'" [text]="'IcosahedronGeometry'" [size]="0.15">
-					<ngx3js-position [x]="0" [y]="1.2" [z]="0"></ngx3js-position>
-				</ngx3js-mesh>
+			<ngx3js-mesh [material]="materialBase" [geometry]="geometry">
 				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-				<ngx3js-geometry
-					[type]="'IcosahedronGeometry'"
-					[radius]="1"
-					[detail]="0"
-				></ngx3js-geometry>
+				<ngx3js-scale [x]="1.5" [y]="1.5" [z]="1.5"></ngx3js-scale>
 			</ngx3js-mesh>
-			<ngx3js-mesh [material]="material">
-				<ngx3js-mesh [type]="'text'" [text]="'TetrahedronGeometry'" [size]="0.15">
-					<ngx3js-position [x]="0" [y]="1.2" [z]="0"></ngx3js-position>
+			<ngx3js-mesh>
+				<ngx3js-rotation [x]="0" [y]="72*0" [z]="0"></ngx3js-rotation>
+				<ngx3js-mesh [material]="materialWireframe" [geometry]="geometry">
+					<ngx3js-position [x]="5" [y]="0" [z]="0"></ngx3js-position>
 				</ngx3js-mesh>
-				<ngx3js-position [x]="3" [y]="0" [z]="0"></ngx3js-position>
-				<ngx3js-geometry
-					[type]="'TetrahedronGeometry'"
-					[radius]="1"
-					[detail]="0"
-				></ngx3js-geometry>
+			</ngx3js-mesh>
+			<ngx3js-mesh>
+				<ngx3js-rotation [x]="0" [y]="72*1" [z]="0"></ngx3js-rotation>
+				<ngx3js-mesh [material]="materialNormal" [geometry]="geometry">
+					<ngx3js-position [x]="5" [y]="0" [z]="0"></ngx3js-position>
+				</ngx3js-mesh>
+			</ngx3js-mesh>
+			<ngx3js-mesh>
+				<ngx3js-rotation [x]="0" [y]="72*2" [z]="0"></ngx3js-rotation>
+				<ngx3js-mesh [material]="materialToon" [geometry]="geometry">
+					<ngx3js-position [x]="5" [y]="0" [z]="0"></ngx3js-position>
+				</ngx3js-mesh>
+			</ngx3js-mesh>
+			<ngx3js-mesh>
+				<ngx3js-rotation [x]="0" [y]="72*3" [z]="0"></ngx3js-rotation>
+				<ngx3js-mesh [material]="materialLambert" [geometry]="geometry">
+					<ngx3js-position [x]="5" [y]="0" [z]="0"></ngx3js-position>
+				</ngx3js-mesh>
+			</ngx3js-mesh>
+			<ngx3js-mesh>
+				<ngx3js-rotation [x]="0" [y]="72*4" [z]="0"></ngx3js-rotation>
+				<ngx3js-mesh [material]="materialPhysical" [geometry]="geometry">
+					<ngx3js-position [x]="5" [y]="0" [z]="0"></ngx3js-position>
+				</ngx3js-mesh>
 			</ngx3js-mesh>
 
-			<ngx3js-mesh [material]="material">
-				<ngx3js-mesh [type]="'text'" [text]="'BoxGeometry'" [size]="0.15">
-					<ngx3js-position [x]="0" [y]="1.2" [z]="0"></ngx3js-position>
-				</ngx3js-mesh>
-				<ngx3js-position [x]="-3" [y]="0" [z]="3"></ngx3js-position>
-				<ngx3js-geometry
-					[type]="'BoxGeometry'"
-					[width]="2"
-					[height]="2"
-					[depth]="2"
-				></ngx3js-geometry>
-			</ngx3js-mesh>
-			<ngx3js-mesh [material]="material">
-				<ngx3js-mesh [type]="'text'" [text]="'SphereGeometry'" [size]="0.15">
-					<ngx3js-position [x]="0" [y]="1.2" [z]="0"></ngx3js-position>
-				</ngx3js-mesh>
-				<ngx3js-position [x]="0" [y]="0" [z]="3"></ngx3js-position>
-				<ngx3js-geometry
-					[type]="'SphereGeometry'"
-					[radius]="1"
-				></ngx3js-geometry>
-			</ngx3js-mesh>
-			<ngx3js-mesh [material]="material">
-				<ngx3js-mesh [type]="'text'" [text]="'TorusGeometry'" [size]="0.15">
-					<ngx3js-position [x]="0" [y]="1.2" [z]="0"></ngx3js-position>
-				</ngx3js-mesh>
-				<ngx3js-position [x]="3" [y]="0" [z]="3"></ngx3js-position>
-				<ngx3js-geometry
-					[type]="'TorusGeometry'"
-					[radius]="1"
-					[tube]="0.3"
-				></ngx3js-geometry>
-			</ngx3js-mesh>			
 		</ngx3js-mesh>
 	</ngx3js-scene>
 </ngx3js-renderer>

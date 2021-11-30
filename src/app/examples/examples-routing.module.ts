@@ -41,6 +41,7 @@ import { NgxChartMixedComponent } from './ngx-chart-mixed/ngx-chart-mixed.compon
 import { NgxChartPolarComponent } from './ngx-chart-polar/ngx-chart-polar.component';
 import { NgxChartRadarComponent } from './ngx-chart-radar/ngx-chart-radar.component';
 import { NgxChartScatterComponent } from './ngx-chart-scatter/ngx-chart-scatter.component';
+import { NgxComposerComponent } from './ngx-composer/ngx-composer.component';
 import { NgxControlComponent } from './ngx-control/ngx-control.component';
 import { NgxCurveComponent } from './ngx-curve/ngx-curve.component';
 import { NgxDirectivesComponent } from './ngx-directives/ngx-directives.component';
@@ -1564,6 +1565,7 @@ const routes: Routes = [
 	{ path: 'webgl_loader_ifc', component: WebglLoaderIfcComponent },
 	{ path: 'ngx_material', component: NgxMaterialComponent },
 	{ path: 'ngx_geometry', component: NgxGeometryComponent },
+	{ path: 'ngx_geometry/:type', component: NgxGeometryComponent },
 	{ path: 'ngx_font', component: NgxFontComponent },
 	{ path: 'ngx_chart_bar', component: NgxChartBarComponent },
 	{ path: 'ngx_chart_line', component: NgxChartLineComponent },
@@ -1586,6 +1588,8 @@ const routes: Routes = [
 	{ path: 'ngx_position', component: NgxPositionComponent },
 	{ path: 'ngx_rotation', component: NgxRotationComponent },
 	{ path: 'ngx_scale', component: NgxScaleComponent },
+	{ path: 'ngx_composer', component: NgxComposerComponent },
+	{ path: 'ngx_composer/:type', component: NgxComposerComponent },
 	{ path: 'ngx_curve', component: NgxCurveComponent },
 	{ path: 'ngx_curve/:type', component: NgxCurveComponent },
 	{ path: '**', component: UnderConstructionComponent },

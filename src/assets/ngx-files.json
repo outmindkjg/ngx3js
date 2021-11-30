@@ -13,6 +13,7 @@
 		"ngx_material",
 		"ngx_geometry",
 		"ngx_font",
+		"ngx_composer",
 		"ngx_pipes",
 		"ngx_directives",
 		"ngx_physics",
