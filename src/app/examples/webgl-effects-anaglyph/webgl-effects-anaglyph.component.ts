@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { BaseComponent, MeshComponent, RendererTimer } from 'ngx3js';
 
 @Component({
-	selector: 'app-webgl-effects-anaglyph',
-	templateUrl: './webgl-effects-anaglyph.component.html',
-	styleUrls: ['./webgl-effects-anaglyph.component.scss'],
+	selector: 'app-webgl-Effects-anaglyph',
+	templateUrl: './webgl-Effects-anaglyph.component.html',
+	styleUrls: ['./webgl-Effects-anaglyph.component.scss'],
 })
 export class WebglEffectsAnaglyphComponent extends BaseComponent<{}> {
 	constructor() {

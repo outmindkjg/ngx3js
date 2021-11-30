@@ -30,7 +30,7 @@
 	(onRender)="onRender($event)"
 	(onLoad)="setRender($event)"
 >
-	<ngx3js-composer [scene]="scene" [camera]="camera">
+	<ngx3js-effect [scene]="scene" [camera]="camera">
 		<ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
 		<ngx3js-pass
 			[type]="'UnrealBloomPass'"
@@ -39,7 +39,7 @@
 			[radius]="0"
 			(onLoad)="setBloomPass($event)"
 		></ngx3js-pass>
-	</ngx3js-composer>
+	</ngx3js-effect>
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	<ngx3js-scene #scene>
 		<ngx3js-light [type]="'AmbientLight'" [color]="'0x404040'"></ngx3js-light>

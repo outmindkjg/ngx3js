@@ -42,7 +42,7 @@
 	>
 		<ngx3js-position [x]="0" [y]="0" [z]="7"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-composer [scene]="scene" [camera]="cameraP">
+	<ngx3js-effect [scene]="scene" [camera]="cameraP">
 		<ngx3js-pass
 			[type]="'SSAARenderPass'"
 			[scene]="scene"
@@ -68,7 +68,7 @@
 			[shader]="'CopyShader'"
 			[enabled]="!controls.renderToScreen"
 		></ngx3js-pass>
-	</ngx3js-composer>
+	</ngx3js-effect>
 	<ngx3js-scene #scene>
 		<ngx3js-light [type]="'PointLight'" [color]="'0xddffdd'" [intensity]="1.0">
 			<ngx3js-position [x]="-70" [y]="-70" [z]="70"></ngx3js-position>

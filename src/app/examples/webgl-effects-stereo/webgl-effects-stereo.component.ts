@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { BaseComponent, MeshComponent, RendererTimer } from 'ngx3js';
 
 @Component({
-	selector: 'app-webgl-effects-stereo',
-	templateUrl: './webgl-effects-stereo.component.html',
-	styleUrls: ['./webgl-effects-stereo.component.scss'],
+	selector: 'app-webgl-Effects-stereo',
+	templateUrl: './webgl-Effects-stereo.component.html',
+	styleUrls: ['./webgl-Effects-stereo.component.scss'],
 })
 export class WebglEffectsStereoComponent extends BaseComponent<{
 	refractionRatio: number;

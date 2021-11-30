@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, ComposerComponent, PassComponent, RendererEvent, RendererInfo, THREE } from 'ngx3js';
+import { BaseComponent, EffectComponent, PassComponent, RendererEvent, RendererInfo, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-unreal-bloom-selective',
@@ -28,13 +28,13 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 					type: 'select',
 					select: ['Scene with Glow', 'Glow only', 'Scene only'],
 					change : () => {
-						if (this.bloomComposer !== null) {
+						if (this.bloomEffect !== null) {
 							switch ( this.controls.scene ) 	{
 								case 'Scene with Glow':
-									this.bloomComposer.renderToScreen = false;
+									this.bloomEffect.renderToScreen = false;
 									break;
 								case 'Glow only':
-									this.bloomComposer.renderToScreen = true;
+									this.bloomEffect.renderToScreen = true;
 									break;
 								case 'Scene only':
 									// nothing to do
@@ -120,7 +120,7 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 	bloomLayer : THREE.Layers = null;
 	darkMaterial = new THREE.MeshBasicMaterial( { color: "black" } );
 	beforeRender = (renderInfo : RendererInfo) : boolean => {
-		if (this.finalComposer !== null && this.bloomComposer !== null && this.sceneObject3d !== null) {
+		if (this.finalEffect !== null && this.bloomEffect !== null && this.sceneObject3d !== null) {
 			switch(this.controls.scene) {
 				case 'Scene with Glow' :
 					const darkMaterial = this.darkMaterial;
@@ -131,19 +131,19 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 							obj.material = darkMaterial;
 						}
 					} );
-					this.bloomComposer.render();
+					this.bloomEffect.render();
 					this.sceneObject3d.traverse( ( obj: any ) => {
 						if ( materials[ obj.uuid ] ) {
 							obj.material = materials[ obj.uuid ];
 						}
 					});
-					this.finalComposer.render();
+					this.finalEffect.render();
 					break;
 				case 'Glow only' :
 					if (this.camera !== null) {
 						const camera : any = this.camera.getCamera();
 						camera.layers.set( 1 );
-						this.bloomComposer.render();
+						this.bloomEffect.render();
 						camera.layers.set( 0 );
 					}
 					break;
@@ -161,15 +161,15 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 		}
 	}
 
-	finalComposer : any = null;
-	bloomComposer : any = null;
+	finalEffect : any = null;
+	bloomEffect : any = null;
 	
-	setFinalComposer(composer : ComposerComponent) {
-		this.finalComposer = composer.getComposer();
+	setFinalEffect(composer : EffectComponent) {
+		this.finalEffect = composer.getEffect();
 	}
 
-	setBloomComposer(composer : ComposerComponent) {
-		this.bloomComposer = composer.getComposer();
+	setBloomEffect(composer : EffectComponent) {
+		this.bloomEffect = composer.getEffect();
 	}
 
 }

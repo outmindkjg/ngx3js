@@ -18,7 +18,7 @@
 		次に、最終的なスクリーンへのレンダリングの前に、1つ以上のpost-processingで画像バッファにフィルタとエフェクトを適用します。
 	</p>
 	<p>
-		こういったワークフローを実装するために、three.jsは[page:EffectComposer]で完全なpost-processingを提供しています。
+		こういったワークフローを実装するために、three.jsは[page:EffectEffect]で完全なpost-processingを提供しています。
 	</p>
 
 	<h2>Workflow</h2>
@@ -30,7 +30,7 @@
 	</p>
 
 	<code>
-		import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+		import { EffectEffect } from 'three/examples/jsm/postprocessing/EffectEffect.js';
 		import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 		import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 		</code>
@@ -40,12 +40,12 @@
 	</p>
 
 	<code>
-		const composer = new EffectComposer( renderer );
+		const composer = new EffectEffect( renderer );
 		</code>
 
 	<p>
 		composerを使うときにはアプリケーションのアニメーションループを変更する必要があります。
-		[page:WebGLRenderer]のrenderメソッドを呼ぶ代わりに[page:EffectComposer]のそれぞれの対応するものを使います。
+		[page:WebGLRenderer]のrenderメソッドを呼ぶ代わりに[page:EffectEffect]のそれぞれの対応するものを使います。
 	</p>
 
 	<code>
@@ -107,7 +107,7 @@
 
 	<p>
 		リポジトリには[link:https://github.com/mrdoob/three.js/blob/master/examples/jsm/shaders/CopyShader.js CopyShader]と呼ばれるファイルがあり、カスタムshaderを作る上での良いスタートコードです。
-		*CopyShader*はエフェクトを適用せずに、EffectComposerの読み込みバッファの画像内容を書き込みバッファにコピーするだけです。
+		*CopyShader*はエフェクトを適用せずに、EffectEffectの読み込みバッファの画像内容を書き込みバッファにコピーするだけです。
 	</p>
 
 </body>

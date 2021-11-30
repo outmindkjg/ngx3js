@@ -17,7 +17,7 @@
 	<ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
 		<ngx3js-position [x]="0" [y]="150" [z]="500"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-composer [type]="'AsciiEffect'" [invert]="true"></ngx3js-composer>
+	<ngx3js-effect [type]="'AsciiEffect'" [invert]="true"></ngx3js-effect>
 	<ngx3js-scene #scene [background]="'0x000000'">
 		<ngx3js-light [type]="'Point'" [color]="'0xffffff'">
 			<ngx3js-position [x]="500" [y]="500" [z]="500"></ngx3js-position>

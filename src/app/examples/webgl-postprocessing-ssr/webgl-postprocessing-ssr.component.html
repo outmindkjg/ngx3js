@@ -33,7 +33,7 @@
 			[z]="0.43921296427927076"
 		></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-composer>
+	<ngx3js-effect>
 		<ngx3js-pass
 			[type]="'SSRPass'"
 			[size]="renderSize"
@@ -42,7 +42,7 @@
 			[mesh]="groundReflector"
 			(onLoad)="setSSRrPass($event)"
 		></ngx3js-pass>
-	</ngx3js-composer>
+	</ngx3js-effect>
 	<ngx3js-scene #scene [background]="'0x443333'" (onLoad)="setScene($event)">
 		<ngx3js-fog [color]="'0x443333'" [near]="1" [far]="4"></ngx3js-fog>
 		<ngx3js-light

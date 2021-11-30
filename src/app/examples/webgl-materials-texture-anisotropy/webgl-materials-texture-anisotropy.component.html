@@ -33,7 +33,7 @@
 	>
 		<ngx3js-position [x]="0" [y]="100" [z]="1500"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-composer
+	<ngx3js-effect
 		[scissorTest]="true"
 		[scissorX]="0"
 		[scissorY]="0"
@@ -53,8 +53,8 @@
 			[type]="'ShaderPass'"
 			[shader]="'CopyShader'"
 		></ngx3js-pass>
-	</ngx3js-composer>
-	<ngx3js-composer
+	</ngx3js-effect>
+	<ngx3js-effect
 		[scissorTest]="true"
 		[scissorX]="'50%'"
 		[scissorY]="0"
@@ -74,7 +74,7 @@
 			[type]="'ShaderPass'"
 			[shader]="'CopyShader'"
 		></ngx3js-pass>
-	</ngx3js-composer>
+	</ngx3js-effect>
 	<ngx3js-scene #scene1 [background]="'0xf2f7ff'">
 		<ngx3js-fog [color]="'0xf2f7ff'" [near]="1" [far]="25000"></ngx3js-fog>
 		<ngx3js-light [type]="'AmbientLight'" [color]="'0xeef0ff'"></ngx3js-light>

@@ -23,7 +23,7 @@
 	>
 		<ngx3js-position [x]="0" [y]="0" [z]="6"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-composer
+	<ngx3js-effect
 		[scissorTest]="true"
 		[scissorX]="layoutFirst.x"
 		[scissorY]="layoutFirst.y"
@@ -38,8 +38,8 @@
 			[camera]="camera"
 		></ngx3js-pass>
 		<ngx3js-pass [type]="'ShaderPass'" [shader]="'CopyShader'"></ngx3js-pass>
-	</ngx3js-composer>
-	<ngx3js-composer
+	</ngx3js-effect>
+	<ngx3js-effect
 		[scissorTest]="true"
 		[scissorX]="layoutSecond.x"
 		[scissorY]="layoutSecond.y"
@@ -54,7 +54,7 @@
 			[camera]="camera"
 		></ngx3js-pass>
 		<ngx3js-pass [type]="'ShaderPass'" [shader]="'CopyShader'"></ngx3js-pass>
-	</ngx3js-composer>
+	</ngx3js-effect>
 	<ngx3js-shared>
 		<ngx3js-geometry
 			#geometry

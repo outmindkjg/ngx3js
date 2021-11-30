@@ -138,7 +138,7 @@ export class WebglMaterialsEnvmapsParallaxComponent extends BaseComponent<{
 
     }
 
-    // Trowbridge-Reitz distribution to Mip level, following the logic of http://casual-effects.blogspot.ca/2011/08/plausible-environment-lighting-in-two.html
+    // Trowbridge-Reitz distribution to Mip level, following the logic of http://casual-Effects.blogspot.ca/2011/08/plausible-environment-lighting-in-two.html
     float getSpecularMIPLevel( const in float roughness, const in int maxMIPLevel ) {
 
       float maxMIPLevelScalar = float( maxMIPLevel );

@@ -17,7 +17,7 @@
 			the screen.
 		</p>
 		<p>
-			three.js provides a complete post-processing solution via [page:EffectComposer] to implement such a workflow.
+			three.js provides a complete post-processing solution via [page:EffectEffect] to implement such a workflow.
 		</p>
 
 		<h2>Workflow</h2>
@@ -28,7 +28,7 @@
 		</p>
 
 		<code>
-		import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+		import { EffectEffect } from 'three/examples/jsm/postprocessing/EffectEffect.js';
 		import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 		import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 		</code>
@@ -38,12 +38,12 @@
 		</p>
 
 		<code>
-		const composer = new EffectComposer( renderer );
+		const composer = new EffectEffect( renderer );
 		</code>
 
 		<p>
 			When using a composer, it's necessary to change the application's animation loop. Instead of calling the render method of
-			[page:WebGLRenderer], we now use the respective counterpart of [page:EffectComposer].
+			[page:WebGLRenderer], we now use the respective counterpart of [page:EffectEffect].
 		</p>
 
 		<code>
@@ -103,7 +103,7 @@
 
 		<p>
 			The repository provides a file called [link:https://github.com/mrdoob/three.js/blob/master/examples/jsm/shaders/CopyShader.js CopyShader] which is a
-			good starting code for your own custom shader. *CopyShader* just copies the image contents of the [page:EffectComposer]'s read buffer
+			good starting code for your own custom shader. *CopyShader* just copies the image contents of the [page:EffectEffect]'s read buffer
 			to its write buffer without applying any effects.
 		</p>
 

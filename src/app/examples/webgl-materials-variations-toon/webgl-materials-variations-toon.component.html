@@ -20,7 +20,7 @@
 	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="2500">
 		<ngx3js-position [x]="0.0" [y]="400" [z]="400 * 3.5"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-composer [type]="'OutlineEffect'"></ngx3js-composer>
+	<ngx3js-effect [type]="'OutlineEffect'"></ngx3js-effect>
 	<ngx3js-scene #scene [background]="'0x444488'">
 		<ngx3js-light [type]="'AmbientLight'" [color]="'0x888888'"></ngx3js-light>
 		<ngx3js-mesh (onLoad)="setPointLight($event)">

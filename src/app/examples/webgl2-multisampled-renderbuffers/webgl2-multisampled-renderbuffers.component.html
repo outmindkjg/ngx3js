@@ -66,7 +66,7 @@
 				[shader]="'CopyShader'"
 			></ngx3js-pass>
 		</ngx3js-shared>
-		<ngx3js-composer
+		<ngx3js-effect
 			[scissorTest]="true"
 			[scissorX]="0"
 			[scissorY]="0"
@@ -77,8 +77,8 @@
 		>
 			<ngx3js-pass [refer]="renderPass"></ngx3js-pass>
 			<ngx3js-pass [refer]="copyPass"></ngx3js-pass>
-		</ngx3js-composer>
-		<ngx3js-composer
+		</ngx3js-effect>
+		<ngx3js-effect
 			[scissorTest]="true"
 			[scissorX]="'50%'"
 			[scissorY]="0"
@@ -93,7 +93,7 @@
 			></ngx3js-render-target>
 			<ngx3js-pass [refer]="renderPass"></ngx3js-pass>
 			<ngx3js-pass [refer]="copyPass"></ngx3js-pass>
-		</ngx3js-composer>
+		</ngx3js-effect>
 		<ngx3js-mesh (onLoad)="setMesh($event)">
 			<ngx3js-mesh
 				*ngFor="let info of meshInfos"

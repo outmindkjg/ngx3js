@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { BaseComponent, RendererTimer } from 'ngx3js';
 
 @Component({
-	selector: 'app-webgl-effects-ascii',
-	templateUrl: './webgl-effects-ascii.component.html',
-	styleUrls: ['./webgl-effects-ascii.component.scss'],
+	selector: 'app-webgl-Effects-ascii',
+	templateUrl: './webgl-Effects-ascii.component.html',
+	styleUrls: ['./webgl-Effects-ascii.component.scss'],
 })
 export class WebglEffectsAsciiComponent extends BaseComponent<{}> {
 	constructor() {

@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { BaseComponent, MeshComponent, RendererTimer } from 'ngx3js';
 
 @Component({
-	selector: 'app-webgl-effects-parallaxbarrier',
-	templateUrl: './webgl-effects-parallaxbarrier.component.html',
-	styleUrls: ['./webgl-effects-parallaxbarrier.component.scss'],
+	selector: 'app-webgl-Effects-parallaxbarrier',
+	templateUrl: './webgl-Effects-parallaxbarrier.component.html',
+	styleUrls: ['./webgl-Effects-parallaxbarrier.component.scss'],
 })
 export class WebglEffectsParallaxbarrierComponent extends BaseComponent<{}> {
 	constructor() {

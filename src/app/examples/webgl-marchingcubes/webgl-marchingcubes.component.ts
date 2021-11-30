@@ -467,19 +467,19 @@ export class WebglMarchingcubesComponent extends BaseComponent<{
 
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
-		this.effect = mesh.getObject3d();
+		this.Effect = mesh.getObject3d();
 	}
 
-	effect: any = null;
+	Effect: any = null;
 	time: number = 0;
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);
-		if (this.effect !== null) {
+		if (this.Effect !== null) {
 			this.time += timer.delta * this.controls.speed * 0.5;
-			this.effect.reset();
+			this.Effect.reset();
 			const blobInfos = this.getBlobInfos(this.time);
 			blobInfos.forEach((blobInfo) => {
-				this.effect.addBall(
+				this.Effect.addBall(
 					blobInfo.x,
 					blobInfo.y,
 					blobInfo.z,
@@ -491,13 +491,13 @@ export class WebglMarchingcubesComponent extends BaseComponent<{
 			this.planeInfos.forEach((plane) => {
 				switch (plane.type.toLowerCase()) {
 					case 'x':
-						this.effect.addPlaneX(plane.strength, plane.subtract);
+						this.Effect.addPlaneX(plane.strength, plane.subtract);
 						break;
 					case 'y':
-						this.effect.addPlaneY(plane.strength, plane.subtract);
+						this.Effect.addPlaneY(plane.strength, plane.subtract);
 						break;
 					case 'z':
-						this.effect.addPlaneZ(plane.strength, plane.subtract);
+						this.Effect.addPlaneZ(plane.strength, plane.subtract);
 						break;
 				}
 			});

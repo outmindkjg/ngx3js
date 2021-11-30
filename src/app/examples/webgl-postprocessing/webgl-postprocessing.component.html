@@ -12,7 +12,7 @@
 	[guiParams]="controlsParams"
 	(onRender)="onRender($event)"
 >
-	<ngx3js-composer
+	<ngx3js-effect
 		[camera]="camera"
 		[scene]="scene"
 		[viewport]="true"
@@ -33,8 +33,8 @@
 			[shader]="'RGBShift'"
 			[uniforms]="{ amount: 0.0015 }"
 		></ngx3js-pass>
-	</ngx3js-composer>
-	<ngx3js-composer
+	</ngx3js-effect>
+	<ngx3js-effect
 		[camera]="camera"
 		[scene]="scene"
 		[viewport]="true"
@@ -54,8 +54,8 @@
 			[shader]="'RGBShift'"
 			[uniforms]="{ amount: 0.0015 }"
 		></ngx3js-pass>
-	</ngx3js-composer>
-	<ngx3js-composer
+	</ngx3js-effect>
+	<ngx3js-effect
 		[camera]="camera"
 		[scene]="scene"
 		[viewport]="true"
@@ -75,8 +75,8 @@
 			[shader]="'RGBShift'"
 			[uniforms]="{ amount: 0.0015 }"
 		></ngx3js-pass>
-	</ngx3js-composer>
-	<ngx3js-composer
+	</ngx3js-effect>
+	<ngx3js-effect
 		[camera]="camera"
 		[scene]="scene"
 		[viewport]="true"
@@ -96,8 +96,8 @@
 			[shader]="'RGBShift'"
 			[uniforms]="{ amount: 0.0015 }"
 		></ngx3js-pass>
-	</ngx3js-composer>
-	<ngx3js-composer
+	</ngx3js-effect>
+	<ngx3js-effect
 		[camera]="camera"
 		[scene]="scene"
 		[viewport]="true"
@@ -117,7 +117,7 @@
 			[shader]="'RGBShift'"
 			[uniforms]="{ amount: 0.0015 }"
 		></ngx3js-pass>
-	</ngx3js-composer>
+	</ngx3js-effect>
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera
 		#camera

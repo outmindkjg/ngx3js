@@ -37,7 +37,7 @@
 	[guiParams]="controlsParams"
 	(onRender)="onRender($event)"
 >
-	<ngx3js-composer
+	<ngx3js-effect
 		[scissorTest]="true"
 		[scissorX]="0"
 		[scissorY]="0"
@@ -53,8 +53,8 @@
 			[camera]="camera"
 		></ngx3js-pass>
 		<ngx3js-pass [refer]="copyPass"></ngx3js-pass>
-	</ngx3js-composer>
-	<ngx3js-composer
+	</ngx3js-effect>
+	<ngx3js-effect
 		[scissorTest]="true"
 		[scissorX]="'50%'"
 		[scissorY]="0"
@@ -70,7 +70,7 @@
 			[camera]="camera"
 		></ngx3js-pass>
 		<ngx3js-pass [refer]="copyPass"></ngx3js-pass>
-	</ngx3js-composer>
+	</ngx3js-effect>
 	<ngx3js-control [type]="'plane'"></ngx3js-control>
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera

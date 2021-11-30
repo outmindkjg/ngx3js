@@ -43,8 +43,8 @@ export class WebglLoaderMmdComponent extends BaseComponent<{
 					name: 'outline',
 					type: 'checkbox',
 					change: () => {
-						if (this.effect !== null) {
-							this.effect.enabled = this.controls.outline;
+						if (this.Effect !== null) {
+							this.Effect.enabled = this.controls.outline;
 						}
 					},
 				},
@@ -84,10 +84,10 @@ export class WebglLoaderMmdComponent extends BaseComponent<{
 		);
 	}
 
-	effect: any = null;
+	Effect: any = null;
 	setCamera(camera: CameraComponent) {
 		super.setCamera(camera);
-		// this.effect = camera.getEffectComposer();
+		// this.Effect = camera.getEffectEffect();
 	}
 
 	setHelperEnable(name, enable) {

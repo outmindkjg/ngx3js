@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
-	selector: 'app-webgl-effects-peppersghost',
-	templateUrl: './webgl-effects-peppersghost.component.html',
-	styleUrls: ['./webgl-effects-peppersghost.component.scss'],
+	selector: 'app-webgl-Effects-peppersghost',
+	templateUrl: './webgl-Effects-peppersghost.component.html',
+	styleUrls: ['./webgl-Effects-peppersghost.component.scss'],
 })
 export class WebglEffectsPeppersghostComponent extends BaseComponent<{}> {
 	constructor() {

@@ -80,7 +80,7 @@
 				"DrawingCanvasDirective": "ngxapi/en/DrawingCanvasDirective"
 			},
 			"Effect Composer & Pass" : {
-				"ComposerComponent": "ngxapi/en/ComposerComponent",
+				"EffectComponent": "ngxapi/en/EffectComponent",
 				"NgxEffectComposer" : "ngxapi/en/NgxEffectComposer",
 				"NgxAsciiEffect" : "ngxapi/en/NgxAsciiEffect",
 				"NgxOutlineEffect" : "ngxapi/en/NgxOutlineEffect",

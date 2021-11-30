@@ -12,7 +12,7 @@
 	[guiParams]="controlsParams"
 	(onRender)="onRender($event)"
 >
-	<ngx3js-composer>
+	<ngx3js-effect>
 		<ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
 		<ngx3js-pass
 			[type]="'FilmPass'"
@@ -21,7 +21,7 @@
 			[scanlinesCount]="2048"
 			[grayscale]="false"
 		></ngx3js-pass>
-	</ngx3js-composer>
+	</ngx3js-effect>
 	<ngx3js-control
 		[type]="'FlyControls'"
 		[movementSpeed]="1000"

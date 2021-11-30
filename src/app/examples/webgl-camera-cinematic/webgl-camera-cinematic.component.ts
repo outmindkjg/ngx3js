@@ -94,7 +94,7 @@ export class WebglCameraCinematicComponent extends BaseComponent<{
 			// and {@link PerspectiveCamera#filmGauge .filmGauge} instead.
 			camera.setFocalLength(this.controls.focalLength);
 			// camera.setfstop(this.controls.focalLength);
-			// camera.setLens( this.controls.focalLength, camera.frameHeight, effectController.fstop, camera.coc );
+			// camera.setLens( this.controls.focalLength, camera.frameHeight, EffectController.fstop, camera.coc );
 			this.controls.focalDepth =
 				postprocessing.bokeh_uniforms['focalDepth'].value;
 		}

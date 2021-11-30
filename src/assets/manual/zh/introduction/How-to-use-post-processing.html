@@ -17,7 +17,7 @@
 			接下来，在图像最终被渲染到屏幕之前，一个或多个后期处理过程将滤镜和效果应用到图像缓冲区。
 		</p>
 		<p>
-			three.js通过[page:EffectComposer]（效果合成器），提供了一个完整的后期处理解决方案来实现这样的工作流程。
+			three.js通过[page:EffectEffect]（效果合成器），提供了一个完整的后期处理解决方案来实现这样的工作流程。
 		</p>
 
 		<h2>工作流程</h2>
@@ -28,7 +28,7 @@
 		</p>
 
 		<code>
-		import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+		import { EffectEffect } from 'three/examples/jsm/postprocessing/EffectEffect.js';
 		import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 		import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 		</code>
@@ -38,12 +38,12 @@
 		</p>
 
 		<code>
-		const composer = new EffectComposer( renderer );
+		const composer = new EffectEffect( renderer );
 		</code>
 
 		<p>
 			在使用合成器时，我们需要对应用程序的动画循环进行更改。
-			现在我们不再调用[page:WebGLRenderer]的render方法，而是使用[page:EffectComposer]中对应的render方法。
+			现在我们不再调用[page:WebGLRenderer]的render方法，而是使用[page:EffectEffect]中对应的render方法。
 		</p>
 
 		<code>

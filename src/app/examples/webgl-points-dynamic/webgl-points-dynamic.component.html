@@ -36,7 +36,7 @@
 	<ngx3js-camera [type]="'perspective'" [fov]="20" [near]="1" [far]="50000">
 		<ngx3js-position [x]="0" [y]="700" [z]="7000"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-composer>
+	<ngx3js-effect>
 		<ngx3js-pass [type]="'render'"></ngx3js-pass>
 		<ngx3js-pass [type]="'bloom'" [strength]="0.75"></ngx3js-pass>
 		<ngx3js-pass
@@ -51,7 +51,7 @@
 			[shader]="'focus'"
 			[uniforms]="{ screenWidth: 2048, screenHeight: 2048 }"
 		></ngx3js-pass>
-	</ngx3js-composer>
+	</ngx3js-effect>
 	<ngx3js-scene #scene [background]="'0x000104'">
 		<ngx3js-fog
 			[type]="'FogExp2'"

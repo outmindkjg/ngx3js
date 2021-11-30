@@ -117,7 +117,7 @@
 			[camera]="camera"
 		></ngx3js-pass>
 	</ngx3js-shared>
-	<ngx3js-composer
+	<ngx3js-effect
 		[clear]="true"
 		[camera]="camera"
 		[scene]="scene"
@@ -136,8 +136,8 @@
 		<ngx3js-pass [refer]="gammaCorrection"></ngx3js-pass>
 		<ngx3js-pass [refer]="effectFilmBW"></ngx3js-pass>
 		<ngx3js-pass [refer]="effectVignette"></ngx3js-pass>
-	</ngx3js-composer>
-	<ngx3js-composer
+	</ngx3js-effect>
+	<ngx3js-effect
 		[camera]="camera"
 		[scene]="scene"
 		[viewport]="true"
@@ -161,8 +161,8 @@
 		<ngx3js-pass [refer]="effectColorify2"></ngx3js-pass>
 		<ngx3js-pass [refer]="clearMask"></ngx3js-pass>
 		<ngx3js-pass [refer]="effectVignette"></ngx3js-pass>
-	</ngx3js-composer>
-	<ngx3js-composer
+	</ngx3js-effect>
+	<ngx3js-effect
 		[camera]="camera"
 		[scene]="scene"
 		[viewport]="true"
@@ -181,8 +181,8 @@
 		<ngx3js-pass [refer]="effectSepia"></ngx3js-pass>
 		<ngx3js-pass [refer]="effectFilm"></ngx3js-pass>
 		<ngx3js-pass [refer]="effectVignette"></ngx3js-pass>
-	</ngx3js-composer>
-	<ngx3js-composer
+	</ngx3js-effect>
+	<ngx3js-effect
 		[camera]="camera"
 		[scene]="scene"
 		[viewport]="true"
@@ -202,7 +202,7 @@
 		<ngx3js-pass [refer]="effectFilm"></ngx3js-pass>
 		<ngx3js-pass [refer]="effectBleach"></ngx3js-pass>
 		<ngx3js-pass [refer]="effectVignette"></ngx3js-pass>
-	</ngx3js-composer>
+	</ngx3js-effect>
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera
 		#camera

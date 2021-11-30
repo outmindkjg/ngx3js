@@ -41,7 +41,7 @@ import { NgxChartMixedComponent } from './ngx-chart-mixed/ngx-chart-mixed.compon
 import { NgxChartPolarComponent } from './ngx-chart-polar/ngx-chart-polar.component';
 import { NgxChartRadarComponent } from './ngx-chart-radar/ngx-chart-radar.component';
 import { NgxChartScatterComponent } from './ngx-chart-scatter/ngx-chart-scatter.component';
-import { NgxComposerComponent } from './ngx-composer/ngx-composer.component';
+import { NgxEffectComponent } from './ngx-effect/ngx-effect.component';
 import { NgxControlComponent } from './ngx-control/ngx-control.component';
 import { NgxCurveComponent } from './ngx-curve/ngx-curve.component';
 import { NgxDirectivesComponent } from './ngx-directives/ngx-directives.component';
@@ -108,11 +108,11 @@ import { WebglCustomAttributesPoints3Component } from './webgl-custom-attributes
 import { WebglCustomAttributesComponent } from './webgl-custom-attributes/webgl-custom-attributes.component';
 import { WebglDecalsComponent } from './webgl-decals/webgl-decals.component';
 import { WebglDepthTextureComponent } from './webgl-depth-texture/webgl-depth-texture.component';
-import { WebglEffectsAnaglyphComponent } from './webgl-effects-anaglyph/webgl-effects-anaglyph.component';
-import { WebglEffectsAsciiComponent } from './webgl-effects-ascii/webgl-effects-ascii.component';
-import { WebglEffectsParallaxbarrierComponent } from './webgl-effects-parallaxbarrier/webgl-effects-parallaxbarrier.component';
-import { WebglEffectsPeppersghostComponent } from './webgl-effects-peppersghost/webgl-effects-peppersghost.component';
-import { WebglEffectsStereoComponent } from './webgl-effects-stereo/webgl-effects-stereo.component';
+import { WebglEffectsAnaglyphComponent } from './webgl-Effects-anaglyph/webgl-Effects-anaglyph.component';
+import { WebglEffectsAsciiComponent } from './webgl-Effects-ascii/webgl-Effects-ascii.component';
+import { WebglEffectsParallaxbarrierComponent } from './webgl-Effects-parallaxbarrier/webgl-Effects-parallaxbarrier.component';
+import { WebglEffectsPeppersghostComponent } from './webgl-Effects-peppersghost/webgl-Effects-peppersghost.component';
+import { WebglEffectsStereoComponent } from './webgl-Effects-stereo/webgl-Effects-stereo.component';
 import { WebglFramebufferTextureComponent } from './webgl-framebuffer-texture/webgl-framebuffer-texture.component';
 import { WebglFurnaceTestComponent } from './webgl-furnace-test/webgl-furnace-test.component';
 import { WebglGeometriesParametricComponent } from './webgl-geometries-parametric/webgl-geometries-parametric.component';
@@ -484,19 +484,19 @@ const routes: Routes = [
 	{ path: 'webgl_decals', component: WebglDecalsComponent },
 	{ path: 'webgl_depth_texture', component: WebglDepthTextureComponent },
 	{
-		path: 'webgl_effects_anaglyph',
+		path: 'webgl_Effects_anaglyph',
 		component: WebglEffectsAnaglyphComponent,
 	},
-	{ path: 'webgl_effects_ascii', component: WebglEffectsAsciiComponent },
+	{ path: 'webgl_Effects_ascii', component: WebglEffectsAsciiComponent },
 	{
-		path: 'webgl_effects_parallaxbarrier',
+		path: 'webgl_Effects_parallaxbarrier',
 		component: WebglEffectsParallaxbarrierComponent,
 	},
 	{
-		path: 'webgl_effects_peppersghost',
+		path: 'webgl_Effects_peppersghost',
 		component: WebglEffectsPeppersghostComponent,
 	},
-	{ path: 'webgl_effects_stereo', component: WebglEffectsStereoComponent },
+	{ path: 'webgl_Effects_stereo', component: WebglEffectsStereoComponent },
 	{
 		path: 'webgl_framebuffer_texture',
 		component: WebglFramebufferTextureComponent,
@@ -1588,8 +1588,8 @@ const routes: Routes = [
 	{ path: 'ngx_position', component: NgxPositionComponent },
 	{ path: 'ngx_rotation', component: NgxRotationComponent },
 	{ path: 'ngx_scale', component: NgxScaleComponent },
-	{ path: 'ngx_composer', component: NgxComposerComponent },
-	{ path: 'ngx_composer/:type', component: NgxComposerComponent },
+	{ path: 'ngx_effect', component: NgxEffectComponent },
+	{ path: 'ngx_effect/:type', component: NgxEffectComponent },
 	{ path: 'ngx_curve', component: NgxCurveComponent },
 	{ path: 'ngx_curve/:type', component: NgxCurveComponent },
 	{ path: '**', component: UnderConstructionComponent },
