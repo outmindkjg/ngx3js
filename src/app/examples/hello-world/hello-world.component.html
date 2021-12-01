@@ -1,0 +1,22 @@
+<div class="info">
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	Result
+</div>
+<ngx3js-renderer [controlType]="'orbit'">
+	<ngx3js-camera>
+		<ngx3js-position [x]="-50" [y]="0" [z]="-50"> </ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-light [type]="'AmbientLight'"> </ngx3js-light>
+		<ngx3js-light [type]="'directional'">
+			<ngx3js-position [x]="-3" [y]="10" [z]="-10"> </ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"> </ngx3js-position>
+			<ngx3js-geometry [type]="'box'" [width]="30" [height]="30" [depth]="30">
+			</ngx3js-geometry>
+			<ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'">
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>

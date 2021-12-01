@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:ShaderPass] &rarr;
+
+		<h1>NgxShaderCopyPass</h1>
+
+		<p class="desc">
+			Copy pass<br />
+			<br />
+			<h3>Preview - ngx effect</h3><br />
+			<iframe src="#/viewer/ngx_effect/CopyPass"></iframe><br />
+			<br />
+			See the [page:NgxShaderCopyPass ngx3js docs] page for details.<br />
+			See the [example:ngx_effect/CopyPass ngx effect] page for a live demo.
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:NgxShaderCopyPass NgxShaderCopyPass](  [param:string textureId]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string textureId] - (optional) The texture id.
+		</p>
+		<p>
+			Creates an instance of ngx copy pass.
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:ShaderPass ShaderPass] class for common properties.
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:ShaderPass ShaderPass] class for common methods.
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="ReflectorOptions">ReflectorOptions <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number clipBias]? -  The clip bias.<br />
+			[property:number color]? -  The color.<br />
+			[property:ReflectorShader shader]? -  The shader.<br />
+			[property:number textureHeight]? -  The texture height.<br />
+			[property:number textureWidth]? -  The texture width.<br />
+			[property:boolean useDepthTexture]? -  The use depth texture.
+		</p>
+
+
+		<p class="desc">
+			Reflector options
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="ReflectorShader">ReflectorShader <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:any defines] -  The defines.<br />
+			[property:string fragmentShader] -  The fragment shader.<br />
+			[property:any uniforms] -  The uniforms.<br />
+			[property:string vertexShader] -  The vertex shader.
+		</p>
+
+
+		<p class="desc">
+			Reflector shader
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/pass/passes/three-passes.ts /pass/passes/three-passes.ts]</p>
+	</body>
+</html>

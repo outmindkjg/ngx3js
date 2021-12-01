@@ -57,21 +57,7 @@
 			></ngx3js-texture>
 			<ngx3js-texture
 				[type]="'map'"
-				[text]="controls.japanese.text"
-				[program]="'labeltrans'"
-				[width]="512"
-				[height]="70"
-			></ngx3js-texture>
-			<ngx3js-texture
-				[type]="'map'"
-				[text]="controls.chinese.text"
-				[program]="'labeltrans'"
-				[width]="512"
-				[height]="70"
-			></ngx3js-texture>
-			<ngx3js-texture
-				[type]="'map'"
-				[text]="controls.korean.text"
+				[text]="controls.eastAsia.text"
 				[program]="'labeltrans'"
 				[width]="512"
 				[height]="70"
@@ -118,38 +104,8 @@
 			<ngx3js-geometry
 				#japanese
 				[type]="'text'"
-				[text]="controls.japanese.text"
-				[font]="controls.japanese.font"
-				[size]="controls.size"
-				[height]="controls.height"
-				[align]="controls.align.leftRight + '/' + controls.align.topBottom+ '/' + controls.align.frontBack"
-				[curveSegments]="controls.curveSegments"
-				[bevelEnabled]="controls.bevel.bevelEnabled"
-				[bevelThickness]="controls.bevel.bevelThickness"
-				[bevelSize]="controls.bevel.bevelSize"
-				[bevelOffset]="controls.bevel.bevelOffset"
-				[bevelSegments]="controls.bevel.bevelSegments"
-			></ngx3js-geometry>
-			<ngx3js-geometry
-				#chinese
-				[type]="'text'"
-				[text]="controls.chinese.text"
-				[font]="controls.chinese.font"
-				[size]="controls.size"
-				[height]="controls.height"
-				[align]="controls.align.leftRight + '/' + controls.align.topBottom+ '/' + controls.align.frontBack"
-				[curveSegments]="controls.curveSegments"
-				[bevelEnabled]="controls.bevel.bevelEnabled"
-				[bevelThickness]="controls.bevel.bevelThickness"
-				[bevelSize]="controls.bevel.bevelSize"
-				[bevelOffset]="controls.bevel.bevelOffset"
-				[bevelSegments]="controls.bevel.bevelSegments"
-			></ngx3js-geometry>
-			<ngx3js-geometry
-				#korean
-				[type]="'text'"
-				[text]="controls.korean.text"
-				[font]="controls.korean.font"
+				[text]="controls.eastAsia.text"
+				[font]="controls.eastAsia.font"
 				[size]="controls.size"
 				[height]="controls.height"
 				[align]="controls.align.leftRight + '/' + controls.align.topBottom+ '/' + controls.align.frontBack"

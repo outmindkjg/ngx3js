@@ -14,7 +14,7 @@
 			في الخطوة التالية ، تقوم واحدة أو أكثر من ممرات ما بعد المعالجة بتطبيق المرشحات والتأثيرات على المخزن المؤقت للصور قبل أن يتم عرضه في النهاية على الشاشة.
 		</p>
 		<p>
-			توفر three.js حلاً كاملاً لعملية المعالجة بتوفير [page:EffectEffect] الذي يتولى تنفيذ مثل هذه الأعمال.
+			توفر three.js حلاً كاملاً لعملية المعالجة بتوفير [page:EffectComposer] الذي يتولى تنفيذ مثل هذه الأعمال.
 		</p>
 
 		<h2>سير العمل</h2>
@@ -24,7 +24,7 @@
 		</p>
 
 		<code>
-		import { EffectEffect } from 'three/examples/jsm/postprocessing/EffectEffect.js';
+		import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 		import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 		import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 		</code>
@@ -34,11 +34,11 @@
 		</p>
 
 		<code>
-		const composer = new EffectEffect( renderer );
+		const composer = new EffectComposer( renderer );
 		</code>
 
 		<p>
-			عند استخدام الملحن ، من الضروري تغيير حلقة الرسوم المتحركة للتطبيق. بدلاً من استدعاء طريقة العرض [page:WebGLRenderer] ، نستخدم الآن النظير الخاص بها [page:EffectEffect].
+			عند استخدام الملحن ، من الضروري تغيير حلقة الرسوم المتحركة للتطبيق. بدلاً من استدعاء طريقة العرض [page:WebGLRenderer] ، نستخدم الآن النظير الخاص بها [page:EffectComposer].
 		</p>
 
 		<code>
@@ -90,7 +90,7 @@
 		</code>
 
 		<p>
-			يوفر المستودع ملفًا يسمى [link:https://github.com/mrdoob/three.js/blob/master/examples/jsm/shaders/CopyShader.js CopyShader] وهو رمز بداية جيد للتظليل المخصص الخاص بك. *CopyShader* فقط ينسخ محتويات الصورة من مخزن قراءة [page:EffectEffect] إلى مخزن الكتابة المؤقت الخاص به دون تطبيق أي تأثيرات.
+			يوفر المستودع ملفًا يسمى [link:https://github.com/mrdoob/three.js/blob/master/examples/jsm/shaders/CopyShader.js CopyShader] وهو رمز بداية جيد للتظليل المخصص الخاص بك. *CopyShader* فقط ينسخ محتويات الصورة من مخزن قراءة [page:EffectComposer] إلى مخزن الكتابة المؤقت الخاص به دون تطبيق أي تأثيرات.
 		</p>
 
 	</body>

@@ -16,7 +16,7 @@
             하나 또는 여러 개의 후처리를 통해 필터와 효과를 이미지 버퍼에 적용합니다.
 		</p>
 		<p>
-			three.js는 완벽한 후처리 솔루션인 [page:EffectEffect]를 통해 작업 환경을 구현합니다.
+			three.js는 완벽한 후처리 솔루션인 [page:EffectComposer]를 통해 작업 환경을 구현합니다.
 		</p>
 
 		<h2>작업 절차</h2>
@@ -28,7 +28,7 @@
 		</p>
 
 		<code>
-		import { EffectEffect } from 'three/examples/jsm/postprocessing/EffectEffect.js';
+		import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 		import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 		import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 		</code>
@@ -38,12 +38,12 @@
 		</p>
 
 		<code>
-		const composer = new EffectEffect( renderer );
+		const composer = new EffectComposer( renderer );
 		</code>
 
 		<p>
             composer를 사용할 때, 앱의 애니메이션 루프를 변경해주는 것이 중요합니다. [page:WebGLRenderer]의 render 메서드를 호출하지 말고, 
-            이제부터는 각각의 [page:EffectEffect]에 대응되는 렌더링 방법을 사용합니다..
+            이제부터는 각각의 [page:EffectComposer]에 대응되는 렌더링 방법을 사용합니다..
 		</p>
 
 		<code>
@@ -103,7 +103,7 @@
 
 		<p>
             [link:https://github.com/mrdoob/three.js/blob/master/examples/jsm/shaders/CopyShader.js CopyShader]에서 처음 자신만의 셰이더를 만들기에 적합한 파일을 제공하고 있습니다. 
-            *CopyShader*는 [page:EffectEffect]의 쓰기 리드 버퍼에 아무 효과를 적용하지 않은 채 이미지 컨텐츠를 복사하기만 합니다.
+            *CopyShader*는 [page:EffectComposer]의 쓰기 리드 버퍼에 아무 효과를 적용하지 않은 채 이미지 컨텐츠를 복사하기만 합니다.
 		</p>
 
 	</body>

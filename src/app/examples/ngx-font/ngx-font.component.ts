@@ -3,8 +3,9 @@ import {
 	AbstractGeometryComponent,
 	AbstractMaterialComponent,
 	AbstractTextureComponent,
-	BaseComponent, RendererTimer,
-	SharedComponent
+	BaseComponent,
+	RendererTimer,
+	SharedComponent,
 } from 'ngx3js';
 
 interface FontInfo {
@@ -21,24 +22,23 @@ export class NgxFontComponent extends BaseComponent<{
 	color: number;
 	size: number;
 	height: number;
-	autoRotate : boolean;
+	autoRotate: boolean;
 	align: {
-		leftRight : 'center',
-		topBottom : 'middle',
-		frontBack : 'double',
-	},
-	curveSegments : number;
-	bevel : {
-		bevelEnabled : boolean;
-		bevelThickness : number;
-		bevelSize : number;
-		bevelOffset : number;
-		bevelSegments : number;
+		leftRight: 'center';
+		topBottom: 'middle';
+		frontBack: 'double';
+	};
+	curveSegments: number;
+	bevel: {
+		bevelEnabled: boolean;
+		bevelThickness: number;
+		bevelSize: number;
+		bevelOffset: number;
+		bevelSegments: number;
 	};
 	english: FontInfo;
-	korean: FontInfo;
-	japanese: FontInfo;
-	chinese: FontInfo;
+	country: string;
+	eastAsia: FontInfo;
 	vietnamese: FontInfo;
 }> {
 	constructor() {
@@ -48,34 +48,27 @@ export class NgxFontComponent extends BaseComponent<{
 				size: 1,
 				height: 0.1,
 				align: {
-					leftRight : 'center',
-					topBottom : 'middle',
-					frontBack : 'double'
+					leftRight: 'center',
+					topBottom: 'middle',
+					frontBack: 'double',
 				},
-				curveSegments : 12,
-				autoRotate : true,
-				bevel : {
-					bevelEnabled : false,
-					bevelThickness : 0.1,
-					bevelSize : 0.1,
-					bevelOffset : 0,
-					bevelSegments : 3
+				curveSegments: 12,
+				autoRotate: true,
+				bevel: {
+					bevelEnabled: false,
+					bevelThickness: 0.1,
+					bevelSize: 0.1,
+					bevelOffset: 0,
+					bevelSegments: 3,
 				},
 				english: {
 					font: 'helvetiker',
 					text: 'The quick brown fox',
 				},
-				korean: {
+				country: 'korea',
+				eastAsia: {
 					font: 'fonts/ttf/ko/Cute_Font/CuteFont-Regular.ttf',
 					text: '다람쥐헌쳇바퀴.',
-				},
-				japanese: {
-					font: 'fonts/ttf/jp/Rampart_One/RampartOne-Regular.ttf',
-					text: 'コンピュータの世界',
-				},
-				chinese: {
-					font: 'fonts/ttf/cn/ZCOOL_KuaiLe/ZCOOLKuaiLe-Regular.ttf',
-					text: '中文字型范例',
 				},
 				vietnamese: {
 					font: 'fonts/ttf/vi/Baloo_2/Baloo2-Regular.ttf',
@@ -112,7 +105,7 @@ export class NgxFontComponent extends BaseComponent<{
 					title: 'Curve Segments',
 					min: 1,
 					max: 20,
-					step: 1
+					step: 1,
 				},
 				{
 					name: 'align',
@@ -123,33 +116,21 @@ export class NgxFontComponent extends BaseComponent<{
 							name: 'leftRight',
 							type: 'select',
 							title: 'left-right',
-							select: [
-								'left',
-								'center',
-								'right',
-							],
+							select: ['left', 'center', 'right'],
 						},
 						{
 							name: 'topBottom',
 							type: 'select',
 							title: 'top-bottom',
-							select: [
-								'top',
-								'middle',
-								'bottom',
-							],
+							select: ['top', 'middle', 'bottom'],
 						},
 						{
 							name: 'frontBack',
 							type: 'select',
 							title: 'front-back',
-							select: [
-								'front',
-								'double',
-								'back',
-							],
+							select: ['front', 'double', 'back'],
 						},
-					]
+					],
 				},
 				{
 					name: 'bevel',
@@ -167,7 +148,7 @@ export class NgxFontComponent extends BaseComponent<{
 							title: 'Thickness',
 							min: 0,
 							max: 1,
-							step: 0.01
+							step: 0.01,
 						},
 						{
 							name: 'bevelSize',
@@ -175,7 +156,7 @@ export class NgxFontComponent extends BaseComponent<{
 							title: 'Size',
 							min: 0,
 							max: 1,
-							step: 0.01
+							step: 0.01,
 						},
 						{
 							name: 'bevelOffset',
@@ -183,7 +164,7 @@ export class NgxFontComponent extends BaseComponent<{
 							title: 'Offset',
 							min: 0,
 							max: 1,
-							step: 0.01
+							step: 0.01,
 						},
 						{
 							name: 'bevelSegments',
@@ -191,11 +172,11 @@ export class NgxFontComponent extends BaseComponent<{
 							title: 'Segments',
 							min: 0,
 							max: 10,
-							step: 1
+							step: 1,
 						},
-					]
+					],
 				},
-				{ name : 'autoRotate', type : 'checkbox'},
+				{ name: 'autoRotate', type: 'checkbox' },
 				{
 					name: 'english',
 					type: 'folder',
@@ -217,16 +198,40 @@ export class NgxFontComponent extends BaseComponent<{
 								'optimer-bold',
 								'sans-bold',
 								'sans_mono-bold',
-								'serif-bold'
+								'serif-bold',
 							],
 						},
 						{ name: 'text', type: 'input', listen: true },
 					],
 				},
 				{
-					name: 'korean',
+					name: 'country',
+					type: 'select',
+					select: ['korean', 'japanese', 'chinese'],
+					change: () => {
+						switch (this.controls.country) {
+							case 'korean':
+								this.controls.eastAsia.font =
+									'fonts/ttf/ko/Cute_Font/CuteFont-Regular.ttf';
+								this.controls.eastAsia.text = '다람쥐헌쳇바퀴.';
+								break;
+							case 'japanese':
+								this.controls.eastAsia.font =
+									'fonts/ttf/jp/Rampart_One/RampartOne-Regular.ttf';
+								this.controls.eastAsia.text = 'コンピュータの世界';
+								break;
+							case 'chinese':
+								this.controls.eastAsia.font =
+									'fonts/ttf/cn/ZCOOL_KuaiLe/ZCOOLKuaiLe-Regular.ttf';
+								this.controls.eastAsia.text = '中文字型范例';
+								break;
+						}
+					},
+				},
+				{
+					name: 'eastAsia',
 					type: 'folder',
-					control: 'korean',
+					control: 'eastAsia',
 					children: [
 						{
 							name: 'font',
@@ -236,39 +241,9 @@ export class NgxFontComponent extends BaseComponent<{
 								'fonts/nanum/nanumgothic_regular.typeface.json',
 								'fonts/nanum/do_hyeon_regular.typeface.json',
 								'fonts/ttf/ko/Cute_Font/CuteFont-Regular.ttf',
-								'fonts/ttf/ko/Gugi/Gugi-Regular.ttf'
-							],
-						},
-						{ name: 'text', type: 'input', listen: true },
-					],
-				},
-				{
-					name: 'japanese',
-					type: 'folder',
-					control: 'japanese',
-					children: [
-						{
-							name: 'font',
-							type: 'select',
-							title: 'Font',
-							select: [
+								'fonts/ttf/ko/Gugi/Gugi-Regular.ttf',
 								'fonts/ttf/jp/Potta_One/PottaOne-Regular.ttf',
 								'fonts/ttf/jp/Rampart_One/RampartOne-Regular.ttf',
-							],
-						},
-						{ name: 'text', type: 'input', listen: true },
-					],
-				},
-				{
-					name: 'chinese',
-					type: 'folder',
-					control: 'chinese',
-					children: [
-						{
-							name: 'font',
-							type: 'select',
-							title: 'Font',
-							select: [
 								'fonts/ttf/cn/ZCOOL_KuaiLe/ZCOOLKuaiLe-Regular.ttf',
 								'fonts/ttf/cn/ZCOOL_QingKe_HuangYou/ZCOOLQingKeHuangYou-Regular.ttf',
 							],
@@ -308,7 +283,7 @@ export class NgxFontComponent extends BaseComponent<{
 		const fontSize = this.controls.size * 1.5;
 		const marginY = (this.fontGeometry.length / 2) * fontSize;
 		const fontHeight = this.controls.height * 1.2 + 1;
-		const marginZ = ((this.fontMaterial.length + 2)/ 2) * fontHeight;
+		const marginZ = ((this.fontMaterial.length + 2) / 2) * fontHeight;
 		this.fontGeometry.forEach((geometry, y) => {
 			const fontY = fontSize * y - marginY;
 			this.fontMaterial.forEach((material, z) => {
@@ -332,16 +307,10 @@ export class NgxFontComponent extends BaseComponent<{
 					text = this.controls.vietnamese;
 					break;
 				case 1:
-					text = this.controls.japanese;
-					break;
-				case 2:
-					text = this.controls.chinese;
+					text = this.controls.eastAsia;
 					break;
 				case 3:
-					text = this.controls.korean;
-					break;
-				case 4:
-				default :
+				default:
 					text = this.controls.english;
 					break;
 			}
@@ -349,7 +318,7 @@ export class NgxFontComponent extends BaseComponent<{
 				x: 0,
 				y: fontY,
 				z: -meshfontZ,
-				text: text
+				text: text,
 			});
 		});
 		const textfontZ = (this.fontMaterial.length + 1) * fontHeight - marginZ;
@@ -360,9 +329,9 @@ export class NgxFontComponent extends BaseComponent<{
 				x: 0,
 				y: fontY,
 				z: -textfontZ,
-				texture: texture
-			})
-		})
+				texture: texture,
+			});
+		});
 	}
 
 	fontMeshInfos: {

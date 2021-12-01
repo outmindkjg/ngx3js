@@ -1,5 +1,13 @@
 {
 	"en": {
+		"ngx - Manual": {
+			"Getting Started": {
+				"Creating a scene": "ngxmanual/en/introduction/Creating-a-scene",
+				"Installation": "ngxmanual/en/introduction/Installation",
+				"FAQ": "ngxmanual/en/introduction/FAQ",
+				"Useful links": "ngxmanual/en/introduction/Useful-links"
+			}
+		},
 		"ngx - Reference": {
 			"Abstract": {
 				"AbstractGeometryComponent": "ngxapi/en/AbstractGeometryComponent",
@@ -110,7 +118,19 @@
 				"NgxSSRPass" : "ngxapi/en/NgxSSRPass",
 				"NgxSSRrPass" : "ngxapi/en/NgxSSRrPass",
 				"NgxSavePass" : "ngxapi/en/NgxSavePass",
+				"NgxShaderBleachBypassPass" : "ngxapi/en/NgxShaderBleachBypassPass",
+				"NgxShaderCopyPass" : "ngxapi/en/NgxShaderCopyPass",
+				"NgxShaderDotScreenPass" : "ngxapi/en/NgxShaderDotScreenPass",
+				"NgxShaderFXAAPass" : "ngxapi/en/NgxShaderFXAAPass",
+				"NgxShaderGammaCorrectionPass" : "ngxapi/en/NgxShaderGammaCorrectionPass",
+				"NgxShaderLuminosityPass" : "ngxapi/en/NgxShaderLuminosityPass",
+				"NgxShaderMaterialPass" : "ngxapi/en/NgxShaderMaterialPass",
 				"NgxShaderPass" : "ngxapi/en/NgxShaderPass",
+				"NgxShaderPixelPass" : "ngxapi/en/NgxShaderPixelPass",
+				"NgxShaderRGBShiftPass" : "ngxapi/en/NgxShaderRGBShiftPass",
+				"NgxShaderSepiaPass" : "ngxapi/en/NgxShaderSepiaPass",
+				"NgxShaderVignettePass" : "ngxapi/en/NgxShaderVignettePass",
+				"NgxSobelOperatorPass" : "ngxapi/en/NgxSobelOperatorPass",
 				"NgxTAARenderPass" : "ngxapi/en/NgxTAARenderPass",
 				"NgxTexturePass" : "ngxapi/en/NgxTexturePass",
 				"NgxUnrealBloomPass" : "ngxapi/en/NgxUnrealBloomPass"

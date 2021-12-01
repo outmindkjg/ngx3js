@@ -64,7 +64,7 @@ export class ApiReadComponent implements OnInit {
 		const html = body.substring(start, end);
 		let path, localizedPath;
 		const pathname = '/' + pageId;
-		const section = /\/(api|manual|examples|ngxapi|ngxmanual)\//
+		const section = /\/(api|manual|examples|samples|ngxapi|ngxmanual)\//
 			.exec(pathname)[1]
 			.toString();
 		let name = /[\-A-z0-9]+$/.exec(pathname).toString();
@@ -104,6 +104,12 @@ export class ApiReadComponent implements OnInit {
 					.exec(pathname)
 					.toString()
 					.substr(10);
+				break;
+			case 'samples' :
+				path = localizedPath = /\/samples\/[A-z0-9\/]+/
+					.exec(pathname)
+					.toString()
+					.substr(9);
 				break;
 		}
 		let text = html;

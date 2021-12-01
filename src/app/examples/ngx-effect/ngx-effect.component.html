@@ -1,37 +1,64 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-	effects - {{ controls.type}} / {{ controls.pass }}
+	effects - {{ controls.type}} 
 </div>
 <ngx3js-renderer [controlType]="'orbit'" [controlOptions]="{ 
 	enablePan: false, 
 	enableDamping: true,
 	minDistance: 300,
-	maxDistance: 1000 }" [statsMode]="0" [antialias]="true" [clearColor]="'0xffffff'" [shadowMapEnabled]="true" [guiControl]="controls" [guiParams]="controlsParams" [guiOpen]="true" (onRender)="onRender($event)">
+	maxDistance: 1000 }" 
+	[statsMode]="0" 
+	[antialias]="true" 
+	[clearColor]="'0x000000'" 
+	[shadowMapEnabled]="true" 
+	[guiControl]="controls" 
+	[guiParams]="controlsParams" 
+	(onRender)="onRender($event)"
+>
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera [type]="'perspective'" [fov]="70" [near]="1" [far]="1000">
 		<ngx3js-position [x]="0" [y]="150" [z]="500"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-effect [type]="controls.type" [invert]="true">
-		<ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
-		<ngx3js-pass [type]="controls.pass" [noiseIntensity]="controls.filmPass.noiseIntensity" [scanlinesIntensity]="controls.filmPass.scanlinesIntensity" [scanlinesCount]="controls.filmPass.scanlinesCount" [grayscale]="controls.filmPass.grayscale" [damp]="controls.afterimagePass.damp" [focus]="controls.bokehPass.focus" [aperture]="controls.bokehPass.aperture * 0.00001" [maxblur]="controls.bokehPass.maxblur"></ngx3js-pass>
+		<ngx3js-pass [type]="'renderPass'"></ngx3js-pass>
+		<ngx3js-pass [type]="'bloomPass'" (onLoad)="setShaderPass($event, 'bloom')" [enabled]="controls.bloomPass.enabled"></ngx3js-pass>
+		<ngx3js-pass [type]="'afterimagePass'" (onLoad)="setShaderPass($event, 'afterimage')" [enabled]="controls.afterimagePass.enabled"></ngx3js-pass>
+		<ngx3js-pass [type]="'glitchPass'"  (onLoad)="setShaderPass($event, 'glitch')" [enabled]="controls.glitchPass.enabled" [goWild]="controls.glitchPass.goWild"></ngx3js-pass>
+		<ngx3js-pass [type]="'halftonePass'" (onLoad)="setShaderPass($event, 'halftone')" [enabled]="controls.halftonePass.enabled"></ngx3js-pass>
+		<ngx3js-pass [type]="'rgbShiftPass'" (onLoad)="setShaderPass($event, 'rgbShift')" [enabled]="controls.rgbShift.enabled"></ngx3js-pass>
+		<ngx3js-pass [type]="'bleachBypass'" (onLoad)="setShaderPass($event, 'bleachBypass')" [enabled]="controls.bleachBypass.enabled"></ngx3js-pass>
+		<ngx3js-pass [type]="'sepiaPass'" (onLoad)="setShaderPass($event, 'sepia')" [enabled]="controls.sepia.enabled"></ngx3js-pass>
+		<ngx3js-pass [type]="'vignettePass'" (onLoad)="setShaderPass($event, 'vignette')" [enabled]="controls.vignette.enabled"></ngx3js-pass>
+		<ngx3js-pass [type]="'gammaCorrectionPass'" (onLoad)="setShaderPass($event, 'gammaCorrection')" [enabled]="controls.gammaCorrection.enabled"></ngx3js-pass>
+		<ngx3js-pass [type]="'pixelPass'" (onLoad)="setShaderPass($event, 'pixel')" [enabled]="controls.pixel.enabled"></ngx3js-pass>
+		<ngx3js-pass [type]="'luminosityPass'" (onLoad)="setShaderPass($event, 'luminosity')" [enabled]="controls.luminosity.enabled"></ngx3js-pass>
+		<ngx3js-pass [type]="'sobelOperatorPass'" (onLoad)="setShaderPass($event, 'sobelOperator')" [enabled]="controls.sobelOperator.enabled"></ngx3js-pass>
+		<ngx3js-pass [type]="'filmPass'" (onLoad)="setShaderPass($event, 'film')" [enabled]="controls.filmPass.enabled"></ngx3js-pass>
+		<ngx3js-pass [type]="'dotScreenPass'" (onLoad)="setShaderPass($event, 'dotScreen')" [enabled]="controls.dotScreen.enabled"></ngx3js-pass>
+		<ngx3js-pass [type]="'copyPass'"></ngx3js-pass>
+		<ngx3js-pass [type]="'bokehPass'" (onLoad)="setShaderPass($event, 'bokeh')" [enabled]="controls.bokehPass.enabled"></ngx3js-pass>
 	</ngx3js-effect>
 	<ngx3js-scene #scene [background]="'0x000000'">
-		<ngx3js-light [type]="'Point'" [color]="'0xffffff'">
-			<ngx3js-position [x]="500" [y]="500" [z]="500"></ngx3js-position>
-		</ngx3js-light>
 		<ngx3js-light [type]="'Point'" [color]="'0xffffff'" [intensity]="0.25">
 			<ngx3js-position [x]="-500" [y]="-500" [z]="-500"></ngx3js-position>
 		</ngx3js-light>
-		<ngx3js-mesh (onLoad)="setMesh($event)">
+		<ngx3js-light
+			[type]="'DirectionalLight'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+		>
+			<ngx3js-position [x]="500" [y]="500" [z]="500"></ngx3js-position>
+		</ngx3js-light>	
+		<ngx3js-mesh (onLoad)="setMesh($event)" [castShadow]="true">
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-			<ngx3js-geometry [type]="'Sphere'" [radius]="200" [widthSegments]="20" [heightSegments]="10"></ngx3js-geometry>
-			<ngx3js-material [type]="'MeshPhong'" [color]="'0xff0000'"></ngx3js-material>
+			<ngx3js-geometry [type]="'Box'" [width]="200" [height]="200" [depth]="200"></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshPhong'" [color]="'0xff5050'"></ngx3js-material>
 		</ngx3js-mesh>
 		<ngx3js-mesh [receiveShadow]="true">
 			<ngx3js-position [x]="0" [y]="-200" [z]="0"></ngx3js-position>
 			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
 			<ngx3js-geometry [type]="'Plane'" [width]="400" [height]="400"></ngx3js-geometry>
-			<ngx3js-material [type]="'MeshBasic'" [color]="'0xe0e0e0'"></ngx3js-material>
+			<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xe0e0e0'"></ngx3js-material>
 		</ngx3js-mesh>
 	</ngx3js-scene>
 </ngx3js-renderer>

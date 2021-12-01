@@ -464,6 +464,7 @@ export class DocsComponent implements OnInit {
 				url = url.substr(6);
 			}
 			if (
+				url.startsWith('samples/') ||
 				url.startsWith('manual/') ||
 				url.startsWith('api/') ||
 				url.startsWith('ngxmanual/') ||
