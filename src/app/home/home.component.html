@@ -1,0 +1,72 @@
+<div id="docs">
+	<div id="panel" #panel class="searchUnFocused">
+		<app-menu [menuType]="'home'" #menu></app-menu>
+		<div id="panelScrim" (click)="menu.toggleMenu()"></div>
+		<div id="contentWrapper">
+			<div id="content">
+				<div *ngFor="let item of searchMenu">
+					<h2>{{ item.name }}</h2>
+					<ul>
+						<li *ngFor="let child of item.children">
+							<a
+								*ngIf="!child.isExtLink"
+								href="#"
+								[routerLink]="child.id"
+								[ngClass]="child.selected ? 'selected' : 'unselected'"
+								>{{ child.name }}</a
+							>
+							<a
+								*ngIf="child.isExtLink"
+								[href]="child.id"
+								target="_blank"
+								[ngClass]="child.selected ? 'selected' : 'unselected'"
+								>{{ child.name }}</a
+							>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="viewer">
+		<div id="viewer-inner">
+			<div class="doc-wraper">
+				<a class="doc-top"></a>
+				<div class="doc-body">
+					<h1>Ngx3js Module</h1>
+					<p class="desc">
+						The aim of the project is to create an easy to use, lightweight,
+						cross-browser, general purpose 3D library in angular. The current
+						builds only include a WebGL renderer but WebGPU (experimental), SVG
+						and CSS3D renderers are also available in the examples.
+					</p>
+					<h3>Ngx3js Install</h3>
+					<pre><code data-type="shell" class="prettyprint hljs">npm install -g <span class="hljs-keyword">@angular/cli</span>
+ng new my-app
+cd my-app
+npm install --save <span class="hljs-keyword">ngx3js</span>
+node ./node_modules/ngx3js/bin/patch.js</code><span class="language-type">#shell</span></pre>
+
+					<h3>Preview - ngx scene</h3><br />
+					<iframe src="#/viewer/ngx_scene"></iframe><br />
+
+					<h3>Preview - ngx light</h3><br />
+					<iframe src="#/viewer/ngx_light"></iframe><br />
+
+					<h3>Preview - ngx material</h3><br />
+					<iframe src="#/viewer/ngx_material"></iframe><br />
+
+					<h3>Preview - ngx geometry</h3><br />
+					<iframe src="#/viewer/ngx_geometry"></iframe><br />
+
+					<h3>Preview - ngx physics</h3><br />
+					<iframe src="#/viewer/ngx_physics"></iframe><br />
+
+					<h3>Preview - ngx curve</h3><br />
+					<iframe src="#/viewer/ngx_curve"></iframe><br />
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -72,7 +72,11 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 	}
 
 	setFocus(menuId: string) {
-		setTimeout(() => {
+		if (this.files === null) {
+			setTimeout(() => {
+				this.setFocus(menuId);
+			}, 500)
+		} else {
 			this.menu.closeMenu(true);
 			const links: HTMLAnchorElement[] =
 				this.ele.nativeElement.getElementsByTagName('a');
@@ -87,13 +91,13 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 				selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 				setTimeout(() => {
 					this.menu.closeMenu(false);
-				}, 1500);
+				}, 3000);
 			} else {
 				setTimeout(() => {
 					this.menu.closeMenu(false);
-				}, 1500);
+				}, 1000);
 			}
-		}, 1000);
+		};
 	}
 
 	ngAfterViewInit() {}

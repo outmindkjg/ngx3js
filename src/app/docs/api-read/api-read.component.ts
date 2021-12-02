@@ -288,10 +288,21 @@ export class ApiReadComponent implements OnInit {
 		const codes: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('code');
 		for (let i = 0; i < codes.length; i++) {
 			const code = codes[i];
-			const language = code.dataset.type || 'javascript';
+			let language = code.dataset.type || 'none';
 			const languageSubset : string[] = [ 'html', 'css', 'javascript' ];
 			code.classList.add('prettyprint');
 			code.classList.add('hljs');
+			let innerText: string = code.innerText.replace(/<br>/g,'').replace(/<br\/>/g,'').replace(/\n([\t ]{1,2})/g, '\n');
+
+			if (language === '' || language === 'none') {
+				if (innerText.indexOf('</') > -1) {
+					language = 'html';	
+				} else if (innerText.indexOf('npm ') > -1) {
+					language = 'shell';	
+				} else {
+					language = 'javascript';	
+				}
+			}
 			switch(language) {
 				case 'text' :
 					code.classList.add('language-plaintext');
@@ -307,7 +318,12 @@ export class ApiReadComponent implements OnInit {
 					code.classList.add('language-html');
 					break;
 			}
-			let innerText: string = code.innerText.replace(/<br>/g,'').replace(/<br\/>/g,'').replace(/\n([\t ]{1,2})/g, '\n');
+			if (language !== null && language !== '' && language !== 'none') {
+				const tag = document.createElement('span');
+				tag.className = 'language-type';
+				tag.innerText = '#' + language;
+				code.parentNode.appendChild(tag);
+			}
 			let safeTxt:string[] = [];
 			innerText.split("\n").forEach((txt : string) => {
 				if (txt.trim() !== '') {

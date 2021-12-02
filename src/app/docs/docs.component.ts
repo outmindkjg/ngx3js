@@ -89,7 +89,11 @@ export class DocsComponent implements OnInit {
 	}
 
 	setFocus(menuId: string) {
-		setTimeout(() => {
+		if (this.list === null) {
+			setTimeout(() => {
+				this.setFocus(menuId);
+			}, 500)
+		} else {
 			this.menu.closeMenu(true);
 			const links: HTMLAnchorElement[] =
 				this.ele.nativeElement.getElementsByTagName('a');
@@ -104,13 +108,13 @@ export class DocsComponent implements OnInit {
 				selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 				setTimeout(() => {
 					this.menu.closeMenu(false);
-				}, 1500);
+				}, 2000);
 			} else {
 				setTimeout(() => {
 					this.menu.closeMenu(false);
-				}, 1500);
+				}, 1000);
 			}
-		}, 1000);
+		}
 	}
 
 	ngAfterViewInit() {}

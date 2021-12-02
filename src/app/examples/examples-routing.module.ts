@@ -434,7 +434,7 @@ import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component
 import { HelloWorldComponent } from './hello-world/hello-world.component';
 
 const routes: Routes = [
-	{ path: '', pathMatch: 'full', redirectTo: 'webgl_animation_keyframes' },
+	{ path: '', pathMatch: 'full', redirectTo: 'ngx_scene' },
 	{
 		path: 'webgl_animation_cloth',
 		component: WebglAnimationClothComponent,

@@ -11,6 +11,7 @@ import { DocsComponent } from './docs/docs.component';
 import { ExamplesComponent } from './examples/examples.component';
 import { ExampleViewerComponent } from './viewer/viewer.component';
 import { MenuComponent } from './menu/menu.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
 	declarations: [
@@ -19,6 +20,7 @@ import { MenuComponent } from './menu/menu.component';
 		DocsComponent,
 		ApiReadComponent,
 		ExamplesComponent,
+		HomeComponent,
 		ExampleViewerComponent
 	],
 	imports: [

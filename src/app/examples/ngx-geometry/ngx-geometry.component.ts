@@ -144,6 +144,7 @@ export class NgxGeometryComponent extends BaseComponent<{
 	}
 
 	changeGeometry() {
+		this.meshType = 'mesh';
 		switch (this.controls.geometry.type) {
 			case 'CircleBufferGeometry':
 			case 'CircleDepthGeometry':
@@ -156,8 +157,13 @@ export class NgxGeometryComponent extends BaseComponent<{
 			case 'StarGeometry':
 				this.controls.geometry.segments = 5;
 				break;
+			case 'BoxLineGeometry' :
+				this.meshType = 'line';
+				break;
 		}
 	}
+
+	meshType : string = 'mesh';
 
 	ngOnInit() {
 		this.subscribeRefer(
