@@ -17,17 +17,22 @@
 			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-helper<br />
-				[type]="'GridHelper'" [size]="500 " [divisions]="100 " [color1]="'0x000000'" [opacity]="0.2"<br />
+				[type]="'GridHelper'" [size]="500" [divisions]="100 " <br />
+				[color1]="'0x000000'" [opacity]="0.2"<br />
 			&gt;&lt;/ngx3js-helper&gt;<br />
 			&lt;ngx3js-helper<br />
-				[type]="'Camera'" [target]="sunLight " [visible]="controls.shadowCameraVisible"<br />
+				[type]="'Camera'" [target]="sunLight " <br />
+				[visible]="true"<br />
 			&gt;&lt;/ngx3js-helper&gt;<br />
 			&lt;ngx3js-helper<br />
-				[visible]="false " [type]="'csmhelper'" [control]="csm"<br />
+				[visible]="false" [type]="'csmhelper'" [control]="csm"<br />
 				(onLoad)="setHelper($event)"<br />
 			&gt;&lt;/ngx3js-helper&gt;<br />
 			&lt;ngx3js-helper<br />
-				[type]="'arrowhelper'" [arrowFrom]="sunLight " [arrowTo]="scene " [length]="0.9 " [color]="'0xffff00'" [headLength]="0.25 " [headWidth]="0.08"<br />
+				[type]="'arrowhelper'" <br />
+				[arrowFrom]="sunLight" [arrowTo]="scene" <br />
+				[length]="0.9" [color]="'0xffff00'" [headLength]="0.25" <br />
+				[headWidth]="0.08"<br />
 			&gt;&lt;/ngx3js-helper&gt;<br />
 			</code>
 		</p>

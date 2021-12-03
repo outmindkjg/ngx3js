@@ -34,19 +34,27 @@
 				[type]="'LineBasicMaterial'" [color]="'0xffff00'"<br />
 			&gt;&lt;/ngx3js-material&gt;<br />
 			&lt;ngx3js-material<br />
-				[type]="'LineDashedMaterial'" [color]="'blue'" [linewidth]="1 " [dashSize]="10 " [gapSize]="10"<br />
+				[type]="'LineDashedMaterial'" <br />
+				[color]="'blue'" [linewidth]="1" [dashSize]="10" [gapSize]="10"<br />
 			&gt;&lt;/ngx3js-material&gt;<br />
 			&lt;ngx3js-material<br />
-				[type]="'MeshBasicMaterial'" [color]="'0x000000'" [wireframe]="true " [wireframeLinewidth]="1 " [side]="'double'"<br />
+				[type]="'MeshBasicMaterial'" <br />
+				[color]="'0x000000'" [wireframe]="true" <br />
+				[wireframeLinewidth]="1" [side]="'double'"<br />
 			&gt;&lt;/ngx3js-material&gt;<br />
 			&lt;ngx3js-material<br />
-				[materialType]="'overrideMaterial'" [type]="'MeshDepthMaterial'"<br />
+				[materialType]="'overrideMaterial'" <br />
+				[type]="'MeshDepthMaterial'"<br />
 			&gt;&lt;/ngx3js-material&gt;<br />
 			&lt;ngx3js-material<br />
-				[type]="'MeshDepth'" [depthPacking]="'RGBA'" [displacementMap]="displacementMap " [displacementScale]="2.436143 " [displacementBias]="-0.428408 " [side]="controls.side"<br />
+				[type]="'MeshDepth'" <br />
+				[depthPacking]="'RGBA'" [displacementMap]="displacementMap" <br />
+				[displacementScale]="2.436143" [displacementBias]="-0.428408" <br />
+				[side]="controls.side"<br />
 			&gt;&lt;/ngx3js-material&gt;<br />
 			&lt;ngx3js-material<br />
-				[type]="'MeshDistance'" [materialType]="'customdistance'" [alphaTest]="0.5 " [alphaMap]="alphaMap"<br />
+				[type]="'MeshDistance'" <br />
+				[materialType]="'customdistance'" [alphaTest]="0.5" [alphaMap]="alphaMap"<br />
 			&gt;&lt;/ngx3js-material&gt;<br />
 			&lt;ngx3js-material<br />
 				[type]="'MeshMatcapMaterial'" [color]="'0xaa24df'" [matcap]="texture"<br />
@@ -55,16 +63,27 @@
 				[type]="'MeshNormal'" [color]="'0xff0000'"<br />
 			&gt;&lt;/ngx3js-material&gt;<br />
 			&lt;ngx3js-material<br />
-				[type]="'MeshPhongMaterial'" [specular]="'0x333333'" [shininess]="5 " [map]="'textures/planets/earth_atmos_2048.jpg'" [specularMap]="'textures/planets/earth_specular_2048.jpg'" [normalMap]="'textures/planets/earth_normal_2048.jpg'" [normalScale]="0.85"<br />
+				[type]="'MeshPhongMaterial'" <br />
+				[specular]="'0x333333'" [shininess]="5" <br />
+				[map]="'textures/planets/earth_atmos_2048.jpg'" <br />
+				[specularMap]="'textures/planets/earth_specular_2048.jpg'" <br />
+				[normalMap]="'textures/planets/earth_normal_2048.jpg'" <br />
+				[normalScale]="0.85"<br />
 			&gt;&lt;/ngx3js-material&gt;<br />
 			&lt;ngx3js-material<br />
-				[type]="'MeshPhysicalMaterial'" [roughness]="info.roughness " [metalness]="info.metalness " [color]="'0xffffff'" [envMap]="radianceMap " [envMapIntensity]="1 " [reflectivity]="1"<br />
+				[type]="'MeshPhysicalMaterial'" <br />
+				[roughness]="info.roughness" [metalness]="info.metalness" <br />
+				[color]="'0xffffff'" <br />
+				[envMap]="radianceMap" [envMapIntensity]="1" [reflectivity]="1"<br />
 			&gt;&lt;/ngx3js-material&gt;<br />
 			&lt;ngx3js-material<br />
 				#sphereMaterial<br />
-				[type]="'MeshStandardMaterial'" [color]="'0x888855'" [roughness]="0.8 " [metalness]="0.5"<br />
+				[type]="'MeshStandardMaterial'" <br />
+				[color]="'0x888855'" [roughness]="0.8" [metalness]="0.5"<br />
 			&gt;&lt;/ngx3js-material&gt;<br />
-			&lt;ngx3js-material [type]="'MeshToonMaterial'" [color]="info.color"&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-material <br />
+				[type]="'MeshToonMaterial'" [color]="info.color"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
 			&lt;ngx3js-material<br />
 				[type]="'PointsMaterial'" [color]="'0xffff00'" [size]="5"<br />
 			&gt;&lt;/ngx3js-material&gt;<br />
@@ -72,16 +91,22 @@
 				[type]="'RawShaderMaterial'" [uniforms]="{<br />
 					time: { type: 'number', value: 1.0 },<br />
 					sineTime: { type: 'number', value: 1.0 }<br />
-				} " [shader]="'instancing'" [side]="'double'" [transparent]="true"<br />
+				}" [shader]="'instancing'" [side]="'double'" [transparent]="true"<br />
 			&gt;&lt;/ngx3js-material&gt;<br />
 			&lt;ngx3js-material<br />
-				[type]="'ShaderMaterial'" [shader]="'audioVisualizer'" [uniforms]="{ tAudioData: { type: 'DataTexture', value: audio } }"<br />
+				[type]="'ShaderMaterial'" <br />
+				[shader]="'audioVisualizer'" <br />
+				[uniforms]="{ tAudioData: { type: 'DataTexture', value: audio } }"<br />
 			&gt;&lt;/ngx3js-material&gt;<br />
 			&lt;ngx3js-material<br />
-				[type]="'ShadowMaterial'" [color]="'0x111111'"<br />
+				[type]="'ShadowMaterial'" <br />
+				[color]="'0x111111'"<br />
 			&gt;&lt;/ngx3js-material&gt;<br />
 			&lt;ngx3js-material<br />
-				[type]="'Line'" [color]="'0x4080ff'" [linewidth]="5 " [dashed]="true " [dashScale]="5 " [dashSize]="2 " [gapSize]="3 " [resolutionX]="1024 " [resolutionY]="1024"<br />
+				[type]="'Line'" <br />
+				[color]="'0x4080ff'" <br />
+				[linewidth]="5" [dashed]="true" [dashScale]="5" [dashSize]="2" <br />
+				[gapSize]="3" [resolutionX]="1024" [resolutionY]="1024"<br />
 			&gt;&lt;/ngx3js-material&gt;<br />
 			&lt;ngx3js-material<br />
 				[type]="'SpriteMaterial'" [color]="info.color"<br />

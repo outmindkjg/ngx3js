@@ -21,14 +21,37 @@
 			&lt;ngx3js-mesh [type]="'SVGObject'" [cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br />
 			&lt;ngx3js-mesh [type]="'CSS2DObject'" [cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br />
 			&lt;ngx3js-mesh [type]="'CSS3DSprite'" [cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Reflector'" [color]="'0x889999'" [clipBias]="0.003 " [textureWidth]="1024 " [textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'ReflectorRTT'" [color]="'0x889999'" [clipBias]="0.003 " [textureWidth]="1024 " [textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Refractor'" [color]="'0x999999'" [textureWidth]="1024 " [textureHeight]="1024 " [shader]="'WaterRefraction'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'ReflectorRTT'" [color]="'0x889999'" [clipBias]="0.003 " [textureWidth]="1024 " [textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'ReflectorForSSRPass'" [color]="'0x889999'" [clipBias]="0.003 " [textureWidth]="1024 " [textureWidth]="1024"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Water'" [sunColor]="'0xffffff'" [waterColor]="'0x001e0f'" [sunDirection]="sunDirection " [textureWidth]="512 " [textureHeight]="512 " [alpha]="alpha " [distortionScale]="distortionScale " [uniforms]="uniforms"<br />
+			&lt;ngx3js-mesh [type]="'Reflector'" <br />
+				[color]="'0x889999'" [clipBias]="0.003" <br />
+				[textureWidth]="1024" [textureWidth]="1024"<br />
 			&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Water2'" [color]="'#ffffff'" [waterScale]="4 " [reflectivity]="0.02 " [flowDirectionX]="1 " [flowDirectionY]="1 " [textureWidth]="1024 " [textureHeight]="1024"&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'ReflectorRTT'" <br />
+				[color]="'0x889999'" [clipBias]="0.003" <br />
+				[textureWidth]="1024" [textureWidth]="1024"<br />
+			&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Refractor'" <br />
+				[color]="'0x999999'" <br />
+				[textureWidth]="1024" [textureHeight]="1024" [shader]="'WaterRefraction'"<br />
+			&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'ReflectorRTT'" <br />
+				[color]="'0x889999'" [clipBias]="0.003" <br />
+				[textureWidth]="1024" [textureWidth]="1024"<br />
+			&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'ReflectorForSSRPass'" <br />
+				[color]="'0x889999'" [clipBias]="0.003" <br />
+				[textureWidth]="1024" [textureWidth]="1024"<br />
+			&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Water'" <br />
+				[sunColor]="'0xffffff'" [waterColor]="'0x001e0f'" <br />
+				[sunDirection]="sunDirection" <br />
+				[textureWidth]="512" [textureHeight]="512" <br />
+				[alpha]="alpha" [distortionScale]="distortionScale" <br />
+				[uniforms]="uniforms"<br />
+			&gt;&lt;/ngx3js-mesh&gt;<br />
+			&lt;ngx3js-mesh [type]="'Water2'" <br />
+				[color]="'#ffffff'" [waterScale]="4" [reflectivity]="0.02" <br />
+				[flowDirectionX]="1" [flowDirectionY]="1" [textureWidth]="1024" <br />
+				[textureHeight]="1024"&gt;&lt;/ngx3js-mesh&gt;<br />
 			&lt;ngx3js-mesh [type]="'Sky'" [uniforms]="{<br />
 					sunPosition: { type: 'v3', value: sunDirection },<br />
 					turbidity: { type: 'number', value: 10 },<br />

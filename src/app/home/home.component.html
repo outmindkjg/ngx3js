@@ -29,7 +29,7 @@
 		</div>
 	</div>
 	<div id="viewer">
-		<div id="viewer-inner">
+		<div id="viewer-inner" #vierInner>
 			<div class="doc-wraper">
 				<a class="doc-top"></a>
 				<div class="doc-body">
@@ -48,23 +48,41 @@ npm install --save <span class="hljs-keyword">ngx3js</span>
 node ./node_modules/ngx3js/bin/patch.js</code><span class="language-type">#shell</span></pre>
 
 					<h3>Preview - ngx scene</h3><br />
-					<iframe src="#/viewer/ngx_scene"></iframe><br />
+					<ngx3js-viewport-in [scrollEle]="vierInner" #scrollChecker1>
+						<div class="dummy-iframe" *ngIf="!scrollChecker1.isVisible"></div>
+						<iframe *ngIf="scrollChecker1.isVisible" src="#/viewer/ngx_scene"></iframe><br />
+					</ngx3js-viewport-in>
 
 					<h3>Preview - ngx light</h3><br />
-					<iframe src="#/viewer/ngx_light"></iframe><br />
+					<ngx3js-viewport-in [scrollEle]="vierInner" #scrollChecker2>
+						<div class="dummy-iframe" *ngIf="!scrollChecker2.isVisible"></div>
+						<iframe *ngIf="scrollChecker2.isVisible" src="#/viewer/ngx_light"></iframe><br />
+					</ngx3js-viewport-in>
 
 					<h3>Preview - ngx material</h3><br />
-					<iframe src="#/viewer/ngx_material"></iframe><br />
+					<ngx3js-viewport-in [scrollEle]="vierInner" #scrollChecker3>
+						<div class="dummy-iframe" *ngIf="!scrollChecker3.isVisible"></div>
+						<iframe *ngIf="scrollChecker3.isVisible" src="#/viewer/ngx_material"></iframe><br />
+					</ngx3js-viewport-in>
 
 					<h3>Preview - ngx geometry</h3><br />
-					<iframe src="#/viewer/ngx_geometry"></iframe><br />
+					<ngx3js-viewport-in [scrollEle]="vierInner" #scrollChecker4>
+						<div class="dummy-iframe" *ngIf="!scrollChecker4.isVisible"></div>
+						<iframe *ngIf="scrollChecker4.isVisible" src="#/viewer/ngx_geometry"></iframe><br />
+					</ngx3js-viewport-in>
 
 					<h3>Preview - ngx physics</h3><br />
-					<iframe src="#/viewer/ngx_physics"></iframe><br />
+					<ngx3js-viewport-in [scrollEle]="vierInner" #scrollChecker5>
+						<div class="dummy-iframe" *ngIf="!scrollChecker5.isVisible"></div>
+						<iframe *ngIf="scrollChecker5.isVisible" src="#/viewer/ngx_physics"></iframe><br />
+					</ngx3js-viewport-in>
 
 					<h3>Preview - ngx curve</h3><br />
-					<iframe src="#/viewer/ngx_curve"></iframe><br />
-					
+					<ngx3js-viewport-in [scrollEle]="vierInner" #scrollChecker6>
+						<div class="dummy-iframe" *ngIf="!scrollChecker6.isVisible"></div>
+						<iframe *ngIf="scrollChecker6.isVisible" src="#/viewer/ngx_curve"></iframe><br />
+					</ngx3js-viewport-in>
+
 				</div>
 			</div>
 		</div>

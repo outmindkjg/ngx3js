@@ -20,19 +20,23 @@
 				&lt;ngx3js-clip [name]="'default'" [index]="0"&gt;&lt;/ngx3js-clip&gt;<br />
 			&lt;/ngx3js-mixer&gt;<br />
 			&lt;ngx3js-mixer<br />
-				[action]="controls.animation " [type]="'Character'" [skin]="controls.skinIdx " [weapon]="controls.weaponIdx"<br />
+				[action]="controls.animation" <br />
+				[type]="'Character'" <br />
+				[skin]="controls.skinIdx" [weapon]="controls.weaponIdx"<br />
 			&gt;&lt;/ngx3js-mixer&gt;<br />
 			&lt;ngx3js-mixer<br />
-				[type]="'MMDAnimationHelper'" [mmdHelpers]="['iksolver', 'physics'] " [afterglow]="2.0 " [gravity]="-9.8 * 10 " [physics]="true"<br />
+				[type]="'MMDAnimationHelper'" <br />
+				[mmdHelpers]="['iksolver', 'physics']" <br />
+				[afterglow]="2.0" [gravity]="-9.8 * 10" [physics]="true"<br />
 				(onLoad)="setMixer($event)"<br />
 			&gt;&lt;/ngx3js-mixer&gt;<br />
 			&lt;ngx3js-mixer<br />
-				[type]="'MMDAnimationHelper'" [animationHelper]="animationHelper"<br />
+				[type]="'MMDAnimationHelper'" <br />
+				[animationHelper]="animationHelper"<br />
 			&gt;&lt;/ngx3js-mixer&gt;<br />
 			&lt;ngx3js-mixer<br />
 				[type]="'MMDAnimationHelper'"<br />
-				#animationHelper<br />
-				[afterglow]="2.0 " [gravity]="-9.8 * 10 " [physics]="true"<br />
+				[afterglow]="2.0" [gravity]="-9.8 * 10" [physics]="true"<br />
 			&gt;&lt;/ngx3js-mixer&gt;<br />
 			&lt;ngx3js-mixer [action]="'run'" [delayTime]="info.delay"&gt;<br />
 				&lt;ngx3js-clip [name]="'run'" [index]="0"&gt;&lt;/ngx3js-clip&gt;<br />

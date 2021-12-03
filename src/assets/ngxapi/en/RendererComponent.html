@@ -22,7 +22,14 @@
 			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-renderer<br />
-				[controlType]="'orbit'" [controlOptions]="{ enablePan: false, enableDamping: true } " [cssType]="'css2d'" [statsMode]="0 " [antialias]="true " [shadowMapEnabled]="true " [guiControl]="controls " [guiParams]="controlsParams"<br />
+				[controlType]="'orbit'" <br />
+				[controlOptions]="{ <br />
+					enablePan: false, <br />
+					enableDamping: true <br />
+				}" <br />
+				[cssType]="'css2d'" <br />
+				[statsMode]="0" [antialias]="true" [shadowMapEnabled]="true" <br />
+				[guiControl]="controls" [guiParams]="controlsParams"<br />
 				(onRender)="onRender($event)"<br />
 			&gt;&lt;/ngx3js-renderer&gt;<br />
 			</code><br />
@@ -231,9 +238,6 @@
 
 		<h3>[property:boolean logarithmicDepthBuffer] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			<h3>Preview - camera / logarithmicdepthbuffer</h3><br />
-			<iframe src="#/viewer/webgl_camera_logarithmicdepthbuffer"></iframe><br />
-			<br />
 			whether to use a logarithmic depth buffer. It may be neccesary to use this if dealing with huge differences in scale in a single scene. Note that this setting uses gl_FragDepth if available which disables the [link:https://www.khronos.org/opengl/wiki/Early_Fragment_Test Early Fragment Test] optimization and can cause a decrease in performance.<br />
 			Default is *false*. See the [example:webgl_camera_logarithmicdepthbuffer camera / logarithmicdepthbuffer] example.
 		</p>
@@ -258,9 +262,6 @@
 
 		<h3>[property:boolean physicallyCorrectLights]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			<h3>Preview - lights / physical</h3><br />
-			<iframe src="#/viewer/webgl_lights_physical"></iframe><br />
-			<br />
 			Whether to use physically correct lighting mode. Default is *false*.<br />
 			See the [example:webgl_lights_physical lights / physical] example.
 		</p>

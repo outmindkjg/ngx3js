@@ -239,7 +239,26 @@ pre {
 div#example-iframe,
 div#example,
 div#docs {
+	div.dummy-iframe {
+		background-color: var(--secondary-background-color);
+		width: 100%;
+		height: 420px;
+		position: relative;
+		&::before {
+			content: 'Scroll window to view this example demo.';
+			position: absolute;
+			display: inline-block;
+			left : 50%;
+			top : 50%;
+			text-align: center;
+			width: 300px;
+			margin-left: -150px;
+			margin-top: -15px;
+		}		
+	}
+	div.dummy-iframe,
 	iframe {
+		max-height: calc(100vh - 100px);
 		border:2px solid var(--secondary-text-color);
 		border-radius: 20px;
 		overflow: hidden;

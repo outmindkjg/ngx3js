@@ -1565,6 +1565,7 @@ const routes: Routes = [
 	},
 	{ path: 'webgl_loader_ifc', component: WebglLoaderIfcComponent },
 	{ path: 'ngx_material', component: NgxMaterialComponent },
+	{ path: 'ngx_material/:type', component: NgxMaterialComponent },
 	{ path: 'ngx_geometry', component: NgxGeometryComponent },
 	{ path: 'ngx_geometry/:type', component: NgxGeometryComponent },
 	{ path: 'ngx_font', component: NgxFontComponent },

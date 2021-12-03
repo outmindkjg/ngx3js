@@ -27,126 +27,99 @@
 			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-geometry<br />
-				[type]="'BoxGeometry'" [width]="16 " [height]="16 " [depth]="16 " [widthSegments]="3 " [heightSegments]="3 " [depthSegments]="3"&gt;&lt;/ngx3js-geometry&gt;<br />
+				[type]="'BoxGeometry'" [width]="16" [height]="16" [depth]="16 " <br />
+				[widthSegments]="3" [heightSegments]="3" [depthSegments]="3"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
 			&lt;ngx3js-geometry<br />
-				[type]="'IcosahedronGeometry'" [radius]="8 " [detail]="1"&gt;&lt;/ngx3js-geometry&gt;<br />
+				[type]="'IcosahedronGeometry'" [radius]="8" [detail]="1"&gt;<br />
+			&lt;/ngx3js-geometry&gt;<br />
 			&lt;ngx3js-geometry<br />
-				[type]="'PlaneGeometry'" [width]="16 " [height]="16 " [widthSegments]="3 " [heightSegments]="3"&gt;&lt;/ngx3js-geometry&gt;<br />
+				[type]="'PlaneGeometry'" [width]="16" [height]="16 " <br />
+				[widthSegments]="3" [heightSegments]="3"&gt;<br />
+			&lt;/ngx3js-geometry&gt;<br />
 			&lt;ngx3js-geometry<br />
-				[type]="'SphereGeometry'" [radius]="0.4 " [widthSegments]="14 " [heightSegments]="10"&gt;&lt;/ngx3js-geometry&gt;<br />
+				[type]="'SphereGeometry'" [radius]="0.4 " <br />
+				[widthSegments]="14" [heightSegments]="10"&gt;<br />
+			&lt;/ngx3js-geometry&gt;<br />
 			&lt;ngx3js-geometry<br />
-				[type]="'TextGeometry'" [font]="'helvetiker'" [align]="'center bottom'" [text]="'test contents'" [size]="10"&gt;&lt;/ngx3js-geometry&gt;<br />
+				[type]="'TextGeometry'" [font]="'helvetiker'" [align]="'center bottom'" <br />
+				[text]="'test contents'" [size]="10"&gt;<br />
+			&lt;/ngx3js-geometry&gt;<br />
 			&lt;ngx3js-geometry<br />
-				[type]="'TorusKnotGeometry'" [radius]="0.4 " [tube]="0.08 " [radialSegments]="95 " [tubularSegments]="20" &gt;&lt;/ngx3js-geometry&gt;<br />
-				&lt;ngx3js-geometry<br />
-					[type]="'TeapotGeometry'"<br />
-					[size]="400"<br />
-					[segments]="controls.newTess"<br />
-					[bottom]="controls.bottom"<br />
-					[lid]="controls.lid"<br />
-					[body]="controls.body"<br />
-					[fitLid]="controls.fitLid"<br />
-					[blinn]="!controls.nonblinn"<br />
-				&gt;&lt;/ngx3js-geometry&gt;<br />
-				&lt;ngx3js-geometry<br />
-					[type]="'perlin'"<br />
-					[perlinType]="'minecraft'"<br />
-					[width]="100"<br />
-					[height]="100"<br />
-					[depth]="100"<br />
-					[widthSegments]="128"<br />
-					[depthSegments]="128"<br />
-					[quality]="2"<br />
-				&gt;&lt;/ngx3js-geometry&gt;<br />
-				&lt;ngx3js-geometry<br />
-					[type]="'RopeGeometry'"<br />
-					[width]="4"<br />
-					[widthSegments]="10"<br />
-				&gt;&lt;/ngx3js-geometry&gt;<br />
-				&lt;ngx3js-geometry<br />
-					[type]="'RoundedBox'"<br />
-					[width]="1"<br />
-					[height]="1"<br />
-					[depth]="1"<br />
-					[segments]="7"<br />
-					[radius]="0.2"<br />
-				&gt;&lt;/ngx3js-geometry&gt;<br />
-				&lt;ngx3js-geometry<br />
-					[type]="'BoxLineGeometry'"<br />
-					[width]="6"<br />
-					[height]="6"<br />
-					[depth]="6"<br />
-					[widthSegments]="10"<br />
-					[heightSegments]="10"<br />
-					[depthSegments]="10"<br />
-				&gt;&lt;/ngx3js-geometry&gt;<br />
-				&lt;ngx3js-geometry<br />
-					[type]="'CircleGeometry'"<br />
-					[radius]="50"<br />
-					[radialSegments]="20"<br />
-					[thetaStart]="0"<br />
-					[thetaLength]="360"<br />
-				&gt;&lt;/ngx3js-geometry&gt;<br />
-				&lt;ngx3js-geometry<br />
-					[type]="'star'"<br />
-					[outerRadius]="1"<br />
-					[innerRadius]="0.5"<br />
-					[depth]="0.5"<br />
-					[depthRate]="controls.depthRate"<br />
-					[thetaStart]="0"<br />
-					[thetaLength]="220"<br />
-				&gt;&lt;/ngx3js-geometry&gt;<br />
-				&lt;ngx3js-geometry<br />
-					[type]="'ConeGeometry'"<br />
-					[radius]="0.2"<br />
-					[height]="0.2"<br />
-					[radiusSegments]="64"<br />
-				&gt;&lt;/ngx3js-geometry&gt;<br />
-				&lt;ngx3js-geometry<br />
-					#dodecahedron<br />
-					[type]="'Dodecahedron'"<br />
-					[radius]="10"<br />
-				&gt;&lt;/ngx3js-geometry&gt;<br />
-				&lt;ngx3js-geometry<br />
-					[type]="'mergebuffergeometry'"<br />
-					[autoCustomColor]="true"<br />
-					[autoCustomColorKey]="'ca'"<br />
-					[autoCustomColorSize]="3"<br />
-					[autoSize]="true"<br />
-					[autoSizeSize]="1"<br />
-				&gt;&lt;/ngx3js-geometry&gt;<br />
-				&lt;ngx3js-geometry<br />
-					[type]="'shape'"<br />
-					[text]="'   Three.js\nSimple text.'"<br />
-					[align]="'center'"<br />
-					[font]="'helvetiker'"<br />
-					[weight]="'regular'"<br />
-					[size]="100"<br />
-				&gt;&lt;/ngx3js-geometry&gt;<br />
-				&lt;ngx3js-geometry<br />
-					[type]="'Extrude'"<br />
-					[shapes]="shapes1"<br />
-					[steps]="100"<br />
-					[bevelEnabled]="false"<br />
-					[extrudePath]="extrudePath"<br />
-					[closed]="true"<br />
-				&gt;&lt;/ngx3js-geometry&gt;<br />
-				&lt;ngx3js-geometry<br />
-					[type]="'Icosahedron'"<br />
-					[radius]="75"<br />
-					[detail]="1"<br />
-				&gt;&lt;/ngx3js-geometry&gt;<br />
-				&lt;ngx3js-geometry<br />
-					[type]="'LatheGeometry'"<br />
-					[points]="lathePoints"<br />
-					[segments]="20"<br />
-				&gt;&lt;/ngx3js-geometry&gt;<br />
-				&lt;ngx3js-geometry<br />
-					[type]="'Octahedron'"<br />
-					[radius]="75"<br />
-					[detail]="2"<br />
-				&gt;&lt;/ngx3js-geometry&gt;<br />
-			<br />
+				[type]="'TorusKnotGeometry'" [radius]="0.4" [tube]="0.08 " <br />
+				[radialSegments]="95" [tubularSegments]="20" <br />
+			&gt;<br />
+			&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'TeapotGeometry'" [size]="400" [segments]="30" <br />
+				[bottom]="true" [lid]="true" [body]="true" [fitLid]="true" [blinn]="true"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+			[type]="'perlin'"<br />
+				[perlinType]="'minecraft'"<br />
+				[width]="100" [height]="100" [depth]="100"<br />
+				[widthSegments]="128" [depthSegments]="128" [quality]="2"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'RopeGeometry'" [width]="4" [widthSegments]="10"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'RoundedBox'"<br />
+				[width]="1" [height]="1" [depth]="1"<br />
+				[segments]="7" [radius]="0.2"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'BoxLineGeometry'"<br />
+				[width]="6" [height]="6" [depth]="6"<br />
+				[widthSegments]="10" [heightSegments]="10" [depthSegments]="10"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'CircleGeometry'"<br />
+				[radius]="50" [radialSegments]="20" [thetaStart]="0" [thetaLength]="360"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'star'"<br />
+				[outerRadius]="1" [innerRadius]="0.5" [depth]="0.5" [depthRate]="0.5"<br />
+				[thetaStart]="0" [thetaLength]="220"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'ConeGeometry'"<br />
+				[radius]="0.2" [height]="0.2"<br />
+				[radiusSegments]="64"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				#dodecahedron<br />
+				[type]="'Dodecahedron'"<br />
+				[radius]="10"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'mergebuffergeometry'"<br />
+				[autoCustomColor]="true" [autoCustomColorKey]="'ca'" [autoCustomColorSize]="3"<br />
+				[autoSize]="true" [autoSizeSize]="1"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'shape'"<br />
+				[text]="'   Three.js\nSimple text.'" [font]="'helvetiker'"<br />
+				[align]="'center'"<br />
+				[weight]="'regular'" [size]="100"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'Extrude'"<br />
+				[shapes]="shapes1" [steps]="100"<br />
+				[bevelEnabled]="false" [extrudePath]="extrudePath" [closed]="true"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'Icosahedron'"<br />
+				[radius]="75" [detail]="1"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'LatheGeometry'"<br />
+				[points]="lathePoints" [segments]="20"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'Octahedron'"<br />
+				[radius]="75" [detail]="2"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
 			</code><br />
 			<br />
 			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry

@@ -1,7 +1,9 @@
 <div id="example-iframe">
+	<div *ngIf="!isLoaded" class="loading">
+
+	</div>
 	<a id='newWindow' [href]="fullUrl" target='_blank'>Open in New Window</a>
 	<div id="viewer-inner">
 		<router-outlet></router-outlet>
 	</div>
-
 </div>

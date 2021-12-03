@@ -36,13 +36,17 @@ export class ExampleViewerComponent implements OnInit, AfterViewInit {
 	}
 
 	public fullUrl: string = '';
-
+	public isLoaded : boolean = false;
 	changeRouter(url: string) {
+		this.isLoaded = false;
 		if (url.startsWith('/viewer/')) {
 			this.fullUrl = '#' + 'examples/' + url.substr(8);	
 		} else {
 			this.fullUrl = '#';
 		}
+		setTimeout(() => {
+			this.isLoaded = true;
+		}, 4000);
 	}
 
 	ngAfterViewInit() {}

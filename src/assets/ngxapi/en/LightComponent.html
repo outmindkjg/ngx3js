@@ -22,7 +22,8 @@
 			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-light<br />
-				[type]="'Hemisphere'" [skyColor]="'0xffffff'" [groundColor]="'0x444444'"<br />
+				[type]="'Hemisphere'" [skyColor]="'0xffffff'" <br />
+				[groundColor]="'0x444444'"<br />
 			&gt;<br />
 				&lt;ngx3js-position [x]="0" [y]="20" [z]="0"&gt;&lt;/ngx3js-position&gt;<br />
 			&lt;/ngx3js-light&gt;<br />
@@ -35,12 +36,20 @@
 				[type]="'AmbientLight'" [color]="'0x6688cc'"<br />
 			&gt;&lt;/ngx3js-light&gt;<br />
 			&lt;ngx3js-light<br />
-				[type]="'SpotLight'" [color]="'0xffffff'" [intensity]="1.5 " [angle]="180 / 9 " [castShadow]="true " [shadowCameraTop]="2 " [shadowCameraBottom]="-2 " [shadowCameraLeft]="-2 " [shadowCameraRight]="2 " [shadowCameraNear]="1000 " [shadowCameraFar]="4000 " [shadowMapSize]="1024"<br />
+				[type]="'SpotLight'" <br />
+				[color]="'0xffffff'" [intensity]="1.5 " <br />
+				[angle]="180/9" [castShadow]="true" [shadowCameraTop]="2 " <br />
+				[shadowCameraBottom]="-2" [shadowCameraLeft]="-2 " <br />
+				[shadowCameraRight]="2" [shadowCameraNear]="1000 " <br />
+				[shadowCameraFar]="4000" [shadowMapSize]="1024"<br />
 			&gt;<br />
 				&lt;ngx3js-position [x]="0" [y]="500" [z]="2000"&gt;&lt;/ngx3js-position&gt;<br />
 			&lt;/ngx3js-light&gt;<br />
 			&lt;ngx3js-light<br />
-				[type]="'SpotLight'" [color]="'0xffffff'" [intensity]="1.5 " [angle]="20 " [castShadow]="true " [shadowCameraNear]="1000 " [shadowCameraFar]="4000 " [shadowMapSize]="1024"<br />
+				[type]="'SpotLight'" <br />
+				[color]="'0xffffff'" [intensity]="1.5 " <br />
+				[angle]="20" [castShadow]="true" [shadowCameraNear]="1000 " <br />
+				[shadowCameraFar]="4000" [shadowMapSize]="1024"<br />
 			&gt;<br />
 				&lt;ngx3js-position [x]="0" [y]="500" [z]="2000"&gt;&lt;/ngx3js-position&gt;<br />
 			&lt;/ngx3js-light&gt;<br />

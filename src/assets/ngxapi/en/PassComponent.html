@@ -25,22 +25,17 @@
 				&lt;ngx3js-pass [type]="'RenderPass'"&gt;&lt;/ngx3js-pass&gt;<br />
 				&lt;ngx3js-pass<br />
 					[type]="'FilmPass'"<br />
-					[noiseIntensity]="0.35"<br />
-					[scanlinesIntensity]="0.75"<br />
-					[scanlinesCount]="2048"<br />
-					[grayscale]="false"<br />
+					[noiseIntensity]="0.35" [scanlinesIntensity]="0.75"<br />
+					[scanlinesCount]="2048" [grayscale]="false"<br />
 				&gt;&lt;/ngx3js-pass&gt;<br />
 				&lt;ngx3js-pass<br />
-					#copyPass<br />
-					[type]="'ShaderPass'"<br />
-					[shader]="'CopyShader'"<br />
+					[type]="'ShaderPass'" [shader]="'CopyShader'"<br />
 				&gt;&lt;/ngx3js-pass&gt;<br />
 				&lt;ngx3js-pass [type]="'bloom'" [strength]="0.75"&gt;&lt;/ngx3js-pass&gt;<br />
 				&lt;ngx3js-pass<br />
 					[type]="'film'"<br />
-					[noiseIntensity]="0.5"<br />
-					[scanlinesIntensity]="0.5"<br />
-					[scanlinesCount]="1448"<br />
+					[noiseIntensity]="0.5" <br />
+					[scanlinesIntensity]="0.5" [scanlinesCount]="1448"<br />
 					[grayscale]="false"<br />
 				&gt;&lt;/ngx3js-pass&gt;<br />
 				&lt;ngx3js-pass<br />
@@ -64,7 +59,6 @@
 					[uniforms]="{ opacity: 0.95 }"<br />
 				&gt;&lt;/ngx3js-pass&gt;<br />
 				&lt;ngx3js-pass<br />
-					#effectSepia<br />
 					[type]="'ShaderPass'"<br />
 					[shader]="'SepiaShader'"<br />
 					[uniforms]="{ amount: 0.9 }"<br />
@@ -123,8 +117,8 @@
 					[shader]="'ColorifyShader'"<br />
 					[uniforms]="{ color: '0xffb0b0' }"<br />
 				&gt;&lt;/ngx3js-pass&gt;<br />
-				&lt;ngx3js-pass #clearMask [type]="'ClearMaskPass'"&gt;&lt;/ngx3js-pass&gt;<br />
-				&lt;ngx3js-pass #renderMask [type]="'MaskPass'"&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass [type]="'ClearMaskPass'"&gt;&lt;/ngx3js-pass&gt;<br />
+				&lt;ngx3js-pass [type]="'MaskPass'"&gt;&lt;/ngx3js-pass&gt;<br />
 				&lt;ngx3js-pass<br />
 					[type]="'MaskPass'"<br />
 					[inverse]="true"<br />

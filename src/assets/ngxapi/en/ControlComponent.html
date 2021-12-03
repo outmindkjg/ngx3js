@@ -22,7 +22,8 @@
 			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-renderer<br />
-				[controlType]="'orbit'" [controlOptions]="{ enablePan: false, enableDamping: true }"<br />
+				[controlType]="'orbit'" <br />
+				[controlOptions]="{ enablePan: false, enableDamping: true }"<br />
 			&gt;&lt;/ngx3js-renderer&gt;<br />
 			&lt;ngx3js-control<br />
 				[type]="'arcball'" [gizmoVisible]="true"<br />
@@ -34,7 +35,9 @@
 				[type]="'plane'"<br />
 			&gt;&lt;/ngx3js-control&gt;<br />
 			&lt;ngx3js-control<br />
-				[type]="'FlyControls'" [movementSpeed]="1000 " [rollSpeed]="7.5 " [autoForward]="false " [dragToLook]="false"<br />
+				[type]="'FlyControls'" <br />
+				[movementSpeed]="1000" [rollSpeed]="7.5" [autoForward]="false" <br />
+				[dragToLook]="false"<br />
 			&gt;&lt;/ngx3js-control&gt;<br />
 			&lt;ngx3js-control<br />
 				[type]="'PointerLockControls'"<br />
@@ -60,13 +63,21 @@
 				(onLoad)="setTransformControl($event)"<br />
 			&gt;&lt;/ngx3js-control&gt;<br />
 			&lt;ngx3js-control<br />
-				[type]="'TrackballControls'" [rollSpeed]="1.0 " [zoomSpeed]="1.2 " [panSpeed]="0.8 " [keys]="['KeyA', 'KeyS', 'KeyD']"<br />
+				[type]="'TrackballControls'" [rollSpeed]="1.0" [zoomSpeed]="1.2 " <br />
+				[panSpeed]="0.8" [keys]="['KeyA', 'KeyS', 'KeyD']"<br />
 			&gt;&lt;/ngx3js-control&gt;<br />
 			&lt;ngx3js-renderer<br />
-				[controlType]="'selectbox'" [controlOptions]="{ enablePan: false, enableDamping: true }"<br />
+				[controlType]="'selectbox'" <br />
+				[controlOptions]="{ <br />
+					enablePan: false, <br />
+					enableDamping: true <br />
+				}"<br />
 			&gt;&lt;/ngx3js-renderer&gt;<br />
 			&lt;ngx3js-control<br />
-				[type]="'csm'" [maxFar]="1000 " [cascades]="4 " [mode]="'practical'" [scene]="scene " [shadowMapSize]="1024 " [lightDirectionX]="-1 " [lightDirectionY]="-1 " [lightDirectionZ]="-1 " [camera]="camera"<br />
+				[type]="'csm'" [maxFar]="1000" [cascades]="4 " <br />
+				[mode]="'practical'" [scene]="scene" [shadowMapSize]="1024 " <br />
+				[lightDirectionX]="-1" [lightDirectionY]="-1" [lightDirectionZ]="-1 " <br />
+				[camera]="camera"<br />
 				(onLoad)="setCsm($event)"<br />
 			&gt;&lt;/ngx3js-control&gt;<br />
 			</code>
@@ -358,10 +369,6 @@
 		<h3>[property:string type] &nbsp; = 'orbit' <i class="modifier modifier-input">Input</i></h3>
 		<p>
 			The type of control<br />
-			<br />
-			<h3>Preview - ngx TransformControls control</h3><br />
-			<iframe src="#/viewer/ngx_control/TransformControls"></iframe><br />
-			<br />
 			Notice - case insensitive.<br />
 			See the [example:ngx_control/TransformControls ngx TransformControls control] page for a live demo.<br />
 			See the [example:ngx_control/DragControls ngx DragControls control] page for a live demo.<br />
