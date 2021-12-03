@@ -23,7 +23,7 @@ To Install you can choose one from two method.
 ```sh
 # install shell script
 npm install -g @angular/cli
-npm install ngx3js
+npm install --save ngx3js
 node ./node_modules/ngx3js/bin/patch.js
 npm install 
 ```
@@ -32,15 +32,15 @@ npm install
 ```sh
 # install by npm
 npm install -g @angular/cli
-npm install ngx3js
-npm install three@0.135.0
-npm install --save-dev @types/three@0.134.0
-npm install gsap
-npm install lil-gui
-npm install chroma-js
+npm install --save ngx3js
+npm install --save three@0.135.0
+npm install --save-dev @types/three@0.135.0
+npm install --save gsap
+npm install --save lil-gui
+npm install --save chroma-js
 npm install --save-dev @types/chroma-js
-npm install fs
-npm install fs-web
+npm install --save fs
+npm install --save fs-web
 ```
 
 
