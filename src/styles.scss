@@ -242,7 +242,7 @@ div#docs {
 	div.dummy-iframe {
 		background-color: var(--secondary-background-color);
 		width: 100%;
-		height: 420px;
+		height: 216px;
 		position: relative;
 		&::before {
 			content: 'Scroll window to view this example demo.';
@@ -267,6 +267,24 @@ div#docs {
 			border-radius: 0px;
 		}
 	}
+	iframe {
+		animation: loadingIframe 2s normal forwards ease-in-out;
+	}
+	@keyframes loadingIframe {
+		0% {
+			margin-top: -200px;
+			opacity: 0;
+		}
+		70% {
+			opacity: 0.9;
+		}
+		100% {
+			margin-top: 0;
+			opacity: 1;
+		}
+	}
+	
+
 	#inputWrapper>input::placeholder {
 		padding-left: 10px;
 		color:var(--text-color);

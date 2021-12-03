@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 import { HighlightJS } from 'ngx-highlightjs';
@@ -11,9 +11,9 @@ import { DocsComponent } from '../docs.component';
 	templateUrl: './api-read.component.html',
 	styleUrls: ['./api-read.component.scss'],
 })
-export class ApiReadComponent implements OnInit {
-	@ViewChild('apiDoc') private docEle: ElementRef;
-	@ViewChild('apiTop') private apiTop: ElementRef;
+export class ApiReadComponent implements OnInit, AfterViewInit {
+	@ViewChild('apiDoc') private docEle: ElementRef = null;
+	@ViewChild('apiTop') private apiTop: ElementRef = null;
 
 	private subscription: Subscription;
 
@@ -214,10 +214,6 @@ export class ApiReadComponent implements OnInit {
 				name +
 				'.$3" id="$3">new $3</a> $4 : <a class="param" href="#$1">$1</a>$2'
 		);
-
-		
-
-		
 		text = text.replace(
 			/\[param:([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
 			'$3 : <a class="param" href="#$1">$1</a>$2'
@@ -239,7 +235,9 @@ export class ApiReadComponent implements OnInit {
 			/\*([\w|\d|\"|\-|\(][\w|\d|\ |\-|\/|\+|\-|\(|\)|\=|\,|\.\"]*[\w|\d|\"|\)]|\w)\*/gi,
 			'<strong>$1</strong>'
 		); // *
-
+		text = text.replace(/<iframe [ a-z="']*src=["']([^"]+)["']><\/iframe>/gi,
+			'<div class="dummy-iframe" data-src="$1"></div>'
+		); 
 		text = text.replace(/\[example:([\w\_/]+)\]/gi, '[example:$1 $1]'); // [example:name] to [example:name title]
 		text = text.replace(
 			/\[example:([\w\_/]+) ([\w\:\/\.\-\_ \s]+)\]/gi,
@@ -353,6 +351,61 @@ export class ApiReadComponent implements OnInit {
 			this.tagName = null;
 		} else {
 			this.setFocus(null);
+		}
+		setTimeout(() => {
+			const docEle : HTMLDivElement  = this.docEle.nativeElement.parentElement.parentElement.parentElement;
+			this.checkScrollIframe(docEle);
+		}, 2000);
+	}
+
+	/**
+	 * Determines whether element in viewport is
+	 * 
+	 * @param el 
+	 * @param scrollObj 
+	 * @returns true if element in viewport 
+	 */
+	 private isElementInViewport(el: Element, scrollSize : {
+		clientHeight : number;
+		clientWidth : number;
+	} ): boolean {
+		const rect = el.getBoundingClientRect();
+		return (
+			rect.top >= 0 &&
+			(rect.top + (rect.bottom - rect.top) * 0.7) <=
+				(scrollSize.clientHeight ||
+					document.documentElement.clientHeight)
+		);
+	}
+
+	public ngAfterViewInit(): void {
+		const docEle : HTMLDivElement  = this.docEle.nativeElement.parentElement.parentElement.parentElement;
+		docEle.addEventListener('scroll',  () => {
+			this.checkScrollIframe(docEle);
+		});
+	}
+
+	private checkScrollIframe(docEle : HTMLDivElement) {
+		const dummyIframes =  docEle.getElementsByClassName('dummy-iframe');
+		if (dummyIframes.length > 0) {
+			const scrollSize : {
+				clientHeight : number;
+				clientWidth : number;
+			} = {
+				clientHeight : docEle.clientHeight,
+				clientWidth : docEle.clientWidth
+			}
+			for(let i = 0 ; i < dummyIframes.length ; i++) {
+				const dummyIframe  = dummyIframes[i] as HTMLDivElement;
+				const isVisible = this.isElementInViewport(dummyIframe, scrollSize);
+				if (isVisible) {
+					const src = dummyIframe.dataset.src;
+					const iframe = document.createElement('iframe');
+					iframe.src = src;
+					dummyIframe.parentElement.insertBefore(iframe, dummyIframe);
+					dummyIframe.parentElement.removeChild(dummyIframe);
+				}
+			}
 		}
 	}
 

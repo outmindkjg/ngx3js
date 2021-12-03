@@ -322,6 +322,10 @@ body.home #panel #sections {
 #panel #content a {
 	position: relative;
 	color: var(--text-color);
+	display: block;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 #panel #content a:hover,
