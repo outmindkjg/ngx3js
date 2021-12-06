@@ -1,0 +1,293 @@
+<div class="info">
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	ngx mesh <strong>{{ controls.type }}</strong>
+</div>
+<div #domElement class="htmlmesh">
+	<dl>
+		<dt>Angular &amp; Javascript 3D library</dt>
+		<dd>
+			The aim of the project is to create<br />
+			an easy to use, lightweight, cross-browser, <br />
+			general purpose 3D library in angular. <br /><br />
+			The current builds only include a WebGL <br />
+			renderer but WebGPU (experimental), <br />
+			SVG and CSS3D renderers are also available in the examples.
+		</dd>
+	</dl>
+</div>
+<ngx3js-renderer
+	[statsMode]="0"
+	[antialias]="true"
+	[controlType]="'orbit'"
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
+		minDistance: 5,
+		maxDistance: 20
+	}"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="45"
+		[near]="1"
+		[far]="1000"
+		(onLoad)="setCamera($event)"
+	>
+		<ngx3js-position [x]="2" [y]="3" [z]="10"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene
+		#scene
+		[background]="
+			controls.background.type !== 'image' ? controls.background.color : null
+		"
+	>
+		<ngx3js-texture
+			*ngIf="controls.background.type === 'image'"
+			[type]="'background'"
+			[image]="backgroundTexture.image"
+			[cubeImage]="backgroundTexture.cubeImage"
+			[loaderType]="backgroundTexture.loaderType"
+			[magFilter]="backgroundTexture.magFilter"
+			[cubeType]="backgroundTexture.cubeType"
+		></ngx3js-texture>
+		<ngx3js-texture
+			*ngIf="controls.environment.enabled"
+			[type]="'environment'"
+			[image]="environmentTexture.image"
+			[cubeImage]="environmentTexture.cubeImage"
+			[loaderType]="environmentTexture.loaderType"
+			[magFilter]="environmentTexture.magFilter"
+			[cubeType]="environmentTexture.cubeType"
+		></ngx3js-texture>
+		<ngx3js-fog
+			*ngIf="controls.background.type === 'fog'"
+			[type]="controls.background.fog.type"
+			[color]="controls.background.color"
+			[near]="controls.background.fog.near"
+			[far]="controls.background.fog.far"
+			[density]="controls.background.fog.density"
+		></ngx3js-fog>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[castShadow]="true"
+		>
+			<ngx3js-position [x]="-3" [y]="10" [z]="-20"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light [type]="'AmbientLight'" [color]="'0x6688cc'"></ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#geometry
+				[type]="'TorusKnotGeometry'"
+				[radius]="1.5"
+				[tube]="0.34"
+				[radiusSegments]="100"
+				[tubularSegments]="64"
+			></ngx3js-geometry>
+			<ngx3js-material
+				#material
+				[type]="'MeshStandardMaterial'"
+				[color]="'0xffffff'"
+				[roughness]="controls.environment.roughness"
+				[metalness]="controls.environment.metalness"
+			></ngx3js-material>
+			<ngx3js-curve
+				#curve
+				[type]="'catmullrom'"
+				[points]="curvePath"
+				[closed]="true"
+				[curveType]="'centripetal'"
+			></ngx3js-curve>
+			<ngx3js-geometry
+				#textGeometry
+				[type]="'Text'"
+				[font]="'helvetiker_regular'"
+				[text]="'Hello three.js!'"
+				[size]="1.5"
+				[height]="0.2"
+				[curveSegments]="12"
+				[bevelEnabled]="true"
+				[bevelThickness]="0.02"
+				[bevelSize]="0.01"
+				[bevelOffset]="0"
+				[bevelSegments]="5"
+			>
+				<ngx3js-rotation [x]="180" [y]="0" [z]="0"></ngx3js-rotation>
+			</ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [ngSwitch]="controls.type">
+			<ngx3js-mesh
+				*ngSwitchCase="'Flow'"
+				[type]="'flow'"
+				[curve]="curve"
+				[moveAlongCurve]="0.0005"
+				[material]="material"
+			>
+				<ngx3js-mesh
+					[type]="'lineloop'"
+					[curve]="curve"
+					[divisions]="50"
+					[geometry]="textGeometry"
+				>
+					<ngx3js-material
+						[type]="'LineBasic'"
+						[color]="'0x00ff00'"
+					></ngx3js-material>
+				</ngx3js-mesh>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				*ngSwitchCase="'InstancedFlow'"
+				[type]="'instancedflow'"
+				[count]="2"
+				[curve]="curve"
+				[moveAlongCurve]="0.0005"
+				[colors]="'0xff0000,random,random'"
+				[geometry]="textGeometry"
+			>
+				<ngx3js-mesh [type]="'lineloop'" [curve]="curve" [divisions]="50">
+					<ngx3js-material
+						[type]="'LineBasic'"
+						[color]="'0x00ff00'"
+					></ngx3js-material>
+				</ngx3js-mesh>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-material
+					[type]="'MeshStandardMaterial'"
+					[color]="'0xffffff'"
+					[roughness]="controls.environment.roughness"
+					[metalness]="controls.environment.metalness"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh *ngSwitchCase="'Lensflare'" [type]="'lensflare'">
+				<ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
+				<ngx3js-lensflareelement
+					[image]="'textures/lensflare/lensflare0.png'"
+					[size]="700"
+					[distance]="0"
+				></ngx3js-lensflareelement>
+				<ngx3js-lensflareelement
+					[image]="'textures/lensflare/lensflare3.png'"
+					[size]="260"
+					[distance]="0.6"
+				></ngx3js-lensflareelement>
+				<ngx3js-lensflareelement
+					[image]="'textures/lensflare/lensflare3.png'"
+					[size]="270"
+					[distance]="0.7"
+				></ngx3js-lensflareelement>
+				<ngx3js-lensflareelement
+					[image]="'textures/lensflare/lensflare3.png'"
+					[size]="220"
+					[distance]="0.9"
+				></ngx3js-lensflareelement>
+				<ngx3js-lensflareelement
+					[image]="'textures/lensflare/lensflare3.png'"
+					[size]="270"
+					[distance]="1"
+				></ngx3js-lensflareelement>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				*ngSwitchCase="'LightningStorm'"
+				[type]="'LightningStorm'"
+				[stormParams]="stormParams"
+				[rayParams]="rayParams"
+			>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[color]="'0xB0FFFF'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh *ngSwitchCase="'Line'" [type]="'line'">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-scale [x]="0.03" [y]="0.03" [z]="0.03"></ngx3js-scale>
+				<ngx3js-geometry
+					[type]="'BufferGeometry'"
+					[onInit]="loadLineGeometry"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'LineBasicMaterial'"
+					[vertexColors]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh *ngSwitchCase="'LineLoop'"  [type]="'LineLoop'">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'BufferGeometry'"
+					[attrPosition]="lineLoopPosition"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'LineBasicMaterial'"
+					[color]="'0xffff00'"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh *ngSwitchCase="'Points'" (onLoad)="setMesh($event)" [type]="'Points'">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-geometry
+					[type]="'BufferGeometry'"
+					[attrPosition]="lineLoopPosition"
+					[attrColor]="lineColors"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'PointsMaterial'"
+					[size]="0.3"
+					[vertexColors]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>			
+			<ngx3js-mesh *ngSwitchCase="'LineSegments'"  [type]="'LineSegments'">
+				<ngx3js-geometry
+					[type]="'Buffer'"
+					[attrPosition]="lineLoopPosition"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'LineDashed'"
+					[color]="'0xffaa00'"
+					[dashSize]="3"
+					[gapSize]="1"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				*ngSwitchCase="'HTMLMesh'"
+				[type]="'HTMLMesh'"
+				[domElement]="domElement"
+			>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-rotation [x]="0" [y]="45" [z]="0"></ngx3js-rotation>
+				<ngx3js-scale [x]="5" [y]="5" [z]="5"></ngx3js-scale>
+			</ngx3js-mesh>
+			<ngx3js-mesh *ngSwitchCase="'MeshText'" [type]="'MeshText'" [text]="'Mesh Text'" [size]="2">
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			</ngx3js-mesh>
+			<ngx3js-mesh
+				*ngSwitchDefault
+				[geometry]="geometry"
+				[material]="material"
+				[castShadow]="true"
+			>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			</ngx3js-mesh>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+		</ngx3js-mesh>
+		<ngx3js-mesh
+			[receiveShadow]="true"
+			*ngIf="controls.background.type === 'fog'"
+		>
+			<ngx3js-position [x]="0" [y]="-2.5" [z]="0"></ngx3js-position>
+			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
+			<ngx3js-geometry
+				[type]="'plane'"
+				[width]="140"
+				[height]="140"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhongMaterial'"
+				[color]="'0x000000'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>

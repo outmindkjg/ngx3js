@@ -37,6 +37,9 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 			this.subscription.unsubscribe();
 			this.subscription = null;
 		}
+		if (this._onScrollBind !== null && this._docEle !== null) {
+			this._docEle.removeEventListener('scroll', this._onScrollBind);
+		}
 	}
 
 	ngOnInit(): void {}
@@ -378,11 +381,14 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		);
 	}
 
+	_onScrollBind : () => any;
+	_docEle : HTMLDivElement = null;
 	public ngAfterViewInit(): void {
-		const docEle : HTMLDivElement  = this.docEle.nativeElement.parentElement.parentElement.parentElement;
-		docEle.addEventListener('scroll',  () => {
-			this.checkScrollIframe(docEle);
-		});
+		this._docEle = this.docEle.nativeElement.parentElement.parentElement.parentElement;
+		this._onScrollBind = () => {
+			this.checkScrollIframe(this._docEle);
+		}
+		this._docEle.addEventListener('scroll', this._onScrollBind);
 	}
 
 	private checkScrollIframe(docEle : HTMLDivElement) {

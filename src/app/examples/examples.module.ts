@@ -436,6 +436,7 @@ import { WebxrVrSandboxComponent } from './webxr-vr-sandbox/webxr-vr-sandbox.com
 import { WebxrVrSculptComponent } from './webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component';
 import { HelloWorldComponent } from './hello-world/hello-world.component';
+import { NgxMeshComponent } from './ngx-mesh/ngx-mesh.component';
 @NgModule({
 	declarations: [
 		WebglAnimationClothComponent,
@@ -860,6 +861,7 @@ import { HelloWorldComponent } from './hello-world/hello-world.component';
 		NgxScaleComponent,
 		NgxCurveComponent,
 		NgxEffectComponent,
+		NgxMeshComponent,
 		HelloWorldComponent,
 		WebgpuInstanceUniformComponent,
 		WebgpuLightsCustomComponent,

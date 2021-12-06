@@ -432,6 +432,7 @@ import { WebxrVrSandboxComponent } from './webxr-vr-sandbox/webxr-vr-sandbox.com
 import { WebxrVrSculptComponent } from './webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component';
 import { HelloWorldComponent } from './hello-world/hello-world.component';
+import { NgxMeshComponent } from './ngx-mesh/ngx-mesh.component';
 
 const routes: Routes = [
 	{ path: '', pathMatch: 'full', redirectTo: 'ngx_scene' },
@@ -1594,7 +1595,9 @@ const routes: Routes = [
 	{ path: 'ngx_effect/:type', component: NgxEffectComponent },
 	{ path: 'ngx_curve', component: NgxCurveComponent },
 	{ path: 'ngx_curve/:type', component: NgxCurveComponent },
-	{ path: 'hello_world', component: HelloWorldComponent },
+	{ path: 'ngx_mesh', component: NgxMeshComponent },
+	{ path: 'ngx_mesh/:type', component: NgxMeshComponent },
+	{ path: 'ngx_hello_world', component: HelloWorldComponent },
 	{ path: '**', component: UnderConstructionComponent },
 ];
 

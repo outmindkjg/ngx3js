@@ -10,6 +10,7 @@
 		"ngx_curve",
 		"ngx_hud",
 		"ngx_light",
+		"ngx_mesh",
 		"ngx_material",
 		"ngx_geometry",
 		"ngx_font",
