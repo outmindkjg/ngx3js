@@ -1,17 +1,20 @@
 
 div.htmlmesh {
     visibility : hidden;
-    width: 1524px;
+    width: 1124px;
     padding: 10px;
     dl {
-        width: 1524px;
+        padding:20px;
+        width: 1124px;
         display: block;
         font-size: 50px;
         dt {
-            padding: 30px 0;
+            padding: 30px 20px;
             color:red;
         }
         dd {
+            margin: 10px 0;
+            padding: 20px 10px;
             line-height: 50px;
             font-size: 40px;
         }

@@ -156,6 +156,14 @@ pre {
 		p {
 			margin: 0.2em 0;
 		}
+		strong.shadow {
+			box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+			border:1px solid #000000;
+			background-color: rgba(0,0,0,0.7);
+			display: inline-block;
+			padding:3px 10px;
+			border-radius: 5px;
+		}
 		a {
 			pointer-events: auto;
 			color: #ff0;
@@ -251,8 +259,8 @@ div#docs {
 			left : 50%;
 			top : 50%;
 			text-align: center;
-			width: 300px;
-			margin-left: -150px;
+			width: 400px;
+			margin-left: -200px;
 			margin-top: -15px;
 		}		
 	}
@@ -272,14 +280,12 @@ div#docs {
 	}
 	@keyframes loadingIframe {
 		0% {
-			margin-top: -200px;
 			opacity: 0;
 		}
 		70% {
 			opacity: 0.9;
 		}
 		100% {
-			margin-top: 0;
 			opacity: 1;
 		}
 	}

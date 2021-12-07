@@ -200,7 +200,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 			menu.children.forEach((child) => {
 				child.selected = child.id === this.menuId;
 				if (child.selected) {
-					document.title = child.name + ' :: Three.js examples';
+					document.title = child.name + ' :: Three.js + Ngx3js examples';
 					if (child.safeId.startsWith('/examples/ngx-')) {
 						this.gitHub.nativeElement.style.pointerEvents = 'none';
 						this.gitHub.nativeElement.href =

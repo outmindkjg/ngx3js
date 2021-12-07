@@ -1,6 +1,6 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-	ngx curve
+	ngx curve <strong class="shadow">{{ controls.curve.type }}</strong>
 </div>
 <ngx3js-renderer
 	[statsMode]="0"
@@ -58,9 +58,6 @@
 				<ngx3js-geometry [type]="'box'" [width]="6" [height]="6" [depth]="6" [widthSegments]="10" [heightSegments]="10" [depthSegments]="10"></ngx3js-geometry>
 				<ngx3js-material [type]="'MeshPhongMaterial'" [transparent]="true" [opacity]="0.1" [color]="'0xffffff'" [side]="'back'"></ngx3js-material>
 			</ngx3js-mesh>
-			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-		</ngx3js-mesh>
-		<ngx3js-mesh [type]="'text'" [text]="'Curve : ' + controls.curve.type + ' / ' + controls.curve.options "  [size]="0.2">
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
 		</ngx3js-mesh>
 	</ngx3js-scene>

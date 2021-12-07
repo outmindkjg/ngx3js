@@ -1,6 +1,8 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
 	ngx scene
+	<strong class="shadow">{{ controls.background.type + ' / ' + (controls.background.type !== 'image' ? controls.background.color : controls.background.image) + ' / ' + controls.environment.image }}</strong>
+
 </div>
 <ngx3js-renderer
 	[statsMode]="0"
@@ -87,9 +89,6 @@
 				<ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
 			</ngx3js-mesh>
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-		</ngx3js-mesh>
-		<ngx3js-mesh [type]="'text'" [text]="controls.background.type + ' / ' + (controls.background.type !== 'image' ? controls.background.color : controls.background.image) + ' / ' + controls.environment.image " [size]="0.2">
-			<ngx3js-position [x]="0" [y]="2.5" [z]="1.7"></ngx3js-position>
 		</ngx3js-mesh>
 		<ngx3js-mesh [receiveShadow]="true" *ngIf="controls.background.type === 'fog'">
 			<ngx3js-position [x]="0" [y]="-2.5" [z]="0"></ngx3js-position>

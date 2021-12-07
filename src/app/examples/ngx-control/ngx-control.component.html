@@ -1,6 +1,6 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-	ngx geometry
+	ngx control <strong class="shadow">{{ controls.controlType }}</strong>
 </div>
 <ngx3js-renderer
 	[statsMode]="0"
@@ -44,7 +44,7 @@
 			[name]="'gridHelper'"
 			[type]="'GridHelper'"
 			[size]="100"
-			[divisions]="10"
+			[divisions]="50"
 			[color1]="'0x888888'"
 			[color2]="'0x444444'"
 		>
@@ -67,9 +67,6 @@
 					[image]="'textures/crate.gif'"
 				></ngx3js-texture>
 			</ngx3js-material>
-		</ngx3js-mesh>
-		<ngx3js-mesh [type]="'text'" [text]="controls.controlType" [size]="0.2">
-			<ngx3js-position [x]="0" [y]="2.5" [z]="1.7"></ngx3js-position>
 		</ngx3js-mesh>
 	</ngx3js-scene>
 </ngx3js-renderer>

@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BaseComponent, RendererTimer, THREE, GeometryUtils } from 'ngx3js';
+import {
+	BaseComponent,
+	GeometryUtils,
+	RendererTimer
+} from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-ngx-mesh',
@@ -8,7 +13,7 @@ import { BaseComponent, RendererTimer, THREE, GeometryUtils } from 'ngx3js';
 	styleUrls: ['./ngx-mesh.component.scss'],
 })
 export class NgxMeshComponent extends BaseComponent<{
-	type : string;
+	type: string;
 	background: {
 		type: string;
 		color: string;
@@ -30,7 +35,7 @@ export class NgxMeshComponent extends BaseComponent<{
 	constructor(private route: ActivatedRoute) {
 		super(
 			{
-				type : 'Mesh',
+				type: 'InstancedFlow',
 				background: {
 					type: 'image',
 					color: '0xffffff',
@@ -40,44 +45,49 @@ export class NgxMeshComponent extends BaseComponent<{
 						near: 0.1,
 						far: 70,
 						density: 0.04,
-					}
+					},
 				},
 				environment: {
 					enabled: true,
 					image: 'SwedishRoyalCastle',
 					roughness: 0.2,
 					metalness: 1,
-				}
+				},
 			},
 			[
-				{ name: 'type', type: 'select', select: [
-					"Mesh",
-					"Flow",
-					"Group",
-					"HTMLMesh",
-					"InstancedFlow",
-					"InstancedMesh",
-					"InteractiveGroup",
-					"Lensflare",
-					"LightningStorm",
-					"Line",
-					"Line2",
-					"LineLoop",
-					"LineSegments",
-					"MarchingCubes",
-					"MeshText",
-					"Points",
-					"Reflector",
-					"ReflectorForSSRMesh",
-					"ReflectorRTT",
-					"Refractor",
-					"Sky",
-					"SkyboxLensflare",
-					"Sprite",
-					"Water",
-					"Water2",
-					"Wireframe",					
-				], listen : true },
+				{
+					name: 'type',
+					type: 'select',
+					select: [
+						'Mesh',
+						'Flow',
+						// 'Group',
+						'HTMLMesh',
+						'InstancedFlow',
+						'InstancedMesh',
+						// 'InteractiveGroup',
+						'Lensflare',
+						// 'LightningStorm',
+						'Line',
+						'Line2',
+						'LineLoop',
+						'LineSegments',
+						// 'MarchingCubes',
+						'MeshText',
+						'Points',
+						'Reflector',
+						// 'ReflectorForSSRMesh',
+						'ReflectorRTT',
+						'Refractor',
+						'Sky',
+						// 'SkyboxLensflare',
+						'Sprite',
+						'Water',
+						'Water2',
+						'Wireframe',
+					],
+					listen: true,
+				},
 				{
 					name: 'background',
 					type: 'folder',
@@ -115,7 +125,7 @@ export class NgxMeshComponent extends BaseComponent<{
 									step: 0.0001,
 								},
 							],
-						},						
+						},
 					],
 				},
 				{
@@ -141,7 +151,7 @@ export class NgxMeshComponent extends BaseComponent<{
 						{ name: 'roughness', type: 'number', min: 0, max: 1, step: 0.1 },
 						{ name: 'metalness', type: 'number', min: 0, max: 1, step: 0.1 },
 					],
-				}
+				},
 			],
 			true,
 			false
@@ -161,23 +171,39 @@ export class NgxMeshComponent extends BaseComponent<{
 		geometry.setAttribute('color', colorAttribute);
 	}
 
-	initialPoints: { x: number; y: number; z: number }[] = [
-		{ x: 5, y: 0, z: -3 },
-		{ x: 5, y: 0, z: 3 },
-		{ x: -5, y: 0, z: 3 },
-		{ x: -5, y: 0, z: -3 },
+	curvePath: { x: number; y: number; z: number }[] = [
+		{ x: 4, y: 2, z: -4 },
+		{ x: 4, y: -1, z: 4 },
+		{ x: 0, y: -2, z: 0 },
+		{ x: -4, y: 0, z: -4 },
 	];
-
-	curvePath: { x: number; y: number; z: number }[] = this.initialPoints;
-	rayParams = {}
+	rayParams = {};
 	stormParams = {
 		size: 1000,
 		minHeight: 90,
 		maxHeight: 200,
 		maxSlope: 0.6,
 		maxLightnings: 8,
-		onLightningDown: (lightning) => {
-		},
+		onLightningDown: (lightning) => {},
+	};
+
+	makeMatrix = (mat: THREE.Matrix4, index: number) => {
+		const rate = index / 100;
+		const x = Math.sin(rate * 50) * rate * 5;
+		const y = 3 - rate * 3;
+		const z = Math.cos(rate * 50) * rate * 5;
+		const translation: THREE.Vector3 = new THREE.Vector3(x, y, z);
+		const rotation: THREE.Quaternion = new THREE.Quaternion();
+		rotation.setFromAxisAngle(new THREE.Vector3(0, 1, 0), rate * 50);
+		const scale: THREE.Vector3 = new THREE.Vector3(rate, rate, rate);
+		mat.compose(translation, rotation, scale);
+	};
+
+	makeColor = (color: THREE.Color, index: number) => {
+		const rate = index / 100;
+		const x = Math.sin(rate * Math.PI * 2) / 2 + 0.5;
+		const z = Math.cos(rate * Math.PI * 2) / 2 + 0.5;
+		color.setRGB(x, z, rate);
 	};
 
 	ngOnInit() {
@@ -186,144 +212,85 @@ export class NgxMeshComponent extends BaseComponent<{
 			this.route.params.subscribe((params) => {
 				if (params['type']) {
 					switch (params['type']) {
-						case 'Mesh' : 
-						case 'Flow' : 
-						case 'Group' : 
-						case 'HTMLMesh' : 
-						case 'InstancedFlow' : 
-						case 'InstancedMesh' : 
-						case 'InteractiveGroup' : 
-						case 'Lensflare' : 
-						case 'LightningStorm' : 
-						case 'Line' : 
-						case 'Line2' : 
-						case 'LineLoop' : 
-						case 'LineSegments' : 
-						case 'MarchingCubes' : 
-						case 'MeshText' : 
-						case 'Points' : 
-						case 'Reflector' : 
-						case 'ReflectorForSSRMesh' : 
-						case 'ReflectorRTT' : 
-						case 'Refractor' : 
-						case 'Sky' : 
-						case 'SkyboxLensflare' : 
-						case 'Sprite' : 
-						case 'Water' : 
-						case 'Water2' : 
-						case 'Wireframe' : 		
+						case 'Mesh':
+						case 'Flow':
+						// case 'Group':
+						case 'HTMLMesh':
+						case 'InstancedFlow':
+						case 'InstancedMesh':
+						// case 'InteractiveGroup':
+						case 'Lensflare':
+						// case 'LightningStorm':
+						case 'Line':
+						case 'Line2':
+						case 'LineLoop':
+						case 'LineSegments':
+						// case 'MarchingCubes':
+						case 'MeshText':
+						case 'Points':
+						case 'Reflector':
+						// case 'ReflectorForSSRMesh':
+						case 'ReflectorRTT':
+						case 'Refractor':
+						case 'Sky':
+						// case 'SkyboxLensflare':
+						case 'Sprite':
+						case 'Water':
+						case 'Water2':
+						case 'Wireframe':
 							this.controls.type = params['type'];
-							break;				
+							break;
 						default:
 							break;
 					}
 				}
 			})
-		);		
+		);
 		this.chageBackground('background');
 		this.chageBackground('environment');
 
 		this.lineLoopPosition = [];
-		const radius = 3;
-		for (let i = 0; i < 100; i++) {
-			const s = (i * Math.PI * 2) / 100;
-			this.lineLoopPosition.push(radius * Math.sin(s), radius * Math.cos(s), 0);
-		}
-		const width = 3 * 0.5;
-		const height = 3 * 0.5;
-		const depth = 3 * 0.5;
-		this.lineLoopPosition.push(
-			-width,
-			-height,
-			-depth,
-			-width,
-			height,
-			-depth,
-			-width,
-			height,
-			-depth,
-			width,
-			height,
-			-depth,
-			width,
-			height,
-			-depth,
-			width,
-			-height,
-			-depth,
-			width,
-			-height,
-			-depth,
-			-width,
-			-height,
-			-depth,
-			-width,
-			-height,
-			depth,
-			-width,
-			height,
-			depth,
-			-width,
-			height,
-			depth,
-			width,
-			height,
-			depth,
-			width,
-			height,
-			depth,
-			width,
-			-height,
-			depth,
-			width,
-			-height,
-			depth,
-			-width,
-			-height,
-			depth,
-			-width,
-			-height,
-			-depth,
-			-width,
-			-height,
-			depth,
-			-width,
-			height,
-			-depth,
-			-width,
-			height,
-			depth,
-			width,
-			height,
-			-depth,
-			width,
-			height,
-			depth,
-			width,
-			-height,
-			-depth,
-			width,
-			-height,
-			depth
-		);
-		const color = new THREE.Color();
-		const n = 1000,
-			n2 = n / 2; // particles spread in the cube
 		this.lineColors = [];
-		for (let i = 0; i < this.lineLoopPosition.length; i += 3) {
-			// positions
-			const x = Math.random() * n - n2;
-			const y = Math.random() * n - n2;
-			const z = Math.random() * n - n2;
-			// colors
-
-			const vx = x / n + 0.5;
-			const vy = y / n + 0.5;
-			const vz = z / n + 0.5;
-			color.setRGB(vx, vy, vz);
+		this.spriteInfos = [];
+		const color = new THREE.Color();
+		for (let i = 0; i < 200; i++) {
+			const rate = 0.5 + ((i - 100) / 100) * 3;
+			const x = Math.sin(i / 5) * rate;
+			const z = Math.cos(i / 5) * rate;
+			const y = 2.5 - (i / 200) * 5;
+			this.lineLoopPosition.push(x, y, z);
+			color.setRGB(
+				Math.abs((x + rate) / 2 / rate),
+				Math.abs((y + rate) / 2 / rate),
+				Math.abs((z + rate) / 2 / rate)
+			);
 			this.lineColors.push(color.r, color.g, color.b);
+			this.spriteInfos.push({
+				color: color.getHex(),
+				scale: 0.1 + Math.abs(y / 6.5),
+				x: x,
+				y: y,
+				z: z,
+			});
 		}
+		const theta = Math.PI * (0.499 - 0.5);
+		const phi = 2 * Math.PI * (0.205 - 0.5);
+		this.sunDirection = [
+			Math.cos(phi),
+			Math.sin(phi) * Math.sin(theta),
+			Math.sin(phi) * Math.cos(theta),
+		];
 	}
+
+	sunDirection: number[] = [];
+
+	spriteInfos: {
+		color: number;
+		scale: number;
+		x: number;
+		y: number;
+		z: number;
+	}[] = [];
 
 	lineLoopPosition: number[] = [];
 	lineColors: number[] = [];
@@ -435,16 +402,14 @@ export class NgxMeshComponent extends BaseComponent<{
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
-			switch(this.controls.type) {
-				case 'Mesh' :
-					const elapsedTime = timer.elapsedTime;
-					this.meshObject3d.rotation.y = elapsedTime / 5;
-					this.meshChildren.forEach(child => {
-						child.rotation.x = elapsedTime / 2;
-						child.rotation.y = elapsedTime / 4;
-					})
+			switch (this.controls.type) {
+				case 'Water':
+				case 'Water2':
+				case 'Flow':
+				case 'InstancedFlow':
+				case 'Refrac1tor':
 					break;
-				case 'Line' :
+				case 'Line':
 					if (this.meshObject3d.children.length > 0) {
 						const mesh = this.meshObject3d.children[0] as THREE.Line;
 						if (mesh.geometry) {
@@ -453,6 +418,10 @@ export class NgxMeshComponent extends BaseComponent<{
 							this.updateLineColors(colorAttribute);
 						}
 					}
+					break;
+				default:
+					const elapsedTime = timer.elapsedTime;
+					this.meshObject3d.rotation.y = elapsedTime / 10;
 					break;
 			}
 		}

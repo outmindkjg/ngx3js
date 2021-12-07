@@ -1,6 +1,7 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-	ngx scene
+	ngx renderer
+	<strong class="shadow">{{ controls.controler.type + ' / ' + controls.renderer.shadowMapType + ' / ' + controls.renderer.toneMapping }}</strong>
 </div>
 <ngx3js-renderer
 	[statsMode]="controls.renderer.statsMode"
@@ -72,9 +73,6 @@
 				<ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
 			</ngx3js-mesh>
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-		</ngx3js-mesh>
-		<ngx3js-mesh [type]="'text'" [text]="controls.controler.type + ' / ' + controls.renderer.shadowMapType + ' / ' + controls.renderer.toneMapping " [size]="0.2">
-			<ngx3js-position [x]="0" [y]="2.5" [z]="1.7"></ngx3js-position>
 		</ngx3js-mesh>
 		<ngx3js-mesh [receiveShadow]="true">
 			<ngx3js-position [x]="0" [y]="-2.5" [z]="0"></ngx3js-position>

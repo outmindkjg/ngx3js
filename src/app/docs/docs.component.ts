@@ -382,7 +382,7 @@ export class DocsComponent implements OnInit {
 					child.children.forEach((gchild) => {
 						gchild.selected = gchild.id === this.menuId;
 						if (gchild.selected) {
-							document.title = gchild.name + ' :: Three.js docs + ngx';
+							document.title = gchild.name + ' :: Three.js + Ngx3js docs';
 							if (
 								gchild.id.startsWith('/docs/ngxapi/') ||
 								gchild.id.startsWith('/docs/ngxmanual/')
