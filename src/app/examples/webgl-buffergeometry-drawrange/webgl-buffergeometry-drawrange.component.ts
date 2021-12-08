@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, MeshComponent, RendererTimer } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-drawrange',
@@ -72,7 +73,7 @@ export class WebglBuffergeometryDrawrangeComponent extends BaseComponent<{
 	particlesData: { velocity: THREE.Vector3; numConnections: number }[] = [];
 
 	setLineMesh(mesh: MeshComponent) {
-		this.linesMesh = mesh.getMesh();
+		this.linesMesh = mesh.getMesh() as any;
 	}
 
 	linesMesh: THREE.LineSegments = null;

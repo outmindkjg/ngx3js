@@ -5,8 +5,8 @@ import {
 	MeshComponent,
 	RendererEvent,
 	DragControls,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-misc-controls-drag',

@@ -4,8 +4,8 @@ import {
 	MeshComponent,
 	RendererEvent,
 	ThreeUtil,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-decals',

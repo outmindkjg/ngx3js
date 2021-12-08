@@ -4,9 +4,9 @@ import {
 	ControlComponent,
 	RendererEvent,
 	RendererTimer,
-	THREE,
 	PointerLockControls,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-misc-controls-pointerlock',

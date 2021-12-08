@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, MeshComponent, RendererTimer } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-instancing-interleaved',

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BaseComponent, ControlComponent, MeshComponent, RendererTimer } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-ngx-control',

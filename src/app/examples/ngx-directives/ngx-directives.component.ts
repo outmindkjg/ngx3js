@@ -6,6 +6,7 @@ import {
 	ObjectFunction,
 	DirectiveOptions,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 const easingOptions = [
 	'linearInOut',

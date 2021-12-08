@@ -6,8 +6,8 @@ import {
 	RendererEvent,
 	SceneComponent,
 	SSRrPass,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-postprocessing-ssrr',

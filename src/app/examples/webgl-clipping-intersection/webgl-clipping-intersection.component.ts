@@ -3,8 +3,8 @@ import {
 	BaseComponent,
 	MaterialComponent,
 	PlaneComponent,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-clipping-intersection',

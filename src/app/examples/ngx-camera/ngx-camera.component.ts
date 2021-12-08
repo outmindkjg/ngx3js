@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseComponent, RendererTimer } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-ngx-camera',

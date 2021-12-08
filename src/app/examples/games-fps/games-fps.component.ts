@@ -6,8 +6,8 @@ import {
 	Octree,
 	RendererEvent,
 	RendererTimer,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-games-fps',
@@ -36,7 +36,7 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 	}
 
 	setSpheres(mesh: MeshComponent, idx: number) {
-		this.spheresInfos[idx].mesh = mesh.getMesh();
+		this.spheresInfos[idx].mesh = mesh.getMesh() as THREE.Mesh;
 	}
 
 	keyStates: { [key: string]: boolean } = {};

@@ -4,8 +4,8 @@ import {
 	CameraComponent,
 	RendererComponent,
 	RendererTimer,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-camera-logarithmicdepthbuffer',

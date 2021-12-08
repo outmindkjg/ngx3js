@@ -5,8 +5,8 @@ import {
 	MeshComponent,
 	RendererEvent,
 	RendererTimer,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-interactive-raycasting-points',
@@ -101,9 +101,9 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
 		}, 1000);
 	}
 
-	meshChildren: THREE.Object3D[] = null;
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
+		this.meshObject3d.add
 		setTimeout(() => {
 			this.meshChildren = [];
 			mesh.getObject3d().children.forEach((child) => {

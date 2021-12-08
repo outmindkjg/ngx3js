@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, THREE, ThreeUtil } from 'ngx3js';
+import { BaseComponent, MeshComponent, ThreeUtil } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-loader-dm3',

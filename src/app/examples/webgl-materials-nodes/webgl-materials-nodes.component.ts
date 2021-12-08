@@ -4,9 +4,9 @@ import {
 	GuiControlParam,
 	MaterialComponent,
 	MeshComponent,
-	THREE,
 	NODES,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-materials-nodes',

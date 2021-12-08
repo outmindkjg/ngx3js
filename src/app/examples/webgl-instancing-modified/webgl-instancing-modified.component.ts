@@ -5,8 +5,8 @@ import {
 	MaterialComponent,
 	MeshComponent,
 	RendererTimer,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-instancing-modified',

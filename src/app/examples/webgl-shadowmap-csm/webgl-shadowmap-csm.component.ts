@@ -6,8 +6,8 @@ import {
 	CSMHelper,
 	HelperComponent,
 	RendererTimer,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-shadowmap-csm',

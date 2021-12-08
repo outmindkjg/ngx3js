@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BaseComponent, CSS3DSprite, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, CSS3DSprite, RendererTimer } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-css3d-sprites',

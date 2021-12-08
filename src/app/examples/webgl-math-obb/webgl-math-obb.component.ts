@@ -5,8 +5,8 @@ import {
 	RendererEvent,
 	RendererTimer,
 	OBB,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-math-obb',
@@ -81,7 +81,7 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 	}
 
 	geometryObb: OBB = null;
-	meshChildren: THREE.Object3D[] = null;
+	
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren !== null) {

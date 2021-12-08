@@ -4,8 +4,8 @@ import {
 	CurveUtils,
 	MeshComponent,
 	RendererTimer,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webxr-vr-rollercoaster',

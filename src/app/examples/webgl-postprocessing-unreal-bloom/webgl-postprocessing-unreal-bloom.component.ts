@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BaseComponent, PassComponent, THREE, UnrealBloomPass } from 'ngx3js';
+import { BaseComponent, PassComponent, UnrealBloomPass } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-postprocessing-unreal-bloom',

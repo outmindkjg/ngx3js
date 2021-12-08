@@ -4,8 +4,8 @@ import {
 	ControlComponent,
 	MeshComponent,
 	RendererEvent,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-geometry-spline-editor',

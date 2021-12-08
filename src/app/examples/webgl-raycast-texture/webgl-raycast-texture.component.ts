@@ -5,8 +5,8 @@ import {
 	MeshComponent,
 	RendererEvent,
 	TextureComponent,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-raycast-texture',

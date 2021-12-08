@@ -3,9 +3,9 @@ import {
 	BaseComponent,
 	MeshComponent,
 	RendererTimer,
-	THREE,
 	ThreeUtil,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-morphtargets-sphere',

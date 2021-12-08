@@ -5,8 +5,9 @@ import {
 	RendererTimer,
 	RigidbodyComponent,
 	ThreeUtil,
-	THREE,
 } from 'ngx3js';
+
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-physics-ammo-instancing',
@@ -44,7 +45,7 @@ export class PhysicsAmmoInstancingComponent extends BaseComponent<{}> {
 			this.meshChildren.length > 0
 		) {
 			const position = new THREE.Vector3();
-			this.meshChildren.forEach((child: THREE.InstancedMesh) => {
+			this.meshChildren.forEach((child: any) => {
 				const rigidbodyComponent: RigidbodyComponent =
 					ThreeUtil.getRigidbodyComponent(child);
 				if (rigidbodyComponent !== null) {

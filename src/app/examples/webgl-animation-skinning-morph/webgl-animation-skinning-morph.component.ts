@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MixerComponent, THREE, ThreeUtil } from 'ngx3js';
+import { BaseComponent, MixerComponent, ThreeUtil } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-animation-skinning-morph',

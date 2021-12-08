@@ -5,7 +5,8 @@ import {
 	OnInit,
 	ViewChild,
 } from '@angular/core';
-import { THREE, UVsDebug } from 'ngx3js';
+import { UVsDebug } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-misc-uv-test',

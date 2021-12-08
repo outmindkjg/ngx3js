@@ -4,8 +4,8 @@ import {
 	MeshComponent,
 	RendererEvent,
 	RendererTimer,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-performance-static',
@@ -51,8 +51,6 @@ export class WebglPerformanceStaticComponent extends BaseComponent<{}> {
 		super.setMesh(mesh);
 		this.meshChildren = mesh.getObject3d().children;
 	}
-
-	meshChildren: THREE.Object3D[] = [];
 
 	mouseX: number = 0;
 	mouseY: number = 0;

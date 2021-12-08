@@ -5,8 +5,8 @@ import {
 	GeometryComponent,
 	MaterialComponent,
 	RendererTimer,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-ngx-material',

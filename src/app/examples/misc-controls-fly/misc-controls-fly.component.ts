@@ -8,8 +8,8 @@ import {
 	MeshComponent,
 	RendererTimer,
 	SharedComponent,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-misc-controls-fly',

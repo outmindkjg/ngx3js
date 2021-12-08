@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE, ThreeUtil } from 'ngx3js';
+import { BaseComponent, ThreeUtil } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-materials-curvature',

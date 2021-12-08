@@ -4,8 +4,8 @@ import {
 	MeshComponent,
 	RendererTimer,
 	BufferGeometryUtils,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-custom-attributes-points3',

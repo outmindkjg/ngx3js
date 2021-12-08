@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, ViewerComponent, THREE, RendererTimer } from 'ngx3js';
+import { BaseComponent, MeshComponent, ViewerComponent, RendererTimer } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-shadowmap-progressive',

@@ -4,8 +4,8 @@ import {
 	MaterialComponent,
 	RendererInfo,
 	RendererTimer,
-	THREE,
 } from 'ngx3js';
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-read-float-buffer',
