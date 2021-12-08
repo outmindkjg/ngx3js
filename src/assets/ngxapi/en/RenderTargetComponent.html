@@ -7,7 +7,8 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTextureComponent] &rarr;
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTextureComponent]
+		&rarr;
 
 		<h1>RenderTargetComponent</h1>
 
@@ -19,107 +20,122 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:RenderTargetComponent RenderTargetComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
-		<p>
-			Creates an instance of render target component.
-		</p>
+		<h3>
+			[constructor:RenderTargetComponent RenderTargetComponent]( )<i
+				class="modifier modifier-overwrite"
+				>Overwrite</i
+			>
+		</h3>
+		<p>Creates an instance of render target component.</p>
 
 		<h3>Angular Html Template [ Input ] ( Output )</h3>
-		<code data-type="html">&lt;ngx3js-render-target
-			[ anisotropy ]="... number -- The number of samples taken al... "
-			[ center ]="... number -- The point around which rotatio... "
-			[ centerX ]="... number -- The point around which rotatio... "
-			[ centerY ]="... number -- The point around which rotatio... "
-			[ count ]="... number -- The count of render target com... "
-			[ cubeType ]="... string -- The CubeType of Texture - "
-			[ data ]="... number[]|BufferSource -- The data of DataTexture "
-			[ dataType ]="... string -- This must correspond to the [.... "
-			[ debug ]="... boolean -- Debug this Object "
-			[ depth ]="... number -- depth of the texture. "
-			[ depthBuffer ]="... boolean -- The depthBuffer of composer co... "
-			[ depthTexture ]="... any -- The depthTexture of composer c... "
-			[ enabled ]="... boolean -- Enabled or Not "
-			[ encoding ]="... string -- [THREE.LinearEncoding](https:/... "
-			[ filter ]="... string -- The Default Value of magFilter... "
-			[ flipY ]="... boolean -- If set to *true*, the texture ... "
-			[ format ]="... string -- The default is [THREE.RGBAForm... "
-			[ generateMipmaps ]="... boolean -- Whether to generate mipmaps (i... "
-			[ height ]="... number -- height of the texture. "
-			[ loaderType ]="... string -- The LoadType of Texture - vide... "
-			[ magFilter ]="... string -- How the texture is sampled whe... "
-			[ mapping ]="... string -- How the image is applied to th... "
-			[ minFilter ]="... string -- How the texture is sampled whe... "
-			[ name ]="... string -- The name of the object (doesn'... "
-			[ offset ]="... number -- How much a single repetition o... "
-			[ offsetX ]="... number -- How much a single repetition o... "
-			[ offsetY ]="... number -- How much a single repetition o... "
-			( onDestory )="...($event : RenderTargetComponent -- Will be called when before des... )"
-			( onLoad )="...($event : RenderTargetComponent -- Will be called when load compl... )"
-			[ overrideParams ]="... any -- The override params "
-			[ premultiplyAlpha ]="... boolean -- If set to *true*, the alpha ch... "
-			[ programMipmaps ]="... any[] -- The texture program mipmaps "
-			[ programParam ]="... any -- The texture program params "
-			[ refName ]="... string|string[] -- The refName of geometry compon... "
-			[ repeat ]="... number -- How many times the texture is ... "
-			[ repeatX ]="... number -- How many times the texture is ... "
-			[ repeatY ]="... number -- How many times the texture is ... "
-			[ rotation ]="... number -- How much the texture is rotate... "
-			[ scale ]="... number -- scale of the texture. "
-			[ size ]="... number -- The size of render target comp... "
-			[ stencilBuffer ]="... boolean -- The stencilBuffer of composer ... "
-			[ targetSize ]="... Vector2|SizeComponent -- The targetSize of pass compone... "
-			[ text ]="... string -- The Texture param use when cal... "
-			[ tween ]="... any -- Tween animation params "
-			[ type ]="... string -- The Input of render target com... "
-			[ unpackAlignment ]="... number -- 4 by default. Specifies the al... "
-			[ userData ]="... any -- An object that can be used to ... "
-			[ width ]="... number -- width of the texture. "
-			[ windowExport ]="... string -- Export this Object to window g... "
-			[ wrap ]="... string -- This defines how the texture i... "
-			[ wrapS ]="... string -- This defines how the texture i... "
-			[ wrapT ]="... string -- This defines how the texture i... "
-		&gt;&lt;/ngx3js-render-target&gt;
+		<code data-type="html"
+			>&lt;ngx3js-render-target [ anisotropy ]="... number -- The number of
+			samples taken al... " [ center ]="... number -- The point around which
+			rotatio... " [ centerX ]="... number -- The point around which rotatio...
+			" [ centerY ]="... number -- The point around which rotatio... " [ count
+			]="... number -- The count of render target com... " [ cubeType ]="...
+			string -- The CubeType of Texture - " [ data ]="... number[]|BufferSource
+			-- The data of DataTexture " [ dataType ]="... string -- This must
+			correspond to the [.... " [ debug ]="... boolean -- Debug this Object " [
+			depth ]="... number -- depth of the texture. " [ depthBuffer ]="...
+			boolean -- The depthBuffer of composer co... " [ depthTexture ]="... any
+			-- The depthTexture of composer c... " [ enabled ]="... boolean -- Enabled
+			or Not " [ encoding ]="... string -- [THREE.LinearEncoding](https:/... " [
+			filter ]="... string -- The Default Value of magFilter... " [ flipY ]="...
+			boolean -- If set to *true*, the texture ... " [ format ]="... string --
+			The default is [THREE.RGBAForm... " [ generateMipmaps ]="... boolean --
+			Whether to generate mipmaps (i... " [ height ]="... number -- height of
+			the texture. " [ loaderType ]="... string -- The LoadType of Texture -
+			vide... " [ magFilter ]="... string -- How the texture is sampled whe... "
+			[ mapping ]="... string -- How the image is applied to th... " [ minFilter
+			]="... string -- How the texture is sampled whe... " [ name ]="... string
+			-- The name of the object (doesn'... " [ offset ]="... number -- How much
+			a single repetition o... " [ offsetX ]="... number -- How much a single
+			repetition o... " [ offsetY ]="... number -- How much a single repetition
+			o... " ( onDestory )="...($event : RenderTargetComponent -- Will be called
+			when before des... )" ( onLoad )="...($event : RenderTargetComponent --
+			Will be called when load compl... )" [ overrideParams ]="... any -- The
+			override params " [ premultiplyAlpha ]="... boolean -- If set to *true*,
+			the alpha ch... " [ programMipmaps ]="... any[] -- The texture program
+			mipmaps " [ programParam ]="... any -- The texture program params " [
+			refName ]="... string|string[] -- The refName of geometry compon... " [
+			repeat ]="... number -- How many times the texture is ... " [ repeatX
+			]="... number -- How many times the texture is ... " [ repeatY ]="...
+			number -- How many times the texture is ... " [ rotation ]="... number --
+			How much the texture is rotate... " [ scale ]="... number -- scale of the
+			texture. " [ size ]="... number -- The size of render target comp... " [
+			stencilBuffer ]="... boolean -- The stencilBuffer of composer ... " [
+			targetSize ]="... Vector2|SizeComponent -- The targetSize of pass
+			compone... " [ text ]="... string -- The Texture param use when cal... " [
+			tween ]="... any -- Tween animation params " [ type ]="... string -- The
+			Input of render target com... " [ unpackAlignment ]="... number -- 4 by
+			default. Specifies the al... " [ userData ]="... any -- An object that can
+			be used to ... " [ width ]="... number -- width of the texture. " [
+			windowExport ]="... string -- Export this Object to window g... " [ wrap
+			]="... string -- This defines how the texture i... " [ wrapS ]="... string
+			-- This defines how the texture i... " [ wrapT ]="... string -- This
+			defines how the texture i... " &gt;&lt;/ngx3js-render-target&gt;
 		</code>
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractTextureComponent AbstractTextureComponent] class for common properties.
+			See the base [page:AbstractTextureComponent AbstractTextureComponent]
+			class for common properties.
 		</p>
 
-		<h3>[property:number count] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The count of render target component
-		</p>
+		<h3>
+			[property:number count] &nbsp; = 1
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The count of render target component</p>
 
-		<h3>[property:boolean depthBuffer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The depthBuffer of composer component
-		</p>
+		<h3>
+			[property:boolean depthBuffer]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The depthBuffer of composer component</p>
 
-		<h3>[property:any depthTexture]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The depthTexture of composer component
-		</p>
+		<h3>
+			[property:any depthTexture]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The depthTexture of composer component</p>
 
-		<h3>[property:number size] &nbsp; = 1024 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The size of render target component
-		</p>
+		<h3>
+			[property:number size] &nbsp; = 1024
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The size of render target component</p>
 
-		<h3>[property:boolean stencilBuffer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The stencilBuffer of composer component
-		</p>
+		<h3>
+			[property:boolean stencilBuffer]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The stencilBuffer of composer component</p>
 
-		<h3>[property:Vector2|SizeComponent targetSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The targetSize of pass component
-		</p>
+		<h3>
+			[property:Vector2|SizeComponent targetSize]<i
+				class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The targetSize of pass component</p>
 
-		<h3>[property:string type] &nbsp; = 'RenderTarget' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string type] &nbsp; = 'RenderTarget'
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The Input of render target component<br />
 			Notice - case insensitive.
@@ -127,29 +143,40 @@
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractTextureComponent AbstractTextureComponent] class for common methods.
+			See the base [page:AbstractTextureComponent AbstractTextureComponent]
+			class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:void applyChanges]( [param:string[] changes] )<i
+				class="modifier modifier-protected"
+				>Protected</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string[] changes] - The changes.
-		</p>
-		<p>
-			Applys changes
-		</p>
+		<p>[parameter:string[] changes] - The changes.</p>
+		<p>Applys changes</p>
 
-		<h3>[method:T getRenderTarget](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:T getRenderTarget]( )<i class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<p>
 			Gets render target<br />
 			<br />
 			Returns : render target
 		</p>
 
-		<h3>[method:T getTexture](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:T getTexture]( )<i class="modifier modifier-public">Public</i>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<p>
 			Gets texture<br />
 			<br />
@@ -158,6 +185,9 @@
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/render-target/render-target.component.ts /render-target/render-target.component.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/render-target/render-target.component.ts
+			/render-target/render-target.component.ts]
+		</p>
 	</body>
 </html>

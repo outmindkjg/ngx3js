@@ -7,7 +7,8 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent]
+		&rarr; [page:AbstractObject3dComponent] &rarr;
 
 		<h1>SvgComponent</h1>
 
@@ -15,335 +16,430 @@
 			The Svg component.<br />
 			See the [page:SvgComponent ngx3js docs] page for details.<br />
 			<br />
-			<code data-type="html"><br />
-			&lt;ngx3js-geometry<br />
+			<code data-type="html"
+				><br />
+				&lt;ngx3js-geometry<br />
 				[type]="'Extrude'" <br />
 				[depth]="map.depth" [steps]="1" [bevelEnabled]="false"<br />
-			&gt;<br />
-				&lt;ngx3js-svg [path]="map.path"&gt;&lt;/ngx3js-svg&gt;<br />
-			&lt;/ngx3js-geometry&gt;<br />
-			&lt;ngx3js-mesh&gt;<br />
-				&lt;ngx3js-svg<br />
-					[type]="'line'"<br />
-					[geometryType]="'buffer'"<br />
-					[text]="'   Three.js\nSimple text.'"<br />
-					[align]="'center'"<br />
-					[font]="'helvetiker'"<br />
-					[weight]="'regular'"<br />
-					[size]="100"<br />
 				&gt;<br />
-					&lt;ngx3js-material<br />
-						[type]="'LineBasic'"<br />
-						[color]="'0x006699'"<br />
-						[side]="'double'"<br />
-					&gt;&lt;/ngx3js-material&gt;<br />
+				&lt;ngx3js-svg [path]="map.path"&gt;&lt;/ngx3js-svg&gt;<br />
+				&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-mesh&gt;<br />
+				&lt;ngx3js-svg<br />
+				[type]="'line'"<br />
+				[geometryType]="'buffer'"<br />
+				[text]="' Three.js\nSimple text.'"<br />
+				[align]="'center'"<br />
+				[font]="'helvetiker'"<br />
+				[weight]="'regular'"<br />
+				[size]="100"<br />
+				&gt;<br />
+				&lt;ngx3js-material<br />
+				[type]="'LineBasic'"<br />
+				[color]="'0x006699'"<br />
+				[side]="'double'"<br />
+				&gt;&lt;/ngx3js-material&gt;<br />
 				&lt;/ngx3js-svg&gt;<br />
-			&lt;/ngx3js-mesh&gt;<br />
+				&lt;/ngx3js-mesh&gt;<br />
 			</code>
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:SvgComponent SvgComponent](  [param:ElementRef ele],  [param:LocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[constructor:SvgComponent SvgComponent]( [param:ElementRef ele],
+			[param:LocalStorageService localStorageService] )<i
+				class="modifier modifier-overwrite"
+				>Overwrite</i
+			>
+		</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:ElementRef ele] - The ele.<br />
-			[parameter:LocalStorageService localStorageService] - The local storage service.
+			[parameter:LocalStorageService localStorageService] - The local storage
+			service.
 		</p>
-		<p>
-			Creates an instance of svg component.
-		</p>
+		<p>Creates an instance of svg component.</p>
 
 		<h3>Angular Html Template [ Input ] ( Output )</h3>
-		<code data-type="html">&lt;ngx3js-svg
-			[ align ]="... string -- The align of svg component "
-			[ bevelEnabled ]="... boolean -- The bevelEnabled of svg compon... "
-			[ bevelOffset ]="... number -- The bevelOffset of svg compone... "
-			[ bevelSegments ]="... number -- The bevelSegments of svg compo... "
-			[ bevelSize ]="... number -- The bevelSize of svg component "
-			[ bevelThickness ]="... number -- The bevelThickness of svg comp... "
-			[ castShadow ]="... boolean -- Whether the object gets render... "
-			[ center ]="... boolean -- The center of svg component "
-			[ closed ]="... boolean -- The closed of svg component "
-			[ color ]="... string|number -- The color of svg component "
-			[ computeVertexNormals ]="... boolean -- The computeVertexNormals of sv... "
-			[ curvePath ]="... ThreeVector[] -- The curvePath of svg component "
-			[ curvePathType ]="... string -- The curvePathType of svg compo... "
-			[ curveSegments ]="... number -- The curveSegments of svg compo... "
-			[ curveType ]="... string -- The curveType of svg component "
-			[ debug ]="... boolean -- Debug this Object "
-			[ depth ]="... number -- The depth of svg component "
-			[ enabled ]="... boolean -- Enabled or Not "
-			[ extrudePath ]="... ThreeVector[] -- The extrudePath of svg compone... "
-			[ extrudePathType ]="... string -- The extrudePathType of svg com... "
-			[ font ]="... string -- The font of svg component "
-			[ frustumCulled ]="... boolean -- When this is set, it checks ev... "
-			[ geometry ]="... any -- The geometry of mesh "
-			[ geometryType ]="... string -- The geometryType of svg compon... "
-			[ isCCW ]="... boolean -- The isCCW of svg component "
-			[ material ]="... AbstractMaterialComponent|Material -- The material of mesh "
-			[ materialIsArray ]="... boolean -- The material of mesh is array "
-			[ matrixAutoUpdate ]="... boolean -- When this is set, it calculate... "
-			[ name ]="... string -- The name of the object (doesn'... "
-			[ noHoles ]="... boolean -- The noHoles of svg component "
-			( onDestory )="...($event : SvgComponent -- Will be called when before des... )"
-			( onLoad )="...($event : SvgComponent -- Will be called when load compl... )"
-			[ opacity ]="... number -- The opacity of svg component "
-			[ overrideParams ]="... any -- The override params "
-			[ path ]="... string -- The path of svg component "
-			[ receiveShadow ]="... boolean -- Whether the material receives ... "
-			[ shininess ]="... number -- The shininess of svg component "
-			[ size ]="... number -- The size of svg component "
-			[ steps ]="... number -- The steps of svg component "
-			[ stroke ]="... number -- The stroke of svg component "
-			[ tension ]="... number -- The tension of svg component "
-			[ text ]="... string -- The text of svg component "
-			[ textAlign ]="... string -- The textAlign of svg component "
-			[ translation ]="... TranslationComponent -- The translation of svg compone... "
-			[ transparent ]="... boolean -- The transparent of svg compone... "
-			[ tween ]="... any -- Tween animation params "
-			[ tweenStart ]="... boolean -- Start tween "
-			[ type ]="... string -- The type of svg component "
-			[ uVGenerator ]="... string -- The uVGenerator of svg compone... "
-			[ url ]="... string -- The url of svg component "
-			[ userData ]="... any -- An object that can be used to ... "
-			[ visible ]="... boolean -- Object gets rendered if *true*... "
-			[ weight ]="... string -- The weight of svg component "
-			[ windowExport ]="... string -- Export this Object to window g... "
-			[ wireframe ]="... boolean -- The wireframe of svg component "
-		&gt;&lt;/ngx3js-svg&gt;
+		<code data-type="html"
+			>&lt;ngx3js-svg [ align ]="... string -- The align of svg component " [
+			bevelEnabled ]="... boolean -- The bevelEnabled of svg compon... " [
+			bevelOffset ]="... number -- The bevelOffset of svg compone... " [
+			bevelSegments ]="... number -- The bevelSegments of svg compo... " [
+			bevelSize ]="... number -- The bevelSize of svg component " [
+			bevelThickness ]="... number -- The bevelThickness of svg comp... " [
+			castShadow ]="... boolean -- Whether the object gets render... " [ center
+			]="... boolean -- The center of svg component " [ closed ]="... boolean --
+			The closed of svg component " [ color ]="... string|number -- The color of
+			svg component " [ computeVertexNormals ]="... boolean -- The
+			computeVertexNormals of sv... " [ curvePath ]="... ThreeVector[] -- The
+			curvePath of svg component " [ curvePathType ]="... string -- The
+			curvePathType of svg compo... " [ curveSegments ]="... number -- The
+			curveSegments of svg compo... " [ curveType ]="... string -- The curveType
+			of svg component " [ debug ]="... boolean -- Debug this Object " [ depth
+			]="... number -- The depth of svg component " [ enabled ]="... boolean --
+			Enabled or Not " [ extrudePath ]="... ThreeVector[] -- The extrudePath of
+			svg compone... " [ extrudePathType ]="... string -- The extrudePathType of
+			svg com... " [ font ]="... string -- The font of svg component " [
+			frustumCulled ]="... boolean -- When this is set, it checks ev... " [
+			geometry ]="... any -- The geometry of mesh " [ geometryType ]="... string
+			-- The geometryType of svg compon... " [ isCCW ]="... boolean -- The isCCW
+			of svg component " [ material ]="... AbstractMaterialComponent|Material --
+			The material of mesh " [ materialIsArray ]="... boolean -- The material of
+			mesh is array " [ matrixAutoUpdate ]="... boolean -- When this is set, it
+			calculate... " [ name ]="... string -- The name of the object (doesn'... "
+			[ noHoles ]="... boolean -- The noHoles of svg component " ( onDestory
+			)="...($event : SvgComponent -- Will be called when before des... )" (
+			onLoad )="...($event : SvgComponent -- Will be called when load compl...
+			)" [ opacity ]="... number -- The opacity of svg component " [
+			overrideParams ]="... any -- The override params " [ path ]="... string --
+			The path of svg component " [ receiveShadow ]="... boolean -- Whether the
+			material receives ... " [ shininess ]="... number -- The shininess of svg
+			component " [ size ]="... number -- The size of svg component " [ steps
+			]="... number -- The steps of svg component " [ stroke ]="... number --
+			The stroke of svg component " [ tension ]="... number -- The tension of
+			svg component " [ text ]="... string -- The text of svg component " [
+			textAlign ]="... string -- The textAlign of svg component " [ translation
+			]="... TranslationComponent -- The translation of svg compone... " [
+			transparent ]="... boolean -- The transparent of svg compone... " [ tween
+			]="... any -- Tween animation params " [ tweenStart ]="... boolean --
+			Start tween " [ type ]="... string -- The type of svg component " [
+			uVGenerator ]="... string -- The uVGenerator of svg compone... " [ url
+			]="... string -- The url of svg component " [ userData ]="... any -- An
+			object that can be used to ... " [ visible ]="... boolean -- Object gets
+			rendered if *true*... " [ weight ]="... string -- The weight of svg
+			component " [ windowExport ]="... string -- Export this Object to window
+			g... " [ wireframe ]="... boolean -- The wireframe of svg component "
+			&gt;&lt;/ngx3js-svg&gt;
 		</code>
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common properties.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class
+			for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common properties.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent]
+			class for common properties.
 		</p>
 
-		<h3>[property:string align]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string align]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The align of svg component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:boolean bevelEnabled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The bevelEnabled of svg component
-		</p>
+		<h3>
+			[property:boolean bevelEnabled]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The bevelEnabled of svg component</p>
 
-		<h3>[property:number bevelOffset]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The bevelOffset of svg component
-		</p>
+		<h3>
+			[property:number bevelOffset]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The bevelOffset of svg component</p>
 
-		<h3>[property:number bevelSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The bevelSegments of svg component
-		</p>
+		<h3>
+			[property:number bevelSegments]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The bevelSegments of svg component</p>
 
-		<h3>[property:number bevelSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The bevelSize of svg component
-		</p>
+		<h3>
+			[property:number bevelSize]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The bevelSize of svg component</p>
 
-		<h3>[property:number bevelThickness]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The bevelThickness of svg component
-		</p>
+		<h3>
+			[property:number bevelThickness]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The bevelThickness of svg component</p>
 
-		<h3>[property:boolean center] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The center of svg component
-		</p>
+		<h3>
+			[property:boolean center] &nbsp; = false
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The center of svg component</p>
 
-		<h3>[property:boolean closed]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The closed of svg component
-		</p>
+		<h3>
+			[property:boolean closed]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The closed of svg component</p>
 
-		<h3>[property:string|number color]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The color of svg component
-		</p>
+		<h3>
+			[property:string|number color]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The color of svg component</p>
 
-		<h3>[property:boolean computeVertexNormals] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The computeVertexNormals of svg component
-		</p>
+		<h3>
+			[property:boolean computeVertexNormals] &nbsp; = false
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The computeVertexNormals of svg component</p>
 
-		<h3>[property:ThreeVector[] curvePath]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The curvePath of svg component
-		</p>
+		<h3>
+			[property:ThreeVector[] curvePath]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The curvePath of svg component</p>
 
-		<h3>[property:string curvePathType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string curvePathType]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The curvePathType of svg component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:number curveSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The curveSegments of svg component
-		</p>
+		<h3>
+			[property:number curveSegments]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The curveSegments of svg component</p>
 
-		<h3>[property:string curveType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string curveType]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The curveType of svg component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:number depth]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The depth of svg component
-		</p>
+		<h3>
+			[property:number depth]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The depth of svg component</p>
 
-		<h3>[property:ThreeVector[] extrudePath]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The extrudePath of svg component
-		</p>
+		<h3>
+			[property:ThreeVector[] extrudePath]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The extrudePath of svg component</p>
 
-		<h3>[property:string extrudePathType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string extrudePathType]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The extrudePathType of svg component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string font]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The font of svg component
-		</p>
+		<h3>
+			[property:string font]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The font of svg component</p>
 
-		<h3>[property:string geometryType] &nbsp; = 'shape' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string geometryType] &nbsp; = 'shape'
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The geometryType of svg component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:boolean isCCW]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:boolean isCCW]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The isCCW of svg component</p>
+
+		<h3>
+			[property:string name]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			The isCCW of svg component
+			The name of the object (doesn't need to be unique). Default is an empty
+			string.
 		</p>
 
-		<h3>[property:string name]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The name of the object (doesn't need to be unique). Default is an empty string.
-		</p>
+		<h3>
+			[property:boolean noHoles]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The noHoles of svg component</p>
 
-		<h3>[property:boolean noHoles]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The noHoles of svg component
-		</p>
+		<h3>
+			[property:number opacity]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The opacity of svg component</p>
 
-		<h3>[property:number opacity]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The opacity of svg component
-		</p>
+		<h3>
+			[property:string path]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The path of svg component</p>
 
-		<h3>[property:string path]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The path of svg component
-		</p>
+		<h3>
+			[property:number shininess]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The shininess of svg component</p>
 
-		<h3>[property:number shininess]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The shininess of svg component
-		</p>
+		<h3>
+			[property:number size]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The size of svg component</p>
 
-		<h3>[property:number size]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The size of svg component
-		</p>
+		<h3>
+			[property:number steps]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The steps of svg component</p>
 
-		<h3>[property:number steps]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The steps of svg component
-		</p>
+		<h3>
+			[property:number stroke]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The stroke of svg component</p>
 
-		<h3>[property:number stroke]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The stroke of svg component
-		</p>
+		<h3>
+			[property:number tension]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The tension of svg component</p>
 
-		<h3>[property:number tension]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The tension of svg component
-		</p>
+		<h3>
+			[property:string text]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The text of svg component</p>
 
-		<h3>[property:string text]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The text of svg component
-		</p>
-
-		<h3>[property:string textAlign]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string textAlign]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The textAlign of svg component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:TranslationComponent translation]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The translation of svg component
-		</p>
+		<h3>
+			[property:TranslationComponent translation]<i
+				class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The translation of svg component</p>
 
-		<h3>[property:boolean transparent]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The transparent of svg component
-		</p>
+		<h3>
+			[property:boolean transparent]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The transparent of svg component</p>
 
-		<h3>[property:string type] &nbsp; = 'mesh' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string type] &nbsp; = 'mesh'
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The type of svg component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string uVGenerator]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string uVGenerator]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The uVGenerator of svg component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string url]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The url of svg component
-		</p>
+		<h3>
+			[property:string url]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The url of svg component</p>
 
-		<h3>[property:string weight]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string weight]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The weight of svg component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:boolean wireframe]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The wireframe of svg component
-		</p>
+		<h3>
+			[property:boolean wireframe]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The wireframe of svg component</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class
+			for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent]
+			class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:void applyChanges]( [param:string[] changes] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string[] changes] - The changes.
-		</p>
-		<p>
-			Applys changes
-		</p>
+		<p>[parameter:string[] changes] - The changes.</p>
+		<p>Applys changes</p>
 
-		<h3>[method:BufferGeometry applyTextAlign](  [param:BufferGeometry geometry],  [param:Sphere boundingSphere],  [param:string def] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:BufferGeometry applyTextAlign]( [param:BufferGeometry geometry],
+			[param:Sphere boundingSphere], [param:string def] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:BufferGeometry geometry] - The geometry.<br />
@@ -356,64 +452,73 @@
 			Returns : text align
 		</p>
 
-		<h3>[method:void getPaths](  [param:any onload] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void getPaths]( [param:any onload] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:any onload] - The onload.
-		</p>
-		<p>
-			Gets paths
-		</p>
+		<p>[parameter:any onload] - The onload.</p>
+		<p>Gets paths</p>
 
-		<h3>[method:void getSVGResult](  [param:any onload] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void getSVGResult]( [param:any onload] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:any onload] - The onload.
-		</p>
-		<p>
-			Gets svgresult
-		</p>
+		<p>[parameter:any onload] - The onload.</p>
+		<p>Gets svgresult</p>
 
-		<h3>[method:void getShapes](  [param:any onload] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void getShapes]( [param:any onload] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:any onload] - The onload.
-		</p>
-		<p>
-			Gets shapes
-		</p>
+		<p>[parameter:any onload] - The onload.</p>
+		<p>Gets shapes</p>
 
-		<h3>[method:void resetMeshes](  )<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Resets meshes
-		</p>
+		<h3>
+			[method:void resetMeshes]( )<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>Resets meshes</p>
 
-		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:boolean setParent]( [param:Object3D parent] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:Object3D parent] - The parent.
-		</p>
+		<p>[parameter:Object3D parent] - The parent.</p>
 		<p>
 			Sets parent<br />
 			<br />
 			Returns : true if parent
 		</p>
 
-		<hr class="interface-line"/>
-		<h3 id="SvgGeometry">SvgGeometry <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line" />
+		<h3 id="SvgGeometry">
+			SvgGeometry <i class="modifier modifier-interface">Interface</i>
+		</h3>
 		<h4>Properties</h4>
 		<p>
-			[property:BufferGeometry geometry] -  The geometry.<br />
-			[property:any style]? -  The style.
+			[property:BufferGeometry geometry] - The geometry.<br />
+			[property:any style]? - The style.
 		</p>
 
-
-		<p class="desc">
-			Svg geometry
-		</p>
+		<p class="desc">Svg geometry</p>
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/svg/svg.component.ts /svg/svg.component.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/svg/svg.component.ts
+			/svg/svg.component.ts]
+		</p>
 	</body>
 </html>

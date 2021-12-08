@@ -7,7 +7,8 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractSubscribeComponent] &rarr; [page:AbstractControllerComponent] &rarr;
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractControllerComponent]
+		&rarr;
 
 		<h1>ControllerComponent</h1>
 
@@ -15,288 +16,354 @@
 			ControllerComponent<br />
 			See the [page:ControllerComponent ngx3js docs] page for details.<br />
 			<br />
-			<code data-type="html"><br />
-			&lt;ngx3js-controller<br />
+			<code data-type="html"
+				><br />
+				&lt;ngx3js-controller<br />
 				[type]="'tween'" [options]="'once'" [duration]="info.duration"<br />
-			&gt;&lt;/ngx3js-controller&gt;<br />
-			&lt;ngx3js-controller&gt;<br />
+				&gt;&lt;/ngx3js-controller&gt;<br />
+				&lt;ngx3js-controller&gt;<br />
 				&lt;ngx3js-controller-item<br />
-					[refRate]="analyser1"<br />
-					[type]="'material'"<br />
-					[material]="'emissive'"<br />
-					[colorType]="'rate'"<br />
+				[refRate]="analyser1"<br />
+				[type]="'material'"<br />
+				[material]="'emissive'"<br />
+				[colorType]="'rate'"<br />
 				&gt;&lt;/ngx3js-controller-item&gt;<br />
-			&lt;/ngx3js-controller&gt;<br />
-			&lt;ngx3js-controller&gt;<br />
-				&lt;ngx3js-controller-item [type]="'autoupdate'"&gt;&lt;/ngx3js-controller-item&gt;<br />
-			&lt;/ngx3js-controller&gt;<br />
-			&lt;ngx3js-controller<br />
+				&lt;/ngx3js-controller&gt;<br />
+				&lt;ngx3js-controller&gt;<br />
+				&lt;ngx3js-controller-item
+				[type]="'autoupdate'"&gt;&lt;/ngx3js-controller-item&gt;<br />
+				&lt;/ngx3js-controller&gt;<br />
+				&lt;ngx3js-controller<br />
 				[type]="'uniforms'" <br />
 				[controlParams]="{ <br />
-					key: 'time', <br />
-					speed: controls.speed <br />
+				key: 'time', <br />
+				speed: controls.speed <br />
 				}"<br />
-			&gt;&lt;/ngx3js-controller&gt;<br />
-			&lt;ngx3js-controller [type]="'auto'"&gt;<br />
+				&gt;&lt;/ngx3js-controller&gt;<br />
+				&lt;ngx3js-controller [type]="'auto'"&gt;<br />
 				&lt;ngx3js-controller-item<br />
-					[type]="'uniforms'"<br />
-					[uniform]="'cameraPos'"<br />
-					[valueType]="'copyposition'"<br />
-					[refValue]="camera"<br />
+				[type]="'uniforms'"<br />
+				[uniform]="'cameraPos'"<br />
+				[valueType]="'copyposition'"<br />
+				[refValue]="camera"<br />
 				&gt;&lt;/ngx3js-controller-item&gt;<br />
-			&lt;/ngx3js-controller&gt;<br />
+				&lt;/ngx3js-controller&gt;<br />
 			</code>
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:ControllerComponent ControllerComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
-		<p>
-			Creates an instance of controller component.
-		</p>
+		<h3>
+			[constructor:ControllerComponent ControllerComponent]( )<i
+				class="modifier modifier-overwrite"
+				>Overwrite</i
+			>
+		</h3>
+		<p>Creates an instance of controller component.</p>
 
 		<h3>Angular Html Template [ Input ] ( Output )</h3>
-		<code data-type="html">&lt;ngx3js-controller
-			[ centerX ]="... number -- The centerX of controller comp... "
-			[ centerY ]="... number -- The centerY of controller comp... "
-			[ centerZ ]="... number -- The centerZ of controller comp... "
-			[ closed ]="... boolean -- The closed of controller compo... "
-			[ color ]="... ThreeColor -- The color of controller compon... "
-			[ controlComponent ]="... any"
-			[ controlParams ]="... any -- The controlParams of controlle... "
-			[ curve ]="... string -- The curve of controller compon... "
-			[ debug ]="... boolean -- Debug this Object "
-			[ delta ]="... number -- The delta of controller compon... "
-			[ duration ]="... number -- The duration of controller com... "
-			[ enabled ]="... boolean -- Enabled or Not "
-			[ eventSeqn ]="... number -- The eventSeqn of controller co... "
-			[ material ]="... string -- The material of controller com... "
-			[ mstDuration ]="... number -- The mstDuration of controller ... "
-			[ multiply ]="... number -- The multiply of controller com... "
-			( onDestory )="...($event : ControllerComponent -- Will be called when before des... )"
-			( onLoad )="...($event : ControllerComponent -- Will be called when load compl... )"
-			[ opacity ]="... number -- The opacity of controller comp... "
-			[ options ]="... string -- The options of controller comp... "
-			[ overrideParams ]="... any -- The override params "
-			[ radius ]="... number -- The radius of controller compo... "
-			[ radiusX ]="... number -- The radiusX of controller comp... "
-			[ radiusY ]="... number -- The radiusY of controller comp... "
-			[ radiusZ ]="... number -- The radiusZ of controller comp... "
-			[ rotationX ]="... number -- The rotationX of controller co... "
-			[ rotationY ]="... number -- The rotationY of controller co... "
-			[ rotationZ ]="... number -- The rotationZ of controller co... "
-			[ scale ]="... number -- The scale of controller compon... "
-			[ tubeRadius ]="... number -- The tubeRadius of controller c... "
-			[ tubeRadiusSegments ]="... number -- The tubeRadiusSegments of cont... "
-			[ tubularSegments ]="... number -- The tubularSegments of control... "
-			[ tween ]="... any -- Tween animation params "
-			[ type ]="... string -- The type of controller compone... "
-			[ useEvent ]="... boolean -- The useEvent of controller com... "
-			[ userData ]="... any -- An object that can be used to ... "
-			[ visible ]="... boolean -- The visible of controller comp... "
-			[ windowExport ]="... string -- Export this Object to window g... "
-		&gt;&lt;/ngx3js-controller&gt;
+		<code data-type="html"
+			>&lt;ngx3js-controller [ centerX ]="... number -- The centerX of
+			controller comp... " [ centerY ]="... number -- The centerY of controller
+			comp... " [ centerZ ]="... number -- The centerZ of controller comp... " [
+			closed ]="... boolean -- The closed of controller compo... " [ color
+			]="... ThreeColor -- The color of controller compon... " [
+			controlComponent ]="... any" [ controlParams ]="... any -- The
+			controlParams of controlle... " [ curve ]="... string -- The curve of
+			controller compon... " [ debug ]="... boolean -- Debug this Object " [
+			delta ]="... number -- The delta of controller compon... " [ duration
+			]="... number -- The duration of controller com... " [ enabled ]="...
+			boolean -- Enabled or Not " [ eventSeqn ]="... number -- The eventSeqn of
+			controller co... " [ material ]="... string -- The material of controller
+			com... " [ mstDuration ]="... number -- The mstDuration of controller ...
+			" [ multiply ]="... number -- The multiply of controller com... " (
+			onDestory )="...($event : ControllerComponent -- Will be called when
+			before des... )" ( onLoad )="...($event : ControllerComponent -- Will be
+			called when load compl... )" [ opacity ]="... number -- The opacity of
+			controller comp... " [ options ]="... string -- The options of controller
+			comp... " [ overrideParams ]="... any -- The override params " [ radius
+			]="... number -- The radius of controller compo... " [ radiusX ]="...
+			number -- The radiusX of controller comp... " [ radiusY ]="... number --
+			The radiusY of controller comp... " [ radiusZ ]="... number -- The radiusZ
+			of controller comp... " [ rotationX ]="... number -- The rotationX of
+			controller co... " [ rotationY ]="... number -- The rotationY of
+			controller co... " [ rotationZ ]="... number -- The rotationZ of
+			controller co... " [ scale ]="... number -- The scale of controller
+			compon... " [ tubeRadius ]="... number -- The tubeRadius of controller
+			c... " [ tubeRadiusSegments ]="... number -- The tubeRadiusSegments of
+			cont... " [ tubularSegments ]="... number -- The tubularSegments of
+			control... " [ tween ]="... any -- Tween animation params " [ type ]="...
+			string -- The type of controller compone... " [ useEvent ]="... boolean --
+			The useEvent of controller com... " [ userData ]="... any -- An object
+			that can be used to ... " [ visible ]="... boolean -- The visible of
+			controller comp... " [ windowExport ]="... string -- Export this Object to
+			window g... " &gt;&lt;/ngx3js-controller&gt;
 		</code>
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractControllerComponent AbstractControllerComponent] class for common properties.
+			See the base [page:AbstractControllerComponent
+			AbstractControllerComponent] class for common properties.
 		</p>
 
-		<h3>[property:number centerX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The centerX of controller component
-		</p>
+		<h3>
+			[property:number centerX]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The centerX of controller component</p>
 
-		<h3>[property:number centerY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The centerY of controller component
-		</p>
+		<h3>
+			[property:number centerY]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The centerY of controller component</p>
 
-		<h3>[property:number centerZ]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The centerZ of controller component
-		</p>
+		<h3>
+			[property:number centerZ]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The centerZ of controller component</p>
 
-		<h3>[property:boolean closed]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The closed of controller component
-		</p>
+		<h3>
+			[property:boolean closed]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The closed of controller component</p>
 
-		<h3>[property:ThreeColor color]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The color of controller component
-		</p>
+		<h3>
+			[property:ThreeColor color]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The color of controller component</p>
 
-		<h3>[property:any controlComponent]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			
-		</p>
+		<h3>
+			[property:any controlComponent]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p></p>
 
-		<h3>[property:any controlParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The controlParams of controller component
-		</p>
+		<h3>
+			[property:any controlParams]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The controlParams of controller component</p>
 
-		<h3>[property:string curve]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string curve]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The curve of controller component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:number delta]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The delta of controller component
-		</p>
+		<h3>
+			[property:number delta]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The delta of controller component</p>
 
-		<h3>[property:number duration]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The duration of controller component
-		</p>
+		<h3>
+			[property:number duration]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The duration of controller component</p>
 
-		<h3>[property:number eventSeqn] &nbsp; = 1000 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The eventSeqn of controller component
-		</p>
+		<h3>
+			[property:number eventSeqn] &nbsp; = 1000
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The eventSeqn of controller component</p>
 
-		<h3>[property:string material]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string material]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The material of controller component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:number mstDuration]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The mstDuration of controller component
-		</p>
+		<h3>
+			[property:number mstDuration]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The mstDuration of controller component</p>
 
-		<h3>[property:number multiply]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The multiply of controller component
-		</p>
+		<h3>
+			[property:number multiply]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The multiply of controller component</p>
 
-		<h3>[property:number opacity]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The opacity of controller component
-		</p>
+		<h3>
+			[property:number opacity]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The opacity of controller component</p>
 
-		<h3>[property:string options]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string options]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The options of controller component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:number radius]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The radius of controller component
-		</p>
+		<h3>
+			[property:number radius]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The radius of controller component</p>
 
-		<h3>[property:number radiusX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The radiusX of controller component
-		</p>
+		<h3>
+			[property:number radiusX]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The radiusX of controller component</p>
 
-		<h3>[property:number radiusY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The radiusY of controller component
-		</p>
+		<h3>
+			[property:number radiusY]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The radiusY of controller component</p>
 
-		<h3>[property:number radiusZ]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The radiusZ of controller component
-		</p>
+		<h3>
+			[property:number radiusZ]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The radiusZ of controller component</p>
 
-		<h3>[property:number rotationX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The rotationX of controller component
-		</p>
+		<h3>
+			[property:number rotationX]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The rotationX of controller component</p>
 
-		<h3>[property:number rotationY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The rotationY of controller component
-		</p>
+		<h3>
+			[property:number rotationY]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The rotationY of controller component</p>
 
-		<h3>[property:number rotationZ]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The rotationZ of controller component
-		</p>
+		<h3>
+			[property:number rotationZ]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The rotationZ of controller component</p>
 
-		<h3>[property:number scale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The scale of controller component
-		</p>
+		<h3>
+			[property:number scale]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The scale of controller component</p>
 
-		<h3>[property:number tubeRadius]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The tubeRadius of controller component
-		</p>
+		<h3>
+			[property:number tubeRadius]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The tubeRadius of controller component</p>
 
-		<h3>[property:number tubeRadiusSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The tubeRadiusSegments of controller component
-		</p>
+		<h3>
+			[property:number tubeRadiusSegments]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The tubeRadiusSegments of controller component</p>
 
-		<h3>[property:number tubularSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The tubularSegments of controller component
-		</p>
+		<h3>
+			[property:number tubularSegments]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The tubularSegments of controller component</p>
 
-		<h3>[property:string type] &nbsp; = 'auto' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string type] &nbsp; = 'auto'
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The type of controller component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:boolean useEvent] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The useEvent of controller component
-		</p>
+		<h3>
+			[property:boolean useEvent] &nbsp; = false
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The useEvent of controller component</p>
 
-		<h3>[property:boolean visible] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The visible of controller component
-		</p>
+		<h3>
+			[property:boolean visible] &nbsp; = false
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The visible of controller component</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractControllerComponent AbstractControllerComponent] class for common methods.
+			See the base [page:AbstractControllerComponent
+			AbstractControllerComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:void applyChanges]( [param:string[] changes] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string[] changes] - The changes.
-		</p>
-		<p>
-			Applys changes
-		</p>
+		<p>[parameter:string[] changes] - The changes.</p>
+		<p>Applys changes</p>
 
-		<h3>[method:void getController](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
-		<p>
-			Gets controller
-		</p>
+		<h3>
+			[method:void getController]( )<i class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
+		<p>Gets controller</p>
 
-		<h3>[method:void refreshRefObject3dPosition](  )<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Refreshs ref object3d position
-		</p>
+		<h3>
+			[method:void refreshRefObject3dPosition]( )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
+		<p>Refreshs ref object3d position</p>
 
-		<h3>[method:void update](  [param:RendererTimer rendererTimer] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:void update]( [param:RendererTimer rendererTimer] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:RendererTimer rendererTimer] - The renderer timer.
-		</p>
-		<p>
-			Updates controller component
-		</p>
+		<p>[parameter:RendererTimer rendererTimer] - The renderer timer.</p>
+		<p>Updates controller component</p>
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/controller/controller.component.ts /controller/controller.component.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/controller/controller.component.ts
+			/controller/controller.component.ts]
+		</p>
 	</body>
 </html>

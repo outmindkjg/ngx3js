@@ -13,128 +13,168 @@
 
 		<p class="desc">
 			The Abstract Controller component.<br />
-			See the [page:AbstractControllerComponent ngx3js docs] page for details.<br />
+			See the [page:AbstractControllerComponent ngx3js docs] page for
+			details.<br />
 			<br />
-			<code data-type="typescript"><br />
-			@Component({<br />
+			<code data-type="typescript"
+				><br />
+				@Component({<br />
 				providers: [<br />
-					{<br />
-						provide: AbstractControllerComponent,<br />
-						useExisting: forwardRef(() =&gt; XxxComponent),<br />
-					},<br />
+				{<br />
+				provide: AbstractControllerComponent,<br />
+				useExisting: forwardRef(() =&gt; XxxComponent),<br />
+				},<br />
 				],<br />
-			})<br />
-			export class XxxComponent extends AbstractControllerComponent implements OnInit {<br />
+				})<br />
+				export class XxxComponent extends AbstractControllerComponent implements
+				OnInit {<br />
 				constructor() {<br />
-					super();<br />
+				super();<br />
 				}<br />
-			}<br />
+				}<br />
 			</code>
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:AbstractControllerComponent AbstractControllerComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
-		<p>
-			Creates an instance of controller component.
-		</p>
+		<h3>
+			[constructor:AbstractControllerComponent AbstractControllerComponent]( )<i
+				class="modifier modifier-overwrite"
+				>Overwrite</i
+			>
+		</h3>
+		<p>Creates an instance of controller component.</p>
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common properties.
 		</p>
 
-		<h3>[property:QueryList _cameras]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			The Cameras of controller component
-		</p>
+		<h3>
+			[property:QueryList _cameras]<i class="modifier modifier-protected"
+				>Protected</i
+			>
+		</h3>
+		<p>The Cameras of controller component</p>
 
-		<h3>[property:HtmlCollection _canvas]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			The Canvas of controller component
-		</p>
+		<h3>
+			[property:HtmlCollection _canvas]<i class="modifier modifier-protected"
+				>Protected</i
+			>
+		</h3>
+		<p>The Canvas of controller component</p>
 
-		<h3>[property:QueryList _canvas2ds]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			The Canvas2ds of controller component
-		</p>
+		<h3>
+			[property:QueryList _canvas2ds]<i class="modifier modifier-protected"
+				>Protected</i
+			>
+		</h3>
+		<p>The Canvas2ds of controller component</p>
 
-		<h3>[property:RendererEvent _event]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			The Event of controller component
-		</p>
+		<h3>
+			[property:RendererEvent _event]<i class="modifier modifier-protected"
+				>Protected</i
+			>
+		</h3>
+		<p>The Event of controller component</p>
 
-		<h3>[property:Renderer _renderer]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			The Renderer of controller component
-		</p>
+		<h3>
+			[property:Renderer _renderer]<i class="modifier modifier-protected"
+				>Protected</i
+			>
+		</h3>
+		<p>The Renderer of controller component</p>
 
-		<h3>[property:Scene _scene]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			The Scene of controller component
-		</p>
+		<h3>
+			[property:Scene _scene]<i class="modifier modifier-protected"
+				>Protected</i
+			>
+		</h3>
+		<p>The Scene of controller component</p>
 
-		<h3>[property:QueryList _scenes]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			The Scenes of controller component
-		</p>
+		<h3>
+			[property:QueryList _scenes]<i class="modifier modifier-protected"
+				>Protected</i
+			>
+		</h3>
+		<p>The Scenes of controller component</p>
 
-		<h3>[property:HtmlCollection refObject2d]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			Ref object2d of controller component
-		</p>
+		<h3>
+			[property:HtmlCollection refObject2d]<i
+				class="modifier modifier-protected"
+				>Protected</i
+			>
+		</h3>
+		<p>Ref object2d of controller component</p>
 
-		<h3>[property:Object3D refObject3d]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			Ref object3d of controller component
-		</p>
+		<h3>
+			[property:Object3D refObject3d]<i class="modifier modifier-protected"
+				>Protected</i
+			>
+		</h3>
+		<p>Ref object3d of controller component</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:void applyChanges]( [param:string[] changes] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string[] changes] - The changes.
-		</p>
-		<p>
-			Applys changes
-		</p>
+		<p>[parameter:string[] changes] - The changes.</p>
+		<p>Applys changes</p>
 
-		<h3>[method:void getController](  )<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Gets controller
-		</p>
+		<h3>
+			[method:void getController]( )<i class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
+		<p>Gets controller</p>
 
-		<h3>[method:void setCanvas](  [param:HtmlCollection canvas] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void setCanvas]( [param:HtmlCollection canvas] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:HtmlCollection canvas] - The canvas.
-		</p>
-		<p>
-			Sets canvas
-		</p>
+		<p>[parameter:HtmlCollection canvas] - The canvas.</p>
+		<p>Sets canvas</p>
 
-		<h3>[method:void setObject2d](  [param:HtmlCollection refObject2d] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void setObject2d]( [param:HtmlCollection refObject2d] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:HtmlCollection refObject2d] - The ref object2d.
-		</p>
-		<p>
-			Sets object2d
-		</p>
+		<p>[parameter:HtmlCollection refObject2d] - The ref object2d.</p>
+		<p>Sets object2d</p>
 
-		<h3>[method:void setObject3d](  [param:Object3D refObject3d] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void setObject3d]( [param:Object3D refObject3d] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:Object3D refObject3d] - The ref object3d.
-		</p>
-		<p>
-			Sets object3d
-		</p>
+		<p>[parameter:Object3D refObject3d] - The ref object3d.</p>
+		<p>Sets object3d</p>
 
-		<h3>[method:void setRenderer](  [param:Renderer renderer],  [param:QueryList scenes],  [param:QueryList cameras],  [param:QueryList canvas2ds] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void setRenderer]( [param:Renderer renderer], [param:QueryList
+			scenes], [param:QueryList cameras], [param:QueryList canvas2ds] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Renderer renderer] - The renderer.<br />
@@ -142,30 +182,33 @@
 			[parameter:QueryList cameras] - The cameras.<br />
 			[parameter:QueryList canvas2ds] - The canvas2ds.
 		</p>
-		<p>
-			Sets renderer
-		</p>
+		<p>Sets renderer</p>
 
-		<h3>[method:void setScene](  [param:Scene scene] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void setScene]( [param:Scene scene] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:Scene scene] - The scene.
-		</p>
-		<p>
-			Sets scene
-		</p>
+		<p>[parameter:Scene scene] - The scene.</p>
+		<p>Sets scene</p>
 
-		<h3>[method:void update](  [param:RendererTimer rendererTimer] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void update]( [param:RendererTimer rendererTimer] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:RendererTimer rendererTimer] - The renderer timer.
-		</p>
-		<p>
-			Updates controller component
-		</p>
+		<p>[parameter:RendererTimer rendererTimer] - The renderer timer.</p>
+		<p>Updates controller component</p>
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/controller.component.abstract.ts /controller.component.abstract.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/controller.component.abstract.ts
+			/controller.component.abstract.ts]
+		</p>
 	</body>
 </html>

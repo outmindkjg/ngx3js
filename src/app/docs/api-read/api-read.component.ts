@@ -1,5 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	OnInit,
+	ViewChild,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 import { HighlightJS } from 'ngx-highlightjs';
@@ -108,7 +114,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 					.toString()
 					.substr(10);
 				break;
-			case 'samples' :
+			case 'samples':
 				path = localizedPath = /\/samples\/[A-z0-9\/]+/
 					.exec(pathname)
 					.toString()
@@ -119,8 +125,11 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		text = text.replace(/\[name\]/gi, name);
 		text = text.replace(/\[path\]/gi, path);
 		text = text.replace(/\[page:([\w\.]+)(\[\]|)\]/gi, '[page:$1$2 $1]'); // [page:name] to [page:name title]
-		text = text.replace(/\[parameter:([\w\.]+)(\[\]|)\]/gi, '[parameter:$1$2 $1]'); // [parameter:name] to [parameter:name title]
-		
+		text = text.replace(
+			/\[parameter:([\w\.]+)(\[\]|)\]/gi,
+			'[parameter:$1$2 $1]'
+		); // [parameter:name] to [parameter:name title]
+
 		text = text.replace(/src=\"scenes\/([^\"]+)\"/gi, 'src="assets/scenes/$1"'); // [page:name] to [page:name title]
 		text = text.replace(/src=\"viewer\/([^\"]+)\"/gi, 'src="#/viewer/$1"'); // [page:name] to [page:name title]
 
@@ -152,7 +161,6 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 			'<a href="#$1" title="$1$2">$7</a> : <a href="#$1" title="$1$2">$1$2</a> | <a href="#$3" title="$3$4">$3$4</a> | <a href="#$5" title="$5$6">$5$6</a>'
 		); // [parameter:name|name|name title]
 
-		
 		text = text.replace(
 			/\[(member|property|method|param|constructor):([\w\.]+)(\[\]|)\]/gi,
 			'[$1:$2$3 $2]'
@@ -238,25 +246,23 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 			/\*([\w|\d|\"|\-|\(][\w|\d|\ |\-|\/|\+|\-|\(|\)|\=|\,|\.\"]*[\w|\d|\"|\)]|\w)\*/gi,
 			'<strong>$1</strong>'
 		); // *
-		text = text.replace(/<iframe [ a-z="']*src=["']([^"]+)["']><\/iframe>/gi,
+		text = text.replace(
+			/<iframe [ a-z="']*src=["']([^"]+)["']><\/iframe>/gi,
 			'<div class="dummy-iframe" data-src="$1"></div>'
-		); 
+		);
 		text = text.replace(/\[example:([\w\_/]+)\]/gi, '[example:$1 $1]'); // [example:name] to [example:name title]
 		text = text.replace(
 			/\[example:([\w\_/]+) ([\w\:\/\.\-\_ \s]+)\]/gi,
 			'<a href="#examples/$1">$2</a>'
 		); // [example:name title]
 
-		text = text.replace(
-			/(\w|\')\|(\w|\')/gi,
-			'$1 | $2'
-		);
-		text = text.replace(
-			/emptyName : /gi,
-			''
-		);
+		text = text.replace(/(\w|\')\|(\w|\')/gi, '$1 | $2');
+		text = text.replace(/emptyName : /gi, '');
 
-		text = text.replace(/\<code>/gi, "<pre><code>").replace(/\<code /gi, "<pre><code ").replace(/\<\/code>/gi, "</code></pre>");
+		text = text
+			.replace(/\<code>/gi, '<pre><code>')
+			.replace(/\<code /gi, '<pre><code ')
+			.replace(/\<\/code>/gi, '</code></pre>');
 		this.docEle.nativeElement.innerHTML = text;
 		const links = this.docEle.nativeElement.getElementsByTagName('a');
 		for (let i = 0; i < links.length; i++) {
@@ -281,41 +287,45 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				} else {
 					this.docsComponent.changePage(hrefId);
 				}
-				e.stopPropagation()
-				e.preventDefault()
+				e.stopPropagation();
+				e.preventDefault();
 				return false;
 			});
 		}
-		const codes: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('code');
+		const codes: HTMLElement[] =
+			this.docEle.nativeElement.getElementsByTagName('code');
 		for (let i = 0; i < codes.length; i++) {
 			const code = codes[i];
 			let language = code.dataset.type || 'none';
-			const languageSubset : string[] = [ 'html', 'css', 'javascript' ];
+			const languageSubset: string[] = ['html', 'css', 'javascript'];
 			code.classList.add('prettyprint');
 			code.classList.add('hljs');
-			let innerText: string = code.innerText.replace(/<br>/g,'').replace(/<br\/>/g,'').replace(/\n([\t ]{1,2})/g, '\n');
+			let innerText: string = code.innerText
+				.replace(/<br>/g, '')
+				.replace(/<br\/>/g, '')
+				.replace(/\n([\t ]{1,2})/g, '\n');
 
 			if (language === '' || language === 'none') {
 				if (innerText.indexOf('</') > -1) {
-					language = 'html';	
+					language = 'html';
 				} else if (innerText.indexOf('npm ') > -1) {
-					language = 'shell';	
+					language = 'shell';
 				} else {
-					language = 'javascript';	
+					language = 'javascript';
 				}
 			}
-			switch(language) {
-				case 'text' :
+			switch (language) {
+				case 'text':
 					code.classList.add('language-plaintext');
 					languageSubset.push('plaintext');
 					break;
-				case 'ts' :
-				case 'typescript' :
-				case 'javascript' :
+				case 'ts':
+				case 'typescript':
+				case 'javascript':
 					code.classList.add('language-javascript');
 					languageSubset.push('javascript');
 					break;
-				case 'html' :
+				case 'html':
 					code.classList.add('language-html');
 					break;
 			}
@@ -325,23 +335,23 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				tag.innerText = '#' + language;
 				code.parentNode.appendChild(tag);
 			}
-			let safeTxt:string[] = [];
-			innerText.split("\n").forEach((txt : string) => {
+			let safeTxt: string[] = [];
+			innerText.split('\n').forEach((txt: string) => {
 				if (txt.trim() !== '') {
 					safeTxt.push(txt);
 				}
 			});
-			switch(language) {
-				case 'text' :
-					innerText = safeTxt.join("\n");
+			switch (language) {
+				case 'text':
+					innerText = safeTxt.join('\n');
 					break;
-				default :
-					innerText = safeTxt.join("\n");
+				default:
+					innerText = safeTxt.join('\n');
 					break;
 			}
 			if (innerText.startsWith('\t')) {
 				innerText = innerText.substring(1);
-				innerText = innerText.replace(/\n\t/g,'\n');
+				innerText = innerText.replace(/\n\t/g, '\n');
 			}
 			this.highlightJS
 				.highlightAuto(innerText, languageSubset)
@@ -356,53 +366,57 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 			this.setFocus(null);
 		}
 		setTimeout(() => {
-			const docEle : HTMLDivElement  = this.docEle.nativeElement.parentElement.parentElement.parentElement;
+			const docEle: HTMLDivElement =
+				this.docEle.nativeElement.parentElement.parentElement.parentElement;
 			this.checkScrollIframe(docEle);
 		}, 2000);
 	}
 
 	/**
 	 * Determines whether element in viewport is
-	 * 
-	 * @param el 
-	 * @param scrollObj 
-	 * @returns true if element in viewport 
+	 *
+	 * @param el
+	 * @param scrollObj
+	 * @returns true if element in viewport
 	 */
-	 private isElementInViewport(el: Element, scrollSize : {
-		clientHeight : number;
-		clientWidth : number;
-	} ): boolean {
+	private isElementInViewport(
+		el: Element,
+		scrollSize: {
+			clientHeight: number;
+			clientWidth: number;
+		}
+	): boolean {
 		const rect = el.getBoundingClientRect();
 		return (
 			rect.top >= 0 &&
-			(rect.top + (rect.bottom - rect.top) * 0.7) <=
-				(scrollSize.clientHeight ||
-					document.documentElement.clientHeight)
+			rect.top + (rect.bottom - rect.top) * 0.7 <=
+				(scrollSize.clientHeight || document.documentElement.clientHeight)
 		);
 	}
 
-	_onScrollBind : () => any;
-	_docEle : HTMLDivElement = null;
+	_onScrollBind: () => any;
+	_docEle: HTMLDivElement = null;
 	public ngAfterViewInit(): void {
-		this._docEle = this.docEle.nativeElement.parentElement.parentElement.parentElement;
+		this._docEle =
+			this.docEle.nativeElement.parentElement.parentElement.parentElement;
 		this._onScrollBind = () => {
 			this.checkScrollIframe(this._docEle);
-		}
+		};
 		this._docEle.addEventListener('scroll', this._onScrollBind);
 	}
 
-	private checkScrollIframe(docEle : HTMLDivElement) {
-		const dummyIframes =  docEle.getElementsByClassName('dummy-iframe');
+	private checkScrollIframe(docEle: HTMLDivElement) {
+		const dummyIframes = docEle.getElementsByClassName('dummy-iframe');
 		if (dummyIframes.length > 0) {
-			const scrollSize : {
-				clientHeight : number;
-				clientWidth : number;
+			const scrollSize: {
+				clientHeight: number;
+				clientWidth: number;
 			} = {
-				clientHeight : docEle.clientHeight,
-				clientWidth : docEle.clientWidth
-			}
-			for(let i = 0 ; i < dummyIframes.length ; i++) {
-				const dummyIframe  = dummyIframes[i] as HTMLDivElement;
+				clientHeight: docEle.clientHeight,
+				clientWidth: docEle.clientWidth,
+			};
+			for (let i = 0; i < dummyIframes.length; i++) {
+				const dummyIframe = dummyIframes[i] as HTMLDivElement;
 				const isVisible = this.isElementInViewport(dummyIframe, scrollSize);
 				if (isVisible) {
 					const src = dummyIframe.dataset.src;
@@ -417,10 +431,14 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 
 	private setElementById(menuId: string) {
 		const links = [];
-		const linksA: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('a');
-		const linksH1: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('h1');
-		const linksH2: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('h2');
-		const linksH3: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('h3');
+		const linksA: HTMLElement[] =
+			this.docEle.nativeElement.getElementsByTagName('a');
+		const linksH1: HTMLElement[] =
+			this.docEle.nativeElement.getElementsByTagName('h1');
+		const linksH2: HTMLElement[] =
+			this.docEle.nativeElement.getElementsByTagName('h2');
+		const linksH3: HTMLElement[] =
+			this.docEle.nativeElement.getElementsByTagName('h3');
 		for (let i = 0; i < linksA.length; i++) {
 			links.push(linksA[i]);
 		}
@@ -443,7 +461,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		return selected;
 	}
 
-	setFocus(menuId: string, timeOut : number = 200) {
+	setFocus(menuId: string, timeOut: number = 200) {
 		setTimeout(() => {
 			if (menuId !== null) {
 				let selected: HTMLElement = this.setElementById(menuId);

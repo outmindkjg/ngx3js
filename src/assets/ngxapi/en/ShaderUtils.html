@@ -15,120 +15,123 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<p>
-			None
-		</p>
+		<p>None</p>
 
 		<h2>Properties</h2>
-		<p>
-			None
-		</p>
+		<p>None</p>
 
 		<h2>Methods</h2>
-		<h3>[method:void addShader](  [param:string key],  [param:ShaderType shader],  [param:string[] alias]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>
+			[method:void addShader]( [param:string key], [param:ShaderType shader],
+			[param:string[] alias]? )<i class="modifier modifier-public">Public</i>
+			<i class="modifier modifier-static">Static</i>
+		</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string key] - The key.<br />
 			[parameter:ShaderType shader] - The shader.<br />
 			[parameter:string[] alias] - (optional) The alias.
 		</p>
-		<p>
-			
-		</p>
+		<p></p>
 
-		<h3>[method:void checkShader](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
-		<p>
-			
-		</p>
+		<h3>
+			[method:void checkShader]( )<i class="modifier modifier-public">Public</i>
+			<i class="modifier modifier-static">Static</i>
+		</h3>
+		<p></p>
 
-		<h3>[method:string getFragmentShader](  [param:string|ShaderType key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>
+			[method:string getFragmentShader]( [param:string|ShaderType key] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-static">Static</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string|ShaderType key] - The key.
-		</p>
-		<p>
-			
-		</p>
+		<p>[parameter:string|ShaderType key] - The key.</p>
+		<p></p>
 
-		<h3>[method:ShaderType getShader](  [param:string|ShaderType key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>
+			[method:ShaderType getShader]( [param:string|ShaderType key] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-static">Static</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string|ShaderType key] - The key.
-		</p>
-		<p>
-			
-		</p>
+		<p>[parameter:string|ShaderType key] - The key.</p>
+		<p></p>
 
-		<h3>[method:ShaderType getShaderClone](  [param:string key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>
+			[method:ShaderType getShaderClone]( [param:string key] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-static">Static</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string key] - The key.
-		</p>
-		<p>
-			
-		</p>
+		<p>[parameter:string key] - The key.</p>
+		<p></p>
 
-		<h3>[method:void getUniforms](  [param:string|ShaderType key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>
+			[method:void getUniforms]( [param:string|ShaderType key] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-static">Static</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string|ShaderType key] - The key.
-		</p>
-		<p>
-			
-		</p>
+		<p>[parameter:string|ShaderType key] - The key.</p>
+		<p></p>
 
-		<h3>[method:string getVertexShader](  [param:string|ShaderType key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>
+			[method:string getVertexShader]( [param:string|ShaderType key] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-static">Static</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string|ShaderType key] - The key.
-		</p>
-		<p>
-			
-		</p>
+		<p>[parameter:string|ShaderType key] - The key.</p>
+		<p></p>
 
-		<hr class="interface-line"/>
-		<h3 id="ShaderType">ShaderType <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line" />
+		<h3 id="ShaderType">
+			ShaderType <i class="modifier modifier-interface">Interface</i>
+		</h3>
 		<h4>Properties</h4>
 		<p>
-			[property:any defines]? -  The defines.<br />
-			[property:string fragmentShader] -  The fragment shader.<br />
-			[property:any uniforms]? -  The uniforms.<br />
-			[property:string vertexShader]? -  The vertex shader.
+			[property:any defines]? - The defines.<br />
+			[property:string fragmentShader] - The fragment shader.<br />
+			[property:any uniforms]? - The uniforms.<br />
+			[property:string vertexShader]? - The vertex shader.
 		</p>
 
+		<p class="desc">ShaderType</p>
 
-		<p class="desc">
-			ShaderType
-		</p>
+		<hr class="interface-line" />
+		<h3 id="ShaderAliasConf">
+			ShaderAliasConf <i class="modifier modifier-interface">Interface</i>
+		</h3>
+		<h3>{ [ [param:string key] ] : [param:string emptyName] }</h3>
+		<p></p>
 
-		<hr class="interface-line"/>
-		<h3 id="ShaderAliasConf">ShaderAliasConf <i class="modifier modifier-interface">Interface</i></h3>
-		<h3> { [  [param:string key] ] : [param:string emptyName] }</h3>
-		<p>
-			
-		</p>
+		<p class="desc"></p>
 
+		<hr class="interface-line" />
+		<h3 id="ShaderConf">
+			ShaderConf <i class="modifier modifier-interface">Interface</i>
+		</h3>
+		<h3>{ [ [param:string key] ] : [param:ShaderType|string emptyName] }</h3>
+		<p></p>
 
-
-		<p class="desc">
-			
-		</p>
-
-		<hr class="interface-line"/>
-		<h3 id="ShaderConf">ShaderConf <i class="modifier modifier-interface">Interface</i></h3>
-		<h3> { [  [param:string key] ] : [param:ShaderType|string emptyName] }</h3>
-		<p>
-			
-		</p>
-
-
-
-		<p class="desc">
-			
-		</p>
+		<p class="desc"></p>
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/shader/shaders/shaderUtils.ts /shader/shaders/shaderUtils.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/shader/shaders/shaderUtils.ts
+			/shader/shaders/shaderUtils.ts]
+		</p>
 	</body>
 </html>

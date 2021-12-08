@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import {
 	BaseComponent,
 	MeshComponent,
-	PassComponent, RendererEvent,
+	PassComponent,
+	RendererEvent,
 	SceneComponent,
 	SSRPass,
-	THREE
+	THREE,
 } from 'ngx3js';
 
 @Component({

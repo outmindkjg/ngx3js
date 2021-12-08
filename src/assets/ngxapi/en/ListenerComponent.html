@@ -7,7 +7,8 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent]
+		&rarr; [page:AbstractObject3dComponent] &rarr;
 
 		<h1>ListenerComponent</h1>
 
@@ -15,104 +16,134 @@
 			The Listener component.<br />
 			See the [page:ListenerComponent ngx3js docs] page for details.<br />
 			<br />
-			The [name] represents a virtual [link:https://developer.mozilla.org/de/docs/Web/API/AudioListener listener] of the all positional and non-positional audio effects in the scene.<br />
-			A three.js application usually creates a single instance of [name]. It is a mandatory construtor parameter for audios entities like [page:Audio Audio] and [page:PositionalAudio PositionalAudio].<br />
-			In most cases, the listener object is a child of the camera. So the 3D transformation of the camera represents the 3D transformation of the listener.<br />
+			The [name] represents a virtual
+			[link:https://developer.mozilla.org/de/docs/Web/API/AudioListener
+			listener] of the all positional and non-positional audio effects in the
+			scene.<br />
+			A three.js application usually creates a single instance of [name]. It is
+			a mandatory construtor parameter for audios entities like [page:Audio
+			Audio] and [page:PositionalAudio PositionalAudio].<br />
+			In most cases, the listener object is a child of the camera. So the 3D
+			transformation of the camera represents the 3D transformation of the
+			listener.<br />
 			<br />
-			<code data-type="html"><br />
-			&lt;ngx3js-camera&gt;<br />
+			<code data-type="html"
+				><br />
+				&lt;ngx3js-camera&gt;<br />
 				&lt;ngx3js-listener&gt;&lt;/ngx3js-listener&gt;<br />
-			&lt;/ngx3js-camera&gt;<br />
-			</code><br />
+				&lt;/ngx3js-camera&gt;<br /> </code
+			><br />
 			<br />
 			[page:AudioListener AudioListener] - THREE.AudioListener
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:ListenerComponent ListenerComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
-		<p>
-			Creates an instance of listener component.
-		</p>
+		<h3>
+			[constructor:ListenerComponent ListenerComponent]( )<i
+				class="modifier modifier-overwrite"
+				>Overwrite</i
+			>
+		</h3>
+		<p>Creates an instance of listener component.</p>
 
 		<h3>Angular Html Template [ Input ] ( Output )</h3>
-		<code data-type="html">&lt;ngx3js-listener
-			[ castShadow ]="... boolean -- Whether the object gets render... "
-			[ debug ]="... boolean -- Debug this Object "
-			[ enabled ]="... boolean -- Enabled or Not "
-			[ frustumCulled ]="... boolean -- When this is set, it checks ev... "
-			[ geometry ]="... any -- The geometry of mesh "
-			[ material ]="... AbstractMaterialComponent|Material -- The material of mesh "
-			[ materialIsArray ]="... boolean -- The material of mesh is array "
-			[ matrixAutoUpdate ]="... boolean -- When this is set, it calculate... "
-			[ name ]="... string -- The name of the object (doesn'... "
-			( onDestory )="...($event : ListenerComponent -- Will be called when before des... )"
-			( onLoad )="...($event : ListenerComponent -- Will be called when load compl... )"
-			[ overrideParams ]="... any -- The override params "
-			[ receiveShadow ]="... boolean -- Whether the material receives ... "
-			[ tween ]="... any -- Tween animation params "
-			[ tweenStart ]="... boolean -- Start tween "
-			[ userData ]="... any -- An object that can be used to ... "
-			[ visible ]="... boolean -- Object gets rendered if *true*... "
-			[ volume ]="... number -- Set the volume. "
-			[ windowExport ]="... string -- Export this Object to window g... "
-		&gt;&lt;/ngx3js-listener&gt;
+		<code data-type="html"
+			>&lt;ngx3js-listener [ castShadow ]="... boolean -- Whether the object
+			gets render... " [ debug ]="... boolean -- Debug this Object " [ enabled
+			]="... boolean -- Enabled or Not " [ frustumCulled ]="... boolean -- When
+			this is set, it checks ev... " [ geometry ]="... any -- The geometry of
+			mesh " [ material ]="... AbstractMaterialComponent|Material -- The
+			material of mesh " [ materialIsArray ]="... boolean -- The material of
+			mesh is array " [ matrixAutoUpdate ]="... boolean -- When this is set, it
+			calculate... " [ name ]="... string -- The name of the object (doesn'... "
+			( onDestory )="...($event : ListenerComponent -- Will be called when
+			before des... )" ( onLoad )="...($event : ListenerComponent -- Will be
+			called when load compl... )" [ overrideParams ]="... any -- The override
+			params " [ receiveShadow ]="... boolean -- Whether the material receives
+			... " [ tween ]="... any -- Tween animation params " [ tweenStart ]="...
+			boolean -- Start tween " [ userData ]="... any -- An object that can be
+			used to ... " [ visible ]="... boolean -- Object gets rendered if
+			*true*... " [ volume ]="... number -- Set the volume. " [ windowExport
+			]="... string -- Export this Object to window g... "
+			&gt;&lt;/ngx3js-listener&gt;
 		</code>
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common properties.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class
+			for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common properties.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent]
+			class for common properties.
 		</p>
 
-		<h3>[property:number volume] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Set the volume.
-		</p>
+		<h3>
+			[property:number volume] &nbsp; = 1
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>Set the volume.</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class
+			for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent]
+			class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:void applyChanges3d]( [param:string[] changes] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string[] changes] - The changes.
-		</p>
-		<p>
-			Applys changes3d
-		</p>
+		<p>[parameter:string[] changes] - The changes.</p>
+		<p>Applys changes3d</p>
 
-		<h3>[method:AudioListener getListener](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:AudioListener getListener]( )<i class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<p>
 			Gets listener<br />
 			<br />
 			Returns : listener
 		</p>
 
-		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:T getObject3d]( )<i class="modifier modifier-public">Public</i>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<p>
 			Gets object3d<br />
 			<br />
 			Returns : object3d
 		</p>
 
-		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:boolean setParent]( [param:Object3D parent] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:Object3D parent] - The parent.
-		</p>
+		<p>[parameter:Object3D parent] - The parent.</p>
 		<p>
 			Sets parent<br />
 			<br />
@@ -121,6 +152,9 @@
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/listener/listener.component.ts /listener/listener.component.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/listener/listener.component.ts
+			/listener/listener.component.ts]
+		</p>
 	</body>
 </html>

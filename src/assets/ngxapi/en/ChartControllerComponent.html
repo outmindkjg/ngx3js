@@ -7,7 +7,8 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractSubscribeComponent] &rarr; [page:AbstractControllerComponent] &rarr;
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractControllerComponent]
+		&rarr;
 
 		<h1>ChartControllerComponent</h1>
 
@@ -17,41 +18,53 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:ChartControllerComponent ChartControllerComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
-		<p>
-			Creates an instance of controller component.
-		</p>
+		<h3>
+			[constructor:ChartControllerComponent ChartControllerComponent]( )<i
+				class="modifier modifier-overwrite"
+				>Overwrite</i
+			>
+		</h3>
+		<p>Creates an instance of controller component.</p>
 
 		<h3>Angular Html Template [ Input ] ( Output )</h3>
-		<code data-type="html">&lt;ngx3js-chart-controller
-			[ debug ]="... boolean -- Debug this Object "
-			[ duration ]="... number -- The Input of controller compon... "
-			[ enabled ]="... boolean -- Enabled or Not "
-			( onDestory )="...($event : ChartControllerComponent -- Will be called when before des... )"
-			( onLoad )="...($event : ChartControllerComponent -- Will be called when load compl... )"
-			[ overrideParams ]="... any -- The override params "
-			[ tween ]="... any -- Tween animation params "
-			[ type ]="... string -- The Input of controller compon... "
-			[ userData ]="... any -- An object that can be used to ... "
-			[ windowExport ]="... string -- Export this Object to window g... "
-		&gt;&lt;/ngx3js-chart-controller&gt;
+		<code data-type="html"
+			>&lt;ngx3js-chart-controller [ debug ]="... boolean -- Debug this Object "
+			[ duration ]="... number -- The Input of controller compon... " [ enabled
+			]="... boolean -- Enabled or Not " ( onDestory )="...($event :
+			ChartControllerComponent -- Will be called when before des... )" ( onLoad
+			)="...($event : ChartControllerComponent -- Will be called when load
+			compl... )" [ overrideParams ]="... any -- The override params " [ tween
+			]="... any -- Tween animation params " [ type ]="... string -- The Input
+			of controller compon... " [ userData ]="... any -- An object that can be
+			used to ... " [ windowExport ]="... string -- Export this Object to window
+			g... " &gt;&lt;/ngx3js-chart-controller&gt;
 		</code>
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractControllerComponent AbstractControllerComponent] class for common properties.
+			See the base [page:AbstractControllerComponent
+			AbstractControllerComponent] class for common properties.
 		</p>
 
-		<h3>[property:number duration] &nbsp; = 2 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:number duration] &nbsp; = 2
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The Input of controller component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string type] &nbsp; = 'auto' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string type] &nbsp; = 'auto'
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The Input of controller component<br />
 			Notice - case insensitive.
@@ -59,37 +72,49 @@
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractControllerComponent AbstractControllerComponent] class for common methods.
+			See the base [page:AbstractControllerComponent
+			AbstractControllerComponent] class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:void applyChanges]( [param:string[] changes] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string[] changes] - The changes.
-		</p>
-		<p>
-			Applys changes
-		</p>
+		<p>[parameter:string[] changes] - The changes.</p>
+		<p>Applys changes</p>
 
-		<h3>[method:void getController](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
-		<p>
-			Gets controller
-		</p>
+		<h3>
+			[method:void getController]( )<i class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
+		<p>Gets controller</p>
 
-		<h3>[method:void update](  [param:RendererTimer rendererTimer] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:void update]( [param:RendererTimer rendererTimer] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:RendererTimer rendererTimer] - The renderer timer.
-		</p>
-		<p>
-			Updates controller component
-		</p>
+		<p>[parameter:RendererTimer rendererTimer] - The renderer timer.</p>
+		<p>Updates controller component</p>
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/chart/controller/controller.component.ts /chart/controller/controller.component.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/chart/controller/controller.component.ts
+			/chart/controller/controller.component.ts]
+		</p>
 	</body>
 </html>

@@ -15,243 +15,342 @@
 			The Clip component.<br />
 			See the [page:ClipComponent ngx3js docs] page for details.<br />
 			<br />
-			An AnimationClip is a reusable set of keyframe tracks which represent an animation.<br />
+			An AnimationClip is a reusable set of keyframe tracks which represent an
+			animation.<br />
 			<br />
-			For an overview of the different elements of the three.js animation system see the "Animation System" article in the "Next Steps" section of the manual.<br />
+			For an overview of the different elements of the three.js animation system
+			see the "Animation System" article in the "Next Steps" section of the
+			manual.<br />
 			<br />
-			<code data-type="html"><br />
-			&lt;ngx3js-mixer [action]="'base'"&gt;<br />
+			<code data-type="html"
+				><br />
+				&lt;ngx3js-mixer [action]="'base'"&gt;<br />
 				&lt;ngx3js-clip [name]="'base'" [index]="0"&gt;&lt;/ngx3js-clip&gt;<br />
-			&lt;/ngx3js-mixer&gt;<br />
-			&lt;ngx3js-mixer [action]="'Run'"&gt;<br />
+				&lt;/ngx3js-mixer&gt;<br />
+				&lt;ngx3js-mixer [action]="'Run'"&gt;<br />
 				&lt;ngx3js-clip [name]="'Run'"&gt;&lt;/ngx3js-clip&gt;<br />
-			&lt;/ngx3js-mixer&gt;<br />
+				&lt;/ngx3js-mixer&gt;<br />
 			</code>
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:ClipComponent ClipComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
-		<p>
-			Creates an instance of clip component.
-		</p>
+		<h3>
+			[constructor:ClipComponent ClipComponent]( )<i
+				class="modifier modifier-overwrite"
+				>Overwrite</i
+			>
+		</h3>
+		<p>Creates an instance of clip component.</p>
 
 		<h3>Angular Html Template [ Input ] ( Output )</h3>
-		<code data-type="html">&lt;ngx3js-clip
-			[ additive ]="... boolean -- makeClipAdditive "
-			[ blendMode ]="... string -- The blendMode of clip componen... "
-			[ clampWhenFinished ]="... boolean -- If *clampWhenFinished* is set ... "
-			[ debug ]="... boolean -- Debug this Object "
-			[ duration ]="... number -- The duration of this clip (in ... "
-			[ enabled ]="... boolean -- Enabled or Not "
-			[ endFrame ]="... number -- Creates a new clip, containing... "
-			[ fps ]="... number -- Creates a new clip, containing... "
-			[ index ]="... number -- The index of clip component "
-			[ loop ]="... string -- The looping mode (can be chang... "
-			[ name ]="... string -- A name for this clip. A certai... "
-			( onDestory )="...($event : ClipComponent -- Will be called when before des... )"
-			( onLoad )="...($event : ClipComponent -- Will be called when load compl... )"
-			[ overrideParams ]="... any -- The override params "
-			[ startFrame ]="... number -- Creates a new clip, containing... "
-			[ subclip ]="... boolean -- subclip "
-			[ timeScale ]="... number -- Scaling factor for the [Animat... "
-			[ tween ]="... any -- Tween animation params "
-			[ userData ]="... any -- An object that can be used to ... "
-			[ weight ]="... number -- The degree of influence of thi... "
-			[ windowExport ]="... string -- Export this Object to window g... "
-		&gt;&lt;/ngx3js-clip&gt;
+		<code data-type="html"
+			>&lt;ngx3js-clip [ additive ]="... boolean -- makeClipAdditive " [
+			blendMode ]="... string -- The blendMode of clip componen... " [
+			clampWhenFinished ]="... boolean -- If *clampWhenFinished* is set ... " [
+			debug ]="... boolean -- Debug this Object " [ duration ]="... number --
+			The duration of this clip (in ... " [ enabled ]="... boolean -- Enabled or
+			Not " [ endFrame ]="... number -- Creates a new clip, containing... " [
+			fps ]="... number -- Creates a new clip, containing... " [ index ]="...
+			number -- The index of clip component " [ loop ]="... string -- The
+			looping mode (can be chang... " [ name ]="... string -- A name for this
+			clip. A certai... " ( onDestory )="...($event : ClipComponent -- Will be
+			called when before des... )" ( onLoad )="...($event : ClipComponent --
+			Will be called when load compl... )" [ overrideParams ]="... any -- The
+			override params " [ startFrame ]="... number -- Creates a new clip,
+			containing... " [ subclip ]="... boolean -- subclip " [ timeScale ]="...
+			number -- Scaling factor for the [Animat... " [ tween ]="... any -- Tween
+			animation params " [ userData ]="... any -- An object that can be used to
+			... " [ weight ]="... number -- The degree of influence of thi... " [
+			windowExport ]="... string -- Export this Object to window g... "
+			&gt;&lt;/ngx3js-clip&gt;
 		</code>
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common properties.
 		</p>
 
-		<h3>[property:AnimationAction action]<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The Action of clip component
-		</p>
+		<h3>
+			[property:AnimationAction action]<i class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
+		<p>The Action of clip component</p>
 
-		<h3>[property:boolean additive] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:boolean additive] &nbsp; = false
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			makeClipAdditive<br />
 			<br />
-			[page:AnimationUtils AnimationUtils] - THREE.AnimationUtils.makeClipAdditive
+			[page:AnimationUtils AnimationUtils] -
+			THREE.AnimationUtils.makeClipAdditive
 		</p>
 
-		<h3>[property:string blendMode] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string blendMode] &nbsp; = ''
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The blendMode of clip component<br />
 			Notice - case insensitive.<br />
 			<br />
 			[page:AnimationBlendMode AnimationBlendMode] - THREE.AnimationBlendMode<br />
-			[page:NormalAnimationBlendMode NormalAnimationBlendMode] - THREE.NormalAnimationBlendMode - NormalAnimationBlendMode, NormalAnimation, Normal<br />
-			[page:AdditiveAnimationBlendMode AdditiveAnimationBlendMode] - THREE.AdditiveAnimationBlendMode - AdditiveAnimationBlendMode, AdditiveAnimation, Additive
+			[page:NormalAnimationBlendMode NormalAnimationBlendMode] -
+			THREE.NormalAnimationBlendMode - NormalAnimationBlendMode,
+			NormalAnimation, Normal<br />
+			[page:AdditiveAnimationBlendMode AdditiveAnimationBlendMode] -
+			THREE.AdditiveAnimationBlendMode - AdditiveAnimationBlendMode,
+			AdditiveAnimation, Additive
 		</p>
 
-		<h3>[property:boolean clampWhenFinished] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:boolean clampWhenFinished] &nbsp; = false
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			If *clampWhenFinished* is set to true the animation will automatically be [page:AnimationClip.paused AnimationClip.paused] on its last frame.<br />
-			If *clampWhenFinished* is set to false, [page:AnimationClip.enabled AnimationClip.enabled] will automatically be switched to false when the last loop of the action has finished, so that this action has no further impact.<br />
+			If *clampWhenFinished* is set to true the animation will automatically be
+			[page:AnimationClip.paused AnimationClip.paused] on its last frame.<br />
+			If *clampWhenFinished* is set to false, [page:AnimationClip.enabled
+			AnimationClip.enabled] will automatically be switched to false when the
+			last loop of the action has finished, so that this action has no further
+			impact.<br />
 			Default is false.<br />
-			Note: *clampWhenFinished* has no impact if the action is interrupted (it has only an effect if its last loop has really finished).
+			Note: *clampWhenFinished* has no impact if the action is interrupted (it
+			has only an effect if its last loop has really finished).
 		</p>
 
-		<h3>[property:number duration] &nbsp; = 3 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:number duration] &nbsp; = 3
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			The duration of this clip (in seconds). This can be calculated from the [page:AnimationClip.tracks AnimationClip.tracks] array via [page:AnimationClip.resetDuration AnimationClip.resetDuration].
+			The duration of this clip (in seconds). This can be calculated from the
+			[page:AnimationClip.tracks AnimationClip.tracks] array via
+			[page:AnimationClip.resetDuration AnimationClip.resetDuration].
 		</p>
 
-		<h3>[property:number endFrame] &nbsp; = 3 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:number endFrame] &nbsp; = 3
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			Creates a new clip, containing only the segment of the original clip between the given frames.
+			Creates a new clip, containing only the segment of the original clip
+			between the given frames.
 		</p>
 
-		<h3>[property:number fps]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:number fps]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			Creates a new clip, containing only the segment of the original clip between the given frames.
+			Creates a new clip, containing only the segment of the original clip
+			between the given frames.
 		</p>
 
-		<h3>[property:number index] &nbsp; = -1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The index of clip component
-		</p>
+		<h3>
+			[property:number index] &nbsp; = -1
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The index of clip component</p>
 
-		<h3>[property:string loop]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string loop]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			The looping mode (can be changed with [AnimationClip.setLoop](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/animation/AnimationClip.setLoop)). Default is [THREE.LoopRepeat](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/animation/Animation) (with an infinite number of [AnimationClip.repetitions](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/animation/AnimationClip.repetitions))<br />
+			The looping mode (can be changed with
+			[AnimationClip.setLoop](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/animation/AnimationClip.setLoop)).
+			Default is
+			[THREE.LoopRepeat](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/animation/Animation)
+			(with an infinite number of
+			[AnimationClip.repetitions](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/animation/AnimationClip.repetitions))<br />
 			Notice - case insensitive.<br />
 			<br />
-			[page:AnimationActionLoopStyles AnimationActionLoopStyles] - THREE.AnimationActionLoopStyles<br />
+			[page:AnimationActionLoopStyles AnimationActionLoopStyles] -
+			THREE.AnimationActionLoopStyles<br />
 			[page:LoopOnce LoopOnce] - THREE.LoopOnce - LoopOnce, Once<br />
 			[page:LoopRepeat LoopRepeat] - THREE.LoopRepeat - LoopRepeat, Repeat<br />
-			[page:LoopPingPong LoopPingPong] - THREE.LoopPingPong - LoopPingPong, PingPong
+			[page:LoopPingPong LoopPingPong] - THREE.LoopPingPong - LoopPingPong,
+			PingPong
 		</p>
 
-		<h3>[property:string name] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string name] &nbsp; = ''
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			A name for this clip. A certain clip can be searched via [page:AnimationClip.findByName AnimationClip.findByName].
+			A name for this clip. A certain clip can be searched via
+			[page:AnimationClip.findByName AnimationClip.findByName].
 		</p>
 
-		<h3>[property:number startFrame] &nbsp; = 2 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:number startFrame] &nbsp; = 2
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			Creates a new clip, containing only the segment of the original clip between the given frames.
+			Creates a new clip, containing only the segment of the original clip
+			between the given frames.
 		</p>
 
-		<h3>[property:boolean subclip] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:boolean subclip] &nbsp; = false
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			subclip<br />
 			<br />
 			[page:AnimationUtils AnimationUtils] - THREE.AnimationUtils.subclip
 		</p>
 
-		<h3>[property:number timeScale] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:number timeScale] &nbsp; = 1
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			Scaling factor for the [page:AnimationClip.time AnimationClip.time]. A value of 0 causes the animation to pause. Negative values cause the animation to play backwards. Default is 1.
+			Scaling factor for the [page:AnimationClip.time AnimationClip.time]. A
+			value of 0 causes the animation to pause. Negative values cause the
+			animation to play backwards. Default is 1.
 		</p>
 
-		<h3>[property:number weight] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:number weight] &nbsp; = 1
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			The degree of influence of this action (in the interval [0, 1]). Values between 0 (no impact)<br />
-			and 1 (full impact) can be used to blend between several actions. Default is 1.<br />
-			Properties/methods concerning  *weight* are:
+			The degree of influence of this action (in the interval [0, 1]). Values
+			between 0 (no impact)<br />
+			and 1 (full impact) can be used to blend between several actions. Default
+			is 1.<br />
+			Properties/methods concerning *weight* are:
 		</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:void applyChanges]( [param:string[] changes] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string[] changes] - The changes.
-		</p>
-		<p>
-			Applys changes
-		</p>
+		<p>[parameter:string[] changes] - The changes.</p>
+		<p>Applys changes</p>
 
-		<h3>[method:void crossFadeTo](  [param:ClipComponent endAction]?,  [param:number duration]? )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void crossFadeTo]( [param:ClipComponent endAction]?, [param:number
+			duration]? )<i class="modifier modifier-public">Public</i>
+		</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:ClipComponent endAction] - (optional) The end action.<br />
 			[parameter:number duration] - (optional) The duration.
 		</p>
-		<p>
-			Cross fade to
-		</p>
+		<p>Cross fade to</p>
 
-		<h3>[method:void fadeIn](  [param:number duration]? )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void fadeIn]( [param:number duration]? )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:number duration] - (optional) The duration.
-		</p>
-		<p>
-			Fades in
-		</p>
+		<p>[parameter:number duration] - (optional) The duration.</p>
+		<p>Fades in</p>
 
-		<h3>[method:void fadeOut](  [param:number duration]? )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void fadeOut]( [param:number duration]? )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:number duration] - (optional) The duration.
-		</p>
-		<p>
-			Fades out
-		</p>
+		<p>[parameter:number duration] - (optional) The duration.</p>
+		<p>Fades out</p>
 
-		<h3>[method:AnimationClip getClip](  )<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Gets clip
-		</p>
+		<h3>
+			[method:AnimationClip getClip]( )<i class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
+		<p>Gets clip</p>
 
-		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:T getObject]( )<i class="modifier modifier-public">Public</i>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<p>
 			Gets object<br />
 			<br />
 			Returns : object
 		</p>
 
-		<h3>[method:boolean isPlayable](  )<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Determines whether playable is
-		</p>
+		<h3>
+			[method:boolean isPlayable]( )<i class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
+		<p>Determines whether playable is</p>
 
-		<h3>[method:void play](  )<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Plays clip component
-		</p>
+		<h3>[method:void play]( )<i class="modifier modifier-public">Public</i></h3>
+		<p>Plays clip component</p>
 
-		<h3>[method:void resetAction](  )<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Resets action
-		</p>
+		<h3>
+			[method:void resetAction]( )<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>Resets action</p>
 
-		<h3>[method:void setFps](  [param:number fps] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void setFps]( [param:number fps] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:number fps] - The fps.
-		</p>
-		<p>
-			Sets fps
-		</p>
+		<p>[parameter:number fps] - The fps.</p>
+		<p>Sets fps</p>
 
-		<h3>[method:void setMixer](  [param:AnimationMixer mixer],  [param:AnimationClip[] clips],  [param:any model] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void setMixer]( [param:AnimationMixer mixer],
+			[param:AnimationClip[] clips], [param:any model] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:AnimationMixer mixer] - The mixer.<br />
 			[parameter:AnimationClip[] clips] - The clips.<br />
 			[parameter:any model] - The model.
 		</p>
-		<p>
-			Sets mixer
-		</p>
+		<p>Sets mixer</p>
 
-		<h3>[method:void stop](  )<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Stops clip component
-		</p>
+		<h3>[method:void stop]( )<i class="modifier modifier-public">Public</i></h3>
+		<p>Stops clip component</p>
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/clip/clip.component.ts /clip/clip.component.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/clip/clip.component.ts
+			/clip/clip.component.ts]
+		</p>
 	</body>
 </html>

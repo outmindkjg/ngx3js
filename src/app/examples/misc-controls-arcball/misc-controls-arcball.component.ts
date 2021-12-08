@@ -9,7 +9,7 @@ import { BaseComponent, ControlComponent, RendererTimer } from 'ngx3js';
 })
 export class MiscControlsArcballComponent extends BaseComponent<{
 	gizmoVisible: boolean;
-	arcballControl : {
+	arcballControl: {
 		enabled: boolean;
 		enableGrid: boolean;
 		enableRotate: boolean;
@@ -22,13 +22,13 @@ export class MiscControlsArcballComponent extends BaseComponent<{
 		maxDistance: number;
 		minZoom: number;
 		maxZoom: number;
-	}
+	};
 }> {
 	constructor() {
 		super(
 			{
 				gizmoVisible: true,
-				arcballControl : {
+				arcballControl: {
 					enabled: true,
 					enableGrid: false,
 					enableRotate: true,
@@ -41,50 +41,50 @@ export class MiscControlsArcballComponent extends BaseComponent<{
 					maxDistance: Infinity,
 					minZoom: 0,
 					maxZoom: Infinity,
-				}
+				},
 			},
 			[
 				{
 					name: 'enabled',
 					type: 'checkbox',
-					control : 'arcballControl',
-					title: 'Enable controls'
+					control: 'arcballControl',
+					title: 'Enable controls',
 				},
 				{
 					name: 'enableGrid',
 					type: 'checkbox',
-					control : 'arcballControl',
-					title: 'Enable Grid'
+					control: 'arcballControl',
+					title: 'Enable Grid',
 				},
 				{
 					name: 'enableRotate',
 					type: 'checkbox',
-					control : 'arcballControl',
-					title: 'Enable rotate'
+					control: 'arcballControl',
+					title: 'Enable rotate',
 				},
 				{
 					name: 'enablePan',
 					type: 'checkbox',
-					control : 'arcballControl',
-					title: 'Enable pan'
+					control: 'arcballControl',
+					title: 'Enable pan',
 				},
 				{
 					name: 'enableZoom',
 					type: 'checkbox',
-					control : 'arcballControl',
-					title: 'Enable zoom'
+					control: 'arcballControl',
+					title: 'Enable zoom',
 				},
 				{
 					name: 'cursorZoom',
 					type: 'checkbox',
-					control : 'arcballControl',
-					title: 'Cursor zoom'
+					control: 'arcballControl',
+					title: 'Cursor zoom',
 				},
 				{
 					name: 'adjustNearFar',
 					type: 'checkbox',
-					control : 'arcballControl',
-					title: 'adjust near/far'
+					control: 'arcballControl',
+					title: 'adjust near/far',
 				},
 				{
 					name: 'scaleFactor',
@@ -92,8 +92,8 @@ export class MiscControlsArcballComponent extends BaseComponent<{
 					min: 1.1,
 					max: 10,
 					step: 0.1,
-					control : 'arcballControl',
-					title: 'Scale factor'
+					control: 'arcballControl',
+					title: 'Scale factor',
 				},
 				{
 					name: 'minDistance',
@@ -101,8 +101,8 @@ export class MiscControlsArcballComponent extends BaseComponent<{
 					min: 0,
 					max: 50,
 					step: 0.5,
-					control : 'arcballControl',
-					title: 'Min distance'
+					control: 'arcballControl',
+					title: 'Min distance',
 				},
 				{
 					name: 'maxDistance',
@@ -110,8 +110,8 @@ export class MiscControlsArcballComponent extends BaseComponent<{
 					min: 0,
 					max: 50,
 					step: 0.5,
-					control : 'arcballControl',
-					title: 'Max distance'
+					control: 'arcballControl',
+					title: 'Max distance',
 				},
 				{
 					name: 'minZoom',
@@ -119,8 +119,8 @@ export class MiscControlsArcballComponent extends BaseComponent<{
 					min: 0,
 					max: 50,
 					step: 0.5,
-					control : 'arcballControl',
-					title: 'Min zoom'
+					control: 'arcballControl',
+					title: 'Min zoom',
 				},
 				{
 					name: 'maxZoom',
@@ -128,8 +128,8 @@ export class MiscControlsArcballComponent extends BaseComponent<{
 					min: 0,
 					max: 50,
 					step: 0.5,
-					control : 'arcballControl',
-					title: 'Max zoom'
+					control: 'arcballControl',
+					title: 'Max zoom',
 				},
 				{
 					name: 'gizmoVisible',

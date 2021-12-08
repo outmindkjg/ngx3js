@@ -15,95 +15,130 @@
 			SharedComponent<br />
 			See the [page:SharedComponent ngx3js docs] page for details.<br />
 			<br />
-			<code data-type="html"><br />
-			&lt;ngx3js-shared&gt;&lt;/ngx3js-shared&gt;<br />
-			&lt;ngx3js-shared (onLoad)="setShared($event)"&gt;&lt;/ngx3js-shared&gt;<br />
+			<code data-type="html"
+				><br />
+				&lt;ngx3js-shared&gt;&lt;/ngx3js-shared&gt;<br />
+				&lt;ngx3js-shared
+				(onLoad)="setShared($event)"&gt;&lt;/ngx3js-shared&gt;<br />
 			</code>
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:SharedComponent SharedComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
-		<p>
-			Creates an instance of shared component.
-		</p>
+		<h3>
+			[constructor:SharedComponent SharedComponent]( )<i
+				class="modifier modifier-overwrite"
+				>Overwrite</i
+			>
+		</h3>
+		<p>Creates an instance of shared component.</p>
 
 		<h3>Angular Html Template [ Input ] ( Output )</h3>
-		<code data-type="html">&lt;ngx3js-shared
-			[ debug ]="... boolean -- Debug this Object "
-			[ enabled ]="... boolean -- Enabled or Not "
-			( onDestory )="...($event : SharedComponent -- Will be called when before des... )"
-			( onLoad )="...($event : SharedComponent -- Will be called when load compl... )"
-			[ overrideParams ]="... any -- The override params "
-			[ tween ]="... any -- Tween animation params "
-			[ userData ]="... any -- An object that can be used to ... "
-			[ windowExport ]="... string -- Export this Object to window g... "
-		&gt;&lt;/ngx3js-shared&gt;
+		<code data-type="html"
+			>&lt;ngx3js-shared [ debug ]="... boolean -- Debug this Object " [ enabled
+			]="... boolean -- Enabled or Not " ( onDestory )="...($event :
+			SharedComponent -- Will be called when before des... )" ( onLoad
+			)="...($event : SharedComponent -- Will be called when load compl... )" [
+			overrideParams ]="... any -- The override params " [ tween ]="... any --
+			Tween animation params " [ userData ]="... any -- An object that can be
+			used to ... " [ windowExport ]="... string -- Export this Object to window
+			g... " &gt;&lt;/ngx3js-shared&gt;
 		</code>
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common properties.
 		</p>
 
-		<h3>[property:QueryList controllerList]<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Content children of shared component
-		</p>
+		<h3>
+			[property:QueryList controllerList]<i class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
+		<p>Content children of shared component</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:void applyChanges]( [param:string[] changes] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string[] changes] - The changes.
-		</p>
-		<p>
-			Applys changes
-		</p>
+		<p>[parameter:string[] changes] - The changes.</p>
+		<p>Applys changes</p>
 
-		<h3>[method:AnimationGroupComponent[] getAnimationGroupComponents](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:AnimationGroupComponent[] getAnimationGroupComponents]( )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<p>
 			Gets animation group components<br />
 			<br />
 			Returns : animation group components
 		</p>
 
-		<h3>[method:any[] getComponents](  [param:QueryList list] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:any[] getComponents]( [param:QueryList list] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:QueryList list] - The list.
-		</p>
+		<p>[parameter:QueryList list] - The list.</p>
 		<p>
 			Gets components<br />
 			<br />
 			Returns : components
 		</p>
 
-		<h3>[method:AbstractGeometryComponent[] getGeometryComponents](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:AbstractGeometryComponent[] getGeometryComponents]( )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<p>
 			Gets geometry components<br />
 			<br />
 			Returns : geometry components
 		</p>
 
-		<h3>[method:AbstractMaterialComponent[] getMaterialComponents](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:AbstractMaterialComponent[] getMaterialComponents]( )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<p>
 			Gets material components<br />
 			<br />
 			Returns : material components
 		</p>
 
-		<h3>[method:any getShared](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:any getShared]( )<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			Gets shared<br />
 			<br />
 			Returns : shared
 		</p>
 
-		<h3>[method:AbstractTextureComponent[] getTextureComponents](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:AbstractTextureComponent[] getTextureComponents]( )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<p>
 			Gets texture components<br />
 			<br />
@@ -112,6 +147,9 @@
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/shared/shared.component.ts /shared/shared.component.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/shared/shared.component.ts
+			/shared/shared.component.ts]
+		</p>
 	</body>
 </html>

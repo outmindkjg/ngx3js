@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
-import {
-	BaseComponent,
-	MeshComponent,
-	NODES,
-	RendererTimer,
-} from 'ngx3js';
+import { BaseComponent, MeshComponent, NODES, RendererTimer } from 'ngx3js';
 import * as THREE from 'three';
 
 @Component({
@@ -38,9 +33,9 @@ export class WebglMaterialsCompileComponent extends BaseComponent<{}> {
 
 	setMeshChild() {
 		if (this.meshChildren !== null) {
-			this.meshChildren.forEach((mesh: THREE.Mesh) => {
+			this.meshChildren.forEach((mesh: any) => {
 				if (mesh.material) {
-					(mesh.material as any).dispose();
+					mesh.material.dispose();
 				}
 				const mtl = new NODES.PhongNodeMaterial();
 				const time = new NODES.TimerNode();

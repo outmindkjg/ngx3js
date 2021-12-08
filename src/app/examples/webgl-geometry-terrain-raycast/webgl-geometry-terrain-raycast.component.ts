@@ -19,7 +19,7 @@ export class WebglGeometryTerrainRaycastComponent extends BaseComponent<{}> {
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
 		if (this.mesh !== null) {
-			this.meshObject3d = this.mesh.getRealMesh() as THREE.Mesh;
+			this.meshObject3d = this.mesh.getRealMesh() as any;
 		}
 	}
 

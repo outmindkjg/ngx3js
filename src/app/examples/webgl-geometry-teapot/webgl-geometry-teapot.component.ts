@@ -424,7 +424,7 @@ export class WebglGeometryTeapotComponent extends BaseComponent<{
 		if (this.teapot !== null) {
 			this.teapot.dispose();
 		}
-		const TeapotGeometryAlias : any =  TeapotGeometry;
+		const TeapotGeometryAlias: any = TeapotGeometry;
 		this.teapot = new TeapotGeometryAlias(
 			this.teapotSize,
 			this.controls.newTess,

@@ -1,10 +1,6 @@
-import {
-	AfterViewInit,
-	Component, OnInit
-} from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-
 
 @Component({
 	selector: 'app-example-viewer',
@@ -12,12 +8,9 @@ import { Subscription } from 'rxjs';
 	styleUrls: ['./viewer.component.scss'],
 })
 export class ExampleViewerComponent implements OnInit, AfterViewInit {
-
 	private subscription: Subscription;
 
-	constructor(
-		private router: Router,
-	) {
+	constructor(private router: Router) {
 		this.subscription = this.router.events.subscribe((event: any) => {
 			if (event instanceof NavigationEnd) {
 				this.changeRouter(event.urlAfterRedirects || event.url);
@@ -32,15 +25,14 @@ export class ExampleViewerComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	ngOnInit(): void {
-	}
+	ngOnInit(): void {}
 
 	public fullUrl: string = '';
-	public isLoaded : boolean = false;
+	public isLoaded: boolean = false;
 	changeRouter(url: string) {
 		this.isLoaded = false;
 		if (url.startsWith('/viewer/')) {
-			this.fullUrl = '#' + 'examples/' + url.substr(8);	
+			this.fullUrl = '#' + 'examples/' + url.substr(8);
 		} else {
 			this.fullUrl = '#';
 		}
@@ -50,5 +42,4 @@ export class ExampleViewerComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit() {}
-
 }

@@ -21,7 +21,7 @@ import { HomeComponent } from './home/home.component';
 		ApiReadComponent,
 		ExamplesComponent,
 		HomeComponent,
-		ExampleViewerComponent
+		ExampleViewerComponent,
 	],
 	imports: [
 		BrowserModule,

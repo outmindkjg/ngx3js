@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BaseComponent, ControlComponent, MeshComponent, RendererTimer } from 'ngx3js';
+import {
+	BaseComponent,
+	ControlComponent,
+	MeshComponent,
+	RendererTimer,
+} from 'ngx3js';
 import * as THREE from 'three';
 
 @Component({
@@ -34,12 +39,12 @@ export class NgxControlComponent extends BaseComponent<{
 						'ArcballControls',
 						'PlaneControls',
 						'OrbitControls',
-						'AVRControls'
+						'AVRControls',
 					],
 					change: () => {
 						this.resetCamera();
 					},
-					listen : true
+					listen: true,
 				},
 				{ name: 'minDistance', type: 'number', min: 2, max: 10, step: 0.1 },
 				{ name: 'maxDistance', type: 'number', min: 10, max: 100, step: 0.1 },
@@ -56,7 +61,7 @@ export class NgxControlComponent extends BaseComponent<{
 				if (params['type']) {
 					this.getTimeout().then(() => {
 						this.controls.controlType = params['type'];
-					})
+					});
 				}
 			})
 		);
@@ -88,7 +93,7 @@ export class NgxControlComponent extends BaseComponent<{
 		}
 	}
 
-	setMesh(mesh : MeshComponent) {
+	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
 		this.changeControl();
 	}

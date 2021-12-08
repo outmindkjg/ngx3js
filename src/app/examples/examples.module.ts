@@ -881,9 +881,7 @@ import { NgxMeshComponent } from './ngx-mesh/ngx-mesh.component';
 		ExamplesRoutingModule,
 		Ngx3JsModule,
 	],
-	providers: [
-		
-	],
+	providers: [],
 	bootstrap: [],
 })
 export class ExamplesModule {}

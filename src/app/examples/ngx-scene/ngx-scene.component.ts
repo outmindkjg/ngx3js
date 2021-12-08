@@ -37,14 +37,14 @@ export class NgxSceneComponent extends BaseComponent<{
 						near: 0.1,
 						far: 70,
 						density: 0.04,
-					}
+					},
 				},
 				environment: {
 					enabled: true,
 					image: 'SwedishRoyalCastle',
 					roughness: 0.2,
 					metalness: 1,
-				}
+				},
 			},
 			[
 				{
@@ -84,7 +84,7 @@ export class NgxSceneComponent extends BaseComponent<{
 									step: 0.0001,
 								},
 							],
-						},						
+						},
 					],
 				},
 				{
@@ -110,7 +110,7 @@ export class NgxSceneComponent extends BaseComponent<{
 						{ name: 'roughness', type: 'number', min: 0, max: 1, step: 0.1 },
 						{ name: 'metalness', type: 'number', min: 0, max: 1, step: 0.1 },
 					],
-				}
+				},
 			],
 			true,
 			false
@@ -216,10 +216,10 @@ export class NgxSceneComponent extends BaseComponent<{
 		if (this.meshObject3d !== null) {
 			const elapsedTime = timer.elapsedTime;
 			this.meshObject3d.rotation.y = elapsedTime / 5;
-			this.meshChildren.forEach(child => {
+			this.meshChildren.forEach((child) => {
 				child.rotation.x = elapsedTime / 2;
 				child.rotation.y = elapsedTime / 4;
-			})
+			});
 		}
 	}
 }

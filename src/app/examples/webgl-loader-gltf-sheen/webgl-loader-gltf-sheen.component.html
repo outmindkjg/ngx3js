@@ -1,6 +1,20 @@
 <div class="info">
-	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - GLTFLoader + <a href="https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_sheen" target="_blank" rel="noopener">KHR_materials_sheen</a> extension<br />
-	Sheen Chair from <a href="https://github.com/KhronosGroup/glTF-Sample-Models/tree/master/2.0/SheenChair" target="_blank" rel="noopener">glTF-Sample-Models</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	GLTFLoader +
+	<a
+		href="https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_sheen"
+		target="_blank"
+		rel="noopener"
+		>KHR_materials_sheen</a
+	>
+	extension<br />
+	Sheen Chair from
+	<a
+		href="https://github.com/KhronosGroup/glTF-Sample-Models/tree/master/2.0/SheenChair"
+		target="_blank"
+		rel="noopener"
+		>glTF-Sample-Models</a
+	>
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -21,8 +35,14 @@
 		<ngx3js-position [x]="0" [y]="1" [z]="2"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-scene #scene [background]="'0xbbbbbb'">
-		<ngx3js-texture [image]="'test.room'" [type]="'environment'"></ngx3js-texture>
-		<ngx3js-mesh (onLoad)="setMesh($event)" [storageName]="'models/gltf/SheenChair.glb'">
+		<ngx3js-texture
+			[image]="'test.room'"
+			[type]="'environment'"
+		></ngx3js-texture>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[storageName]="'models/gltf/SheenChair.glb'"
+		>
 		</ngx3js-mesh>
 	</ngx3js-scene>
 </ngx3js-renderer>

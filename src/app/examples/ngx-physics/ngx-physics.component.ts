@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import {
-	BaseComponent, RendererEvent,
-	RendererTimer
-} from 'ngx3js';
+import { BaseComponent, RendererEvent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-physics',
@@ -24,7 +21,7 @@ export class NgxPhysicsComponent extends BaseComponent<{
 		maxSize: number;
 		softSphere: boolean;
 		softBox: boolean;
-		breakable : boolean;
+		breakable: boolean;
 		reset: () => void;
 	};
 }> {
@@ -47,7 +44,7 @@ export class NgxPhysicsComponent extends BaseComponent<{
 					maxMass: 30,
 					minSize: 4,
 					maxSize: 10,
-					breakable : true,
+					breakable: true,
 					softSphere: true,
 					softBox: false,
 					reset: () => {
@@ -57,7 +54,7 @@ export class NgxPhysicsComponent extends BaseComponent<{
 						for (let i = 0; i < this.controls.shape.count; i++) {
 							this.getTimeout(i * 500).then(() => {
 								this.addShape();
-							})
+							});
 						}
 					},
 				},
@@ -144,17 +141,21 @@ export class NgxPhysicsComponent extends BaseComponent<{
 							name: 'breakable',
 							type: 'checkbox',
 						},
-						
+
 						{ name: 'reset', title: 'shape reset', type: 'button' },
 						{
 							name: 'softSphere',
 							type: 'checkbox',
-							change : () => { this.addSoft(); }
+							change: () => {
+								this.addSoft();
+							},
 						},
 						{
 							name: 'softBox',
 							type: 'checkbox',
-							change : () => { this.addSoft(); }
+							change: () => {
+								this.addSoft();
+							},
 						},
 					],
 				},
@@ -201,7 +202,7 @@ export class NgxPhysicsComponent extends BaseComponent<{
 						heightSegments: 20,
 						color: color,
 						mass: mass,
-						breakable : breakable
+						breakable: breakable,
 					});
 				}
 				break;
@@ -223,7 +224,7 @@ export class NgxPhysicsComponent extends BaseComponent<{
 						depthSegments: 1,
 						color: color,
 						mass: mass,
-						breakable : breakable
+						breakable: breakable,
 					});
 				}
 				break;
@@ -243,7 +244,7 @@ export class NgxPhysicsComponent extends BaseComponent<{
 						heightSegments: 1,
 						color: color,
 						mass: mass,
-						breakable : breakable
+						breakable: breakable,
 					});
 				}
 				break;
@@ -262,7 +263,7 @@ export class NgxPhysicsComponent extends BaseComponent<{
 						heightSegments: 2,
 						color: color,
 						mass: mass,
-						breakable : breakable
+						breakable: breakable,
 					});
 				}
 				break;
@@ -286,7 +287,7 @@ export class NgxPhysicsComponent extends BaseComponent<{
 		depthSegments?: number;
 		color: number;
 		mass: number;
-		breakable : boolean;
+		breakable: boolean;
 	}[] = [];
 
 	ballInfos: {

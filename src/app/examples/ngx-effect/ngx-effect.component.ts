@@ -32,7 +32,7 @@ export class NgxEffectComponent extends BaseComponent<{
 		enabled: boolean;
 		focus: number;
 		aperture: number;
-		aspect : number;
+		aspect: number;
 		maxblur: number;
 	};
 	halftonePass: {
@@ -55,7 +55,7 @@ export class NgxEffectComponent extends BaseComponent<{
 	rgbShift: {
 		enabled: boolean;
 		amount: number;
-		angle : number;
+		angle: number;
 	};
 	bleachBypass: {
 		enabled: boolean;
@@ -114,7 +114,7 @@ export class NgxEffectComponent extends BaseComponent<{
 					enabled: false,
 					focus: 1500.0,
 					aperture: 5,
-					aspect : 0.29,
+					aspect: 0.29,
 					maxblur: 0.31,
 				},
 				glitchPass: {
@@ -141,7 +141,7 @@ export class NgxEffectComponent extends BaseComponent<{
 				rgbShift: {
 					enabled: false,
 					amount: 0.0015,
-					angle : 45
+					angle: 45,
 				},
 				bleachBypass: {
 					enabled: false,
@@ -195,7 +195,7 @@ export class NgxEffectComponent extends BaseComponent<{
 					type: 'folder',
 					control: 'filmPass',
 					children: [
-						{ name: 'enabled', type: 'checkbox', listen : true },
+						{ name: 'enabled', type: 'checkbox', listen: true },
 						{
 							name: 'noiseIntensity',
 							type: 'number',
@@ -240,7 +240,7 @@ export class NgxEffectComponent extends BaseComponent<{
 					type: 'folder',
 					control: 'afterimagePass',
 					children: [
-						{ name: 'enabled', type: 'checkbox', listen : true },
+						{ name: 'enabled', type: 'checkbox', listen: true },
 						{
 							name: 'damp',
 							type: 'number',
@@ -258,7 +258,7 @@ export class NgxEffectComponent extends BaseComponent<{
 					type: 'folder',
 					control: 'bloomPass',
 					children: [
-						{ name: 'enabled', type: 'checkbox', listen : true },
+						{ name: 'enabled', type: 'checkbox', listen: true },
 						{
 							name: 'strength',
 							type: 'number',
@@ -276,7 +276,7 @@ export class NgxEffectComponent extends BaseComponent<{
 					type: 'folder',
 					control: 'dotScreen',
 					children: [
-						{ name: 'enabled', type: 'checkbox', listen : true },
+						{ name: 'enabled', type: 'checkbox', listen: true },
 						{
 							name: 'scale',
 							type: 'number',
@@ -289,13 +289,13 @@ export class NgxEffectComponent extends BaseComponent<{
 						},
 					],
 				},
-				
+
 				{
 					name: 'bokehPass',
 					type: 'folder',
 					control: 'bokehPass',
 					children: [
-						{ name: 'enabled', type: 'checkbox', listen : true },
+						{ name: 'enabled', type: 'checkbox', listen: true },
 						{
 							name: 'focus',
 							type: 'number',
@@ -343,7 +343,7 @@ export class NgxEffectComponent extends BaseComponent<{
 					type: 'folder',
 					control: 'glitchPass',
 					children: [
-						{ name: 'enabled', type: 'checkbox', listen : true },
+						{ name: 'enabled', type: 'checkbox', listen: true },
 						{ name: 'goWild', type: 'checkbox' },
 					],
 				},
@@ -352,7 +352,7 @@ export class NgxEffectComponent extends BaseComponent<{
 					type: 'folder',
 					control: 'halftonePass',
 					children: [
-						{ name: 'enabled', type: 'checkbox', listen : true },
+						{ name: 'enabled', type: 'checkbox', listen: true },
 						{
 							name: 'shape',
 							type: 'select',
@@ -446,7 +446,7 @@ export class NgxEffectComponent extends BaseComponent<{
 					type: 'folder',
 					control: 'rgbShift',
 					children: [
-						{ name: 'enabled', type: 'checkbox', listen : true },
+						{ name: 'enabled', type: 'checkbox', listen: true },
 						{
 							name: 'amount',
 							type: 'number',
@@ -472,7 +472,7 @@ export class NgxEffectComponent extends BaseComponent<{
 					type: 'folder',
 					control: 'bleachBypass',
 					children: [
-						{ name: 'enabled', type: 'checkbox', listen : true },
+						{ name: 'enabled', type: 'checkbox', listen: true },
 						{
 							name: 'opacity',
 							type: 'number',
@@ -489,7 +489,7 @@ export class NgxEffectComponent extends BaseComponent<{
 					type: 'folder',
 					control: 'sepia',
 					children: [
-						{ name: 'enabled', type: 'checkbox', listen : true },
+						{ name: 'enabled', type: 'checkbox', listen: true },
 						{
 							name: 'amount',
 							type: 'number',
@@ -506,7 +506,7 @@ export class NgxEffectComponent extends BaseComponent<{
 					type: 'folder',
 					control: 'vignette',
 					children: [
-						{ name: 'enabled', type: 'checkbox', listen : true },
+						{ name: 'enabled', type: 'checkbox', listen: true },
 						{
 							name: 'offset',
 							type: 'number',
@@ -531,14 +531,14 @@ export class NgxEffectComponent extends BaseComponent<{
 					name: 'gammaCorrection',
 					type: 'folder',
 					control: 'gammaCorrection',
-					children: [{ name: 'enabled', type: 'checkbox', listen : true }],
+					children: [{ name: 'enabled', type: 'checkbox', listen: true }],
 				},
 				{
 					name: 'pixel',
 					type: 'folder',
 					control: 'pixel',
 					children: [
-						{ name: 'enabled', type: 'checkbox', listen : true },
+						{ name: 'enabled', type: 'checkbox', listen: true },
 						{
 							name: 'pixelSize',
 							type: 'number',
@@ -572,14 +572,14 @@ export class NgxEffectComponent extends BaseComponent<{
 					name: 'luminosity',
 					type: 'folder',
 					control: 'luminosity',
-					children: [{ name: 'enabled', type: 'checkbox', listen : true }],
+					children: [{ name: 'enabled', type: 'checkbox', listen: true }],
 				},
 				{
 					name: 'sobelOperator',
 					type: 'folder',
 					control: 'sobelOperator',
 					children: [
-						{ name: 'enabled', type: 'checkbox', listen : true },
+						{ name: 'enabled', type: 'checkbox', listen: true },
 						{
 							name: 'resolutionX',
 							type: 'number',
@@ -692,23 +692,23 @@ export class NgxEffectComponent extends BaseComponent<{
 	setShaderPass(pass: PassComponent, name: string) {
 		const threePass: any = pass.getPass();
 		switch (name) {
-			case 'afterimage' :
+			case 'afterimage':
 				this.afterimageUniforms = threePass.uniforms;
 				this.changeAfterimage();
 				break;
-			case 'dotScreen' :
+			case 'dotScreen':
 				this.dotScreenUniforms = threePass.uniforms;
 				this.changeDotScreen();
 				break;
-			case 'glitch' :
+			case 'glitch':
 				this.glitchUniforms = threePass.uniforms;
 				this.changeGlitch();
 				break;
-			case 'bloom' :
+			case 'bloom':
 				this.bloomUniforms = threePass.materialCopy.uniforms;
 				this.changeBloom();
 				break;
-			case 'bokeh' :
+			case 'bokeh':
 				this.bokehUniforms = threePass.uniforms;
 				this.changeBokeh();
 				break;
@@ -754,10 +754,9 @@ export class NgxEffectComponent extends BaseComponent<{
 				break;
 			case 'shaderMaterial':
 				break;
-			default :
+			default:
 				console.error(name);
 				break;
-
 		}
 	}
 
@@ -802,8 +801,7 @@ export class NgxEffectComponent extends BaseComponent<{
 
 	glitchUniforms: any = {};
 
-	changeGlitch() {
-	}
+	changeGlitch() {}
 
 	halftonePassUniforms: any = {};
 
@@ -832,8 +830,9 @@ export class NgxEffectComponent extends BaseComponent<{
 		if (this.rgbShiftUniforms !== null) {
 			const uniforms = this.rgbShiftUniforms;
 			uniforms.amount.value = this.controls.rgbShift.amount;
-			uniforms.angle.value = ThreeUtil.getAngleSafe(this.controls.rgbShift.angle);
-			
+			uniforms.angle.value = ThreeUtil.getAngleSafe(
+				this.controls.rgbShift.angle
+			);
 		}
 	}
 
@@ -867,8 +866,7 @@ export class NgxEffectComponent extends BaseComponent<{
 
 	gammaCorrectionUniforms: any = {};
 
-	changeGammaCorrection() {
-	}
+	changeGammaCorrection() {}
 
 	pixelUniforms: any = {};
 

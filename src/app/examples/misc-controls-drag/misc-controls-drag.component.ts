@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import {
 	BaseComponent,
 	ControlComponent,
+	DragControls,
 	MeshComponent,
 	RendererEvent,
-	DragControls,
 } from 'ngx3js';
 import * as THREE from 'three';
 

@@ -157,13 +157,13 @@ export class NgxGeometryComponent extends BaseComponent<{
 			case 'StarGeometry':
 				this.controls.geometry.segments = 5;
 				break;
-			case 'BoxLineGeometry' :
+			case 'BoxLineGeometry':
 				this.meshType = 'line';
 				break;
 		}
 	}
 
-	meshType : string = 'mesh';
+	meshType: string = 'mesh';
 
 	ngOnInit() {
 		this.subscribeRefer(

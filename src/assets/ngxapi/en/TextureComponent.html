@@ -7,7 +7,8 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTextureComponent] &rarr;
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTextureComponent]
+		&rarr;
 
 		<h1>TextureComponent</h1>
 
@@ -15,248 +16,276 @@
 			Texture Component<br />
 			See the [page:TextureComponent ngx3js docs] page for details.<br />
 			<br />
-			<code data-type="html"><br />
-			&lt;ngx3js-texture<br />
+			<code data-type="html"
+				><br />
+				&lt;ngx3js-texture<br />
 				[type]="'environment'" <br />
 				[storageName]="'textures/equirectangular/venice_sunset_1k.hdr'" <br />
 				[mapping]="'EquirectangularReflectionMapping'"<br />
-			&gt;&lt;/ngx3js-texture&gt;<br />
-			&lt;ngx3js-texture<br />
+				&gt;&lt;/ngx3js-texture&gt;<br />
+				&lt;ngx3js-texture<br />
 				[type]="'map'" <br />
 				[image]="'models/obj/cerberus/Cerberus_A.jpg'" <br />
 				[encoding]="'sRGBEncoding'" [wrapS]="'RepeatWrapping'"<br />
-			&gt;&lt;/ngx3js-texture&gt;<br />
-			&lt;ngx3js-texture<br />
+				&gt;&lt;/ngx3js-texture&gt;<br />
+				&lt;ngx3js-texture<br />
 				[type]="'metalnessMap'" <br />
 				[image]="'models/obj/cerberus/Cerberus_RM.jpg'" <br />
 				[wrapS]="'RepeatWrapping'"<br />
-			&gt;&lt;/ngx3js-texture&gt;<br />
-			&lt;ngx3js-texture<br />
+				&gt;&lt;/ngx3js-texture&gt;<br />
+				&lt;ngx3js-texture<br />
 				[type]="'roughnessMap'" <br />
 				[image]="'models/obj/cerberus/Cerberus_RM.jpg'" <br />
 				[wrapS]="'RepeatWrapping'"<br />
-			&gt;&lt;/ngx3js-texture&gt;<br />
-			&lt;ngx3js-texture<br />
+				&gt;&lt;/ngx3js-texture&gt;<br />
+				&lt;ngx3js-texture<br />
 				[type]="'normalMap'" <br />
 				[image]="'models/obj/cerberus/Cerberus_N.jpg'" <br />
 				[wrapS]="'RepeatWrapping'"<br />
-			&gt;&lt;/ngx3js-texture&gt;<br />
-			&lt;ngx3js-texture<br />
+				&gt;&lt;/ngx3js-texture&gt;<br />
+				&lt;ngx3js-texture<br />
 				[type]="'map'" <br />
 				[image]="'textures/planets/earth_atmos_2048.jpg'"<br />
-			&gt;&lt;/ngx3js-texture&gt;<br />
-			&lt;ngx3js-texture<br />
+				&gt;&lt;/ngx3js-texture&gt;<br />
+				&lt;ngx3js-texture<br />
 				[type]="'specularMap'" <br />
 				[image]="'textures/planets/earth_specular_2048.jpg'"<br />
-			&gt;&lt;/ngx3js-texture&gt;<br />
-			&lt;ngx3js-texture<br />
+				&gt;&lt;/ngx3js-texture&gt;<br />
+				&lt;ngx3js-texture<br />
 				[type]="'normalMap'" <br />
 				[image]="'textures/planets/earth_normal_2048.jpg'"<br />
-			&gt;&lt;/ngx3js-texture&gt;<br />
-			&lt;ngx3js-texture<br />
+				&gt;&lt;/ngx3js-texture&gt;<br />
+				&lt;ngx3js-texture<br />
 				[program]="'shadow2'" <br />
 				[width]="128" [height]="128"<br />
-			&gt;&lt;/ngx3js-texture&gt;<br />
-			&lt;ngx3js-texture<br />
+				&gt;&lt;/ngx3js-texture&gt;<br />
+				&lt;ngx3js-texture<br />
 				[type]="'background-environment'" <br />
 				[storageName]="'textures/equirectangular/venice_sunset_1k.hdr'" <br />
 				[cubeType]="'Equirectangular'"<br />
-			&gt;&lt;/ngx3js-texture&gt;<br />
-			&lt;ngx3js-texture<br />
+				&gt;&lt;/ngx3js-texture&gt;<br />
+				&lt;ngx3js-texture<br />
 				[type]="'map'" <br />
 				[image]="'textures/uv_grid_opengl.jpg'" <br />
 				[wrap]="'RepeatWrapping'"<br />
-			&gt;&lt;/ngx3js-texture&gt;<br />
-			&lt;ngx3js-texture<br />
+				&gt;&lt;/ngx3js-texture&gt;<br />
+				&lt;ngx3js-texture<br />
 				[image]="'textures/grid.png'" <br />
 				[wrap]="'RepeatWrapping'" [repeat]="40"<br />
-			&gt;&lt;/ngx3js-texture&gt;<br />
-			&lt;ngx3js-texture<br />
+				&gt;&lt;/ngx3js-texture&gt;<br />
+				&lt;ngx3js-texture<br />
 				[image]="'textures/grid.png'" <br />
 				[wrap]="'RepeatWrapping'" [repeatX]="4 * 5" [repeatY]="3 * 5"<br />
-			&gt;&lt;/ngx3js-texture&gt;<br />
-			&lt;ngx3js-texture<br />
+				&gt;&lt;/ngx3js-texture&gt;<br />
+				&lt;ngx3js-texture<br />
 				[image]="'textures/patterns/circuit_pattern.png'" <br />
 				[anisotropy]="16"<br />
-			&gt;&lt;/ngx3js-texture&gt;<br />
-			&lt;ngx3js-texture<br />
+				&gt;&lt;/ngx3js-texture&gt;<br />
+				&lt;ngx3js-texture<br />
 				[image]="'textures/crate.gif'" <br />
 				[flipY]="true"<br />
-			&gt;&lt;/ngx3js-texture&gt;<br />
+				&gt;&lt;/ngx3js-texture&gt;<br />
 			</code>
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:TextureComponent TextureComponent](  [param:LocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[constructor:TextureComponent TextureComponent](
+			[param:LocalStorageService localStorageService] )<i
+				class="modifier modifier-overwrite"
+				>Overwrite</i
+			>
+		</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:LocalStorageService localStorageService] - The local storage service.
+			[parameter:LocalStorageService localStorageService] - The local storage
+			service.
 		</p>
-		<p>
-			Creates an instance of texture component.
-		</p>
+		<p>Creates an instance of texture component.</p>
 
 		<h3>Angular Html Template [ Input ] ( Output )</h3>
-		<code data-type="html">&lt;ngx3js-texture
-			[ add ]="... string|number -- The add of texture component "
-			[ anisotropy ]="... number -- The number of samples taken al... "
-			[ canvas ]="... string|HTMLVideoElement|HTMLCanvasElement|HTMLImageElement|ImageBitmap -- The canvas of texture componen... "
-			[ center ]="... number -- The point around which rotatio... "
-			[ centerX ]="... number -- The point around which rotatio... "
-			[ centerY ]="... number -- The point around which rotatio... "
-			[ color ]="... string|number -- The color of texture component "
-			[ cubeImage ]="... string[] -- The cubeImage of texture compo... "
-			[ cubeType ]="... string -- The CubeType of Texture - "
-			[ data ]="... number[]|BufferSource -- The data of DataTexture "
-			[ dataType ]="... string -- This must correspond to the [.... "
-			[ debug ]="... boolean -- Debug this Object "
-			[ depth ]="... number -- depth of the texture. "
-			[ enabled ]="... boolean -- Enabled or Not "
-			[ encoding ]="... string -- [THREE.LinearEncoding](https:/... "
-			[ filter ]="... string -- The Default Value of magFilter... "
-			[ flipY ]="... boolean -- If set to *true*, the texture ... "
-			[ format ]="... string -- The default is [THREE.RGBAForm... "
-			[ generateMipmaps ]="... boolean -- Whether to generate mipmaps (i... "
-			[ height ]="... number -- height of the texture. "
-			[ image ]="... string -- The image of texture component "
-			[ loaderType ]="... string -- The LoadType of Texture - vide... "
-			[ magFilter ]="... string -- How the texture is sampled whe... "
-			[ mapping ]="... string -- How the image is applied to th... "
-			[ minFilter ]="... string -- How the texture is sampled whe... "
-			[ name ]="... string -- The name of the object (doesn'... "
-			[ offset ]="... number -- How much a single repetition o... "
-			[ offsetX ]="... number -- How much a single repetition o... "
-			[ offsetY ]="... number -- How much a single repetition o... "
-			( onDestory )="...($event : TextureComponent -- Will be called when before des... )"
-			( onLoad )="...($event : TextureComponent -- Will be called when load compl... )"
-			[ overrideParams ]="... any -- The override params "
-			[ perlin ]="... any -- The perlin of texture componen... "
-			[ premultiplyAlpha ]="... boolean -- If set to *true*, the alpha ch... "
-			[ program ]="... string|CanvasFunctionType -- The program of texture compone... "
-			[ programMipmaps ]="... any[] -- The texture program mipmaps "
-			[ programParam ]="... any -- The texture program params "
-			[ refName ]="... string|string[] -- The refName of geometry compon... "
-			[ refer ]="... any -- The refer of texture component "
-			[ repeat ]="... number -- How many times the texture is ... "
-			[ repeatX ]="... number -- How many times the texture is ... "
-			[ repeatY ]="... number -- How many times the texture is ... "
-			[ rotation ]="... number -- How much the texture is rotate... "
-			[ scale ]="... number -- scale of the texture. "
-			[ storageName ]="... string -- The storageName of texture com... "
-			[ storageOption ]="... any -- The storageOption of texture c... "
-			[ sunX ]="... number -- The sunX of texture component "
-			[ sunY ]="... number -- The sunY of texture component "
-			[ sunZ ]="... number -- The sunZ of texture component "
-			[ text ]="... string -- The Texture param use when cal... "
-			[ tween ]="... any -- Tween animation params "
-			[ type ]="... string -- The Type of Texture of Matrial "
-			[ unpackAlignment ]="... number -- 4 by default. Specifies the al... "
-			[ useDropImage ]="... boolean -- The useDropImage of texture co... "
-			[ userData ]="... any -- An object that can be used to ... "
-			[ width ]="... number -- width of the texture. "
-			[ windowExport ]="... string -- Export this Object to window g... "
-			[ wrap ]="... string -- This defines how the texture i... "
-			[ wrapS ]="... string -- This defines how the texture i... "
-			[ wrapT ]="... string -- This defines how the texture i... "
-		&gt;&lt;/ngx3js-texture&gt;
+		<code data-type="html"
+			>&lt;ngx3js-texture [ add ]="... string|number -- The add of texture
+			component " [ anisotropy ]="... number -- The number of samples taken
+			al... " [ canvas ]="...
+			string|HTMLVideoElement|HTMLCanvasElement|HTMLImageElement|ImageBitmap --
+			The canvas of texture componen... " [ center ]="... number -- The point
+			around which rotatio... " [ centerX ]="... number -- The point around
+			which rotatio... " [ centerY ]="... number -- The point around which
+			rotatio... " [ color ]="... string|number -- The color of texture
+			component " [ cubeImage ]="... string[] -- The cubeImage of texture
+			compo... " [ cubeType ]="... string -- The CubeType of Texture - " [ data
+			]="... number[]|BufferSource -- The data of DataTexture " [ dataType
+			]="... string -- This must correspond to the [.... " [ debug ]="...
+			boolean -- Debug this Object " [ depth ]="... number -- depth of the
+			texture. " [ enabled ]="... boolean -- Enabled or Not " [ encoding ]="...
+			string -- [THREE.LinearEncoding](https:/... " [ filter ]="... string --
+			The Default Value of magFilter... " [ flipY ]="... boolean -- If set to
+			*true*, the texture ... " [ format ]="... string -- The default is
+			[THREE.RGBAForm... " [ generateMipmaps ]="... boolean -- Whether to
+			generate mipmaps (i... " [ height ]="... number -- height of the texture.
+			" [ image ]="... string -- The image of texture component " [ loaderType
+			]="... string -- The LoadType of Texture - vide... " [ magFilter ]="...
+			string -- How the texture is sampled whe... " [ mapping ]="... string --
+			How the image is applied to th... " [ minFilter ]="... string -- How the
+			texture is sampled whe... " [ name ]="... string -- The name of the object
+			(doesn'... " [ offset ]="... number -- How much a single repetition o... "
+			[ offsetX ]="... number -- How much a single repetition o... " [ offsetY
+			]="... number -- How much a single repetition o... " ( onDestory
+			)="...($event : TextureComponent -- Will be called when before des... )" (
+			onLoad )="...($event : TextureComponent -- Will be called when load
+			compl... )" [ overrideParams ]="... any -- The override params " [ perlin
+			]="... any -- The perlin of texture componen... " [ premultiplyAlpha
+			]="... boolean -- If set to *true*, the alpha ch... " [ program ]="...
+			string|CanvasFunctionType -- The program of texture compone... " [
+			programMipmaps ]="... any[] -- The texture program mipmaps " [
+			programParam ]="... any -- The texture program params " [ refName ]="...
+			string|string[] -- The refName of geometry compon... " [ refer ]="... any
+			-- The refer of texture component " [ repeat ]="... number -- How many
+			times the texture is ... " [ repeatX ]="... number -- How many times the
+			texture is ... " [ repeatY ]="... number -- How many times the texture is
+			... " [ rotation ]="... number -- How much the texture is rotate... " [
+			scale ]="... number -- scale of the texture. " [ storageName ]="... string
+			-- The storageName of texture com... " [ storageOption ]="... any -- The
+			storageOption of texture c... " [ sunX ]="... number -- The sunX of
+			texture component " [ sunY ]="... number -- The sunY of texture component
+			" [ sunZ ]="... number -- The sunZ of texture component " [ text ]="...
+			string -- The Texture param use when cal... " [ tween ]="... any -- Tween
+			animation params " [ type ]="... string -- The Type of Texture of Matrial
+			" [ unpackAlignment ]="... number -- 4 by default. Specifies the al... " [
+			useDropImage ]="... boolean -- The useDropImage of texture co... " [
+			userData ]="... any -- An object that can be used to ... " [ width ]="...
+			number -- width of the texture. " [ windowExport ]="... string -- Export
+			this Object to window g... " [ wrap ]="... string -- This defines how the
+			texture i... " [ wrapS ]="... string -- This defines how the texture i...
+			" [ wrapT ]="... string -- This defines how the texture i... "
+			&gt;&lt;/ngx3js-texture&gt;
 		</code>
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractTextureComponent AbstractTextureComponent] class for common properties.
+			See the base [page:AbstractTextureComponent AbstractTextureComponent]
+			class for common properties.
 		</p>
 
-		<h3>[property:string|number add]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The add of texture component
-		</p>
+		<h3>
+			[property:string|number add]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The add of texture component</p>
 
-		<h3>[property:string|HTMLVideoElement|HTMLCanvasElement|HTMLImageElement|ImageBitmap canvas]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The canvas of texture component
-		</p>
+		<h3>
+			[property:string|HTMLVideoElement|HTMLCanvasElement|HTMLImageElement|ImageBitmap
+			canvas]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The canvas of texture component</p>
 
-		<h3>[property:string|number color]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The color of texture component
-		</p>
+		<h3>
+			[property:string|number color]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The color of texture component</p>
 
-		<h3>[property:string[] cubeImage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The cubeImage of texture component
-		</p>
+		<h3>
+			[property:string[] cubeImage]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The cubeImage of texture component</p>
 
-		<h3>[property:string image]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The image of texture component
-		</p>
+		<h3>
+			[property:string image]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The image of texture component</p>
 
-		<h3>[property:any perlin]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The perlin of texture component
-		</p>
+		<h3>
+			[property:any perlin]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The perlin of texture component</p>
 
-		<h3>[property:string|CanvasFunctionType program]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The program of texture component
-		</p>
+		<h3>
+			[property:string|CanvasFunctionType program]<i
+				class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The program of texture component</p>
 
-		<h3>[property:any refer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The refer of texture component
-		</p>
+		<h3>
+			[property:any refer]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The refer of texture component</p>
 
-		<h3>[property:string storageName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The storageName of texture component
-		</p>
+		<h3>
+			[property:string storageName]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The storageName of texture component</p>
 
-		<h3>[property:any storageOption]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The storageOption of texture component
-		</p>
+		<h3>
+			[property:any storageOption]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The storageOption of texture component</p>
 
-		<h3>[property:number sunX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The sunX of texture component
-		</p>
+		<h3>
+			[property:number sunX]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The sunX of texture component</p>
 
-		<h3>[property:number sunY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The sunY of texture component
-		</p>
+		<h3>
+			[property:number sunY]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The sunY of texture component</p>
 
-		<h3>[property:number sunZ]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The sunZ of texture component
-		</p>
+		<h3>
+			[property:number sunZ]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The sunZ of texture component</p>
 
-		<h3>[property:boolean useDropImage] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The useDropImage of texture component
-		</p>
+		<h3>
+			[property:boolean useDropImage] &nbsp; = false
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The useDropImage of texture component</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractTextureComponent AbstractTextureComponent] class for common methods.
+			See the base [page:AbstractTextureComponent AbstractTextureComponent]
+			class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:void applyChanges]( [param:string[] changes] )<i
+				class="modifier modifier-protected"
+				>Protected</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string[] changes] - The changes.
-		</p>
-		<p>
-			Applys changes
-		</p>
+		<p>[parameter:string[] changes] - The changes.</p>
+		<p>Applys changes</p>
 
-		<h3>[method:T getTexture](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:T getTexture]( )<i class="modifier modifier-public">Public</i>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<p>
 			Gets texture<br />
 			<br />
@@ -265,6 +294,9 @@
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/texture/texture.component.ts /texture/texture.component.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/texture/texture.component.ts
+			/texture/texture.component.ts]
+		</p>
 	</body>
 </html>

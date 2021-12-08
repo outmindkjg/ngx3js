@@ -10,34 +10,34 @@ import { BaseComponent, RendererTimer } from 'ngx3js';
 export class NgxCurveComponent extends BaseComponent<{
 	curve: {
 		type: string;
-		options : string;
-	},
-	tube : {
-		radius : number;
-		radiusSegments : number;
-		tubularSegments : number;
-		color : number;
-		closed : boolean;
-		wireframe : boolean;
-		showGuide : boolean;
-	}
+		options: string;
+	};
+	tube: {
+		radius: number;
+		radiusSegments: number;
+		tubularSegments: number;
+		color: number;
+		closed: boolean;
+		wireframe: boolean;
+		showGuide: boolean;
+	};
 }> {
 	constructor(private route: ActivatedRoute) {
 		super(
 			{
 				curve: {
 					type: 'grannyknot',
-					options : 'None'
+					options: 'None',
 				},
-				tube : {
-					radius : 0.05,
-					radiusSegments : 10,
-					tubularSegments : 100,
-					color : 0xff0000,
-					closed : false,
-					wireframe : true,
-					showGuide : true
-				}
+				tube: {
+					radius: 0.05,
+					radiusSegments: 10,
+					tubularSegments: 100,
+					color: 0xff0000,
+					closed: false,
+					wireframe: true,
+					showGuide: true,
+				},
 			},
 			[
 				{
@@ -122,9 +122,9 @@ export class NgxCurveComponent extends BaseComponent<{
 								'sinein',
 								'sineinout',
 								'sineout',
-								'rollercoaster'
+								'rollercoaster',
 							],
-							listen : true
+							listen: true,
 						},
 						{
 							name: 'options',
@@ -139,7 +139,7 @@ export class NgxCurveComponent extends BaseComponent<{
 								'absy,absz',
 								'absx,absy,absz',
 							],
-						},						
+						},
 					],
 				},
 				{
@@ -147,14 +147,32 @@ export class NgxCurveComponent extends BaseComponent<{
 					type: 'folder',
 					control: 'tube',
 					children: [
-						{ name : 'radius', type : 'number', min : 0.001, max : 0.2, step : 0.001 },
-						{ name : 'radiusSegments', type : 'number', min : 3, max : 40, step : 1 },
-						{ name : 'tubularSegments', type : 'number', min : 30, max : 200, step : 1 },
-						{ name : 'color', type : 'color'},
-						{ name : 'closed', type : 'checkbox'},
-						{ name : 'wireframe', type : 'checkbox'},
-						{ name : 'showGuide', type : 'checkbox', title : 'Show Guide'},
-					]
+						{
+							name: 'radius',
+							type: 'number',
+							min: 0.001,
+							max: 0.2,
+							step: 0.001,
+						},
+						{
+							name: 'radiusSegments',
+							type: 'number',
+							min: 3,
+							max: 40,
+							step: 1,
+						},
+						{
+							name: 'tubularSegments',
+							type: 'number',
+							min: 30,
+							max: 200,
+							step: 1,
+						},
+						{ name: 'color', type: 'color' },
+						{ name: 'closed', type: 'checkbox' },
+						{ name: 'wireframe', type: 'checkbox' },
+						{ name: 'showGuide', type: 'checkbox', title: 'Show Guide' },
+					],
 				},
 			],
 			true,
@@ -163,19 +181,21 @@ export class NgxCurveComponent extends BaseComponent<{
 	}
 
 	ngOnInit() {
-		this.subscribeRefer('router', this.route.params.subscribe((params) => {
-			if (params['type']) {
-				this.controls.curve.type = params['type'];
-			}
-		}))
+		this.subscribeRefer(
+			'router',
+			this.route.params.subscribe((params) => {
+				if (params['type']) {
+					this.controls.curve.type = params['type'];
+				}
+			})
+		);
 	}
 
-	onRender(timer : RendererTimer) {
+	onRender(timer: RendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			const elapsedTime = timer.elapsedTime;
 			this.meshObject3d.rotation.y = elapsedTime / 5;
 		}
 	}
-
 }

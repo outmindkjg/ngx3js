@@ -5,8 +5,7 @@
 	Created by
 	<a href="http://twitter.com/mattdesl" target="_blank" rel="noopener"
 		>@mattdesl</a
-	>.
-	todo
+	>. todo
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -33,11 +32,19 @@
 				[radialSegments]="128"
 				[tubularSegments]="64"
 			></ngx3js-geometry>
-			<ngx3js-material #material [type]="'MeshBasic'" [color]="'blue'"></ngx3js-material>
+			<ngx3js-material
+				#material
+				[type]="'MeshBasic'"
+				[color]="'blue'"
+			></ngx3js-material>
 		</ngx3js-shared>
 		<ngx3js-mesh (onLoad)="setMesh($event)">
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-			<ngx3js-mesh *ngFor="let model of models" [geometry]="geometry" [material]="material">
+			<ngx3js-mesh
+				*ngFor="let model of models"
+				[geometry]="geometry"
+				[material]="material"
+			>
 				<ngx3js-position
 					[x]="model.position.x"
 					[y]="model.position.y"

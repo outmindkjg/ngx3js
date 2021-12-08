@@ -103,7 +103,7 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
 
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
-		this.meshObject3d.add
+		this.meshObject3d.add;
 		setTimeout(() => {
 			this.meshChildren = [];
 			mesh.getObject3d().children.forEach((child) => {

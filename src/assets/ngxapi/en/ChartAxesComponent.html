@@ -7,7 +7,9 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr; [page:AbstractChartComponent] &rarr;
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent]
+		&rarr; [page:AbstractObject3dComponent] &rarr; [page:AbstractChartComponent]
+		&rarr;
 
 		<h1>ChartAxesComponent</h1>
 
@@ -17,91 +19,108 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:ChartAxesComponent ChartAxesComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
-		<p>
-			Creates an instance of chart axes component.
-		</p>
+		<h3>
+			[constructor:ChartAxesComponent ChartAxesComponent]( )<i
+				class="modifier modifier-overwrite"
+				>Overwrite</i
+			>
+		</h3>
+		<p>Creates an instance of chart axes component.</p>
 
 		<h3>Angular Html Template [ Input ] ( Output )</h3>
-		<code data-type="html">&lt;ngx3js-chart-axes
-			[ castShadow ]="... boolean -- Whether the object gets render... "
-			[ debug ]="... boolean -- Debug this Object "
-			[ depth ]="... number -- Depth; that is, the length of ... "
-			[ depthIdx ]="... number -- Depth; that is, the length of ... "
-			[ depthLength ]="... number -- Depth; that is, the length of ... "
-			[ depthSize ]="... number -- Depth; that is, the length of ... "
-			[ enabled ]="... boolean -- Enabled or Not "
-			[ frustumCulled ]="... boolean -- When this is set, it checks ev... "
-			[ geometry ]="... any -- The geometry of mesh "
-			[ gridColor ]="... ThreeColor -- The gridColor of chart axes co... "
-			[ height ]="... number -- Height; that is, the length of... "
-			[ label ]="... string"
-			[ material ]="... AbstractMaterialComponent|Material -- The material of mesh "
-			[ materialIsArray ]="... boolean -- The material of mesh is array "
-			[ matrixAutoUpdate ]="... boolean -- When this is set, it calculate... "
-			[ name ]="... string -- The name of the object (doesn'... "
-			( onDestory )="...($event : ChartAxesComponent -- Will be called when before des... )"
-			( onLoad )="...($event : ChartAxesComponent -- Will be called when load compl... )"
-			[ options ]="... ShapeInfo"
-			[ overrideParams ]="... any -- The override params "
-			[ pointOffset ]="... number"
-			[ pointOptions ]="... ShapeInfo"
-			[ pointStyle ]="... string"
-			[ radius ]="... number -- Radius of the circle/cone/dode... "
-			[ radiusSegments ]="... number -- Number of segmented faces arou... "
-			[ receiveShadow ]="... boolean -- Whether the material receives ... "
-			[ scaleMax ]="... number -- Depth; that is, the length of ... "
-			[ scaleMin ]="... number -- Depth; that is, the length of ... "
-			[ side ]="... string -- Defines which side of faces wi... "
-			[ tween ]="... any -- Tween animation params "
-			[ tweenStart ]="... boolean -- Start tween "
-			[ type ]="... string"
-			[ userData ]="... any -- An object that can be used to ... "
-			[ visible ]="... boolean -- Object gets rendered if *true*... "
-			[ width ]="... number -- Width; that is, the length of ... "
-			[ widthLength ]="... number -- Depth; that is, the length of ... "
-			[ windowExport ]="... string -- Export this Object to window g... "
-			[ xGridColor ]="... ThreeColor -- The xGridColor of chart axes c... "
-			[ xGridStep ]="... number|number[] -- The xGridStep of chart axes co... "
-			[ yGridColor ]="... ThreeColor -- The yGridColor of chart axes c... "
-			[ yGridStep ]="... number|number[] -- The yGridStep of chart axes co... "
-		&gt;&lt;/ngx3js-chart-axes&gt;
+		<code data-type="html"
+			>&lt;ngx3js-chart-axes [ castShadow ]="... boolean -- Whether the object
+			gets render... " [ debug ]="... boolean -- Debug this Object " [ depth
+			]="... number -- Depth; that is, the length of ... " [ depthIdx ]="...
+			number -- Depth; that is, the length of ... " [ depthLength ]="... number
+			-- Depth; that is, the length of ... " [ depthSize ]="... number -- Depth;
+			that is, the length of ... " [ enabled ]="... boolean -- Enabled or Not "
+			[ frustumCulled ]="... boolean -- When this is set, it checks ev... " [
+			geometry ]="... any -- The geometry of mesh " [ gridColor ]="...
+			ThreeColor -- The gridColor of chart axes co... " [ height ]="... number
+			-- Height; that is, the length of... " [ label ]="... string" [ material
+			]="... AbstractMaterialComponent|Material -- The material of mesh " [
+			materialIsArray ]="... boolean -- The material of mesh is array " [
+			matrixAutoUpdate ]="... boolean -- When this is set, it calculate... " [
+			name ]="... string -- The name of the object (doesn'... " ( onDestory
+			)="...($event : ChartAxesComponent -- Will be called when before des... )"
+			( onLoad )="...($event : ChartAxesComponent -- Will be called when load
+			compl... )" [ options ]="... ShapeInfo" [ overrideParams ]="... any -- The
+			override params " [ pointOffset ]="... number" [ pointOptions ]="...
+			ShapeInfo" [ pointStyle ]="... string" [ radius ]="... number -- Radius of
+			the circle/cone/dode... " [ radiusSegments ]="... number -- Number of
+			segmented faces arou... " [ receiveShadow ]="... boolean -- Whether the
+			material receives ... " [ scaleMax ]="... number -- Depth; that is, the
+			length of ... " [ scaleMin ]="... number -- Depth; that is, the length of
+			... " [ side ]="... string -- Defines which side of faces wi... " [ tween
+			]="... any -- Tween animation params " [ tweenStart ]="... boolean --
+			Start tween " [ type ]="... string" [ userData ]="... any -- An object
+			that can be used to ... " [ visible ]="... boolean -- Object gets rendered
+			if *true*... " [ width ]="... number -- Width; that is, the length of ...
+			" [ widthLength ]="... number -- Depth; that is, the length of ... " [
+			windowExport ]="... string -- Export this Object to window g... " [
+			xGridColor ]="... ThreeColor -- The xGridColor of chart axes c... " [
+			xGridStep ]="... number|number[] -- The xGridStep of chart axes co... " [
+			yGridColor ]="... ThreeColor -- The yGridColor of chart axes c... " [
+			yGridStep ]="... number|number[] -- The yGridStep of chart axes co... "
+			&gt;&lt;/ngx3js-chart-axes&gt;
 		</code>
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common properties.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class
+			for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common properties.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent]
+			class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractChartComponent AbstractChartComponent] class for common properties.
+			See the base [page:AbstractChartComponent AbstractChartComponent] class
+			for common properties.
 		</p>
 
-		<h3>[property:ThreeColor gridColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:ThreeColor gridColor]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The gridColor of chart axes component</p>
+
+		<h3>
+			[property:number radius]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>Radius of the circle/cone/dodecahedron/sphere..., default = 1.</p>
+
+		<h3>
+			[property:number radiusSegments]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			The gridColor of chart axes component
+			Number of segmented faces around the circumference of the
+			cone/cylinder/torus/tube. Default is 8
 		</p>
 
-		<h3>[property:number radius]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Radius of the circle/cone/dodecahedron/sphere..., default = 1.
-		</p>
-
-		<h3>[property:number radiusSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Number of segmented faces around the circumference of the cone/cylinder/torus/tube. Default is 8
-		</p>
-
-		<h3>[property:string side]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string side]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			Defines which side of faces will be rendered - front, back or both.<br />
-			Default is [THREE.FrontSide](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials).<br />
-			Other options are [THREE.BackSide](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials) and [THREE.DoubleSide](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials).<br />
+			Default is
+			[THREE.FrontSide](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials).<br />
+			Other options are
+			[THREE.BackSide](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials)
+			and
+			[THREE.DoubleSide](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials).<br />
 			Notice - case insensitive.<br />
 			<br />
 			[page:Side Side] - THREE.Side<br />
@@ -110,62 +129,87 @@
 			[page:DoubleSide DoubleSide] - THREE.DoubleSide - DoubleSide , Double
 		</p>
 
-		<h3>[property:string type] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			
-		</p>
+		<h3>
+			[property:string type] &nbsp; = ''
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p></p>
 
-		<h3>[property:ThreeColor xGridColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The xGridColor of chart axes component
-		</p>
+		<h3>
+			[property:ThreeColor xGridColor]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The xGridColor of chart axes component</p>
 
-		<h3>[property:number|number[] xGridStep]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The xGridStep of chart axes component
-		</p>
+		<h3>
+			[property:number|number[] xGridStep]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The xGridStep of chart axes component</p>
 
-		<h3>[property:ThreeColor yGridColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The yGridColor of chart axes component
-		</p>
+		<h3>
+			[property:ThreeColor yGridColor]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The yGridColor of chart axes component</p>
 
-		<h3>[property:number|number[] yGridStep]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The yGridStep of chart axes component
-		</p>
+		<h3>
+			[property:number|number[] yGridStep]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The yGridStep of chart axes component</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class
+			for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent]
+			class for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractChartComponent AbstractChartComponent] class for common methods.
+			See the base [page:AbstractChartComponent AbstractChartComponent] class
+			for common methods.
 		</p>
 
-		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:void applyChanges3d]( [param:string[] changes] )<i
+				class="modifier modifier-protected"
+				>Protected</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string[] changes] - The changes.
-		</p>
-		<p>
-			Applys changes3d
-		</p>
+		<p>[parameter:string[] changes] - The changes.</p>
+		<p>Applys changes3d</p>
 
-		<h3>[method:T getChart](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:T getChart]( )<i class="modifier modifier-public">Public</i>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<p>
 			Gets Chart<br />
 			<br />
 			Returns : object3d
 		</p>
 
-		<h3>[method:T getTitle](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:T getTitle]( )<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			Gets Chart<br />
 			<br />
@@ -174,6 +218,9 @@
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/chart/axes/axes.component.ts /chart/axes/axes.component.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/chart/axes/axes.component.ts
+			/chart/axes/axes.component.ts]
+		</p>
 	</body>
 </html>

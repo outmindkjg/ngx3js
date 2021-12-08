@@ -20,30 +20,150 @@
 >
 	<ngx3js-canvas>
 		<div class="left-menu" [class.display-none]="!controls.type">
-			<button type="button" (click)="setType('BoxGeometry')" [class.selected]="geometryType == 'BoxGeometry'">BoxGeometry</button>
-			<button type="button" (click)="setType('SphereGeometry')" [class.selected]="geometryType == 'SphereGeometry'">SphereGeometry</button>
-			<button type="button" (click)="setType('TorusKnotGeometry')" [class.selected]="geometryType == 'TorusKnotGeometry'">TorusKnotGeometry</button>
-			<button type="button" (click)="setType('TeapotGeometry')" [class.selected]="geometryType == 'TeapotGeometry'">TeapotGeometry</button>
+			<button
+				type="button"
+				(click)="setType('BoxGeometry')"
+				[class.selected]="geometryType == 'BoxGeometry'"
+			>
+				BoxGeometry
+			</button>
+			<button
+				type="button"
+				(click)="setType('SphereGeometry')"
+				[class.selected]="geometryType == 'SphereGeometry'"
+			>
+				SphereGeometry
+			</button>
+			<button
+				type="button"
+				(click)="setType('TorusKnotGeometry')"
+				[class.selected]="geometryType == 'TorusKnotGeometry'"
+			>
+				TorusKnotGeometry
+			</button>
+			<button
+				type="button"
+				(click)="setType('TeapotGeometry')"
+				[class.selected]="geometryType == 'TeapotGeometry'"
+			>
+				TeapotGeometry
+			</button>
 		</div>
 		<div class="bottom-menu" [class.display-none]="!controls.size">
-			<button type="button" (click)="setRadius(10)" [class.selected]="radius == 10">Size 10</button>
-			<button type="button" (click)="setRadius(5)" [class.selected]="radius == 5">Size 5</button>
-			<button type="button" (click)="setRadius(15)" [class.selected]="radius == 15">Size 15</button>
-			<button type="button" (click)="setRadius(7)" [class.selected]="radius == 7">Size 7</button>
+			<button
+				type="button"
+				(click)="setRadius(10)"
+				[class.selected]="radius == 10"
+			>
+				Size 10
+			</button>
+			<button
+				type="button"
+				(click)="setRadius(5)"
+				[class.selected]="radius == 5"
+			>
+				Size 5
+			</button>
+			<button
+				type="button"
+				(click)="setRadius(15)"
+				[class.selected]="radius == 15"
+			>
+				Size 15
+			</button>
+			<button
+				type="button"
+				(click)="setRadius(7)"
+				[class.selected]="radius == 7"
+			>
+				Size 7
+			</button>
 		</div>
 		<div class="side-menu" [class.display-none]="!controls.color">
-			<button type="button" (click)="setColor('0xff0000')" [class.selected]="color == '0xff0000'">Bg Red</button>
-			<button type="button" (click)="setColor('0x00ff00')" [class.selected]="color == '0x00ff00'">Bg Green</button>
-			<button type="button" (click)="setColor('0x0000ff')" [class.selected]="color == '0x0000ff'">Bg Blue</button>
-			<button type="button" (click)="setColor('0xffffff')" [class.selected]="color == '0xffffff'">Bg White</button>
-			<button type="button" (click)="setColor('transparent')" [class.selected]="color == 'transparent'">Bg Transparent</button>
-			<button type="button" (click)="setLine('0xff0000')" [class.selected]="line == '0xff0000'">Line Red</button>
-			<button type="button" (click)="setLine('0x0000ff')" [class.selected]="line == '0x0000ff'">Line Blue</button>
-			<button type="button" (click)="setLine('0xffffff')" [class.selected]="line == '0xffffff'">Line White</button>
-			<button type="button" (click)="setLine('0x000000')" [class.selected]="line == '0x000000'">Line Black</button>
-			<button type="button" (click)="setLineDash('solid')" [class.selected]="lineDash == 'solid'">Solid</button>
-			<button type="button" (click)="setLineDash('dotted')" [class.selected]="lineDash == 'dotted'">Dotted</button>
-			<button type="button" (click)="setLineDash('dashed')" [class.selected]="lineDash == 'dashed'">Dashed</button>
+			<button
+				type="button"
+				(click)="setColor('0xff0000')"
+				[class.selected]="color == '0xff0000'"
+			>
+				Bg Red
+			</button>
+			<button
+				type="button"
+				(click)="setColor('0x00ff00')"
+				[class.selected]="color == '0x00ff00'"
+			>
+				Bg Green
+			</button>
+			<button
+				type="button"
+				(click)="setColor('0x0000ff')"
+				[class.selected]="color == '0x0000ff'"
+			>
+				Bg Blue
+			</button>
+			<button
+				type="button"
+				(click)="setColor('0xffffff')"
+				[class.selected]="color == '0xffffff'"
+			>
+				Bg White
+			</button>
+			<button
+				type="button"
+				(click)="setColor('transparent')"
+				[class.selected]="color == 'transparent'"
+			>
+				Bg Transparent
+			</button>
+			<button
+				type="button"
+				(click)="setLine('0xff0000')"
+				[class.selected]="line == '0xff0000'"
+			>
+				Line Red
+			</button>
+			<button
+				type="button"
+				(click)="setLine('0x0000ff')"
+				[class.selected]="line == '0x0000ff'"
+			>
+				Line Blue
+			</button>
+			<button
+				type="button"
+				(click)="setLine('0xffffff')"
+				[class.selected]="line == '0xffffff'"
+			>
+				Line White
+			</button>
+			<button
+				type="button"
+				(click)="setLine('0x000000')"
+				[class.selected]="line == '0x000000'"
+			>
+				Line Black
+			</button>
+			<button
+				type="button"
+				(click)="setLineDash('solid')"
+				[class.selected]="lineDash == 'solid'"
+			>
+				Solid
+			</button>
+			<button
+				type="button"
+				(click)="setLineDash('dotted')"
+				[class.selected]="lineDash == 'dotted'"
+			>
+				Dotted
+			</button>
+			<button
+				type="button"
+				(click)="setLineDash('dashed')"
+				[class.selected]="lineDash == 'dashed'"
+			>
+				Dashed
+			</button>
 
 			<div class="canvas-holder">
 				<canvas

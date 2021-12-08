@@ -6,8 +6,8 @@ import {
 	RendererTimer,
 	ThreeUtil,
 } from 'ngx3js';
-import * as THREE from 'three';
 
+import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-lightningstrike',
@@ -212,26 +212,30 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 
 	ngOnInit() {
 		const starVertices = [];
-		const prevPoint = new THREE.Vector3( 0, 0, 1 );
+		const prevPoint = new THREE.Vector3(0, 0, 1);
 		const currPoint = new THREE.Vector3();
-		for ( let i = 1; i <= 16; i ++ ) {
-			currPoint.set( Math.sin( 2 * Math.PI * i / 16 ), 0, Math.cos( 2 * Math.PI * i / 16 ) );
-			if ( i % 2 === 1 ) {
-				currPoint.multiplyScalar( 0.3 );
+		for (let i = 1; i <= 16; i++) {
+			currPoint.set(
+				Math.sin((2 * Math.PI * i) / 16),
+				0,
+				Math.cos((2 * Math.PI * i) / 16)
+			);
+			if (i % 2 === 1) {
+				currPoint.multiplyScalar(0.3);
 			}
-			starVertices.push( 0, 0, 0 );
-			starVertices.push( prevPoint.x, prevPoint.y, prevPoint.z );
-			starVertices.push( currPoint.x, currPoint.y, currPoint.z );
-			prevPoint.copy( currPoint );
+			starVertices.push(0, 0, 0);
+			starVertices.push(prevPoint.x, prevPoint.y, prevPoint.z);
+			starVertices.push(currPoint.x, currPoint.y, currPoint.z);
+			prevPoint.copy(currPoint);
 		}
 		this.starVertices = starVertices;
 		this.changeScene();
 	}
-	
-	starVertices : any[] = [];
-	starMesh : THREE.Mesh = null;
-	setStarMesh(mesh : MeshComponent) {
-		this.starMesh = mesh.getMesh();
+
+	starVertices: any[] = [];
+	starMesh: THREE.Mesh = null;
+	setStarMesh(mesh: MeshComponent) {
+		this.starMesh = mesh.getMesh() as any;
 	}
 
 	onMouseClick(e: RendererEvent) {
@@ -433,12 +437,11 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 		maxLightnings: 8,
 		onLightningDown: (lightning) => {
 			if (this.starMesh !== null && this.meshObject3d) {
-			// Add black star mark at ray strike
+				// Add black star mark at ray strike
 				const star1 = this.starMesh.clone();
-				star1.position.copy( lightning.rayParameters.destOffset );
+				star1.position.copy(lightning.rayParameters.destOffset);
 				star1.position.y = 0.05;
 				star1.rotation.y = 2 * Math.PI * Math.random();
-				this.meshObject3d.add( star1 );
 			}
 		},
 	};
@@ -457,10 +460,9 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 			const material = lightningStrike.material;
 			material.color = new THREE.Color(this.controls.lightningColor);
 		} else {
-			const storm = (this.meshObject3d.getObjectByName('storm') ||
-			null) as any;
+			const storm = (this.meshObject3d.getObjectByName('storm') || null) as any;
 			if (ThreeUtil.isNotNull(storm)) {
-				const material= storm.lightningMaterial;
+				const material = storm.lightningMaterial;
 				material.color = new THREE.Color(this.controls.lightningColor);
 			}
 		}

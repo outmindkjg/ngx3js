@@ -28,10 +28,7 @@
 			[color]="'0x000000'"
 			[density]="0.001"
 		></ngx3js-fog>
-		<ngx3js-mesh
-			(onLoad)="setMesh($event)"
-			[type]="'Points'"
-		>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [type]="'Points'">
 			<ngx3js-geometry
 				[type]="'Buffer'"
 				[attrPosition]="vertices"

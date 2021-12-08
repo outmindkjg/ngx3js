@@ -92,7 +92,7 @@ export class DocsComponent implements OnInit {
 		if (this.list === null) {
 			setTimeout(() => {
 				this.setFocus(menuId);
-			}, 500)
+			}, 500);
 		} else {
 			this.menu.closeMenu(true);
 			const links: HTMLAnchorElement[] =
@@ -206,9 +206,9 @@ export class DocsComponent implements OnInit {
 				case 'ThreeUniforms':
 					try {
 						this.router.navigateByUrl('/docs/ngxapi/en/ThreeUtil.' + pageName);
-					} catch(ex : any){ }
+					} catch (ex: any) {}
 					break;
-				default :
+				default:
 					if (pageName.startsWith('examples/')) {
 						this.router.navigateByUrl(pageName);
 					} else {

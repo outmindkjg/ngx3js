@@ -5,16 +5,23 @@
 <div #domElement class="htmlmesh">
 	<dl>
 		<dt>Angular &amp; Javascript 3D library</dt>
-		<dd style="background-color: rgba(255, 0, 0, 0.1);">
+		<dd style="background-color: rgba(255, 0, 0, 0.1)">
 			The aim of the project is to create<br />
 			an easy to use, lightweight, cross-browser, <br />
-			general purpose 3D library in <span style="color: green;">angular</span>. <br /><br />
+			general purpose 3D library in <span style="color: green">angular</span>.
+			<br /><br />
 			The current builds only include a WebGL <br />
 			renderer but WebGPU (experimental), <br />
 			SVG and CSS3D renderers are also available<br />
 			in the examples.
 		</dd>
-		<dd style="background-color: rgba(0, 0, 0, 0.5); color:white;text-align: right;">
+		<dd
+			style="
+				background-color: rgba(0, 0, 0, 0.5);
+				color: white;
+				text-align: right;
+			"
+		>
 			Thank you! 감사합니다. 谢谢! ありがとう! Merci!
 		</dd>
 	</dl>
@@ -216,7 +223,7 @@
 					[vertexColors]="true"
 				></ngx3js-material>
 			</ngx3js-mesh>
-			<ngx3js-mesh *ngSwitchCase="'Line2'"  [type]="'Line2'" [visible]="true">
+			<ngx3js-mesh *ngSwitchCase="'Line2'" [type]="'Line2'" [visible]="true">
 				<ngx3js-geometry
 					[type]="'Line'"
 					[attrPosition]="lineLoopPosition"
@@ -231,7 +238,7 @@
 					[resolutionX]="1024"
 					[resolutionY]="768"
 				></ngx3js-material>
-			</ngx3js-mesh>			
+			</ngx3js-mesh>
 			<ngx3js-mesh *ngSwitchCase="'LineLoop'" [type]="'LineLoop'">
 				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
 				<ngx3js-geometry
@@ -278,7 +285,7 @@
 				*ngSwitchCase="'HTMLMesh'"
 				[type]="'HTMLMesh'"
 				[domElement]="domElement"
-				[materialOption]="{ side : 'double', transparent : true, opacity : 1 }"
+				[materialOption]="{ side: 'double', transparent: true, opacity: 1 }"
 			>
 				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
 				<ngx3js-rotation [x]="0" [y]="45" [z]="0"></ngx3js-rotation>

@@ -6,26 +6,34 @@ import { BaseComponent, MeshComponent } from 'ngx3js';
 	templateUrl: './webgl-loader-gltf-sheen.component.html',
 	styleUrls: ['./webgl-loader-gltf-sheen.component.scss'],
 })
-export class WebglLoaderGltfSheenComponent extends BaseComponent<{ sheen : number}> {
+export class WebglLoaderGltfSheenComponent extends BaseComponent<{
+	sheen: number;
+}> {
 	constructor() {
-		super({ sheen : 1 }, [
-			{ name : 'sheen', type : 'number', min : 0, max : 1 ,  finishChange : () => {
-				if (this.material !== null) {
-					this.material.sheen = this.controls.sheen;
-				}
-			}}
+		super({ sheen: 1 }, [
+			{
+				name: 'sheen',
+				type: 'number',
+				min: 0,
+				max: 1,
+				finishChange: () => {
+					if (this.material !== null) {
+						this.material.sheen = this.controls.sheen;
+					}
+				},
+			},
 		]);
 	}
 
-	material : any;
+	material: any;
 
-	setMesh(mesh : MeshComponent) {
+	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
-		const object = this.meshObject3d.getObjectByName( 'SheenChair_fabric' ) as any;
+		const object = this.meshObject3d.getObjectByName(
+			'SheenChair_fabric'
+		) as any;
 		if (object) {
 			this.material = object.material;
 		}
 	}
-
-
 }

@@ -5,12 +5,12 @@
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
-	[controlOptions]="{ 
-		enablePan: false, 
+	[controlOptions]="{
+		enablePan: false,
 		enableDamping: true,
 		minDistance: 5,
 		maxDistance: 20
-	 }"
+	}"
 	[statsMode]="0"
 	[antialias]="true"
 	[shadowMapEnabled]="true"
@@ -130,41 +130,64 @@
 			></ngx3js-geometry>
 		</ngx3js-shared>
 		<ngx3js-mesh (onLoad)="setMesh($event)">
-			<ngx3js-mesh [type]="meshType" [material]="materialBase" [geometry]="geometry">
+			<ngx3js-mesh
+				[type]="meshType"
+				[material]="materialBase"
+				[geometry]="geometry"
+			>
 				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
 				<ngx3js-scale [x]="1.5" [y]="1.5" [z]="1.5"></ngx3js-scale>
 			</ngx3js-mesh>
 			<ngx3js-mesh>
-				<ngx3js-rotation [x]="0" [y]="72*0" [z]="0"></ngx3js-rotation>
-				<ngx3js-mesh [type]="meshType" [material]="materialWireframe" [geometry]="geometry">
+				<ngx3js-rotation [x]="0" [y]="72 * 0" [z]="0"></ngx3js-rotation>
+				<ngx3js-mesh
+					[type]="meshType"
+					[material]="materialWireframe"
+					[geometry]="geometry"
+				>
 					<ngx3js-position [x]="5" [y]="0" [z]="0"></ngx3js-position>
 				</ngx3js-mesh>
 			</ngx3js-mesh>
 			<ngx3js-mesh>
-				<ngx3js-rotation [x]="0" [y]="72*1" [z]="0"></ngx3js-rotation>
-				<ngx3js-mesh [type]="meshType" [material]="materialNormal" [geometry]="geometry">
+				<ngx3js-rotation [x]="0" [y]="72 * 1" [z]="0"></ngx3js-rotation>
+				<ngx3js-mesh
+					[type]="meshType"
+					[material]="materialNormal"
+					[geometry]="geometry"
+				>
 					<ngx3js-position [x]="5" [y]="0" [z]="0"></ngx3js-position>
 				</ngx3js-mesh>
 			</ngx3js-mesh>
 			<ngx3js-mesh>
-				<ngx3js-rotation [x]="0" [y]="72*2" [z]="0"></ngx3js-rotation>
-				<ngx3js-mesh [type]="meshType" [material]="materialToon" [geometry]="geometry">
+				<ngx3js-rotation [x]="0" [y]="72 * 2" [z]="0"></ngx3js-rotation>
+				<ngx3js-mesh
+					[type]="meshType"
+					[material]="materialToon"
+					[geometry]="geometry"
+				>
 					<ngx3js-position [x]="5" [y]="0" [z]="0"></ngx3js-position>
 				</ngx3js-mesh>
 			</ngx3js-mesh>
 			<ngx3js-mesh>
-				<ngx3js-rotation [x]="0" [y]="72*3" [z]="0"></ngx3js-rotation>
-				<ngx3js-mesh [type]="meshType" [material]="materialLambert" [geometry]="geometry">
+				<ngx3js-rotation [x]="0" [y]="72 * 3" [z]="0"></ngx3js-rotation>
+				<ngx3js-mesh
+					[type]="meshType"
+					[material]="materialLambert"
+					[geometry]="geometry"
+				>
 					<ngx3js-position [x]="5" [y]="0" [z]="0"></ngx3js-position>
 				</ngx3js-mesh>
 			</ngx3js-mesh>
 			<ngx3js-mesh>
-				<ngx3js-rotation [x]="0" [y]="72*4" [z]="0"></ngx3js-rotation>
-				<ngx3js-mesh [type]="meshType" [material]="materialPhysical" [geometry]="geometry">
+				<ngx3js-rotation [x]="0" [y]="72 * 4" [z]="0"></ngx3js-rotation>
+				<ngx3js-mesh
+					[type]="meshType"
+					[material]="materialPhysical"
+					[geometry]="geometry"
+				>
 					<ngx3js-position [x]="5" [y]="0" [z]="0"></ngx3js-position>
 				</ngx3js-mesh>
 			</ngx3js-mesh>
-
 		</ngx3js-mesh>
 	</ngx3js-scene>
 </ngx3js-renderer>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 	<head>
-		<meta charset="utf-8">
+		<meta charset="utf-8" />
 		<base href="../../../" />
 		<script src="page.js"></script>
 		<link type="text/css" rel="stylesheet" href="page.css" />
@@ -9,7 +9,8 @@
 	<body>
 		<h1>创建文字（[name]）</h1>
 		<div>
-			<p>有时候，您可能需要在你的Three.js应用程序中使用到文本，这里有几种方法可以做到。
+			<p>
+				有时候，您可能需要在你的Three.js应用程序中使用到文本，这里有几种方法可以做到。
 			</p>
 		</div>
 
@@ -26,33 +27,22 @@
 			</p>
 
 			<code>
-#info {
-	position: absolute;
-	top: 10px;
-	width: 100%;
-	text-align: center;
-	z-index: 100;
-	display:block;
-}
+				#info { position: absolute; top: 10px; width: 100%; text-align: center;
+				z-index: 100; display:block; }
 			</code>
-
 		</div>
-
-
 
 		<h2>2. 将文字绘制到画布中，并将其用作[page:Texture]（纹理）</h2>
 		<div>
 			<p>如果你希望在three.js的场景中的平面上轻松地绘制文本，请使用此方法。</p>
 		</div>
 
-
-		<h2>3. 在你所喜欢的3D软件里创建模型，并导出给three.js
-			 </h2>
+		<h2>3. 在你所喜欢的3D软件里创建模型，并导出给three.js</h2>
 		<div>
-			<p>如果你更喜欢使用3D建模软件来工作并导出模型到three.js，请使用这种方法。</p>
+			<p>
+				如果你更喜欢使用3D建模软件来工作并导出模型到three.js，请使用这种方法。
+			</p>
 		</div>
-
-
 
 		<h2>4. three.js自带的文字几何体</h2>
 		<div>
@@ -64,8 +54,9 @@
 			</p>
 			<p>
 				然而，为了使得它能够工作，你的TextGeometry需要在其“font”参数上设置一个THREE.Font的实例。
-<br>
-				请参阅 [page:TextGeometry] 页面来阅读如何完成此操作的详细信息，以及每一个接收的参数的描述，还有由three.js分发、自带的JSON字体的列表。
+				<br />
+				请参阅 [page:TextGeometry]
+				页面来阅读如何完成此操作的详细信息，以及每一个接收的参数的描述，还有由three.js分发、自带的JSON字体的列表。
 			</p>
 
 			<h3>示例</h3>
@@ -75,35 +66,41 @@
 			</p>
 
 			<p>
-				如果Typeface已经关闭，或者没有你所想使用的字体，这有一个教程:[link:http://www.jaanga.com/2012/03/blender-to-threejs-create-3d-text-with.html]<br>
+				如果Typeface已经关闭，或者没有你所想使用的字体，这有一个教程:[link:http://www.jaanga.com/2012/03/blender-to-threejs-create-3d-text-with.html]<br />
 				这是一个在blender上运行的python脚本，能够让你将文字导出为Three.js的JSON格式。
 			</p>
-
 		</div>
-
-
 
 		<h2>5. 位图字体</h2>
 		<div>
 			<p>
-				BMFonts (位图字体) 可以将字形批处理为单个BufferGeometry。BMFont的渲染支持自动换行、字母间距、字句调整、signed distance fields with standard derivatives、multi-channel signed distance fields、多纹理字体等特性。
-				详情请参阅 [link:https://github.com/felixmariotto/three-mesh-ui three-mesh-ui] 或 [link:https://github.com/Jam3/three-bmfont-text three-bmfont-text]。
+				BMFonts (位图字体)
+				可以将字形批处理为单个BufferGeometry。BMFont的渲染支持自动换行、字母间距、字句调整、signed
+				distance fields with standard derivatives、multi-channel signed distance
+				fields、多纹理字体等特性。 详情请参阅
+				[link:https://github.com/felixmariotto/three-mesh-ui three-mesh-ui] 或
+				[link:https://github.com/Jam3/three-bmfont-text three-bmfont-text]。
 			</p>
 			<p>
-				现有库存的字体在项目中同样可用，就像[link:https://github.com/etiennepinchon/aframe-fonts A-Frame Fonts]一样，
+				现有库存的字体在项目中同样可用，就像[link:https://github.com/etiennepinchon/aframe-fonts
+				A-Frame Fonts]一样，
 				或者你也可以从任何TTF字体中创建你自己的字体，优化时，只需要包含项目中所需的字符即可。
 			</p>
-			<p>
-				这是一些有用的工具：
-			</p>
+			<p>这是一些有用的工具：</p>
 			<ul>
-				<li>[link:http://msdf-bmfont.donmccurdy.com/ msdf-bmfont-web] <i>(web-based)</i></li>
-				<li>[link:https://github.com/soimy/msdf-bmfont-xml msdf-bmfont-xml] <i>(commandline)</i></li>
-				<li>[link:https://github.com/libgdx/libgdx/wiki/Hiero hiero] <i>(desktop app)</i></li>
+				<li>
+					[link:http://msdf-bmfont.donmccurdy.com/ msdf-bmfont-web]
+					<i>(web-based)</i>
+				</li>
+				<li>
+					[link:https://github.com/soimy/msdf-bmfont-xml msdf-bmfont-xml]
+					<i>(commandline)</i>
+				</li>
+				<li>
+					[link:https://github.com/libgdx/libgdx/wiki/Hiero hiero]
+					<i>(desktop app)</i>
+				</li>
 			</ul>
 		</div>
-
-
-
 	</body>
 </html>

@@ -17,10 +17,16 @@
 	[guiParams]="controlsParams"
 	(onRender)="onRender($event)"
 >
-	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="45"
+		[near]="1"
+		[far]="1000"
+		(onLoad)="setCamera($event)"
+	>
 		<ngx3js-position [x]="3" [y]="5" [z]="10"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-scene #scene >
+	<ngx3js-scene #scene>
 		<ngx3js-light
 			[type]="'directional'"
 			[color]="'0xffffff'"
@@ -29,7 +35,11 @@
 		>
 			<ngx3js-position [x]="-3" [y]="10" [z]="10"></ngx3js-position>
 		</ngx3js-light>
-		<ngx3js-light [type]="'AmbientLight'" [color]="'0x6688cc'" [intensity]="0.5"></ngx3js-light>
+		<ngx3js-light
+			[type]="'AmbientLight'"
+			[color]="'0x6688cc'"
+			[intensity]="0.5"
+		></ngx3js-light>
 		<ngx3js-shared>
 			<ngx3js-material
 				#material
@@ -55,8 +65,22 @@
 			</ngx3js-mesh>
 			<ngx3js-mesh [visible]="controls.tube.showGuide">
 				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
-				<ngx3js-geometry [type]="'box'" [width]="6" [height]="6" [depth]="6" [widthSegments]="10" [heightSegments]="10" [depthSegments]="10"></ngx3js-geometry>
-				<ngx3js-material [type]="'MeshPhongMaterial'" [transparent]="true" [opacity]="0.1" [color]="'0xffffff'" [side]="'back'"></ngx3js-material>
+				<ngx3js-geometry
+					[type]="'box'"
+					[width]="6"
+					[height]="6"
+					[depth]="6"
+					[widthSegments]="10"
+					[heightSegments]="10"
+					[depthSegments]="10"
+				></ngx3js-geometry>
+				<ngx3js-material
+					[type]="'MeshPhongMaterial'"
+					[transparent]="true"
+					[opacity]="0.1"
+					[color]="'0xffffff'"
+					[side]="'back'"
+				></ngx3js-material>
 			</ngx3js-mesh>
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
 		</ngx3js-mesh>

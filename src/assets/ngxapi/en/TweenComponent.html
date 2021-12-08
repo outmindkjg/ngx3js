@@ -15,133 +15,156 @@
 			Tween Component<br />
 			See the [page:TweenComponent ngx3js docs] page for details.<br />
 			<br />
-			<code data-type="html"><br />
-			&lt;ngx3js-tween<br />
+			<code data-type="html"
+				><br />
+				&lt;ngx3js-tween<br />
 				[easing]="'power4.easein'" [targets]="'position'"<br />
 				(onLoad)="setLightTween($event)"<br />
-			&gt;&lt;/ngx3js-tween&gt;<br />
-			&lt;ngx3js-tween<br />
+				&gt;&lt;/ngx3js-tween&gt;<br />
+				&lt;ngx3js-tween<br />
 				[easing]="'power4.easein'"<br />
 				(onLoad)="setLightTween($event)"<br />
-			&gt;&lt;/ngx3js-tween&gt;<br />
+				&gt;&lt;/ngx3js-tween&gt;<br />
 			</code>
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:TweenComponent TweenComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
-		<p>
-			Creates an instance of tween component.
-		</p>
+		<h3>
+			[constructor:TweenComponent TweenComponent]( )<i
+				class="modifier modifier-overwrite"
+				>Overwrite</i
+			>
+		</h3>
+		<p>Creates an instance of tween component.</p>
 
 		<h3>Angular Html Template [ Input ] ( Output )</h3>
-		<code data-type="html">&lt;ngx3js-tween
-			[ amplitude ]="... number -- The amplitude of tween compone... "
-			[ debug ]="... boolean -- Debug this Object "
-			[ duration ]="... number -- The duration of tween componen... "
-			[ easing ]="... string -- The Input of tween component "
-			[ enabled ]="... boolean -- Enabled or Not "
-			[ linearRatio ]="... number -- The linearRatio of tween compo... "
-			( onDestory )="...($event : TweenComponent -- Will be called when before des... )"
-			( onLoad )="...($event : TweenComponent -- Will be called when load compl... )"
-			[ overrideParams ]="... any -- The override params "
-			[ overshoot ]="... number -- The overshoot of tween compone... "
-			[ period ]="... number -- The period of tween component "
-			[ power ]="... number -- The power of tween component "
-			[ repeat ]="... number -- The repeat of tween component "
-			[ steps ]="... number -- The steps of tween component "
-			[ targets ]="... string -- The targets of tween component "
-			[ template ]="... string -- The template of tween componen... "
-			[ to ]="... any -- The to of tween component "
-			[ tween ]="... any -- Tween animation params "
-			[ userData ]="... any -- An object that can be used to ... "
-			[ windowExport ]="... string -- Export this Object to window g... "
-			[ yoyo ]="... boolean -- The yoyo of tween component "
-			[ yoyoMode ]="... boolean -- The yoyoMode of tween componen... "
-		&gt;&lt;/ngx3js-tween&gt;
+		<code data-type="html"
+			>&lt;ngx3js-tween [ amplitude ]="... number -- The amplitude of tween
+			compone... " [ debug ]="... boolean -- Debug this Object " [ duration
+			]="... number -- The duration of tween componen... " [ easing ]="...
+			string -- The Input of tween component " [ enabled ]="... boolean --
+			Enabled or Not " [ linearRatio ]="... number -- The linearRatio of tween
+			compo... " ( onDestory )="...($event : TweenComponent -- Will be called
+			when before des... )" ( onLoad )="...($event : TweenComponent -- Will be
+			called when load compl... )" [ overrideParams ]="... any -- The override
+			params " [ overshoot ]="... number -- The overshoot of tween compone... "
+			[ period ]="... number -- The period of tween component " [ power ]="...
+			number -- The power of tween component " [ repeat ]="... number -- The
+			repeat of tween component " [ steps ]="... number -- The steps of tween
+			component " [ targets ]="... string -- The targets of tween component " [
+			template ]="... string -- The template of tween componen... " [ to ]="...
+			any -- The to of tween component " [ tween ]="... any -- Tween animation
+			params " [ userData ]="... any -- An object that can be used to ... " [
+			windowExport ]="... string -- Export this Object to window g... " [ yoyo
+			]="... boolean -- The yoyo of tween component " [ yoyoMode ]="... boolean
+			-- The yoyoMode of tween componen... " &gt;&lt;/ngx3js-tween&gt;
 		</code>
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common properties.
 		</p>
 
-		<h3>[property:number amplitude]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The amplitude of tween component
-		</p>
+		<h3>
+			[property:number amplitude]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The amplitude of tween component</p>
 
-		<h3>[property:number duration]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The duration of tween component
-		</p>
+		<h3>
+			[property:number duration]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The duration of tween component</p>
 
-		<h3>[property:string easing]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string easing]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The Input of tween component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:number linearRatio]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The linearRatio of tween component
-		</p>
+		<h3>
+			[property:number linearRatio]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The linearRatio of tween component</p>
 
-		<h3>[property:number overshoot]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The overshoot of tween component
-		</p>
+		<h3>
+			[property:number overshoot]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The overshoot of tween component</p>
 
-		<h3>[property:number period]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The period of tween component
-		</p>
+		<h3>
+			[property:number period]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The period of tween component</p>
 
-		<h3>[property:number power]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The power of tween component
-		</p>
+		<h3>
+			[property:number power]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The power of tween component</p>
 
-		<h3>[property:number repeat]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The repeat of tween component
-		</p>
+		<h3>
+			[property:number repeat]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The repeat of tween component</p>
 
-		<h3>[property:number steps]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The steps of tween component
-		</p>
+		<h3>
+			[property:number steps]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The steps of tween component</p>
 
-		<h3>[property:string targets]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The targets of tween component
-		</p>
+		<h3>
+			[property:string targets]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The targets of tween component</p>
 
-		<h3>[property:string template]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The template of tween component
-		</p>
+		<h3>
+			[property:string template]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The template of tween component</p>
 
-		<h3>[property:any to]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The to of tween component
-		</p>
+		<h3>
+			[property:any to]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The to of tween component</p>
 
-		<h3>[property:boolean yoyo]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The yoyo of tween component
-		</p>
+		<h3>
+			[property:boolean yoyo]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The yoyo of tween component</p>
 
-		<h3>[property:boolean yoyoMode]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The yoyoMode of tween component
-		</p>
+		<h3>
+			[property:boolean yoyoMode]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The yoyoMode of tween component</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 
-		<h3>[method:any getTween](  [param:TimelineLite|TimelineMax tween],  [param:any tweenTarget],  [param:any parentEle] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:any getTween]( [param:TimelineLite|TimelineMax tween], [param:any
+			tweenTarget], [param:any parentEle] )<i class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:TimelineLite|TimelineMax tween] - The tween.<br />
@@ -154,7 +177,13 @@
 			Returns : tween
 		</p>
 
-		<h3>[method:any setTween](  [param:any to],  [param:number duration]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:any setTween]( [param:any to], [param:number duration]? )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any to] - The to.<br />
@@ -168,6 +197,9 @@
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/tween/tween.component.ts /tween/tween.component.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/tween/tween.component.ts
+			/tween/tween.component.ts]
+		</p>
 	</body>
 </html>

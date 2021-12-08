@@ -46,12 +46,17 @@ export class WebglInstancingModifiedComponent extends BaseComponent<{}> {
 
 	setGeometry(geometry: GeometryComponent) {
 		const instanceColors = [];
-		for ( let i = 0; i < this.count; i ++ ) {
-			instanceColors.push( Math.random() );
-			instanceColors.push( Math.random() );
-			instanceColors.push( Math.random() );
+		for (let i = 0; i < this.count; i++) {
+			instanceColors.push(Math.random());
+			instanceColors.push(Math.random());
+			instanceColors.push(Math.random());
 		}
-		geometry.getGeometry().setAttribute( 'instanceColor', new THREE.InstancedBufferAttribute( new Float32Array( instanceColors ), 3 ) );
+		geometry
+			.getGeometry()
+			.setAttribute(
+				'instanceColor',
+				new THREE.InstancedBufferAttribute(new Float32Array(instanceColors), 3)
+			);
 	}
 
 	setMaterial(material: MaterialComponent) {

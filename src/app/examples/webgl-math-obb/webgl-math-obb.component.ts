@@ -81,7 +81,7 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 	}
 
 	geometryObb: OBB = null;
-	
+
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren !== null) {

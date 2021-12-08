@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8">
+		<meta charset="utf-8" />
 		<base href="../../../" />
 		<script src="page.js"></script>
 		<link type="text/css" rel="stylesheet" href="page.css" />
@@ -9,88 +9,91 @@
 	<body>
 		<h1>[name]</h1>
 
-
-		<p>The goal of this section is to give a brief introduction to ngx3js. We will start by setting up a scene, with a spinning cube. A working example is provided at the bottom of the page in case you get stuck and need help.</p>
+		<p>
+			The goal of this section is to give a brief introduction to ngx3js. We
+			will start by setting up a scene, with a spinning cube. A working example
+			is provided at the bottom of the page in case you get stuck and need help.
+		</p>
 
 		<h2>Before we start</h2>
 
-		<p>Before you can use ngx3js, you need somewhere to display it. Save the following angular html to a file as angular template on your computer, along with a install npm of [link:https://www.npmjs.com/package/ngx3js ngx3js] in the working directory, and open it with command <b>ng serve</b>.</p>
+		<p>
+			Before you can use ngx3js, you need somewhere to display it. Save the
+			following angular html to a file as angular template on your computer,
+			along with a install npm of [link:https://www.npmjs.com/package/ngx3js
+			ngx3js] in the working directory, and open it with command
+			<b>ng serve</b>.
+		</p>
 
 		<h3>src/app/app.module.ts</h3>
 		<code data-type="ts">
-			import { Ngx3JsModule } from 'ngx3js';
-			@NgModule({
-				declarations: [
-				],
-				imports: [
-					Ngx3JsModule
-				],
-				bootstrap: [AppComponent],
-			})
-			export class AppModule {}
+			import { Ngx3JsModule } from 'ngx3js'; @NgModule({ declarations: [ ],
+			imports: [ Ngx3JsModule ], bootstrap: [AppComponent], }) export class
+			AppModule {}
 		</code>
 
 		<h3>src/app/app.component.html</h3>
 		<code data-type="html">
-			&lt;div style="width: 700px; height: 500px; display: block; position: relative"&gt;
-			&lt;/div&gt;
+			&lt;div style="width: 700px; height: 500px; display: block; position:
+			relative"&gt; &lt;/div&gt;
 		</code>
 
 		<p>That's all. All the code below goes into the empty &lt;div&gt; tag.</p>
 
 		<h2>Creating the scene</h2>
 
-		<p>To actually be able to display anything with ngx3js, we need three things: scene, camera and renderer, so that we can render the scene with camera.</p>
+		<p>
+			To actually be able to display anything with ngx3js, we need three things:
+			scene, camera and renderer, so that we can render the scene with camera.
+		</p>
 
 		<h3>src/app/app.component.html</h3>
 		<code data-type="html">
-			&lt;div style="width: 700px; height: 500px; display: block; position: relative"&gt;
-				&lt;ngx3js-renderer [controlType]="'orbit'" &gt;
-					&lt;ngx3js-camera [type]="'PerspectiveCamera'" &gt;
-						&lt;ngx3js-position [x]="-50" [y]="0" [z]="-50"&gt;
-						&lt;/ngx3js-position&gt;
-					&lt;/ngx3js-camera&gt;
-					&lt;ngx3js-scene #scene&gt;
-					&lt;/ngx3js-scene&gt;
-				&lt;/ngx3js-renderer&gt;
-			&lt;/div&gt;
+			&lt;div style="width: 700px; height: 500px; display: block; position:
+			relative"&gt; &lt;ngx3js-renderer [controlType]="'orbit'" &gt;
+			&lt;ngx3js-camera [type]="'PerspectiveCamera'" &gt; &lt;ngx3js-position
+			[x]="-50" [y]="0" [z]="-50"&gt; &lt;/ngx3js-position&gt;
+			&lt;/ngx3js-camera&gt; &lt;ngx3js-scene #scene&gt; &lt;/ngx3js-scene&gt;
+			&lt;/ngx3js-renderer&gt; &lt;/div&gt;
 		</code>
-		<p>Let's take a moment to explain what's going on here. We have now set up the scene, our camera and the renderer.</p>
+		<p>
+			Let's take a moment to explain what's going on here. We have now set up
+			the scene, our camera and the renderer.
+		</p>
 
-		<p>There are a few different cameras in ngx3js. For now, let's use a <strong>PerspectiveCamera</strong>.</p>
+		<p>
+			There are a few different cameras in ngx3js. For now, let's use a
+			<strong>PerspectiveCamera</strong>.
+		</p>
 
-		<p><em>"That's all good, but where's that cube you promised?"</em> Let's add it now.</p>
+		<p>
+			<em>"That's all good, but where's that cube you promised?"</em> Let's add
+			it now.
+		</p>
 
 		<h3>src/app/app.component.html</h3>
 		<code data-type="html">
-			&lt;div style="width: 700px; height: 500px; display: block; position: relative"&gt;
-				&lt;ngx3js-renderer [controlType]="'orbit'" &gt;
-					&lt;ngx3js-camera&gt;
-						&lt;ngx3js-position [x]="-50" [y]="0" [z]="-50"&gt;
-						&lt;/ngx3js-position&gt;
-					&lt;/ngx3js-camera&gt;
-					&lt;ngx3js-scene #scene&gt;
-						&lt;ngx3js-light [type]="'AmbientLight'"&gt;
-						&lt;/ngx3js-light&gt;
-						&lt;ngx3js-light [type]="'directional'"&gt;
-							&lt;ngx3js-position [x]="-3" [y]="10" [z]="-10"&gt;
-							&lt;/ngx3js-position&gt;
-						&lt;/ngx3js-light&gt;
-						&lt;ngx3js-mesh&gt;
-							&lt;ngx3js-geometry [type]="'box'" [width]="30" [height]="30" [depth]="30"&gt;
-							&lt;/ngx3js-geometry&gt;
-							&lt;ngx3js-material [type]="'meshlambert'" [color]="'0xff0000'"&gt;
-							&lt;/ngx3js-material&gt;
-						&lt;/ngx3js-mesh&gt;
-					&lt;/ngx3js-scene&gt;
-				&lt;/ngx3js-renderer&gt;
+			&lt;div style="width: 700px; height: 500px; display: block; position:
+			relative"&gt; &lt;ngx3js-renderer [controlType]="'orbit'" &gt;
+			&lt;ngx3js-camera&gt; &lt;ngx3js-position [x]="-50" [y]="0" [z]="-50"&gt;
+			&lt;/ngx3js-position&gt; &lt;/ngx3js-camera&gt; &lt;ngx3js-scene
+			#scene&gt; &lt;ngx3js-light [type]="'AmbientLight'"&gt;
+			&lt;/ngx3js-light&gt; &lt;ngx3js-light [type]="'directional'"&gt;
+			&lt;ngx3js-position [x]="-3" [y]="10" [z]="-10"&gt;
+			&lt;/ngx3js-position&gt; &lt;/ngx3js-light&gt; &lt;ngx3js-mesh&gt;
+			&lt;ngx3js-geometry [type]="'box'" [width]="30" [height]="30"
+			[depth]="30"&gt; &lt;/ngx3js-geometry&gt; &lt;ngx3js-material
+			[type]="'meshlambert'" [color]="'0xff0000'"&gt; &lt;/ngx3js-material&gt;
+			&lt;/ngx3js-mesh&gt; &lt;/ngx3js-scene&gt; &lt;/ngx3js-renderer&gt;
 			&lt;/div&gt;
 		</code>
 
 		<h2>The result</h2>
-		<p>Congratulations! You have now completed your first ngx3js application. It's simple, but you have to start somewhere.</p>
+		<p>
+			Congratulations! You have now completed your first ngx3js application.
+			It's simple, but you have to start somewhere.
+		</p>
 
 		<iframe src="#/viewer/ngx_hello_world"></iframe><br />
-
 	</body>
 </html>

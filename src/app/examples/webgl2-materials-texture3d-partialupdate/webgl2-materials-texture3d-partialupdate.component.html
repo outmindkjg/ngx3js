@@ -40,7 +40,13 @@
 			</ngx3js-material>
 		</ngx3js-mesh>
 		<ngx3js-shared (onLoad)="setShared($event)">
-			<ngx3js-texture *ngFor="let info of textureInfos" [image]="'cloud'" [loaderType]="'DataTexture3D'" [width]="30" [scale]="info.scale"></ngx3js-texture>
+			<ngx3js-texture
+				*ngFor="let info of textureInfos"
+				[image]="'cloud'"
+				[loaderType]="'DataTexture3D'"
+				[width]="30"
+				[scale]="info.scale"
+			></ngx3js-texture>
 		</ngx3js-shared>
 		<ngx3js-mesh (onLoad)="setMesh($event)">
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>

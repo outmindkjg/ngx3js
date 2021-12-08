@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-	BaseComponent,
-	GeometryUtils,
-	RendererTimer
-} from 'ngx3js';
+import { BaseComponent, GeometryUtils, RendererTimer } from 'ngx3js';
 import * as THREE from 'three';
 
 @Component({

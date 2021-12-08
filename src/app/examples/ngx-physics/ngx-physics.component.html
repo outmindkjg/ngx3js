@@ -7,8 +7,8 @@
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
-	[controlOptions]="{ 
-		enablePan: false, 
+	[controlOptions]="{
+		enablePan: false,
 		enableDamping: true,
 		minDistance: 5,
 		maxDistance: 40
@@ -23,11 +23,21 @@
 	(eventListener)="onMouseClick($event)"
 >
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
-	<ngx3js-camera [type]="'perspective'" [fov]="60" [near]="0.2" [far]="2000" (onLoad)="setCamera($event)">
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="60"
+		[near]="0.2"
+		[far]="2000"
+		(onLoad)="setCamera($event)"
+	>
 		<ngx3js-position [x]="0" [y]="25" [z]="30"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-scene #scene [background]="'0x000000'">
-		<ngx3js-physics [gravityX]="controls.gravity.x" [gravityY]="controls.gravity.y" [gravityZ]="controls.gravity.z"></ngx3js-physics>
+		<ngx3js-physics
+			[gravityX]="controls.gravity.x"
+			[gravityY]="controls.gravity.y"
+			[gravityZ]="controls.gravity.z"
+		></ngx3js-physics>
 		<ngx3js-light [type]="'AmbientLight'" [color]="'0x404040'"></ngx3js-light>
 		<ngx3js-light
 			[type]="'DirectionalLight'"
@@ -78,7 +88,7 @@
 				[velocityY]="info.vy"
 				[velocityZ]="info.vz"
 			></ngx3js-rigidbody>
-		</ngx3js-mesh>	
+		</ngx3js-mesh>
 		<ngx3js-mesh (onLoad)="setMesh($event)">
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
 			<ngx3js-mesh
@@ -87,7 +97,11 @@
 				[castShadow]="true"
 				[frustumCulled]="false"
 			>
-				<ngx3js-position [x]="softSphere.x" [y]="softSphere.y" [z]="softSphere.z"></ngx3js-position>
+				<ngx3js-position
+					[x]="softSphere.x"
+					[y]="softSphere.y"
+					[z]="softSphere.z"
+				></ngx3js-position>
 				<ngx3js-geometry
 					[type]="'SphereGeometry'"
 					[radius]="5"
@@ -118,7 +132,11 @@
 				[castShadow]="true"
 				[frustumCulled]="false"
 			>
-				<ngx3js-position [x]="softBox.x" [y]="softBox.y" [z]="softBox.z"></ngx3js-position>
+				<ngx3js-position
+					[x]="softBox.x"
+					[y]="softBox.y"
+					[z]="softBox.z"
+				></ngx3js-position>
 				<ngx3js-geometry
 					[type]="'BoxGeometry'"
 					[width]="4"
@@ -145,7 +163,7 @@
 					[stiffness]="0.9"
 					[pressure]="520"
 				></ngx3js-rigidbody>
-			</ngx3js-mesh>			
+			</ngx3js-mesh>
 			<ngx3js-mesh
 				*ngFor="let info of shapeInfos; let idx = index"
 				name="'shape_' + index"
@@ -172,8 +190,13 @@
 					[type]="'meshlambert'"
 					[color]="info.color"
 				></ngx3js-material>
-				<ngx3js-rigidbody [mass]="info.mass" [margin]="0.15" [collisions]="'0x11'" [breakable]="info.breakable"></ngx3js-rigidbody>
-			</ngx3js-mesh>					
+				<ngx3js-rigidbody
+					[mass]="info.mass"
+					[margin]="0.15"
+					[collisions]="'0x11'"
+					[breakable]="info.breakable"
+				></ngx3js-rigidbody>
+			</ngx3js-mesh>
 		</ngx3js-mesh>
 		<ngx3js-mesh name="'terrain'" [receiveShadow]="true">
 			<ngx3js-position [x]="0" [y]="-10" [z]="0"></ngx3js-position>

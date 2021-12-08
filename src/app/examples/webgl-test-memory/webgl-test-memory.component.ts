@@ -47,7 +47,7 @@ export class WebglTestMemoryComponent extends BaseComponent<{}> {
 				wireframe: true,
 			});
 			const mesh = new THREE.Mesh(geometry, material);
-			this.mesh.getObject3d().add(mesh);
+			this.mesh.getObject3d().add(mesh as any);
 			this.lastMesh = mesh;
 		}
 	}

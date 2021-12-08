@@ -5,9 +5,9 @@
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
-	[controlOptions]="{ 
-		enablePan: false, 
-		enableDamping: true, 
+	[controlOptions]="{
+		enablePan: false,
+		enableDamping: true,
 		minDistance: 5,
 		maxDistance: 20
 	}"
@@ -24,7 +24,11 @@
 	</ngx3js-camera>
 	<ngx3js-scene #scene [background]="'0x000000'">
 		<ngx3js-fog [color]="'0x000000'" [near]="15" [far]="20"></ngx3js-fog>
-		<ngx3js-light [type]="'Ambient'" [color]="'0x003973'" [intensity]="1"></ngx3js-light>
+		<ngx3js-light
+			[type]="'Ambient'"
+			[color]="'0x003973'"
+			[intensity]="1"
+		></ngx3js-light>
 		<ngx3js-light
 			[type]="'directional'"
 			[color]="'0xffffff'"
@@ -94,7 +98,13 @@
 				[font]="controls.vietnamese.font"
 				[size]="controls.size"
 				[height]="controls.height"
-				[align]="controls.align.leftRight + '/' + controls.align.topBottom+ '/' + controls.align.frontBack"
+				[align]="
+					controls.align.leftRight +
+					'/' +
+					controls.align.topBottom +
+					'/' +
+					controls.align.frontBack
+				"
 				[curveSegments]="controls.curveSegments"
 				[bevelEnabled]="controls.bevel.bevelEnabled"
 				[bevelThickness]="controls.bevel.bevelThickness"
@@ -109,7 +119,13 @@
 				[font]="controls.eastAsia.font"
 				[size]="controls.size"
 				[height]="controls.height"
-				[align]="controls.align.leftRight + '/' + controls.align.topBottom+ '/' + controls.align.frontBack"
+				[align]="
+					controls.align.leftRight +
+					'/' +
+					controls.align.topBottom +
+					'/' +
+					controls.align.frontBack
+				"
 				[curveSegments]="controls.curveSegments"
 				[bevelEnabled]="controls.bevel.bevelEnabled"
 				[bevelThickness]="controls.bevel.bevelThickness"
@@ -124,7 +140,13 @@
 				[font]="controls.english.font"
 				[size]="controls.size"
 				[height]="controls.height"
-				[align]="controls.align.leftRight + '/' + controls.align.topBottom+ '/' + controls.align.frontBack"
+				[align]="
+					controls.align.leftRight +
+					'/' +
+					controls.align.topBottom +
+					'/' +
+					controls.align.frontBack
+				"
 				[curveSegments]="controls.curveSegments"
 				[bevelEnabled]="controls.bevel.bevelEnabled"
 				[bevelThickness]="controls.bevel.bevelThickness"
@@ -169,8 +191,15 @@
 					[z]="info.z"
 				></ngx3js-position>
 			</ngx3js-mesh>
-			<ngx3js-mesh *ngFor="let info of fontTexureInfo" [geometry]="boxTextureGeometry">
-				<ngx3js-position [x]="info.x" [y]="info.y" [z]="info.z"></ngx3js-position>
+			<ngx3js-mesh
+				*ngFor="let info of fontTexureInfo"
+				[geometry]="boxTextureGeometry"
+			>
+				<ngx3js-position
+					[x]="info.x"
+					[y]="info.y"
+					[z]="info.z"
+				></ngx3js-position>
 				<ngx3js-material
 					[type]="'MeshPhongMaterial'"
 					[transparent]="true"

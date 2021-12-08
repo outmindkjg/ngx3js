@@ -64,7 +64,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 	private menuId: string = '';
 
 	changeRouter(url: string) {
-		this.menuId ='/examples/' + url.split('/')[2];
+		this.menuId = '/examples/' + url.split('/')[2];
 		if (this.menuId !== null && this.menuId !== undefined) {
 			this.checkSearchMenuSelected(this.searchMenu);
 			this.setFocus(this.menuId);
@@ -75,7 +75,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 		if (this.files === null) {
 			setTimeout(() => {
 				this.setFocus(menuId);
-			}, 500)
+			}, 500);
 		} else {
 			this.menu.closeMenu(true);
 			const links: HTMLAnchorElement[] =
@@ -97,7 +97,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 					this.menu.closeMenu(false);
 				}, 1000);
 			}
-		};
+		}
 	}
 
 	ngAfterViewInit() {}
@@ -204,18 +204,18 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 					if (child.safeId.startsWith('/examples/ngx-')) {
 						this.gitHub.nativeElement.style.pointerEvents = 'none';
 						this.gitHub.nativeElement.href =
-						'https://github.com/outmindkjg/ngx3js/tree/master/src/app' +
-						child.safeId +
-						'';
+							'https://github.com/outmindkjg/ngx3js/tree/master/src/app' +
+							child.safeId +
+							'';
 						this.gitHub.nativeElement.title =
-						'View source code for "' + child.name + '" on GitHub ngx3js';
+							'View source code for "' + child.name + '" on GitHub ngx3js';
 					} else {
 						this.gitHub.nativeElement.style.pointerEvents = 'all';
 						this.gitHub.nativeElement.href =
 							'https://github.com/mrdoob/three.js/blob/master' +
 							child.id +
 							'.html';
-							this.gitHub.nativeElement.title =
+						this.gitHub.nativeElement.title =
 							'View source code for "' + child.name + '" on GitHub';
 					}
 					this.ngxGithub.nativeElement.href =

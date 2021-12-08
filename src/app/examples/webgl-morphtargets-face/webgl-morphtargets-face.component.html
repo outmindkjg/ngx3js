@@ -1,6 +1,10 @@
 <div class="info dark">
-	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - morph targets - face<br/>
-	model by <a href="https://www.bannaflak.com/face-cap" target="_blank" rel="noopener">Face Cap</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	webgl - morph targets - face<br />
+	model by
+	<a href="https://www.bannaflak.com/face-cap" target="_blank" rel="noopener"
+		>Face Cap</a
+	>
 	todo
 </div>
 <ngx3js-renderer
@@ -20,11 +24,14 @@
 		<ngx3js-position [x]="-1.8" [y]="0.8" [z]="3"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-scene #scene [background]="'0x666666'">
-		<ngx3js-texture [image]="'test.room'" [type]="'environment'"></ngx3js-texture>
+		<ngx3js-texture
+			[image]="'test.room'"
+			[type]="'environment'"
+		></ngx3js-texture>
 		<ngx3js-mesh
 			(onLoad)="setMesh($event)"
 			[storageName]="'models/gltf/facecap.glb'"
-			[storageOption]="{ useKtx2 : true, useDraco : true}"
+			[storageOption]="{ useKtx2: true, useDraco: true }"
 		>
 			<ngx3js-mixer [action]="'smile'">
 				<ngx3js-clip [index]="0" [name]="'smile'"></ngx3js-clip>

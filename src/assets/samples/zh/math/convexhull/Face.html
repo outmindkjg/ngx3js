@@ -10,17 +10,14 @@
 		<h1>[name]</h1>
 
 		<p class="desc">
-			Represents a section bounded by a specific amount of half-edges. The current implmentation assumes that a face always consist of three edges.
+			Represents a section bounded by a specific amount of half-edges. The
+			current implmentation assumes that a face always consist of three edges.
 		</p>
-
 
 		<h2>Constructor</h2>
 
-
 		<h3>[name]()</h3>
-		<p>
-			Creates a new instance of [name].
-		</p>
+		<p>Creates a new instance of [name].</p>
 
 		<h2>Properties</h2>
 
@@ -31,18 +28,15 @@
 
 		<h3>[property:Vector3 midpoint]</h3>
 		<p>
-			The midpoint or centroid of the face. Default is a [page:Vector3] at (0, 0, 0).
+			The midpoint or centroid of the face. Default is a [page:Vector3] at (0,
+			0, 0).
 		</p>
 
 		<h3>[property:Float area]</h3>
-		<p>
-			The area of the face. Default is 0.
-		</p>
+		<p>The area of the face. Default is 0.</p>
 
 		<h3>[property:Float constant]</h3>
-		<p>
-			Signed distance from face to the origin. Default is 0.
-		</p>
+		<p>Signed distance from face to the origin. Default is 0.</p>
 
 		<h3>[property:VertexNode outside]</h3>
 		<p>
@@ -50,18 +44,20 @@
 		</p>
 
 		<h3>[property:Integer mark]</h3>
-		<p>
-			Marks if a face is visible or deleted. Default is 'Visible'.
-		</p>
+		<p>Marks if a face is visible or deleted. Default is 'Visible'.</p>
 
 		<h3>[property:HalfEdge edge]</h3>
 		<p>
-			Reference to the base edge of a face. To retrieve all edges, you can use the 'next' reference of the current edge. Default is null.
+			Reference to the base edge of a face. To retrieve all edges, you can use
+			the 'next' reference of the current edge. Default is null.
 		</p>
 
 		<h2>Methods</h2>
 
-		<h3>[method:Face create]( [param:VertexNode a], [param:VertexNode b], [param:VertexNode c] )</h3>
+		<h3>
+			[method:Face create]( [param:VertexNode a], [param:VertexNode b],
+			[param:VertexNode c] )
+		</h3>
 		<p>
 			[page:VertexNode a] - First vertex of the face.<br />
 			[page:VertexNode b] - Second vertex of the face.<br />
@@ -85,13 +81,15 @@
 		<p>
 			[page:Vector3 point] - Any point in 3D space.<br /><br />
 
-			Returns the signed distance from a given point to the plane representation of this face.
+			Returns the signed distance from a given point to the plane representation
+			of this face.
 		</p>
 
 		<h2>Source</h2>
 
 		<p>
-			[link:https://github.com/mrdoob/three.js/blob/master/examples/jsm/math/ConvexHull.js examples/jsm/math/ConvexHull.js]
+			[link:https://github.com/mrdoob/three.js/blob/master/examples/jsm/math/ConvexHull.js
+			examples/jsm/math/ConvexHull.js]
 		</p>
 	</body>
 </html>

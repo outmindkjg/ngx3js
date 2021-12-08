@@ -7,32 +7,32 @@ import { BaseComponent, RendererTimer } from 'ngx3js';
 	styleUrls: ['./ngx-position.component.scss'],
 })
 export class NgxPositionComponent extends BaseComponent<{
-	position : {
-		x : number;
-		y : number;
-		z : number;
-	}
+	position: {
+		x: number;
+		y: number;
+		z: number;
+	};
 }> {
 	constructor() {
 		super(
 			{
-				position : {
-					x  : 0,
-					y  : 0,
-					z  : 0,
+				position: {
+					x: 0,
+					y: 0,
+					z: 0,
 				},
-		},
+			},
 			[
 				{
 					name: 'position',
 					type: 'folder',
 					control: 'position',
 					children: [
-						{ name: 'x', type: 'number', min : -2, max : 2, step : 0.1 },
-						{ name: 'y', type: 'number', min : -2, max : 2, step : 0.1 },
-						{ name: 'z', type: 'number', min : -2, max : 2, step : 0.1 },
+						{ name: 'x', type: 'number', min: -2, max: 2, step: 0.1 },
+						{ name: 'y', type: 'number', min: -2, max: 2, step: 0.1 },
+						{ name: 'z', type: 'number', min: -2, max: 2, step: 0.1 },
 					],
-				}			
+				},
 			],
 			true,
 			false

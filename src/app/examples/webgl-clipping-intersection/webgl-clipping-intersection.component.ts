@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-import {
-	BaseComponent,
-	MaterialComponent,
-	PlaneComponent,
-} from 'ngx3js';
+import { BaseComponent, MaterialComponent, PlaneComponent } from 'ngx3js';
 import * as THREE from 'three';
 
 @Component({

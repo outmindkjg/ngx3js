@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-	BaseComponent,
-	MeshComponent,
-	RendererEvent,
-	ThreeUtil,
-} from 'ngx3js';
+import { BaseComponent, MeshComponent, RendererEvent, ThreeUtil } from 'ngx3js';
 import * as THREE from 'three';
 
 @Component({

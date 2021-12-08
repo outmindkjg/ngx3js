@@ -13,7 +13,7 @@ export class WebxrVrSandboxComponent extends BaseComponent<{
 	radialSegments: number;
 	p: number;
 	q: number;
-	thickness : number;
+	thickness: number;
 }> {
 	constructor() {
 		super(
@@ -24,7 +24,7 @@ export class WebxrVrSandboxComponent extends BaseComponent<{
 				tubularSegments: 20,
 				p: 2,
 				q: 3,
-				thickness : 0.5
+				thickness: 0.5,
 			},
 			[
 				{ name: 'radius', type: 'number', min: 0.0, max: 1.0 },
@@ -38,11 +38,11 @@ export class WebxrVrSandboxComponent extends BaseComponent<{
 		);
 	}
 
-	onRender(timer : RendererTimer) {
+	onRender(timer: RendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			const time = timer.elapsedTime * 0.2;
-			const torus	= this.meshObject3d.getObjectByName('torus');
+			const torus = this.meshObject3d.getObjectByName('torus');
 			torus.rotation.x = time * 2;
 			torus.rotation.y = time * 5;
 		}

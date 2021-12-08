@@ -44,17 +44,24 @@
 			(onLoad)="setBloomPass($event)"
 		></ngx3js-pass>
 	</ngx3js-effect>
-	<ngx3js-effect #finalEffect [scene]="scene" [camera]="camera" (onLoad)="setFinalEffect($event)">
+	<ngx3js-effect
+		#finalEffect
+		[scene]="scene"
+		[camera]="camera"
+		(onLoad)="setFinalEffect($event)"
+	>
 		<ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
 		<ngx3js-pass
 			[type]="'ShaderPass'"
 			[shader]="'ShaderMaterial'"
 			[textureId]="'baseTexture'"
-			[uniforms]="{ baseTexture: { value : null }, bloomTexture:  { value : null } }"
+			[uniforms]="{
+				baseTexture: { value: null },
+				bloomTexture: { value: null }
+			}"
 			[materialShader]="'UnrealBloomSelective'"
 			[bloomTexture]="bloomEffect"
 			[needsSwap]="true"
-
 		></ngx3js-pass>
 	</ngx3js-effect>
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>

@@ -32,7 +32,8 @@
 	<br />
 	<div class="angle-info">
 		ngx3jsAngle :
-		{{ orgAngle | number: '1.2-2' }} <span class="unit">{{controls.anglePipes.type}}</span> &thickapprox;
+		{{ orgAngle | number: '1.2-2' }}
+		<span class="unit">{{ controls.anglePipes.type }}</span> &thickapprox;
 		{{
 			orgAngle
 				| ngx3jsAngle: controls.anglePipes.returnType:controls.anglePipes.type
@@ -42,7 +43,7 @@
 	</div>
 	<br />
 	<div class="asset-info">
-		ngx3jsAsset : 
+		ngx3jsAsset :
 		{{ controls.asstesPipes.image }}
 		=
 		{{ controls.asstesPipes.image | ngx3jsAsset }}
@@ -156,7 +157,11 @@
 		</ngx3js-helper>
 		<ngx3js-mesh [receiveShadow]="true">
 			<ngx3js-position [x]="0" [y]="-2.5" [z]="0"></ngx3js-position>
-			<ngx3js-rotation [x]="-90" [y]="0" [z]="orgAngle | ngx3jsAngle: 'degree':controls.anglePipes.type"></ngx3js-rotation>
+			<ngx3js-rotation
+				[x]="-90"
+				[y]="0"
+				[z]="orgAngle | ngx3jsAngle: 'degree':controls.anglePipes.type"
+			></ngx3js-rotation>
 			<ngx3js-geometry
 				[type]="'plane'"
 				[width]="10"

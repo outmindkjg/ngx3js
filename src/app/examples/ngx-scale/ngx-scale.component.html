@@ -1,8 +1,15 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
 	ngx scale
-	<strong class="shadow">{{ 'x : ' + controls.scale.x + ' , y : ' + controls.scale.y + ' , z : ' + controls.scale.z + '}' }}</strong>
-
+	<strong class="shadow">{{
+		'x : ' +
+			controls.scale.x +
+			' , y : ' +
+			controls.scale.y +
+			' , z : ' +
+			controls.scale.z +
+			'}'
+	}}</strong>
 </div>
 <ngx3js-renderer
 	[statsMode]="0"
@@ -19,10 +26,16 @@
 	[guiParams]="controlsParams"
 	(onRender)="onRender($event)"
 >
-	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000" (onLoad)="setCamera($event)">
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="45"
+		[near]="1"
+		[far]="1000"
+		(onLoad)="setCamera($event)"
+	>
 		<ngx3js-position [x]="0" [y]="0" [z]="10"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-scene #scene >
+	<ngx3js-scene #scene>
 		<ngx3js-light
 			[type]="'directional'"
 			[color]="'0xffffff'"
@@ -41,18 +54,24 @@
 				[radiusSegments]="100"
 				[tubularSegments]="64"
 			></ngx3js-geometry>
-			<ngx3js-material
-				#material
-				[type]="'MeshStandardMaterial'"
-			>
+			<ngx3js-material #material [type]="'MeshStandardMaterial'">
 				<ngx3js-texture
 					[type]="'map'"
 					[image]="'textures/crate.gif'"
 				></ngx3js-texture>
 			</ngx3js-material>
 		</ngx3js-shared>
-		<ngx3js-mesh (onLoad)="setMesh($event)" [geometry]="geometry" [material]="material" [castShadow]="true">
-			<ngx3js-scale [x]="controls.scale.x" [y]="controls.scale.y" [z]="controls.scale.z"></ngx3js-scale>
+		<ngx3js-mesh
+			(onLoad)="setMesh($event)"
+			[geometry]="geometry"
+			[material]="material"
+			[castShadow]="true"
+		>
+			<ngx3js-scale
+				[x]="controls.scale.x"
+				[y]="controls.scale.y"
+				[z]="controls.scale.z"
+			></ngx3js-scale>
 		</ngx3js-mesh>
 		<ngx3js-helper
 			[name]="'gridHelper'"
@@ -67,8 +86,15 @@
 		<ngx3js-mesh [receiveShadow]="true">
 			<ngx3js-position [x]="0" [y]="-2.5" [z]="0"></ngx3js-position>
 			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-			<ngx3js-geometry [type]="'plane'" [width]="10" [height]="10"></ngx3js-geometry>
-			<ngx3js-material [type]="'MeshPhongMaterial'" [color]="'0xffffff'"></ngx3js-material>
+			<ngx3js-geometry
+				[type]="'plane'"
+				[width]="10"
+				[height]="10"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhongMaterial'"
+				[color]="'0xffffff'"
+			></ngx3js-material>
 		</ngx3js-mesh>
 	</ngx3js-scene>
 </ngx3js-renderer>

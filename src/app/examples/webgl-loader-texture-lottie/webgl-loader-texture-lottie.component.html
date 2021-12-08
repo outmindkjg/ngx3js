@@ -16,7 +16,11 @@
 	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="10">
 		<ngx3js-position [x]="0" [y]="0" [z]="2.5"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-scene #scene [background]="'0x111111'" [environment]="{ value: 'sceen.room' }">
+	<ngx3js-scene
+		#scene
+		[background]="'0x111111'"
+		[environment]="{ value: 'sceen.room' }"
+	>
 		<ngx3js-mesh (onLoad)="setMesh($event)">
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
 			<ngx3js-geometry

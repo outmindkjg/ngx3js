@@ -24,20 +24,20 @@ const routes: Routes = [
 		path: 'home',
 		component: HomeComponent,
 	},
-	
+
 	{
 		path: 'examples',
 		component: ExamplesComponent,
-		loadChildren: () => import('./examples/examples.module').then((m) => m.ExamplesModule ),
+		loadChildren: () =>
+			import('./examples/examples.module').then((m) => m.ExamplesModule),
 	},
 	{
 		path: 'viewer',
 		component: ExampleViewerComponent,
-		loadChildren: () => import('./examples/examples.module').then((m) => m.ExamplesModule ),
+		loadChildren: () =>
+			import('./examples/examples.module').then((m) => m.ExamplesModule),
 	},
 ];
-
-
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],

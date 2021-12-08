@@ -63,7 +63,7 @@ export class MenuComponent implements OnInit, OnDestroy {
 	/**
 	 * Closes menu
 	 */
-	closeMenu(isOpen : boolean) {
+	closeMenu(isOpen: boolean) {
 		const ele =
 			this.expandButton.nativeElement.parentNode.parentNode.parentNode;
 		if (isOpen) {
@@ -72,5 +72,4 @@ export class MenuComponent implements OnInit, OnDestroy {
 			ele.classList.remove('open');
 		}
 	}
-
 }

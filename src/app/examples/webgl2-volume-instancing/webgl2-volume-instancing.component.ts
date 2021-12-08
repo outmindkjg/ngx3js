@@ -11,6 +11,5 @@ export class Webgl2VolumeInstancingComponent extends BaseComponent<{}> {
 		super({}, []);
 	}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 }

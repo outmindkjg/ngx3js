@@ -7,7 +7,8 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent] &rarr; [page:AbstractObject3dComponent] &rarr;
+		[page:AbstractSubscribeComponent] &rarr; [page:AbstractTweenComponent]
+		&rarr; [page:AbstractObject3dComponent] &rarr;
 
 		<h1>MeshComponent</h1>
 
@@ -15,492 +16,632 @@
 			The Mesh component.<br />
 			See the [page:MeshComponent ngx3js docs] page for details.<br />
 			<br />
-			<code data-type="html"><br />
-			&lt;ngx3js-mesh [type]="'skybox'" [skyboxType]="'sun'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'HTMLMesh'" [domElement]="domElement"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'SVGObject'" [cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'CSS2DObject'" [cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'CSS3DSprite'" [cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Reflector'" <br />
+			<code data-type="html"
+				><br />
+				&lt;ngx3js-mesh [type]="'skybox'"
+				[skyboxType]="'sun'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'HTMLMesh'"
+				[domElement]="domElement"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'SVGObject'"
+				[cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'CSS2DObject'"
+				[cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'CSS3DSprite'"
+				[cssTag]="'div'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'Reflector'" <br />
 				[color]="'0x889999'" [clipBias]="0.003" <br />
 				[textureWidth]="1024" [textureWidth]="1024"<br />
-			&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'ReflectorRTT'" <br />
+				&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'ReflectorRTT'" <br />
 				[color]="'0x889999'" [clipBias]="0.003" <br />
 				[textureWidth]="1024" [textureWidth]="1024"<br />
-			&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Refractor'" <br />
+				&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'Refractor'" <br />
 				[color]="'0x999999'" <br />
-				[textureWidth]="1024" [textureHeight]="1024" [shader]="'WaterRefraction'"<br />
-			&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'ReflectorRTT'" <br />
+				[textureWidth]="1024" [textureHeight]="1024"
+				[shader]="'WaterRefraction'"<br />
+				&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'ReflectorRTT'" <br />
 				[color]="'0x889999'" [clipBias]="0.003" <br />
 				[textureWidth]="1024" [textureWidth]="1024"<br />
-			&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'ReflectorForSSRPass'" <br />
+				&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'ReflectorForSSRPass'" <br />
 				[color]="'0x889999'" [clipBias]="0.003" <br />
 				[textureWidth]="1024" [textureWidth]="1024"<br />
-			&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Water'" <br />
+				&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'Water'" <br />
 				[sunColor]="'0xffffff'" [waterColor]="'0x001e0f'" <br />
 				[sunDirection]="sunDirection" <br />
 				[textureWidth]="512" [textureHeight]="512" <br />
 				[alpha]="alpha" [distortionScale]="distortionScale" <br />
 				[uniforms]="uniforms"<br />
-			&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Water2'" <br />
+				&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'Water2'" <br />
 				[color]="'#ffffff'" [waterScale]="4" [reflectivity]="0.02" <br />
 				[flowDirectionX]="1" [flowDirectionY]="1" [textureWidth]="1024" <br />
 				[textureHeight]="1024"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Sky'" [uniforms]="{<br />
-					sunPosition: { type: 'v3', value: sunDirection },<br />
-					turbidity: { type: 'number', value: 10 },<br />
-					rayleigh: { type: 'number', value: 2 },<br />
-					mieCoefficient: { type: 'number', value: 0.005 },<br />
-					mieDirectionalG: { type: 'number', value: 0.8 }}"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Flow'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'InstancedFlow'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'LineLoop'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Light'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Lensflare'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'InstancedMesh'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'merged'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'naive'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'multimaterial'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Sprite'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Wireframe'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'LOD'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'MarchingCubes'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Points'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Line'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'TubePainter'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Text'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Line2'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'LineSegments'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'MD2CharacterComplex'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'InteractiveGroup'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Group'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			&lt;ngx3js-mesh [type]="'Mesh'"&gt;&lt;/ngx3js-mesh&gt;<br />
-			</code><br />
+				&lt;ngx3js-mesh [type]="'Sky'" [uniforms]="{<br />
+				sunPosition: { type: 'v3', value: sunDirection },<br />
+				turbidity: { type: 'number', value: 10 },<br />
+				rayleigh: { type: 'number', value: 2 },<br />
+				mieCoefficient: { type: 'number', value: 0.005 },<br />
+				mieDirectionalG: { type: 'number', value: 0.8
+				}}"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'Flow'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'InstancedFlow'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'LineLoop'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'Light'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'Lensflare'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'InstancedMesh'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'merged'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'naive'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'multimaterial'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'Sprite'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'Wireframe'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'LOD'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'MarchingCubes'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'Points'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'Line'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'TubePainter'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'Text'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'Line2'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'LineSegments'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh
+				[type]="'MD2CharacterComplex'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'InteractiveGroup'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'Group'"&gt;&lt;/ngx3js-mesh&gt;<br />
+				&lt;ngx3js-mesh [type]="'Mesh'"&gt;&lt;/ngx3js-mesh&gt;<br /> </code
+			><br />
 			<br />
 			[page:Mesh Mesh] - THREE.Mesh<br />
 			[page:Group Group] - THREE.Group
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:MeshComponent MeshComponent](  [param:LocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[constructor:MeshComponent MeshComponent]( [param:LocalStorageService
+			localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:LocalStorageService localStorageService] - The local storage service.
+			[parameter:LocalStorageService localStorageService] - The local storage
+			service.
 		</p>
-		<p>
-			Creates an instance of mesh component.
-		</p>
+		<p>Creates an instance of mesh component.</p>
 
 		<h3>Angular Html Template [ Input ] ( Output )</h3>
-		<code data-type="html">&lt;ngx3js-mesh
-			[ alpha ]="... number -- The alpha of water "
-			[ axis ]="... string -- The axis of mesh component "
-			[ blobInfos ]="... any -- The blobInfos of mesh componen... "
-			[ castShadow ]="... boolean -- Whether the object gets render... "
-			[ centerX ]="... number -- The centerX of mesh component "
-			[ centerY ]="... number -- The centerY of mesh component "
-			[ clipBias ]="... number -- The clip bias of Reflector "
-			[ color ]="... ThreeColor -- The color of sun etc "
-			[ colors ]="... string|number[] -- The colors of mesh component "
-			[ count ]="... number -- The count of mesh component "
-			[ cssStyle ]="... string|CssStyle -- The css style of CSS2DObject, ... "
-			[ cssTag ]="... any -- The css tag of CSS2DObject, CS... "
-			[ curve ]="... Curve|CurveComponent -- The curve "
-			[ debug ]="... boolean -- Debug this Object "
-			[ distance ]="... number -- The distance of sun "
-			[ distortionScale ]="... number -- The distortion scale of Water "
-			[ divisions ]="... number -- The divisions of mesh componen... "
-			[ domElement ]="... HTMLElement -- The domElement of CSS2DObject,... "
-			[ enableColors ]="... boolean -- The enableColors of mesh compo... "
-			[ enableUvs ]="... boolean -- The enableUvs of mesh componen... "
-			[ enabled ]="... boolean -- Enabled or Not "
-			[ encoding ]="... string -- [THREE.LinearEncoding](https:/... "
-			[ flowDirectionX ]="... number -- The flowDirectionX of mesh com... "
-			[ flowDirectionY ]="... number -- The flowDirectionY of mesh com... "
-			[ flowMap ]="... string|Texture|AbstractTextureComponent -- The flowMap of mesh component "
-			[ flowSpeed ]="... number -- The flowSpeed of mesh componen... "
-			[ frustumCulled ]="... boolean -- When this is set, it checks ev... "
-			[ geometry ]="... any -- The geometry of mesh "
-			[ helperOptions ]="... HelperOptions -- The options of helper "
-			[ helperType ]="... string -- The type of helper "
-			[ index ]="... number -- The index of mesh component "
-			[ isolation ]="... number -- The isolation of mesh componen... "
-			[ lightOptions ]="... LightOptions -- The options of light "
-			[ makeColor ]="... any"
-			[ makeMatrix ]="... any"
-			[ material ]="... AbstractMaterialComponent|Material -- The material of mesh "
-			[ materialIsArray ]="... boolean -- The material of mesh is array "
-			[ matrixAutoUpdate ]="... boolean -- When this is set, it calculate... "
-			[ metalness ]="... number -- How much the material is like ... "
-			[ morphTargets ]="... boolean -- Define whether the material us... "
-			[ moveAlongCurve ]="... number -- The moveAlongCurve of mesh com... "
-			[ moveIndividualAlongCurve ]="... string|number[] -- The moveIndividualAlongCurve o... "
-			[ name ]="... string -- The name of the object (doesn'... "
-			[ normalMap0 ]="... string|Texture|AbstractTextureComponent -- The normalMap0 of mesh compone... "
-			[ normalMap1 ]="... string|Texture|AbstractTextureComponent -- The normalMap1 of mesh compone... "
-			( onDestory )="...($event : MeshComponent -- Will be called when before des... )"
-			( onLoad )="...($event : MeshComponent -- Will be called when load compl... )"
-			[ overrideParams ]="... any -- The override params "
-			[ planeInfos ]="... any -- The planeInfos of mesh compone... "
-			[ rayParams ]="... RayParameters -- The rayParams of geometry comp... "
-			[ receiveShadow ]="... boolean -- Whether the material receives ... "
-			[ reflectivity ]="... number -- The reflectivity of mesh compo... "
-			[ resolution ]="... number -- The resolution of mesh compone... "
-			[ roughness ]="... number -- How rough the material appears... "
-			[ scaleStep ]="... number -- The scale step of MultiMateria... "
-			[ shader ]="... string -- The shader of mesh component "
-			[ shareParts ]="... MeshComponent -- The shareParts of mesh compone... "
-			[ sharedCamera ]="... any -- The sharedCamera of mesh compo... "
-			[ sharedMesh ]="... MeshComponent -- The sharedMesh of mesh compone... "
-			[ size ]="... number -- The size of mesh component "
-			[ skyColor ]="... string|number -- The color of sky "
-			[ skyboxCubeImage ]="... string[] -- The cube image of skybox "
-			[ skyboxImage ]="... any -- The image of skybox "
-			[ skyboxRate ]="... number -- The rate of Skybox from distan... "
-			[ skyboxSunImage ]="... string -- The sun image of skybox "
-			[ skyboxSunX ]="... number -- The sun X direction in degree. "
-			[ skyboxSunY ]="... number -- The sun Y direction in degree. "
-			[ skyboxSunZ ]="... number -- The sun Z direction in degree. "
-			[ skyboxType ]="... string -- The type of skybox "
-			[ storageName ]="... string -- The storage Name "
-			[ storageOption ]="... any -- The storage Option "
-			[ stormParams ]="... StormParams -- The stormParams of mesh compon... "
-			[ sunColor ]="... ThreeColor -- The color of sun "
-			[ sunDirection ]="... Vector3|number[] -- The direction of sun "
-			[ sunPosition ]="... Vector3|number[] -- The position of sun "
-			[ text ]="... string -- The text of mesh component "
-			[ texture ]="... Texture|AbstractTextureComponent -- The refer texture "
-			[ textureHeight ]="... number -- The texture Height "
-			[ textureSize ]="... Vector2|SizeComponent -- The texture size "
-			[ textureWidth ]="... number -- The texture Width "
-			[ tween ]="... any -- Tween animation params "
-			[ tweenStart ]="... boolean -- Start tween "
-			[ type ]="... string -- The type of mesh "
-			[ uniforms ]="... any -- The uniform of sun, sky water ... "
-			[ usage ]="... string -- The usage of InstancedMesh "
-			[ useDepthTexture ]="... boolean -- The clip bias of Reflector "
-			[ usePlaneStencil ]="... boolean -- use Plane Stencil "
-			[ userData ]="... any -- An object that can be used to ... "
-			[ visible ]="... boolean -- Object gets rendered if *true*... "
-			[ volumeOption ]="... VolumeOptions -- The volume Option "
-			[ waterColor ]="... string|number -- The color water "
-			[ waterScale ]="... number -- The waterScale of mesh compone... "
-			[ windowExport ]="... string -- Export this Object to window g... "
-		&gt;&lt;/ngx3js-mesh&gt;
+		<code data-type="html"
+			>&lt;ngx3js-mesh [ alpha ]="... number -- The alpha of water " [ axis
+			]="... string -- The axis of mesh component " [ blobInfos ]="... any --
+			The blobInfos of mesh componen... " [ castShadow ]="... boolean -- Whether
+			the object gets render... " [ centerX ]="... number -- The centerX of mesh
+			component " [ centerY ]="... number -- The centerY of mesh component " [
+			clipBias ]="... number -- The clip bias of Reflector " [ color ]="...
+			ThreeColor -- The color of sun etc " [ colors ]="... string|number[] --
+			The colors of mesh component " [ count ]="... number -- The count of mesh
+			component " [ cssStyle ]="... string|CssStyle -- The css style of
+			CSS2DObject, ... " [ cssTag ]="... any -- The css tag of CSS2DObject,
+			CS... " [ curve ]="... Curve|CurveComponent -- The curve " [ debug ]="...
+			boolean -- Debug this Object " [ distance ]="... number -- The distance of
+			sun " [ distortionScale ]="... number -- The distortion scale of Water " [
+			divisions ]="... number -- The divisions of mesh componen... " [
+			domElement ]="... HTMLElement -- The domElement of CSS2DObject,... " [
+			enableColors ]="... boolean -- The enableColors of mesh compo... " [
+			enableUvs ]="... boolean -- The enableUvs of mesh componen... " [ enabled
+			]="... boolean -- Enabled or Not " [ encoding ]="... string --
+			[THREE.LinearEncoding](https:/... " [ flowDirectionX ]="... number -- The
+			flowDirectionX of mesh com... " [ flowDirectionY ]="... number -- The
+			flowDirectionY of mesh com... " [ flowMap ]="...
+			string|Texture|AbstractTextureComponent -- The flowMap of mesh component "
+			[ flowSpeed ]="... number -- The flowSpeed of mesh componen... " [
+			frustumCulled ]="... boolean -- When this is set, it checks ev... " [
+			geometry ]="... any -- The geometry of mesh " [ helperOptions ]="...
+			HelperOptions -- The options of helper " [ helperType ]="... string -- The
+			type of helper " [ index ]="... number -- The index of mesh component " [
+			isolation ]="... number -- The isolation of mesh componen... " [
+			lightOptions ]="... LightOptions -- The options of light " [ makeColor
+			]="... any" [ makeMatrix ]="... any" [ material ]="...
+			AbstractMaterialComponent|Material -- The material of mesh " [
+			materialIsArray ]="... boolean -- The material of mesh is array " [
+			matrixAutoUpdate ]="... boolean -- When this is set, it calculate... " [
+			metalness ]="... number -- How much the material is like ... " [
+			morphTargets ]="... boolean -- Define whether the material us... " [
+			moveAlongCurve ]="... number -- The moveAlongCurve of mesh com... " [
+			moveIndividualAlongCurve ]="... string|number[] -- The
+			moveIndividualAlongCurve o... " [ name ]="... string -- The name of the
+			object (doesn'... " [ normalMap0 ]="...
+			string|Texture|AbstractTextureComponent -- The normalMap0 of mesh
+			compone... " [ normalMap1 ]="... string|Texture|AbstractTextureComponent
+			-- The normalMap1 of mesh compone... " ( onDestory )="...($event :
+			MeshComponent -- Will be called when before des... )" ( onLoad
+			)="...($event : MeshComponent -- Will be called when load compl... )" [
+			overrideParams ]="... any -- The override params " [ planeInfos ]="... any
+			-- The planeInfos of mesh compone... " [ rayParams ]="... RayParameters --
+			The rayParams of geometry comp... " [ receiveShadow ]="... boolean --
+			Whether the material receives ... " [ reflectivity ]="... number -- The
+			reflectivity of mesh compo... " [ resolution ]="... number -- The
+			resolution of mesh compone... " [ roughness ]="... number -- How rough the
+			material appears... " [ scaleStep ]="... number -- The scale step of
+			MultiMateria... " [ shader ]="... string -- The shader of mesh component "
+			[ shareParts ]="... MeshComponent -- The shareParts of mesh compone... " [
+			sharedCamera ]="... any -- The sharedCamera of mesh compo... " [
+			sharedMesh ]="... MeshComponent -- The sharedMesh of mesh compone... " [
+			size ]="... number -- The size of mesh component " [ skyColor ]="...
+			string|number -- The color of sky " [ skyboxCubeImage ]="... string[] --
+			The cube image of skybox " [ skyboxImage ]="... any -- The image of skybox
+			" [ skyboxRate ]="... number -- The rate of Skybox from distan... " [
+			skyboxSunImage ]="... string -- The sun image of skybox " [ skyboxSunX
+			]="... number -- The sun X direction in degree. " [ skyboxSunY ]="...
+			number -- The sun Y direction in degree. " [ skyboxSunZ ]="... number --
+			The sun Z direction in degree. " [ skyboxType ]="... string -- The type of
+			skybox " [ storageName ]="... string -- The storage Name " [ storageOption
+			]="... any -- The storage Option " [ stormParams ]="... StormParams -- The
+			stormParams of mesh compon... " [ sunColor ]="... ThreeColor -- The color
+			of sun " [ sunDirection ]="... Vector3|number[] -- The direction of sun "
+			[ sunPosition ]="... Vector3|number[] -- The position of sun " [ text
+			]="... string -- The text of mesh component " [ texture ]="...
+			Texture|AbstractTextureComponent -- The refer texture " [ textureHeight
+			]="... number -- The texture Height " [ textureSize ]="...
+			Vector2|SizeComponent -- The texture size " [ textureWidth ]="... number
+			-- The texture Width " [ tween ]="... any -- Tween animation params " [
+			tweenStart ]="... boolean -- Start tween " [ type ]="... string -- The
+			type of mesh " [ uniforms ]="... any -- The uniform of sun, sky water ...
+			" [ usage ]="... string -- The usage of InstancedMesh " [ useDepthTexture
+			]="... boolean -- The clip bias of Reflector " [ usePlaneStencil ]="...
+			boolean -- use Plane Stencil " [ userData ]="... any -- An object that can
+			be used to ... " [ visible ]="... boolean -- Object gets rendered if
+			*true*... " [ volumeOption ]="... VolumeOptions -- The volume Option " [
+			waterColor ]="... string|number -- The color water " [ waterScale ]="...
+			number -- The waterScale of mesh compone... " [ windowExport ]="... string
+			-- Export this Object to window g... " &gt;&lt;/ngx3js-mesh&gt;
 		</code>
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common properties.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class
+			for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common properties.
-		</p>
-
-		<h3>[property:number alpha]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The alpha of water
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent]
+			class for common properties.
 		</p>
 
-		<h3>[property:string axis]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The axis of mesh component
-		</p>
+		<h3>
+			[property:number alpha]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The alpha of water</p>
 
-		<h3>[property:any blobInfos]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The blobInfos of mesh component
-		</p>
+		<h3>
+			[property:string axis]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The axis of mesh component</p>
 
-		<h3>[property:number centerX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The centerX of mesh component
-		</p>
+		<h3>
+			[property:any blobInfos]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The blobInfos of mesh component</p>
 
-		<h3>[property:number centerY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The centerY of mesh component
-		</p>
+		<h3>
+			[property:number centerX]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The centerX of mesh component</p>
 
-		<h3>[property:number clipBias]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The clip bias of Reflector
-		</p>
+		<h3>
+			[property:number centerY]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The centerY of mesh component</p>
 
-		<h3>[property:ThreeColor color]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The color of sun etc
-		</p>
+		<h3>
+			[property:number clipBias]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The clip bias of Reflector</p>
 
-		<h3>[property:string|number[] colors]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The colors of mesh component
-		</p>
+		<h3>
+			[property:ThreeColor color]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The color of sun etc</p>
 
-		<h3>[property:number count]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The count of mesh component
-		</p>
+		<h3>
+			[property:string|number[] colors]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The colors of mesh component</p>
 
-		<h3>[property:string|CssStyle cssStyle]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The css style of CSS2DObject, CSS3DObject
-		</p>
+		<h3>
+			[property:number count]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The count of mesh component</p>
 
-		<h3>[property:any cssTag]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The css tag of CSS2DObject, CSS3DObject
-		</p>
+		<h3>
+			[property:string|CssStyle cssStyle]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The css style of CSS2DObject, CSS3DObject</p>
 
-		<h3>[property:Curve|CurveComponent curve]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The curve
-		</p>
+		<h3>
+			[property:any cssTag]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The css tag of CSS2DObject, CSS3DObject</p>
 
-		<h3>[property:number distance]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The distance of sun
-		</p>
+		<h3>
+			[property:Curve|CurveComponent curve]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The curve</p>
 
-		<h3>[property:number distortionScale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The distortion scale of Water
-		</p>
+		<h3>
+			[property:number distance]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The distance of sun</p>
 
-		<h3>[property:number divisions]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The divisions of mesh component
-		</p>
+		<h3>
+			[property:number distortionScale]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The distortion scale of Water</p>
 
-		<h3>[property:HTMLElement domElement]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The domElement of CSS2DObject, CSS3DObject, HtmlMesh
-		</p>
+		<h3>
+			[property:number divisions]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The divisions of mesh component</p>
 
-		<h3>[property:boolean enableColors]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The enableColors of mesh component
-		</p>
+		<h3>
+			[property:HTMLElement domElement]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The domElement of CSS2DObject, CSS3DObject, HtmlMesh</p>
 
-		<h3>[property:boolean enableUvs]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The enableUvs of mesh component
-		</p>
+		<h3>
+			[property:boolean enableColors]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The enableColors of mesh component</p>
 
-		<h3>[property:string encoding]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:boolean enableUvs]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The enableUvs of mesh component</p>
+
+		<h3>
+			[property:string encoding]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			[THREE.LinearEncoding](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) is the default.<br />
-			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details of other formats.<br />
-			Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br />
+			[THREE.LinearEncoding](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures)
+			is the default.<br />
+			See the [texture
+			constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures)
+			page for details of other formats.<br />
+			Note that if this value is changed on a texture after the material has
+			been used, it is necessary to trigger a Material.needsUpdate for this
+			value to be realized in the shader.<br />
 			Notice - case insensitive.<br />
 			<br />
 			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br />
-			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br />
-			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br />
-			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br />
-			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br />
-			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br />
-			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br />
-			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br />
+			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding -
+			LinearEncoding <br />
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding
+			<br />
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding
+			<br />
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding
+			<br />
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding -
+			LogLuvEncoding <br />
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding
+			<br />
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding -
+			RGBM16Encoding <br />
 			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
 		</p>
 
-		<h3>[property:number flowDirectionX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:number flowDirectionX]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The flowDirectionX of mesh component</p>
+
+		<h3>
+			[property:number flowDirectionY]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The flowDirectionY of mesh component</p>
+
+		<h3>
+			[property:string|Texture|AbstractTextureComponent flowMap]<i
+				class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The flowMap of mesh component</p>
+
+		<h3>
+			[property:number flowSpeed]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The flowSpeed of mesh component</p>
+
+		<h3>
+			[property:HelperComponent helperComponent]<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
+		<p>Helper component of mesh component</p>
+
+		<h3>
+			[property:HelperOptions helperOptions]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The options of helper</p>
+
+		<h3>
+			[property:string helperType]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The type of helper</p>
+
+		<h3>
+			[property:number index]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The index of mesh component</p>
+
+		<h3>
+			[property:number isolation]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The isolation of mesh component</p>
+
+		<h3>
+			[property:LightOptions lightOptions]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The options of light</p>
+
+		<h3>
+			[property:any makeColor]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p></p>
+
+		<h3>
+			[property:any makeMatrix]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p></p>
+
+		<h3>
+			[property:number metalness]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			The flowDirectionX of mesh component
+			How much the material is like a metal. Non-metallic materials such as wood
+			or stone use 0.0, metallic use 1.0, with nothing (usually) in between.
+			Default is 0.0. A value between 0.0 and 1.0 could be used for a rusty
+			metal look. If metalnessMap is also provided, both values are multiplied.
 		</p>
 
-		<h3>[property:number flowDirectionY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The flowDirectionY of mesh component
-		</p>
+		<h3>
+			[property:boolean morphTargets]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>Define whether the material uses morphTargets. Default is false.</p>
 
-		<h3>[property:string|Texture|AbstractTextureComponent flowMap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The flowMap of mesh component
-		</p>
+		<h3>
+			[property:number moveAlongCurve]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The moveAlongCurve of mesh component</p>
 
-		<h3>[property:number flowSpeed]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The flowSpeed of mesh component
-		</p>
+		<h3>
+			[property:string|number[] moveIndividualAlongCurve]<i
+				class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The moveIndividualAlongCurve of mesh component</p>
 
-		<h3>[property:HelperComponent helperComponent]<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Helper component of mesh component
-		</p>
+		<h3>
+			[property:string|Texture|AbstractTextureComponent normalMap0]<i
+				class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The normalMap0 of mesh component</p>
 
-		<h3>[property:HelperOptions helperOptions]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The options of helper
-		</p>
+		<h3>
+			[property:string|Texture|AbstractTextureComponent normalMap1]<i
+				class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The normalMap1 of mesh component</p>
 
-		<h3>[property:string helperType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The type of helper
-		</p>
+		<h3>
+			[property:any planeInfos]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The planeInfos of mesh component</p>
 
-		<h3>[property:number index]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The index of mesh component
-		</p>
+		<h3>
+			[property:RayParameters rayParams]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The rayParams of geometry component</p>
 
-		<h3>[property:number isolation]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The isolation of mesh component
-		</p>
+		<h3>
+			[property:number reflectivity]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The reflectivity of mesh component</p>
 
-		<h3>[property:LightOptions lightOptions]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The options of light
-		</p>
+		<h3>
+			[property:number resolution]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The resolution of mesh component</p>
 
-		<h3>[property:any makeColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:number roughness]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			
-		</p>
-
-		<h3>[property:any makeMatrix]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			
-		</p>
-
-		<h3>[property:number metalness]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			How much the material is like a metal. Non-metallic materials such as wood or stone use 0.0, metallic use 1.0, with nothing (usually) in between. Default is 0.0. A value between 0.0 and 1.0 could be used for a rusty metal look. If metalnessMap is also provided, both values are multiplied.
-		</p>
-
-		<h3>[property:boolean morphTargets]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Define whether the material uses morphTargets. Default is false.
-		</p>
-
-		<h3>[property:number moveAlongCurve]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The moveAlongCurve of mesh component
-		</p>
-
-		<h3>[property:string|number[] moveIndividualAlongCurve]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The moveIndividualAlongCurve of mesh component
-		</p>
-
-		<h3>[property:string|Texture|AbstractTextureComponent normalMap0]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The normalMap0 of mesh component
-		</p>
-
-		<h3>[property:string|Texture|AbstractTextureComponent normalMap1]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The normalMap1 of mesh component
-		</p>
-
-		<h3>[property:any planeInfos]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The planeInfos of mesh component
-		</p>
-
-		<h3>[property:RayParameters rayParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The rayParams of geometry component
-		</p>
-
-		<h3>[property:number reflectivity]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The reflectivity of mesh component
-		</p>
-
-		<h3>[property:number resolution]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The resolution of mesh component
-		</p>
-
-		<h3>[property:number roughness]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			How rough the material appears. 0.0 means a smooth mirror reflection, 1.0 means fully diffuse. Default is 1.0.<br />
+			How rough the material appears. 0.0 means a smooth mirror reflection, 1.0
+			means fully diffuse. Default is 1.0.<br />
 			If roughnessMap is also provided, both values are multiplied.
 		</p>
 
-		<h3>[property:number scaleStep] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The scale step of MultiMaterialObject
-		</p>
+		<h3>
+			[property:number scaleStep] &nbsp; = 1
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The scale step of MultiMaterialObject</p>
 
-		<h3>[property:string shader]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The shader of mesh component
-		</p>
+		<h3>
+			[property:string shader]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The shader of mesh component</p>
 
-		<h3>[property:MeshComponent shareParts]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The shareParts of mesh component
-		</p>
+		<h3>
+			[property:MeshComponent shareParts]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The shareParts of mesh component</p>
 
-		<h3>[property:any sharedCamera]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The sharedCamera of mesh component
-		</p>
+		<h3>
+			[property:any sharedCamera]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The sharedCamera of mesh component</p>
 
-		<h3>[property:MeshComponent sharedMesh]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The sharedMesh of mesh component
-		</p>
+		<h3>
+			[property:MeshComponent sharedMesh]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The sharedMesh of mesh component</p>
 
-		<h3>[property:number size]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The size of mesh component
-		</p>
+		<h3>
+			[property:number size]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The size of mesh component</p>
 
-		<h3>[property:string|number skyColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The color of sky
-		</p>
+		<h3>
+			[property:string|number skyColor]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The color of sky</p>
 
-		<h3>[property:string[] skyboxCubeImage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The cube image of skybox
-		</p>
+		<h3>
+			[property:string[] skyboxCubeImage]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The cube image of skybox</p>
 
-		<h3>[property:any skyboxImage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The image of skybox
-		</p>
+		<h3>
+			[property:any skyboxImage]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The image of skybox</p>
 
-		<h3>[property:number skyboxRate] &nbsp; = 100 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The rate of Skybox from distance
-		</p>
+		<h3>
+			[property:number skyboxRate] &nbsp; = 100
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The rate of Skybox from distance</p>
 
-		<h3>[property:string skyboxSunImage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The sun image of skybox
-		</p>
+		<h3>
+			[property:string skyboxSunImage]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The sun image of skybox</p>
 
-		<h3>[property:number skyboxSunX] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The sun X direction in degree.
-		</p>
+		<h3>
+			[property:number skyboxSunX] &nbsp; = 0
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The sun X direction in degree.</p>
 
-		<h3>[property:number skyboxSunY] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The sun Y direction in degree.
-		</p>
+		<h3>
+			[property:number skyboxSunY] &nbsp; = 0
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The sun Y direction in degree.</p>
 
-		<h3>[property:number skyboxSunZ] &nbsp; = 0 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The sun Z direction in degree.
-		</p>
+		<h3>
+			[property:number skyboxSunZ] &nbsp; = 0
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The sun Z direction in degree.</p>
 
-		<h3>[property:string skyboxType] &nbsp; = 'auto' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string skyboxType] &nbsp; = 'auto'
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The type of skybox<br />
 			<br />
@@ -508,74 +649,103 @@
 			[page:SphereGeometry SphereGeometry] - THREE.SphereGeometry - sphere
 		</p>
 
-		<h3>[property:string storageName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The storage Name
-		</p>
+		<h3>
+			[property:string storageName]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The storage Name</p>
 
-		<h3>[property:any storageOption]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The storage Option
-		</p>
+		<h3>
+			[property:any storageOption]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The storage Option</p>
 
-		<h3>[property:any storageSource]<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Storage source of mesh component
-		</p>
+		<h3>
+			[property:any storageSource]<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>Storage source of mesh component</p>
 
-		<h3>[property:StormParams stormParams] &nbsp; = ... <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The stormParams  of mesh component
-		</p>
+		<h3>
+			[property:StormParams stormParams] &nbsp; = ...
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The stormParams of mesh component</p>
 
-		<h3>[property:ThreeColor sunColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The color of sun
-		</p>
+		<h3>
+			[property:ThreeColor sunColor]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The color of sun</p>
 
-		<h3>[property:Vector3|number[] sunDirection]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The direction of sun
-		</p>
+		<h3>
+			[property:Vector3|number[] sunDirection]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The direction of sun</p>
 
-		<h3>[property:Vector3|number[] sunPosition]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The position of sun
-		</p>
+		<h3>
+			[property:Vector3|number[] sunPosition]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The position of sun</p>
 
-		<h3>[property:string text]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The text of mesh component
-		</p>
+		<h3>
+			[property:string text]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The text of mesh component</p>
 
-		<h3>[property:Texture|AbstractTextureComponent texture]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The refer texture
-		</p>
+		<h3>
+			[property:Texture|AbstractTextureComponent texture]<i
+				class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The refer texture</p>
 
-		<h3>[property:number textureHeight]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The texture Height
-		</p>
+		<h3>
+			[property:number textureHeight]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The texture Height</p>
 
-		<h3>[property:Vector2|SizeComponent textureSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The texture size
-		</p>
+		<h3>
+			[property:Vector2|SizeComponent textureSize]<i
+				class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The texture size</p>
 
-		<h3>[property:number textureWidth]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The texture Width
-		</p>
+		<h3>
+			[property:number textureWidth]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The texture Width</p>
 
-		<h3>[property:string type] &nbsp; = 'mesh' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string type] &nbsp; = 'mesh'
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The type of mesh<br />
 			Notice - case insensitive.<br />
 			<br />
 			[page:Light Light] - THREE.Light - light<br />
 			[page:LineLoop LineLoop] - THREE.LineLoop - LineLoop<br />
-			[page:InstancedMesh InstancedMesh] - THREE.InstancedMesh - InstancedMesh, Instanced<br />
+			[page:InstancedMesh InstancedMesh] - THREE.InstancedMesh - InstancedMesh,
+			Instanced<br />
 			[page:Sprite Sprite] - THREE.Sprite - Sprite<br />
 			[page:LOD LOD] - THREE.LOD - lod<br />
 			[page:Points Points] - THREE.Points - points<br />
@@ -585,182 +755,246 @@
 			[page:Mesh Mesh] - THREE.Mesh - mesh
 		</p>
 
-		<h3>[property:any uniforms]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The uniform of sun, sky water etc
-		</p>
+		<h3>
+			[property:any uniforms]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The uniform of sun, sky water etc</p>
 
-		<h3>[property:string usage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string usage]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The usage of InstancedMesh<br />
 			Notice - case insensitive.<br />
 			<br />
-			[page:StaticDrawUsage StaticDrawUsage] - THREE.StaticDrawUsage - StaticDrawUsage, StaticDraw<br />
-			[page:DynamicDrawUsage DynamicDrawUsage] - THREE.DynamicDrawUsage - DynamicDrawUsage, DynamicDraw<br />
-			[page:StreamDrawUsage StreamDrawUsage] - THREE.StreamDrawUsage - StreamDrawUsage, StreamDraw<br />
-			[page:StaticReadUsage StaticReadUsage] - THREE.StaticReadUsage - StaticReadUsage, StaticRead<br />
-			[page:DynamicReadUsage DynamicReadUsage] - THREE.DynamicReadUsage - DynamicReadUsage, DynamicRead<br />
-			[page:StreamReadUsage StreamReadUsage] - THREE.StreamReadUsage - StreamReadUsage, StreamRead<br />
-			[page:StaticCopyUsage StaticCopyUsage] - THREE.StaticCopyUsage - StaticCopyUsage, StaticCopy<br />
-			[page:DynamicCopyUsage DynamicCopyUsage] - THREE.DynamicCopyUsage - DynamicCopyUsage, DynamicCopy<br />
-			[page:StreamCopyUsage StreamCopyUsage] - THREE.StreamCopyUsage - StreamCopyUsage, StreamCopy
+			[page:StaticDrawUsage StaticDrawUsage] - THREE.StaticDrawUsage -
+			StaticDrawUsage, StaticDraw<br />
+			[page:DynamicDrawUsage DynamicDrawUsage] - THREE.DynamicDrawUsage -
+			DynamicDrawUsage, DynamicDraw<br />
+			[page:StreamDrawUsage StreamDrawUsage] - THREE.StreamDrawUsage -
+			StreamDrawUsage, StreamDraw<br />
+			[page:StaticReadUsage StaticReadUsage] - THREE.StaticReadUsage -
+			StaticReadUsage, StaticRead<br />
+			[page:DynamicReadUsage DynamicReadUsage] - THREE.DynamicReadUsage -
+			DynamicReadUsage, DynamicRead<br />
+			[page:StreamReadUsage StreamReadUsage] - THREE.StreamReadUsage -
+			StreamReadUsage, StreamRead<br />
+			[page:StaticCopyUsage StaticCopyUsage] - THREE.StaticCopyUsage -
+			StaticCopyUsage, StaticCopy<br />
+			[page:DynamicCopyUsage DynamicCopyUsage] - THREE.DynamicCopyUsage -
+			DynamicCopyUsage, DynamicCopy<br />
+			[page:StreamCopyUsage StreamCopyUsage] - THREE.StreamCopyUsage -
+			StreamCopyUsage, StreamCopy
 		</p>
 
-		<h3>[property:boolean useDepthTexture]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The clip bias of Reflector
-		</p>
+		<h3>
+			[property:boolean useDepthTexture]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The clip bias of Reflector</p>
 
-		<h3>[property:boolean usePlaneStencil] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			use Plane Stencil
-		</p>
+		<h3>
+			[property:boolean usePlaneStencil] &nbsp; = false
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>use Plane Stencil</p>
 
-		<h3>[property:VolumeOptions volumeOption]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The volume Option
-		</p>
+		<h3>
+			[property:VolumeOptions volumeOption]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The volume Option</p>
 
-		<h3>[property:string|number waterColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The color water
-		</p>
+		<h3>
+			[property:string|number waterColor]<i class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The color water</p>
 
-		<h3>[property:number waterScale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The waterScale of mesh component
-		</p>
+		<h3>
+			[property:number waterScale]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The waterScale of mesh component</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractTweenComponent AbstractTweenComponent] class for common methods.
+			See the base [page:AbstractTweenComponent AbstractTweenComponent] class
+			for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dComponent AbstractObject3dComponent] class for common methods.
+			See the base [page:AbstractObject3dComponent AbstractObject3dComponent]
+			class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:void applyChanges3d]( [param:string[] changes] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string[] changes] - The changes.
-		</p>
-		<p>
-			Applys changes3d
-		</p>
+		<p>[parameter:string[] changes] - The changes.</p>
+		<p>Applys changes3d</p>
 
-		<h3>[method:any getClips](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:any getClips]( )<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			Gets clips<br />
 			<br />
 			Returns : clips
 		</p>
 
-		<h3>[method:Curve getCurve](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:Curve getCurve]( )<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			Gets curve<br />
 			<br />
 			Returns : curve
 		</p>
 
-		<h3>[method:any getJson](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:any getJson]( )<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			Gets json<br />
 			<br />
 			Returns : json
 		</p>
 
-		<h3>[method:Material getMaterial](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:Material getMaterial]( )<i class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<p>
 			Gets material<br />
 			<br />
 			Returns : material
 		</p>
 
-		<h3>[method:T getMesh](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:T getMesh]( )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets mesh<br />
 			<br />
 			Returns : mesh
 		</p>
 
-		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:T getObject3d]( )<i class="modifier modifier-public">Public</i>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<p>
 			Gets object3d<br />
 			<br />
 			Returns : object3d
 		</p>
 
-		<h3>[method:Mesh|Line|Points|LineSegments getRealMesh](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:Mesh|Line|Points|LineSegments getRealMesh]( )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<p>
 			Gets real mesh<br />
 			<br />
 			Returns : real mesh
 		</p>
 
-		<h3>[method:any getStorageSource](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:any getStorageSource]( )<i class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<p>
 			Gets storage source<br />
 			<br />
 			Returns : storage source
 		</p>
 
-		<h3>[method:void getUniforms](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void getUniforms]( )<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			Gets uniforms<br />
 			<br />
 			Returns : uniforms
 		</p>
 
-		<h3>[method:void resetHelper](  )<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Resets helper
-		</p>
+		<h3>
+			[method:void resetHelper]( )<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>Resets helper</p>
 
-		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:boolean setParent]( [param:Object3D parent] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:Object3D parent] - The parent.
-		</p>
+		<p>[parameter:Object3D parent] - The parent.</p>
 		<p>
 			Sets parent<br />
 			<br />
 			Returns : true if parent
 		</p>
 
-		<h3>[method:void setSavelocalStorage](  [param:string storageName] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void setSavelocalStorage]( [param:string storageName] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string storageName] - The storage name.
-		</p>
-		<p>
-			Sets savelocal storage
-		</p>
+		<p>[parameter:string storageName] - The storage name.</p>
+		<p>Sets savelocal storage</p>
 
-		<h3>[method:void setVisible](  [param:boolean visible],  [param:boolean helperVisible] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:void setVisible]( [param:boolean visible], [param:boolean
+			helperVisible] )<i class="modifier modifier-public">Public</i>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:boolean visible] - The visible.<br />
 			[parameter:boolean helperVisible] - The helper visible.
 		</p>
-		<p>
-			Sets visible
-		</p>
+		<p>Sets visible</p>
 
-		<h3>[method:void setWireFrame](  [param:boolean wireframe],  [param:Object3D child] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:void setWireFrame]( [param:boolean wireframe], [param:Object3D
+			child] )<i class="modifier modifier-public">Public</i>
+		</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:boolean wireframe] - The wireframe.<br />
 			[parameter:Object3D child] - The child.
 		</p>
-		<p>
-			Sets wire frame
-		</p>
+		<p>Sets wire frame</p>
 
-		<hr class="interface-line"/>
-		<h3 id="VolumeOptions">VolumeOptions <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line" />
+		<h3 id="VolumeOptions">
+			VolumeOptions <i class="modifier modifier-interface">Interface</i>
+		</h3>
 		<h4>Properties</h4>
 		<p>
 			[property:boolean boxVisible]? - boxVisible<br />
@@ -778,13 +1012,13 @@
 			[property:boolean zVisible]? - zVisible
 		</p>
 
-
-		<p class="desc">
-			Volume Options
-		</p>
+		<p class="desc">Volume Options</p>
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/mesh/mesh.component.ts /mesh/mesh.component.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/mesh/mesh.component.ts
+			/mesh/mesh.component.ts]
+		</p>
 	</body>
 </html>

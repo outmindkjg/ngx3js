@@ -15,149 +15,208 @@
 			Tools Component<br />
 			See the [page:ToolsComponent ngx3js docs] page for details.<br />
 			<br />
-			<code data-type="html"><br />
-			&lt;ngx3js-tools<br />
+			<code data-type="html"
+				><br />
+				&lt;ngx3js-tools<br />
 				[type]="'audio'" [url]="'sounds/ping_pong.mp3'"<br />
-			&gt;&lt;/ngx3js-tools&gt;<br />
-			&lt;ngx3js-tools<br />
+				&gt;&lt;/ngx3js-tools&gt;<br />
+				&lt;ngx3js-tools<br />
 				[type]="'pmremtexture'" [background]="'0xcccccc'"<br />
-			&gt;&lt;/ngx3js-tools&gt;<br />
-			&lt;ngx3js-tools<br />
+				&gt;&lt;/ngx3js-tools&gt;<br />
+				&lt;ngx3js-tools<br />
 				[type]="'pmremtexture'" <br />
 				[storageName]="'spot1Lux.hdr'" <br />
 				[storageOption]="{ path: 'textures/equirectangular/' }"<br />
-			&gt;&lt;/ngx3js-tools&gt;<br />
+				&gt;&lt;/ngx3js-tools&gt;<br />
 			</code>
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:ToolsComponent ToolsComponent](  [param:LocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[constructor:ToolsComponent ToolsComponent]( [param:LocalStorageService
+			localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:LocalStorageService localStorageService] - The local storage service.
+			[parameter:LocalStorageService localStorageService] - The local storage
+			service.
 		</p>
-		<p>
-			Creates an instance of tools component.
-		</p>
+		<p>Creates an instance of tools component.</p>
 
 		<h3>Angular Html Template [ Input ] ( Output )</h3>
-		<code data-type="html">&lt;ngx3js-tools
-			[ background ]="... string|number|AbstractTextureComponent -- The background of tools compon... "
-			[ debug ]="... boolean -- Debug this Object "
-			[ enabled ]="... boolean -- Enabled or Not "
-			[ encoding ]="... string -- [THREE.LinearEncoding](https:/... "
-			[ format ]="... string -- The default is [THREE.RGBAForm... "
-			( onDestory )="...($event : ToolsComponent -- Will be called when before des... )"
-			( onLoad )="...($event : ToolsComponent -- Will be called when load compl... )"
-			[ overrideParams ]="... any -- The override params "
-			[ size ]="... number -- The size of tools component "
-			[ storageName ]="... string -- The storageName of tools compo... "
-			[ storageOption ]="... any -- The storageOption of tools com... "
-			[ tween ]="... any -- Tween animation params "
-			[ type ]="... string -- The Input of tools component "
-			[ url ]="... string -- The url of tools component "
-			[ userData ]="... any -- An object that can be used to ... "
-			[ windowExport ]="... string -- Export this Object to window g... "
-		&gt;&lt;/ngx3js-tools&gt;
+		<code data-type="html"
+			>&lt;ngx3js-tools [ background ]="...
+			string|number|AbstractTextureComponent -- The background of tools
+			compon... " [ debug ]="... boolean -- Debug this Object " [ enabled ]="...
+			boolean -- Enabled or Not " [ encoding ]="... string --
+			[THREE.LinearEncoding](https:/... " [ format ]="... string -- The default
+			is [THREE.RGBAForm... " ( onDestory )="...($event : ToolsComponent -- Will
+			be called when before des... )" ( onLoad )="...($event : ToolsComponent --
+			Will be called when load compl... )" [ overrideParams ]="... any -- The
+			override params " [ size ]="... number -- The size of tools component " [
+			storageName ]="... string -- The storageName of tools compo... " [
+			storageOption ]="... any -- The storageOption of tools com... " [ tween
+			]="... any -- Tween animation params " [ type ]="... string -- The Input
+			of tools component " [ url ]="... string -- The url of tools component " [
+			userData ]="... any -- An object that can be used to ... " [ windowExport
+			]="... string -- Export this Object to window g... "
+			&gt;&lt;/ngx3js-tools&gt;
 		</code>
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common properties.
 		</p>
 
-		<h3>[property:string|number|AbstractTextureComponent background]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The background of tools component
-		</p>
+		<h3>
+			[property:string|number|AbstractTextureComponent background]<i
+				class="modifier modifier-input"
+				>Input</i
+			>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The background of tools component</p>
 
-		<h3>[property:string encoding]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string encoding]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			[THREE.LinearEncoding](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) is the default.<br />
-			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details of other formats.<br />
-			Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br />
+			[THREE.LinearEncoding](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures)
+			is the default.<br />
+			See the [texture
+			constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures)
+			page for details of other formats.<br />
+			Note that if this value is changed on a texture after the material has
+			been used, it is necessary to trigger a Material.needsUpdate for this
+			value to be realized in the shader.<br />
 			Notice - case insensitive.<br />
 			<br />
 			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br />
-			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br />
-			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br />
-			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br />
-			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br />
-			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br />
-			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br />
-			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br />
+			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding -
+			LinearEncoding <br />
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding
+			<br />
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding
+			<br />
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding
+			<br />
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding -
+			LogLuvEncoding <br />
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding
+			<br />
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding -
+			RGBM16Encoding <br />
 			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
 		</p>
 
-		<h3>[property:string format]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string format]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			The default is [THREE.RGBAFormat](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), although the [TextureLoader](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/TextureLoader) will automatically set this to [THREE.RGBFormat](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) for JPG images.<br />
-			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details of other formats.<br />
+			The default is
+			[THREE.RGBAFormat](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures),
+			although the
+			[TextureLoader](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/TextureLoader)
+			will automatically set this to
+			[THREE.RGBFormat](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures)
+			for JPG images.<br />
+			See the [texture
+			constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures)
+			page for details of other formats.<br />
 			Notice - case insensitive.<br />
 			<br />
 			[page:PixelFormat PixelFormat] - THREE.PixelFormat<br />
 			[page:AlphaFormat AlphaFormat] - THREE.AlphaFormat - AlphaFormat, Alpha<br />
 			[page:RedFormat RedFormat] - THREE.RedFormat - RedFormat, Red<br />
-			[page:RedIntegerFormat RedIntegerFormat] - THREE.RedIntegerFormat - RedIntegerFormat, RedInteger<br />
+			[page:RedIntegerFormat RedIntegerFormat] - THREE.RedIntegerFormat -
+			RedIntegerFormat, RedInteger<br />
 			[page:RGFormat RGFormat] - THREE.RGFormat - RGFormat, RG<br />
-			[page:RGIntegerFormat RGIntegerFormat] - THREE.RGIntegerFormat - RGIntegerFormat, RGInteger<br />
+			[page:RGIntegerFormat RGIntegerFormat] - THREE.RGIntegerFormat -
+			RGIntegerFormat, RGInteger<br />
 			[page:RGBFormat RGBFormat] - THREE.RGBFormat - RGBFormat, RGB<br />
-			[page:RGBIntegerFormat RGBIntegerFormat] - THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger<br />
-			[page:RGBAIntegerFormat RGBAIntegerFormat] - THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger<br />
-			[page:LuminanceFormat LuminanceFormat] - THREE.LuminanceFormat - LuminanceFormat, Luminance<br />
-			[page:LuminanceAlphaFormat LuminanceAlphaFormat] - THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha<br />
+			[page:RGBIntegerFormat RGBIntegerFormat] - THREE.RGBIntegerFormat -
+			RGBIntegerFormat, RGBInteger<br />
+			[page:RGBAIntegerFormat RGBAIntegerFormat] - THREE.RGBAIntegerFormat -
+			RGBAIntegerFormat, RGBAInteger<br />
+			[page:LuminanceFormat LuminanceFormat] - THREE.LuminanceFormat -
+			LuminanceFormat, Luminance<br />
+			[page:LuminanceAlphaFormat LuminanceAlphaFormat] -
+			THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha<br />
 			[page:RGBEFormat RGBEFormat] - THREE.RGBEFormat - RGBEFormat, RGBE<br />
 			[page:DepthFormat DepthFormat] - THREE.DepthFormat - DepthFormat, Depth<br />
-			[page:DepthStencilFormat DepthStencilFormat] - THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil<br />
+			[page:DepthStencilFormat DepthStencilFormat] - THREE.DepthStencilFormat -
+			DepthStencilFormat, DepthStencil<br />
 			[page:RGBAFormat RGBAFormat] - THREE.RGBAFormat - RGBAFormat, RGBA
 		</p>
 
-		<h3>[property:number size]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The size of tools component
-		</p>
+		<h3>
+			[property:number size]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The size of tools component</p>
 
-		<h3>[property:string storageName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The storageName of tools component
-		</p>
+		<h3>
+			[property:string storageName]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The storageName of tools component</p>
 
-		<h3>[property:any storageOption]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The storageOption of tools component
-		</p>
+		<h3>
+			[property:any storageOption]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The storageOption of tools component</p>
 
-		<h3>[property:string type] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string type] &nbsp; = ''
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			The Input of tools component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:string url]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The url of tools component
-		</p>
+		<h3>
+			[property:string url]<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
+		<p>The url of tools component</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 
-		<h3>[method:AudioBuffer getAudio](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:AudioBuffer getAudio]( )<i class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<p>
 			Gets audio<br />
 			<br />
 			Returns : audio
 		</p>
 
-		<h3>[method:Texture getTexture](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:Texture getTexture]( )<i class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<p>
 			Gets texture<br />
 			<br />
 			Returns : texture
 		</p>
 
-		<h3>[method:any getTool](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:any getTool]( )<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
 			Gets tool<br />
 			<br />
@@ -166,6 +225,9 @@
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/tools/tools.component.ts /tools/tools.component.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/tools/tools.component.ts
+			/tools/tools.component.ts]
+		</p>
 	</body>
 </html>

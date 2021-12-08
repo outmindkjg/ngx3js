@@ -17,84 +17,109 @@
 			<br />
 			A group of objects that receives a shared animation state.<br />
 			<br />
-			For an overview of the different elements of the three.js animation system see the<br />
+			For an overview of the different elements of the three.js animation system
+			see the<br />
 			"Animation System" article in the "Next Steps" section of the manual.<br />
 			<br />
 			Usage<br />
 			<br />
-			Add objects you would otherwise pass as 'root' to the constructor or the [page:AnimationMixer.clipAction clipAction]<br />
-			method of [page:AnimationMixer AnimationMixer] and instead pass this object as 'root'.<br />
+			Add objects you would otherwise pass as 'root' to the constructor or the
+			[page:AnimationMixer.clipAction clipAction]<br />
+			method of [page:AnimationMixer AnimationMixer] and instead pass this
+			object as 'root'.<br />
 			<br />
 			Note that objects of this class appear as one object to the mixer,<br />
-			so cache control of the individual objects must be done	on the group.<br />
+			so cache control of the individual objects must be done on the group.<br />
 			<br />
 			Limitations<br />
 			<br />
-			The animated properties must be compatible among all objects in the group.<br />
+			The animated properties must be compatible among all objects in the
+			group.<br />
 			<br />
-			A single property can either be controlled through a target group or directly, but not both.<br />
+			A single property can either be controlled through a target group or
+			directly, but not both.<br />
 			<br />
-			<code data-type="html"><br />
-			&lt;ngx3js-animation-group #animationGroup&gt;<br />
+			<code data-type="html"
+				><br />
+				&lt;ngx3js-animation-group #animationGroup&gt;<br />
 				&lt;ngx3js-mixer&gt;&lt;/ngx3js-mixer&gt;<br />
-			&lt;/ngx3js-animation-group&gt;<br />
-			</code><br />
+				&lt;/ngx3js-animation-group&gt;<br /> </code
+			><br />
 			<br />
-			[page:AnimationObjectGroup AnimationObjectGroup] - THREE.AnimationObjectGroup
+			[page:AnimationObjectGroup AnimationObjectGroup] -
+			THREE.AnimationObjectGroup
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:AnimationGroupComponent AnimationGroupComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
-		<p>
-			Creates an instance of animation group component.
-		</p>
+		<h3>
+			[constructor:AnimationGroupComponent AnimationGroupComponent]( )<i
+				class="modifier modifier-overwrite"
+				>Overwrite</i
+			>
+		</h3>
+		<p>Creates an instance of animation group component.</p>
 
 		<h3>Angular Html Template [ Input ] ( Output )</h3>
-		<code data-type="html">&lt;ngx3js-animation-group
-			[ debug ]="... boolean -- Debug this Object "
-			[ enabled ]="... boolean -- Enabled or Not "
-			[ name ]="... string -- The name of the object (doesn'... "
-			( onDestory )="...($event : AnimationGroupComponent -- Will be called when before des... )"
-			( onLoad )="...($event : AnimationGroupComponent -- Will be called when load compl... )"
-			[ overrideParams ]="... any -- The override params "
-			[ tween ]="... any -- Tween animation params "
-			[ userData ]="... any -- An object that can be used to ... "
-			[ windowExport ]="... string -- Export this Object to window g... "
-		&gt;&lt;/ngx3js-animation-group&gt;
+		<code data-type="html"
+			>&lt;ngx3js-animation-group [ debug ]="... boolean -- Debug this Object "
+			[ enabled ]="... boolean -- Enabled or Not " [ name ]="... string -- The
+			name of the object (doesn'... " ( onDestory )="...($event :
+			AnimationGroupComponent -- Will be called when before des... )" ( onLoad
+			)="...($event : AnimationGroupComponent -- Will be called when load
+			compl... )" [ overrideParams ]="... any -- The override params " [ tween
+			]="... any -- Tween animation params " [ userData ]="... any -- An object
+			that can be used to ... " [ windowExport ]="... string -- Export this
+			Object to window g... " &gt;&lt;/ngx3js-animation-group&gt;
 		</code>
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common properties.
 		</p>
 
-		<h3>[property:string name] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[property:string name] &nbsp; = ''
+			<i class="modifier modifier-input">Input</i>
+			<i class="modifier modifier-public">Public</i>
+		</h3>
 		<p>
-			The name of the object (doesn't need to be unique). Default is an empty string.
+			The name of the object (doesn't need to be unique). Default is an empty
+			string.
 		</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
+			class for common methods.
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:void applyChanges]( [param:string[] changes] )<i
+				class="modifier modifier-public"
+				>Public</i
+			>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<h4>Parameters</h4>
-		<p>
-			[parameter:string[] changes] - The changes.
-		</p>
-		<p>
-			Applys changes
-		</p>
+		<p>[parameter:string[] changes] - The changes.</p>
+		<p>Applys changes</p>
 
-		<h3>[method:T getAnimationGroup](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>
+			[method:T getAnimationGroup]( )<i class="modifier modifier-public"
+				>Public</i
+			>
+		</h3>
 		<p>
 			Gets animation group<br />
 			<br />
 			Returns : animation group
 		</p>
 
-		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>
+			[method:T getObject]( )<i class="modifier modifier-public">Public</i>
+			<i class="modifier modifier-overwrite">Overwrite</i>
+		</h3>
 		<p>
 			Gets object3d<br />
 			<br />
@@ -103,6 +128,9 @@
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/animation-group/animation-group.component.ts /animation-group/animation-group.component.ts]</p>
+		<p>
+			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/animation-group/animation-group.component.ts
+			/animation-group/animation-group.component.ts]
+		</p>
 	</body>
 </html>

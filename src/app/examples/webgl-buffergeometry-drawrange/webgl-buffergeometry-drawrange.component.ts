@@ -79,7 +79,7 @@ export class WebglBuffergeometryDrawrangeComponent extends BaseComponent<{
 	linesMesh: THREE.LineSegments = null;
 
 	setPointCloud(mesh: MeshComponent) {
-		this.pointCloud = mesh.getMesh();
+		this.pointCloud = mesh.getMesh() as any;
 	}
 
 	pointCloud: THREE.Points = null;
