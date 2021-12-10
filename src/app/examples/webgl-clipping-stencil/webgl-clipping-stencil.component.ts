@@ -209,7 +209,7 @@ export class WebglClippingStencilComponent extends BaseComponent<{
 		}
 		const helperGroup = this.localHelper.getHelper();
 		helperGroup.children.forEach((child) => {
-			const childHelper = child ;
+			const childHelper = child as any;
 			const plane = childHelper.plane.normal;
 			if (
 				Math.abs(plane.x) == Math.abs(x) &&

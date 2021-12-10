@@ -49,7 +49,7 @@ export class WebglClippingComponent extends BaseComponent<{
 							change: () => {
 								if (this.renderer !== null) {
 									const renderer =
-										this.renderer.getRenderer() ;
+										this.renderer.getRenderer() as any;
 									renderer.localClippingEnabled =
 										this.controls.localClipping.enabled;
 								}
@@ -61,7 +61,7 @@ export class WebglClippingComponent extends BaseComponent<{
 							type: 'checkbox',
 							change: () => {
 								if (this.mesh !== null) {
-									const mesh = this.mesh.getObject3d() ;
+									const mesh = this.mesh.getObject3d() as any;
 									const material = mesh.material ;
 									material.clipShadows = this.controls.localClipping.shadow;
 								}

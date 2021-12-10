@@ -108,7 +108,7 @@ export class WebglDecalsComponent extends BaseComponent<{
 			n.add(intersection.point);
 			// intersection.normal.copy( intersects[ 0 ].face.normal );
 			mouseHelper.lookAt(n);
-			const line = this.mouseLine.getObject3d() ;
+			const line = this.mouseLine.getObject3d() as any;
 			if (ThreeUtil.isNull(line)) {
 				return;
 			}
