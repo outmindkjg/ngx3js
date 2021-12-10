@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Ngx3JsModule  , I3JS, N3js } from 'ngx3js';
+import { Ngx3JsModule  , I3JS, THREE } from 'ngx3js';
 import { Css2dLabelComponent } from './css2d-label/css2d-label.component';
 import { Css3dMoleculesComponent } from './css3d-molecules/css3d-molecules.component';
 import { Css3dOrthographicComponent } from './css3d-orthographic/css3d-orthographic.component';

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	ControlComponent, I3JS, MeshComponent, N3js, RendererEvent,
+	ControlComponent, I3JS, MeshComponent, THREE, RendererEvent,
 	RendererTimer
 } from 'ngx3js';
 
@@ -39,8 +39,8 @@ export class WebglModifierCurveComponent extends BaseComponent<{
 
 	curvePath: { x: number; y: number; z: number }[] = this.initialPoints;
 
-	onUpPosition = N3js.getVector2();
-	onDownPosition = N3js.getVector2();
+	onUpPosition = new THREE.Vector2();
+	onDownPosition = new THREE.Vector2();
 
 	orbitControl: ControlComponent = null;
 	setOrbitControl(orbitControl: ControlComponent) {

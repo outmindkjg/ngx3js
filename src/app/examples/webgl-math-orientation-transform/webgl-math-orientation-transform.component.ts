@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-math-orientation-transform',
@@ -23,9 +23,9 @@ export class WebglMathOrientationTransformComponent extends BaseComponent<{}> {
 
 	target: I3JS.IObject3D = null;
 	corn: I3JS.IObject3D = null;
-	targetQuaternion: I3JS.IQuaternion = N3js.getQuaternion();
-	spherical: I3JS.ISpherical = N3js.getSpherical();
-	rotationMatrix: I3JS.IMatrix4 = N3js.getMatrix4();
+	targetQuaternion: I3JS.IQuaternion = new THREE.Quaternion();
+	spherical: I3JS.ISpherical = new THREE.Spherical();
+	rotationMatrix: I3JS.IMatrix4 = new THREE.Matrix4();
 
 	generateTarget() {
 		if (this.target !== null && this.corn !== null) {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, I3JS, THREE, RendererTimer } from 'ngx3js';
 @Component({
 	selector: 'app-webxr-vr-cubes',
 	templateUrl: './webxr-vr-cubes.component.html',
@@ -30,7 +30,7 @@ export class WebxrVrCubesComponent extends BaseComponent<{}> {
 					y: Math.random() + 0.5,
 					z: Math.random() + 0.5,
 				},
-				velocity: N3js.getVector3(
+				velocity: new THREE.Vector3(
 					Math.random() * 0.01 - 0.005,
 					Math.random() * 0.01 - 0.005,
 					Math.random() * 0.01 - 0.005
@@ -47,8 +47,8 @@ export class WebxrVrCubesComponent extends BaseComponent<{}> {
 		velocity: I3JS.IVector3;
 	}[] = [];
 
-	normal = N3js.getVector3();
-	relativeVelocity = N3js.getVector3();
+	normal = new THREE.Vector3();
+	relativeVelocity = new THREE.Vector3();
 
 	onRender(timer: RendererTimer) {
 		if (this.meshChildren !== null && this.meshChildren.length > 0) {
@@ -58,17 +58,17 @@ export class WebxrVrCubesComponent extends BaseComponent<{}> {
 				cube.position.add(cube.userData.velocity);
 
 				if (cube.position.x < -3 || cube.position.x > 3) {
-					cube.position.x = N3js.MathUtils.clamp(cube.position.x, -3, 3);
+					cube.position.x = THREE.MathUtils.clamp(cube.position.x, -3, 3);
 					cube.userData.velocity.x = -cube.userData.velocity.x;
 				}
 
 				if (cube.position.y < 0 || cube.position.y > 6) {
-					cube.position.y = N3js.MathUtils.clamp(cube.position.y, 0, 6);
+					cube.position.y = THREE.MathUtils.clamp(cube.position.y, 0, 6);
 					cube.userData.velocity.y = -cube.userData.velocity.y;
 				}
 
 				if (cube.position.z < -3 || cube.position.z > 3) {
-					cube.position.z = N3js.MathUtils.clamp(cube.position.z, -3, 3);
+					cube.position.z = THREE.MathUtils.clamp(cube.position.z, -3, 3);
 					cube.userData.velocity.z = -cube.userData.velocity.z;
 				}
 

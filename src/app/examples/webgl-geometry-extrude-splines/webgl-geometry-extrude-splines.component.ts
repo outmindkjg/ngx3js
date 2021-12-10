@@ -3,7 +3,7 @@ import {
 	BaseComponent,
 	CameraComponent,
 	GeometryComponent,
-	HelperComponent, I3JS, MeshComponent, N3js, RendererTimer
+	HelperComponent, I3JS, MeshComponent, THREE, RendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -184,11 +184,11 @@ export class WebglGeometryExtrudeSplinesComponent extends BaseComponent<{
 		this.tubeGeometry = tubeGeometry.getGeometry();
 	}
 
-	direction = N3js.getVector3();
-	binormal = N3js.getVector3();
-	normal = N3js.getVector3();
-	position = N3js.getVector3();
-	lookAt = N3js.getVector3();
+	direction = new THREE.Vector3();
+	binormal = new THREE.Vector3();
+	normal = new THREE.Vector3();
+	position = new THREE.Vector3();
+	lookAt = new THREE.Vector3();
 
 	cameraHelper: I3JS.ICameraHelper = null;
 	splineCamera: I3JS.ICamera = null;

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	MeshComponent, N3js, RendererTimer,
+	MeshComponent, THREE, RendererTimer,
 	ViewerComponent
 } from 'ngx3js';
 
@@ -66,10 +66,10 @@ export class WebglShadowmapProgressiveComponent extends BaseComponent<{
 		super.setMesh(mesh);
 		this.lightmapObjects = [];
 		this.dirLights = [];
-		const lightTarget = N3js.getGroup();
+		const lightTarget = new THREE.Group();
 		lightTarget.position.set(0, 20, 0);
 		for (let l = 0; l < 8; l++) {
-			const dirLight = N3js.getDirectionalLight(0xffffff, 1.0 / 8);
+			const dirLight = new THREE.DirectionalLight(0xffffff, 1.0 / 8);
 			dirLight.name = 'Dir. Light ' + l;
 			dirLight.position.set(200, 200, 200);
 			dirLight.castShadow = true;
@@ -90,7 +90,7 @@ export class WebglShadowmapProgressiveComponent extends BaseComponent<{
 				child.name = 'Loaded Mesh';
 				child.castShadow = true;
 				child.receiveShadow = true;
-				child.material = N3js.getMeshPhongMaterial();
+				child.material = new THREE.MeshPhongMaterial();
 				// This adds the model to the lightmap
 				// this.lightmapObjects.push( child );
 			} else {

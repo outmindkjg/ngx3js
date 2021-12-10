@@ -4,7 +4,7 @@ import {
 	BaseComponent,
 	MaterialComponent,
 	RendererTimer,
-	SharedComponent, I3JS, N3js } from 'ngx3js';
+	SharedComponent, I3JS, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-worker-offscreencanvas',

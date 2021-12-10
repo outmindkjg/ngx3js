@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, N3js, RendererEvent } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, THREE, RendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-raycast-sprite',
@@ -15,7 +15,7 @@ export class WebglRaycastSpriteComponent extends BaseComponent<{}> {
 		super.setMesh(mesh);
 		this.sprites = [];
 		mesh.getObject3d().traverse((child : any) => {
-			if (child instanceof N3js.Sprite) {
+			if (child instanceof THREE.Sprite) {
 				this.sprites.push(child);
 			}
 		});

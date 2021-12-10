@@ -5,7 +5,7 @@ import {
 	RendererTimer,
 	ThreeUtil,
 	I3JS,
-	N3js,
+	THREE,
 } from 'ngx3js';
 
 @Component({

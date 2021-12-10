@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, N3js } from 'ngx3js';
+import { BaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lensflares',
@@ -53,7 +53,7 @@ export class WebglLensflaresComponent extends BaseComponent<{}> {
 	}[] = [];
 
 	addLight(h, s, l, x, y, z) {
-		const color = N3js.getColor().setHSL(h, s, l);
+		const color = new THREE.Color().setHSL(h, s, l);
 		return {
 			color: color.getHex(),
 			x: x,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-instancing-performance',
@@ -31,10 +31,10 @@ export class WebglInstancingPerformanceComponent extends BaseComponent<{
 
 	ngOnInit() {
 		this.randomizeMatrix = (matrix) => {
-			const position = N3js.getVector3();
-			const rotation = N3js.getEuler();
-			const quaternion = N3js.getQuaternion();
-			const scale = N3js.getVector3();
+			const position = new THREE.Vector3();
+			const rotation = new THREE.Euler();
+			const quaternion = new THREE.Quaternion();
+			const scale = new THREE.Vector3();
 			position.x = Math.random() * 40 - 20;
 			position.y = Math.random() * 40 - 20;
 			position.z = Math.random() * 40 - 20;

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	CameraComponent, I3JS, MeshComponent, N3js, RendererTimer
+	CameraComponent, I3JS, MeshComponent, THREE, RendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -47,9 +47,9 @@ export class WebglCameraComponent extends BaseComponent<{
 	ngOnInit() {
 		this.vertices = [];
 		for (let i = 0; i < 10000; i++) {
-			this.vertices.push(N3js.MathUtils.randFloatSpread(2000)); // x
-			this.vertices.push(N3js.MathUtils.randFloatSpread(2000)); // y
-			this.vertices.push(N3js.MathUtils.randFloatSpread(2000)); // z
+			this.vertices.push(THREE.MathUtils.randFloatSpread(2000)); // x
+			this.vertices.push(THREE.MathUtils.randFloatSpread(2000)); // y
+			this.vertices.push(THREE.MathUtils.randFloatSpread(2000)); // z
 		}
 	}
 

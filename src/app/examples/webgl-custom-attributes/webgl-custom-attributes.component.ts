@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-custom-attributes',
@@ -47,7 +47,7 @@ export class WebglCustomAttributesComponent extends BaseComponent<{}> {
 			for (let i = 0; i < this.displacement.length; i++) {
 				this.displacement[i] = Math.sin(0.1 * i + time);
 				this.noise[i] += 0.5 * (0.5 - Math.random());
-				this.noise[i] = N3js.MathUtils.clamp(this.noise[i], -5, 5);
+				this.noise[i] = THREE.MathUtils.clamp(this.noise[i], -5, 5);
 				this.displacement[i] += this.noise[i];
 			}
 			this.geometry.attributes.displacement.needsUpdate = true;

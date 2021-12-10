@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
 	BaseComponent,
-	ControlComponent, I3JS, N3js, PointerLockControls, RendererEvent,
+	ControlComponent, I3JS, THREE, PointerLockControls, RendererEvent,
 	RendererTimer
 } from 'ngx3js';
 
@@ -24,8 +24,8 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
 		floorGeometry = floorGeometry.toNonIndexed(); // ensure each face has unique vertices
 		floorGeometry.rotateX(-Math.PI / 2);
 		let position = floorGeometry.attributes.position;
-		const vertex = N3js.getVector3();
-		const color = N3js.getColor();
+		const vertex = new THREE.Vector3();
+		const color = new THREE.Color();
 		for (let i = 0, l = position.count; i < l; i++) {
 			vertex.fromBufferAttribute(position, i);
 			vertex.x += Math.random() * 20 - 10;
@@ -46,7 +46,7 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
 		}
 		floorGeometry.setAttribute(
 			'color',
-			N3js.getFloat32BufferAttribute(colorsFloor, 3)
+			new THREE.Float32BufferAttribute(colorsFloor, 3)
 		);
 		return floorGeometry;
 	}
@@ -54,7 +54,7 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
 	initBox(boxGeometry: I3JS.IBufferGeometry) {
 		const position = boxGeometry.attributes.position;
 		const colorsBox = [];
-		const color = N3js.getColor();
+		const color = new THREE.Color();
 		for (let i = 0, l = position.count; i < l; i++) {
 			color.setHSL(
 				Math.random() * 0.3 + 0.5,
@@ -65,7 +65,7 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
 		}
 		boxGeometry.setAttribute(
 			'color',
-			N3js.getFloat32BufferAttribute(colorsBox, 3)
+			new THREE.Float32BufferAttribute(colorsBox, 3)
 		);
 	}
 
@@ -114,11 +114,11 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
 	moveLeft = false;
 	moveRight = false;
 	canJump = false;
-	velocity = N3js.getVector3();
-	direction = N3js.getVector3();
-	raycaster = N3js.getRaycaster(
-		N3js.getVector3(),
-		N3js.getVector3(0, -1, 0),
+	velocity = new THREE.Vector3();
+	direction = new THREE.Vector3();
+	raycaster = new THREE.Raycaster(
+		new THREE.Vector3(),
+		new THREE.Vector3(0, -1, 0),
 		0,
 		10
 	);

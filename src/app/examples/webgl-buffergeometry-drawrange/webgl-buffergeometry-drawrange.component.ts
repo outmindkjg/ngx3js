@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-drawrange',
@@ -50,7 +50,7 @@ export class WebglBuffergeometryDrawrangeComponent extends BaseComponent<{
 			particlePositions[i * 3 + 2] = z;
 			// add it to the geometry
 			particlesData.push({
-				velocity: N3js.getVector3(
+				velocity: new THREE.Vector3(
 					-1 + Math.random() * 2,
 					-1 + Math.random() * 2,
 					-1 + Math.random() * 2

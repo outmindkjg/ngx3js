@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, N3js } from 'ngx3js';
+import { BaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-selective-draw',
@@ -34,7 +34,7 @@ export class WebglBuffergeometrySelectiveDrawComponent extends BaseComponent<{}>
 				linePositions[index * 6 + 4] = radius * Math.cos(lat);
 				linePositions[index * 6 + 5] = radius * Math.sin(lat) * Math.sin(lng);
 
-				const color = N3js.getColor(0xffffff);
+				const color = new THREE.Color(0xffffff);
 
 				color.setHSL(lat / Math.PI, 1.0, 0.2);
 				lineColors[index * 6 + 0] = color.r;

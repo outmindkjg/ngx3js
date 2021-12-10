@@ -3,7 +3,7 @@ import {
 	BaseComponent,
 	MeshComponent,
 	MeshSurfaceSampler,
-	RendererTimer, I3JS, N3js } from 'ngx3js';
+	RendererTimer, I3JS, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-instancing-scatter',
@@ -71,19 +71,19 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
 		const _stemMesh = mesh.getObjectByName('Stem') as any;
 		const _blossomMesh = mesh.getObjectByName('Blossom') as any ;
 		if (_stemMesh !== undefined && _blossomMesh !== undefined) {
-			const stemGeometry = N3js.getInstancedBufferGeometry();
-			const blossomGeometry = N3js.getInstancedBufferGeometry();
-			N3js.BufferGeometry.prototype.copy.call(
+			const stemGeometry = new THREE.InstancedBufferGeometry();
+			const blossomGeometry = new THREE.InstancedBufferGeometry();
+			THREE.BufferGeometry.prototype.copy.call(
 				stemGeometry,
 				_stemMesh.geometry
 			);
-			N3js.BufferGeometry.prototype.copy.call(
+			THREE.BufferGeometry.prototype.copy.call(
 				blossomGeometry,
 				_blossomMesh.geometry
 			);
-			const defaultTransform = N3js.getMatrix4()
+			const defaultTransform = new THREE.Matrix4()
 				.makeRotationX(Math.PI)
-				.multiply(N3js.getMatrix4().makeScale(7, 7, 7));
+				.multiply(new THREE.Matrix4().makeScale(7, 7, 7));
 			stemGeometry.applyMatrix4(defaultTransform);
 			blossomGeometry.applyMatrix4(defaultTransform);
 			this.stemGeometry = stemGeometry;
@@ -91,7 +91,7 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
 			this.stemMaterial = _stemMesh.material ;
 			this.blossomMaterial = _blossomMesh.material ;
 			const count = this.controls.count;
-			const _color = N3js.getColor();
+			const _color = new THREE.Color();
 			const color = new Float32Array(count * 3);
 			const blossomPalette = [0xf20587, 0xf2d479, 0xf2c879, 0xf2b077, 0xf24405];
 			for (let i = 0; i < count; i++) {
@@ -103,7 +103,7 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
 
 			blossomGeometry.setAttribute(
 				'color',
-				N3js.getInstancedBufferAttribute(color, 3)
+				new THREE.InstancedBufferAttribute(color, 3)
 			);
 			this.blossomMaterial.vertexColors = true;
 			this.sampler = new MeshSurfaceSampler(this.surface)
@@ -118,11 +118,11 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
 
 	surface: I3JS.IMesh = null;
 	sampler: any = null;
-	dummy = N3js.getObject3D();
+	dummy = new THREE.Object3D();
 
-	_position = N3js.getVector3();
-	_normal = N3js.getVector3();
-	_scale = N3js.getVector3();
+	_position = new THREE.Vector3();
+	_normal = new THREE.Vector3();
+	_scale = new THREE.Vector3();
 
 	ages: Float32Array;
 	scales: Float32Array;

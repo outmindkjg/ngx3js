@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	Capsule, I3JS, MeshComponent, N3js, Octree,
+	Capsule, I3JS, MeshComponent, THREE, Octree,
 	RendererEvent,
 	RendererTimer
 } from 'ngx3js';
@@ -18,16 +18,16 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 
 	ngOnInit() {
 		this.playerCollider = new Capsule(
-			N3js.getVector3(0, 0.35, 0),
-			N3js.getVector3(0, 1, 0),
+			new THREE.Vector3(0, 0.35, 0),
+			new THREE.Vector3(0, 1, 0),
 			0.35
 		);
 		this.spheresInfos = [];
 		for (let i = 0; i < 20; i++) {
 			this.spheresInfos.push({
 				mesh: null,
-				collider: N3js.getSphere(N3js.getVector3(0, -100, 0), 0.2),
-				velocity: N3js.getVector3(),
+				collider: new THREE.Sphere(new THREE.Vector3(0, -100, 0), 0.2),
+				velocity: new THREE.Vector3(),
 			});
 		}
 	}
@@ -86,8 +86,8 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 
 	worldOctree: any = null;
 	playerCollider: any = null;
-	playerVelocity = N3js.getVector3();
-	playerDirection = N3js.getVector3();
+	playerVelocity = new THREE.Vector3();
+	playerDirection = new THREE.Vector3();
 	playerOnFloor = false;
 	GRAVITY = 30;
 	setWorld(world: MeshComponent) {

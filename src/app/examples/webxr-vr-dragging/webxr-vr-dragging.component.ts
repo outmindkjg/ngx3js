@@ -5,7 +5,7 @@ import {
 	GeometryComponent,
 	SharedComponent,
 	I3JS,
-	N3js,
+	THREE,
 } from 'ngx3js';
 
 @Component({

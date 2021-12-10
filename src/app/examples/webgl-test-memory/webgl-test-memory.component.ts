@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, I3JS, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-test-memory',
@@ -36,17 +36,17 @@ export class WebglTestMemoryComponent extends BaseComponent<{}> {
 				this.lastMesh.geometry.dispose();
 				(this.lastMesh.material as any).dispose();
 			}
-			const geometry = N3js.getSphereGeometry(
+			const geometry = new THREE.SphereGeometry(
 				50,
 				Math.random() * 64,
 				Math.random() * 32
 			);
-			const texture = N3js.getCanvasTexture(this.createImage());
-			const material = N3js.getMeshBasicMaterial({
+			const texture = new THREE.CanvasTexture(this.createImage());
+			const material = new THREE.MeshBasicMaterial({
 				map: texture,
 				wireframe: true,
 			});
-			const mesh = N3js.getMesh(geometry, material);
+			const mesh = new THREE.Mesh(geometry, material);
 			this.mesh.getObject3d().add(mesh as any);
 			this.lastMesh = mesh;
 		}

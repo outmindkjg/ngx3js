@@ -4,7 +4,7 @@ import {
 	AbstractMaterialComponent,
 	BaseComponent,
 	ControlComponent,
-	FlyControls, I3JS, MeshComponent, N3js, RendererTimer,
+	FlyControls, I3JS, MeshComponent, THREE, RendererTimer,
 	SharedComponent
 } from 'ngx3js';
 
@@ -113,7 +113,7 @@ export class MiscControlsFlyComponent extends BaseComponent<{}> {
 	}
 
 	flyControl: FlyControls = null;
-	dMoonVec = N3js.getVector3();
+	dMoonVec = new THREE.Vector3();
 	radius = 6371;
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);

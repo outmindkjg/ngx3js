@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, N3js } from 'ngx3js';
+import { BaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-points-interleaved',
@@ -16,7 +16,7 @@ export class WebglBuffergeometryPointsInterleavedComponent extends BaseComponent
 		const positions = [];
 		const colors = [];
 
-		const color = N3js.getColor();
+		const color = new THREE.Color();
 
 		const n = 1000,
 			n2 = n / 2; // particles spread in the cube

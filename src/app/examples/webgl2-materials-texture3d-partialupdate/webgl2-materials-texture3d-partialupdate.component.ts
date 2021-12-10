@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent, I3JS,
-	N3js, RendererTimer,
+	THREE, RendererTimer,
 	SharedComponent
 } from 'ngx3js';
 
@@ -132,10 +132,10 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends BaseComponen
 					i = Math.floor((i - y) / 4);
 					const z = i % 4;
 					const texture = this.texture3dList[this.addedCnt];
-					const position = N3js.getVector3(x * 32, y * 32, z * 32).floor();
-					const box = N3js.getBox3(
-						N3js.getVector3(0, 0, 0),
-						N3js.getVector3(29, 29, 29)
+					const position = new THREE.Vector3(x * 32, y * 32, z * 32).floor();
+					const box = new THREE.Box3(
+						new THREE.Vector3(0, 0, 0),
+						new THREE.Vector3(29, 29, 29)
 					);
 					(timer.renderer as any).copyTextureToTexture3D(
 						box,

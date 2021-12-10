@@ -5,7 +5,7 @@ import {
 	MaterialComponent,
 	MeshComponent,
 	NODES,
- 	I3JS, N3js } from 'ngx3js';
+ 	I3JS, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-nodes',
@@ -300,7 +300,7 @@ export class WebglMaterialsNodesComponent extends BaseComponent<{
 								NODES.ColorAdjustmentNode.SATURATION
 							);
 						} else {
-							this.material = N3js.getMeshStandardMaterial();
+							this.material = new THREE.MeshStandardMaterial();
 							this.sataturation = null;
 							this.material.map = this.map;
 						}

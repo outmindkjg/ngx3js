@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent, I3JS, MeshComponent, N3js, PassComponent,
+	BaseComponent, I3JS, MeshComponent, THREE, PassComponent,
 	RendererEvent,
 	SceneComponent,
 	SSRPass
@@ -154,7 +154,7 @@ export class WebglPostprocessingSsrComponent extends BaseComponent<{
 				this.selectableMesh = [];
 				const selectName = ['bunny', 'box', 'sphere', 'cone'];
 				this.sceneChildren.forEach((child : any) => {
-					if (child instanceof N3js.Mesh) {
+					if (child instanceof THREE.Mesh) {
 						const name = child.name;
 						if (selectName.indexOf(name) > -1) {
 							this.selectableMesh.push(child);
@@ -244,7 +244,7 @@ export class WebglPostprocessingSsrComponent extends BaseComponent<{
 					);
 					if (intersection !== null && intersection.object !== null) {
 						const mesh = intersection.object as any;
-						if (mesh instanceof N3js.Mesh) {
+						if (mesh instanceof THREE.Mesh) {
 							const index = this.selected.indexOf(mesh);
 							if (index >= 0) {
 								this.selected.splice(index, 1);

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	CurveUtils, I3JS, MeshComponent, N3js, RendererTimer
+	CurveUtils, I3JS, MeshComponent, THREE, RendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -22,8 +22,8 @@ export class WebxrVrRollercoasterComponent extends BaseComponent<{}> {
 	initGeometry(geometry: I3JS.IBufferGeometry) {
 		geometry.rotateX(-Math.PI / 2);
 		const positions = geometry.attributes.position.array;
-		const vertex = N3js.getVector3();
-		const scenePosition = N3js.getVector3();
+		const vertex = new THREE.Vector3();
+		const scenePosition = new THREE.Vector3();
 		for (let i = 0; i < positions.length; i += 3) {
 			vertex.fromArray(positions, i);
 			vertex.x += Math.random() * 10 - 5;
@@ -49,9 +49,9 @@ export class WebxrVrRollercoasterComponent extends BaseComponent<{}> {
 	train: I3JS.IObject3D = null;
 	velocity = 0;
 	progress = 0;
-	position = N3js.getVector3();
-	tangent = N3js.getVector3();
-	lookAt = N3js.getVector3();
+	position = new THREE.Vector3();
+	tangent = new THREE.Vector3();
+	lookAt = new THREE.Vector3();
 
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, Lut, MeshComponent, N3js } from 'ngx3js';
+import { BaseComponent, I3JS, Lut, MeshComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-colors-lookuptable',
@@ -31,7 +31,7 @@ export class WebglGeometryColorsLookuptableComponent extends BaseComponent<{
 				}
 				geometry.setAttribute(
 					'color',
-					N3js.getFloat32BufferAttribute(colors, 3)
+					new THREE.Float32BufferAttribute(colors, 3)
 				);
 				geometry.getAttribute('color').needsUpdate = true;
 				this.geometry = geometry;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-instancing',
@@ -28,7 +28,7 @@ export class WebglBuffergeometryInstancingComponent extends BaseComponent<{
 	}
 
 	ngOnInit() {
-		const vector = N3js.getVector4();
+		const vector = new THREE.Vector4();
 		const instances = 50000;
 		const positions = [];
 		const offsets = [];

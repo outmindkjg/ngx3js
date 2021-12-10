@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-variations-basic',
@@ -19,7 +19,7 @@ export class WebglMaterialsVariationsBasicComponent extends BaseComponent<{}> {
 			for (let beta = 0; beta <= 1.0; beta += stepSize) {
 				for (let gamma = 0; gamma <= 1.0; gamma += stepSize) {
 					// basic monochromatic energy preservation
-					const diffuseColor = N3js.getColor().setHSL(
+					const diffuseColor = new THREE.Color().setHSL(
 						alpha,
 						0.5,
 						gamma * 0.5 + 0.1

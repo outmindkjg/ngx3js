@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, N3js, RendererEvent } from 'ngx3js';
+import { BaseComponent, THREE, RendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-furnace-test',
@@ -30,14 +30,14 @@ export class WebglFurnaceTestComponent extends BaseComponent<{}> {
 			switch (event.type) {
 				case 'mouseover':
 					this.meshObject3d.traverse((child : any) => {
-						if (child instanceof N3js.Mesh) {
+						if (child instanceof THREE.Mesh) {
 							(child.material as any).color.setHex(0xaaaaff);
 						}
 					});
 					break;
 				case 'mouseout':
 					this.meshObject3d.traverse((child : any) => {
-						if (child instanceof N3js.Mesh) {
+						if (child instanceof THREE.Mesh) {
 							(child.material as any).color.setHex(0xffffff);
 						}
 					});

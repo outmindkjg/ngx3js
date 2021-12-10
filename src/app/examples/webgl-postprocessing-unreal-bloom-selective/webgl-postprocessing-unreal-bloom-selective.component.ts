@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	EffectComponent, I3JS, N3js, PassComponent,
+	EffectComponent, I3JS, THREE, PassComponent,
 	RendererEvent,
 	RendererInfo
 } from 'ngx3js';
@@ -116,7 +116,7 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 				layer: Math.random() < 0.25 ? [1] : null,
 			});
 		}
-		this.bloomLayer = N3js.getLayers();
+		this.bloomLayer = new THREE.Layers();
 		this.bloomLayer.set(1);
 	}
 
@@ -151,7 +151,7 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 
 	bloomPass: any = null;
 	bloomLayer: I3JS.ILayers = null;
-	darkMaterial = N3js.getMeshBasicMaterial({ color: 'black' });
+	darkMaterial = new THREE.MeshBasicMaterial({ color: 'black' });
 	beforeRender = (renderInfo: RendererInfo): boolean => {
 		if (
 			this.finalEffect !== null &&

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent, I3JS, N3js, PhysicsComponent,
+	BaseComponent, I3JS, THREE, PhysicsComponent,
 	RendererTimer,
 	RigidbodyComponent,
 	ThreeUtil
@@ -42,7 +42,7 @@ export class PhysicsAmmoInstancingComponent extends BaseComponent<{}> {
 			this.meshChildren !== null &&
 			this.meshChildren.length > 0
 		) {
-			const position = N3js.getVector3();
+			const position = new THREE.Vector3();
 			this.meshChildren.forEach((child: any) => {
 				const rigidbodyComponent: RigidbodyComponent =
 					ThreeUtil.getRigidbodyComponent(child);

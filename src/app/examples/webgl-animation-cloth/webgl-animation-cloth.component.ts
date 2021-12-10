@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
 	BaseComponent,
-	GeometryComponent, I3JS, MeshComponent, N3js, RendererTimer
+	GeometryComponent, I3JS, MeshComponent, THREE, RendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -50,11 +50,11 @@ export class WebglAnimationClothComponent
 
 	pins = [];
 
-	windForce = N3js.getVector3(0, 0, 0);
+	windForce = new THREE.Vector3(0, 0, 0);
 
-	ballPosition = N3js.getVector3(0, -45, 0);
+	ballPosition = new THREE.Vector3(0, -45, 0);
 	ballSize = 60; //40
-	tmpForce = N3js.getVector3();
+	tmpForce = new THREE.Vector3();
 	pinsFormation = [];
 
 	ngOnInit(): void {
@@ -70,7 +70,7 @@ export class WebglAnimationClothComponent
 			this.clothFunction,
 			this.DRAG
 		);
-		this.gravity = N3js.getVector3(0, -this.GRAVITY, 0).multiplyScalar(
+		this.gravity = new THREE.Vector3(0, -this.GRAVITY, 0).multiplyScalar(
 			this.MASS
 		);
 		let pins = [6];
@@ -118,7 +118,7 @@ export class WebglAnimationClothComponent
 			this.pinsFormation[~~(Math.random() * this.pinsFormation.length)];
 	}
 
-	diff = N3js.getVector3();
+	diff = new THREE.Vector3();
 
 	satisfyConstraints(p1, p2, distance) {
 		this.diff.subVectors(p2.position, p1.position);
@@ -142,7 +142,7 @@ export class WebglAnimationClothComponent
 		const particles = this.cloth.particles;
 		if (this.controls.enableWind) {
 			let indx;
-			const normal = N3js.getVector3();
+			const normal = new THREE.Vector3();
 			const indices = this.clothGeometry.index;
 			const normals = this.clothGeometry.attributes.normal;
 			for (let i = 0, il = indices.count; i < il; i += 3) {
@@ -302,14 +302,14 @@ class Particle {
 	tmp2;
 	drag;
 	constructor(x, y, z, mass, clothFunction, drag) {
-		this.position = N3js.getVector3();
-		this.previous = N3js.getVector3();
-		this.original = N3js.getVector3();
-		this.a = N3js.getVector3(0, 0, 0); // acceleration
+		this.position = new THREE.Vector3();
+		this.previous = new THREE.Vector3();
+		this.original = new THREE.Vector3();
+		this.a = new THREE.Vector3(0, 0, 0); // acceleration
 		this.mass = mass;
 		this.invMass = 1 / mass;
-		this.tmp = N3js.getVector3();
-		this.tmp2 = N3js.getVector3();
+		this.tmp = new THREE.Vector3();
+		this.tmp2 = new THREE.Vector3();
 		this.drag = drag;
 		clothFunction(x, y, this.position); // position
 		clothFunction(x, y, this.previous); // previous

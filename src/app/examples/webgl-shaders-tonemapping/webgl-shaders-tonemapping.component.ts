@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, N3js } from 'ngx3js';
+import { BaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shaders-tonemapping',
@@ -39,16 +39,16 @@ export class WebglShadersTonemappingComponent extends BaseComponent<{
 	}
 
 	ngOnInit() {
-		this.uniforms = N3js.UniformsUtils.merge([
-			N3js.UniformsLib['common'],
-			N3js.UniformsLib['lights'],
+		this.uniforms = THREE.UniformsUtils.merge([
+			THREE.UniformsLib['common'],
+			THREE.UniformsLib['lights'],
 		]);
 		this.vertexShader = [
 			'varying vec3 vViewPosition;',
 			'varying vec3 vNormal;',
 			'void main() {',
-			N3js.ShaderChunk['beginnormal_vertex'],
-			N3js.ShaderChunk['defaultnormal_vertex'],
+			THREE.ShaderChunk['beginnormal_vertex'],
+			THREE.ShaderChunk['defaultnormal_vertex'],
 			'	vNormal = normalize( transformedNormal );',
 			'vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );',
 			'vViewPosition = -mvPosition.xyz;',
@@ -56,10 +56,10 @@ export class WebglShadersTonemappingComponent extends BaseComponent<{
 			'}',
 		].join('\n');
 		this.fragmentShader = [
-			N3js.ShaderChunk['common'],
-			N3js.ShaderChunk['bsdfs'],
-			N3js.ShaderChunk['lights_pars_begin'],
-			N3js.ShaderChunk['lights_phong_pars_fragment'],
+			THREE.ShaderChunk['common'],
+			THREE.ShaderChunk['bsdfs'],
+			THREE.ShaderChunk['lights_pars_begin'],
+			THREE.ShaderChunk['lights_phong_pars_fragment'],
 
 			'void main() {',
 			'vec3 normal = normalize( -vNormal );',

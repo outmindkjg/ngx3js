@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
-	BaseComponent, I3JS, MaterialComponent, N3js, RendererInfo,
+	BaseComponent, I3JS, MaterialComponent, THREE, RendererInfo,
 	RendererTimer
 } from 'ngx3js';
 
@@ -46,7 +46,7 @@ export class WebglReadFloatBufferComponent extends BaseComponent<{}> {
 		};
 	}
 
-	rtTexture = N3js.getWebGLRenderTarget(
+	rtTexture = new THREE.WebGLRenderTarget(
 		window.innerWidth,
 		window.innerHeight,
 		{
@@ -57,7 +57,7 @@ export class WebglReadFloatBufferComponent extends BaseComponent<{}> {
 		}
 	);
 
-	texture: I3JS.IDataTexture = N3js.getDataTexture(null, 100, 100);
+	texture: I3JS.IDataTexture = new THREE.DataTexture(null, 100, 100);
 
 	afterRender: (renderInfo: RendererInfo) => void;
 

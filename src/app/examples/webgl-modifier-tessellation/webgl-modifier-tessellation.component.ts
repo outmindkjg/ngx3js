@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, GeometryComponent, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, GeometryComponent, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-modifier-tessellation',
@@ -19,7 +19,7 @@ export class WebglModifierTessellationComponent extends BaseComponent<{}> {
 			const numFaces = geometry.attributes.position.count / 3;
 			const colors = new Float32Array(numFaces * 3 * 3);
 			const displacement = new Float32Array(numFaces * 3 * 3);
-			const color = N3js.getColor();
+			const color = new THREE.Color();
 			for (let f = 0; f < numFaces; f++) {
 				const index = 9 * f;
 				const h = 0.2 * Math.random();
@@ -38,11 +38,11 @@ export class WebglModifierTessellationComponent extends BaseComponent<{}> {
 			}
 			geometry.setAttribute(
 				'customColor',
-				N3js.getBufferAttribute(colors, 3)
+				new THREE.BufferAttribute(colors, 3)
 			);
 			geometry.setAttribute(
 				'displacement',
-				N3js.getBufferAttribute(displacement, 3)
+				new THREE.BufferAttribute(displacement, 3)
 			);
 		}
 	}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, N3js } from 'ngx3js';
+import { BaseComponent, I3JS, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-colors',
@@ -17,9 +17,9 @@ export class WebglGeometryColorsComponent extends BaseComponent<{}> {
 		const count = geometry.attributes.position.count;
 		geometry.setAttribute(
 			'color',
-			N3js.getBufferAttribute(new Float32Array(count * 3), 3)
+			new THREE.BufferAttribute(new Float32Array(count * 3), 3)
 		);
-		const color = N3js.getColor();
+		const color = new THREE.Color();
 		const positions = geometry.attributes.position;
 		const colors = geometry.attributes.color;
 		for (let i = 0; i < count; i++) {
@@ -32,9 +32,9 @@ export class WebglGeometryColorsComponent extends BaseComponent<{}> {
 		const count = geometry.attributes.position.count;
 		geometry.setAttribute(
 			'color',
-			N3js.getBufferAttribute(new Float32Array(count * 3), 3)
+			new THREE.BufferAttribute(new Float32Array(count * 3), 3)
 		);
-		const color = N3js.getColor();
+		const color = new THREE.Color();
 		const positions = geometry.attributes.position;
 		const colors = geometry.attributes.color;
 		for (let i = 0; i < count; i++) {
@@ -47,9 +47,9 @@ export class WebglGeometryColorsComponent extends BaseComponent<{}> {
 		const count = geometry.attributes.position.count;
 		geometry.setAttribute(
 			'color',
-			N3js.getBufferAttribute(new Float32Array(count * 3), 3)
+			new THREE.BufferAttribute(new Float32Array(count * 3), 3)
 		);
-		const color = N3js.getColor();
+		const color = new THREE.Color();
 		const positions = geometry.attributes.position;
 		const colors = geometry.attributes.color;
 		for (let i = 0; i < count; i++) {

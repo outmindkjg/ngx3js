@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	CameraComponent, I3JS, N3js, RendererComponent,
+	CameraComponent, I3JS, THREE, RendererComponent,
 	RendererTimer
 } from 'ngx3js';
 
@@ -58,7 +58,7 @@ export class WebglCameraLogarithmicdepthbufferComponent extends BaseComponent<{
 
 	ngOnInit() {
 		this.labelData.forEach((label) => {
-			label.color = N3js.getColor().setHSL(Math.random(), 0.5, 0.5).getHex();
+			label.color = new THREE.Color().setHSL(Math.random(), 0.5, 0.5).getHex();
 		});
 	}
 
@@ -88,7 +88,7 @@ export class WebglCameraLogarithmicdepthbufferComponent extends BaseComponent<{
 			this.labelData[this.labelData.length - 1].scale *
 			100;
 		let damping = Math.abs(this.zoomspeed) > this.minzoomspeed ? 0.95 : 1.0;
-		const zoom = N3js.MathUtils.clamp(
+		const zoom = THREE.MathUtils.clamp(
 			Math.pow(Math.E, this.zoompos),
 			minzoom,
 			maxzoom

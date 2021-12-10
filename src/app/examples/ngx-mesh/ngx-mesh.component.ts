@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BaseComponent, GeometryUtils, I3JS, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, GeometryUtils, I3JS, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-mesh',
@@ -155,10 +155,10 @@ export class NgxMeshComponent extends BaseComponent<{
 
 	loadLineGeometry(geometry: I3JS.IBufferGeometry) {
 		const points = GeometryUtils.gosper(8);
-		const positionAttribute = N3js.getFloat32BufferAttribute(points, 3);
+		const positionAttribute = new THREE.Float32BufferAttribute(points, 3);
 		geometry.setAttribute('position', positionAttribute);
 		geometry.center();
-		const colorAttribute = N3js.getBufferAttribute(
+		const colorAttribute = new THREE.BufferAttribute(
 			new Float32Array(positionAttribute.array.length),
 			3
 		);
@@ -187,10 +187,10 @@ export class NgxMeshComponent extends BaseComponent<{
 		const x = Math.sin(rate * 50) * rate * 5;
 		const y = 3 - rate * 3;
 		const z = Math.cos(rate * 50) * rate * 5;
-		const translation: I3JS.IVector3 = N3js.getVector3(x, y, z);
-		const rotation: I3JS.IQuaternion = N3js.getQuaternion();
-		rotation.setFromAxisAngle(N3js.getVector3(0, 1, 0), rate * 50);
-		const scale: I3JS.IVector3 = N3js.getVector3(rate, rate, rate);
+		const translation: I3JS.IVector3 = new THREE.Vector3(x, y, z);
+		const rotation: I3JS.IQuaternion = new THREE.Quaternion();
+		rotation.setFromAxisAngle(new THREE.Vector3(0, 1, 0), rate * 50);
+		const scale: I3JS.IVector3 = new THREE.Vector3(rate, rate, rate);
 		mat.compose(translation, rotation, scale);
 	};
 
@@ -247,7 +247,7 @@ export class NgxMeshComponent extends BaseComponent<{
 		this.lineLoopPosition = [];
 		this.lineColors = [];
 		this.spriteInfos = [];
-		const color = N3js.getColor();
+		const color = new THREE.Color();
 		for (let i = 0; i < 200; i++) {
 			const rate = 0.5 + ((i - 100) / 100) * 3;
 			const x = Math.sin(i / 5) * rate;
@@ -379,7 +379,7 @@ export class NgxMeshComponent extends BaseComponent<{
 		mapping?: string;
 	};
 
-	color: I3JS.IColor = N3js.getColor();
+	color: I3JS.IColor = new THREE.Color();
 	offset = 0;
 	updateLineColors(colorAttribute) {
 		const l = colorAttribute.count;

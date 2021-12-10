@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	GeometryComponent, I3JS, MeshComponent, N3js, RendererTimer
+	GeometryComponent, I3JS, MeshComponent, THREE, RendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -28,7 +28,7 @@ export class WebglCustomAttributesLinesComponent extends BaseComponent<{}> {
 			this.geometry = geometry;
 			const customColor = this.geometry.attributes
 				.customColor ;
-			const color = N3js.getColor(0xffffff);
+			const color = new THREE.Color(0xffffff);
 			for (let i = 0, l = customColor.count; i < l; i++) {
 				color.setHSL(i / l, 0.5, 0.5);
 				color.toArray(customColor.array, i * customColor.itemSize);

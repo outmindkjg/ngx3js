@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent, BufferGeometryUtils, I3JS, MeshComponent, N3js, RendererTimer
+	BaseComponent, BufferGeometryUtils, I3JS, MeshComponent, THREE, RendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -44,7 +44,7 @@ export class WebglCustomAttributesPoints3Component extends BaseComponent<{}> {
 
 		radius = 200;
 
-		let boxGeometry1: any = N3js.getBoxGeometry(
+		let boxGeometry1: any = new THREE.BoxGeometry(
 			radius,
 			0.1 * radius,
 			0.1 * radius,
@@ -74,7 +74,7 @@ export class WebglCustomAttributesPoints3Component extends BaseComponent<{}> {
 		this.addGeo(boxGeometry1, -110, -110, 0, Math.PI / 2);
 
 		// corner edges
-		let boxGeometry2: any = N3js.getBoxGeometry(
+		let boxGeometry2: any = new THREE.BoxGeometry(
 			0.1 * radius,
 			radius * 1.2,
 			0.1 * radius,
@@ -93,12 +93,12 @@ export class WebglCustomAttributesPoints3Component extends BaseComponent<{}> {
 		this.addGeo(boxGeometry2, -110, 0, 110, 0);
 		this.addGeo(boxGeometry2, -110, 0, -110, 0);
 
-		const positionAttribute = N3js.getFloat32BufferAttribute(vertices, 3);
+		const positionAttribute = new THREE.Float32BufferAttribute(vertices, 3);
 
 		const colors = [];
 		const sizes = [];
 
-		const color = N3js.getColor();
+		const color = new THREE.Color();
 
 		for (let i = 0; i < positionAttribute.count; i++) {
 			if (i < vertices1) {
@@ -115,12 +115,12 @@ export class WebglCustomAttributesPoints3Component extends BaseComponent<{}> {
 		this.colors = colors;
 	}
 
-	matrix = N3js.getMatrix4();
-	position = N3js.getVector3();
-	rotation = N3js.getEuler();
-	quaternion = N3js.getQuaternion();
-	scale = N3js.getVector3(1, 1, 1);
-	vertex = N3js.getVector3();
+	matrix = new THREE.Matrix4();
+	position = new THREE.Vector3();
+	rotation = new THREE.Euler();
+	quaternion = new THREE.Quaternion();
+	scale = new THREE.Vector3(1, 1, 1);
+	vertex = new THREE.Vector3();
 
 	addGeo(geo, x, y, z, ry) {
 		const position = this.position;

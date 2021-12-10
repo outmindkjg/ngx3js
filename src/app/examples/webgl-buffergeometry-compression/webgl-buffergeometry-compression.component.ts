@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	BufferGeometryUtils, I3JS, MeshComponent, N3js, RendererTimer
+	BufferGeometryUtils, I3JS, MeshComponent, THREE, RendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -220,7 +220,7 @@ export class WebglBuffergeometryCompressionComponent extends BaseComponent<{
 		this.lights.forEach((light) => {
 			const direction = light.position.clone();
 			direction.applyAxisAngle(
-				N3js.getVector3(1, 1, 0),
+				new THREE.Vector3(1, 1, 0),
 				(this.controls.rotationSpeed / 180) * Math.PI
 			);
 			light.position.add(direction.sub(light.position));

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-instancing-billboards',
@@ -12,7 +12,7 @@ export class WebglBuffergeometryInstancingBillboardsComponent extends BaseCompon
 	}
 
 	ngOnInit() {
-		const circleGeometry = N3js.getCircleGeometry(1, 6);
+		const circleGeometry = new THREE.CircleGeometry(1, 6);
 		const particleCount = 75000;
 		const translateArray: number[] = [];
 		for (let i = 0, i3 = 0, l = particleCount; i < l; i++, i3 += 3) {

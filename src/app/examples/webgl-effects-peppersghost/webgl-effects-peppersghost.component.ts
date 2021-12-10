@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, MeshComponent, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-Effects-peppersghost',
@@ -14,12 +14,12 @@ export class WebglEffectsPeppersghostComponent extends BaseComponent<{}> {
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
 		const meshTree = mesh.getObject3d() as any;
-		if (meshTree instanceof N3js.Mesh) {
+		if (meshTree instanceof THREE.Mesh) {
 			const geometry = meshTree.geometry;
 			meshTree.geometry = geometry.toNonIndexed();
 			const position = geometry.attributes.position;
 			const colors = [];
-			const color = N3js.getColor();
+			const color = new THREE.Color();
 			for (let i = 0; i < position.count; i += 6) {
 				color.setHex(Math.random() * 0xffffff);
 
@@ -38,13 +38,13 @@ export class WebglEffectsPeppersghostComponent extends BaseComponent<{}> {
 
 			geometry.setAttribute(
 				'color',
-				N3js.getFloat32BufferAttribute(colors, 3)
+				new THREE.Float32BufferAttribute(colors, 3)
 			);
 
-			const material = N3js.getMeshBasicMaterial({ vertexColors: true });
+			const material = new THREE.MeshBasicMaterial({ vertexColors: true });
 
 			for (let i = 0; i < 10; i++) {
-				const cube = N3js.getMesh(geometry, material);
+				const cube = new THREE.Mesh(geometry, material);
 				cube.position.x = Math.random() * 2 - 1;
 				cube.position.y = Math.random() * 2 - 1;
 				cube.position.z = Math.random() * 2 - 1;

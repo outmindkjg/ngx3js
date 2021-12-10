@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent, I3JS, MeshComponent, N3js, RendererEvent,
+	BaseComponent, I3JS, MeshComponent, THREE, RendererEvent,
 	RendererTimer,
 	ThreeUtil
 } from 'ngx3js';
@@ -209,8 +209,8 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 
 	ngOnInit() {
 		const starVertices = [];
-		const prevPoint = N3js.getVector3(0, 0, 1);
-		const currPoint = N3js.getVector3();
+		const prevPoint = new THREE.Vector3(0, 0, 1);
+		const currPoint = new THREE.Vector3();
 		for (let i = 1; i <= 16; i++) {
 			currPoint.set(
 				Math.sin((2 * Math.PI * i) / 16),
@@ -259,13 +259,13 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 		}
 	}
 
-	private intersection = N3js.getVector3();
-	private sphere = N3js.getSphere(N3js.getVector3(0, 300), 200);
+	private intersection = new THREE.Vector3();
+	private sphere = new THREE.Sphere(new THREE.Vector3(0, 300), 200);
 
 	changeScene() {
-		const vec1 = N3js.getVector3();
-		const vec2 = N3js.getVector3();
-		const rayDirection = N3js.getVector3();
+		const vec1 = new THREE.Vector3();
+		const vec2 = new THREE.Vector3();
+		const rayDirection = new THREE.Vector3();
 		let rayLength = 0;
 		switch (this.controls.scene) {
 			case 'ball':
@@ -420,8 +420,8 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 		z: 0,
 	};
 
-	sourceOffset: I3JS.IVector3 = N3js.getVector3();
-	destOffset: I3JS.IVector3 = N3js.getVector3();
+	sourceOffset: I3JS.IVector3 = new THREE.Vector3();
+	destOffset: I3JS.IVector3 = new THREE.Vector3();
 
 	currentTime: number = 0;
 
@@ -454,12 +454,12 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 		const lightningStrike = this.getLightningStrike();
 		if (lightningStrike !== null) {
 			const material = lightningStrike.material;
-			material.color = N3js.getColor(this.controls.lightningColor);
+			material.color = new THREE.Color(this.controls.lightningColor);
 		} else {
 			const storm = (this.meshObject3d.getObjectByName('storm') || null) as any;
 			if (ThreeUtil.isNotNull(storm)) {
 				const material = storm.lightningMaterial;
-				material.color = N3js.getColor(this.controls.lightningColor);
+				material.color = new THREE.Color(this.controls.lightningColor);
 			}
 		}
 		this.rayParams.straightness = this.controls.straightness;

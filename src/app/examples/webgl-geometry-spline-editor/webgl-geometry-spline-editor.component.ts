@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	ControlComponent, I3JS, MeshComponent, N3js, RendererEvent
+	ControlComponent, I3JS, MeshComponent, THREE, RendererEvent
 } from 'ngx3js';
 
 @Component({
@@ -35,7 +35,7 @@ export class WebglGeometrySplineEditorComponent extends BaseComponent<{
 					const strplace = [];
 					for (let i = 0; i < this.splinePointsLength; i++) {
 						const p = this.positions[i];
-						strplace.push(`N3js.getVector3(${p.x}, ${p.y}, ${p.z})`);
+						strplace.push(`new THREE.Vector3(${p.x}, ${p.y}, ${p.z})`);
 					}
 					const code = '[' + strplace.join(',\n\t') + ']';
 					prompt('copy and paste code', code);
@@ -137,8 +137,8 @@ export class WebglGeometrySplineEditorComponent extends BaseComponent<{
 		this.pointMesh = pointMesh;
 	}
 
-	onUpPosition = N3js.getVector2();
-	onDownPosition = N3js.getVector2();
+	onUpPosition = new THREE.Vector2();
+	onDownPosition = new THREE.Vector2();
 
 	setTransformEventListener(event: { type: string; event: any }) {
 		if (this.orbitControl !== null) {

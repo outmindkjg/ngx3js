@@ -1,6 +1,6 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component } from '@angular/core';
-import { BaseComponent, ControlComponent, RendererTimer  , I3JS, N3js } from 'ngx3js';
+import { BaseComponent, ControlComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-controls-arcball',

@@ -4,7 +4,7 @@ import {
 	PassComponent,
 	RendererTimer,
 	RenderPass,
-	TAARenderPass, I3JS, N3js } from 'ngx3js';
+	TAARenderPass, I3JS, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-taa',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	GeometryComponent, I3JS, MeshComponent, N3js, RendererTimer
+	GeometryComponent, I3JS, MeshComponent, THREE, RendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -70,7 +70,7 @@ export class WebglMorphtargetsComponent extends BaseComponent<{
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
 		const threeMesh = mesh.getObject3d();
-		if (threeMesh instanceof N3js.Mesh) {
+		if (threeMesh instanceof THREE.Mesh) {
 			this.threeMesh = threeMesh as any;
 		}
 	}
@@ -85,8 +85,8 @@ export class WebglMorphtargetsComponent extends BaseComponent<{
 			const positionAttribute = geometry.attributes.position;
 			const spherePositions = [];
 			const twistPositions = [];
-			const direction = N3js.getVector3(1, 0, 0);
-			const vertex = N3js.getVector3();
+			const direction = new THREE.Vector3(1, 0, 0);
+			const vertex = new THREE.Vector3();
 			for (let i = 0; i < positionAttribute.count; i++) {
 				const x = positionAttribute.getX(i);
 				const y = positionAttribute.getY(i);
@@ -110,11 +110,11 @@ export class WebglMorphtargetsComponent extends BaseComponent<{
 					.applyAxisAngle(direction, (Math.PI * x) / 2)
 					.toArray(twistPositions, twistPositions.length);
 			}
-			geometry.morphAttributes.position[0] = N3js.getFloat32BufferAttribute(
+			geometry.morphAttributes.position[0] = new THREE.Float32BufferAttribute(
 				spherePositions,
 				3
 			);
-			geometry.morphAttributes.position[1] = N3js.getFloat32BufferAttribute(
+			geometry.morphAttributes.position[1] = new THREE.Float32BufferAttribute(
 				twistPositions,
 				3
 			);

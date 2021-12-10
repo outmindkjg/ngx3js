@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent, I3JS, MeshComponent, N3js, RendererEvent,
+	BaseComponent, I3JS, MeshComponent, THREE, RendererEvent,
 	RendererTimer
 } from 'ngx3js';
 
@@ -19,17 +19,17 @@ export class WebglInteractiveBuffergeometryComponent extends BaseComponent<{}> {
 		const positions = new Float32Array(triangles * 3 * 3);
 		const normals = new Float32Array(triangles * 3 * 3);
 		const colors = new Float32Array(triangles * 3 * 3);
-		const color = N3js.getColor();
+		const color = new THREE.Color();
 		const n = 800,
 			n2 = n / 2; // triangles spread in the cube
 		const d = 120,
 			d2 = d / 2; // individual triangle size
-		const pA = N3js.getVector3();
-		const pB = N3js.getVector3();
-		const pC = N3js.getVector3();
+		const pA = new THREE.Vector3();
+		const pB = new THREE.Vector3();
+		const pC = new THREE.Vector3();
 
-		const cb = N3js.getVector3();
-		const ab = N3js.getVector3();
+		const cb = new THREE.Vector3();
+		const ab = new THREE.Vector3();
 
 		for (let i = 0; i < positions.length; i += 9) {
 			// positions

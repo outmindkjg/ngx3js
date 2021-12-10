@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BaseComponent, RendererTimer, N3js } from 'ngx3js';
+import { BaseComponent, RendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shadowmap-pcss',
@@ -110,12 +110,12 @@ export class WebglShadowmapPcssComponent
   `;
 
 	ngOnDestroy() {
-		N3js.ShaderChunk.shadowmap_pars_fragment = this.shadowmap_pars_fragment;
+		THREE.ShaderChunk.shadowmap_pars_fragment = this.shadowmap_pars_fragment;
 	}
 
 	shadowmap_pars_fragment: string = null;
 	ngOnInit() {
-		let shader = N3js.ShaderChunk.shadowmap_pars_fragment;
+		let shader = THREE.ShaderChunk.shadowmap_pars_fragment;
 		this.shadowmap_pars_fragment = shader;
 		shader = shader.replace(
 			'#ifdef USE_SHADOWMAP',
@@ -127,7 +127,7 @@ export class WebglShadowmapPcssComponent
 			this.PCSSGetShadow + '#if defined( SHADOWMAP_TYPE_PCF )'
 		);
 
-		N3js.ShaderChunk.shadowmap_pars_fragment = shader;
+		THREE.ShaderChunk.shadowmap_pars_fragment = shader;
 
 		this.sphereInfos = [];
 		for (let i = 0; i < 20; i++) {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-custom-attributes-particles',
@@ -20,7 +20,7 @@ export class WebglBuffergeometryCustomAttributesParticlesComponent extends BaseC
 		const positions = [];
 		const colors = [];
 		const sizes = [];
-		const color = N3js.getColor();
+		const color = new THREE.Color();
 		for (let i = 0; i < particles; i++) {
 			positions.push((Math.random() * 2 - 1) * radius);
 			positions.push((Math.random() * 2 - 1) * radius);

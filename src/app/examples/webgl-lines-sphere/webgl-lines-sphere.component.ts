@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, N3js } from 'ngx3js';
+import { BaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lines-sphere',
@@ -13,7 +13,7 @@ export class WebglLinesSphereComponent extends BaseComponent<{}> {
 
 	ngOnInit() {
 		const vertices = [];
-		const vertex = N3js.getVector3();
+		const vertex = new THREE.Vector3();
 		const r = 450;
 		for (let i = 0; i < 1500; i++) {
 			vertex.x = Math.random() * 2 - 1;

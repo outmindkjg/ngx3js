@@ -4,7 +4,7 @@ import {
 	CameraComponent,
 	ControlComponent,
 	CSMHelper,
-	HelperComponent, I3JS, N3js, RendererTimer
+	HelperComponent, I3JS, THREE, RendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -228,7 +228,7 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
 		if (this.pCamera === null || this.oCamera === null) {
 			return;
 		}
-		const target = N3js.getVector3(-100, 10, 0);
+		const target = new THREE.Vector3(-100, 10, 0);
 		const camera = this.pCamera;
 		// <ngx3js-lookat [x]="-100" [y]="10" [z]="0"></ngx3js-lookat>
 		const size = target.distanceTo(camera.position);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-custom-attributes-points2',
@@ -24,8 +24,8 @@ export class WebglCustomAttributesPoints2Component extends BaseComponent<{}> {
 			const attributes = geometry.attributes;
 			const colors = geometry.getAttribute('ca').array;
 			const sizes = geometry.getAttribute('size').array as any;
-			const color = N3js.getColor();
-			const vertex = N3js.getVector3();
+			const color = new THREE.Color();
+			const vertex = new THREE.Vector3();
 			const radius = 100;
 			const sphereGeometryLength = this.sphereGeometryLength; // sphereGeometry.getAttribute( 'position' ).count;
 			for (let i = 0, l = positionAttribute.count; i < l; i++) {

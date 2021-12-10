@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	MaterialComponent, N3js, PlaneComponent,
+	MaterialComponent, THREE, PlaneComponent,
 	RendererComponent,
 	RendererTimer
 } from 'ngx3js';
@@ -99,10 +99,10 @@ export class WebglClippingAdvancedComponent extends BaseComponent<{
 		}
 		this.localPlanes = [];
 		const vertices = [
-			N3js.getVector3(+1, 0, +Math.SQRT1_2),
-			N3js.getVector3(-1, 0, +Math.SQRT1_2),
-			N3js.getVector3(0, +1, -Math.SQRT1_2),
-			N3js.getVector3(0, -1, -Math.SQRT1_2),
+			new THREE.Vector3(+1, 0, +Math.SQRT1_2),
+			new THREE.Vector3(-1, 0, +Math.SQRT1_2),
+			new THREE.Vector3(0, +1, -Math.SQRT1_2),
+			new THREE.Vector3(0, -1, -Math.SQRT1_2),
 		];
 		const indices = [0, 1, 2, 0, 2, 3, 0, 3, 1, 1, 3, 2];
 		this.localPlanes = this.planesFromMesh(vertices, indices);
@@ -136,7 +136,7 @@ export class WebglClippingAdvancedComponent extends BaseComponent<{
 			const a = vertices[indices[j]],
 				b = vertices[indices[j + 1]],
 				c = vertices[indices[j + 2]];
-			const plane = N3js.getPlane().setFromCoplanarPoints(a, b, c);
+			const plane = new THREE.Plane().setFromCoplanarPoints(a, b, c);
 			result.push({
 				x: plane.normal.x,
 				y: plane.normal.y,

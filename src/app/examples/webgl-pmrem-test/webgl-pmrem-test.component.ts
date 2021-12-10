@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, LightComponent, N3js, RendererEvent } from 'ngx3js';
+import { BaseComponent, I3JS, LightComponent, THREE, RendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-pmrem-test',
@@ -45,7 +45,7 @@ export class WebglPmremTestComponent extends BaseComponent<{}> {
 			switch (event.type) {
 				case 'mouseover':
 					this.meshObject3d.traverse((child : any) => {
-						if (child instanceof N3js.Mesh) {
+						if (child instanceof THREE.Mesh) {
 							(child.material as any).envMapIntensity = 1;
 						}
 					});
@@ -53,7 +53,7 @@ export class WebglPmremTestComponent extends BaseComponent<{}> {
 					break;
 				case 'mouseout':
 					this.meshObject3d.traverse((child : any) => {
-						if (child instanceof N3js.Mesh) {
+						if (child instanceof THREE.Mesh) {
 							(child.material as any).envMapIntensity = 0;
 						}
 					});

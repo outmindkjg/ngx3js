@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, N3js } from 'ngx3js';
+import { BaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-parallaxmap',
@@ -72,8 +72,8 @@ export class WebglMaterialsParallaxmapComponent extends BaseComponent<{
 	guiChanged() {
 		if (
 			this.meshObject3d !== null &&
-			this.meshObject3d instanceof N3js.Mesh &&
-			(this.meshObject3d as any).material instanceof N3js.ShaderMaterial
+			this.meshObject3d instanceof THREE.Mesh &&
+			(this.meshObject3d as any).material instanceof THREE.ShaderMaterial
 		) {
 			const material = (this.meshObject3d as any).material;
 			const uniforms = material.uniforms;

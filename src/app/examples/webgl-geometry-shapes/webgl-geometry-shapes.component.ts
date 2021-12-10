@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, N3js } from 'ngx3js';
+import { BaseComponent, I3JS, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-shapes',
@@ -85,37 +85,37 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 		this.shapesInfos = [];
 		this.lineShapesInfos = [];
 		const californiaPts = [];
-		californiaPts.push(N3js.getVector2(610, 320));
-		californiaPts.push(N3js.getVector2(450, 300));
-		californiaPts.push(N3js.getVector2(392, 392));
-		californiaPts.push(N3js.getVector2(266, 438));
-		californiaPts.push(N3js.getVector2(190, 570));
-		californiaPts.push(N3js.getVector2(190, 600));
-		californiaPts.push(N3js.getVector2(160, 620));
-		californiaPts.push(N3js.getVector2(160, 650));
-		californiaPts.push(N3js.getVector2(180, 640));
-		californiaPts.push(N3js.getVector2(165, 680));
-		californiaPts.push(N3js.getVector2(150, 670));
-		californiaPts.push(N3js.getVector2(90, 737));
-		californiaPts.push(N3js.getVector2(80, 795));
-		californiaPts.push(N3js.getVector2(50, 835));
-		californiaPts.push(N3js.getVector2(64, 870));
-		californiaPts.push(N3js.getVector2(60, 945));
-		californiaPts.push(N3js.getVector2(300, 945));
-		californiaPts.push(N3js.getVector2(300, 743));
-		californiaPts.push(N3js.getVector2(600, 473));
-		californiaPts.push(N3js.getVector2(626, 425));
-		californiaPts.push(N3js.getVector2(600, 370));
-		californiaPts.push(N3js.getVector2(610, 320));
+		californiaPts.push(new THREE.Vector2(610, 320));
+		californiaPts.push(new THREE.Vector2(450, 300));
+		californiaPts.push(new THREE.Vector2(392, 392));
+		californiaPts.push(new THREE.Vector2(266, 438));
+		californiaPts.push(new THREE.Vector2(190, 570));
+		californiaPts.push(new THREE.Vector2(190, 600));
+		californiaPts.push(new THREE.Vector2(160, 620));
+		californiaPts.push(new THREE.Vector2(160, 650));
+		californiaPts.push(new THREE.Vector2(180, 640));
+		californiaPts.push(new THREE.Vector2(165, 680));
+		californiaPts.push(new THREE.Vector2(150, 670));
+		californiaPts.push(new THREE.Vector2(90, 737));
+		californiaPts.push(new THREE.Vector2(80, 795));
+		californiaPts.push(new THREE.Vector2(50, 835));
+		californiaPts.push(new THREE.Vector2(64, 870));
+		californiaPts.push(new THREE.Vector2(60, 945));
+		californiaPts.push(new THREE.Vector2(300, 945));
+		californiaPts.push(new THREE.Vector2(300, 743));
+		californiaPts.push(new THREE.Vector2(600, 473));
+		californiaPts.push(new THREE.Vector2(626, 425));
+		californiaPts.push(new THREE.Vector2(600, 370));
+		californiaPts.push(new THREE.Vector2(610, 320));
 
 		for (let i = 0; i < californiaPts.length; i++)
 			californiaPts[i].multiplyScalar(0.25);
 
-		const californiaShape = N3js.getShape(californiaPts);
+		const californiaShape = new THREE.Shape(californiaPts);
 
 		// Triangle
 
-		const triangleShape = N3js.getShape()
+		const triangleShape = new THREE.Shape()
 			.moveTo(80, 20)
 			.lineTo(40, 80)
 			.lineTo(120, 80)
@@ -126,7 +126,7 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 		const x = 0,
 			y = 0;
 
-		const heartShape = N3js.getShape() // From http://blog.burlock.org/html5/130-paths
+		const heartShape = new THREE.Shape() // From http://blog.burlock.org/html5/130-paths
 			.moveTo(x + 25, y + 25)
 			.bezierCurveTo(x + 25, y + 25, x + 20, y, x, y)
 			.bezierCurveTo(x - 30, y, x - 30, y + 35, x - 30, y + 35)
@@ -139,7 +139,7 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 
 		const sqLength = 80;
 
-		const squareShape = N3js.getShape()
+		const squareShape = new THREE.Shape()
 			.moveTo(0, 0)
 			.lineTo(0, sqLength)
 			.lineTo(sqLength, sqLength)
@@ -148,7 +148,7 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 
 		// Rounded rectangle
 
-		const roundedRectShape = N3js.getShape();
+		const roundedRectShape = new THREE.Shape();
 
 		(function roundedRect(ctx, x, y, width, height, radius) {
 			ctx.moveTo(x, y + radius);
@@ -169,7 +169,7 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 
 		// Track
 
-		const trackShape = N3js.getShape()
+		const trackShape = new THREE.Shape()
 			.moveTo(40, 40)
 			.lineTo(40, 160)
 			.absarc(60, 160, 20, Math.PI, 0, true)
@@ -179,7 +179,7 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 		// Circle
 
 		const circleRadius = 40;
-		const circleShape = N3js.getShape()
+		const circleShape = new THREE.Shape()
 			.moveTo(0, circleRadius)
 			.quadraticCurveTo(circleRadius, circleRadius, circleRadius, 0)
 			.quadraticCurveTo(circleRadius, -circleRadius, 0, -circleRadius)
@@ -188,7 +188,7 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 
 		// Fish
 
-		const fishShape = N3js.getShape()
+		const fishShape = new THREE.Shape()
 			.moveTo(x, y)
 			.quadraticCurveTo(x + 50, y - 80, x + 90, y - 10)
 			.quadraticCurveTo(x + 100, y - 10, x + 115, y - 40)
@@ -198,11 +198,11 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 
 		// Arc circle
 
-		const arcShape = N3js.getShape()
+		const arcShape = new THREE.Shape()
 			.moveTo(50, 10)
 			.absarc(10, 10, 40, 0, Math.PI * 2, false);
 
-		const holePath = N3js.getPath()
+		const holePath = new THREE.Path()
 			.moveTo(20, 10)
 			.absarc(10, 10, 10, 0, Math.PI * 2, true);
 
@@ -210,19 +210,19 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 
 		// Smiley
 
-		const smileyShape = N3js.getShape()
+		const smileyShape = new THREE.Shape()
 			.moveTo(80, 40)
 			.absarc(40, 40, 40, 0, Math.PI * 2, false);
 
-		const smileyEye1Path = N3js.getPath()
+		const smileyEye1Path = new THREE.Path()
 			.moveTo(35, 20)
 			.absellipse(25, 20, 10, 10, 0, Math.PI * 2, true, 0);
 
-		const smileyEye2Path = N3js.getPath()
+		const smileyEye2Path = new THREE.Path()
 			.moveTo(65, 20)
 			.absarc(55, 20, 10, 0, Math.PI * 2, true);
 
-		const smileyMouthPath = N3js.getPath()
+		const smileyMouthPath = new THREE.Path()
 			.moveTo(20, 40)
 			.quadraticCurveTo(40, 60, 60, 40)
 			.bezierCurveTo(70, 45, 70, 50, 60, 60)
@@ -236,12 +236,12 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 		// Spline shape
 
 		const splinepts = [];
-		splinepts.push(N3js.getVector2(70, 20));
-		splinepts.push(N3js.getVector2(80, 90));
-		splinepts.push(N3js.getVector2(-30, 70));
-		splinepts.push(N3js.getVector2(0, 0));
+		splinepts.push(new THREE.Vector2(70, 20));
+		splinepts.push(new THREE.Vector2(80, 90));
+		splinepts.push(new THREE.Vector2(-30, 70));
+		splinepts.push(new THREE.Vector2(0, 0));
 
-		const splineShape = N3js.getShape().moveTo(0, 0).splineThru(splinepts);
+		const splineShape = new THREE.Shape().moveTo(0, 0).splineThru(splinepts);
 
 		const extrudeSettings = {
 			depth: 8,

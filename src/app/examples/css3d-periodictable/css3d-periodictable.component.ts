@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent  , I3JS, N3js } from 'ngx3js';
+import { BaseComponent, MeshComponent  , I3JS, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-css3d-periodictable',
@@ -663,8 +663,8 @@ export class Css3dPeriodictableComponent extends BaseComponent<{
 		for (let i = 0; i < table.length; i += 5) {
 			const x = table[i + 3] * 140 - 1330;
 			const y = -(table[i + 4] * 180) + 990;
-			let position = N3js.getVector3(x, y, 0);
-			let rotation = N3js.getEuler(0, 0, 0);
+			let position = new THREE.Vector3(x, y, 0);
+			let rotation = new THREE.Euler(0, 0, 0);
 
 			this.tweenTable.table.push({
 				position: position.clone(),
@@ -684,11 +684,11 @@ export class Css3dPeriodictableComponent extends BaseComponent<{
 				duration: Math.random() * 3 + 1,
 			});
 		}
-		const vector = N3js.getVector3();
+		const vector = new THREE.Vector3();
 		for (let i = 0, l = this.periodicInfo.length; i < l; i++) {
 			const phi = Math.acos(-1 + (2 * i) / l);
 			const theta = Math.sqrt(l * Math.PI) * phi;
-			const object = N3js.getObject3D();
+			const object = new THREE.Object3D();
 			object.position.setFromSphericalCoords(800, phi, theta);
 			vector.copy(object.position).multiplyScalar(2);
 			object.lookAt(vector);
@@ -700,7 +700,7 @@ export class Css3dPeriodictableComponent extends BaseComponent<{
 		for (let i = 0, l = this.periodicInfo.length; i < l; i++) {
 			const theta = i * 0.175 + Math.PI;
 			const y = -(i * 8) + 450;
-			const object = N3js.getObject3D();
+			const object = new THREE.Object3D();
 			object.position.setFromCylindricalCoords(900, theta, y);
 			vector.x = object.position.x * 2;
 			vector.y = object.position.y;
@@ -712,7 +712,7 @@ export class Css3dPeriodictableComponent extends BaseComponent<{
 			});
 		}
 		for (let i = 0; i < this.periodicInfo.length; i++) {
-			const object = N3js.getObject3D();
+			const object = new THREE.Object3D();
 			object.position.x = (i % 5) * 400 - 800;
 			object.position.y = -(Math.floor(i / 5) % 5) * 400 + 800;
 			object.position.z = Math.floor(i / 25) * 1000 - 2000;

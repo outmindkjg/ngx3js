@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MaterialComponent, N3js, PlaneComponent } from 'ngx3js';
+import { BaseComponent, MaterialComponent, THREE, PlaneComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-clipping-intersection',
@@ -51,9 +51,9 @@ export class WebglClippingIntersectionComponent extends BaseComponent<{
 
 	changeClipIntersection(mesh: any) {
 		if (
-			mesh instanceof N3js.Mesh &&
+			mesh instanceof THREE.Mesh &&
 			mesh.material &&
-			mesh.material instanceof N3js.Material
+			mesh.material instanceof THREE.Material
 		) {
 			const material = mesh.material ;
 			material.clipIntersection = this.controls.clipIntersection;
@@ -73,7 +73,7 @@ export class WebglClippingIntersectionComponent extends BaseComponent<{
 		this.sphereInfos = [];
 		for (let i = 1; i <= 30; i += 2) {
 			this.sphereInfos.push({
-				color: N3js.getColor().setHSL(Math.random(), 0.5, 0.5).getHex(),
+				color: new THREE.Color().setHSL(Math.random(), 0.5, 0.5).getHex(),
 				radius: i / 30,
 			});
 		}

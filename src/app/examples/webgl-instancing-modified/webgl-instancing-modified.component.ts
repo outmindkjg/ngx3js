@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {
 	BaseComponent,
 	GeometryComponent, I3JS, MaterialComponent,
-	MeshComponent, N3js, RendererTimer
+	MeshComponent, THREE, RendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -52,7 +52,7 @@ export class WebglInstancingModifiedComponent extends BaseComponent<{}> {
 			.getGeometry()
 			.setAttribute(
 				'instanceColor',
-				N3js.getInstancedBufferAttribute(new Float32Array(instanceColors), 3)
+				new THREE.InstancedBufferAttribute(new Float32Array(instanceColors), 3)
 			);
 	}
 
@@ -71,7 +71,7 @@ export class WebglInstancingModifiedComponent extends BaseComponent<{}> {
 		};
 	}
 
-	dummy = N3js.getObject3D();
+	dummy = new THREE.Object3D();
 
 	makeMatrix = (matrix: I3JS.IMatrix4, i: number, time: number = 0) => {
 		const offset = (this.amount - 1) / 2;
@@ -89,7 +89,7 @@ export class WebglInstancingModifiedComponent extends BaseComponent<{}> {
 		matrix.copy(dummy.matrix);
 	};
 
-	matrix = N3js.getMatrix4();
+	matrix = new THREE.Matrix4();
 
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);

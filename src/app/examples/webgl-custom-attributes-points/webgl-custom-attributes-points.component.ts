@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-custom-attributes-points',
@@ -17,8 +17,8 @@ export class WebglCustomAttributesPointsComponent extends BaseComponent<{}> {
 		const positions = new Float32Array(amount * 3);
 		const colors = new Float32Array(amount * 3);
 		const sizes = new Float32Array(amount);
-		const vertex = N3js.getVector3();
-		const color = N3js.getColor(0xffffff);
+		const vertex = new THREE.Vector3();
+		const color = new THREE.Color(0xffffff);
 		for (let i = 0; i < amount; i++) {
 			vertex.x = (Math.random() * 2 - 1) * radius;
 			vertex.y = (Math.random() * 2 - 1) * radius;

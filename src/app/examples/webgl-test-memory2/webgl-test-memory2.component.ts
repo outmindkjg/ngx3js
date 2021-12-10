@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-test-memory2',
@@ -62,7 +62,7 @@ export class WebglTestMemory2Component extends BaseComponent<{}> {
 			this.meshChildren.forEach((child) => {
 				const mesh = child as any;
 				mesh.material.dispose();
-				mesh.material = N3js.getShaderMaterial({
+				mesh.material = new THREE.ShaderMaterial({
 					vertexShader: this.vertexShader,
 					fragmentShader: this.generateFragmentShader(),
 				});

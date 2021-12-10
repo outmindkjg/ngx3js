@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-points-dynamic',
@@ -97,7 +97,7 @@ export class WebglPointsDynamicComponent extends BaseComponent<{}> {
 				const info = this.meshInfos[idx];
 				if (!info.isClone) {
 					const groupId = info.groupId;
-					const meshGeometry = N3js.getBufferGeometry();
+					const meshGeometry = new THREE.BufferGeometry();
 					meshGeometry.setAttribute('position', positions.clone());
 					(meshGeometry.getAttribute('position') as any).setUsage(
 						I3JS.DynamicDrawUsage

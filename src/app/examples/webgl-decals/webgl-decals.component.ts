@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, N3js, RendererEvent, ThreeUtil } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, THREE, RendererEvent, ThreeUtil } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-decals',
@@ -68,8 +68,8 @@ export class WebglDecalsComponent extends BaseComponent<{
 		if (ThreeUtil.isNull(intersection)) {
 			return;
 		}
-		const position = N3js.getVector3();
-		const orientation = N3js.getEuler();
+		const position = new THREE.Vector3();
+		const orientation = new THREE.Euler();
 		position.copy(intersection.point);
 		const mouseHelper = this.mouseHelper.getObject3d();
 		orientation.copy(mouseHelper.rotation);
