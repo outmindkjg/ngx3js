@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	MeshComponent,
+	BaseComponent, I3JS, MeshComponent,
 	RendererComponent,
-	RendererTimer,
+	RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-lights-physical',
@@ -117,11 +115,11 @@ export class WebglLightsPhysicalComponent extends BaseComponent<{
 
 	setRender(renderer: RendererComponent) {
 		super.setRender(renderer);
-		const render = renderer.getRenderer() as THREE.WebGLRenderer;
+		const render = renderer.getRenderer() as any;
 		render.physicallyCorrectLights = true;
-		render.outputEncoding = THREE.sRGBEncoding;
+		render.outputEncoding = I3JS.sRGBEncoding;
 		render.shadowMap.enabled = true;
-		render.toneMapping = THREE.ReinhardToneMapping;
+		render.toneMapping = I3JS.ReinhardToneMapping;
 	}
 
 	bulbLight: any = null;

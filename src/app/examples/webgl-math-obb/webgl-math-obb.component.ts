@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	MeshComponent,
-	RendererEvent,
-	RendererTimer,
-	OBB,
+	BaseComponent, I3JS, MeshComponent, OBB, RendererEvent,
+	RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-math-obb',
@@ -50,7 +46,7 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 		this.hitBox = mesh.getObject3d();
 	}
 
-	hitBox: THREE.Object3D;
+	hitBox: I3JS.IObject3D;
 
 	eventListener(event: RendererEvent) {
 		if (this.camera !== null && this.hitBox !== null) {
@@ -94,13 +90,13 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 				const obb = child.userData.obb as OBB;
 				obb.copy(this.geometryObb);
 				obb.applyMatrix4(child.matrixWorld);
-				const material = child['material'] as THREE.MeshLambertMaterial;
+				const material = child['material'] ;
 				material.color.setHex(0x00ff00);
 			});
 			for (let i = 0, il = this.meshChildren.length; i < il; i++) {
 				const object = this.meshChildren[i];
 				const obb = object.userData.obb as any;
-				const objectMaterial = object['material'] as THREE.MeshLambertMaterial;
+				const objectMaterial = object['material'] ;
 				for (let j = i + 1, jl = this.meshChildren.length; j < jl; j++) {
 					const objectToTest = this.meshChildren[j];
 					const obbToTest = objectToTest.userData.obb;
@@ -108,7 +104,7 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 						objectMaterial.color.setHex(0xff0000);
 						const objectTestMaterial = objectToTest[
 							'material'
-						] as THREE.MeshLambertMaterial;
+						] ;
 						objectTestMaterial.color.setHex(0xff0000);
 					}
 				}

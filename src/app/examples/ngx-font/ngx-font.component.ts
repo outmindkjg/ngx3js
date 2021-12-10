@@ -5,8 +5,7 @@ import {
 	AbstractTextureComponent,
 	BaseComponent,
 	RendererTimer,
-	SharedComponent,
-} from 'ngx3js';
+	SharedComponent, I3JS, N3js } from 'ngx3js';
 
 interface FontInfo {
 	font: string;

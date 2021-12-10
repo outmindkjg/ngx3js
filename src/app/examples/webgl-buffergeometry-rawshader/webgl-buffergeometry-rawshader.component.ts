@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-rawshader',
@@ -39,12 +38,12 @@ export class WebglBuffergeometryRawshaderComponent extends BaseComponent<{}> {
 
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
-		this.object3d = mesh.getObject3d() as THREE.Mesh;
+		this.object3d = mesh.getObject3d() ;
 		this.uniforms = (this.object3d as any).material.uniforms;
 	}
 
-	object3d: THREE.Mesh = null;
-	uniforms: { [uniform: string]: THREE.IUniform } = null;
+	object3d: I3JS.IMesh = null;
+	uniforms: { [uniform: string]: I3JS.IUniform } = null;
 
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);

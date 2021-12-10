@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-tiled-forward',
@@ -49,7 +49,7 @@ export class WebglTiledForwardComponent extends BaseComponent<{}> {
 				defines: head.defines,
 				opacity: i === tIndex ? 0.9 : 1,
 				transparent: i === tIndex ? true : false,
-				color: new THREE.Color().setHSL(Math.random(), 1.0, 0.5).getHex(),
+				color: N3js.getColor().setHSL(Math.random(), 1.0, 0.5).getHex(),
 				side: i === tIndex ? 'FrontSide' : 'DoubleSide',
 				x: Math.sin((i * Math.PI) / 2) * RADIUS,
 				ry: 90 * i,
@@ -66,17 +66,17 @@ export class WebglTiledForwardComponent extends BaseComponent<{}> {
 			0.5 / Math.ceil(width / 32),
 			0.5 / Math.ceil(height / 32),
 		];
-		this.tileTexture.value = new THREE.DataTexture(
+		this.tileTexture.value = N3js.getDataTexture(
 			new Uint8Array(cols * rows * 4),
 			cols,
 			rows
 		);
-		this.lightTexture.value = new THREE.DataTexture(
+		this.lightTexture.value = N3js.getDataTexture(
 			new Float32Array(32 * 2 * 4),
 			32,
 			2,
-			THREE.RGBAFormat,
-			THREE.FloatType
+			I3JS.RGBAFormat,
+			I3JS.FloatType
 		);
 	}
 

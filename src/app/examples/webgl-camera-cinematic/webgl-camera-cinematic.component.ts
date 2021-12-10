@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	CameraComponent,
-	RendererTimer,
-	CinematicCamera,
+	CameraComponent, CinematicCamera, N3js, RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-camera-cinematic',
@@ -125,9 +122,9 @@ export class WebglCameraCinematicComponent extends BaseComponent<{
 			const radius = 100;
 			const theta = timer.elapsedTime * 2;
 			this.camera.setPosition(
-				radius * Math.sin(THREE.MathUtils.degToRad(theta)),
-				radius * Math.sin(THREE.MathUtils.degToRad(theta)),
-				radius * Math.cos(THREE.MathUtils.degToRad(theta))
+				radius * Math.sin(N3js.MathUtils.degToRad(theta)),
+				radius * Math.sin(N3js.MathUtils.degToRad(theta)),
+				radius * Math.cos(N3js.MathUtils.degToRad(theta))
 			);
 			this.camera.setLookat(0, 0, 0);
 		}

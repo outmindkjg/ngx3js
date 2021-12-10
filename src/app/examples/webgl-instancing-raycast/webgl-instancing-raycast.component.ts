@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererEvent, THREE } from 'ngx3js';
+import { BaseComponent, MeshComponent, N3js, RendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-instancing-raycast',
@@ -25,7 +25,7 @@ export class WebglInstancingRaycastComponent extends BaseComponent<{
 					step: 1,
 					change: () => {
 						if (this.mesh !== null) {
-							const mesh = this.mesh.getObject3d() as THREE.InstancedMesh;
+							const mesh = this.mesh.getObject3d() as any ;
 							mesh.count = this.controls.count;
 						}
 					},
@@ -36,11 +36,11 @@ export class WebglInstancingRaycastComponent extends BaseComponent<{
 
 	onMouseMove(event: RendererEvent) {
 		if (this.camera !== null && this.mesh !== null) {
-			const mesh = this.mesh.getObject3d() as THREE.InstancedMesh;
+			const mesh = this.mesh.getObject3d() as any;
 			const intersection = this.camera.getIntersection(event.mouse, mesh);
 			if (intersection !== null) {
 				const instanceId = intersection.instanceId;
-				const color = new THREE.Color();
+				const color = N3js.getColor();
 				mesh.setColorAt(instanceId, color.setHex(Math.random() * 0xffffff));
 				mesh.instanceColor.needsUpdate = true;
 			}
@@ -52,9 +52,9 @@ export class WebglInstancingRaycastComponent extends BaseComponent<{
 		const amount = this.controls.amount;
 		let i = 0;
 		const offset = (amount - 1) / 2;
-		const matrix = new THREE.Matrix4();
-		const mesh = meshcom.getRealMesh() as THREE.InstancedMesh;
-		const color = new THREE.Color();
+		const matrix = N3js.getMatrix4();
+		const mesh = meshcom.getRealMesh() as any ;
+		const color = N3js.getColor();
 		for (let x = 0; x < amount; x++) {
 			for (let y = 0; y < amount; y++) {
 				for (let z = 0; z < amount; z++) {

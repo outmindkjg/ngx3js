@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-drawrange',
@@ -51,7 +50,7 @@ export class WebglBuffergeometryDrawrangeComponent extends BaseComponent<{
 			particlePositions[i * 3 + 2] = z;
 			// add it to the geometry
 			particlesData.push({
-				velocity: new THREE.Vector3(
+				velocity: N3js.getVector3(
 					-1 + Math.random() * 2,
 					-1 + Math.random() * 2,
 					-1 + Math.random() * 2
@@ -70,19 +69,19 @@ export class WebglBuffergeometryDrawrangeComponent extends BaseComponent<{
 	particlePositions: Float32Array = null;
 	lineColors: Float32Array = null;
 	linePositions: Float32Array = null;
-	particlesData: { velocity: THREE.Vector3; numConnections: number }[] = [];
+	particlesData: { velocity: I3JS.IVector3; numConnections: number }[] = [];
 
 	setLineMesh(mesh: MeshComponent) {
 		this.linesMesh = mesh.getMesh() as any;
 	}
 
-	linesMesh: THREE.LineSegments = null;
+	linesMesh: I3JS.ILineSegments = null;
 
 	setPointCloud(mesh: MeshComponent) {
 		this.pointCloud = mesh.getMesh() as any;
 	}
 
-	pointCloud: THREE.Points = null;
+	pointCloud: I3JS.IPoints = null;
 
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);

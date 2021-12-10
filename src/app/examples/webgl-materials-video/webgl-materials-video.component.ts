@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, GeometryComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, GeometryComponent, N3js, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-video',
@@ -23,7 +23,7 @@ export class WebglMaterialsVideoComponent extends BaseComponent<{}> {
 			for (let j = 0; j < ygrid; j++) {
 				const hue = i / xgrid;
 				const saturation = 1 - j / ygrid;
-				const color = new THREE.Color();
+				const color = N3js.getColor();
 				color.setHSL(hue, saturation, 0.5);
 				this.boxInfos.push({
 					hue: hue,

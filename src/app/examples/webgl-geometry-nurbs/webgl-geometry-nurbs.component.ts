@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, NURBSCurve, NURBSSurface, THREE } from 'ngx3js';
+import { BaseComponent, N3js, NURBSCurve, NURBSSurface } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-nurbs',
@@ -24,7 +24,7 @@ export class WebglGeometryNurbsComponent extends BaseComponent<{}> {
 
 		for (let i = 0, j = 20; i < j; i++) {
 			nurbsControlPoints.push(
-				new THREE.Vector4(
+				N3js.getVector4(
 					Math.random() * 400 - 200,
 					Math.random() * 400,
 					Math.random() * 400 - 200,
@@ -32,7 +32,7 @@ export class WebglGeometryNurbsComponent extends BaseComponent<{}> {
 				)
 			);
 			const knot = (i + 1) / (j - nurbsDegree);
-			nurbsKnots.push(THREE.MathUtils.clamp(knot, 0, 1));
+			nurbsKnots.push(N3js.MathUtils.clamp(knot, 0, 1));
 		}
 		const nurbsCurve = new NURBSCurve(
 			nurbsDegree,
@@ -46,22 +46,22 @@ export class WebglGeometryNurbsComponent extends BaseComponent<{}> {
 
 		const nsControlPoints = [
 			[
-				new THREE.Vector4(-200, -200, 100, 1),
-				new THREE.Vector4(-200, -100, -200, 1),
-				new THREE.Vector4(-200, 100, 250, 1),
-				new THREE.Vector4(-200, 200, -100, 1),
+				N3js.getVector4(-200, -200, 100, 1),
+				N3js.getVector4(-200, -100, -200, 1),
+				N3js.getVector4(-200, 100, 250, 1),
+				N3js.getVector4(-200, 200, -100, 1),
 			],
 			[
-				new THREE.Vector4(0, -200, 0, 1),
-				new THREE.Vector4(0, -100, -100, 5),
-				new THREE.Vector4(0, 100, 150, 5),
-				new THREE.Vector4(0, 200, 0, 1),
+				N3js.getVector4(0, -200, 0, 1),
+				N3js.getVector4(0, -100, -100, 5),
+				N3js.getVector4(0, 100, 150, 5),
+				N3js.getVector4(0, 200, 0, 1),
 			],
 			[
-				new THREE.Vector4(200, -200, -100, 1),
-				new THREE.Vector4(200, -100, 200, 1),
-				new THREE.Vector4(200, 100, -250, 1),
-				new THREE.Vector4(200, 200, 100, 1),
+				N3js.getVector4(200, -200, -100, 1),
+				N3js.getVector4(200, -100, 200, 1),
+				N3js.getVector4(200, 100, -250, 1),
+				N3js.getVector4(200, 200, 100, 1),
 			],
 		];
 		const degree1 = 2;

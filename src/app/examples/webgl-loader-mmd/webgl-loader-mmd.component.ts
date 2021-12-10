@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, CameraComponent, MixerComponent, THREE } from 'ngx3js';
+import { BaseComponent, CameraComponent, I3JS, MixerComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-mmd',
@@ -96,7 +96,7 @@ export class WebglLoaderMmdComponent extends BaseComponent<{
 		}
 	}
 
-	mmdAnimationHelpers: THREE.Object3D[] = [];
+	mmdAnimationHelpers: I3JS.IObject3D[] = [];
 	mmdAnimationHelper: any = null;
 	setMixer(mixer: MixerComponent) {
 		this.mmdAnimationHelper = mixer.getMmdAnimationHelper();

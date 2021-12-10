@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MaterialComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MaterialComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-modified',
@@ -12,8 +12,8 @@ export class WebglMaterialsModifiedComponent extends BaseComponent<{}> {
 	}
 
 	setMaterial(matCom: MaterialComponent, amount: number) {
-		const material: THREE.MeshNormalMaterial =
-			matCom.getMaterial() as THREE.MeshNormalMaterial;
+		const material: I3JS.IMeshNormalMaterial =
+			matCom.getMaterial() ;
 		material.onBeforeCompile = (shader) => {
 			shader.uniforms.time = { value: 0 };
 			shader.vertexShader = 'uniform float time;\n' + shader.vertexShader;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, LightComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, LightComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials',
@@ -86,7 +86,7 @@ export class WebglMaterialsComponent extends BaseComponent<{}> {
 		});
 	}
 
-	pointLight: THREE.Object3D = null;
+	pointLight: I3JS.IObject3D = null;
 	setPointLight(light: LightComponent) {
 		this.pointLight = light.getLight();
 	}

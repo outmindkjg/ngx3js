@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-uint',
@@ -18,19 +17,19 @@ export class WebglBuffergeometryUintComponent extends BaseComponent<{}> {
 		const normals = [];
 		const colors = [];
 
-		const color = new THREE.Color();
+		const color = N3js.getColor();
 
 		const n = 800,
 			n2 = n / 2; // triangles spread in the cube
 		const d = 12,
 			d2 = d / 2; // individual triangle size
 
-		const pA = new THREE.Vector3();
-		const pB = new THREE.Vector3();
-		const pC = new THREE.Vector3();
+		const pA = N3js.getVector3();
+		const pB = N3js.getVector3();
+		const pC = N3js.getVector3();
 
-		const cb = new THREE.Vector3();
-		const ab = new THREE.Vector3();
+		const cb = N3js.getVector3();
+		const ab = N3js.getVector3();
 
 		for (let i = 0; i < triangles; i++) {
 			// positions

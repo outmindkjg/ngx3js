@@ -3,8 +3,7 @@ import {
 	AbstractGeometryComponent,
 	BaseComponent,
 	RendererTimer,
-	SharedComponent,
-} from 'ngx3js';
+	SharedComponent, I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-pixel',

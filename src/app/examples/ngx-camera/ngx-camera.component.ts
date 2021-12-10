@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, I3JS, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-camera',
@@ -169,7 +168,7 @@ export class NgxCameraComponent extends BaseComponent<{
 	cameraPosition: { x: number; y: number; z: number } = { x: 0, y: 5, z: 10 };
 	changeCamera() {
 		if (this.cameraObject3d !== null) {
-			const position: THREE.Vector3 = this.cameraObject3d.position;
+			const position: I3JS.IVector3 = this.cameraObject3d.position;
 			this.cameraPosition.x = position.x;
 			this.cameraPosition.y = position.y;
 			this.cameraPosition.z = position.z;

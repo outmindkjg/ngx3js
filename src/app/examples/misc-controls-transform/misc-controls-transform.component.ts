@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import {
 	BaseComponent,
 	ControlComponent,
-	MeshComponent,
-	RendererComponent,
-	RendererEvent,
+	MeshComponent, N3js, RendererComponent,
+	RendererEvent
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-misc-controls-transform',
@@ -18,8 +16,8 @@ export class MiscControlsTransformComponent extends BaseComponent<{}> {
 		super({}, []);
 	}
 
-	onUpPosition = new THREE.Vector2();
-	onDownPosition = new THREE.Vector2();
+	onUpPosition = N3js.getVector2();
+	onDownPosition = N3js.getVector2();
 
 	transformControl: ControlComponent = null;
 
@@ -72,7 +70,7 @@ export class MiscControlsTransformComponent extends BaseComponent<{}> {
 							break;
 						case 16: // Shift
 							control.setTranslationSnap(100);
-							control.setRotationSnap(THREE.MathUtils.degToRad(15));
+							control.setRotationSnap(N3js.MathUtils.degToRad(15));
 							control.setScaleSnap(0.25);
 							break;
 						case 87: // W

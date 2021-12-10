@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl2-rendertarget-texture2darray',
@@ -11,13 +11,13 @@ export class Webgl2RendertargetTexture2darrayComponent extends BaseComponent<{}>
 		super({}, []);
 	}
 
-	uniformsDepth: THREE.IUniform = null;
+	uniformsDepth: I3JS.IUniform = null;
 	depthStep: number = 0.4;
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
-		const object3d = mesh.getObject3d();
-		if (object3d instanceof THREE.Mesh) {
-			this.uniformsDepth = (object3d.material as THREE.ShaderMaterial).uniforms[
+		const object3d = mesh.getObject3d() as any; 
+		if (object3d instanceof N3js.Mesh) {
+			this.uniformsDepth = (object3d.material ).uniforms[
 				'depth'
 			];
 		}

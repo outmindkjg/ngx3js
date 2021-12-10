@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, HelperComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, HelperComponent, I3JS, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-helpers',
@@ -11,8 +11,8 @@ export class WebglHelpersComponent extends BaseComponent<{}> {
 		super({}, []);
 	}
 
-	selectStoreMesh(object: THREE.Object3D): THREE.Object3D {
-		const mesh = object.children[0] as THREE.Mesh;
+	selectStoreMesh(object: I3JS.IObject3D): I3JS.IObject3D {
+		const mesh = object.children[0] as any;
 		if (mesh.geometry) {
 			mesh.geometry.computeTangents();
 		}

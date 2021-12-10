@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from 'ngx3js';
+import { BaseComponent  , I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-advanced',

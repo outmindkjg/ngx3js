@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, LightComponent, MeshComponent } from 'ngx3js';
+import { BaseComponent, LightComponent, MeshComponent  , I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lightprobe-cubecamera',

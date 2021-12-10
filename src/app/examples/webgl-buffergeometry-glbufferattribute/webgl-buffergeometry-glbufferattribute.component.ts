@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-glbufferattribute',
@@ -17,7 +16,7 @@ export class WebglBuffergeometryGlbufferattributeComponent extends BaseComponent
 		const positions = [];
 		const positions2 = [];
 		const colors = [];
-		const color = new THREE.Color();
+		const color = N3js.getColor();
 		const n = 1000,
 			n2 = n / 2; // particles spread in the cube
 		for (let i = 0; i < particles; i++) {

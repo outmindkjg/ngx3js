@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	EffectComponent,
-	PassComponent,
+	EffectComponent, I3JS, N3js, PassComponent,
 	RendererEvent,
-	RendererInfo,
-	THREE,
+	RendererInfo
 } from 'ngx3js';
 
 @Component({
@@ -58,7 +56,7 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 					change: () => {
 						if (this.renderer !== null) {
 							const renderer =
-								this.renderer.getRenderer() as THREE.WebGL1Renderer;
+								this.renderer.getRenderer() as any;
 							renderer.toneMappingExposure = Math.pow(
 								this.controls.exposure,
 								4.0
@@ -118,7 +116,7 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 				layer: Math.random() < 0.25 ? [1] : null,
 			});
 		}
-		this.bloomLayer = new THREE.Layers();
+		this.bloomLayer = N3js.getLayers();
 		this.bloomLayer.set(1);
 	}
 
@@ -152,8 +150,8 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 	}
 
 	bloomPass: any = null;
-	bloomLayer: THREE.Layers = null;
-	darkMaterial = new THREE.MeshBasicMaterial({ color: 'black' });
+	bloomLayer: I3JS.ILayers = null;
+	darkMaterial = N3js.getMeshBasicMaterial({ color: 'black' });
 	beforeRender = (renderInfo: RendererInfo): boolean => {
 		if (
 			this.finalEffect !== null &&

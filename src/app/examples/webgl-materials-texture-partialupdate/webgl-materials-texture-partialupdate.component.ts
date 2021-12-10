@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer, TextureComponent, THREE } from 'ngx3js';
+import { BaseComponent, RendererTimer, TextureComponent , I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-texture-partialupdate',
@@ -16,19 +16,19 @@ export class WebglMaterialsTexturePartialupdateComponent extends BaseComponent<{
 		const width = 31;
 		const height = 31;
 		const data = new Uint8Array(width * height * 3).fill(0);
-		this.dataTexture = new THREE.DataTexture(
+		this.dataTexture = N3js.getDataTexture(
 			data,
 			width,
 			height,
-			THREE.RGBFormat
+			I3JS.RGBFormat
 		);
 	}
-	diffuseMap: THREE.Texture = null;
+	diffuseMap: I3JS.ITexture = null;
 
 	last: number = 0;
-	position = new THREE.Vector2();
-	color = new THREE.Color();
-	dataTexture: THREE.DataTexture = null;
+	position = N3js.getVector2();
+	color = N3js.getColor();
+	dataTexture: I3JS.IDataTexture = null;
 
 	updateDataTexture(texture) {
 		const color = this.color;
@@ -52,16 +52,16 @@ export class WebglMaterialsTexturePartialupdateComponent extends BaseComponent<{
 		super.onRender(timer);
 		if (
 			this.diffuseMap !== null &&
-			timer.renderer instanceof THREE.WebGLRenderer
+			timer.renderer instanceof N3js.WebGLRenderer
 		) {
 			const elapsedTime = timer.elapsedTime;
 			if (elapsedTime - this.last > 5.5) {
 				this.last = elapsedTime;
 				const position = this.position;
-				position.x = 32 * THREE.MathUtils.randInt(1, 16) - 32;
-				position.y = 32 * THREE.MathUtils.randInt(1, 16) - 32;
+				position.x = 32 * N3js.MathUtils.randInt(1, 16) - 32;
+				position.y = 32 * N3js.MathUtils.randInt(1, 16) - 32;
 				this.updateDataTexture(this.dataTexture);
-				timer.renderer.copyTextureToTexture(
+				(timer.renderer as any).copyTextureToTexture(
 					position,
 					this.dataTexture,
 					this.diffuseMap

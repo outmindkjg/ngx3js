@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, N3js, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webxr-vr-ballshooter',
@@ -19,7 +19,7 @@ export class WebxrVrBallshooterComponent extends BaseComponent<{}> {
 				x: Math.random() * 4 - 2,
 				y: Math.random() * 4,
 				z: Math.random() * 4 - 2,
-				velocity: new THREE.Vector3(
+				velocity: N3js.getVector3(
 					Math.random() * 0.01 - 0.005,
 					Math.random() * 0.01 - 0.005,
 					Math.random() * 0.01 - 0.005
@@ -33,11 +33,11 @@ export class WebxrVrBallshooterComponent extends BaseComponent<{}> {
 		x: number;
 		y: number;
 		z: number;
-		velocity: THREE.Vector3;
+		velocity: I3JS.IVector3;
 	}[] = [];
 
-	normal = new THREE.Vector3();
-	relativeVelocity = new THREE.Vector3();
+	normal = N3js.getVector3();
+	relativeVelocity = N3js.getVector3();
 
 	onRender(timer: RendererTimer) {
 		if (this.meshChildren !== null && this.meshChildren.length > 0) {
@@ -53,7 +53,7 @@ export class WebxrVrBallshooterComponent extends BaseComponent<{}> {
 				// keep objects inside room
 
 				if (object.position.x < -range || object.position.x > range) {
-					object.position.x = THREE.MathUtils.clamp(
+					object.position.x = N3js.MathUtils.clamp(
 						object.position.x,
 						-range,
 						range
@@ -70,7 +70,7 @@ export class WebxrVrBallshooterComponent extends BaseComponent<{}> {
 				}
 
 				if (object.position.z < -range || object.position.z > range) {
-					object.position.z = THREE.MathUtils.clamp(
+					object.position.z = N3js.MathUtils.clamp(
 						object.position.z,
 						-range,
 						range

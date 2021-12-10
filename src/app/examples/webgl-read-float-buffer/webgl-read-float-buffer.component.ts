@@ -1,11 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
-	BaseComponent,
-	MaterialComponent,
-	RendererInfo,
-	RendererTimer,
+	BaseComponent, I3JS, MaterialComponent, N3js, RendererInfo,
+	RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-read-float-buffer',
@@ -25,7 +22,7 @@ export class WebglReadFloatBufferComponent extends BaseComponent<{}> {
 	ngOnInit() {
 		this.afterRender = (renderInfo: RendererInfo) => {
 			const read = new Float32Array(4);
-			const renderer = renderInfo.renderer as THREE.WebGLRenderer;
+			const renderer = renderInfo.renderer as any;
 			const rtTexture = this.rtTexture;
 			renderer.setRenderTarget(rtTexture);
 			renderer.clear();
@@ -49,26 +46,26 @@ export class WebglReadFloatBufferComponent extends BaseComponent<{}> {
 		};
 	}
 
-	rtTexture = new THREE.WebGLRenderTarget(
+	rtTexture = N3js.getWebGLRenderTarget(
 		window.innerWidth,
 		window.innerHeight,
 		{
-			minFilter: THREE.LinearFilter,
-			magFilter: THREE.NearestFilter,
-			format: THREE.RGBAFormat,
-			type: THREE.FloatType,
+			minFilter: I3JS.LinearFilter,
+			magFilter: I3JS.NearestFilter,
+			format: I3JS.RGBAFormat,
+			type: I3JS.FloatType,
 		}
 	);
 
-	texture: THREE.DataTexture = new THREE.DataTexture(null, 100, 100);
+	texture: I3JS.IDataTexture = N3js.getDataTexture(null, 100, 100);
 
 	afterRender: (renderInfo: RendererInfo) => void;
 
 	setMaterial(material: MaterialComponent) {
-		this.material = material.getMaterial() as THREE.ShaderMaterial;
+		this.material = material.getMaterial() ;
 	}
 
-	material: THREE.ShaderMaterial = null;
+	material: I3JS.IShaderMaterial = null;
 	delta = 0.01;
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, ThreeUtil } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, I3JS, N3js, ThreeUtil } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-curvature',
@@ -67,7 +66,7 @@ export class WebglMaterialsCurvatureComponent extends BaseComponent<{
 	loadGeometry: any = null;
 
 	ngOnInit() {
-		this.loadGeometry = (bufferGeo: THREE.BufferGeometry) => {
+		this.loadGeometry = (bufferGeo: I3JS.IBufferGeometry) => {
 			this._loadGeometry(bufferGeo);
 		};
 	}
@@ -111,7 +110,7 @@ export class WebglMaterialsCurvatureComponent extends BaseComponent<{
 		}
 	}
 
-	_loadGeometry(bufferGeo: THREE.BufferGeometry) {
+	_loadGeometry(bufferGeo: I3JS.IBufferGeometry) {
 		if (ThreeUtil.isNull(bufferGeo.attributes.position)) {
 			return;
 		}
@@ -126,33 +125,33 @@ export class WebglMaterialsCurvatureComponent extends BaseComponent<{
 			const array = bufferGeo.attributes.position.array;
 			const normArray = bufferGeo.attributes.normal.array;
 
-			const posA = new THREE.Vector3(
+			const posA = N3js.getVector3(
 				array[3 * i],
 				array[3 * i + 1],
 				array[3 * i + 2]
 			);
-			const posB = new THREE.Vector3(
+			const posB = N3js.getVector3(
 				array[3 * (i + 1)],
 				array[3 * (i + 1) + 1],
 				array[3 * (i + 1) + 2]
 			);
-			const posC = new THREE.Vector3(
+			const posC = N3js.getVector3(
 				array[3 * (i + 2)],
 				array[3 * (i + 2) + 1],
 				array[3 * (i + 2) + 2]
 			);
 
-			const normA = new THREE.Vector3(
+			const normA = N3js.getVector3(
 				normArray[3 * i],
 				normArray[3 * i + 1],
 				normArray[3 * i + 2]
 			).normalize();
-			const normB = new THREE.Vector3(
+			const normB = N3js.getVector3(
 				normArray[3 * (i + 1)],
 				normArray[3 * (i + 1) + 1],
 				normArray[3 * (i + 1) + 2]
 			).normalize();
-			const normC = new THREE.Vector3(
+			const normC = N3js.getVector3(
 				normArray[3 * (i + 2)],
 				normArray[3 * (i + 2) + 1],
 				normArray[3 * (i + 2) + 2]
@@ -162,9 +161,9 @@ export class WebglMaterialsCurvatureComponent extends BaseComponent<{
 			const strB = posB.toArray().toString();
 			const strC = posC.toArray().toString();
 
-			const posB_A = new THREE.Vector3().subVectors(posB, posA);
-			const posB_C = new THREE.Vector3().subVectors(posB, posC);
-			const posC_A = new THREE.Vector3().subVectors(posC, posA);
+			const posB_A = N3js.getVector3().subVectors(posB, posA);
+			const posB_C = N3js.getVector3().subVectors(posB, posC);
+			const posC_A = N3js.getVector3().subVectors(posC, posA);
 
 			const b2a = normB.dot(posB_A.normalize());
 			const b2c = normB.dot(posB_C.normalize());
@@ -237,7 +236,7 @@ export class WebglMaterialsCurvatureComponent extends BaseComponent<{
 
 		for (let i = 0; i < bufferGeo.attributes.position.count; i++) {
 			const array = bufferGeo.attributes.position.array;
-			const pos = new THREE.Vector3(
+			const pos = N3js.getVector3(
 				array[3 * i],
 				array[3 * i + 1],
 				array[3 * i + 2]
@@ -248,7 +247,7 @@ export class WebglMaterialsCurvatureComponent extends BaseComponent<{
 
 		bufferGeo.setAttribute(
 			'curvature',
-			new THREE.BufferAttribute(curvatureAttribute, 1)
+			N3js.getBufferAttribute(curvatureAttribute, 1)
 		);
 
 		//starting filter is to show both concave and convex

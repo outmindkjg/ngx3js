@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-custom-attributes-particles',
@@ -21,7 +20,7 @@ export class WebglBuffergeometryCustomAttributesParticlesComponent extends BaseC
 		const positions = [];
 		const colors = [];
 		const sizes = [];
-		const color = new THREE.Color();
+		const color = N3js.getColor();
 		for (let i = 0; i < particles; i++) {
 			positions.push((Math.random() * 2 - 1) * radius);
 			positions.push((Math.random() * 2 - 1) * radius);
@@ -42,11 +41,11 @@ export class WebglBuffergeometryCustomAttributesParticlesComponent extends BaseC
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
 		this.particleSystem = mesh.getObject3d();
-		const geometry: THREE.BufferGeometry = (mesh.getObject3d() as any).geometry;
+		const geometry: I3JS.IBufferGeometry = (mesh.getObject3d() as any).geometry;
 		this.attributesSizes = geometry.attributes.size;
 	}
 
-	particleSystem: THREE.Object3D = null;
+	particleSystem: I3JS.IObject3D = null;
 	attributesSizes: any = null;
 
 	onRender(timer: RendererTimer) {

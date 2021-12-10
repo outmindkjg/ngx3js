@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	CameraComponent,
-	RendererComponent,
-	RendererTimer,
+	CameraComponent, I3JS, N3js, RendererComponent,
+	RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-camera-logarithmicdepthbuffer',
@@ -60,7 +58,7 @@ export class WebglCameraLogarithmicdepthbufferComponent extends BaseComponent<{
 
 	ngOnInit() {
 		this.labelData.forEach((label) => {
-			label.color = new THREE.Color().setHSL(Math.random(), 0.5, 0.5).getHex();
+			label.color = N3js.getColor().setHSL(Math.random(), 0.5, 0.5).getHex();
 		});
 	}
 
@@ -70,13 +68,13 @@ export class WebglCameraLogarithmicdepthbufferComponent extends BaseComponent<{
 		this.renderer = renderer;
 	}
 
-	camera1: THREE.Camera = null;
+	camera1: I3JS.ICamera = null;
 
 	setCamera1(camera: CameraComponent) {
 		this.camera1 = camera.getCamera();
 	}
 
-	camera2: THREE.Camera = null;
+	camera2: I3JS.ICamera = null;
 
 	setCamera2(camera: CameraComponent) {
 		this.camera2 = camera.getCamera();
@@ -90,7 +88,7 @@ export class WebglCameraLogarithmicdepthbufferComponent extends BaseComponent<{
 			this.labelData[this.labelData.length - 1].scale *
 			100;
 		let damping = Math.abs(this.zoomspeed) > this.minzoomspeed ? 0.95 : 1.0;
-		const zoom = THREE.MathUtils.clamp(
+		const zoom = N3js.MathUtils.clamp(
 			Math.pow(Math.E, this.zoompos),
 			minzoom,
 			maxzoom

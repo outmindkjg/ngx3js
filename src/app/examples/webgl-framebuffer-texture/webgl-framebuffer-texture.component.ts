@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	GeometryUtils,
-	RendererTimer,
-	TextureComponent,
+	GeometryUtils, I3JS, N3js, RendererTimer,
+	TextureComponent
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-framebuffer-texture',
@@ -17,32 +15,32 @@ export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
 		super({}, []);
 	}
 
-	loadGeometry(geometry: THREE.BufferGeometry) {
+	loadGeometry(geometry: I3JS.IBufferGeometry) {
 		const points = GeometryUtils.gosper(8);
-		const positionAttribute = new THREE.Float32BufferAttribute(points, 3);
+		const positionAttribute = N3js.getFloat32BufferAttribute(points, 3);
 		geometry.setAttribute('position', positionAttribute);
 		geometry.center();
-		const colorAttribute = new THREE.BufferAttribute(
+		const colorAttribute = N3js.getBufferAttribute(
 			new Float32Array(positionAttribute.array.length),
 			3
 		);
-		colorAttribute.setUsage(THREE.DynamicDrawUsage);
+		colorAttribute.setUsage(I3JS.DynamicDrawUsage);
 		geometry.setAttribute('color', colorAttribute);
 	}
 
 	ngOnInit() {
 		this.dpr = window.devicePixelRatio;
 		this.textureSize = 128 * this.dpr;
-		this.vector = new THREE.Vector2();
-		this.color = new THREE.Color();
+		this.vector = N3js.getVector2();
+		this.color = N3js.getColor();
 		this.spriteData = new Uint8Array(this.textureSize * this.textureSize * 3);
 	}
 
 	setTexture(texture: TextureComponent) {
-		this.texture = texture.getTexture() as THREE.DataTexture;
+		this.texture = texture.getTexture() ;
 	}
 
-	texture: THREE.DataTexture = null;
+	texture: I3JS.IDataTexture = null;
 
 	spriteData: Uint8Array = null;
 
@@ -50,8 +48,8 @@ export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
 	dpr = 0;
 
 	textureSize = 0;
-	vector: THREE.Vector2 = null;
-	color: THREE.Color = null;
+	vector: I3JS.IVector2 = null;
+	color: I3JS.IColor = null;
 
 	updateColors(colorAttribute) {
 		const l = colorAttribute.count;
@@ -69,21 +67,21 @@ export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
 	onBeforeRenderOrthographicCamera(timer: RendererTimer) {
 		if (
 			this.texture !== null &&
-			timer.renderer instanceof THREE.WebGLRenderer
+			timer.renderer instanceof N3js.WebGLRenderer
 		) {
 			this.vector.x = (timer.event.width * this.dpr) / 2 - this.textureSize / 2;
 			this.vector.y =
 				(timer.event.height * this.dpr) / 2 - this.textureSize / 2;
-			timer.renderer.copyFramebufferToTexture(this.vector, this.texture);
-			timer.renderer.clearDepth();
+			(timer.renderer as any).copyFramebufferToTexture(this.vector, this.texture);
+			(timer.renderer as any).clearDepth();
 		}
 	}
 
-	varctor: THREE.Vector2 = new THREE.Vector2();
+	varctor: I3JS.IVector2 = N3js.getVector2();
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
-			const mesh = this.mesh.getObject3d() as THREE.Line;
+			const mesh = this.mesh.getObject3d() as any;
 			if (mesh.geometry) {
 				const geometry = mesh.geometry;
 				const colorAttribute = geometry.getAttribute('color');

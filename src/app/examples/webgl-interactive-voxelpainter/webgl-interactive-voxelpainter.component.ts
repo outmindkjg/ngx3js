@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererEvent, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, RendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-interactive-voxelpainter',
@@ -20,13 +20,13 @@ export class WebglInteractiveVoxelpainterComponent extends BaseComponent<{
 		);
 	}
 
-	rollOver: THREE.Object3D = null;
+	rollOver: I3JS.IObject3D = null;
 
 	setRollOver(mesh: MeshComponent) {
 		this.rollOver = mesh.getObject3d();
 	}
 
-	plane: THREE.Object3D = null;
+	plane: I3JS.IObject3D = null;
 
 	setPlane(mesh: MeshComponent) {
 		this.plane = mesh.getObject3d();

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-water',
@@ -89,7 +89,7 @@ export class WebglWaterComponent extends BaseComponent<{
 		this.uniforms = (mesh.getObject3d() as any).material.uniforms;
 	}
 
-	uniforms: { [uniform: string]: THREE.IUniform } = null;
+	uniforms: { [uniform: string]: I3JS.IUniform } = null;
 
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);

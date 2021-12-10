@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-colors',
@@ -13,13 +13,13 @@ export class WebglGeometryColorsComponent extends BaseComponent<{}> {
 
 	radius = 200;
 
-	setGeometry1(geometry: THREE.BufferGeometry) {
+	setGeometry1(geometry: I3JS.IBufferGeometry) {
 		const count = geometry.attributes.position.count;
 		geometry.setAttribute(
 			'color',
-			new THREE.BufferAttribute(new Float32Array(count * 3), 3)
+			N3js.getBufferAttribute(new Float32Array(count * 3), 3)
 		);
-		const color = new THREE.Color();
+		const color = N3js.getColor();
 		const positions = geometry.attributes.position;
 		const colors = geometry.attributes.color;
 		for (let i = 0; i < count; i++) {
@@ -28,13 +28,13 @@ export class WebglGeometryColorsComponent extends BaseComponent<{}> {
 		}
 	}
 
-	setGeometry2(geometry: THREE.BufferGeometry) {
+	setGeometry2(geometry: I3JS.IBufferGeometry) {
 		const count = geometry.attributes.position.count;
 		geometry.setAttribute(
 			'color',
-			new THREE.BufferAttribute(new Float32Array(count * 3), 3)
+			N3js.getBufferAttribute(new Float32Array(count * 3), 3)
 		);
-		const color = new THREE.Color();
+		const color = N3js.getColor();
 		const positions = geometry.attributes.position;
 		const colors = geometry.attributes.color;
 		for (let i = 0; i < count; i++) {
@@ -43,13 +43,13 @@ export class WebglGeometryColorsComponent extends BaseComponent<{}> {
 		}
 	}
 
-	setGeometry3(geometry: THREE.BufferGeometry) {
+	setGeometry3(geometry: I3JS.IBufferGeometry) {
 		const count = geometry.attributes.position.count;
 		geometry.setAttribute(
 			'color',
-			new THREE.BufferAttribute(new Float32Array(count * 3), 3)
+			N3js.getBufferAttribute(new Float32Array(count * 3), 3)
 		);
-		const color = new THREE.Color();
+		const color = N3js.getColor();
 		const positions = geometry.attributes.position;
 		const colors = geometry.attributes.color;
 		for (let i = 0; i < count; i++) {

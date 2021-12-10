@@ -2,11 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
 	BaseComponent,
-	GeometryComponent,
-	MaterialComponent,
-	RendererTimer,
+	GeometryComponent, I3JS, MaterialComponent, N3js, RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-ngx-material',
@@ -278,15 +275,15 @@ export class NgxMaterialComponent extends BaseComponent<{
 					const itemCount = geometry.attributes.position.count;
 					geometry.setAttribute(
 						'customColor',
-						new THREE.Float32BufferAttribute(itemCount * 3, 3)
+						N3js.getFloat32BufferAttribute(itemCount * 3, 3)
 					);
 					geometry.setAttribute(
 						'displacement',
-						new THREE.Float32BufferAttribute(itemCount * 3, 3)
+						N3js.getFloat32BufferAttribute(itemCount * 3, 3)
 					);
 					const customColor = geometry.attributes
-						.customColor as THREE.Float32BufferAttribute;
-					const color = new THREE.Color(0xffffff);
+						.customColor as I3JS.IBufferAttribute;
+					const color = N3js.getColor(0xffffff);
 					for (let i = 0, l = customColor.count; i < l; i++) {
 						color.setHSL(i / l, 0.5, 0.5);
 						color.toArray(customColor.array, i * customColor.itemSize);

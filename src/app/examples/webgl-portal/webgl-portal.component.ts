@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-portal',
@@ -11,11 +11,11 @@ export class WebglPortalComponent extends BaseComponent<{}> {
 		super({}, []);
 	}
 
-	smallSphereOne: THREE.Object3D = null;
+	smallSphereOne: I3JS.IObject3D = null;
 	setSmallSphereOne(mesh: MeshComponent) {
 		this.smallSphereOne = mesh.getObject3d();
 	}
-	smallSphereTwo: THREE.Object3D = null;
+	smallSphereTwo: I3JS.IObject3D = null;
 	setSmallSphereTwo(mesh: MeshComponent) {
 		this.smallSphereTwo = mesh.getObject3d();
 	}

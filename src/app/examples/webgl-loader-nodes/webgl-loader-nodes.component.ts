@@ -4,6 +4,8 @@ import {
 	MaterialComponent,
 	RendererTimer,
 	ThreeUtil,
+	I3JS,
+	N3js,
 } from 'ngx3js';
 
 @Component({

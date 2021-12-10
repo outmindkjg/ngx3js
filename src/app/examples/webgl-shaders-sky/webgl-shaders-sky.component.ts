@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE } from 'ngx3js';
+import { BaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shaders-sky',
@@ -72,7 +72,7 @@ export class WebglShadersSkyComponent extends BaseComponent<{
 					finishChange: () => {
 						if (this.renderer !== null) {
 							const renderer =
-								this.renderer.getRenderer() as THREE.WebGLRenderer;
+								this.renderer.getRenderer() as any ;
 							renderer.toneMappingExposure = this.controls.exposure;
 						}
 					},

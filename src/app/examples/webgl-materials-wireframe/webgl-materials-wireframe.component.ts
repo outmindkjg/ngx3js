@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, ThreeUtil } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, I3JS, N3js, ThreeUtil } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-wireframe',
@@ -19,14 +18,14 @@ export class WebglMaterialsWireframeComponent extends BaseComponent<{
 		);
 	}
 
-	setGeometry(geometry: THREE.BufferGeometry) {
+	setGeometry(geometry: I3JS.IBufferGeometry) {
 		if (ThreeUtil.isNotNull(geometry.attributes.position)) {
 			geometry.deleteAttribute('normal');
 			geometry.deleteAttribute('uv');
 			const vectors = [
-				new THREE.Vector3(1, 0, 0),
-				new THREE.Vector3(0, 1, 0),
-				new THREE.Vector3(0, 0, 1),
+				N3js.getVector3(1, 0, 0),
+				N3js.getVector3(0, 1, 0),
+				N3js.getVector3(0, 0, 1),
 			];
 
 			const position = geometry.attributes.position;
@@ -34,7 +33,7 @@ export class WebglMaterialsWireframeComponent extends BaseComponent<{
 			for (let i = 0, l = position.count; i < l; i++) {
 				vectors[i % 3].toArray(centers, i * 3);
 			}
-			geometry.setAttribute('center', new THREE.BufferAttribute(centers, 3));
+			geometry.setAttribute('center', N3js.getBufferAttribute(centers, 3));
 		}
 	}
 }

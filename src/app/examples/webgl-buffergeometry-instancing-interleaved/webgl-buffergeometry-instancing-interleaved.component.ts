@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-instancing-interleaved',
@@ -38,10 +37,10 @@ export class WebglBuffergeometryInstancingInterleavedComponent extends BaseCompo
 		13, 16, 17, 18, 18, 17, 19, 20, 21, 22, 22, 21, 23,
 	];
 
-	makeMatrix(matrix: THREE.Matrix4) {
-		const offset = new THREE.Vector3();
-		const orientation = new THREE.Quaternion();
-		const scale = new THREE.Vector3(1, 1, 1);
+	makeMatrix(matrix: I3JS.IMatrix4) {
+		const offset = N3js.getVector3();
+		const orientation = N3js.getQuaternion();
+		const scale = N3js.getVector3(1, 1, 1);
 		let x, y, z, w;
 		x = Math.random() * 100 - 50;
 		y = Math.random() * 100 - 50;
@@ -63,15 +62,15 @@ export class WebglBuffergeometryInstancingInterleavedComponent extends BaseCompo
 
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
-		this.object3d = this.mesh.getObject3d() as THREE.InstancedMesh;
+		this.object3d = this.mesh.getObject3d() ;
 	}
 
-	object3d: THREE.InstancedMesh = null;
+	object3d: I3JS.IInstancedMesh = null;
 	lastTime: number = 0;
-	moveQ = new THREE.Quaternion(0.5, 0.5, 0.5, 0.0).normalize();
-	tmpQ = new THREE.Quaternion();
-	tmpM = new THREE.Matrix4();
-	currentM = new THREE.Matrix4();
+	moveQ = N3js.getQuaternion(0.5, 0.5, 0.5, 0.0).normalize();
+	tmpQ = N3js.getQuaternion();
+	tmpM = N3js.getMatrix4();
+	currentM = N3js.getMatrix4();
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);
 		if (this.object3d !== null) {

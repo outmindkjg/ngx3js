@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-lookat',
@@ -35,7 +34,7 @@ export class MiscLookatComponent extends BaseComponent<{}> {
 		this.sphere = mesh.getObject3d();
 	}
 
-	sphere: THREE.Object3D = null;
+	sphere: I3JS.IObject3D = null;
 
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);

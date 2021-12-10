@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { RendererComponent, ThreeUtil } from 'ngx3js';
+import { RendererComponent, ThreeUtil  , I3JS, N3js } from 'ngx3js';
 import { HttpClient } from '@angular/common/http';
 import { MenuComponent } from '../menu/menu.component';
 

@@ -4,9 +4,8 @@ import {
 	MaterialComponent,
 	PlaneComponent,
 	RendererComponent,
-	RendererTimer,
+	RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-clipping',
@@ -50,7 +49,7 @@ export class WebglClippingComponent extends BaseComponent<{
 							change: () => {
 								if (this.renderer !== null) {
 									const renderer =
-										this.renderer.getRenderer() as THREE.WebGLRenderer;
+										this.renderer.getRenderer() ;
 									renderer.localClippingEnabled =
 										this.controls.localClipping.enabled;
 								}
@@ -62,8 +61,8 @@ export class WebglClippingComponent extends BaseComponent<{
 							type: 'checkbox',
 							change: () => {
 								if (this.mesh !== null) {
-									const mesh = this.mesh.getObject3d() as THREE.Mesh;
-									const material = mesh.material as THREE.Material;
+									const mesh = this.mesh.getObject3d() ;
+									const material = mesh.material ;
 									material.clipShadows = this.controls.localClipping.shadow;
 								}
 							},

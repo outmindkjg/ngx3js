@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	MeshComponent,
-	RendererEvent,
-	RendererTimer,
+	MeshComponent, N3js, RendererEvent,
+	RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-geometry-hierarchy2',
@@ -40,9 +38,9 @@ export class WebglGeometryHierarchy2Component extends BaseComponent<{}> {
 			const geometry = mesh.getGeometry();
 			const material = mesh.getMaterial();
 			const amount = 200;
-			let parent = mesh.getRealMesh();
+			let parent = mesh.getRealMesh() as any;
 			for (let i = 0; i < amount; i++) {
-				const object = new THREE.Mesh(geometry, material);
+				const object = N3js.getMesh(geometry, material);
 				object.position.set(position.x, position.y, position.z);
 				parent.add(object);
 				parent = object;

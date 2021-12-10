@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { BaseComponent, MixerComponent, ThreeUtil } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-animation-skinning-morph',
@@ -136,7 +135,7 @@ export class WebglAnimationSkinningMorphComponent extends BaseComponent<{
 
 	updateExpressions(name: string, value: number) {
 		if (this.mixer !== null && this.mesh !== null) {
-			const face = this.mesh.getObjectByName('Head_4') as THREE.Mesh;
+			const face = this.mesh.getObjectByName('Head_4') as any;
 			if (ThreeUtil.isNotNull(face)) {
 				const morphTargetDictionary = face.morphTargetDictionary;
 				const idx = morphTargetDictionary[name];

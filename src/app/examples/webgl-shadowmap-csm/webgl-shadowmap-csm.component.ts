@@ -4,10 +4,8 @@ import {
 	CameraComponent,
 	ControlComponent,
 	CSMHelper,
-	HelperComponent,
-	RendererTimer,
+	HelperComponent, I3JS, N3js, RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-shadowmap-csm',
@@ -230,7 +228,7 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
 		if (this.pCamera === null || this.oCamera === null) {
 			return;
 		}
-		const target = new THREE.Vector3(-100, 10, 0);
+		const target = N3js.getVector3(-100, 10, 0);
 		const camera = this.pCamera;
 		// <ngx3js-lookat [x]="-100" [y]="10" [z]="0"></ngx3js-lookat>
 		const size = target.distanceTo(camera.position);
@@ -275,8 +273,8 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
 
 	csm: any = null;
 	helper: CSMHelper = null;
-	oCamera: THREE.OrthographicCamera = null;
-	pCamera: THREE.PerspectiveCamera = null;
+	oCamera: I3JS.IOrthographicCamera = null;
+	pCamera: I3JS.IPerspectiveCamera = null;
 
 	ngOnInit() {
 		this.cubeInfos = [];

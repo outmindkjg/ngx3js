@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererComponent, THREE } from 'ngx3js';
+import { BaseComponent, RendererComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-texture-anisotropy',
@@ -15,7 +15,7 @@ export class WebglMaterialsTextureAnisotropyComponent extends BaseComponent<{}> 
 		super.setRender(render);
 		setTimeout(() => {
 			this.anisotropy = (
-				render.getRenderer() as THREE.WebGLRenderer
+				render.getRenderer() as any 
 			).capabilities.getMaxAnisotropy();
 		}, 1000);
 	}

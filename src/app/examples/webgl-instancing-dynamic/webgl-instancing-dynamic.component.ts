@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, N3js, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-instancing-dynamic',
@@ -23,8 +23,8 @@ export class WebglInstancingDynamicComponent extends BaseComponent<{
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
-			const mesh = this.mesh.getRealMesh() as THREE.InstancedMesh;
-			const dummy = new THREE.Object3D();
+			const mesh = this.mesh.getRealMesh() as any;
+			const dummy = N3js.getObject3D();
 			const amount = this.controls.amount;
 			const time = Date.now() * 0.001;
 			mesh.rotation.x = Math.sin(time / 4);

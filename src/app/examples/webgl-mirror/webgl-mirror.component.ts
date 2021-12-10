@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-mirror',
@@ -14,12 +14,12 @@ export class WebglMirrorComponent extends BaseComponent<{}> {
 	setSphereGroup(mesh: MeshComponent) {
 		this.sphereGroup = mesh.getObject3d();
 	}
-	sphereGroup: THREE.Object3D = null;
+	sphereGroup: I3JS.IObject3D = null;
 
 	setSmallSphere(mesh: MeshComponent) {
 		this.smallSphere = mesh.getObject3d();
 	}
-	smallSphere: THREE.Object3D = null;
+	smallSphere: I3JS.IObject3D = null;
 
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);

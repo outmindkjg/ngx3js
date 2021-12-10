@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererEvent } from 'ngx3js';
+import { BaseComponent, RendererEvent  , I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-interactive-cubes',

@@ -4,6 +4,8 @@ import {
 	BaseComponent,
 	GeometryComponent,
 	SharedComponent,
+	I3JS,
+	N3js,
 } from 'ngx3js';
 
 @Component({

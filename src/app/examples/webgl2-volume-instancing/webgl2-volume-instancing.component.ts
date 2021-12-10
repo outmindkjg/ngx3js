@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE } from 'ngx3js';
+import { BaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl2-volume-instancing',

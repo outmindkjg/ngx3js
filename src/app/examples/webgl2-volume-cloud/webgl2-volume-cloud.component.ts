@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl2-volume-cloud',
@@ -75,10 +75,9 @@ export class Webgl2VolumeCloudComponent extends BaseComponent<{
 		}
 	}
 
-	getUniforms(): { [uniform: string]: THREE.IUniform } {
+	getUniforms(): { [uniform: string]: I3JS.IUniform } {
 		if (this.meshObject3d !== null) {
-			const rawShaderMaterial = (this.meshObject3d as THREE.Mesh)
-				.material as THREE.RawShaderMaterial;
+			const rawShaderMaterial = (this.meshObject3d as any).material ;
 			return rawShaderMaterial.uniforms || null;
 		}
 		return null;
@@ -91,7 +90,7 @@ export class Webgl2VolumeCloudComponent extends BaseComponent<{
 			const uniforms = this.getUniforms();
 			if (uniforms !== null) {
 				uniforms.cameraPos.value.copy(
-					(this.camera.getCamera() as THREE.Camera).position
+					(this.camera.getCamera() ).position
 				);
 				uniforms.frame.value++;
 			}

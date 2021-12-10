@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, MeshComponent, RendererTimer  , I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-css2d-label',
@@ -28,7 +27,7 @@ export class Css2dLabelComponent extends BaseComponent<{}> {
 	/**
 	 * Moon  of css2d label component
 	 */
-	moon: THREE.Object3D = null;
+	moon: I3JS.IObject3D = null;
 
 	/**
 	 * Determines whether render on

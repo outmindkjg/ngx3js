@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { BaseComponent, PassComponent, UnrealBloomPass } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-postprocessing-unreal-bloom',
@@ -30,7 +29,7 @@ export class WebglPostprocessingUnrealBloomComponent extends BaseComponent<{
 					change: () => {
 						if (this.renderer !== null) {
 							const renderer =
-								this.renderer.getRenderer() as THREE.WebGLRenderer;
+								this.renderer.getRenderer() as any;
 							renderer.toneMappingExposure = Math.pow(
 								this.controls.exposure,
 								4.0

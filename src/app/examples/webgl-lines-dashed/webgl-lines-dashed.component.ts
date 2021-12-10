@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, GeometryUtils, THREE } from 'ngx3js';
+import { BaseComponent, GeometryUtils, I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lines-dashed',
@@ -16,7 +16,7 @@ export class WebglLinesDashedComponent extends BaseComponent<{}> {
 		const recursion = 1;
 
 		const points = GeometryUtils.hilbert3D(
-			new THREE.Vector3(0, 0, 0),
+			N3js.getVector3(0, 0, 0),
 			25.0,
 			recursion,
 			0,
@@ -28,7 +28,7 @@ export class WebglLinesDashedComponent extends BaseComponent<{}> {
 			6,
 			7
 		);
-		const spline = new THREE.CatmullRomCurve3(points);
+		const spline = N3js.getCatmullRomCurve3(points);
 
 		this.samples = spline.getPoints(points.length * subdivisions);
 		const width = 50 * 0.5;
@@ -111,6 +111,6 @@ export class WebglLinesDashedComponent extends BaseComponent<{}> {
 		);
 	}
 
-	samples: THREE.Vector3[] = [];
+	samples: I3JS.IVector3[] = [];
 	position: number[] = [];
 }

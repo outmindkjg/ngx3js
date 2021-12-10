@@ -4,7 +4,7 @@ import {
 	HelperComponent,
 	LightComponent,
 	RendererTimer,
-} from 'ngx3js';
+ 	I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lights-spotlight',

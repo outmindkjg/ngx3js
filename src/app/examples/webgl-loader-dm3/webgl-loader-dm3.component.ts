@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, ThreeUtil } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, I3JS, MeshComponent, ThreeUtil } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-dm3',
@@ -73,7 +72,7 @@ export class WebglLoaderDm3Component extends BaseComponent<{
 	}
 
 	setMeshVisible(name: string, visible: boolean) {
-		this.loadedMesh = this.meshObject3d as THREE.Mesh;
+		this.loadedMesh = this.meshObject3d as any;
 		if (
 			ThreeUtil.isNotNull(this.loadedMesh) &&
 			ThreeUtil.isNotNull(this.loadedMesh.userData.layers)
@@ -92,7 +91,7 @@ export class WebglLoaderDm3Component extends BaseComponent<{
 		}
 	}
 
-	private loadedMesh: THREE.Mesh = null;
+	private loadedMesh: I3JS.IMesh = null;
 
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);

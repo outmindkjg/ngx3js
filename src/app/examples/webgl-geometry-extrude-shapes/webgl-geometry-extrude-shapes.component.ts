@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE } from 'ngx3js';
+import { BaseComponent, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-extrude-shapes',
@@ -36,8 +36,8 @@ export class WebglGeometryExtrudeShapesComponent extends BaseComponent<{}> {
 		for (let i = 0; i < 10; i++) {
 			this.randomPoints.push({
 				x: (i - 4.5) * 50,
-				y: THREE.MathUtils.randFloat(-50, 50),
-				z: THREE.MathUtils.randFloat(-50, 50),
+				y: N3js.MathUtils.randFloat(-50, 50),
+				z: N3js.MathUtils.randFloat(-50, 50),
 			});
 		}
 		this.shapes2 = [];

@@ -3,11 +3,8 @@ import {
 	BaseComponent,
 	CameraComponent,
 	GeometryComponent,
-	HelperComponent,
-	MeshComponent,
-	RendererTimer,
+	HelperComponent, I3JS, MeshComponent, N3js, RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-geometry-extrude-splines',
@@ -182,23 +179,23 @@ export class WebglGeometryExtrudeSplinesComponent extends BaseComponent<{
 		this.setSpline(this.controls.spline);
 	}
 
-	tubeGeometry: THREE.TubeGeometry;
+	tubeGeometry: I3JS.ITubeBufferGeometry;
 	setTubeGeometry(tubeGeometry: GeometryComponent) {
-		this.tubeGeometry = tubeGeometry.getGeometry() as THREE.TubeGeometry;
+		this.tubeGeometry = tubeGeometry.getGeometry();
 	}
 
-	direction = new THREE.Vector3();
-	binormal = new THREE.Vector3();
-	normal = new THREE.Vector3();
-	position = new THREE.Vector3();
-	lookAt = new THREE.Vector3();
+	direction = N3js.getVector3();
+	binormal = N3js.getVector3();
+	normal = N3js.getVector3();
+	position = N3js.getVector3();
+	lookAt = N3js.getVector3();
 
-	cameraHelper: THREE.CameraHelper = null;
-	splineCamera: THREE.Camera = null;
-	cameraEye: THREE.Object3D = null;
+	cameraHelper: I3JS.ICameraHelper = null;
+	splineCamera: I3JS.ICamera = null;
+	cameraEye: I3JS.IObject3D = null;
 
 	setCameraHelper(cameraHelper: HelperComponent) {
-		this.cameraHelper = cameraHelper.getHelper() as THREE.CameraHelper;
+		this.cameraHelper = cameraHelper.getHelper();
 	}
 
 	setSplineCamera(splineCamera: CameraComponent) {
@@ -206,7 +203,7 @@ export class WebglGeometryExtrudeSplinesComponent extends BaseComponent<{
 	}
 
 	setCameraEye(cameraEye: MeshComponent) {
-		this.cameraEye = cameraEye.getRealMesh();
+		this.cameraEye = cameraEye.getRealMesh() as any;
 	}
 
 	elapsedTime: number = 0;

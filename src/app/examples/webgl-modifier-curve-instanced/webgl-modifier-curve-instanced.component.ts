@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	ControlComponent,
-	MeshComponent,
-	RendererEvent,
+	ControlComponent, I3JS, MeshComponent, N3js, RendererEvent
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-modifier-curve-instanced',
@@ -35,8 +32,8 @@ export class WebglModifierCurveInstancedComponent extends BaseComponent<{}> {
 
 	curvePath2: { x: number; y: number; z: number }[] = this.initialPoints2;
 
-	onUpPosition = new THREE.Vector2();
-	onDownPosition = new THREE.Vector2();
+	onUpPosition = N3js.getVector2();
+	onDownPosition = N3js.getVector2();
 
 	orbitControl: ControlComponent = null;
 	setOrbitControl(orbitControl: ControlComponent) {
@@ -86,13 +83,13 @@ export class WebglModifierCurveInstancedComponent extends BaseComponent<{}> {
 		this.pointMesh1.push(mesh.getObject3d());
 	}
 
-	pointMesh1: THREE.Object3D[] = [];
+	pointMesh1: I3JS.IObject3D[] = [];
 
 	setPointMesh2(mesh: MeshComponent) {
 		this.pointMesh2.push(mesh.getObject3d());
 	}
 
-	pointMesh2: THREE.Object3D[] = [];
+	pointMesh2: I3JS.IObject3D[] = [];
 
 	setEventListener(event: RendererEvent) {
 		switch (event.type) {

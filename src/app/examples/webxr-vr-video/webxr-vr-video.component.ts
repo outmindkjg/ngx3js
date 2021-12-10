@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE } from 'ngx3js';
+import { BaseComponent  , I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webxr-vr-video',
@@ -47,14 +47,14 @@ export class WebxrVrVideoComponent extends BaseComponent<{
 		}
 	}
 
-	setGeometry1(geometry: THREE.BufferGeometry) {
+	setGeometry1(geometry: I3JS.IBufferGeometry) {
 		const uvs1 = geometry.attributes.uv.array as any;
 		for (let i = 0; i < uvs1.length; i += 2) {
 			uvs1[i] *= 0.5;
 		}
 	}
 
-	setGeometry2(geometry: THREE.BufferGeometry) {
+	setGeometry2(geometry: I3JS.IBufferGeometry) {
 		const uvs1 = geometry.attributes.uv.array as any;
 		for (let i = 0; i < uvs1.length; i += 2) {
 			uvs1[i] *= 0.5;

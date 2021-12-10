@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-variations-lambert',
@@ -19,7 +19,7 @@ export class WebglMaterialsVariationsLambertComponent extends BaseComponent<{}> 
 			for (let beta = 0; beta <= 1.0; beta += stepSize) {
 				for (let gamma = 0; gamma <= 1.0; gamma += stepSize) {
 					// basic monochromatic energy preservation
-					const diffuseColor = new THREE.Color().setHSL(
+					const diffuseColor = N3js.getColor().setHSL(
 						alpha,
 						0.5,
 						gamma * 0.5 + 0.1
@@ -106,7 +106,7 @@ export class WebglMaterialsVariationsLambertComponent extends BaseComponent<{}> 
 		this.pointLight = mesh.getObject3d();
 	}
 
-	pointLight: THREE.Object3D = null;
+	pointLight: I3JS.IObject3D = null;
 
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);

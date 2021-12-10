@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	GeometryComponent,
-	MaterialComponent,
-	MeshComponent,
-	RendererTimer,
+	GeometryComponent, I3JS, MaterialComponent,
+	MeshComponent, N3js, RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-instancing-modified',
@@ -55,7 +52,7 @@ export class WebglInstancingModifiedComponent extends BaseComponent<{}> {
 			.getGeometry()
 			.setAttribute(
 				'instanceColor',
-				new THREE.InstancedBufferAttribute(new Float32Array(instanceColors), 3)
+				N3js.getInstancedBufferAttribute(new Float32Array(instanceColors), 3)
 			);
 	}
 
@@ -74,9 +71,9 @@ export class WebglInstancingModifiedComponent extends BaseComponent<{}> {
 		};
 	}
 
-	dummy = new THREE.Object3D();
+	dummy = N3js.getObject3D();
 
-	makeMatrix = (matrix: THREE.Matrix4, i: number, time: number = 0) => {
+	makeMatrix = (matrix: I3JS.IMatrix4, i: number, time: number = 0) => {
 		const offset = (this.amount - 1) / 2;
 		const x = i % this.amount;
 		i = Math.floor((i - x) / this.amount);
@@ -92,13 +89,13 @@ export class WebglInstancingModifiedComponent extends BaseComponent<{}> {
 		matrix.copy(dummy.matrix);
 	};
 
-	matrix = new THREE.Matrix4();
+	matrix = N3js.getMatrix4();
 
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			const time = timer.elapsedTime;
-			const instancedMesh: THREE.InstancedMesh = this.meshObject3d as any;
+			const instancedMesh: I3JS.IInstancedMesh = this.meshObject3d as any;
 			instancedMesh.rotation.x = Math.sin(time / 4);
 			instancedMesh.rotation.y = Math.sin(time / 2);
 			for (let i = 0; i < this.count; i++) {

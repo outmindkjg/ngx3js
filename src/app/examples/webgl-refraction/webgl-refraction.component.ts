@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-refraction',
@@ -15,15 +15,14 @@ export class WebglRefractionComponent extends BaseComponent<{}> {
 		this.smallSphere = smallSphere.getObject3d();
 	}
 
-	smallSphere: THREE.Object3D = null;
+	smallSphere: I3JS.IObject3D = null;
 
 	setRefractor(refractor: MeshComponent) {
-		this.refractorMaterial = (refractor.getObject3d() as THREE.Mesh)
-			.material as THREE.ShaderMaterial;
+		this.refractorMaterial = (refractor.getObject3d() as any).material ;
 		// this.refractorMaterial.side = DoubleSide;
 	}
 
-	refractorMaterial: THREE.ShaderMaterial = null;
+	refractorMaterial: I3JS.IShaderMaterial = null;
 
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);

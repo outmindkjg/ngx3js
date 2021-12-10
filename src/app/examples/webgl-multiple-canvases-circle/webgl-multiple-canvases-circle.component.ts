@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-multiple-canvases-circle',
@@ -157,13 +157,13 @@ export class WebglMultipleCanvasesCircleComponent extends BaseComponent<{
 		}
 	}
 
-	setIcosahedronGeometry(geometry1: THREE.BufferGeometry) {
+	setIcosahedronGeometry(geometry1: I3JS.IBufferGeometry) {
 		const count = geometry1.attributes.position.count;
 		geometry1.setAttribute(
 			'color',
-			new THREE.BufferAttribute(new Float32Array(count * 3), 3)
+			N3js.getBufferAttribute(new Float32Array(count * 3), 3)
 		);
-		const color = new THREE.Color();
+		const color = N3js.getColor();
 		const positions = geometry1.attributes.position;
 		const colors = geometry1.attributes.color;
 		for (let i = 0; i < count; i++) {

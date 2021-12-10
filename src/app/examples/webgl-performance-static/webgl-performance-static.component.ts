@@ -3,9 +3,8 @@ import {
 	BaseComponent,
 	MeshComponent,
 	RendererEvent,
-	RendererTimer,
+	RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-performance-static',

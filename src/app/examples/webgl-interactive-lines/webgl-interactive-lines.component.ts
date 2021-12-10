@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererEvent, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, N3js, RendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-interactive-lines',
@@ -13,8 +13,8 @@ export class WebglInteractiveLinesComponent extends BaseComponent<{}> {
 
 	ngOnInit() {
 		const points = [];
-		const point = new THREE.Vector3();
-		const direction = new THREE.Vector3();
+		const point = N3js.getVector3();
+		const direction = N3js.getVector3();
 		for (let i = 0; i < 50; i++) {
 			direction.x += Math.random() - 0.5;
 			direction.y += Math.random() - 0.5;
@@ -98,13 +98,13 @@ export class WebglInteractiveLinesComponent extends BaseComponent<{}> {
 		scale: { x: number; y: number; z: number };
 	}[] = [];
 
-	sphere: THREE.Object3D = null;
+	sphere: I3JS.IObject3D = null;
 
 	setSphere(mesh: MeshComponent) {
 		this.sphere = mesh.getObject3d();
 	}
 
-	parent: THREE.Object3D = null;
+	parent: I3JS.IObject3D = null;
 	setParentTransform(mesh: MeshComponent) {
 		this.parent = mesh.getObject3d();
 	}

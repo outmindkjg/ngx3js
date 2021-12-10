@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	MeshComponent,
-	PassComponent,
+	BaseComponent, I3JS, MeshComponent, N3js, PassComponent,
 	RendererEvent,
 	SceneComponent,
-	SSRrPass,
+	SSRrPass
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-postprocessing-ssrr',
@@ -158,7 +155,7 @@ export class WebglPostprocessingSsrrComponent extends BaseComponent<{
 		);
 	}
 
-	selectableMesh: THREE.Mesh[] = [];
+	selectableMesh: I3JS.IMesh[] = [];
 	setSSRrPass(pass: PassComponent) {
 		this.pass = pass.getPass();
 		this.updatePass();
@@ -166,8 +163,8 @@ export class WebglPostprocessingSsrrComponent extends BaseComponent<{
 			if (this.sceneChildren !== null) {
 				this.selectableMesh = [];
 				const selectName = ['bunny', 'box', 'sphere', 'cone'];
-				this.sceneChildren.forEach((child) => {
-					if (child instanceof THREE.Mesh) {
+				this.sceneChildren.forEach((child : any) => {
+					if (child instanceof N3js.Mesh) {
 						const name = child.name;
 						if (selectName.indexOf(name) > -1) {
 							this.selectableMesh.push(child);
@@ -228,7 +225,7 @@ export class WebglPostprocessingSsrrComponent extends BaseComponent<{
 
 	pass: SSRrPass = null;
 
-	selected: THREE.Mesh[] = [];
+	selected: I3JS.IMesh[] = [];
 
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
@@ -243,8 +240,8 @@ export class WebglPostprocessingSsrrComponent extends BaseComponent<{
 						this.selectableMesh
 					);
 					if (intersection !== null && intersection.object !== null) {
-						const mesh = intersection.object;
-						if (mesh instanceof THREE.Mesh) {
+						const mesh = intersection.object as any;
+						if (mesh instanceof N3js.Mesh) {
 							const index = this.selected.indexOf(mesh);
 							if (index >= 0) {
 								this.selected.splice(index, 1);

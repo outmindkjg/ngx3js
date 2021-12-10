@@ -5,8 +5,7 @@ import {
 	MaterialComponent,
 	MeshComponent,
 	NODES,
-} from 'ngx3js';
-import * as THREE from 'three';
+ 	I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-nodes',
@@ -283,9 +282,9 @@ export class WebglMaterialsNodesComponent extends BaseComponent<{
 	}
 	orgMaterial: any = null;
 	material: any = null;
-	map: THREE.Texture = null;
-	envMap: THREE.Texture = null;
-	normalMap: THREE.Texture = null;
+	map: I3JS.ITexture = null;
+	envMap: I3JS.ITexture = null;
+	normalMap: I3JS.ITexture = null;
 	sataturation: NODES.FloatNode = null;
 	changeMaterial(key: string) {
 		if (this.material !== null) {
@@ -301,7 +300,7 @@ export class WebglMaterialsNodesComponent extends BaseComponent<{
 								NODES.ColorAdjustmentNode.SATURATION
 							);
 						} else {
-							this.material = new THREE.MeshStandardMaterial();
+							this.material = N3js.getMeshStandardMaterial();
 							this.sataturation = null;
 							this.material.map = this.map;
 						}
@@ -333,13 +332,13 @@ export class WebglMaterialsNodesComponent extends BaseComponent<{
 				case 'side':
 					switch (this.controls.side) {
 						case 'double':
-							this.material.side = THREE.DoubleSide;
+							this.material.side = I3JS.DoubleSide;
 							break;
 						case 'back':
-							this.material.side = THREE.BackSide;
+							this.material.side = I3JS.BackSide;
 							break;
 						case 'front':
-							this.material.side = THREE.FrontSide;
+							this.material.side = I3JS.FrontSide;
 							break;
 					}
 					break;

@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	MeshComponent,
-	RendererEvent,
+	BaseComponent, I3JS, MeshComponent, N3js, RendererEvent,
 	RendererTimer,
-	ThreeUtil,
+	ThreeUtil
 } from 'ngx3js';
 
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-lightningstrike',
@@ -212,8 +209,8 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 
 	ngOnInit() {
 		const starVertices = [];
-		const prevPoint = new THREE.Vector3(0, 0, 1);
-		const currPoint = new THREE.Vector3();
+		const prevPoint = N3js.getVector3(0, 0, 1);
+		const currPoint = N3js.getVector3();
 		for (let i = 1; i <= 16; i++) {
 			currPoint.set(
 				Math.sin((2 * Math.PI * i) / 16),
@@ -233,7 +230,7 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 	}
 
 	starVertices: any[] = [];
-	starMesh: THREE.Mesh = null;
+	starMesh: I3JS.IMesh = null;
 	setStarMesh(mesh: MeshComponent) {
 		this.starMesh = mesh.getMesh() as any;
 	}
@@ -262,13 +259,13 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 		}
 	}
 
-	private intersection = new THREE.Vector3();
-	private sphere = new THREE.Sphere(new THREE.Vector3(0, 300), 200);
+	private intersection = N3js.getVector3();
+	private sphere = N3js.getSphere(N3js.getVector3(0, 300), 200);
 
 	changeScene() {
-		const vec1 = new THREE.Vector3();
-		const vec2 = new THREE.Vector3();
-		const rayDirection = new THREE.Vector3();
+		const vec1 = N3js.getVector3();
+		const vec2 = N3js.getVector3();
+		const rayDirection = N3js.getVector3();
 		let rayLength = 0;
 		switch (this.controls.scene) {
 			case 'ball':
@@ -312,7 +309,6 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 							0.9,
 							0.7
 						);
-						// THREE.Sphere projection
 						vec1.subVectors(
 							childSubray.pos1,
 							lightningStrike.rayParameters.sourceOffset
@@ -424,8 +420,8 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 		z: 0,
 	};
 
-	sourceOffset: THREE.Vector3 = new THREE.Vector3();
-	destOffset: THREE.Vector3 = new THREE.Vector3();
+	sourceOffset: I3JS.IVector3 = N3js.getVector3();
+	destOffset: I3JS.IVector3 = N3js.getVector3();
 
 	currentTime: number = 0;
 
@@ -458,12 +454,12 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 		const lightningStrike = this.getLightningStrike();
 		if (lightningStrike !== null) {
 			const material = lightningStrike.material;
-			material.color = new THREE.Color(this.controls.lightningColor);
+			material.color = N3js.getColor(this.controls.lightningColor);
 		} else {
 			const storm = (this.meshObject3d.getObjectByName('storm') || null) as any;
 			if (ThreeUtil.isNotNull(storm)) {
 				const material = storm.lightningMaterial;
-				material.color = new THREE.Color(this.controls.lightningColor);
+				material.color = N3js.getColor(this.controls.lightningColor);
 			}
 		}
 		this.rayParams.straightness = this.controls.straightness;

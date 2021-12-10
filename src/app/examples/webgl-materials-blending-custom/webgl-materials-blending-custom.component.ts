@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer } from 'ngx3js';
+import { BaseComponent, MeshComponent, RendererTimer  , I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-blending-custom',

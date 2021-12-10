@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-lines',
@@ -64,10 +63,10 @@ export class WebglBuffergeometryLinesComponent extends BaseComponent<{
 
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
-		this.object3d = mesh.getObject3d() as THREE.Line;
+		this.object3d = mesh.getObject3d() ;
 	}
 
-	object3d: THREE.Line = null;
+	object3d: I3JS.ILine = null;
 	t: number = 0;
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);

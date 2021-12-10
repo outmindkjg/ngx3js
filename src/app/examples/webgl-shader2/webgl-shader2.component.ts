@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shader2',
@@ -21,7 +21,7 @@ export class WebglShader2Component extends BaseComponent<{ speed: number }> {
 		this.children = mesh.getObject3d().children;
 	}
 
-	children: THREE.Object3D[] = null;
+	children: I3JS.IObject3D[] = null;
 
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, LocalStorageService } from 'ngx3js';
+import { BaseComponent, LocalStorageService  , I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-exporter-obj',

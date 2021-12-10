@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	Capsule,
-	MeshComponent,
-	Octree,
+	Capsule, I3JS, MeshComponent, N3js, Octree,
 	RendererEvent,
-	RendererTimer,
+	RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-games-fps',
@@ -21,22 +18,22 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 
 	ngOnInit() {
 		this.playerCollider = new Capsule(
-			new THREE.Vector3(0, 0.35, 0),
-			new THREE.Vector3(0, 1, 0),
+			N3js.getVector3(0, 0.35, 0),
+			N3js.getVector3(0, 1, 0),
 			0.35
 		);
 		this.spheresInfos = [];
 		for (let i = 0; i < 20; i++) {
 			this.spheresInfos.push({
 				mesh: null,
-				collider: new THREE.Sphere(new THREE.Vector3(0, -100, 0), 0.2),
-				velocity: new THREE.Vector3(),
+				collider: N3js.getSphere(N3js.getVector3(0, -100, 0), 0.2),
+				velocity: N3js.getVector3(),
 			});
 		}
 	}
 
 	setSpheres(mesh: MeshComponent, idx: number) {
-		this.spheresInfos[idx].mesh = mesh.getMesh() as THREE.Mesh;
+		this.spheresInfos[idx].mesh = mesh.getMesh();
 	}
 
 	keyStates: { [key: string]: boolean } = {};
@@ -60,7 +57,7 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 					this.camera !== null &&
 					document.pointerLockElement === event.nativeElement
 				) {
-					const camera: THREE.Camera = this.camera.getCamera();
+					const camera: I3JS.ICamera = this.camera.getCamera();
 					camera.rotation.y -= event.event.movementX / 500;
 					camera.rotation.x -= event.event.movementY / 500;
 				}
@@ -68,7 +65,7 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 			case 'click':
 				if (this.camera !== null) {
 					const sphere = this.spheresInfos[this.sphereIdx];
-					const camera: THREE.Camera = this.camera.getCamera();
+					const camera: I3JS.ICamera = this.camera.getCamera();
 					camera.getWorldDirection(this.playerDirection);
 					sphere.collider.center.copy(this.playerCollider.end);
 					sphere.velocity.copy(this.playerDirection).multiplyScalar(30);
@@ -82,15 +79,15 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 	}
 
 	spheresInfos: {
-		mesh?: THREE.Mesh;
-		collider: THREE.Sphere;
-		velocity: THREE.Vector3;
+		mesh?: I3JS.IMesh;
+		collider: I3JS.ISphere;
+		velocity: I3JS.IVector3;
 	}[] = [];
 
 	worldOctree: any = null;
 	playerCollider: any = null;
-	playerVelocity = new THREE.Vector3();
-	playerDirection = new THREE.Vector3();
+	playerVelocity = N3js.getVector3();
+	playerDirection = N3js.getVector3();
 	playerOnFloor = false;
 	GRAVITY = 30;
 	setWorld(world: MeshComponent) {
@@ -135,7 +132,7 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 		const deltaPosition = this.playerVelocity.clone().multiplyScalar(deltaTime);
 		this.playerCollider.translate(deltaPosition);
 		this.playerCollitions();
-		const camera: THREE.Camera = this.camera.getCamera();
+		const camera: I3JS.ICamera = this.camera.getCamera();
 		camera.position.copy(this.playerCollider.end);
 	}
 
@@ -187,7 +184,7 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 	}
 
 	getForwardVector() {
-		const camera: THREE.Camera = this.camera.getCamera();
+		const camera: I3JS.ICamera = this.camera.getCamera();
 		camera.getWorldDirection(this.playerDirection);
 		this.playerDirection.y = 0;
 		this.playerDirection.normalize();
@@ -195,7 +192,7 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 	}
 
 	getSideVector() {
-		const camera: THREE.Camera = this.camera.getCamera();
+		const camera: I3JS.ICamera = this.camera.getCamera();
 		camera.getWorldDirection(this.playerDirection);
 		this.playerDirection.y = 0;
 		this.playerDirection.normalize();

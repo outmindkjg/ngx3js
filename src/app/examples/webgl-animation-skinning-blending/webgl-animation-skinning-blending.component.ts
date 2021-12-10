@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MixerComponent } from 'ngx3js';
+import { BaseComponent, MixerComponent  , I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-animation-skinning-blending',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BaseComponent, RendererTimer } from 'ngx3js';
+import { BaseComponent, RendererTimer  , I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-curve',

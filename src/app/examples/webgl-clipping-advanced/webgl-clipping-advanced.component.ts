@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	MaterialComponent,
-	PlaneComponent,
+	MaterialComponent, N3js, PlaneComponent,
 	RendererComponent,
-	RendererTimer,
+	RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-clipping-advanced',
@@ -48,7 +46,7 @@ export class WebglClippingAdvancedComponent extends BaseComponent<{
 							change: () => {
 								if (this.renderer !== null) {
 									const renderer =
-										this.renderer.getRenderer() as THREE.WebGLRenderer;
+										this.renderer.getRenderer() as any;
 									renderer.localClippingEnabled =
 										this.controls.localClipping.enabled;
 								}
@@ -101,10 +99,10 @@ export class WebglClippingAdvancedComponent extends BaseComponent<{
 		}
 		this.localPlanes = [];
 		const vertices = [
-			new THREE.Vector3(+1, 0, +Math.SQRT1_2),
-			new THREE.Vector3(-1, 0, +Math.SQRT1_2),
-			new THREE.Vector3(0, +1, -Math.SQRT1_2),
-			new THREE.Vector3(0, -1, -Math.SQRT1_2),
+			N3js.getVector3(+1, 0, +Math.SQRT1_2),
+			N3js.getVector3(-1, 0, +Math.SQRT1_2),
+			N3js.getVector3(0, +1, -Math.SQRT1_2),
+			N3js.getVector3(0, -1, -Math.SQRT1_2),
 		];
 		const indices = [0, 1, 2, 0, 2, 3, 0, 3, 1, 1, 3, 2];
 		this.localPlanes = this.planesFromMesh(vertices, indices);
@@ -138,7 +136,7 @@ export class WebglClippingAdvancedComponent extends BaseComponent<{
 			const a = vertices[indices[j]],
 				b = vertices[indices[j + 1]],
 				c = vertices[indices[j + 2]];
-			const plane = new THREE.Plane().setFromCoplanarPoints(a, b, c);
+			const plane = N3js.getPlane().setFromCoplanarPoints(a, b, c);
 			result.push({
 				x: plane.normal.x,
 				y: plane.normal.y,

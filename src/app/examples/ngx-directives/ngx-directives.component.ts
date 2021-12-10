@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	RendererTimer,
-	Object3dFunction,
-	ObjectFunction,
-	DirectiveOptions,
+	BaseComponent, DirectiveOptions, I3JS, Object3dFunction,
+	ObjectFunction, RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 const easingOptions = [
 	'linearInOut',
@@ -1568,7 +1564,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 				return 'stop';
 			case 'cos':
 				return (
-					object3d: THREE.Object3D,
+					object3d: I3JS.IObject3D,
 					elapsedTime: number,
 					timer: RendererTimer
 				) => {
@@ -1577,7 +1573,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 				};
 			case 'sin':
 				return (
-					object3d: THREE.Object3D,
+					object3d: I3JS.IObject3D,
 					elapsedTime: number,
 					timer: RendererTimer
 				) => {
@@ -1634,7 +1630,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 				return 'stop';
 			case 'cos':
 				return (
-					object3d: THREE.Object3D,
+					object3d: I3JS.IObject3D,
 					elapsedTime: number,
 					_: RendererTimer
 				) => {
@@ -1643,7 +1639,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 				};
 			case 'sin':
 				return (
-					object3d: THREE.Object3D,
+					object3d: I3JS.IObject3D,
 					elapsedTime: number,
 					_: RendererTimer
 				) => {
@@ -1700,7 +1696,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 				return 'stop';
 			case 'circle':
 				return (
-					object3d: THREE.Object3D,
+					object3d: I3JS.IObject3D,
 					elapsedTime: number,
 					_: RendererTimer
 				) => {
@@ -1712,7 +1708,7 @@ export class NgxDirectivesComponent extends BaseComponent<{
 				};
 			case 'rect':
 				return (
-					object3d: THREE.Object3D,
+					object3d: I3JS.IObject3D,
 					elapsedTime: number,
 					_: RendererTimer
 				) => {

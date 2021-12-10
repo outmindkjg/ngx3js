@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, MeshComponent  , I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-css3d-periodictable',
@@ -664,8 +663,8 @@ export class Css3dPeriodictableComponent extends BaseComponent<{
 		for (let i = 0; i < table.length; i += 5) {
 			const x = table[i + 3] * 140 - 1330;
 			const y = -(table[i + 4] * 180) + 990;
-			let position = new THREE.Vector3(x, y, 0);
-			let rotation = new THREE.Euler(0, 0, 0);
+			let position = N3js.getVector3(x, y, 0);
+			let rotation = N3js.getEuler(0, 0, 0);
 
 			this.tweenTable.table.push({
 				position: position.clone(),
@@ -685,11 +684,11 @@ export class Css3dPeriodictableComponent extends BaseComponent<{
 				duration: Math.random() * 3 + 1,
 			});
 		}
-		const vector = new THREE.Vector3();
+		const vector = N3js.getVector3();
 		for (let i = 0, l = this.periodicInfo.length; i < l; i++) {
 			const phi = Math.acos(-1 + (2 * i) / l);
 			const theta = Math.sqrt(l * Math.PI) * phi;
-			const object = new THREE.Object3D();
+			const object = N3js.getObject3D();
 			object.position.setFromSphericalCoords(800, phi, theta);
 			vector.copy(object.position).multiplyScalar(2);
 			object.lookAt(vector);
@@ -701,7 +700,7 @@ export class Css3dPeriodictableComponent extends BaseComponent<{
 		for (let i = 0, l = this.periodicInfo.length; i < l; i++) {
 			const theta = i * 0.175 + Math.PI;
 			const y = -(i * 8) + 450;
-			const object = new THREE.Object3D();
+			const object = N3js.getObject3D();
 			object.position.setFromCylindricalCoords(900, theta, y);
 			vector.x = object.position.x * 2;
 			vector.y = object.position.y;
@@ -713,7 +712,7 @@ export class Css3dPeriodictableComponent extends BaseComponent<{
 			});
 		}
 		for (let i = 0; i < this.periodicInfo.length; i++) {
-			const object = new THREE.Object3D();
+			const object = N3js.getObject3D();
 			object.position.x = (i % 5) * 400 - 800;
 			object.position.y = -(Math.floor(i / 5) % 5) * 400 + 800;
 			object.position.z = Math.floor(i / 25) * 1000 - 2000;
@@ -730,7 +729,7 @@ export class Css3dPeriodictableComponent extends BaseComponent<{
 			this.meshChildren &&
 			this.meshChildren.length > 0
 		) {
-			let baseTable: { position: THREE.Vector3; rotation: THREE.Euler }[] =
+			let baseTable: { position: I3JS.IVector3; rotation: I3JS.IEuler }[] =
 				null;
 			switch (this.controls.display) {
 				case 'table':
@@ -773,10 +772,10 @@ export class Css3dPeriodictableComponent extends BaseComponent<{
 	private checkAutoPlayBind: any = null;
 
 	tweenTable: {
-		table: { position: THREE.Vector3; rotation: THREE.Euler }[];
-		sphere: { position: THREE.Vector3; rotation: THREE.Euler }[];
-		helix: { position: THREE.Vector3; rotation: THREE.Euler }[];
-		grid: { position: THREE.Vector3; rotation: THREE.Euler }[];
+		table: { position: I3JS.IVector3; rotation: I3JS.IEuler }[];
+		sphere: { position: I3JS.IVector3; rotation: I3JS.IEuler }[];
+		helix: { position: I3JS.IVector3; rotation: I3JS.IEuler }[];
+		grid: { position: I3JS.IVector3; rotation: I3JS.IEuler }[];
 	} = {
 		table: null,
 		sphere: null,

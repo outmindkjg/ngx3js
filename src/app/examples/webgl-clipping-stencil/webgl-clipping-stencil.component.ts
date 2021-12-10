@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	HelperComponent,
-	PlaneComponent,
-	RendererTimer,
+	HelperComponent, I3JS, PlaneComponent,
+	RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-clipping-stencil',
@@ -166,7 +164,7 @@ export class WebglClippingStencilComponent extends BaseComponent<{
 
 	constantHelper(axis: string, value: number) {
 		if (this.localHelper !== null) {
-			let helper: THREE.PlaneHelper = this.getAxisHelper(axis);
+			let helper: I3JS.IPlaneHelper = this.getAxisHelper(axis);
 			if (helper !== null) {
 				helper.plane.constant = value;
 			}
@@ -175,7 +173,7 @@ export class WebglClippingStencilComponent extends BaseComponent<{
 
 	negatedHelper(axis: string): number {
 		if (this.localHelper !== null) {
-			let helper: THREE.PlaneHelper = this.getAxisHelper(axis);
+			let helper: I3JS.IPlaneHelper = this.getAxisHelper(axis);
 			if (helper !== null) {
 				helper.plane.negate();
 				return helper.plane.constant;
@@ -186,15 +184,15 @@ export class WebglClippingStencilComponent extends BaseComponent<{
 
 	displayHelper(axis: string, visible: boolean) {
 		if (this.localHelper !== null) {
-			let helper: THREE.PlaneHelper = this.getAxisHelper(axis);
+			let helper: I3JS.IPlaneHelper = this.getAxisHelper(axis);
 			if (helper !== null) {
 				helper.visible = visible;
 			}
 		}
 	}
 
-	getAxisHelper(axis: string): THREE.PlaneHelper {
-		let helper: THREE.PlaneHelper = null;
+	getAxisHelper(axis: string): I3JS.IPlaneHelper {
+		let helper: I3JS.IPlaneHelper = null;
 		let x = 0,
 			y = 0,
 			z = 0;
@@ -211,7 +209,7 @@ export class WebglClippingStencilComponent extends BaseComponent<{
 		}
 		const helperGroup = this.localHelper.getHelper();
 		helperGroup.children.forEach((child) => {
-			const childHelper = child as THREE.PlaneHelper;
+			const childHelper = child ;
 			const plane = childHelper.plane.normal;
 			if (
 				Math.abs(plane.x) == Math.abs(x) &&

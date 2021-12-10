@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	CameraComponent,
-	MeshComponent,
-	RendererTimer,
+	CameraComponent, I3JS, MeshComponent, N3js, RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-camera',
@@ -50,9 +47,9 @@ export class WebglCameraComponent extends BaseComponent<{
 	ngOnInit() {
 		this.vertices = [];
 		for (let i = 0; i < 10000; i++) {
-			this.vertices.push(THREE.MathUtils.randFloatSpread(2000)); // x
-			this.vertices.push(THREE.MathUtils.randFloatSpread(2000)); // y
-			this.vertices.push(THREE.MathUtils.randFloatSpread(2000)); // z
+			this.vertices.push(N3js.MathUtils.randFloatSpread(2000)); // x
+			this.vertices.push(N3js.MathUtils.randFloatSpread(2000)); // y
+			this.vertices.push(N3js.MathUtils.randFloatSpread(2000)); // z
 		}
 	}
 
@@ -118,13 +115,13 @@ export class WebglCameraComponent extends BaseComponent<{
 			this.mesh !== null
 		) {
 			if (this.cameraPerspective === this.cameraControl) {
-				const cameraPerspective: THREE.PerspectiveCamera =
+				const cameraPerspective: I3JS.IPerspectiveCamera =
 					this.cameraPerspective.getCamera();
 				cameraPerspective.fov = 35 + 30 * Math.sin(0.5 * r);
 				cameraPerspective.far = this.mesh.getPosition().length();
 				cameraPerspective.updateProjectionMatrix();
 			} else if (this.cameraOrthographic === this.cameraControl) {
-				const cameraOrthographic: THREE.OrthographicCamera =
+				const cameraOrthographic: I3JS.IOrthographicCamera =
 					this.cameraOrthographic.getCamera();
 				cameraOrthographic.far = this.mesh.getPosition().length();
 				cameraOrthographic.updateProjectionMatrix();

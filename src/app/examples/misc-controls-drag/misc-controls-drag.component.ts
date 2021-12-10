@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import {
 	BaseComponent,
 	ControlComponent,
-	DragControls,
-	MeshComponent,
-	RendererEvent,
+	DragControls, I3JS, MeshComponent,
+	RendererEvent
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-misc-controls-drag',
@@ -104,7 +102,7 @@ export class MiscControlsDragComponent extends BaseComponent<{}> {
 		this.group = mesh.getObject3d();
 	}
 
-	group: THREE.Object3D = null;
+	group: I3JS.IObject3D = null;
 
 	control: DragControls = null;
 }

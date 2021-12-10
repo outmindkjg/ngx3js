@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer, SharedComponent, THREE } from 'ngx3js';
+import {
+	BaseComponent, I3JS,
+	N3js, RendererTimer,
+	SharedComponent
+} from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl2-materials-texture3d-partialupdate',
@@ -90,7 +94,7 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends BaseComponen
 	}
 
 	textureInfos: { scale: number; x: number; y: number; z: number }[] = [];
-	texture3dList: THREE.DataTexture3D[] = [];
+	texture3dList: I3JS.IDataTexture3D[] = [];
 	addedCnt: number = 0;
 	updateUniforms() {
 		const uniforms = this.getUniforms();
@@ -102,10 +106,9 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends BaseComponen
 		}
 	}
 
-	getUniforms(): { [uniform: string]: THREE.IUniform } {
+	getUniforms(): { [uniform: string]: I3JS.IUniform } {
 		if (this.meshObject3d !== null) {
-			const rawShaderMaterial = (this.meshObject3d as THREE.Mesh)
-				.material as THREE.RawShaderMaterial;
+			const rawShaderMaterial = (this.meshObject3d as any).material;
 			return rawShaderMaterial.uniforms || null;
 		}
 		return null;
@@ -129,10 +132,10 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends BaseComponen
 					i = Math.floor((i - y) / 4);
 					const z = i % 4;
 					const texture = this.texture3dList[this.addedCnt];
-					const position = new THREE.Vector3(x * 32, y * 32, z * 32).floor();
-					const box = new THREE.Box3(
-						new THREE.Vector3(0, 0, 0),
-						new THREE.Vector3(29, 29, 29)
+					const position = N3js.getVector3(x * 32, y * 32, z * 32).floor();
+					const box = N3js.getBox3(
+						N3js.getVector3(0, 0, 0),
+						N3js.getVector3(29, 29, 29)
 					);
 					(timer.renderer as any).copyTextureToTexture3D(
 						box,
@@ -143,9 +146,7 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends BaseComponen
 					this.addedCnt++;
 					this.nextTime = timer.elapsedTime + 1;
 				}
-				uniforms.cameraPos.value.copy(
-					(this.camera.getCamera() as THREE.Camera).position
-				);
+				uniforms.cameraPos.value.copy(this.camera.getCamera().position);
 				uniforms.frame.value++;
 			}
 		}

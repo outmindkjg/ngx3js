@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { BaseComponent, MeshComponent, NODES, RendererTimer } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-materials-compile',

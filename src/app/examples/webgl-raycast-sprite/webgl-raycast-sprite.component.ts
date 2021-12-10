@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererEvent, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, N3js, RendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-raycast-sprite',
@@ -14,16 +14,16 @@ export class WebglRaycastSpriteComponent extends BaseComponent<{}> {
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
 		this.sprites = [];
-		mesh.getObject3d().traverse((child) => {
-			if (child instanceof THREE.Sprite) {
+		mesh.getObject3d().traverse((child : any) => {
+			if (child instanceof N3js.Sprite) {
 				this.sprites.push(child);
 			}
 		});
 	}
 
-	sprites: THREE.Sprite[] = [];
+	sprites: I3JS.ISprite[] = [];
 
-	selectedSprites: THREE.Sprite = null;
+	selectedSprites: I3JS.ISprite = null;
 	onMouseOver(event: RendererEvent) {
 		if (this.camera !== null && this.sprites.length > 0) {
 			const intersect = this.camera.getIntersection(event.mouse, this.sprites);
@@ -31,7 +31,7 @@ export class WebglRaycastSpriteComponent extends BaseComponent<{}> {
 				this.selectedSprites.material.color.set('#69f');
 			}
 			if (intersect !== null && intersect.object !== null) {
-				this.selectedSprites = intersect.object as THREE.Sprite;
+				this.selectedSprites = intersect.object as any;
 				this.selectedSprites.material.color.set('#f00');
 			}
 		}

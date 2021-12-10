@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-sprites',
@@ -46,10 +46,10 @@ export class WebglSpritesComponent extends BaseComponent<{}> {
 
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
-		this.children = mesh.getObject3d().children as THREE.Sprite[];
+		this.children = mesh.getObject3d().children as any[];
 	}
 
-	children: THREE.Sprite[] = [];
+	children: I3JS.ISprite[] = [];
 
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);

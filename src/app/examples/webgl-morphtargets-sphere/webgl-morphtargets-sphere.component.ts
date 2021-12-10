@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, ThreeUtil } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, I3JS, MeshComponent, RendererTimer, ThreeUtil } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-morphtargets-sphere',
@@ -19,7 +18,7 @@ export class WebglMorphtargetsSphereComponent extends BaseComponent<{}> {
 			ThreeUtil.getSubscribe(
 				mesh,
 				() => {
-					this.realMesh = mesh.getRealMesh() as THREE.Mesh;
+					this.realMesh = mesh.getRealMesh() as any;
 					this.synkMorphTarget();
 				},
 				'loaded'
@@ -43,13 +42,13 @@ export class WebglMorphtargetsSphereComponent extends BaseComponent<{}> {
 	}
 
 	setPoints(mesh: MeshComponent) {
-		this.points = mesh.getMesh() as THREE.Points;
+		this.points = mesh.getMesh() ;
 		this.synkMorphTarget();
 	}
 
-	points: THREE.Points = null;
+	points: I3JS.IPoints = null;
 
-	realMesh: THREE.Mesh = null;
+	realMesh: I3JS.IMesh = null;
 	sign: number = 1;
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);

@@ -4,9 +4,8 @@ import {
 	BaseComponent,
 	ControlComponent,
 	MeshComponent,
-	RendererTimer,
+	RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-ngx-control',
@@ -100,7 +99,7 @@ export class NgxControlComponent extends BaseComponent<{
 
 	resetCamera() {
 		if (this.cameraObject3d !== null) {
-			(this.cameraObject3d.position as THREE.Vector3).set(0, 5, 10);
+			(this.cameraObject3d.position).set(0, 5, 10);
 		}
 	}
 

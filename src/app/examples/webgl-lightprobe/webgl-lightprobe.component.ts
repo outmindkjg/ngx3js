@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, LightComponent } from 'ngx3js';
+import { BaseComponent, MeshComponent, LightComponent  , I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lightprobe',
@@ -76,6 +76,6 @@ export class WebglLightprobeComponent extends BaseComponent<{
 
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
-		this.meshMaterial = this.mesh.getRealMesh().material;
+		this.meshMaterial = (this.mesh.getRealMesh() as any).material;
 	}
 }

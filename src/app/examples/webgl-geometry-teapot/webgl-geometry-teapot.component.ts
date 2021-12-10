@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, TeapotGeometry, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, N3js, TeapotGeometry } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-teapot',
@@ -296,7 +296,7 @@ export class WebglGeometryTeapotComponent extends BaseComponent<{
 		);
 	}
 
-	teapot: THREE.BufferGeometry = null;
+	teapot: I3JS.IBufferGeometry = null;
 	material: {
 		type: string;
 		color: number;
@@ -319,8 +319,8 @@ export class WebglGeometryTeapotComponent extends BaseComponent<{
 	}
 
 	changeColor() {
-		const diffuseColor = new THREE.Color();
-		const specularColor = new THREE.Color();
+		const diffuseColor = N3js.getColor();
+		const specularColor = N3js.getColor();
 		diffuseColor.setHSL(
 			this.controls.hue,
 			this.controls.saturation,
@@ -339,7 +339,7 @@ export class WebglGeometryTeapotComponent extends BaseComponent<{
 		this.teapotMaterial.phong.specular = specularColor.getHex();
 		this.teapotMaterial.textured.specular = specularColor.getHex();
 
-		const ambientLight = new THREE.Color();
+		const ambientLight = N3js.getColor();
 		ambientLight.setHSL(
 			this.controls.hue,
 			this.controls.saturation,
@@ -347,7 +347,7 @@ export class WebglGeometryTeapotComponent extends BaseComponent<{
 		);
 		this.ambientLight = ambientLight.getHex();
 
-		const light = new THREE.Color();
+		const light = N3js.getColor();
 		light.setHSL(
 			this.controls.lhue,
 			this.controls.lsaturation,

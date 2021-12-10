@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-custom-attributes',
@@ -13,9 +13,9 @@ export class WebglCustomAttributesComponent extends BaseComponent<{}> {
 
 	noise: Float32Array = null;
 	displacement: Float32Array = null;
-	object3d: THREE.Object3D = null;
-	geometry: THREE.BufferGeometry = null;
-	uniforms: { [uniform: string]: THREE.IUniform } = null;
+	object3d: I3JS.IObject3D = null;
+	geometry: I3JS.IBufferGeometry = null;
+	uniforms: { [uniform: string]: I3JS.IUniform } = null;
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
 		this.object3d = mesh.getObject3d();
@@ -47,7 +47,7 @@ export class WebglCustomAttributesComponent extends BaseComponent<{}> {
 			for (let i = 0; i < this.displacement.length; i++) {
 				this.displacement[i] = Math.sin(0.1 * i + time);
 				this.noise[i] += 0.5 * (0.5 - Math.random());
-				this.noise[i] = THREE.MathUtils.clamp(this.noise[i], -5, 5);
+				this.noise[i] = N3js.MathUtils.clamp(this.noise[i], -5, 5);
 				this.displacement[i] += this.noise[i];
 			}
 			this.geometry.attributes.displacement.needsUpdate = true;

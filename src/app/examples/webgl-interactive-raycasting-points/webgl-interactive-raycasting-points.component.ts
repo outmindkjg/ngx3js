@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	CameraComponent,
-	MeshComponent,
+	CameraComponent, I3JS, MeshComponent,
 	RendererEvent,
-	RendererTimer,
+	RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-interactive-raycasting-points',
@@ -93,7 +91,7 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
 		}
 		return { position: positions, color: colors };
 	}
-	sphereMesh: THREE.Object3D = null;
+	sphereMesh: I3JS.IObject3D = null;
 	setSphere(mesh: MeshComponent) {
 		this.sphereMesh = mesh.getObject3d();
 		setTimeout(() => {
@@ -120,7 +118,7 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
 
 	toggle = 0;
 	spheresIndex = 0;
-	spheres: THREE.Object3D[] = null;
+	spheres: I3JS.IObject3D[] = null;
 
 	onMouseMove(event: RendererEvent) {
 		if (

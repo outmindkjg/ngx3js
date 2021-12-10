@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, GeometryUtils, THREE } from 'ngx3js';
+import { BaseComponent, GeometryUtils, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lines-fat',
@@ -16,7 +16,7 @@ export class WebglLinesFatComponent extends BaseComponent<{}> {
 		const colors = [];
 
 		const points = GeometryUtils.hilbert3D(
-			new THREE.Vector3(0, 0, 0),
+			N3js.getVector3(0, 0, 0),
 			20.0,
 			1,
 			0,
@@ -29,10 +29,10 @@ export class WebglLinesFatComponent extends BaseComponent<{}> {
 			7
 		);
 
-		const spline = new THREE.CatmullRomCurve3(points);
+		const spline = N3js.getCatmullRomCurve3(points);
 		const divisions = Math.round(12 * points.length);
-		const point = new THREE.Vector3();
-		const color = new THREE.Color();
+		const point = N3js.getVector3();
+		const color = N3js.getColor();
 		for (let i = 0, l = divisions; i < l; i++) {
 			const t = i / l;
 			spline.getPoint(t, point);

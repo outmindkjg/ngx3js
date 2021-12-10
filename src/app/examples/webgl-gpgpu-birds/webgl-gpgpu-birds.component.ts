@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, GPUComputationRenderer } from 'ngx3js';
+import { BaseComponent, GPUComputationRenderer  , I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-gpgpu-birds',

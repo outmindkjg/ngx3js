@@ -3,9 +3,7 @@ import {
 	BaseComponent,
 	MeshComponent,
 	MeshSurfaceSampler,
-	RendererTimer,
-} from 'ngx3js';
-import * as THREE from 'three';
+	RendererTimer, I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-instancing-scatter',
@@ -63,37 +61,37 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
 		}
 	}
 
-	stemMaterial: THREE.Material = null;
-	blossomMaterial: THREE.Material = null;
-	stemGeometry: THREE.InstancedBufferGeometry = null;
-	blossomGeometry: THREE.InstancedBufferGeometry = null;
+	stemMaterial: I3JS.IMaterial = null;
+	blossomMaterial: I3JS.IMaterial = null;
+	stemGeometry: I3JS.IInstancedBufferGeometry = null;
+	blossomGeometry: I3JS.IInstancedBufferGeometry = null;
 
 	setFlower(meshCom: MeshComponent) {
 		const mesh = meshCom.getObject3d();
-		const _stemMesh = mesh.getObjectByName('Stem') as THREE.Mesh;
-		const _blossomMesh = mesh.getObjectByName('Blossom') as THREE.Mesh;
+		const _stemMesh = mesh.getObjectByName('Stem') as any;
+		const _blossomMesh = mesh.getObjectByName('Blossom') as any ;
 		if (_stemMesh !== undefined && _blossomMesh !== undefined) {
-			const stemGeometry = new THREE.InstancedBufferGeometry();
-			const blossomGeometry = new THREE.InstancedBufferGeometry();
-			THREE.BufferGeometry.prototype.copy.call(
+			const stemGeometry = N3js.getInstancedBufferGeometry();
+			const blossomGeometry = N3js.getInstancedBufferGeometry();
+			N3js.BufferGeometry.prototype.copy.call(
 				stemGeometry,
 				_stemMesh.geometry
 			);
-			THREE.BufferGeometry.prototype.copy.call(
+			N3js.BufferGeometry.prototype.copy.call(
 				blossomGeometry,
 				_blossomMesh.geometry
 			);
-			const defaultTransform = new THREE.Matrix4()
+			const defaultTransform = N3js.getMatrix4()
 				.makeRotationX(Math.PI)
-				.multiply(new THREE.Matrix4().makeScale(7, 7, 7));
+				.multiply(N3js.getMatrix4().makeScale(7, 7, 7));
 			stemGeometry.applyMatrix4(defaultTransform);
 			blossomGeometry.applyMatrix4(defaultTransform);
 			this.stemGeometry = stemGeometry;
 			this.blossomGeometry = blossomGeometry;
-			this.stemMaterial = _stemMesh.material as THREE.Material;
-			this.blossomMaterial = _blossomMesh.material as THREE.Material;
+			this.stemMaterial = _stemMesh.material ;
+			this.blossomMaterial = _blossomMesh.material ;
 			const count = this.controls.count;
-			const _color = new THREE.Color();
+			const _color = N3js.getColor();
 			const color = new Float32Array(count * 3);
 			const blossomPalette = [0xf20587, 0xf2d479, 0xf2c879, 0xf2b077, 0xf24405];
 			for (let i = 0; i < count; i++) {
@@ -105,7 +103,7 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
 
 			blossomGeometry.setAttribute(
 				'color',
-				new THREE.InstancedBufferAttribute(color, 3)
+				N3js.getInstancedBufferAttribute(color, 3)
 			);
 			this.blossomMaterial.vertexColors = true;
 			this.sampler = new MeshSurfaceSampler(this.surface)
@@ -118,32 +116,32 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
 		}
 	}
 
-	surface: THREE.Mesh = null;
+	surface: I3JS.IMesh = null;
 	sampler: any = null;
-	dummy = new THREE.Object3D();
+	dummy = N3js.getObject3D();
 
-	_position = new THREE.Vector3();
-	_normal = new THREE.Vector3();
-	_scale = new THREE.Vector3();
+	_position = N3js.getVector3();
+	_normal = N3js.getVector3();
+	_scale = N3js.getVector3();
 
 	ages: Float32Array;
 	scales: Float32Array;
-	stemMesh: THREE.InstancedMesh = null;
-	blossomMesh: THREE.InstancedMesh = null;
+	stemMesh: I3JS.IInstancedMesh = null;
+	blossomMesh: I3JS.IInstancedMesh = null;
 
 	setStemMesh(mesh: MeshComponent) {
-		this.stemMesh = mesh.getRealMesh() as THREE.InstancedMesh;
+		this.stemMesh = mesh.getRealMesh() as any;
 		this.reSample();
 	}
 
 	setBlossomMesh(mesh: MeshComponent) {
-		this.blossomMesh = mesh.getRealMesh() as THREE.InstancedMesh;
+		this.blossomMesh = mesh.getRealMesh() as any ;
 		this.reSample();
 	}
 
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
-		this.surface = this.mesh.getRealMesh() as THREE.Mesh;
+		this.surface = this.mesh.getRealMesh() as any;
 		this.reSample();
 	}
 

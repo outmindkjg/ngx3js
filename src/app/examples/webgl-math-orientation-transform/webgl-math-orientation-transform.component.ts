@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, N3js, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-math-orientation-transform',
@@ -21,11 +21,11 @@ export class WebglMathOrientationTransformComponent extends BaseComponent<{}> {
 		this.generateTarget();
 	}
 
-	target: THREE.Object3D = null;
-	corn: THREE.Object3D = null;
-	targetQuaternion: THREE.Quaternion = new THREE.Quaternion();
-	spherical: THREE.Spherical = new THREE.Spherical();
-	rotationMatrix: THREE.Matrix4 = new THREE.Matrix4();
+	target: I3JS.IObject3D = null;
+	corn: I3JS.IObject3D = null;
+	targetQuaternion: I3JS.IQuaternion = N3js.getQuaternion();
+	spherical: I3JS.ISpherical = N3js.getSpherical();
+	rotationMatrix: I3JS.IMatrix4 = N3js.getMatrix4();
 
 	generateTarget() {
 		if (this.target !== null && this.corn !== null) {
@@ -49,7 +49,7 @@ export class WebglMathOrientationTransformComponent extends BaseComponent<{}> {
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);
 		if (this.corn !== null && this.target !== null) {
-			const targetMaterial = this.target['material'] as THREE.MeshBasicMaterial;
+			const targetMaterial = this.target['material'] ;
 			if (!this.corn.quaternion.equals(this.targetQuaternion)) {
 				const delta = timer.delta;
 				const step = 2 * delta;

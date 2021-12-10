@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, CharacterControl, RendererEvent } from 'ngx3js';
+import { BaseComponent, CharacterControl, RendererEvent  , I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-md2-control',

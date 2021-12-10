@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MaterialComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MaterialComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-subsurface-scattering',
@@ -84,10 +84,10 @@ export class WebglMaterialsSubsurfaceScatteringComponent extends BaseComponent<{
 	}
 
 	setMatrial(matrial: MaterialComponent) {
-		this.matrial = matrial.getMaterial() as THREE.ShaderMaterial;
+		this.matrial = matrial.getMaterial() ;
 	}
 
-	matrial: THREE.ShaderMaterial = null;
+	matrial: I3JS.IShaderMaterial = null;
 
 	updateUniforms(key: string, value: number) {
 		if (this.matrial !== null) {

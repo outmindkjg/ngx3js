@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererEvent, RendererTimer } from 'ngx3js';
+import { BaseComponent, RendererEvent, RendererTimer  , I3JS, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-physics',

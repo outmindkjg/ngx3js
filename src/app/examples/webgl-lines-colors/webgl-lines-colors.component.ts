@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, GeometryUtils, THREE } from 'ngx3js';
+import { BaseComponent, GeometryUtils, N3js } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lines-colors',
@@ -13,7 +13,7 @@ export class WebglLinesColorsComponent extends BaseComponent<{}> {
 
 	ngOnInit() {
 		const hilbertPoints = GeometryUtils.hilbert3D(
-			new THREE.Vector3(0, 0, 0),
+			N3js.getVector3(0, 0, 0),
 			200.0,
 			1,
 			0,
@@ -25,10 +25,10 @@ export class WebglLinesColorsComponent extends BaseComponent<{}> {
 			6,
 			7
 		);
-		const point = new THREE.Vector3();
-		const color = new THREE.Color();
+		const point = N3js.getVector3();
+		const color = N3js.getColor();
 		const subdivisions = 6;
-		const spline = new THREE.CatmullRomCurve3(hilbertPoints);
+		const spline = N3js.getCatmullRomCurve3(hilbertPoints);
 		let vertices = [];
 		let colors1 = [];
 		let colors2 = [];

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererEvent, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, MeshComponent, RendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-terrain-raycast',
@@ -11,9 +11,9 @@ export class WebglGeometryTerrainRaycastComponent extends BaseComponent<{}> {
 		super({}, []);
 	}
 
-	helper: THREE.Mesh = null;
+	helper: I3JS.IMesh = null;
 	setHelper(helper: MeshComponent) {
-		this.helper = helper.getRealMesh() as THREE.Mesh;
+		this.helper = helper.getRealMesh() as any ;
 	}
 
 	setMesh(mesh: MeshComponent) {

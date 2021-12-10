@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	PhysicsComponent,
+	BaseComponent, I3JS, N3js, PhysicsComponent,
 	RendererTimer,
 	RigidbodyComponent,
-	ThreeUtil,
+	ThreeUtil
 } from 'ngx3js';
 
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-physics-ammo-instancing',
@@ -19,7 +17,7 @@ export class PhysicsAmmoInstancingComponent extends BaseComponent<{}> {
 		super({}, []);
 	}
 
-	makeMatrix(mat: THREE.Matrix4) {
+	makeMatrix(mat: I3JS.IMatrix4) {
 		mat.setPosition(
 			Math.random() - 0.5,
 			Math.random() * 2,
@@ -27,7 +25,7 @@ export class PhysicsAmmoInstancingComponent extends BaseComponent<{}> {
 		);
 	}
 
-	makeColor(color: THREE.Color) {
+	makeColor(color: I3JS.IColor) {
 		color.setHex(0xffffff * Math.random());
 	}
 
@@ -44,7 +42,7 @@ export class PhysicsAmmoInstancingComponent extends BaseComponent<{}> {
 			this.meshChildren !== null &&
 			this.meshChildren.length > 0
 		) {
-			const position = new THREE.Vector3();
+			const position = N3js.getVector3();
 			this.meshChildren.forEach((child: any) => {
 				const rigidbodyComponent: RigidbodyComponent =
 					ThreeUtil.getRigidbodyComponent(child);

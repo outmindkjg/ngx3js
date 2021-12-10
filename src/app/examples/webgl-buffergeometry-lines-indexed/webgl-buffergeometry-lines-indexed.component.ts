@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, N3js, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-lines-indexed',
@@ -96,7 +95,7 @@ export class WebglBuffergeometryLinesIndexedComponent extends BaseComponent<{}> 
 		let y = 0;
 
 		this.snowflake(
-			[new THREE.Vector3(0, y, 0), new THREE.Vector3(500, y, 0)],
+			[N3js.getVector3(0, y, 0), N3js.getVector3(500, y, 0)],
 			false,
 			600
 		);
@@ -104,9 +103,9 @@ export class WebglBuffergeometryLinesIndexedComponent extends BaseComponent<{}> 
 		y += 600;
 		this.snowflake(
 			[
-				new THREE.Vector3(0, y, 0),
-				new THREE.Vector3(250, y + 400, 0),
-				new THREE.Vector3(500, y, 0),
+				N3js.getVector3(0, y, 0),
+				N3js.getVector3(250, y + 400, 0),
+				N3js.getVector3(500, y, 0),
 			],
 			true,
 			600
@@ -115,10 +114,10 @@ export class WebglBuffergeometryLinesIndexedComponent extends BaseComponent<{}> 
 		y += 600;
 		this.snowflake(
 			[
-				new THREE.Vector3(0, y, 0),
-				new THREE.Vector3(500, y, 0),
-				new THREE.Vector3(500, y + 500, 0),
-				new THREE.Vector3(0, y + 500, 0),
+				N3js.getVector3(0, y, 0),
+				N3js.getVector3(500, y, 0),
+				N3js.getVector3(500, y + 500, 0),
+				N3js.getVector3(0, y + 500, 0),
 			],
 			true,
 			600
@@ -127,15 +126,15 @@ export class WebglBuffergeometryLinesIndexedComponent extends BaseComponent<{}> 
 		y += 1000;
 		this.snowflake(
 			[
-				new THREE.Vector3(250, y, 0),
-				new THREE.Vector3(500, y, 0),
-				new THREE.Vector3(250, y, 0),
-				new THREE.Vector3(250, y + 250, 0),
-				new THREE.Vector3(250, y, 0),
-				new THREE.Vector3(0, y, 0),
-				new THREE.Vector3(250, y, 0),
-				new THREE.Vector3(250, y - 250, 0),
-				new THREE.Vector3(250, y, 0),
+				N3js.getVector3(250, y, 0),
+				N3js.getVector3(500, y, 0),
+				N3js.getVector3(250, y, 0),
+				N3js.getVector3(250, y + 250, 0),
+				N3js.getVector3(250, y, 0),
+				N3js.getVector3(0, y, 0),
+				N3js.getVector3(250, y, 0),
+				N3js.getVector3(250, y - 250, 0),
+				N3js.getVector3(250, y, 0),
 			],
 			false,
 			600

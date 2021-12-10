@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE } from 'ngx3js';
+import { BaseComponent, I3JS } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-tonemapping',
@@ -48,22 +48,22 @@ export class WebglTonemappingComponent extends BaseComponent<{
 
 	changeRenderer() {
 		if (this.renderer !== null) {
-			const renderer = this.renderer.getRenderer() as THREE.WebGLRenderer;
+			const renderer = this.renderer.getRenderer() as any;
 			switch (this.controls.toneMapping) {
 				case 'None':
-					renderer.toneMapping = THREE.NoToneMapping;
+					renderer.toneMapping = I3JS.NoToneMapping;
 					break;
 				case 'Linear':
-					renderer.toneMapping = THREE.LinearToneMapping;
+					renderer.toneMapping = I3JS.LinearToneMapping;
 					break;
 				case 'Reinhard':
-					renderer.toneMapping = THREE.ReinhardToneMapping;
+					renderer.toneMapping = I3JS.ReinhardToneMapping;
 					break;
 				case 'Cineon':
-					renderer.toneMapping = THREE.CineonToneMapping;
+					renderer.toneMapping = I3JS.CineonToneMapping;
 					break;
 				case 'ACESFilmic':
-					renderer.toneMapping = THREE.ACESFilmicToneMapping;
+					renderer.toneMapping = I3JS.ACESFilmicToneMapping;
 					break;
 				case 'Custom':
 					// renderer.toneMapping = CustomToneMapping;

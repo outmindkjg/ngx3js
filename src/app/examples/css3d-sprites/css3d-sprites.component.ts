@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, CSS3DSprite, RendererTimer } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, CSS3DSprite, N3js, RendererTimer } from 'ngx3js';
 @Component({
 	selector: 'app-css3d-sprites',
 	templateUrl: './css3d-sprites.component.html',
@@ -97,7 +96,7 @@ export class Css3dSpritesComponent extends BaseComponent<{}> {
 					object.userData.tween = {
 						elapsedTime: 0,
 						elapsedAlpha: 0,
-						position: new THREE.Vector3(
+						position: N3js.getVector3(
 							positions[j],
 							positions[j + 1],
 							positions[j + 2]

@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	ControlComponent,
-	MeshComponent,
-	RendererEvent,
+	ControlComponent, I3JS, MeshComponent, N3js, RendererEvent
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-geometry-spline-editor',
@@ -38,7 +35,7 @@ export class WebglGeometrySplineEditorComponent extends BaseComponent<{
 					const strplace = [];
 					for (let i = 0; i < this.splinePointsLength; i++) {
 						const p = this.positions[i];
-						strplace.push(`new THREE.Vector3(${p.x}, ${p.y}, ${p.z})`);
+						strplace.push(`N3js.getVector3(${p.x}, ${p.y}, ${p.z})`);
 					}
 					const code = '[' + strplace.join(',\n\t') + ']';
 					prompt('copy and paste code', code);
@@ -112,7 +109,7 @@ export class WebglGeometrySplineEditorComponent extends BaseComponent<{
 		this.orbitControl = orbitControl;
 	}
 
-	pointMesh: THREE.Object3D[] = [];
+	pointMesh: I3JS.IObject3D[] = [];
 	setPointMesh(mesh: MeshComponent) {
 		const object = mesh.getObject3d();
 		if (this.pointMesh.indexOf(object) === -1) {
@@ -131,7 +128,7 @@ export class WebglGeometrySplineEditorComponent extends BaseComponent<{
 	}
 
 	checkPointMesh() {
-		const pointMesh: THREE.Object3D[] = [];
+		const pointMesh: I3JS.IObject3D[] = [];
 		this.pointMesh.forEach((mesh) => {
 			if (mesh.parent !== null && mesh.parent !== undefined) {
 				pointMesh.push(mesh);
@@ -140,8 +137,8 @@ export class WebglGeometrySplineEditorComponent extends BaseComponent<{
 		this.pointMesh = pointMesh;
 	}
 
-	onUpPosition = new THREE.Vector2();
-	onDownPosition = new THREE.Vector2();
+	onUpPosition = N3js.getVector2();
+	onDownPosition = N3js.getVector2();
 
 	setTransformEventListener(event: { type: string; event: any }) {
 		if (this.orbitControl !== null) {

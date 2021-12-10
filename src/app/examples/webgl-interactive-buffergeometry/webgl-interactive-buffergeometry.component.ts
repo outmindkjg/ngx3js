@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	MeshComponent,
-	RendererEvent,
-	RendererTimer,
+	BaseComponent, I3JS, MeshComponent, N3js, RendererEvent,
+	RendererTimer
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-interactive-buffergeometry',
@@ -22,17 +19,17 @@ export class WebglInteractiveBuffergeometryComponent extends BaseComponent<{}> {
 		const positions = new Float32Array(triangles * 3 * 3);
 		const normals = new Float32Array(triangles * 3 * 3);
 		const colors = new Float32Array(triangles * 3 * 3);
-		const color = new THREE.Color();
+		const color = N3js.getColor();
 		const n = 800,
 			n2 = n / 2; // triangles spread in the cube
 		const d = 120,
 			d2 = d / 2; // individual triangle size
-		const pA = new THREE.Vector3();
-		const pB = new THREE.Vector3();
-		const pC = new THREE.Vector3();
+		const pA = N3js.getVector3();
+		const pB = N3js.getVector3();
+		const pC = N3js.getVector3();
 
-		const cb = new THREE.Vector3();
-		const ab = new THREE.Vector3();
+		const cb = N3js.getVector3();
+		const ab = N3js.getVector3();
 
 		for (let i = 0; i < positions.length; i += 9) {
 			// positions
@@ -123,17 +120,17 @@ export class WebglInteractiveBuffergeometryComponent extends BaseComponent<{}> {
 	normals: Float32Array;
 	colors: Float32Array;
 
-	line: THREE.Line = null;
+	line: I3JS.ILine = null;
 
-	realMesh: THREE.Mesh = null;
+	realMesh: I3JS.IMesh = null;
 
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
-		this.realMesh = mesh.getRealMesh() as THREE.Mesh;
+		this.realMesh = mesh.getRealMesh() as any;
 	}
 
 	setLine(line: MeshComponent) {
-		this.line = line.getRealMesh() as THREE.Line;
+		this.line = line.getRealMesh() as any;
 		this.line.visible = false;
 	}
 

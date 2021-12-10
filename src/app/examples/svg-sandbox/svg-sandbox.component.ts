@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer } from 'ngx3js';
-import * as THREE from 'three';
+import { BaseComponent, N3js, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-svg-sandbox',
@@ -13,11 +12,11 @@ export class SvgSandboxComponent extends BaseComponent<{}> {
 	}
 
 	ngOnInit() {
-		const v = new THREE.Vector3();
-		const v0 = new THREE.Vector3();
-		const v1 = new THREE.Vector3();
-		const v2 = new THREE.Vector3();
-		const color = new THREE.Color();
+		const v = N3js.getVector3();
+		const v0 = N3js.getVector3();
+		const v1 = N3js.getVector3();
+		const v2 = N3js.getVector3();
+		const color = N3js.getColor();
 
 		const vertices = [];
 		const colors = [];

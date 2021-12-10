@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererEvent, ThreeUtil } from 'ngx3js';
-import * as THREE from 'three';
+import { Component } from '@angular/core';
+import { BaseComponent, I3JS, MeshComponent, N3js, RendererEvent, ThreeUtil } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-decals',
@@ -65,12 +64,12 @@ export class WebglDecalsComponent extends BaseComponent<{
 	decals: { scale: number; color: number; orientation: any; position: any }[] =
 		[];
 
-	shoot(intersection: THREE.Intersection) {
+	shoot(intersection: I3JS.IIntersection) {
 		if (ThreeUtil.isNull(intersection)) {
 			return;
 		}
-		const position = new THREE.Vector3();
-		const orientation = new THREE.Euler();
+		const position = N3js.getVector3();
+		const orientation = N3js.getEuler();
 		position.copy(intersection.point);
 		const mouseHelper = this.mouseHelper.getObject3d();
 		orientation.copy(mouseHelper.rotation);
@@ -90,7 +89,7 @@ export class WebglDecalsComponent extends BaseComponent<{
 		});
 	}
 
-	checkIntersection(mouse: THREE.Vector2): THREE.Intersection {
+	checkIntersection(mouse: I3JS.IVector2): I3JS.IIntersection {
 		if (ThreeUtil.isNull(this.mesh) || ThreeUtil.isNull(this.camera))
 			return null;
 		const intersection = this.camera.getIntersection(
@@ -109,7 +108,7 @@ export class WebglDecalsComponent extends BaseComponent<{
 			n.add(intersection.point);
 			// intersection.normal.copy( intersects[ 0 ].face.normal );
 			mouseHelper.lookAt(n);
-			const line = this.mouseLine.getObject3d() as THREE.Line;
+			const line = this.mouseLine.getObject3d() ;
 			if (ThreeUtil.isNull(line)) {
 				return;
 			}

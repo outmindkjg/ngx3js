@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer, THREE } from 'ngx3js';
+import { BaseComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-envmaps-pmrem-nodes',
@@ -36,7 +36,7 @@ export class WebglMaterialsEnvmapsPmremNodesComponent extends BaseComponent<{
 					finishChange: () => {
 						if (this.renderer !== null) {
 							const renderer =
-								this.renderer.getRenderer() as THREE.WebGLRenderer;
+								this.renderer.getRenderer() as any;
 							renderer.toneMappingExposure = this.controls.exposure;
 						}
 					},

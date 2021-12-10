@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererEvent, PassComponent, THREE } from 'ngx3js';
+import { BaseComponent, I3JS, PassComponent, RendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-outline',
@@ -85,5 +85,5 @@ export class WebglPostprocessingOutlineComponent extends BaseComponent<{
 		}
 	}
 
-	selectedObjects: THREE.Object3D[] = [];
+	selectedObjects: I3JS.IObject3D[] = [];
 }

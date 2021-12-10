@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	BufferGeometryUtils,
-	MeshComponent,
-	RendererEvent,
+	BufferGeometryUtils, I3JS, MeshComponent, N3js, RendererEvent
 } from 'ngx3js';
-import * as THREE from 'three';
 
 @Component({
 	selector: 'app-webgl-interactive-points',
@@ -19,7 +16,7 @@ export class WebglInteractivePointsComponent extends BaseComponent<{}> {
 
 	ngOnInit() {
 		const PARTICLE_SIZE = 20;
-		let boxGeometry: THREE.BufferGeometry = new THREE.BoxGeometry(
+		let boxGeometry: I3JS.IBufferGeometry = N3js.getBoxGeometry(
 			200,
 			200,
 			200,
@@ -35,7 +32,7 @@ export class WebglInteractivePointsComponent extends BaseComponent<{}> {
 		const positionAttribute = boxGeometry.getAttribute('position');
 		const colors = [];
 		const sizes = [];
-		const color = new THREE.Color();
+		const color = N3js.getColor();
 		for (let i = 0, l = positionAttribute.count; i < l; i++) {
 			color.setHSL(0.01 + 0.1 * (i / l), 1.0, 0.5);
 			color.toArray(colors, i * 3);
@@ -56,10 +53,10 @@ export class WebglInteractivePointsComponent extends BaseComponent<{}> {
 	colors: number[] = [];
 	sizes: number[] = [];
 
-	particles: THREE.Points = null;
+	particles: I3JS.IPoints = null;
 	setMesh(mesh: MeshComponent) {
 		super.setMesh(mesh);
-		this.particles = mesh.getObject3d() as THREE.Points;
+		this.particles = mesh.getObject3d() ;
 	}
 
 	lastIntersect: number = null;
