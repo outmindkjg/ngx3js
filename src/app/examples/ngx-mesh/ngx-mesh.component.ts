@@ -162,7 +162,7 @@ export class NgxMeshComponent extends BaseComponent<{
 			new Float32Array(positionAttribute.array.length),
 			3
 		);
-		colorAttribute.setUsage(I3JS.DynamicDrawUsage);
+		colorAttribute.setUsage(THREE.DynamicDrawUsage);
 		geometry.setAttribute('color', colorAttribute);
 	}
 

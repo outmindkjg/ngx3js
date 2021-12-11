@@ -75,8 +75,8 @@ export class WebglTiledForwardComponent extends BaseComponent<{}> {
 			new Float32Array(32 * 2 * 4),
 			32,
 			2,
-			I3JS.RGBAFormat,
-			I3JS.FloatType
+			THREE.RGBAFormat,
+			THREE.FloatType
 		);
 	}
 

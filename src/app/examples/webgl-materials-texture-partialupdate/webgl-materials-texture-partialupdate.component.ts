@@ -20,7 +20,7 @@ export class WebglMaterialsTexturePartialupdateComponent extends BaseComponent<{
 			data,
 			width,
 			height,
-			I3JS.RGBFormat
+			THREE.RGBFormat
 		);
 	}
 	diffuseMap: I3JS.ITexture = null;

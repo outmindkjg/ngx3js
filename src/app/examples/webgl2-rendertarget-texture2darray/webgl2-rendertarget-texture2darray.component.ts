@@ -17,7 +17,7 @@ export class Webgl2RendertargetTexture2darrayComponent extends BaseComponent<{}>
 		super.setMesh(mesh);
 		const object3d = mesh.getObject3d() as any; 
 		if (object3d instanceof THREE.Mesh) {
-			this.uniformsDepth = (object3d.material ).uniforms[
+			this.uniformsDepth = (object3d.material as any).uniforms[
 				'depth'
 			];
 		}

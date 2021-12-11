@@ -178,7 +178,7 @@ export class WebglPostprocessingSsrComponent extends BaseComponent<{
 				if (this.groundReflector !== null) {
 					this.pass.groundReflector = this.groundReflector;
 				}
-				this.pass.selects = this.selected;
+				this.pass.selects = this.selected as any;
 			} else {
 				if (this.pass.groundReflector !== null) {
 					this.groundReflector = this.pass.groundReflector;

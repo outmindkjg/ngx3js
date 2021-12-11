@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	BufferGeometryUtils, I3JS, MeshComponent, THREE, RendererEvent
+	I3JS, MeshComponent, THREE, RendererEvent
 } from 'ngx3js';
 
 @Component({
@@ -27,7 +27,7 @@ export class WebglInteractivePointsComponent extends BaseComponent<{}> {
 		// if normal and uv attributes are not removed, mergeVertices() can't consolidate indentical vertices with different normal/uv data
 		boxGeometry.deleteAttribute('normal');
 		boxGeometry.deleteAttribute('uv');
-		boxGeometry = BufferGeometryUtils.mergeVertices(boxGeometry);
+		boxGeometry = THREE.BufferGeometryUtils.mergeVertices(boxGeometry as any) as any;
 		//
 		const positionAttribute = boxGeometry.getAttribute('position');
 		const colors = [];

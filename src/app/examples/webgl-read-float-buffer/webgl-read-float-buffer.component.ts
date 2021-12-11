@@ -50,10 +50,10 @@ export class WebglReadFloatBufferComponent extends BaseComponent<{}> {
 		window.innerWidth,
 		window.innerHeight,
 		{
-			minFilter: I3JS.LinearFilter,
-			magFilter: I3JS.NearestFilter,
-			format: I3JS.RGBAFormat,
-			type: I3JS.FloatType,
+			minFilter: THREE.LinearFilter,
+			magFilter: THREE.NearestFilter,
+			format: THREE.RGBAFormat,
+			type: THREE.FloatType,
 		}
 	);
 

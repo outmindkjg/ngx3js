@@ -76,7 +76,7 @@ export class MiscControlsDragComponent extends BaseComponent<{}> {
 								group.attach(object);
 							}
 							this.control.transformGroup = true;
-							draggableObjects.push(group);
+							draggableObjects.push(group as any);
 						}
 					}
 					break;
@@ -93,7 +93,7 @@ export class MiscControlsDragComponent extends BaseComponent<{}> {
 			const draggableObjects = this.control.getObjects();
 			draggableObjects.length = 0;
 			this.meshChildren.forEach((mesh) => {
-				draggableObjects.push(mesh);
+				draggableObjects.push(mesh as any);
 			});
 		}
 	}

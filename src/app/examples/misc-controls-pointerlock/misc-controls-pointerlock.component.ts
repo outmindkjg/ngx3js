@@ -188,7 +188,7 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
 			const controls = this.pointerLockControls;
 			if (controls.isLocked === true) {
 				const raycaster = this.raycaster;
-				raycaster.ray.origin.copy(controls.getObject().position);
+				raycaster.ray.origin.copy(controls.getObject().position as any);
 				raycaster.ray.origin.y -= 10;
 				const intersections = raycaster.intersectObjects(this.meshChildren);
 				const onObject = intersections.length > 0;

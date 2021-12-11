@@ -295,7 +295,7 @@ export class WebglMaterialsNodesComponent extends BaseComponent<{
 							this.material = new NODES.MeshStandardNodeMaterial();
 							this.sataturation = new NODES.FloatNode(1);
 							this.material.map = new NODES.ColorAdjustmentNode(
-								new NODES.TextureNode(this.map),
+								new NODES.TextureNode(this.map as any),
 								this.sataturation,
 								NODES.ColorAdjustmentNode.SATURATION
 							);
@@ -332,13 +332,13 @@ export class WebglMaterialsNodesComponent extends BaseComponent<{
 				case 'side':
 					switch (this.controls.side) {
 						case 'double':
-							this.material.side = I3JS.DoubleSide;
+							this.material.side = THREE.DoubleSide;
 							break;
 						case 'back':
-							this.material.side = I3JS.BackSide;
+							this.material.side = THREE.BackSide;
 							break;
 						case 'front':
-							this.material.side = I3JS.FrontSide;
+							this.material.side = THREE.FrontSide;
 							break;
 					}
 					break;

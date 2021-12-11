@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { BaseComponent, THREE, MeshComponent, RendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-dynamic',
@@ -18,7 +18,7 @@ export class WebglGeometryDynamicComponent extends BaseComponent<{}> {
 		const geometry = this.mesh.getGeometry();
 		geometry.rotateX(Math.PI / 2);
 		const position = geometry.attributes.position;
-		position['usage'] = I3JS.DynamicDrawUsage;
+		position['usage'] = THREE.DynamicDrawUsage;
 		for (let i = 0; i < position.count; i++) {
 			const y = 35 * Math.sin(i / 2);
 			position.setY(i, y);

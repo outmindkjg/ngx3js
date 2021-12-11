@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	BufferGeometryUtils, I3JS, MeshComponent, THREE, RendererTimer
+	I3JS, MeshComponent, THREE, RendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -212,7 +212,7 @@ export class WebglBuffergeometryCompressionComponent extends BaseComponent<{
 	setGeometry(mesh: MeshComponent) {
 		const geometry = (mesh.getObject3d() as any).geometry;
 		this.controls.totalGPUMemory =
-			BufferGeometryUtils.estimateBytesUsed(geometry) + ' bytes';
+			THREE.BufferGeometryUtils.estimateBytesUsed(geometry) + ' bytes';
 	}
 
 	onRender(timer: RendererTimer) {

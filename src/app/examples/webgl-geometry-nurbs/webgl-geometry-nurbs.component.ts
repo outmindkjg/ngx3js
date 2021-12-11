@@ -73,7 +73,7 @@ export class WebglGeometryNurbsComponent extends BaseComponent<{}> {
 			degree2,
 			knots1,
 			knots2,
-			nsControlPoints
+			nsControlPoints as any
 		);
 	}
 }

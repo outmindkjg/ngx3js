@@ -18,8 +18,8 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 
 	ngOnInit() {
 		this.playerCollider = new Capsule(
-			new THREE.Vector3(0, 0.35, 0),
-			new THREE.Vector3(0, 1, 0),
+			new THREE.Vector3(0, 0.35, 0) as any,
+			new THREE.Vector3(0, 1, 0) as any,
 			0.35
 		);
 		this.spheresInfos = [];

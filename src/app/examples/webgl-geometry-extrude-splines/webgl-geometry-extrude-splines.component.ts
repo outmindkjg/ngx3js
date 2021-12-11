@@ -179,7 +179,7 @@ export class WebglGeometryExtrudeSplinesComponent extends BaseComponent<{
 		this.setSpline(this.controls.spline);
 	}
 
-	tubeGeometry: I3JS.ITubeBufferGeometry;
+	tubeGeometry: I3JS.ITubeGeometry;
 	setTubeGeometry(tubeGeometry: GeometryComponent) {
 		this.tubeGeometry = tubeGeometry.getGeometry();
 	}

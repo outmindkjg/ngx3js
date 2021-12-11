@@ -78,7 +78,7 @@ export class WebglCameraCinematicComponent extends BaseComponent<{
 
 	matChanger() {
 		if (this.camera !== null) {
-			const camera = this.camera.getObject3d() as CinematicCamera;
+			const camera : CinematicCamera = this.camera.getObject3d() as any;
 			const postprocessing = camera.postprocessing as any;
 			for (const e in this.controls) {
 				if (e in postprocessing.bokeh_uniforms) {

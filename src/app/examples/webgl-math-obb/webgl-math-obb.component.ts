@@ -89,7 +89,7 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 				child.updateMatrixWorld();
 				const obb = child.userData.obb as OBB;
 				obb.copy(this.geometryObb);
-				obb.applyMatrix4(child.matrixWorld);
+				obb.applyMatrix4(child.matrixWorld as any);
 				const material = child['material'] ;
 				material.color.setHex(0x00ff00);
 			});

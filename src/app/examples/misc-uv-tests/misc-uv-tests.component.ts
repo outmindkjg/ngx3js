@@ -22,7 +22,7 @@ export class MiscUvTestsComponent implements OnInit, AfterViewInit {
 	addTest(name: string, geometry: I3JS.IBufferGeometry) {
 		const d = document.createElement('div');
 		d.innerHTML = '<h3>' + name + '</h3>';
-		d.appendChild(UVsDebug(geometry, 1024));
+		d.appendChild(UVsDebug(geometry as any, 1024));
 		this.displayEle.nativeElement.appendChild(d);
 	}
 

@@ -106,7 +106,7 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
 				new THREE.InstancedBufferAttribute(color, 3)
 			);
 			this.blossomMaterial.vertexColors = true;
-			this.sampler = new MeshSurfaceSampler(this.surface)
+			this.sampler = new MeshSurfaceSampler(this.surface as any)
 				.setWeightAttribute(
 					this.controls.distribution === 'weighted' ? 'uv' : null
 				)
@@ -173,7 +173,7 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
 			);
 			console.time('.build()');
 
-			this.sampler = new MeshSurfaceSampler(surface)
+			this.sampler = new MeshSurfaceSampler(surface as any)
 				.setWeightAttribute(
 					this.controls.distribution === 'weighted' ? 'uv' : null
 				)

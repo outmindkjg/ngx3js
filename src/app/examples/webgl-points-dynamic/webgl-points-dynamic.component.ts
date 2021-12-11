@@ -100,7 +100,7 @@ export class WebglPointsDynamicComponent extends BaseComponent<{}> {
 					const meshGeometry = new THREE.BufferGeometry();
 					meshGeometry.setAttribute('position', positions.clone());
 					(meshGeometry.getAttribute('position') as any).setUsage(
-						I3JS.DynamicDrawUsage
+						THREE.DynamicDrawUsage
 					);
 					meshGeometry.setAttribute('initialPosition', positions.clone());
 					realMesh.geometry = meshGeometry;
