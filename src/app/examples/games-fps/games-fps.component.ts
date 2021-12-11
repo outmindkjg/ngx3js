@@ -3,8 +3,12 @@ import {
 	BaseComponent,
 	Capsule, I3JS, MeshComponent, THREE, Octree,
 	RendererEvent,
-	RendererTimer
+	RendererTimer,
+	Sphere,
+	Vector3
 } from 'ngx3js';
+
+import * as OT from 'three';
 
 @Component({
 	selector: 'app-games-fps',
@@ -23,10 +27,14 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 			0.35
 		);
 		this.spheresInfos = [];
+		const aa = new OT.Vector3(0, -100, 0);
+		const bb = new Vector3(0, -100, 0);
+		bb.add(aa);
+		
 		for (let i = 0; i < 20; i++) {
 			this.spheresInfos.push({
 				mesh: null,
-				collider: new THREE.Sphere(new THREE.Vector3(0, -100, 0), 0.2),
+				collider: new Sphere(new Vector3(0, -100, 0), 0.2),
 				velocity: new THREE.Vector3(),
 			});
 		}

@@ -68,8 +68,8 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 		const spacedPoints = lineShape.getSpacedPoints(50);
 		this.lineShapesInfos.push({
 			shape: lineShape as any,
-			points: points,
-			spacedPoints: spacedPoints,
+			points: points as any,
+			spacedPoints: spacedPoints as any,
 			color: color,
 			x: x,
 			y: y,
