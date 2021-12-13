@@ -68,11 +68,11 @@ export class WebglPostprocessingSsaoComponent extends BaseComponent<{
 	}
 
 	setSsaoPass(pass: PassComponent) {
-		this.pass = pass.getPass() as SSAOPass;
+		this.pass = pass.getPass() as I3JS.ISSAOPass;
 		this.changePass();
 	}
 
-	pass: SSAOPass = null;
+	pass: I3JS.ISSAOPass = null;
 
 	changePass() {
 		if (this.pass !== null) {

@@ -104,5 +104,5 @@ export class MiscControlsDragComponent extends BaseComponent<{}> {
 
 	group: I3JS.IObject3D = null;
 
-	control: DragControls = null;
+	control: I3JS.IDragControls = null;
 }

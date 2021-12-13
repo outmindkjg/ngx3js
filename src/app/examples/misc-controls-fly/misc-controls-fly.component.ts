@@ -112,7 +112,7 @@ export class MiscControlsFlyComponent extends BaseComponent<{}> {
 		this.flyControl = control.getControl();
 	}
 
-	flyControl: FlyControls = null;
+	flyControl: I3JS.IFlyControls = null;
 	dMoonVec = new THREE.Vector3();
 	radius = 6371;
 	onRender(timer: RendererTimer) {

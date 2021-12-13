@@ -49,15 +49,15 @@ export class WebglPostprocessingTaaComponent extends BaseComponent<{
 	}
 
 	setTaaPass(pass: PassComponent) {
-		this.pass = pass.getPass() as TAARenderPass;
+		this.pass = pass.getPass() as I3JS.ITAARenderPass;
 	}
 
 	setRenderPass(pass: PassComponent) {
-		this.renderPass = pass.getPass() as RenderPass;
+		this.renderPass = pass.getPass() as I3JS.IRenderPass;
 	}
 
-	pass: TAARenderPass = null;
-	renderPass: RenderPass = null;
+	pass: I3JS.ITAARenderPass = null;
+	renderPass: I3JS.IRenderPass = null;
 
 	changePass() {
 		if (this.pass !== null && this.renderPass !== null) {

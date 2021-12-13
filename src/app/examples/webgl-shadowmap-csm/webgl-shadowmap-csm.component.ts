@@ -260,7 +260,7 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
 	}
 
 	setHelper(helper: HelperComponent) {
-		this.helper = helper.getHelper() as any as CSMHelper;
+		this.helper = helper.getHelper() as any;
 	}
 
 	setPerspectiveCamera(camera: CameraComponent) {
@@ -272,7 +272,7 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
 	}
 
 	csm: any = null;
-	helper: CSMHelper = null;
+	helper: I3JS.ICSMHelper = null;
 	oCamera: I3JS.IOrthographicCamera = null;
 	pCamera: I3JS.IPerspectiveCamera = null;
 

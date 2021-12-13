@@ -17,7 +17,6 @@ export class SvgSandboxComponent extends BaseComponent<{}> {
 		const v1 = new THREE.Vector3();
 		const v2 = new THREE.Vector3();
 		const color = new THREE.Color();
-
 		const vertices = [];
 		const colors = [];
 

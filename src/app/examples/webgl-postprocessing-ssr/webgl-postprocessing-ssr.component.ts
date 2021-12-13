@@ -226,7 +226,7 @@ export class WebglPostprocessingSsrComponent extends BaseComponent<{
 		super.setScene(scene);
 	}
 
-	pass: SSRPass = null;
+	pass: I3JS.ISSRPass = null;
 
 	selected: I3JS.IMesh[] = [];
 

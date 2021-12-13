@@ -96,7 +96,7 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
 		});
 	}
 
-	pointerLockControls: PointerLockControls = null;
+	pointerLockControls: I3JS.IPointerLockControls = null;
 
 	controlLockStart() {
 		this.pointerLockControls.lock();

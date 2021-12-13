@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, PassComponent, UnrealBloomPass } from 'ngx3js';
+import { BaseComponent, I3JS, PassComponent, UnrealBloomPass } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-unreal-bloom',
@@ -70,10 +70,10 @@ export class WebglPostprocessingUnrealBloomComponent extends BaseComponent<{
 	}
 
 	setBloomPass(pass: PassComponent) {
-		this.bloomPass = pass.getPass() as UnrealBloomPass;
+		this.bloomPass = pass.getPass() as I3JS.IUnrealBloomPass;
 	}
 
-	bloomPass: UnrealBloomPass = null;
+	bloomPass: I3JS.IUnrealBloomPass = null;
 	changeBloomPass() {
 		if (this.bloomPass !== null) {
 			this.bloomPass.threshold = this.controls.bloomThreshold;
