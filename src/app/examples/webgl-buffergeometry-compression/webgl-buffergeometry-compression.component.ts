@@ -212,7 +212,7 @@ export class WebglBuffergeometryCompressionComponent extends BaseComponent<{
 	setGeometry(mesh: MeshComponent) {
 		const geometry = (mesh.getObject3d() as any).geometry;
 		this.controls.totalGPUMemory =
-			THREE.BufferGeometryUtils.estimateBytesUsed(geometry) + ' bytes';
+			THREE.GeometryUtils.estimateBytesUsed(geometry) + ' bytes';
 	}
 
 	onRender(timer: RendererTimer) {

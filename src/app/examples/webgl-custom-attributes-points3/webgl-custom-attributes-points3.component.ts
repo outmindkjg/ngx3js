@@ -58,7 +58,7 @@ export class WebglCustomAttributesPoints3Component extends BaseComponent<{}> {
 		boxGeometry1.deleteAttribute('normal');
 		boxGeometry1.deleteAttribute('uv');
 
-		boxGeometry1 = THREE.BufferGeometryUtils.mergeVertices(boxGeometry1);
+		boxGeometry1 = THREE.GeometryUtils.mergeVertices(boxGeometry1);
 
 		// side 1
 
@@ -86,7 +86,7 @@ export class WebglCustomAttributesPoints3Component extends BaseComponent<{}> {
 		boxGeometry2.deleteAttribute('normal');
 		boxGeometry2.deleteAttribute('uv');
 
-		boxGeometry2 = THREE.BufferGeometryUtils.mergeVertices(boxGeometry2);
+		boxGeometry2 = THREE.GeometryUtils.mergeVertices(boxGeometry2);
 
 		this.addGeo(boxGeometry2, 110, 0, 110, 0);
 		this.addGeo(boxGeometry2, 110, 0, -110, 0);

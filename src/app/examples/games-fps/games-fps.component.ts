@@ -8,7 +8,6 @@ import {
 	Vector3
 } from 'ngx3js';
 
-import * as OT from 'three';
 
 @Component({
 	selector: 'app-games-fps',
@@ -26,11 +25,7 @@ export class GamesFpsComponent extends BaseComponent<{}> {
 			new THREE.Vector3(0, 1, 0) as any,
 			0.35
 		);
-		this.spheresInfos = [];
-		const aa = new OT.Vector3(0, -100, 0);
-		const bb = new Vector3(0, -100, 0);
-		bb.add(aa);
-		
+		this.spheresInfos = [];		
 		for (let i = 0; i < 20; i++) {
 			this.spheresInfos.push({
 				mesh: null,

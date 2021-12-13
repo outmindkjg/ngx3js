@@ -27,7 +27,7 @@ export class WebglInteractivePointsComponent extends BaseComponent<{}> {
 		// if normal and uv attributes are not removed, mergeVertices() can't consolidate indentical vertices with different normal/uv data
 		boxGeometry.deleteAttribute('normal');
 		boxGeometry.deleteAttribute('uv');
-		boxGeometry = THREE.BufferGeometryUtils.mergeVertices(boxGeometry as any) as any;
+		boxGeometry = THREE.GeometryUtils.mergeVertices(boxGeometry as any) as any;
 		//
 		const positionAttribute = boxGeometry.getAttribute('position');
 		const colors = [];
