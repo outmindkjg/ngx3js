@@ -50,9 +50,39 @@
 			See the base [page:AbstractObject3dDirective AbstractObject3dDirective] class for common properties.
 		</p>
 
+		<h3>[property:number elapsedTime] &nbsp; = 0 <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Elapsed time of abstract object3d directive
+		</p>
+
+		<h3>[property:boolean enabled] &nbsp; = false <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Enabled  of abstract directive
+		</p>
+
 		<h3>[property:string|Object3dFunction|RotateOptions ngx3jsRotate] &nbsp; = 'xyz' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Input  of rotate directive
+		</p>
+
+		<h3>[property:AbstractObject3dComponent object3dCom]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Object3dFunction object3dFunction]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Object3d function of abstract object3d directive
+		</p>
+
+		<h3>[property:any objectCom]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:ObjectFunction objectFunction]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Object3d function of abstract object3d directive
 		</p>
 
 		<h2>Methods</h2>
@@ -63,22 +93,151 @@
 			See the base [page:AbstractObject3dDirective AbstractObject3dDirective] class for common methods.
 		</p>
 
-		[page:DirectiveOptions] &rarr;
-
-		<hr class="interface-line"/>
-		<h3 id="RotateOptions">RotateOptions <i class="modifier modifier-interface">Interface</i></h3>
-		<h4>Properties</h4>
+		<h3>[method:void consoleLogTime](  [param:string key],  [param:any object],  [param:number repeat] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
 		<p>
-			See the base [page:DirectiveOptions DirectiveOptions] class for common properties.
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:number repeat] - The repeat.
+		</p>
+		<p>
+			Consoles log time
 		</p>
 
+		<h3>[method:EaseFunction getEasing](  [param:string type],  [param:number speed],  [param:string repeat],  [param:number start],  [param:number end] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string type] - The type.<br />
+			[parameter:number speed] - The speed.<br />
+			[parameter:string repeat] - The repeat.<br />
+			[parameter:number start] - The start.<br />
+			[parameter:number end] - The end.
+		</p>
 		<p>
 			
 		</p>
 
+		<h3>[method:void pause](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Pauses abstract directive
+		</p>
+
+		<h3>[method:void play](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Plays abstract directive
+		</p>
+
+		<h3>[method:void subscribeRefer](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer
+		</p>
+
+		<h3>[method:void unSubscribeRefer](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer
+		</p>
+
+		<h3>[method:Subscription[] unSubscription](  [param:Subscription[] subscriptions] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Subscription[] subscriptions] - The subscriptions.
+		</p>
+		<p>
+			subscription<br />
+			<br />
+			Returns : subscription
+		</p>
+
+		<h3>[method:void update](  [param:RendererTimer timer] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:RendererTimer timer] - The timer.
+		</p>
+		<p>
+			Updates abstract object3d directive
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="RendererTimer">RendererTimer <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:number delta] -  The delta.<br />
+			[property:number elapsedTime] -  The elapsed time.<br />
+			[property:RendererEvent event]? -  The event.<br />
+			[property:IRenderer renderer]? -  The renderer.
+		</p>
+
+		<p class="desc">
+			Renderer timer
+		</p>
+
+		<hr class="interface-line"/>
+		[page:DirectiveOptions] &rarr;
+
+		<h3 id="RotateOptions">RotateOptions <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:string easing]? - easing<br />
+			[property:number end]? - end<br />
+			[property:string repeat]? - repeat<br />
+			[property:number speed]? - speed<br />
+			[property:number start]? - start<br />
+			[property:string type]? - type
+		</p>
 
 		<p class="desc">
 			Rotate options
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="Object3dFunction">Object3dFunction <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>[method:void function](  [param:IObject3D object3d],  [param:number elapsedTime]?,  [param:RendererTimer timer]? )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:IObject3D object3d] -  The object3d.<br />
+			[property:number elapsedTime]? -  The elapsed time.<br />
+			[property:RendererTimer timer]? -  The timer.
+		</p>
+		<p>
+			Object3dFunction
+		</p>
+
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="ObjectFunction">ObjectFunction <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>[method:void function](  [param:any object],  [param:number elapsedTime]?,  [param:RendererTimer timer]? )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:any object] -  The object.<br />
+			[property:number elapsedTime]? -  The elapsed time.<br />
+			[property:RendererTimer timer]? -  The timer.
+		</p>
+		<p>
+			ObjectFunction
+		</p>
+
+
+
+		<p class="desc">
+			
 		</p>
 
 		<br /><br />

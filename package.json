@@ -1,6 +1,6 @@
 {
   "name": "three-sample",
-  "version": "0.135.0-2021120323",
+  "version": "0.135.0-2021121422",
   "scripts": {
     "ng": "ng",
     "start": "node --max_old_space_size=5000 ./node_modules/@angular/cli/bin/ng serve --port 4300",

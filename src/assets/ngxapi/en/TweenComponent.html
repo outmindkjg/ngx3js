@@ -15,156 +15,323 @@
 			Tween Component<br />
 			See the [page:TweenComponent ngx3js docs] page for details.<br />
 			<br />
-			<code data-type="html"
-				><br />
-				&lt;ngx3js-tween<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-tween<br />
 				[easing]="'power4.easein'" [targets]="'position'"<br />
 				(onLoad)="setLightTween($event)"<br />
-				&gt;&lt;/ngx3js-tween&gt;<br />
-				&lt;ngx3js-tween<br />
+			&gt;&lt;/ngx3js-tween&gt;<br />
+			&lt;ngx3js-tween<br />
 				[easing]="'power4.easein'"<br />
 				(onLoad)="setLightTween($event)"<br />
-				&gt;&lt;/ngx3js-tween&gt;<br />
+			&gt;&lt;/ngx3js-tween&gt;<br />
 			</code>
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>
-			[constructor:TweenComponent TweenComponent]( )<i
-				class="modifier modifier-overwrite"
-				>Overwrite</i
-			>
-		</h3>
-		<p>Creates an instance of tween component.</p>
+		<h3>[constructor:TweenComponent TweenComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of tween component.
+		</p>
 
 		<h3>Angular Html Template [ Input ] ( Output )</h3>
-		<code data-type="html"
-			>&lt;ngx3js-tween [ amplitude ]="... number -- The amplitude of tween
-			compone... " [ debug ]="... boolean -- Debug this Object " [ duration
-			]="... number -- The duration of tween componen... " [ easing ]="...
-			string -- The Input of tween component " [ enabled ]="... boolean --
-			Enabled or Not " [ linearRatio ]="... number -- The linearRatio of tween
-			compo... " ( onDestory )="...($event : TweenComponent -- Will be called
-			when before des... )" ( onLoad )="...($event : TweenComponent -- Will be
-			called when load compl... )" [ overrideParams ]="... any -- The override
-			params " [ overshoot ]="... number -- The overshoot of tween compone... "
-			[ period ]="... number -- The period of tween component " [ power ]="...
-			number -- The power of tween component " [ repeat ]="... number -- The
-			repeat of tween component " [ steps ]="... number -- The steps of tween
-			component " [ targets ]="... string -- The targets of tween component " [
-			template ]="... string -- The template of tween componen... " [ to ]="...
-			any -- The to of tween component " [ tween ]="... any -- Tween animation
-			params " [ userData ]="... any -- An object that can be used to ... " [
-			windowExport ]="... string -- Export this Object to window g... " [ yoyo
-			]="... boolean -- The yoyo of tween component " [ yoyoMode ]="... boolean
-			-- The yoyoMode of tween componen... " &gt;&lt;/ngx3js-tween&gt;
+		<code data-type="html">&lt;ngx3js-tween
+			[ amplitude ]="... number -- The amplitude of tween compone... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ duration ]="... number -- The duration of tween componen... "
+			[ easing ]="... string -- The Input of tween component "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ linearRatio ]="... number -- The linearRatio of tween compo... "
+			( onDestory )="...($event : TweenComponent -- Will be called when before des... )"
+			( onLoad )="...($event : TweenComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ overshoot ]="... number -- The overshoot of tween compone... "
+			[ period ]="... number -- The period of tween component "
+			[ power ]="... number -- The power of tween component "
+			[ repeat ]="... number -- The repeat of tween component "
+			[ steps ]="... number -- The steps of tween component "
+			[ targets ]="... string -- The targets of tween component "
+			[ template ]="... string -- The template of tween componen... "
+			[ to ]="... any -- The to of tween component "
+			[ tween ]="... any -- Tween animation params "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ yoyo ]="... boolean -- The yoyo of tween component "
+			[ yoyoMode ]="... boolean -- The yoyoMode of tween componen... "
+		&gt;&lt;/ngx3js-tween&gt;
 		</code>
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
-			class for common properties.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
 		</p>
 
-		<h3>
-			[property:number amplitude]<i class="modifier modifier-input">Input</i>
-			<i class="modifier modifier-public">Public</i>
-		</h3>
-		<p>The amplitude of tween component</p>
+		<h3>[property:string[] OBJECT_ATTR] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Object attr of abstract subscribe component
+		</p>
 
-		<h3>
-			[property:number duration]<i class="modifier modifier-input">Input</i>
-			<i class="modifier modifier-public">Public</i>
-		</h3>
-		<p>The duration of tween component</p>
+		<h3>[property:string[] _changeList]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Change list of abstract subscribe component
+		</p>
 
-		<h3>
-			[property:string easing]<i class="modifier modifier-input">Input</i>
-			<i class="modifier modifier-public">Public</i>
-		</h3>
+		<h3>[property:boolean _needUpdate] &nbsp; = true <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Need update of abstract subscribe component
+		</p>
+
+		<h3>[property:number amplitude]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The amplitude of tween component
+		</p>
+
+		<h3>[property:boolean debug] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Debug this Object
+		</p>
+
+		<h3>[property:number duration]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The duration of tween component
+		</p>
+
+		<h3>[property:string easing]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of tween component<br />
 			Notice - case insensitive.
 		</p>
 
-		<h3>
-			[property:number linearRatio]<i class="modifier modifier-input">Input</i>
-			<i class="modifier modifier-public">Public</i>
-		</h3>
-		<p>The linearRatio of tween component</p>
+		<h3>[property:boolean enabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Enabled or Not
+		</p>
 
-		<h3>
-			[property:number overshoot]<i class="modifier modifier-input">Input</i>
-			<i class="modifier modifier-public">Public</i>
-		</h3>
-		<p>The overshoot of tween component</p>
+		<h3>[property:string id] &nbsp; = '' <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Id of abstract subscribe component
+		</p>
 
-		<h3>
-			[property:number period]<i class="modifier modifier-input">Input</i>
-			<i class="modifier modifier-public">Public</i>
-		</h3>
-		<p>The period of tween component</p>
+		<h3>[property:number linearRatio]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The linearRatio of tween component
+		</p>
 
-		<h3>
-			[property:number power]<i class="modifier modifier-input">Input</i>
-			<i class="modifier modifier-public">Public</i>
-		</h3>
-		<p>The power of tween component</p>
+		<h3>[property:EventEmitter onDestory] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when before destory. The argument will be the loaded self
+		</p>
 
-		<h3>
-			[property:number repeat]<i class="modifier modifier-input">Input</i>
-			<i class="modifier modifier-public">Public</i>
-		</h3>
-		<p>The repeat of tween component</p>
+		<h3>[property:EventEmitter onLoad] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when load completes. The argument will be the loaded self
+		</p>
 
-		<h3>
-			[property:number steps]<i class="modifier modifier-input">Input</i>
-			<i class="modifier modifier-public">Public</i>
-		</h3>
-		<p>The steps of tween component</p>
+		<h3>[property:any overrideParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The override params
+		</p>
 
-		<h3>
-			[property:string targets]<i class="modifier modifier-input">Input</i>
-			<i class="modifier modifier-public">Public</i>
-		</h3>
-		<p>The targets of tween component</p>
+		<h3>[property:number overshoot]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The overshoot of tween component
+		</p>
 
-		<h3>
-			[property:string template]<i class="modifier modifier-input">Input</i>
-			<i class="modifier modifier-public">Public</i>
-		</h3>
-		<p>The template of tween component</p>
+		<h3>[property:any parent]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Parent of abstract subscribe component
+		</p>
 
-		<h3>
-			[property:any to]<i class="modifier modifier-input">Input</i>
-			<i class="modifier modifier-public">Public</i>
-		</h3>
-		<p>The to of tween component</p>
+		<h3>[property:number period]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The period of tween component
+		</p>
 
-		<h3>
-			[property:boolean yoyo]<i class="modifier modifier-input">Input</i>
-			<i class="modifier modifier-public">Public</i>
-		</h3>
-		<p>The yoyo of tween component</p>
+		<h3>[property:number power]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The power of tween component
+		</p>
 
-		<h3>
-			[property:boolean yoyoMode]<i class="modifier modifier-input">Input</i>
-			<i class="modifier modifier-public">Public</i>
-		</h3>
-		<p>The yoyoMode of tween component</p>
+		<h3>[property:number repeat]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The repeat of tween component
+		</p>
+
+		<h3>[property:any selfAny] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number steps]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The steps of tween component
+		</p>
+
+		<h3>[property:string subscribeType]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Subscribe type of abstract subscribe component
+		</p>
+
+		<h3>[property:string targets]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The targets of tween component
+		</p>
+
+		<h3>[property:string template]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The template of tween component
+		</p>
+
+		<h3>[property:any to]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The to of tween component
+		</p>
+
+		<h3>[property:any tween]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Tween animation params
+		</p>
+
+		<h3>[property:any userData]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			An object that can be used to store custom data about the Object3D. It should not hold references to functions as these will not be cloned.
+		</p>
+
+		<h3>[property:string windowExport]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Export this Object to window global variables
+		</p>
+
+		<h3>[property:boolean yoyo]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The yoyo of tween component
+		</p>
+
+		<h3>[property:boolean yoyoMode]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The yoyoMode of tween component
+		</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent]
-			class for common methods.
+			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
 		</p>
 
-		<h3>
-			[method:any getTween]( [param:TimelineLite|TimelineMax tween], [param:any
-			tweenTarget], [param:any parentEle] )<i class="modifier modifier-public"
-				>Public</i
-			>
-		</h3>
+		<h3>[method:void addChanges](  [param:string|string[]|SimpleChanges key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[]|SimpleChanges key] - The key.
+		</p>
+		<p>
+			Adds changes
+		</p>
+
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string[] changes] - The changes.
+		</p>
+		<p>
+			Applys changes
+		</p>
+
+		<h3>[method:void callOnLoad](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Calls on load
+		</p>
+
+		<h3>[method:SimpleChanges checkChanges](  [param:SimpleChanges changes] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:SimpleChanges changes] - The changes.
+		</p>
+		<p>
+			Checks changes<br />
+			<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:void clearChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Clears changes
+		</p>
+
+		<h3>[method:void consoleLog](  [param:string key],  [param:any object],  [param:string level] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:string level] - The level.
+		</p>
+		<p>
+			Consoles log
+		</p>
+
+		<h3>[method:void consoleLogTime](  [param:string key],  [param:any object],  [param:number repeat] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:number repeat] - The repeat.
+		</p>
+		<p>
+			Consoles log time
+		</p>
+
+		<h3>[method:void destroyLocalComponent](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			Destroys local component
+		</p>
+
+		<h3>[method:void dispose](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Disposes abstract subscribe component
+		</p>
+
+		<h3>[method:string[] getChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Gets changes<br />
+			<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:string getId](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets id<br />
+			<br />
+			Returns : id
+		</p>
+
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets object<br />
+			<br />
+			Returns : object
+		</p>
+
+		<h3>[method:Observable getSubscribe](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets subscribe<br />
+			<br />
+			Returns : subscribe
+		</p>
+
+		<h3>[method:Promise getTimeout](  [param:number timeDelay] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number timeDelay] - The time delay.
+		</p>
+		<p>
+			Gets timeout<br />
+			특정 시간후에 이벤트 발생시키기<br />
+			<br />
+			Returns : timeout
+		</p>
+
+		<h3>[method:any getTween](  [param:TimelineLite|TimelineMax tween],  [param:any tweenTarget],  [param:any parentEle] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:TimelineLite|TimelineMax tween] - The tween.<br />
@@ -177,13 +344,82 @@
 			Returns : tween
 		</p>
 
-		<h3>
-			[method:any setTween]( [param:any to], [param:number duration]? )<i
-				class="modifier modifier-public"
-				>Public</i
-			>
-			<i class="modifier modifier-overwrite">Overwrite</i>
-		</h3>
+		<h3>[method:void getUserData](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets user data
+		</p>
+
+		<h3>[method:T initLocalComponent](  [param:string key],  [param:T component] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:T component] - The component.
+		</p>
+		<p>
+			Inits local component<br />
+			<br />
+			Returns : local component
+		</p>
+
+		<h3>[method:boolean isIdEuals](  [param:string id] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string id] - The id.
+		</p>
+		<p>
+			Determines whether id euals is<br />
+			<br />
+			Returns : true if id euals
+		</p>
+
+		<h3>[method:void runSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Runs subscribe next
+		</p>
+
+		<h3>[method:void setObject](  [param:any obj] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any obj] - The obj.
+		</p>
+		<p>
+			Sets object
+		</p>
+
+		<h3>[method:boolean setParent](  [param:any parent] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any parent] - The parent.
+		</p>
+		<p>
+			Sets parent<br />
+			<br />
+			Returns : true if parent
+		</p>
+
+		<h3>[method:void setSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Sets subscribe next
+		</p>
+
+		<h3>[method:void setSubscribeType](  [param:string subscribeType] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string subscribeType] - The subscribe type.
+		</p>
+		<p>
+			Sets subscribe type
+		</p>
+
+		<h3>[method:any setTween](  [param:any to],  [param:number duration]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any to] - The to.<br />
@@ -195,11 +431,101 @@
 			Returns : tween
 		</p>
 
+		<h3>[method:void setUserData](  [param:string key],  [param:any value] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any value] - The value.
+		</p>
+		<p>
+			Sets user data
+		</p>
+
+		<h3>[method:void subscribeListQuery](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query
+		</p>
+
+		<h3>[method:void subscribeListQueryChange](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query change
+		</p>
+
+		<h3>[method:void subscribeRefer](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer
+		</p>
+
+		<h3>[method:void subscribeReferList](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer list
+		</p>
+
+		<h3>[method:void unSubscribeRefer](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer
+		</p>
+
+		<h3>[method:void unSubscribeReferList](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer list
+		</p>
+
+		<h3>[method:Subscription[] unSubscription](  [param:Subscription[] subscriptions] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Subscription[] subscriptions] - The subscriptions.
+		</p>
+		<p>
+			subscription<br />
+			<br />
+			Returns : subscription
+		</p>
+
+		<h3>[method:void updateInputParams](  [param:any params],  [param:boolean firstChange],  [param:SimpleChanges changes],  [param:string type] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any params] - The params.<br />
+			[parameter:boolean firstChange] - The first change.<br />
+			[parameter:SimpleChanges changes] - The changes.<br />
+			[parameter:string type] - The type.
+		</p>
+		<p>
+			Updates input params
+		</p>
+
 		<br /><br />
 		<h2>Source</h2>
-		<p>
-			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/tween/tween.component.ts
-			/tween/tween.component.ts]
-		</p>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/tween/tween.component.ts /tween/tween.component.ts]</p>
 	</body>
 </html>

@@ -36,34 +36,69 @@
 			module, open a terminal window in your project folder and run:
 		</p>
 
-		<h3>Ngx3js Install - Method 1 - Recommanded</h3>
+		<h3>Ngx3js Install - Method 1 - Recommanded </h3>
 		<code data-type="shell">
-			npm install -g @angular/cli ng new my-app cd my-app npm install --save
-			ngx3js node ./node_modules/ngx3js/bin/patch.js
+			npm install -g @angular/cli
+			ng new my-app
+			cd my-app
+			npm install --save ngx3js 
+			node ./node_modules/ngx3js/bin/patch.js
 		</code>
 
 		<h3>Ngx3js Install - Method 2 - Optional</h3>
 		<code data-type="shell">
-			npm install -g @angular/cli ng new my-app cd my-app npm install --save
-			ngx3js npm install --save three@0.135.0 npm install --save-dev
-			@types/three@0.134.0 npm install --save gsap npm install --save lil-gui
-			npm install --save chroma-js npm install --save-dev @types/chroma-js npm
-			install --save fs npm install --save fs-web
+			npm install -g @angular/cli
+			ng new my-app
+			cd my-app
+			npm install --save ngx3js 
+			npm install --save three@0.135.0
+			npm install --save-dev @types/three@0.134.0
+			npm install --save gsap
+			npm install --save lil-gui
+			npm install --save chroma-js
+			npm install --save-dev @types/chroma-js
+			npm install --save fs
+			npm install --save fs-web
 		</code>
 
-		<h3>angular.json - set asset options &amp; allowedCommonJsDependencies</h3>
+		<h3>angular.json - set asset options &amp; allowedCommonJsDependencies </h3>
 		<code data-type="json">
-			{ "projects": { "your-project-name": { "architect": { "build": {
-			"options": { "allowedCommonJsDependencies" : [ "fs" ], "assets": [ {
-			"glob": "**/*", "input": "./node_modules/ngx3js/assets", "output":
-			"/assets/examples/" } ], "scripts": [
-			"node_modules/ngx3js/assets/js/libs/lottie_canvas.js" // optional ] }, },
-			} } }, }
+			{
+				"projects": {
+				  "your-project-name": {
+					"architect": {
+					  "build": {
+						"options": {
+						  "allowedCommonJsDependencies" : [
+							"fs"
+						  ],
+						  "assets": [
+							  {
+								  "glob": "**/*",
+								  "input": "./node_modules/ngx3js/assets",
+								  "output": "/assets/examples/"
+							  }
+						  ],
+						  "scripts": [
+							"node_modules/ngx3js/assets/js/libs/lottie_canvas.js" // optional
+						  ] 
+						},
+					  },
+					}
+				  }
+				},
+			}
 		</code>
 
-		<h3>tsconfig.json - set fs compilerOptions</h3>
+		<h3>tsconfig.json - set fs compilerOptions </h3>
 		<code data-type="json">
-			{ "compilerOptions": { "paths": { "fs": ["./node_modules/fs-web"] } } }
+			{
+				"compilerOptions": {
+				  "paths": {
+					"fs": ["./node_modules/fs-web"]
+				  }
+				}
+			}
 		</code>
 
 		<p>
@@ -73,15 +108,25 @@
 
 		<h3>src/app/app.module.ts - NgModule imports</h3>
 		<code data-type="ts">
-			import { Ngx3JsModule } from 'ngx3js'; @NgModule({ .... imports: [...,
-			Ngx3JsModule], .... })
+			import { Ngx3JsModule } from 'ngx3js';
+
+			@NgModule({
+				....
+				imports: [..., Ngx3JsModule],
+				....
+			})
 		</code>
 
-		<h3>src/app/app.component.ts - setAssetUrl</h3>
+		<h3>src/app/app.component.ts - setAssetUrl </h3>
 		<code data-type="ts">
-			import { ThreeUtil } from 'ngx3js'; export class AppComponent {
-			ngOnInit(): void { // any where use ngx3js for just one time
-			ThreeUtil.setAssetUrl('assets/examples/'); } }
+			import { ThreeUtil } from 'ngx3js';
+
+			export class AppComponent {
+				ngOnInit(): void {
+				  // any where use ngx3js for just one time
+				  ThreeUtil.setAssetUrl('assets/examples/');
+				}
+			}
 		</code>
 
 		<h2>Examples</h2>

@@ -268,24 +268,30 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		for (let i = 0; i < links.length; i++) {
 			const link = links[i];
 			link.addEventListener('click', (e: Event) => {
-				const href: string = (e.target as HTMLAnchorElement).getAttribute(
+				const htmlAnchorElement = e.target as HTMLAnchorElement;
+				const href: string = htmlAnchorElement.getAttribute(
 					'href'
 				);
-				const hrefId = href.substr(href.indexOf('#') + 1);
-				if (
-					href.startsWith('http://') ||
-					href.startsWith('https://') ||
-					href.startsWith('//')
-				) {
-					return true;
-				} else if (hrefId === this.pageName) {
-					this.setFocus(null);
-				} else if (hrefId.startsWith(this.pageName + '.')) {
-					this.setFocus(hrefId.substr(this.pageName.length + 1));
-				} else if (this.setElementById(hrefId) !== null) {
-					this.setFocus(hrefId);
-				} else {
-					this.docsComponent.changePage(hrefId);
+				if (htmlAnchorElement.parentElement.tagName != 'P' || htmlAnchorElement.className == 'param') {
+					let hrefId = href.substr(href.indexOf('#') + 1);
+					if (
+						href.startsWith('http://') ||
+						href.startsWith('https://') ||
+						href.startsWith('//')
+					) {
+						return true;
+					} else if (hrefId === this.pageName) {
+						this.setFocus(null);
+					} else {
+						if (!hrefId.startsWith('THREE.') && hrefId.startsWith(this.pageName + '.')) {
+							hrefId = hrefId.substr(this.pageName.length + 1);
+						} 
+						if (this.setElementById(hrefId) !== null) {
+							this.setFocus(hrefId);
+						} else {
+							this.docsComponent.changePage(hrefId);
+						}
+					}
 				}
 				e.stopPropagation();
 				e.preventDefault();

@@ -53,6 +53,21 @@
 			The base attribute can be fine without re-make Material
 		</p>
 
+		<h3>[property:string[] OBJECT_ATTR] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Object attr of abstract subscribe component
+		</p>
+
+		<h3>[property:string[] _changeList]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Change list of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean _needUpdate] &nbsp; = true <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Need update of abstract subscribe component
+		</p>
+
 		<h3>[property:number alphaTest]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Sets the alpha value to be used when running an alpha test.<br />
@@ -60,7 +75,7 @@
 			Default is *0*.
 		</p>
 
-		<h3>[property:number alphaToCoverage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean alphaToCoverage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Enables alpha to coverage. Can only be used with MSAA-enabled contexts (meaning when the renderer was created with *antialias* parameter set to *true*). Default is *false*.
 		</p>
@@ -157,7 +172,7 @@
 			Defines whether to clip shadows according to the clipping planes specified on this material. Default is *false*.
 		</p>
 
-		<h3>[property:PlaneComponent[]|Plane[] clippingPlanes]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:IPlane[]|PlaneComponent[] clippingPlanes]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			User-defined clipping planes specified as THREE.Plane objects in world space.<br />
 			These planes apply to the objects this material is attached to.<br />
@@ -181,6 +196,11 @@
 		<h3>[property:any control]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The control of abstract material component
+		</p>
+
+		<h3>[property:boolean debug] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Debug this Object
 		</p>
 
 		<h3>[property:any defines]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -221,9 +241,9 @@
 			Default is *false*.
 		</p>
 
-		<h3>[property:boolean flatShading]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean enabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Define whether the material is rendered with flat shading. Default is false.
+			Enabled or Not
 		</p>
 
 		<h3>[property:boolean fog]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -231,7 +251,12 @@
 			Whether the material is affected by fog. Default is *true*.
 		</p>
 
-		<h3>[property:Material material]<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[property:string id] &nbsp; = '' <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Id of abstract subscribe component
+		</p>
+
+		<h3>[property:IMaterial material]<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			The Material of abstract material component
 		</p>
@@ -251,12 +276,32 @@
 			
 		</p>
 
+		<h3>[property:EventEmitter onDestory] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when before destory. The argument will be the loaded self
+		</p>
+
+		<h3>[property:EventEmitter onLoad] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when load completes. The argument will be the loaded self
+		</p>
+
 		<h3>[property:number opacity]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Float in the range of *0.0* - *1.0* indicating how transparent the material is.<br />
 			A value of *0.0* indicates fully transparent, *1.0* is fully opaque.<br />
 			If the material's transparent property is not set to *true*, the material will remain fully opaque and this value will only affect its color.<br />
 			Default is *1.0*.
+		</p>
+
+		<h3>[property:any overrideParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The override params
+		</p>
+
+		<h3>[property:any parent]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Parent of abstract subscribe component
 		</p>
 
 		<h3>[property:boolean polygonOffset]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -303,6 +348,11 @@
 		<h3>[property:any refer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The refer Material. When this value is not null will override the material with clone.
+		</p>
+
+		<h3>[property:any selfAny] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
 		</p>
 
 		<h3>[property:string shadowSide]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -415,6 +465,11 @@
 			[page:InvertStencilOp InvertStencilOp] - THREE.InvertStencilOp - InvertStencilOp , InvertStencil
 		</p>
 
+		<h3>[property:string subscribeType]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Subscribe type of abstract subscribe component
+		</p>
+
 		<h3>[property:boolean toneMapped]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Defines whether this material is tone mapped according to the renderer's [page:WebGLRenderer.toneMapping toneMapping] setting. Default is *true*.
@@ -427,6 +482,16 @@
 			Default is *false*.
 		</p>
 
+		<h3>[property:any tween]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Tween animation params
+		</p>
+
+		<h3>[property:any userData]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			An object that can be used to store custom data about the Object3D. It should not hold references to functions as these will not be cloned.
+		</p>
+
 		<h3>[property:boolean vertexColors]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Defines whether vertex coloring is used. Default is *false*.
@@ -437,9 +502,23 @@
 			Defines whether this material is visible. Default is *true*.
 		</p>
 
+		<h3>[property:string windowExport]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Export this Object to window global variables
+		</p>
+
 		<h2>Methods</h2>
 		<p>
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+		</p>
+
+		<h3>[method:void addChanges](  [param:string|string[]|SimpleChanges key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[]|SimpleChanges key] - The key.
+		</p>
+		<p>
+			Adds changes
 		</p>
 
 		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -451,73 +530,74 @@
 			Applys changes
 		</p>
 
-		<h3>[method:BlendingDstFactor getBlendDst](  [param:string def]? )<i class="modifier modifier-protected">Protected</i></h3>
-		<h4>Parameters</h4>
+		<h3>[method:void callOnLoad](  )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			[parameter:string def] - (optional) The def.
-		</p>
-		<p>
-			Which blending to use when displaying objects with this material.<br />
-			This must be set to [CustomBlending](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials) to use custom [blendSrc](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials.blendSrc), [blendDst](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials.blendDst) or [blendEquation](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials.blendEquation).<br />
-			See the blending mode [constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials) for all possible values. Default is [NormalBlending](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials).<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:BlendingDstFactor BlendingDstFactor] - THREE.BlendingDstFactor<br />
-			[page:ZeroFactor ZeroFactor] - THREE.ZeroFactor - ZeroFactor , Zero<br />
-			[page:OneFactor OneFactor] - THREE.OneFactor - OneFactor , One<br />
-			[page:SrcColorFactor SrcColorFactor] - THREE.SrcColorFactor - SrcColorFactor , SrcColor<br />
-			[page:OneMinusSrcColorFactor OneMinusSrcColorFactor] - THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor , OneMinusSrcColor<br />
-			[page:SrcAlphaFactor SrcAlphaFactor] - THREE.SrcAlphaFactor - SrcAlphaFactor , SrcAlpha<br />
-			[page:OneMinusSrcAlphaFactor OneMinusSrcAlphaFactor] - THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor , OneMinusSrcAlpha<br />
-			[page:DstAlphaFactor DstAlphaFactor] - THREE.DstAlphaFactor - DstAlphaFactor , DstAlpha<br />
-			[page:OneMinusDstAlphaFactor OneMinusDstAlphaFactor] - THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor , OneMinusDstAlpha<br />
-			[page:DstColorFactor DstColorFactor] - THREE.DstColorFactor - DstColorFactor , DstColor<br />
-			[page:OneMinusDstColorFactor OneMinusDstColorFactor] - THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor<br />
-			<br />
-			Returns : blend dst
+			Calls on load
 		</p>
 
-		<h3>[method:BlendingEquation getBlendEquation](  [param:string def]? )<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[method:SimpleChanges checkChanges](  [param:SimpleChanges changes] )<i class="modifier modifier-protected">Protected</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string def] - (optional) The def.
+			[parameter:SimpleChanges changes] - The changes.
 		</p>
 		<p>
-			Gets blend equation<br />
+			Checks changes<br />
 			<br />
-			Returns : blend equation
+			Returns : changes
 		</p>
 
-		<h3>[method:BlendingDstFactor|BlendingSrcFactor getBlendSrc](  [param:string def]? )<i class="modifier modifier-protected">Protected</i></h3>
-		<h4>Parameters</h4>
+		<h3>[method:void clearChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
-			[parameter:string def] - (optional) The def.
-		</p>
-		<p>
-			Which blending to use when displaying objects with this material.<br />
-			This must be set to [CustomBlending](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials) to use custom [blendSrc](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials.blendSrc), [blendDst](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials.blendDst) or [blendEquation](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials.blendEquation).<br />
-			See the blending mode [constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials) for all possible values. Default is [NormalBlending](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials).<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:BlendingDstFactor BlendingDstFactor] - THREE.BlendingDstFactor<br />
-			[page:ZeroFactor ZeroFactor] - THREE.ZeroFactor - ZeroFactor , Zero<br />
-			[page:OneFactor OneFactor] - THREE.OneFactor - OneFactor , One<br />
-			[page:SrcColorFactor SrcColorFactor] - THREE.SrcColorFactor - SrcColorFactor , SrcColor<br />
-			[page:OneMinusSrcColorFactor OneMinusSrcColorFactor] - THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor , OneMinusSrcColor<br />
-			[page:SrcAlphaFactor SrcAlphaFactor] - THREE.SrcAlphaFactor - SrcAlphaFactor , SrcAlpha<br />
-			[page:OneMinusSrcAlphaFactor OneMinusSrcAlphaFactor] - THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor , OneMinusSrcAlpha<br />
-			[page:DstAlphaFactor DstAlphaFactor] - THREE.DstAlphaFactor - DstAlphaFactor , DstAlpha<br />
-			[page:OneMinusDstAlphaFactor OneMinusDstAlphaFactor] - THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor , OneMinusDstAlpha<br />
-			[page:DstColorFactor DstColorFactor] - THREE.DstColorFactor - DstColorFactor , DstColor<br />
-			[page:OneMinusDstColorFactor OneMinusDstColorFactor] - THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor<br />
-			<br />
-			Returns : blend src
+			Clears changes
 		</p>
 
-		<h3>[method:Plane[] getClippingPlanes](  [param:Plane[] def]? )<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[method:void consoleLog](  [param:string key],  [param:any object],  [param:string level] )<i class="modifier modifier-protected">Protected</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Plane[] def] - (optional) The def.
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:string level] - The level.
+		</p>
+		<p>
+			Consoles log
+		</p>
+
+		<h3>[method:void consoleLogTime](  [param:string key],  [param:any object],  [param:number repeat] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:number repeat] - The repeat.
+		</p>
+		<p>
+			Consoles log time
+		</p>
+
+		<h3>[method:void destroyLocalComponent](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			Destroys local component
+		</p>
+
+		<h3>[method:void dispose](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Disposes abstract subscribe component
+		</p>
+
+		<h3>[method:string[] getChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Gets changes<br />
+			<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:IPlane[] getClippingPlanes](  [param:IPlane[] def]? )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:IPlane[] def] - (optional) The def.
 		</p>
 		<p>
 			Gets clipping planes<br />
@@ -525,15 +605,11 @@
 			Returns : clipping planes
 		</p>
 
-		<h3>[method:DepthModes getDepthFunc](  [param:string def]? )<i class="modifier modifier-protected">Protected</i></h3>
-		<h4>Parameters</h4>
+		<h3>[method:string getId](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[parameter:string def] - (optional) The def.
-		</p>
-		<p>
-			Gets depth func<br />
+			Gets id<br />
 			<br />
-			Returns : depth func
+			Returns : id
 		</p>
 
 		<h3>[method:T getMaterial](  )<i class="modifier modifier-public">Public</i></h3>
@@ -543,7 +619,7 @@
 			Returns : material
 		</p>
 
-		<h3>[method:MaterialParameters getMaterialParameters](  [param:any extendObj] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[method:IMaterialParameters getMaterialParameters](  [param:any extendObj] )<i class="modifier modifier-protected">Protected</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any extendObj] - The extend obj.
@@ -554,96 +630,21 @@
 			Returns : material parameters
 		</p>
 
-		<h3>[method:void getPrecision](  [param:string def]? )<i class="modifier modifier-protected">Protected</i></h3>
-		<h4>Parameters</h4>
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[parameter:string def] - (optional) The def.
-		</p>
-		<p>
-			Gets precision<br />
+			Gets object<br />
 			<br />
-			Returns : precision
+			Returns : object
 		</p>
 
-		<h3>[method:Side getShadowSide](  [param:string def]? )<i class="modifier modifier-protected">Protected</i></h3>
-		<h4>Parameters</h4>
+		<h3>[method:Observable getSubscribe](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[parameter:string def] - (optional) The def.
-		</p>
-		<p>
-			Gets shadow side<br />
-			Notice - case insensitive.<br />
+			Gets subscribe<br />
 			<br />
-			[page:Side Side] - THREE.Side<br />
-			[page:FrontSide FrontSide] - THREE.FrontSide - FrontSide , Front<br />
-			[page:BackSide BackSide] - THREE.BackSide - BackSide , Back<br />
-			[page:DoubleSide DoubleSide] - THREE.DoubleSide - DoubleSide , Double<br />
-			<br />
-			Returns : shadow side
+			Returns : subscribe
 		</p>
 
-		<h3>[method:Side getSide](  [param:string def]? )<i class="modifier modifier-protected">Protected</i></h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:string def] - (optional) The def.
-		</p>
-		<p>
-			Gets side<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:Side Side] - THREE.Side<br />
-			[page:FrontSide FrontSide] - THREE.FrontSide - FrontSide , Front<br />
-			[page:BackSide BackSide] - THREE.BackSide - BackSide , Back<br />
-			[page:DoubleSide DoubleSide] - THREE.DoubleSide - DoubleSide , Double<br />
-			<br />
-			Returns : side
-		</p>
-
-		<h3>[method:StencilOp getStencilFail](  [param:string def]? )<i class="modifier modifier-protected">Protected</i></h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:string def] - (optional) The def.
-		</p>
-		<p>
-			Gets stencil fail<br />
-			<br />
-			Returns : stencil fail
-		</p>
-
-		<h3>[method:StencilFunc getStencilFunc](  [param:string def]? )<i class="modifier modifier-protected">Protected</i></h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:string def] - (optional) The def.
-		</p>
-		<p>
-			Gets stencil func<br />
-			<br />
-			Returns : stencil func
-		</p>
-
-		<h3>[method:StencilOp getStencilZFail](  [param:string def]? )<i class="modifier modifier-protected">Protected</i></h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:string def] - (optional) The def.
-		</p>
-		<p>
-			Gets stencil zfail<br />
-			<br />
-			Returns : stencil zfail
-		</p>
-
-		<h3>[method:StencilOp getStencilZPass](  [param:string def]? )<i class="modifier modifier-protected">Protected</i></h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:string def] - (optional) The def.
-		</p>
-		<p>
-			Gets stencil zpass<br />
-			<br />
-			Returns : stencil zpass
-		</p>
-
-		<h3>[method:Texture getTextureOption](  [param:any map],  [param:string name] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[method:ITexture getTextureOption](  [param:any map],  [param:string name] )<i class="modifier modifier-protected">Protected</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any map] - The map.<br />
@@ -653,6 +654,23 @@
 			Gets texture option<br />
 			<br />
 			Returns : texture option
+		</p>
+
+		<h3>[method:Promise getTimeout](  [param:number timeDelay] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number timeDelay] - The time delay.
+		</p>
+		<p>
+			Gets timeout<br />
+			특정 시간후에 이벤트 발생시키기<br />
+			<br />
+			Returns : timeout
+		</p>
+
+		<h3>[method:void getUserData](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets user data
 		</p>
 
 		<h3>[method:boolean getVertexColors](  [param:boolean def]? )<i class="modifier modifier-protected">Protected</i></h3>
@@ -666,6 +684,29 @@
 			Returns : true if vertex colors
 		</p>
 
+		<h3>[method:T initLocalComponent](  [param:string key],  [param:T component] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:T component] - The component.
+		</p>
+		<p>
+			Inits local component<br />
+			<br />
+			Returns : local component
+		</p>
+
+		<h3>[method:boolean isIdEuals](  [param:string id] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string id] - The id.
+		</p>
+		<p>
+			Determines whether id euals is<br />
+			<br />
+			Returns : true if id euals
+		</p>
+
 		<h3>[method:boolean isMaterialType](  [param:string materialType] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
@@ -677,13 +718,31 @@
 			Returns : true if material type
 		</p>
 
-		<h3>[method:void setMaterial](  [param:Material material] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[method:void runSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Material material] - The material.
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Runs subscribe next
+		</p>
+
+		<h3>[method:void setMaterial](  [param:IMaterial material] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:IMaterial material] - The material.
 		</p>
 		<p>
 			Sets material
+		</p>
+
+		<h3>[method:void setObject](  [param:any obj] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any obj] - The obj.
+		</p>
+		<p>
+			Sets object
 		</p>
 
 		<h3>[method:void setObject3d](  [param:AbstractSubscribeComponent object3d],  [param:string refType] )<i class="modifier modifier-public">Public</i></h3>
@@ -696,6 +755,125 @@
 			Sets object3d
 		</p>
 
+		<h3>[method:boolean setParent](  [param:any parent] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any parent] - The parent.
+		</p>
+		<p>
+			Sets parent<br />
+			<br />
+			Returns : true if parent
+		</p>
+
+		<h3>[method:void setSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Sets subscribe next
+		</p>
+
+		<h3>[method:void setSubscribeType](  [param:string subscribeType] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string subscribeType] - The subscribe type.
+		</p>
+		<p>
+			Sets subscribe type
+		</p>
+
+		<h3>[method:void setTween](  [param:any tweenData] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any tweenData] - The tween data.
+		</p>
+		<p>
+			Sets tween
+		</p>
+
+		<h3>[method:void setUserData](  [param:string key],  [param:any value] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any value] - The value.
+		</p>
+		<p>
+			Sets user data
+		</p>
+
+		<h3>[method:void subscribeListQuery](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query
+		</p>
+
+		<h3>[method:void subscribeListQueryChange](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query change
+		</p>
+
+		<h3>[method:void subscribeRefer](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer
+		</p>
+
+		<h3>[method:void subscribeReferList](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer list
+		</p>
+
+		<h3>[method:void unSubscribeRefer](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer
+		</p>
+
+		<h3>[method:void unSubscribeReferList](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer list
+		</p>
+
+		<h3>[method:Subscription[] unSubscription](  [param:Subscription[] subscriptions] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Subscription[] subscriptions] - The subscriptions.
+		</p>
+		<p>
+			subscription<br />
+			<br />
+			Returns : subscription
+		</p>
+
 		<h3>[method:void unsetObject3d](  [param:AbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
@@ -705,29 +883,155 @@
 			unSets object3d
 		</p>
 
+		<h3>[method:void updateInputParams](  [param:any params],  [param:boolean firstChange],  [param:SimpleChanges changes],  [param:string type] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any params] - The params.<br />
+			[parameter:boolean firstChange] - The first change.<br />
+			[parameter:SimpleChanges changes] - The changes.<br />
+			[parameter:string type] - The type.
+		</p>
+		<p>
+			Updates input params
+		</p>
+
 		<hr class="interface-line"/>
-		<h3 id="MeshMaterialRaw">MeshMaterialRaw <i class="modifier modifier-interface">Interface</i></h3>
+		[page:IEventDispatcher] &rarr;
+
+		<h3 id="IMaterial">IMaterial <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:IMaterial IMaterial](  [param:IMaterialParameters parameters]? ) 
+		</p>
 		<h4>Properties</h4>
 		<p>
-			[property:Material customDepthMaterial]? -  The custom depth material.<br />
-			[property:Material customDistanceMaterial]? -  The custom distance material.<br />
-			[property:BufferGeometry geometry]? -  The geometry.<br />
-			[property:Material|Material[] material] -  The material.<br />
-			[property:any userData]? -  The user data.
+			[property:number alphaTest] - Sets the alpha value to be used when running an alpha test. Default is 0.<br />
+			[property:boolean alphaToCoverage] - Enables alpha to coverage. Can only be used with MSAA-enabled rendering contexts.<br />
+			[property:BlendingDstFactor blendDst] - Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.<br />
+			[property:number blendDstAlpha] - The tranparency of the .blendDst. Default is null.<br />
+			[property:BlendingEquation blendEquation] - Blending equation to use when applying blending. It's one of the constants defined in Three.js. Default is {@link AddEquation}.<br />
+			[property:number blendEquationAlpha] - The tranparency of the .blendEquation. Default is null.<br />
+			[property:BlendingDstFactor|BlendingSrcFactor blendSrc] - Blending source. It's one of the blending mode constants defined in Three.js. Default is {@link SrcAlphaFactor}.<br />
+			[property:number blendSrcAlpha] - The tranparency of the .blendSrc. Default is null.<br />
+			[property:Blending blending] - Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.<br />
+			[property:boolean clipIntersection] - Changes the behavior of clipping planes so that only their intersection is clipped, rather than their union. Default is false.<br />
+			[property:boolean clipShadows] - Defines whether to clip shadows according to the clipping planes specified on this material. Default is false.<br />
+			[property:any clippingPlanes] - User-defined clipping planes specified as IPlane objects in world space.<br />
+			These planes apply to the objects this material is attached to.<br />
+			Points in space whose signed distance to the plane is negative are clipped (not rendered).<br />
+			See the WebGL / clipping /intersection example. Default is null.<br />
+			[property:boolean colorWrite] - Whether to render the material's color. This can be used in conjunction with a mesh's .renderOrder property to create invisible objects that occlude other objects. Default is true.<br />
+			[property:any defines] - Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI * 2 }.<br />
+			The pairs are defined in both vertex and fragment shaders. Default is undefined.<br />
+			[property:DepthModes depthFunc] - Which depth function to use. Default is {@link LessEqualDepth}. See the depth mode constants for all possible values.<br />
+			[property:boolean depthTest] - Whether to have depth test enabled when rendering this material. Default is true.<br />
+			[property:boolean depthWrite] - Whether rendering this material has any effect on the depth buffer. Default is true.<br />
+			When drawing 2D overlays it can be useful to disable the depth writing in order to layer several things together without creating z-index artifacts.<br />
+			[property:boolean dithering] - Whether to apply dithering to the color to remove the appearance of banding. Default is false.<br />
+			[property:boolean fog] - Whether the material is affected by fog. Default is true.<br />
+			[property:PixelFormat format] - When this property is set to O3JS.RGBFormat, the material is considered to be opaque and alpha values are ignored.<br />
+			[property:number id] - Unique number of this material instance.<br />
+			[property:any isMaterial] - Used to check whether this or derived classes are materials. Default is true.<br />
+			You should not change this, as it used internally for optimisation.<br />
+			[property:string name] - Material name. Default is an empty string.<br />
+			[property:boolean needsUpdate] - Specifies that the material needs to be updated, WebGL wise. Set it to true if you made changes that need to be reflected in WebGL.<br />
+			This property is automatically set to true when instancing a new material.<br />
+			[property:number opacity] - Opacity. Default is 1.<br />
+			[property:boolean polygonOffset] - Whether to use polygon offset. Default is false. This corresponds to the POLYGON_OFFSET_FILL WebGL feature.<br />
+			[property:number polygonOffsetFactor] - Sets the polygon offset factor. Default is 0.<br />
+			[property:number polygonOffsetUnits] - Sets the polygon offset units. Default is 0.<br />
+			[property:'highp'|'mediump'|'lowp' precision] - Override the renderer's default precision for this material. Can be "highp", "mediump" or "lowp". Defaults is null.<br />
+			[property:boolean premultipliedAlpha] - Whether to premultiply the alpha (transparency) value. See WebGL / Materials / Transparency for an example of the difference. Default is false.<br />
+			[property:Side shadowSide] - Defines which of the face sides will cast shadows. Default is *null*.<br />
+			If *null*, the value is opposite that of side, above.<br />
+			[property:Side side] - Defines which of the face sides will be rendered - front, back or both.<br />
+			Default is O3JS.FrontSide. Other options are O3JS.BackSide and O3JS.DoubleSide.<br />
+			[property:StencilOp stencilFail] - Which stencil operation to perform when the comparison function returns false. Default is {@link KeepStencilOp}. See the stencil operation constants for all possible values.<br />
+			[property:StencilFunc stencilFunc] - The stencil comparison function to use. Default is {@link AlwaysStencilFunc}. See stencil operation constants for all possible values.<br />
+			[property:number stencilFuncMask] - The bit mask to use when comparing against the stencil buffer. Default is *0xFF*.<br />
+			[property:number stencilRef] - The value to use when performing stencil comparisons or stencil operations. Default is *0*.<br />
+			[property:boolean stencilWrite] - Whether rendering this material has any effect on the stencil buffer. Default is *false*.<br />
+			[property:number stencilWriteMask] - The bit mask to use when writing to the stencil buffer. Default is *0xFF*.<br />
+			[property:StencilOp stencilZFail] - Which stencil operation to perform when the comparison function returns true but the depth test fails.<br />
+			Default is {@link KeepStencilOp}.<br />
+			See the stencil operation constants for all possible values.<br />
+			[property:StencilOp stencilZPass] - Which stencil operation to perform when the comparison function returns true and the depth test passes.<br />
+			Default is {@link KeepStencilOp}.<br />
+			See the stencil operation constants for all possible values.<br />
+			[property:boolean toneMapped] - Defines whether this material is tone mapped according to the renderer's toneMapping setting.<br />
+			Default is true.<br />
+			[property:boolean transparent] - Defines whether this material is transparent. This has an effect on rendering as transparent objects need special treatment and are rendered after non-transparent objects.<br />
+			When set to true, the extent to which the material is transparent is controlled by setting it's .opacity property.<br />
+			Default is false.<br />
+			[property:string type] - Value is the string 'Material'. This shouldn't be changed, and can be used to find all objects of this type in a scene.<br />
+			[property:any userData] - An object that can be used to store custom data about the Material. It should not hold references to functions as these will not be cloned.<br />
+			[property:string uuid] - UUID of this material instance. This gets automatically assigned, so this shouldn't be edited.<br />
+			[property:number version] - This starts at 0 and counts how many times .needsUpdate is set to true.<br />
+			[property:boolean vertexColors] - Defines whether vertex coloring is used. Default is false.<br />
+			[property:boolean visible] - Defines whether this material is visible. Default is true.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void addEventListener](  [param:T type],  [param:IEventListener listener] ) - Adds a listener to an event type.<br />
+			[method:IMaterial clone](  ) - Return a new material with the same parameters as this material.<br />
+			[method:IMaterial copy](  [param:IMaterial material] ) - Copy the parameters from the passed material into this material.<br />
+			[method:string customProgramCacheKey](  ) - In case onBeforeCompile is used, this callback can be used to identify values of settings used in onBeforeCompile, so three.js can reuse a cached shader or recompile the shader as needed.<br />
+			[method:void dispatchEvent](  [param:Event event] ) - Fire an event type.<br />
+			[method:void dispose](  ) - This disposes the material. Textures of a material don't get disposed. These needs to be disposed by {@line THREE.Texture}.<br />
+			[method:boolean hasEventListener](  [param:T type],  [param:IEventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:void onBeforeCompile](  [param:IShader shader],  [param:IWebGLRenderer renderer] ) - An optional callback that is executed immediately before the shader program is compiled.<br />
+			This function is called with the shader source code as a parameter.<br />
+			Useful for the modification of built-in materials.<br />
+			[method:void removeEventListener](  [param:T type],  [param:IEventListener listener] ) - Removes a listener from an event type.<br />
+			[method:void setValues](  [param:IMaterialParameters values] ) - Sets the properties based on the values.<br />
+			[method:any toJSON](  [param:any meta]? ) - Convert the material to three.js JSON format.
 		</p>
 
-
 		<p class="desc">
-			Mesh material raw
+			Materials describe the appearance of objects. They are defined in a (mostly) renderer-independent way, so you don't have to rewrite materials if you decide to use a different renderer.
 		</p>
 
 		<hr class="interface-line"/>
-		<h3 id="MeshMaterial">MeshMaterial <i class="modifier modifier-interface">Interface</i></h3>
-		<h3>[property:MeshMaterialRaw|THREE.Scene MeshMaterial]</h3>
-
+		<h3 id="IPlane">IPlane <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:IPlane IPlane](  [param:IVector3|Vector3 normal]?,  [param:number constant]? ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:number constant] -  The constant.<br />
+			[property:any isPlane] -  The is plane.<br />
+			[property:IVector3 normal] -  The normal.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:IPlane applyMatrix4](  [param:IMatrix4 matrix],  [param:IMatrix3|Matrix3 optionalNormalMatrix]? ) <br />
+			[method:IPlane clone](  ) <br />
+			[method:IVector3 coplanarPoint](  [param:IVector3|Vector3 target] ) <br />
+			[method:IPlane copy](  [param:IPlane plane] ) <br />
+			[method:number distanceToPoint](  [param:IVector3|Vector3 point] ) <br />
+			[method:number distanceToSphere](  [param:ISphere sphere] ) <br />
+			[method:boolean equals](  [param:IPlane plane] ) <br />
+			[method:IVector3 intersectLine](  [param:ILine3 line],  [param:IVector3|Vector3 target] ) <br />
+			[method:boolean intersectsBox](  [param:IBox3 box] ) <br />
+			[method:boolean intersectsLine](  [param:ILine3 line] ) <br />
+			[method:boolean intersectsSphere](  [param:ISphere sphere] ) <br />
+			[method:any isIntersectionLine](  [param:any l] ) <br />
+			[method:IPlane negate](  ) <br />
+			[method:IPlane normalize](  ) <br />
+			[method:IVector3 orthoPoint](  [param:IVector3|Vector3 point],  [param:IVector3|Vector3 target] ) <br />
+			[method:IVector3 projectPoint](  [param:IVector3|Vector3 point],  [param:IVector3|Vector3 target] ) <br />
+			[method:IPlane set](  [param:IVector3|Vector3 normal],  [param:number constant] ) <br />
+			[method:IPlane setComponents](  [param:number x],  [param:number y],  [param:number z],  [param:number w] ) <br />
+			[method:IPlane setFromCoplanarPoints](  [param:IVector3|Vector3 a],  [param:IVector3|Vector3 b],  [param:IVector3|Vector3 c] ) <br />
+			[method:IPlane setFromNormalAndCoplanarPoint](  [param:IVector3|Vector3 normal],  [param:IVector3|Vector3 point] ) <br />
+			[method:IPlane translate](  [param:IVector3|Vector3 offset] ) 
+		</p>
 
 		<p class="desc">
-			Mesh Material
+			
 		</p>
 
 		<br /><br />

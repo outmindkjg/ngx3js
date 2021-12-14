@@ -20,10 +20,10 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:NgxPlaneControls NgxPlaneControls](  [param:Camera camera],  [param:HTMLElement domElement] )</h3>
+		<h3>[constructor:NgxPlaneControls NgxPlaneControls](  [param:ICamera camera],  [param:HTMLElement domElement] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Camera camera] - The camera.<br />
+			[parameter:ICamera camera] - The camera.<br />
 			[parameter:HTMLElement domElement] - The dom element.
 		</p>
 		<p>
@@ -61,7 +61,7 @@
 			The Screen of plane controls
 		</p>
 
-		<h3>[property:Vector3 target] &nbsp; = ... <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:IVector3 target] &nbsp; = ... <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Target of plane controls
 		</p>
@@ -77,10 +77,10 @@
 			Disposes plane controls
 		</p>
 
-		<h3>[method:Vector2 getMouseOnScreen](  [param:Vector2 vector],  [param:number pageX],  [param:number pageY] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:IVector2 getMouseOnScreen](  [param:IVector2 vector],  [param:number pageX],  [param:number pageY] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2 vector] - The vector.<br />
+			[parameter:IVector2 vector] - The vector.<br />
 			[parameter:number pageX] - The page x.<br />
 			[parameter:number pageY] - The page y.
 		</p>
@@ -109,6 +109,308 @@
 		</p>
 		<p>
 			Updates plane controls
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IEventDispatcher] &rarr; [page:IObject3D] &rarr;
+
+		<h3 id="ICamera">ICamera <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:ICamera ICamera](  ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:IAnimationClip[] animations] - Array with animation clips.<br />
+			[property:boolean castShadow] - Gets rendered into shadow map.<br />
+			[property:IObject3D[] children] - Array with object's children.<br />
+			[property:IMaterial customDepthMaterial] - Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br />
+			When shadow-casting with a DirectionalLight or SpotLight, if you are (a) modifying vertex positions in<br />
+			the vertex shader, (b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a<br />
+			transparent texture with alphaTest, you must specify a customDepthMaterial for proper shadows.<br />
+			[property:IMaterial customDistanceMaterial] - Same as customDepthMaterial, but used with PointLight.<br />
+			[property:boolean frustumCulled] - When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object.<br />
+			If set to false the object gets rendered every frame even if it is not in the frustum of the camera.<br />
+			[property:number id] - Unique number of this object instance.<br />
+			[property:any isCamera] -  The is camera.<br />
+			[property:any isObject3D] - Used to check whether this or derived classes are Object3Ds. Default is true.<br />
+			You should not change this, as it is used internally for optimisation.<br />
+			[property:ILayers layers] -  The layers.<br />
+			[property:IMatrix4 matrix] - Local transform.<br />
+			[property:boolean matrixAutoUpdate] - When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also<br />
+			recalculates the matrixWorld property.<br />
+			[property:IMatrix4 matrixWorld] - The global transform of the object. If the Object3d has no parent, then it's identical to the local transform.<br />
+			[property:IMatrix4|Matrix4 matrixWorldInverse] - This is the inverse of matrixWorld. MatrixWorld contains the Matrix which has the world transform of the Camera.<br />
+			[property:boolean matrixWorldNeedsUpdate] - When this is set, it calculates the matrixWorld in that frame and resets this property to false.<br />
+			[property:IMatrix4 modelViewMatrix] -  The model view matrix.<br />
+			[property:string name] - Optional name of the object (doesn't need to be unique).<br />
+			[property:IMatrix3 normalMatrix] -  The normal matrix.<br />
+			[property:IObject3D parent] - Object's parent in the scene graph.<br />
+			[property:IVector3 position] - Object's local position.<br />
+			[property:IMatrix4|Matrix4 projectionMatrix] - This is the matrix which contains the projection.<br />
+			[property:IMatrix4|Matrix4 projectionMatrixInverse] - This is the inverse of projectionMatrix.<br />
+			[property:IQuaternion quaternion] - Object's local rotation as a Quaternion.<br />
+			[property:boolean receiveShadow] - Material gets baked in shadow receiving.<br />
+			[property:number renderOrder] - Overrides the default rendering order of scene graph objects, from lowest to highest renderOrder.<br />
+			Opaque and transparent objects remain sorted independently though.<br />
+			When this property is set for an instance of Group, all descendants objects will be sorted and rendered together.<br />
+			[property:IEuler rotation] - Object's local rotation (Euler angles), in radians.<br />
+			[property:IVector3 scale] - Object's local scale.<br />
+			[property:string type] -  The type.<br />
+			[property:IVector3 up] - Up direction.<br />
+			[property:any userData] - An object that can be used to store custom data about the Object3d. It should not hold references to functions as these will not be cloned.<br />
+			[property:string uuid] -  The uuid.<br />
+			[property:boolean visible] - Object gets rendered if true.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:ICamera add](  [param:IObject3D[] object] ) - Adds object as child of this object.<br />
+			[method:void addEventListener](  [param:T type],  [param:IEventListener listener] ) - Adds a listener to an event type.<br />
+			[method:void applyMatrix4](  [param:IMatrix4 matrix] ) - This updates the position, rotation and scale with the matrix.<br />
+			[method:ICamera applyQuaternion](  [param:IQuaternion|Quaternion quaternion] ) <br />
+			[method:ICamera attach](  [param:IObject3D object] ) - Adds object as a child of this, while maintaining the object's world transform.<br />
+			[method:ICamera clear](  ) - Removes all child objects.<br />
+			[method:ICamera clone](  [param:boolean recursive]? ) <br />
+			[method:ICamera copy](  [param:ICamera source],  [param:boolean recursive]? ) <br />
+			[method:void dispatchEvent](  [param:IEvent event] ) - Fire an event type.<br />
+			[method:IObject3D getObjectById](  [param:number id] ) - Searches through the object's children and returns the first with a matching id.<br />
+			[method:IObject3D getObjectByName](  [param:string name] ) - Searches through the object's children and returns the first with a matching name.<br />
+			[method:IObject3D getObjectByProperty](  [param:string name],  [param:string value] ) <br />
+			[method:IVector3 getWorldDirection](  [param:IVector3|Vector3 target] ) <br />
+			[method:IVector3 getWorldPosition](  [param:IVector3|Vector3 target] ) <br />
+			[method:IQuaternion|Quaternion getWorldQuaternion](  [param:IQuaternion|Quaternion target] ) <br />
+			[method:IVector3 getWorldScale](  [param:IVector3|Vector3 target] ) <br />
+			[method:boolean hasEventListener](  [param:T type],  [param:IEventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:IVector3 localToWorld](  [param:IVector3|Vector3 vector] ) - Updates the vector from local space to world space.<br />
+			[method:void lookAt](  [param:number|IVector3|Vector3 vector],  [param:number y]?,  [param:number z]? ) - Rotates object to face point in space.<br />
+			[method:void onAfterRender](  [param:IWebGLRenderer renderer],  [param:IScene scene],  [param:ICamera camera],  [param:IBufferGeometry geometry],  [param:IMaterial material],  [param:IGroup group] ) - Calls after rendering object<br />
+			[method:void onBeforeRender](  [param:IWebGLRenderer renderer],  [param:IScene scene],  [param:ICamera camera],  [param:IBufferGeometry geometry],  [param:IMaterial material],  [param:IGroup group] ) - Calls before rendering object<br />
+			[method:void raycast](  [param:IRaycaster raycaster],  [param:IIntersection[] intersects] ) <br />
+			[method:ICamera remove](  [param:IObject3D[] object] ) - Removes object as child of this object.<br />
+			[method:void removeEventListener](  [param:T type],  [param:IEventListener listener] ) - Removes a listener from an event type.<br />
+			[method:ICamera removeFromParent](  ) - Removes this object from its current parent.<br />
+			[method:ICamera rotateOnAxis](  [param:IVector3|Vector3 axis],  [param:number angle] ) - Rotate an object along an axis in object space. The axis is assumed to be normalized.<br />
+			[method:ICamera rotateOnWorldAxis](  [param:IVector3|Vector3 axis],  [param:number angle] ) - Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.<br />
+			[method:ICamera rotateX](  [param:number angle] ) <br />
+			[method:ICamera rotateY](  [param:number angle] ) <br />
+			[method:ICamera rotateZ](  [param:number angle] ) <br />
+			[method:void setRotationFromAxisAngle](  [param:IVector3|Vector3 axis],  [param:number angle] ) <br />
+			[method:void setRotationFromEuler](  [param:IEuler|Euler euler] ) <br />
+			[method:void setRotationFromMatrix](  [param:IMatrix4|Matrix4 m] ) <br />
+			[method:void setRotationFromQuaternion](  [param:IQuaternion|Quaternion q] ) <br />
+			[method:any toJSON](  [param:any meta]? ) <br />
+			[method:ICamera translateOnAxis](  [param:IVector3|Vector3 axis],  [param:number distance] ) <br />
+			[method:ICamera translateX](  [param:number distance] ) - Translates object along x axis by distance.<br />
+			[method:ICamera translateY](  [param:number distance] ) - Translates object along y axis by distance.<br />
+			[method:ICamera translateZ](  [param:number distance] ) - Translates object along z axis by distance.<br />
+			[method:void traverse](  [param:any callback] ) <br />
+			[method:void traverseAncestors](  [param:any callback] ) <br />
+			[method:void traverseVisible](  [param:any callback] ) <br />
+			[method:void updateMatrix](  ) - Updates local transform.<br />
+			[method:void updateMatrixWorld](  [param:boolean force]? ) - Updates global transform of the object and its children.<br />
+			[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] ) <br />
+			[method:IVector3 worldToLocal](  [param:IVector3|Vector3 vector] ) - Updates the vector from world space to local space.
+		</p>
+
+		<p class="desc">
+			Abstract base class for cameras. This class should always be inherited when you build a new camera.
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IVector] &rarr;
+
+		<h3 id="IVector2">IVector2 <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:IVector2 IVector2](  [param:number x]?,  [param:number y]? ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:number height] -  The height.<br />
+			[property:any isVector2] -  The is vector2.<br />
+			[property:number width] -  The width.<br />
+			[property:number x] -  The x.<br />
+			[property:number y] -  The y.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:IVector2 add](  [param:IVector2|Vector2 v],  [param:IVector2|Vector2 w]? ) - Adds v to this vector.<br />
+			[method:IVector2 addScalar](  [param:number s] ) - Adds the scalar value s to this vector's x and y values.<br />
+			[method:IVector2 addScaledVector](  [param:IVector2|Vector2 v],  [param:number s] ) - Adds the multiple of v and s to this vector.<br />
+			[method:IVector2 addVectors](  [param:IVector2|Vector2 a],  [param:IVector2|Vector2 b] ) - Sets this vector to a + b.<br />
+			[method:number angle](  ) - computes the angle in radians with respect to the positive x-axis<br />
+			[method:IVector2 applyMatrix3](  [param:IMatrix3|Matrix3 m] ) - Multiplies this vector (with an implicit 1 as the 3rd component) by m.<br />
+			[method:IVector2 ceil](  ) - The x and y components of the vector are rounded up to the nearest integer value.<br />
+			[method:IVector2 clamp](  [param:IVector2|Vector2 min],  [param:IVector2|Vector2 max] ) - If this vector's x or y value is greater than the max vector's x or y value, it is replaced by the corresponding value.<br />
+			If this vector's x or y value is less than the min vector's x or y value, it is replaced by the corresponding value.<br />
+			[method:IVector2 clampLength](  [param:number min],  [param:number max] ) - If this vector's length is greater than the max value, it is replaced by the max value.<br />
+			If this vector's length is less than the min value, it is replaced by the min value.<br />
+			[method:IVector2 clampScalar](  [param:number min],  [param:number max] ) - If this vector's x or y values are greater than the max value, they are replaced by the max value.<br />
+			If this vector's x or y values are less than the min value, they are replaced by the min value.<br />
+			[method:IVector2 clone](  ) - Returns a new Vector2 instance with the same `x` and `y` values.<br />
+			[method:IVector2 copy](  [param:IVector2|Vector2 v] ) - Copies value of v to this vector.<br />
+			[method:number cross](  [param:IVector2|Vector2 v] ) - Computes cross product of this vector and v.<br />
+			[method:number distanceTo](  [param:IVector2|Vector2 v] ) - Computes distance of this vector to v.<br />
+			[method:number distanceToManhattan](  [param:IVector2|Vector2 v] ) <br />
+			[method:number distanceToSquared](  [param:IVector2|Vector2 v] ) - Computes squared distance of this vector to v.<br />
+			[method:IVector2 divide](  [param:IVector2|Vector2 v] ) - Divides this vector by v.<br />
+			[method:IVector2 divideScalar](  [param:number s] ) - Divides this vector by scalar s.<br />
+			Set vector to ( 0, 0 ) if s == 0.<br />
+			[method:number dot](  [param:IVector2|Vector2 v] ) - Computes dot product of this vector and v.<br />
+			[method:boolean equals](  [param:IVector2|Vector2 v] ) - Checks for strict equality of this vector and v.<br />
+			[method:IVector2 floor](  ) - The components of the vector are rounded down to the nearest integer value.<br />
+			[method:IVector2 fromArray](  [param:number[]|ArrayLike array],  [param:number offset]? ) - Sets this vector's x and y value from the provided array or array-like.<br />
+			[method:IVector2 fromBufferAttribute](  [param:IBufferAttribute attribute],  [param:number index] ) - Sets this vector's x and y values from the attribute.<br />
+			[method:number getComponent](  [param:number index] ) - Gets a component of this vector.<br />
+			[method:number length](  ) - Computes length of this vector.<br />
+			[method:number lengthManhattan](  ) <br />
+			[method:number lengthSq](  ) - Computes squared length of this vector.<br />
+			[method:IVector2 lerp](  [param:IVector2|Vector2 v],  [param:number alpha] ) - Linearly interpolates between this vector and v, where alpha is the distance along the line - alpha = 0 will be this vector, and alpha = 1 will be v.<br />
+			[method:IVector2 lerpVectors](  [param:IVector2|Vector2 v1],  [param:IVector2|Vector2 v2],  [param:number alpha] ) - Sets this vector to be the vector linearly interpolated between v1 and v2 where alpha is the distance along the line connecting the two vectors - alpha = 0 will be v1, and alpha = 1 will be v2.<br />
+			[method:number manhattanDistanceTo](  [param:IVector2|Vector2 v] ) - Computes the Manhattan length (distance) from this vector to the given vector v<br />
+			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}<br />
+			[method:number manhattanLength](  ) - Computes the Manhattan length of this vector.<br />
+			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}<br />
+			[method:IVector2 max](  [param:IVector2|Vector2 v] ) - If this vector's x or y value is less than v's x or y value, replace that value with the corresponding max value.<br />
+			[method:IVector2 min](  [param:IVector2|Vector2 v] ) - If this vector's x or y value is greater than v's x or y value, replace that value with the corresponding min value.<br />
+			[method:IVector2 multiply](  [param:IVector2|Vector2 v] ) - Multiplies this vector by v.<br />
+			[method:IVector2 multiplyScalar](  [param:number scalar] ) - Multiplies this vector by scalar s.<br />
+			[method:IVector2 negate](  ) - Inverts this vector.<br />
+			[method:IVector2 normalize](  ) - Normalizes this vector.<br />
+			[method:IVector2 random](  ) - Sets this vector's x and y from Math.random<br />
+			[method:IVector2 rotateAround](  [param:IVector2|Vector2 center],  [param:number angle] ) - Rotates the vector around center by angle radians.<br />
+			[method:IVector2 round](  ) - The components of the vector are rounded to the nearest integer value.<br />
+			[method:IVector2 roundToZero](  ) - The components of the vector are rounded towards zero (up if negative, down if positive) to an integer value.<br />
+			[method:IVector2 set](  [param:number x],  [param:number y] ) - Sets value of this vector.<br />
+			[method:IVector2 setComponent](  [param:number index],  [param:number value] ) - Sets a component of this vector.<br />
+			[method:IVector2 setLength](  [param:number length] ) - Normalizes this vector and multiplies it by l.<br />
+			[method:IVector2 setScalar](  [param:number scalar] ) - Sets the x and y values of this vector both equal to scalar.<br />
+			[method:IVector2 setX](  [param:number x] ) - Sets X component of this vector.<br />
+			[method:IVector2 setY](  [param:number y] ) - Sets Y component of this vector.<br />
+			[method:IVector2 sub](  [param:IVector2|Vector2 v] ) - Subtracts v from this vector.<br />
+			[method:IVector2 subScalar](  [param:number s] ) - Subtracts s from this vector's x and y components.<br />
+			[method:IVector2 subVectors](  [param:IVector2|Vector2 a],  [param:IVector2|Vector2 b] ) - Sets this vector to a - b.<br />
+			[method:number[] toArray](  [param:number[] array]?,  [param:number offset]? ) - Returns an array [x, y], or copies x and y into the provided array.<br />
+			<br />
+			Returns : The created or provided array.<br />
+			[method:TVector2Tuple toArray](  [param:number[] array]?,  [param:number offset]?,  [param:TVector2Tuple array]?,  [param:any offset]? ) <br />
+			[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:TVector2Tuple array]?,  [param:any offset]?,  [param:ArrayLike array],  [param:number offset]? ) - Copies x and y into the provided array-like.<br />
+			<br />
+			Returns : The provided array-like.
+		</p>
+
+		<p class="desc">
+			2D vector.<br />
+			( class Vector2 implements Vector&lt;Vector2&gt; )
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IVector] &rarr;
+
+		<h3 id="IVector3">IVector3 <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:IVector3 IVector3](  [param:number x]?,  [param:number y]?,  [param:number z]? ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:any isVector3] -  The is vector3.<br />
+			[property:number x] -  The x.<br />
+			[property:number y] -  The y.<br />
+			[property:number z] -  The z.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:IVector3 add](  [param:IVector3|Vector3 v] ) - Adds v to this vector.<br />
+			[method:IVector3 addScalar](  [param:number s] ) - Adds the scalar value s to this vector's values.<br />
+			[method:IVector3 addScaledVector](  [param:IVector3|Vector3 v],  [param:number s] ) <br />
+			[method:IVector3 addVectors](  [param:IVector3|Vector3 a],  [param:IVector3|Vector3 b] ) - Sets this vector to a + b.<br />
+			[method:number angleTo](  [param:IVector3|Vector3 v] ) <br />
+			[method:IVector3 applyAxisAngle](  [param:IVector3|Vector3 axis],  [param:number angle] ) <br />
+			[method:IVector3 applyEuler](  [param:IEuler|Euler euler] ) <br />
+			[method:IVector3 applyMatrix3](  [param:IMatrix3|Matrix3 m] ) <br />
+			[method:IVector3 applyMatrix4](  [param:IMatrix4|Matrix4 m] ) <br />
+			[method:IVector3 applyNormalMatrix](  [param:IMatrix3|Matrix3 m] ) <br />
+			[method:IVector3 applyQuaternion](  [param:IQuaternion|Quaternion q] ) <br />
+			[method:IVector3 ceil](  ) <br />
+			[method:IVector3 clamp](  [param:IVector3|Vector3 min],  [param:IVector3|Vector3 max] ) <br />
+			[method:IVector3 clampLength](  [param:number min],  [param:number max] ) <br />
+			[method:IVector3 clampScalar](  [param:number min],  [param:number max] ) <br />
+			[method:IVector3 clone](  ) - Clones this vector.<br />
+			[method:IVector3 copy](  [param:IVector3|Vector3 v] ) - Copies value of v to this vector.<br />
+			[method:IVector3 cross](  [param:IVector3|Vector3 a] ) - Sets this vector to cross product of itself and v.<br />
+			[method:IVector3 crossVectors](  [param:IVector3|Vector3 a],  [param:IVector3|Vector3 b] ) - Sets this vector to cross product of a and b.<br />
+			[method:number distanceTo](  [param:IVector3|Vector3 v] ) - Computes distance of this vector to v.<br />
+			[method:number distanceToManhattan](  [param:IVector3|Vector3 v] ) <br />
+			[method:number distanceToSquared](  [param:IVector3|Vector3 v] ) - Computes squared distance of this vector to v.<br />
+			[method:IVector3 divide](  [param:IVector3|Vector3 v] ) <br />
+			[method:IVector3 divideScalar](  [param:number s] ) - Divides this vector by scalar s.<br />
+			Set vector to ( 0, 0, 0 ) if s == 0.<br />
+			[method:number dot](  [param:IVector3|Vector3 v] ) - Computes dot product of this vector and v.<br />
+			[method:boolean equals](  [param:IVector3|Vector3 v] ) - Checks for strict equality of this vector and v.<br />
+			[method:IVector3 floor](  ) <br />
+			[method:IVector3 fromArray](  [param:number[]|ArrayLike array],  [param:number offset]? ) - Sets this vector's x, y and z value from the provided array or array-like.<br />
+			[method:IVector3 fromBufferAttribute](  [param:IBufferAttribute|IInterleavedBufferAttribute attribute],  [param:number index] ) <br />
+			[method:number getComponent](  [param:number index] ) <br />
+			[method:number length](  ) - Computes length of this vector.<br />
+			[method:number lengthManhattan](  ) - Computes Manhattan length of this vector.<br />
+			http://en.wikipedia.org/wiki/Taxicab_geometry<br />
+			[method:number lengthSq](  ) - Computes squared length of this vector.<br />
+			[method:IVector3 lerp](  [param:IVector3|Vector3 v],  [param:number alpha] ) - lerp(v:T, alpha:number):T;<br />
+			[method:IVector3 lerpVectors](  [param:IVector3|Vector3 v1],  [param:IVector3|Vector3 v2],  [param:number alpha] ) <br />
+			[method:number manhattanDistanceTo](  [param:IVector3|Vector3 v] ) - Computes the Manhattan length (distance) from this vector to the given vector v<br />
+			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}<br />
+			[method:number manhattanLength](  ) - Computes the Manhattan length of this vector.<br />
+			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}<br />
+			[method:IVector3 max](  [param:IVector3|Vector3 v] ) <br />
+			[method:IVector3 min](  [param:IVector3|Vector3 v] ) <br />
+			[method:IVector3 multiply](  [param:IVector3|Vector3 v] ) <br />
+			[method:IVector3 multiplyScalar](  [param:number s] ) - Multiplies this vector by scalar s.<br />
+			[method:IVector3 multiplyVectors](  [param:IVector3|Vector3 a],  [param:IVector3|Vector3 b] ) <br />
+			[method:IVector3 negate](  ) - Inverts this vector.<br />
+			[method:IVector3 normalize](  ) - Normalizes this vector.<br />
+			[method:IVector3 project](  [param:ICamera camera] ) <br />
+			[method:IVector3 projectOnPlane](  [param:IVector3|Vector3 planeNormal] ) <br />
+			[method:IVector3 projectOnVector](  [param:IVector3|Vector3 v] ) <br />
+			[method:IVector3 random](  ) - Sets this vector's x, y and z from Math.random<br />
+			[method:IVector3 randomDirection](  ) <br />
+			[method:IVector3 reflect](  [param:IVector3|Vector3 vector] ) <br />
+			[method:IVector3 round](  ) <br />
+			[method:IVector3 roundToZero](  ) <br />
+			[method:IVector3 set](  [param:number x],  [param:number y],  [param:number z] ) - Sets value of this vector.<br />
+			[method:IVector3 setComponent](  [param:number index],  [param:number value] ) <br />
+			[method:IVector3 setFromCylindrical](  [param:ICylindrical s] ) <br />
+			[method:IVector3 setFromCylindricalCoords](  [param:number radius],  [param:number theta],  [param:number y] ) <br />
+			[method:IVector3 setFromMatrix3Column](  [param:IMatrix3|Matrix3 matrix],  [param:number index] ) <br />
+			[method:IVector3 setFromMatrixColumn](  [param:IMatrix4 matrix],  [param:number index] ) <br />
+			[method:IVector3 setFromMatrixPosition](  [param:IMatrix4|Matrix4 m] ) <br />
+			[method:IVector3 setFromMatrixScale](  [param:IMatrix4|Matrix4 m] ) <br />
+			[method:IVector3 setFromSpherical](  [param:ISpherical s] ) <br />
+			[method:IVector3 setFromSphericalCoords](  [param:number r],  [param:number phi],  [param:number theta] ) <br />
+			[method:IVector3 setLength](  [param:number l] ) - Normalizes this vector and multiplies it by l.<br />
+			[method:IVector3 setScalar](  [param:number scalar] ) - Sets all values of this vector.<br />
+			[method:IVector3 setX](  [param:number x] ) - Sets x value of this vector.<br />
+			[method:IVector3 setY](  [param:number y] ) - Sets y value of this vector.<br />
+			[method:IVector3 setZ](  [param:number z] ) - Sets z value of this vector.<br />
+			[method:IVector3 sub](  [param:IVector3|Vector3 a] ) - Subtracts v from this vector.<br />
+			[method:IVector3 subScalar](  [param:number s] ) <br />
+			[method:IVector3 subVectors](  [param:IVector3|Vector3 a],  [param:IVector3|Vector3 b] ) - Sets this vector to a - b.<br />
+			[method:number[] toArray](  [param:number[] array]?,  [param:number offset]? ) - Returns an array [x, y, z], or copies x, y and z into the provided array.<br />
+			<br />
+			Returns : The created or provided array.<br />
+			[method:TVector3Tuple toArray](  [param:number[] array]?,  [param:number offset]?,  [param:TVector3Tuple array]?,  [param:any offset]? ) <br />
+			[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:TVector3Tuple array]?,  [param:any offset]?,  [param:ArrayLike array],  [param:number offset]? ) - Copies x, y and z into the provided array-like.<br />
+			<br />
+			Returns : The provided array-like.<br />
+			[method:IVector3 transformDirection](  [param:IMatrix4|Matrix4 m] ) <br />
+			[method:IVector3 unproject](  [param:ICamera camera] ) 
+		</p>
+
+		<p class="desc">
+			
 		</p>
 
 		<br /><br />

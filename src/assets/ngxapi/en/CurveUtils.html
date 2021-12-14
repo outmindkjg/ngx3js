@@ -20,8 +20,9 @@
 		</p>
 
 		<h2>Constructor</h2>
+		<h3>[constructor:CurveUtils CurveUtils](  )</h3>
 		<p>
-			None
+			
 		</p>
 
 		<h2>Properties</h2>
@@ -41,7 +42,7 @@
 			Adds curve
 		</p>
 
-		<h3>[method:Curve getCurve](  [param:string key],  [param:number scale]?,  [param:any options]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>[method:ICurve getCurve](  [param:string key],  [param:number scale]?,  [param:any options]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string key] - The key.<br />
@@ -65,10 +66,10 @@
 			Returns : curve class
 		</p>
 
-		<h3>[method:CurvesNormal getCurveNormal](  [param:string|Curve key],  [param:CurvesNormalParameters normalOption]?,  [param:any option]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>[method:CurvesNormal getCurveNormal](  [param:string|ICurve key],  [param:CurvesNormalParameters normalOption]?,  [param:any option]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string|Curve key] - The key.<br />
+			[parameter:string|ICurve key] - The key.<br />
 			[parameter:CurvesNormalParameters normalOption] - (optional) The normal option.<br />
 			[parameter:any option] - (optional) The option.
 		</p>
@@ -80,15 +81,11 @@
 
 		<hr class="interface-line"/>
 		<h3 id="CurveClass">CurveClass <i class="modifier modifier-interface">Interface</i></h3>
-		<h4>Properties</h4>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
 		<p>
-			
+			[constructor:ICurve ICurve](  [param:number scale]?,  [param:any options]? ) 
 		</p>
-
-		<p>
-			None
-		</p>
-
 
 		<p class="desc">
 			Curve class
@@ -96,31 +93,62 @@
 
 		<hr class="interface-line"/>
 		<h3 id="CurvesNormalParameters">CurvesNormalParameters <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
 		<h4>Properties</h4>
 		<p>
-			[property:Vector3 center]? -  The center.<br />
+			[property:IVector3 center]? -  The center.<br />
 			[property:number multiply]? -  The multiply.<br />
 			[property:string options]? -  The options.<br />
-			[property:Euler rotation]? -  The rotation.<br />
-			[property:Vector3 scale]? -  The scale.
+			[property:IEuler rotation]? -  The rotation.<br />
+			[property:IVector3 scale]? -  The scale.
 		</p>
-
 
 		<p class="desc">
 			Curves normal parameters
 		</p>
 
 		<hr class="interface-line"/>
-		<h3 id="CurveConf">CurveConf <i class="modifier modifier-interface">Interface</i></h3>
-		<h3> { [  [param:string key] ] : [param:CurveClass|string emptyName] }</h3>
+		<h3 id="ICurve">ICurve <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
 		<p>
-			
+			[constructor:ICurve ICurve](  ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:number arcLengthDivisions] - This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via .getLengths.<br />
+			To ensure precision when using methods like .getSpacedPoints, it is recommended to increase .arcLengthDivisions if the curve is very large.<br />
+			[property:string type] -  The type.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:ICurve clone](  ) <br />
+			[method:void computeFrenetFrames](  [param:number segments],  [param:boolean closed]? ) - Generate Frenet frames of the curve<br />
+			[method:ICurve copy](  [param:ICurve source] ) <br />
+			[method:ICurve fromJSON](  [param:object json] ) <br />
+			[method:number getLength](  ) - Get total curve arc length<br />
+			[method:number[] getLengths](  [param:number divisions]? ) - Get list of cumulative segment lengths<br />
+			[method:T getPoint](  [param:number t],  [param:T optionalTarget]? ) - Returns a vector for point t of the curve where t is between 0 and 1<br />
+			getPoint(t: number, optionalTarget?: T): T;<br />
+			[method:T getPointAt](  [param:number u],  [param:T optionalTarget]? ) - Returns a vector for point at relative position in curve according to arc length<br />
+			getPointAt(u: number, optionalTarget?: T): T;<br />
+			[method:T[] getPoints](  [param:number divisions]? ) - Get sequence of points using getPoint( t )<br />
+			getPoints(divisions?: number): T[];<br />
+			[method:T[] getSpacedPoints](  [param:number divisions]? ) - Get sequence of equi-spaced points using getPointAt( u )<br />
+			getSpacedPoints(divisions?: number): T[];<br />
+			[method:T getTangent](  [param:number t],  [param:T optionalTarget]? ) - Returns a unit vector tangent at t. If the subclassed curve do not implement its tangent derivation, 2 points a<br />
+			small delta apart will be used to find its gradient which seems to give a reasonable approximation<br />
+			getTangent(t: number, optionalTarget?: T): T;<br />
+			[method:T getTangentAt](  [param:number u],  [param:T optionalTarget]? ) - Returns tangent at equidistance point u on the curve<br />
+			getTangentAt(u: number, optionalTarget?: T): T;<br />
+			[method:number getUtoTmapping](  [param:number u],  [param:number distance] ) - Given u ( 0 .. 1 ), get a t to find p. This gives you points which are equi distance<br />
+			[method:object toJSON](  ) <br />
+			[method:void updateArcLengths](  ) - Update the cumlative segment distance cache
 		</p>
 
-
-
 		<p class="desc">
-			
+			An extensible curve object which contains methods for interpolation<br />
+			class Curve&lt;T extends Vector&gt;
 		</p>
 
 		<br /><br />

@@ -13,35 +13,38 @@
 
 		<p class="desc">
 			创建一条平滑的二维
-			<a
-				href="http://en.wikipedia.org/wiki/B%C3%A9zier_curve#mediaviewer/File:B%C3%A9zier_2_big.gif"
-				target="_blank"
-				>二次贝塞尔曲线</a
-			>， 由起点、终点和一个控制点所定义。
+			<a href="http://en.wikipedia.org/wiki/B%C3%A9zier_curve#mediaviewer/File:B%C3%A9zier_2_big.gif" target="_blank">二次贝塞尔曲线</a>，
+			由起点、终点和一个控制点所定义。
 		</p>
 
 		<h2>代码示例</h2>
 
 		<code>
-			const curve = new THREE.QuadraticBezierCurve( new THREE.Vector2( -10, 0 ),
-			new THREE.Vector2( 20, 15 ), new THREE.Vector2( 10, 0 ) ); const points =
-			curve.getPoints( 50 ); const geometry = new
-			THREE.BufferGeometry().setFromPoints( points ); const material = new
-			THREE.LineBasicMaterial( { color : 0xff0000 } ); //Create the final object
-			to add to the scene const curveObject = new THREE.Line( geometry, material
-			);
+		const curve = new THREE.QuadraticBezierCurve(
+			new THREE.Vector2( -10, 0 ),
+			new THREE.Vector2( 20, 15 ),
+			new THREE.Vector2( 10, 0 )
+		);
+
+		const points = curve.getPoints( 50 );
+		const geometry = new THREE.BufferGeometry().setFromPoints( points );
+
+		const material = new THREE.LineBasicMaterial( { color : 0xff0000 } );
+
+		//Create the final object to add to the scene
+		const curveObject = new THREE.Line( geometry, material );
 		</code>
 
 		<h2>构造函数</h2>
 
-		<h3>
-			[name]( [param:Vector2 v0], [param:Vector2 v1], [param:Vector2 v2] )
-		</h3>
+
+		<h3>[name]( [param:Vector2 v0], [param:Vector2 v1], [param:Vector2 v2] )</h3>
 		<p>
-			[page:Vector2 v0] – 起点<br />
-			[page:Vector2 v1] – 中间的控制点<br />
-			[page:Vector2 v2] – 终点<br />
+			[page:Vector2 v0] – 起点<br/>
+			[page:Vector2 v1] – 中间的控制点<br/>
+			[page:Vector2 v2] – 终点<br/>
 		</p>
+
 
 		<h2>属性</h2>
 		<p>共有属性请参见其基类[page:Curve]。</p>
@@ -61,8 +64,7 @@
 		<h2>源代码</h2>
 
 		<p>
-			[link:https://github.com/mrdoob/three.js/blob/master/src/[path].js
-			src/[path].js]
+			[link:https://github.com/mrdoob/three.js/blob/master/src/[path].js src/[path].js]
 		</p>
 	</body>
 </html>

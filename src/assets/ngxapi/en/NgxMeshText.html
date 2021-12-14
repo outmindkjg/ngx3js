@@ -14,25 +14,35 @@
 		<p class="desc">
 			MeshText mesh<br />
 			<br />
-			<h3>Preview - ngx geometey</h3><br />
+			<h3>Preview - ngx mesh</h3><br />
 			<iframe src="#/viewer/ngx_mesh/MeshText"></iframe><br />
 			<br />
 			See the [page:NgxMeshText ngx3js docs] page for details.<br />
-			See the [example:ngx_mesh/MeshText ngx geometey] page for a live demo.
+			See the [example:ngx_mesh/MeshText ngx mesh] page for a live demo.
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:NgxMeshText NgxMeshText](  [param:string message],  [param:number height],  [param:ColorRepresentation fontColor],  [param:string fontFamily],  [param:Side side] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>[constructor:NgxMeshText NgxMeshText](  [param:string message],  [param:number height],  [param:any fontColor],  [param:string fontFamily],  [param:Side side] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string message] - The message.<br />
 			[parameter:number height] &nbsp; = 20  - The height.<br />
-			[parameter:ColorRepresentation fontColor] &nbsp; = 0xffffff  - The font color.<br />
+			[parameter:any fontColor] &nbsp; = 0xffffff  - The font color.<br />
 			[parameter:string fontFamily] &nbsp; = 'Arial'  - The font family.<br />
-			[parameter:Side side] &nbsp; = THREE.DoubleSide  - The side.
+			[parameter:Side side] &nbsp; = N3JS.DoubleSide  - The side.
 		</p>
 		<p>
 			Creates an instance of mesh text.
+		</p>
+
+		<h3>[constructor:NgxMeshText NgxMeshText](  [param:IBufferGeometry geometry]?,  [param:IMaterial|IMaterial[] material]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:IBufferGeometry geometry] - (optional) The geometry.<br />
+			[parameter:IMaterial|IMaterial[] material] - (optional) The material.
+		</p>
+		<p>
+			
 		</p>
 
 		<h2>Properties</h2>
@@ -40,9 +50,213 @@
 			See the base [page:Mesh Mesh] class for common properties.
 		</p>
 
+		<h3>[property:any fontColor] &nbsp; = 0xffffff <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string fontFamily] &nbsp; = 'Arial' <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number height] &nbsp; = 20 <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string message]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Side side] &nbsp; = N3JS.DoubleSide <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
+		</p>
+
 		<h2>Methods</h2>
 		<p>
 			See the base [page:Mesh Mesh] class for common methods.
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IEventDispatcher] &rarr;
+
+		<h3 id="IBufferGeometry">IBufferGeometry <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:IBufferGeometry IBufferGeometry](  ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:any attributes] -  The attributes.<br />
+			[property:IBox3 boundingBox] -  The bounding box.<br />
+			[property:ISphere boundingSphere] -  The bounding sphere.<br />
+			[property:any drawRange] -  The draw range.<br />
+			[property:any drawcalls] -  The drawcalls.<br />
+			[property:any groups] -  The groups.<br />
+			[property:number id] - Unique number of this buffergeometry instance<br />
+			[property:IBufferAttribute index] -  The index.<br />
+			[property:any isBufferGeometry] -  The is buffer geometry.<br />
+			[property:any morphAttributes] -  The morph attributes.<br />
+			[property:boolean morphTargetsRelative] -  The morph targets relative.<br />
+			[property:string name] -  The name.<br />
+			[property:any offsets] -  The offsets.<br />
+			[property:string type] -  The type.<br />
+			[property:any userData] -  The user data.<br />
+			[property:string uuid] -  The uuid.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:IBufferGeometry addAttribute](  [param:string name],  [param:IBufferAttribute|IInterleavedBufferAttribute attribute] ) <br />
+			[method:any addAttribute](  [param:string name],  [param:IBufferAttribute|IInterleavedBufferAttribute attribute],  [param:any name],  [param:any array],  [param:any itemSize] ) <br />
+			[method:void addDrawCall](  [param:any start],  [param:any count],  [param:any indexOffset]? ) <br />
+			[method:void addEventListener](  [param:T type],  [param:IEventListener listener] ) - Adds a listener to an event type.<br />
+			[method:void addGroup](  [param:number start],  [param:number count],  [param:number materialIndex]? ) <br />
+			[method:void addIndex](  [param:any index] ) <br />
+			[method:IBufferGeometry applyMatrix4](  [param:IMatrix4 matrix] ) - Bakes matrix transform directly into vertex coordinates.<br />
+			[method:IBufferGeometry applyQuaternion](  [param:IQuaternion|Quaternion q] ) <br />
+			[method:IBufferGeometry center](  ) <br />
+			[method:void clearDrawCalls](  ) <br />
+			[method:void clearGroups](  ) <br />
+			[method:IBufferGeometry clone](  ) <br />
+			[method:void computeBoundingBox](  ) - Computes bounding box of the geometry, updating Geometry.boundingBox attribute.<br />
+			Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are null.<br />
+			[method:void computeBoundingSphere](  ) - Computes bounding sphere of the geometry, updating Geometry.boundingSphere attribute.<br />
+			Bounding spheres aren't' computed by default. They need to be explicitly computed, otherwise they are null.<br />
+			[method:void computeTangents](  ) - Computes and adds tangent attribute to this geometry.<br />
+			[method:void computeVertexNormals](  ) - Computes vertex normals by averaging face normals.<br />
+			[method:IBufferGeometry copy](  [param:IBufferGeometry source] ) <br />
+			[method:IBufferGeometry deleteAttribute](  [param:BuiltinShaderAttributeName name] ) <br />
+			[method:void dispatchEvent](  [param:Event event] ) - Fire an event type.<br />
+			[method:void dispose](  ) - Disposes the object from memory.<br />
+			You need to call this when you want the bufferGeometry removed while the application is running.<br />
+			[method:IBufferAttribute|IInterleavedBufferAttribute getAttribute](  [param:BuiltinShaderAttributeName name] ) <br />
+			[method:IBufferAttribute getIndex](  ) <br />
+			[method:boolean hasAttribute](  [param:BuiltinShaderAttributeName name] ) <br />
+			[method:boolean hasEventListener](  [param:T type],  [param:IEventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:void lookAt](  [param:IVector3|Vector3 v] ) <br />
+			[method:IBufferGeometry merge](  [param:IBufferGeometry geometry],  [param:number offset]? ) <br />
+			[method:void normalizeNormals](  ) <br />
+			[method:IBufferGeometry removeAttribute](  [param:string name] ) <br />
+			[method:void removeEventListener](  [param:T type],  [param:IEventListener listener] ) - Removes a listener from an event type.<br />
+			[method:IBufferGeometry rotateX](  [param:number angle] ) <br />
+			[method:IBufferGeometry rotateY](  [param:number angle] ) <br />
+			[method:IBufferGeometry rotateZ](  [param:number angle] ) <br />
+			[method:IBufferGeometry scale](  [param:number x],  [param:number y],  [param:number z] ) <br />
+			[method:IBufferGeometry setAttribute](  [param:BuiltinShaderAttributeName name],  [param:IBufferAttribute|IInterleavedBufferAttribute attribute] ) <br />
+			[method:void setDrawRange](  [param:number start],  [param:number count] ) <br />
+			[method:IBufferGeometry setFromPoints](  [param: points] ) <br />
+			[method:IBufferGeometry setIndex](  [param:number[]|IBufferAttribute index] ) <br />
+			[method:any toJSON](  ) <br />
+			[method:IBufferGeometry toNonIndexed](  ) <br />
+			[method:IBufferGeometry translate](  [param:number x],  [param:number y],  [param:number z] ) 
+		</p>
+
+		<p class="desc">
+			This is a superefficent class for geometries because it saves all data in buffers.<br />
+			It reduces memory costs and cpu cycles. But it is not as easy to work with because of all the necessary buffer calculations.<br />
+			It is mainly interesting when working with static objects.<br />
+			see {@link https://github.com/mrdoob/three.js/blob/master/src/core/BufferGeometry.js|src/core/BufferGeometry.js}
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IEventDispatcher] &rarr;
+
+		<h3 id="IMaterial">IMaterial <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:IMaterial IMaterial](  [param:IMaterialParameters parameters]? ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:number alphaTest] - Sets the alpha value to be used when running an alpha test. Default is 0.<br />
+			[property:boolean alphaToCoverage] - Enables alpha to coverage. Can only be used with MSAA-enabled rendering contexts.<br />
+			[property:BlendingDstFactor blendDst] - Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.<br />
+			[property:number blendDstAlpha] - The tranparency of the .blendDst. Default is null.<br />
+			[property:BlendingEquation blendEquation] - Blending equation to use when applying blending. It's one of the constants defined in Three.js. Default is {@link AddEquation}.<br />
+			[property:number blendEquationAlpha] - The tranparency of the .blendEquation. Default is null.<br />
+			[property:BlendingDstFactor|BlendingSrcFactor blendSrc] - Blending source. It's one of the blending mode constants defined in Three.js. Default is {@link SrcAlphaFactor}.<br />
+			[property:number blendSrcAlpha] - The tranparency of the .blendSrc. Default is null.<br />
+			[property:Blending blending] - Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.<br />
+			[property:boolean clipIntersection] - Changes the behavior of clipping planes so that only their intersection is clipped, rather than their union. Default is false.<br />
+			[property:boolean clipShadows] - Defines whether to clip shadows according to the clipping planes specified on this material. Default is false.<br />
+			[property:any clippingPlanes] - User-defined clipping planes specified as IPlane objects in world space.<br />
+			These planes apply to the objects this material is attached to.<br />
+			Points in space whose signed distance to the plane is negative are clipped (not rendered).<br />
+			See the WebGL / clipping /intersection example. Default is null.<br />
+			[property:boolean colorWrite] - Whether to render the material's color. This can be used in conjunction with a mesh's .renderOrder property to create invisible objects that occlude other objects. Default is true.<br />
+			[property:any defines] - Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI * 2 }.<br />
+			The pairs are defined in both vertex and fragment shaders. Default is undefined.<br />
+			[property:DepthModes depthFunc] - Which depth function to use. Default is {@link LessEqualDepth}. See the depth mode constants for all possible values.<br />
+			[property:boolean depthTest] - Whether to have depth test enabled when rendering this material. Default is true.<br />
+			[property:boolean depthWrite] - Whether rendering this material has any effect on the depth buffer. Default is true.<br />
+			When drawing 2D overlays it can be useful to disable the depth writing in order to layer several things together without creating z-index artifacts.<br />
+			[property:boolean dithering] - Whether to apply dithering to the color to remove the appearance of banding. Default is false.<br />
+			[property:boolean fog] - Whether the material is affected by fog. Default is true.<br />
+			[property:PixelFormat format] - When this property is set to O3JS.RGBFormat, the material is considered to be opaque and alpha values are ignored.<br />
+			[property:number id] - Unique number of this material instance.<br />
+			[property:any isMaterial] - Used to check whether this or derived classes are materials. Default is true.<br />
+			You should not change this, as it used internally for optimisation.<br />
+			[property:string name] - Material name. Default is an empty string.<br />
+			[property:boolean needsUpdate] - Specifies that the material needs to be updated, WebGL wise. Set it to true if you made changes that need to be reflected in WebGL.<br />
+			This property is automatically set to true when instancing a new material.<br />
+			[property:number opacity] - Opacity. Default is 1.<br />
+			[property:boolean polygonOffset] - Whether to use polygon offset. Default is false. This corresponds to the POLYGON_OFFSET_FILL WebGL feature.<br />
+			[property:number polygonOffsetFactor] - Sets the polygon offset factor. Default is 0.<br />
+			[property:number polygonOffsetUnits] - Sets the polygon offset units. Default is 0.<br />
+			[property:'highp'|'mediump'|'lowp' precision] - Override the renderer's default precision for this material. Can be "highp", "mediump" or "lowp". Defaults is null.<br />
+			[property:boolean premultipliedAlpha] - Whether to premultiply the alpha (transparency) value. See WebGL / Materials / Transparency for an example of the difference. Default is false.<br />
+			[property:Side shadowSide] - Defines which of the face sides will cast shadows. Default is *null*.<br />
+			If *null*, the value is opposite that of side, above.<br />
+			[property:Side side] - Defines which of the face sides will be rendered - front, back or both.<br />
+			Default is O3JS.FrontSide. Other options are O3JS.BackSide and O3JS.DoubleSide.<br />
+			[property:StencilOp stencilFail] - Which stencil operation to perform when the comparison function returns false. Default is {@link KeepStencilOp}. See the stencil operation constants for all possible values.<br />
+			[property:StencilFunc stencilFunc] - The stencil comparison function to use. Default is {@link AlwaysStencilFunc}. See stencil operation constants for all possible values.<br />
+			[property:number stencilFuncMask] - The bit mask to use when comparing against the stencil buffer. Default is *0xFF*.<br />
+			[property:number stencilRef] - The value to use when performing stencil comparisons or stencil operations. Default is *0*.<br />
+			[property:boolean stencilWrite] - Whether rendering this material has any effect on the stencil buffer. Default is *false*.<br />
+			[property:number stencilWriteMask] - The bit mask to use when writing to the stencil buffer. Default is *0xFF*.<br />
+			[property:StencilOp stencilZFail] - Which stencil operation to perform when the comparison function returns true but the depth test fails.<br />
+			Default is {@link KeepStencilOp}.<br />
+			See the stencil operation constants for all possible values.<br />
+			[property:StencilOp stencilZPass] - Which stencil operation to perform when the comparison function returns true and the depth test passes.<br />
+			Default is {@link KeepStencilOp}.<br />
+			See the stencil operation constants for all possible values.<br />
+			[property:boolean toneMapped] - Defines whether this material is tone mapped according to the renderer's toneMapping setting.<br />
+			Default is true.<br />
+			[property:boolean transparent] - Defines whether this material is transparent. This has an effect on rendering as transparent objects need special treatment and are rendered after non-transparent objects.<br />
+			When set to true, the extent to which the material is transparent is controlled by setting it's .opacity property.<br />
+			Default is false.<br />
+			[property:string type] - Value is the string 'Material'. This shouldn't be changed, and can be used to find all objects of this type in a scene.<br />
+			[property:any userData] - An object that can be used to store custom data about the Material. It should not hold references to functions as these will not be cloned.<br />
+			[property:string uuid] - UUID of this material instance. This gets automatically assigned, so this shouldn't be edited.<br />
+			[property:number version] - This starts at 0 and counts how many times .needsUpdate is set to true.<br />
+			[property:boolean vertexColors] - Defines whether vertex coloring is used. Default is false.<br />
+			[property:boolean visible] - Defines whether this material is visible. Default is true.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void addEventListener](  [param:T type],  [param:IEventListener listener] ) - Adds a listener to an event type.<br />
+			[method:IMaterial clone](  ) - Return a new material with the same parameters as this material.<br />
+			[method:IMaterial copy](  [param:IMaterial material] ) - Copy the parameters from the passed material into this material.<br />
+			[method:string customProgramCacheKey](  ) - In case onBeforeCompile is used, this callback can be used to identify values of settings used in onBeforeCompile, so three.js can reuse a cached shader or recompile the shader as needed.<br />
+			[method:void dispatchEvent](  [param:Event event] ) - Fire an event type.<br />
+			[method:void dispose](  ) - This disposes the material. Textures of a material don't get disposed. These needs to be disposed by {@line THREE.Texture}.<br />
+			[method:boolean hasEventListener](  [param:T type],  [param:IEventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:void onBeforeCompile](  [param:IShader shader],  [param:IWebGLRenderer renderer] ) - An optional callback that is executed immediately before the shader program is compiled.<br />
+			This function is called with the shader source code as a parameter.<br />
+			Useful for the modification of built-in materials.<br />
+			[method:void removeEventListener](  [param:T type],  [param:IEventListener listener] ) - Removes a listener from an event type.<br />
+			[method:void setValues](  [param:IMaterialParameters values] ) - Sets the properties based on the values.<br />
+			[method:any toJSON](  [param:any meta]? ) - Convert the material to three.js JSON format.
+		</p>
+
+		<p class="desc">
+			Materials describe the appearance of objects. They are defined in a (mostly) renderer-independent way, so you don't have to rewrite materials if you decide to use a different renderer.
 		</p>
 
 		<br /><br />

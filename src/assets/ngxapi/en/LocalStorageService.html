@@ -15,210 +15,476 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:LocalStorageService LocalStorageService]( )</h3>
-		<p>Creates an instance of local storage service.</p>
+		<h3>[constructor:LocalStorageService LocalStorageService](  )</h3>
+		<p>
+			Creates an instance of local storage service.
+		</p>
 
 		<h2>Properties</h2>
-		<p>None</p>
+		<p>
+			None
+		</p>
 
 		<h2>Methods</h2>
-		<h3>
-			[method:void clear]( )<i class="modifier modifier-public">Public</i>
-		</h3>
-		<p>Clears local storage service</p>
+		<h3>[method:void clear](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Clears local storage service
+		</p>
 
-		<h3>
-			[method:void getExportObject]( [param:string fileName],
-			[param:Object3D|Object3D[] object], [param:StorageExportOption options]?
-			)<i class="modifier modifier-public">Public</i>
-		</h3>
+		<h3>[method:void getExportObject](  [param:string fileName],  [param:IObject3D|IObject3D[] object],  [param:StorageExportOption options]? )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string fileName] - The file name.<br />
-			[parameter:Object3D|Object3D[] object] - The object.<br />
+			[parameter:IObject3D|IObject3D[] object] - The object.<br />
 			[parameter:StorageExportOption options] - (optional) The options.
 		</p>
-		<p>Gets export object</p>
+		<p>
+			Gets export object
+		</p>
 
-		<h3>
-			[method:void getFont]( [param:any callBack], [param:string fontName],
-			[param:string fontWeight] )<i class="modifier modifier-public">Public</i>
-		</h3>
+		<h3>[method:void getFont](  [param:any callBack],  [param:string fontName],  [param:string fontWeight] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any callBack] - The call back.<br />
 			[parameter:string fontName] - The font name.<br />
 			[parameter:string fontWeight] - The font weight.
 		</p>
-		<p>Gets font</p>
+		<p>
+			Gets font
+		</p>
 
-		<h3>
-			[method:void getGeometry]( [param:string key], [param:any callBack],
-			[param:StorageOption options]? )<i class="modifier modifier-public"
-				>Public</i
-			>
-		</h3>
+		<h3>[method:void getGeometry](  [param:string key],  [param:any callBack],  [param:StorageOption options]? )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string key] - The key.<br />
 			[parameter:any callBack] - The call back.<br />
 			[parameter:StorageOption options] - (optional) The options.
 		</p>
-		<p>Gets geometry</p>
+		<p>
+			Gets geometry
+		</p>
 
-		<h3>
-			[method:string getItem]( [param:string key] )<i
-				class="modifier modifier-public"
-				>Public</i
-			>
-		</h3>
+		<h3>[method:string getItem](  [param:string key] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
-		<p>[parameter:string key] - The key.</p>
-		<p>Gets item</p>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			Gets item
+		</p>
 
-		<h3>
-			[method:void getMaterial]( [param:string key], [param:any callBack],
-			[param:StorageOption options]? )<i class="modifier modifier-public"
-				>Public</i
-			>
-		</h3>
+		<h3>[method:void getMaterial](  [param:string key],  [param:any callBack],  [param:StorageOption options]? )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string key] - The key.<br />
 			[parameter:any callBack] - The call back.<br />
 			[parameter:StorageOption options] - (optional) The options.
 		</p>
-		<p>Gets material</p>
+		<p>
+			Gets material
+		</p>
 
-		<h3>
-			[method:void getObject]( [param:string key], [param:any callBack],
-			[param:StorageOption options]? )<i class="modifier modifier-public"
-				>Public</i
-			>
-		</h3>
+		<h3>[method:void getObject](  [param:string key],  [param:any callBack],  [param:StorageOption options]? )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string key] - The key.<br />
 			[parameter:any callBack] - The call back.<br />
 			[parameter:StorageOption options] - (optional) The options.
 		</p>
-		<p>Gets object</p>
+		<p>
+			Gets object
+		</p>
 
-		<h3>
-			[method:void getScene]( [param:string key], [param:any callBack],
-			[param:StorageOption options]? )<i class="modifier modifier-public"
-				>Public</i
-			>
-		</h3>
+		<h3>[method:void getScene](  [param:string key],  [param:any callBack],  [param:StorageOption options]? )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string key] - The key.<br />
 			[parameter:any callBack] - The call back.<br />
 			[parameter:StorageOption options] - (optional) The options.
 		</p>
-		<p>Gets scene</p>
+		<p>
+			Gets scene
+		</p>
 
-		<h3>
-			[method:void getTexture]( [param:string key], [param:any callBack],
-			[param:StorageOption options]? )<i class="modifier modifier-public"
-				>Public</i
-			>
-		</h3>
+		<h3>[method:void getTexture](  [param:string key],  [param:any callBack],  [param:StorageOption options]? )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string key] - The key.<br />
 			[parameter:any callBack] - The call back.<br />
 			[parameter:StorageOption options] - (optional) The options.
 		</p>
-		<p>Gets texture</p>
+		<p>
+			Gets texture
+		</p>
 
-		<h3>
-			[method:void onError]( [param:any event] )<i
-				class="modifier modifier-public"
-				>Public</i
-			>
-		</h3>
+		<h3>[method:void onError](  [param:any event] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
-		<p>[parameter:any event] - The event.</p>
-		<p>Determines whether error on</p>
+		<p>
+			[parameter:any event] - The event.
+		</p>
+		<p>
+			Determines whether error on
+		</p>
 
-		<h3>
-			[method:void onProgress]( [param:any xhr] )<i
-				class="modifier modifier-public"
-				>Public</i
-			>
-		</h3>
+		<h3>[method:void onProgress](  [param:any xhr] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
-		<p>[parameter:any xhr] - The xhr.</p>
-		<p>Determines whether progress on</p>
+		<p>
+			[parameter:any xhr] - The xhr.
+		</p>
+		<p>
+			Determines whether progress on
+		</p>
 
-		<h3>
-			[method:void removeItem]( [param:string key] )<i
-				class="modifier modifier-public"
-				>Public</i
-			>
-		</h3>
+		<h3>[method:void removeItem](  [param:string key] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
-		<p>[parameter:string key] - The key.</p>
-		<p>Removes item</p>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			Removes item
+		</p>
 
-		<h3>
-			[method:void setItem]( [param:string key], [param:string value] )<i
-				class="modifier modifier-public"
-				>Public</i
-			>
-		</h3>
+		<h3>[method:void setItem](  [param:string key],  [param:string value] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string key] - The key.<br />
 			[parameter:string value] - The value.
 		</p>
-		<p>Sets item</p>
+		<p>
+			Sets item
+		</p>
 
-		<h3>
-			[method:Loader setLoaderWithOption]( [param:Loader loader],
-			[param:StorageOption options] )<i class="modifier modifier-public"
-				>Public</i
-			>
-		</h3>
+		<h3>[method:ILoader setLoaderWithOption](  [param:ILoader loader],  [param:StorageOption options] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Loader loader] - The loader.<br />
+			[parameter:ILoader loader] - The loader.<br />
 			[parameter:StorageOption options] - The options.
 		</p>
-		<p>Sets loader with option</p>
+		<p>
+			Sets loader with option
+		</p>
 
-		<h3>
-			[method:void setObject]( [param:string key], [param:Object3D mesh] )<i
-				class="modifier modifier-public"
-				>Public</i
-			>
-		</h3>
+		<h3>[method:void setObject](  [param:string key],  [param:IObject3D mesh] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string key] - The key.<br />
-			[parameter:Object3D mesh] - The mesh.
+			[parameter:IObject3D mesh] - The mesh.
 		</p>
-		<p>Sets object</p>
+		<p>
+			Sets object
+		</p>
 
-		<h3>
-			[method:void setScene]( [param:string key], [param:Scene scene] )<i
-				class="modifier modifier-public"
-				>Public</i
-			>
-		</h3>
+		<h3>[method:void setScene](  [param:string key],  [param:IScene scene] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string key] - The key.<br />
-			[parameter:Scene scene] - The scene.
+			[parameter:IScene scene] - The scene.
 		</p>
-		<p>Sets scene</p>
+		<p>
+			Sets scene
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="ILoader">ILoader <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:ILoader ILoader](  [param:ILoadingManager manager]? ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:string crossOrigin] -  The cross origin.<br />
+			[property:ILoadingManager manager] -  The manager.<br />
+			[property:string path] -  The path.<br />
+			[property:any requestHeader] -  The request header.<br />
+			[property:string resourcePath] -  The resource path.<br />
+			[property:boolean withCredentials] -  The with credentials.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:Promise loadAsync](  [param:string url],  [param:any onProgress]? ) <br />
+			[method:ILoader setCrossOrigin](  [param:string crossOrigin] ) <br />
+			[method:ILoader setPath](  [param:string path] ) <br />
+			[method:ILoader setRequestHeader](  [param:any requestHeader] ) <br />
+			[method:ILoader setResourcePath](  [param:string resourcePath] ) <br />
+			[method:ILoader setWithCredentials](  [param:boolean value] ) 
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IEventDispatcher] &rarr;
+
+		<h3 id="IObject3D">IObject3D <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:IObject3D IObject3D](  ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:IAnimationClip[] animations] - Array with animation clips.<br />
+			[property:boolean castShadow] - Gets rendered into shadow map.<br />
+			[property:IObject3D[] children] - Array with object's children.<br />
+			[property:IMaterial customDepthMaterial] - Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br />
+			When shadow-casting with a DirectionalLight or SpotLight, if you are (a) modifying vertex positions in<br />
+			the vertex shader, (b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a<br />
+			transparent texture with alphaTest, you must specify a customDepthMaterial for proper shadows.<br />
+			[property:IMaterial customDistanceMaterial] - Same as customDepthMaterial, but used with PointLight.<br />
+			[property:boolean frustumCulled] - When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object.<br />
+			If set to false the object gets rendered every frame even if it is not in the frustum of the camera.<br />
+			[property:number id] - Unique number of this object instance.<br />
+			[property:any isObject3D] - Used to check whether this or derived classes are Object3Ds. Default is true.<br />
+			You should not change this, as it is used internally for optimisation.<br />
+			[property:ILayers layers] -  The layers.<br />
+			[property:IMatrix4 matrix] - Local transform.<br />
+			[property:boolean matrixAutoUpdate] - When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also<br />
+			recalculates the matrixWorld property.<br />
+			[property:IMatrix4 matrixWorld] - The global transform of the object. If the Object3d has no parent, then it's identical to the local transform.<br />
+			[property:boolean matrixWorldNeedsUpdate] - When this is set, it calculates the matrixWorld in that frame and resets this property to false.<br />
+			[property:IMatrix4 modelViewMatrix] -  The model view matrix.<br />
+			[property:string name] - Optional name of the object (doesn't need to be unique).<br />
+			[property:IMatrix3 normalMatrix] -  The normal matrix.<br />
+			[property:IObject3D parent] - Object's parent in the scene graph.<br />
+			[property:IVector3 position] - Object's local position.<br />
+			[property:IQuaternion quaternion] - Object's local rotation as a Quaternion.<br />
+			[property:boolean receiveShadow] - Material gets baked in shadow receiving.<br />
+			[property:number renderOrder] - Overrides the default rendering order of scene graph objects, from lowest to highest renderOrder.<br />
+			Opaque and transparent objects remain sorted independently though.<br />
+			When this property is set for an instance of Group, all descendants objects will be sorted and rendered together.<br />
+			[property:IEuler rotation] - Object's local rotation (Euler angles), in radians.<br />
+			[property:IVector3 scale] - Object's local scale.<br />
+			[property:string type] -  The type.<br />
+			[property:IVector3 up] - Up direction.<br />
+			[property:any userData] - An object that can be used to store custom data about the Object3d. It should not hold references to functions as these will not be cloned.<br />
+			[property:string uuid] -  The uuid.<br />
+			[property:boolean visible] - Object gets rendered if true.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:IObject3D add](  [param:IObject3D[] object] ) - Adds object as child of this object.<br />
+			[method:void addEventListener](  [param:T type],  [param:IEventListener listener] ) - Adds a listener to an event type.<br />
+			[method:void applyMatrix4](  [param:IMatrix4 matrix] ) - This updates the position, rotation and scale with the matrix.<br />
+			[method:IObject3D applyQuaternion](  [param:IQuaternion|Quaternion quaternion] ) <br />
+			[method:IObject3D attach](  [param:IObject3D object] ) - Adds object as a child of this, while maintaining the object's world transform.<br />
+			[method:IObject3D clear](  ) - Removes all child objects.<br />
+			[method:IObject3D clone](  [param:boolean recursive]? ) <br />
+			[method:IObject3D copy](  [param:IObject3D source],  [param:boolean recursive]? ) <br />
+			[method:void dispatchEvent](  [param:IEvent event] ) - Fire an event type.<br />
+			[method:IObject3D getObjectById](  [param:number id] ) - Searches through the object's children and returns the first with a matching id.<br />
+			[method:IObject3D getObjectByName](  [param:string name] ) - Searches through the object's children and returns the first with a matching name.<br />
+			[method:IObject3D getObjectByProperty](  [param:string name],  [param:string value] ) <br />
+			[method:IVector3 getWorldDirection](  [param:IVector3|Vector3 target] ) <br />
+			[method:IVector3 getWorldPosition](  [param:IVector3|Vector3 target] ) <br />
+			[method:IQuaternion|Quaternion getWorldQuaternion](  [param:IQuaternion|Quaternion target] ) <br />
+			[method:IVector3 getWorldScale](  [param:IVector3|Vector3 target] ) <br />
+			[method:boolean hasEventListener](  [param:T type],  [param:IEventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:IVector3 localToWorld](  [param:IVector3|Vector3 vector] ) - Updates the vector from local space to world space.<br />
+			[method:void lookAt](  [param:number|IVector3|Vector3 vector],  [param:number y]?,  [param:number z]? ) - Rotates object to face point in space.<br />
+			[method:void onAfterRender](  [param:IWebGLRenderer renderer],  [param:IScene scene],  [param:ICamera camera],  [param:IBufferGeometry geometry],  [param:IMaterial material],  [param:IGroup group] ) - Calls after rendering object<br />
+			[method:void onBeforeRender](  [param:IWebGLRenderer renderer],  [param:IScene scene],  [param:ICamera camera],  [param:IBufferGeometry geometry],  [param:IMaterial material],  [param:IGroup group] ) - Calls before rendering object<br />
+			[method:void raycast](  [param:IRaycaster raycaster],  [param:IIntersection[] intersects] ) <br />
+			[method:IObject3D remove](  [param:IObject3D[] object] ) - Removes object as child of this object.<br />
+			[method:void removeEventListener](  [param:T type],  [param:IEventListener listener] ) - Removes a listener from an event type.<br />
+			[method:IObject3D removeFromParent](  ) - Removes this object from its current parent.<br />
+			[method:IObject3D rotateOnAxis](  [param:IVector3|Vector3 axis],  [param:number angle] ) - Rotate an object along an axis in object space. The axis is assumed to be normalized.<br />
+			[method:IObject3D rotateOnWorldAxis](  [param:IVector3|Vector3 axis],  [param:number angle] ) - Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.<br />
+			[method:IObject3D rotateX](  [param:number angle] ) <br />
+			[method:IObject3D rotateY](  [param:number angle] ) <br />
+			[method:IObject3D rotateZ](  [param:number angle] ) <br />
+			[method:void setRotationFromAxisAngle](  [param:IVector3|Vector3 axis],  [param:number angle] ) <br />
+			[method:void setRotationFromEuler](  [param:IEuler|Euler euler] ) <br />
+			[method:void setRotationFromMatrix](  [param:IMatrix4|Matrix4 m] ) <br />
+			[method:void setRotationFromQuaternion](  [param:IQuaternion|Quaternion q] ) <br />
+			[method:any toJSON](  [param:any meta]? ) <br />
+			[method:IObject3D translateOnAxis](  [param:IVector3|Vector3 axis],  [param:number distance] ) <br />
+			[method:IObject3D translateX](  [param:number distance] ) - Translates object along x axis by distance.<br />
+			[method:IObject3D translateY](  [param:number distance] ) - Translates object along y axis by distance.<br />
+			[method:IObject3D translateZ](  [param:number distance] ) - Translates object along z axis by distance.<br />
+			[method:void traverse](  [param:any callback] ) <br />
+			[method:void traverseAncestors](  [param:any callback] ) <br />
+			[method:void traverseVisible](  [param:any callback] ) <br />
+			[method:void updateMatrix](  ) - Updates local transform.<br />
+			[method:void updateMatrixWorld](  [param:boolean force]? ) - Updates global transform of the object and its children.<br />
+			[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] ) <br />
+			[method:IVector3 worldToLocal](  [param:IVector3|Vector3 vector] ) - Updates the vector from world space to local space.
+		</p>
+
+		<p class="desc">
+			Object3D
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IEventDispatcher] &rarr; [page:IObject3D] &rarr;
+
+		<h3 id="IScene">IScene <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:IScene IScene](  ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:IAnimationClip[] animations] - Array with animation clips.<br />
+			[property:boolean autoUpdate] -  The auto update.<br />
+			[property:ITexture|IColor background] -  The background.<br />
+			[property:boolean castShadow] - Gets rendered into shadow map.<br />
+			[property:IObject3D[] children] - Array with object's children.<br />
+			[property:IMaterial customDepthMaterial] - Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br />
+			When shadow-casting with a DirectionalLight or SpotLight, if you are (a) modifying vertex positions in<br />
+			the vertex shader, (b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a<br />
+			transparent texture with alphaTest, you must specify a customDepthMaterial for proper shadows.<br />
+			[property:IMaterial customDistanceMaterial] - Same as customDepthMaterial, but used with PointLight.<br />
+			[property:ITexture environment] -  The environment.<br />
+			[property:IFogBase fog] - A fog instance defining the type of fog that affects everything rendered in the scene. Default is null.<br />
+			[property:boolean frustumCulled] - When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object.<br />
+			If set to false the object gets rendered every frame even if it is not in the frustum of the camera.<br />
+			[property:number id] - Unique number of this object instance.<br />
+			[property:any isObject3D] - Used to check whether this or derived classes are Object3Ds. Default is true.<br />
+			You should not change this, as it is used internally for optimisation.<br />
+			[property:any isScene] -  The is scene.<br />
+			[property:ILayers layers] -  The layers.<br />
+			[property:IMatrix4 matrix] - Local transform.<br />
+			[property:boolean matrixAutoUpdate] - When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also<br />
+			recalculates the matrixWorld property.<br />
+			[property:IMatrix4 matrixWorld] - The global transform of the object. If the Object3d has no parent, then it's identical to the local transform.<br />
+			[property:boolean matrixWorldNeedsUpdate] - When this is set, it calculates the matrixWorld in that frame and resets this property to false.<br />
+			[property:IMatrix4 modelViewMatrix] -  The model view matrix.<br />
+			[property:string name] - Optional name of the object (doesn't need to be unique).<br />
+			[property:IMatrix3 normalMatrix] -  The normal matrix.<br />
+			[property:IMaterial overrideMaterial] - If not null, it will force everything in the scene to be rendered with that material. Default is null.<br />
+			[property:IObject3D parent] - Object's parent in the scene graph.<br />
+			[property:IVector3 position] - Object's local position.<br />
+			[property:IQuaternion quaternion] - Object's local rotation as a Quaternion.<br />
+			[property:boolean receiveShadow] - Material gets baked in shadow receiving.<br />
+			[property:number renderOrder] - Overrides the default rendering order of scene graph objects, from lowest to highest renderOrder.<br />
+			Opaque and transparent objects remain sorted independently though.<br />
+			When this property is set for an instance of Group, all descendants objects will be sorted and rendered together.<br />
+			[property:IEuler rotation] - Object's local rotation (Euler angles), in radians.<br />
+			[property:IVector3 scale] - Object's local scale.<br />
+			[property:any type] -  The type.<br />
+			[property:IVector3 up] - Up direction.<br />
+			[property:any userData] - An object that can be used to store custom data about the Object3d. It should not hold references to functions as these will not be cloned.<br />
+			[property:string uuid] -  The uuid.<br />
+			[property:boolean visible] - Object gets rendered if true.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:IScene add](  [param:IObject3D[] object] ) - Adds object as child of this object.<br />
+			[method:void addEventListener](  [param:T type],  [param:IEventListener listener] ) - Adds a listener to an event type.<br />
+			[method:void applyMatrix4](  [param:IMatrix4 matrix] ) - This updates the position, rotation and scale with the matrix.<br />
+			[method:IScene applyQuaternion](  [param:IQuaternion|Quaternion quaternion] ) <br />
+			[method:IScene attach](  [param:IObject3D object] ) - Adds object as a child of this, while maintaining the object's world transform.<br />
+			[method:IScene clear](  ) - Removes all child objects.<br />
+			[method:IScene clone](  [param:boolean recursive]? ) <br />
+			[method:IScene copy](  [param:IScene source],  [param:boolean recursive]? ) <br />
+			[method:void dispatchEvent](  [param:IEvent event] ) - Fire an event type.<br />
+			[method:IObject3D getObjectById](  [param:number id] ) - Searches through the object's children and returns the first with a matching id.<br />
+			[method:IObject3D getObjectByName](  [param:string name] ) - Searches through the object's children and returns the first with a matching name.<br />
+			[method:IObject3D getObjectByProperty](  [param:string name],  [param:string value] ) <br />
+			[method:IVector3 getWorldDirection](  [param:IVector3|Vector3 target] ) <br />
+			[method:IVector3 getWorldPosition](  [param:IVector3|Vector3 target] ) <br />
+			[method:IQuaternion|Quaternion getWorldQuaternion](  [param:IQuaternion|Quaternion target] ) <br />
+			[method:IVector3 getWorldScale](  [param:IVector3|Vector3 target] ) <br />
+			[method:boolean hasEventListener](  [param:T type],  [param:IEventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:IVector3 localToWorld](  [param:IVector3|Vector3 vector] ) - Updates the vector from local space to world space.<br />
+			[method:void lookAt](  [param:number|IVector3|Vector3 vector],  [param:number y]?,  [param:number z]? ) - Rotates object to face point in space.<br />
+			[method:void onAfterRender](  [param:IWebGLRenderer renderer],  [param:IScene scene],  [param:ICamera camera] ) - Calls after rendering scene<br />
+			[method:void onBeforeRender](  [param:IWebGLRenderer renderer],  [param:IScene scene],  [param:ICamera camera],  [param:any renderTarget] ) - Calls before rendering scene<br />
+			[method:void raycast](  [param:IRaycaster raycaster],  [param:IIntersection[] intersects] ) <br />
+			[method:IScene remove](  [param:IObject3D[] object] ) - Removes object as child of this object.<br />
+			[method:void removeEventListener](  [param:T type],  [param:IEventListener listener] ) - Removes a listener from an event type.<br />
+			[method:IScene removeFromParent](  ) - Removes this object from its current parent.<br />
+			[method:IScene rotateOnAxis](  [param:IVector3|Vector3 axis],  [param:number angle] ) - Rotate an object along an axis in object space. The axis is assumed to be normalized.<br />
+			[method:IScene rotateOnWorldAxis](  [param:IVector3|Vector3 axis],  [param:number angle] ) - Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.<br />
+			[method:IScene rotateX](  [param:number angle] ) <br />
+			[method:IScene rotateY](  [param:number angle] ) <br />
+			[method:IScene rotateZ](  [param:number angle] ) <br />
+			[method:void setRotationFromAxisAngle](  [param:IVector3|Vector3 axis],  [param:number angle] ) <br />
+			[method:void setRotationFromEuler](  [param:IEuler|Euler euler] ) <br />
+			[method:void setRotationFromMatrix](  [param:IMatrix4|Matrix4 m] ) <br />
+			[method:void setRotationFromQuaternion](  [param:IQuaternion|Quaternion q] ) <br />
+			[method:any toJSON](  [param:any meta]? ) <br />
+			[method:IScene translateOnAxis](  [param:IVector3|Vector3 axis],  [param:number distance] ) <br />
+			[method:IScene translateX](  [param:number distance] ) - Translates object along x axis by distance.<br />
+			[method:IScene translateY](  [param:number distance] ) - Translates object along y axis by distance.<br />
+			[method:IScene translateZ](  [param:number distance] ) - Translates object along z axis by distance.<br />
+			[method:void traverse](  [param:any callback] ) <br />
+			[method:void traverseAncestors](  [param:any callback] ) <br />
+			[method:void traverseVisible](  [param:any callback] ) <br />
+			[method:void updateMatrix](  ) - Updates local transform.<br />
+			[method:void updateMatrixWorld](  [param:boolean force]? ) - Updates global transform of the object and its children.<br />
+			[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] ) <br />
+			[method:IVector3 worldToLocal](  [param:IVector3|Vector3 vector] ) - Updates the vector from world space to local space.
+		</p>
+
+		<p class="desc">
+			Scenes allow you to set up what and where is to be rendered by three.js. This is where you place objects, lights and cameras.
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="StorageExportOption">StorageExportOption <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:IAnimationClip[] animations]? - animations<br />
+			[property:boolean binary]? - binary<br />
+			[property:boolean embedImages]? - embedImages<br />
+			[property:string[] excludeAttributes]? - excludeAttributes<br />
+			[property:boolean forceIndices]? - forceIndices<br />
+			[property:boolean forcePowerOfTwoTextures]? - forcePowerOfTwoTextures<br />
+			[property:boolean includeCustomExtensions]? - includeCustomExtensions<br />
+			[property:boolean littleEndian]? - littleEndian<br />
+			[property:number maxTextureSize]? - maxTextureSize<br />
+			[property:boolean onlyVisible]? - onlyVisible<br />
+			[property:boolean trs]? - trs<br />
+			[property:boolean truncateDrawRange]? - truncateDrawRange
+		</p>
+
+		<p class="desc">
+			Storage export option
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="StorageOption">StorageOption <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean autoCenter]? - autoCenter<br />
+			[property:string baseUrl]? - baseUrl<br />
+			[property:any body]? - body<br />
+			[property:string cssType]? - cssType<br />
+			[property:any dataType]? - dataType<br />
+			[property:boolean debug]? - debug<br />
+			[property:boolean debugName]? - debugName<br />
+			[property:boolean drawFillShapes]? - drawFillShapes<br />
+			[property:boolean drawStrokes]? - drawStrokes<br />
+			[property:boolean fillShapesWireframe]? - fillShapesWireframe<br />
+			[property:boolean firstMesh]? - firstMesh<br />
+			[property:boolean geometry]? - geometry<br />
+			[property:string loaderType]? - loaderType<br />
+			[property:string material]? - material<br />
+			[property:string name]? - name<br />
+			[property:any object]? - ref object<br />
+			[property:string path]? - path<br />
+			[property:number quality]? - quality<br />
+			[property:string resourcePath]? - The resource path<br />
+			[property:number scale]? - scale<br />
+			[property:boolean strokesWireframe]? - strokesWireframe<br />
+			[property:string type]? - type<br />
+			[property:boolean useDraco]? - Use Darco<br />
+			[property:boolean useKtx2]? - Use Ktx2<br />
+			[property:string|string[] vmdUrl]? - vmdUrl
+		</p>
+
+		<p class="desc">
+			Storage option
+		</p>
 
 		<br /><br />
 		<h2>Source</h2>
-		<p>
-			[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/local-storage.service.ts
-			/local-storage.service.ts]
-		</p>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/local-storage.service.ts /local-storage.service.ts]</p>
 	</body>
 </html>

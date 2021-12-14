@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 	<head>
-		<meta charset="utf-8" />
+		<meta charset="utf-8">
 		<base href="../../../" />
 		<script src="page.js"></script>
 		<link type="text/css" rel="stylesheet" href="page.css" />
@@ -27,26 +27,32 @@
 			</p>
 
 			<code>
-				#info { position: absolute; top: 10px; width: 100%; text-align: center;
-				z-index: 100; display:block; }
+#info {
+	position: absolute;
+	top: 10px;
+	width: 100%;
+	text-align: center;
+	z-index: 100;
+	display:block;
+}
 			</code>
+
 		</div>
+
+
 
 		<h2>2.テキストをcanvasに書いて、[page:Texture]として使用する</h2>
 		<div>
-			<p>
-				three.jsのsceneで平面上にテキストを簡単に描きたい場合は、この方法を使用します。
-			</p>
+			<p>three.jsのsceneで平面上にテキストを簡単に描きたい場合は、この方法を使用します。</p>
 		</div>
 
-		<h2>
-			3.お気に入りの3Dアプリケーションでモデルを作成し、three.jsに書き出す
-		</h2>
+
+		<h2>3.お気に入りの3Dアプリケーションでモデルを作成し、three.jsに書き出す</h2>
 		<div>
-			<p>
-				他の3Dアプリケーションを使用して、three.jsにインポートしたい場合にこの方法を使用します。
-			</p>
+			<p>他の3Dアプリケーションを使用して、three.jsにインポートしたい場合にこの方法を使用します。</p>
 		</div>
+
+
 
 		<h2>4. Procedural Text Geometry</h2>
 		<div>
@@ -58,9 +64,8 @@
 			</p>
 			<p>
 				しかし、これを機能させるためには、TextGeometryのfontパラメータにTHREE.Fontのインスタンスを設定する必要があります。
-				これをどのように行うかについては [page:TextGeometry]
-				ページを参照してください。また、受け入れ可能な各パラメータの説明、THREE.js
-				ディストリビューションに付属する JSON フォントの一覧も参照してください。
+
+				これをどのように行うかについては [page:TextGeometry] ページを参照してください。また、受け入れ可能な各パラメータの説明、THREE.js ディストリビューションに付属する JSON フォントの一覧も参照してください。
 			</p>
 
 			<h3>Examples</h3>
@@ -74,36 +79,30 @@
 				Typefaceがダウンしている場合や、そこにないフォントを使いたい場合は、以下のリンク先のチュートリアル(blender用のPythonスクリプトでテキストをThree.jsのJSON形式に書き出す)を参考にしてください。
 				[link:http://www.jaanga.com/2012/03/blender-to-threejs-create-3d-text-with.html]
 			</p>
+
 		</div>
+
+
 
 		<h2>5. Bitmap Fonts</h2>
 		<div>
 			<p>
-				BMFonts（ビットマップフォント）では、グリフを1つのBufferGeometryにバッチ処理することができます。BMFont
-				レンダリングは、ワードラッピング、文字間隔、カーニング、標準的な導関数を持つ符号付き距離フィールド、マルチチャンネル符号付き距離フィールド、マルチテクスチャフォントなどをサポートしています。[link:https://github.com/Jam3/three-bmfont-text
-				three-bmfont-text]を参照してください。
+				BMFonts（ビットマップフォント）では、グリフを1つのBufferGeometryにバッチ処理することができます。BMFont レンダリングは、ワードラッピング、文字間隔、カーニング、標準的な導関数を持つ符号付き距離フィールド、マルチチャンネル符号付き距離フィールド、マルチテクスチャフォントなどをサポートしています。[link:https://github.com/Jam3/three-bmfont-text three-bmfont-text]を参照してください。
 			</p>
 			<p>
-				[link:https://github.com/etiennepinchon/aframe-fonts A-Frame
-				Fonts]のようなプロジェクトではストックフォントが利用できますが、任意の
-				.TTF
-				フォントから独自のフォントを作成し、プロジェクトに必要な文字のみを含めるように最適化することもできます。
+				[link:https://github.com/etiennepinchon/aframe-fonts A-Frame Fonts]のようなプロジェクトではストックフォントが利用できますが、任意の .TTF フォントから独自のフォントを作成し、プロジェクトに必要な文字のみを含めるように最適化することもできます。
 			</p>
-			<p>役に立つツール</p>
+			<p>
+				役に立つツール
+			</p>
 			<ul>
-				<li>
-					[link:http://msdf-bmfont.donmccurdy.com/ msdf-bmfont-web]
-					<i>(web-based)</i>
-				</li>
-				<li>
-					[link:https://github.com/soimy/msdf-bmfont-xml msdf-bmfont-xml]
-					<i>(commandline)</i>
-				</li>
-				<li>
-					[link:https://github.com/libgdx/libgdx/wiki/Hiero hiero]
-					<i>(desktop app)</i>
-				</li>
+				<li>[link:http://msdf-bmfont.donmccurdy.com/ msdf-bmfont-web] <i>(web-based)</i></li>
+				<li>[link:https://github.com/soimy/msdf-bmfont-xml msdf-bmfont-xml] <i>(commandline)</i></li>
+				<li>[link:https://github.com/libgdx/libgdx/wiki/Hiero hiero] <i>(desktop app)</i></li>
 			</ul>
 		</div>
+
+
+
 	</body>
 </html>

@@ -34,7 +34,7 @@
 				&lt;ngx3js-pass [type]="'bloom'" [strength]="0.75"&gt;&lt;/ngx3js-pass&gt;<br />
 				&lt;ngx3js-pass<br />
 					[type]="'film'"<br />
-					[noiseIntensity]="0.5" <br />
+					[noiseIntensity]="0.5"<br />
 					[scanlinesIntensity]="0.5" [scanlinesCount]="1448"<br />
 					[grayscale]="false"<br />
 				&gt;&lt;/ngx3js-pass&gt;<br />
@@ -158,7 +158,7 @@
 			[ centerY ]="... number -- The centerY of pass component "
 			[ clear ]="... boolean -- The clear of pass component "
 			[ clearAlpha ]="... number -- The clearAlpha of pass compone... "
-			[ clearColor ]="... string|number|Color -- The clearColor of pass compone... "
+			[ clearColor ]="... ThreeColor -- The clearColor of pass compone... "
 			[ damp ]="... number -- The damp of pass component "
 			[ debug ]="... boolean -- Debug this Object "
 			[ depthTexture ]="... boolean -- The depthTexture of pass compo... "
@@ -169,7 +169,7 @@
 			[ edgeThickness ]="... number -- The edgeThickness of pass comp... "
 			[ enabled ]="... boolean -- Enabled or Not "
 			[ encoding ]="... string -- [THREE.LinearEncoding](https:/... "
-			[ envMap ]="... CubeTexture|TextureComponent -- The envMap of pass component "
+			[ envMap ]="... ICubeTexture|TextureComponent -- The envMap of pass component "
 			[ focus ]="... number -- The focus of pass component "
 			[ fragmentShader ]="... string -- The fragmentShader of pass com... "
 			[ goWild ]="... boolean -- The goWild of pass component "
@@ -194,14 +194,14 @@
 			( onLoad )="...($event : PassComponent -- Will be called when load compl... )"
 			[ opacity ]="... number -- The opacity of pass component "
 			[ output ]="... string -- The Input of pass component "
-			[ overrideMaterial ]="... Material -- The overrideMaterial of pass c... "
+			[ overrideMaterial ]="... IMaterial -- The overrideMaterial of pass c... "
 			[ overrideParams ]="... any -- The override params "
-			[ params ]="... BokehPassParamters -- The params of pass component "
-			[ patternTexture ]="... Texture|TextureComponent -- The patternTexture of pass com... "
+			[ params ]="... IBokehPassParamters -- The params of pass component "
+			[ patternTexture ]="... ITexture|TextureComponent -- The patternTexture of pass com... "
 			[ pulsePeriod ]="... number -- The pulsePeriod of pass compon... "
 			[ radius ]="... number -- The radius of pass component "
 			[ refer ]="... PassComponent -- The refer of pass component "
-			[ renderTarget ]="... WebGLRenderTarget -- The renderTarget of pass compo... "
+			[ renderTarget ]="... IWebGLRenderTarget -- The renderTarget of pass compo... "
 			[ renderToScreen ]="... boolean -- The renderToScreen of pass com... "
 			[ resolution ]="... number -- The resolution of pass compone... "
 			[ sampleLevel ]="... number -- The sampleLevel of pass compon... "
@@ -219,12 +219,12 @@
 			[ scanlinesIntensity ]="... number -- The scanlinesIntensity of pass... "
 			[ scene ]="... any -- The scene of pass component "
 			[ selectedObjects ]="... any[] -- The selectedObjects of pass co... "
-			[ selects ]="... Mesh[] -- Define whether the material us... "
+			[ selects ]="... IMesh[] -- Define whether the material us... "
 			[ shader ]="... string -- The Input of pass component "
 			[ sigma ]="... number -- The sigma of pass component "
-			[ size ]="... Vector2|SizeComponent -- The size of pass component "
+			[ size ]="... IVector2|SizeComponent -- The size of pass component "
 			[ strength ]="... number -- The strength of pass component "
-			[ texture ]="... Texture|TextureComponent -- The texture of pass component "
+			[ texture ]="... ITexture|TextureComponent -- The texture of pass component "
 			[ textureId ]="... string -- The textureId of pass componen... "
 			[ threshold ]="... number -- The threshold of pass componen... "
 			[ tween ]="... any -- Tween animation params "
@@ -245,6 +245,21 @@
 		<h2>Properties</h2>
 		<p>
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common properties.
+		</p>
+
+		<h3>[property:string[] OBJECT_ATTR] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Object attr of abstract subscribe component
+		</p>
+
+		<h3>[property:string[] _changeList]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Change list of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean _needUpdate] &nbsp; = true <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Need update of abstract subscribe component
 		</p>
 
 		<h3>[property:boolean accumulate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -302,7 +317,7 @@
 			The clearAlpha of pass component
 		</p>
 
-		<h3>[property:string|number|Color clearColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:ThreeColor clearColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The clearColor of pass component
 		</p>
@@ -310,6 +325,11 @@
 		<h3>[property:number damp]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The damp of pass component
+		</p>
+
+		<h3>[property:boolean debug] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Debug this Object
 		</p>
 
 		<h3>[property:boolean depthTexture]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -342,6 +362,11 @@
 			The edgeThickness of pass component
 		</p>
 
+		<h3>[property:boolean enabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Enabled or Not
+		</p>
+
 		<h3>[property:string encoding]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			[THREE.LinearEncoding](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) is the default.<br />
@@ -360,7 +385,7 @@
 			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
 		</p>
 
-		<h3>[property:CubeTexture|TextureComponent envMap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:ICubeTexture|TextureComponent envMap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The envMap of pass component
 		</p>
@@ -400,6 +425,11 @@
 		<h3>[property:ThreeColor hiddenEdgeColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The hiddenEdgeColor of pass component
+		</p>
+
+		<h3>[property:string id] &nbsp; = '' <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Id of abstract subscribe component
 		</p>
 
 		<h3>[property:number intensity]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -474,6 +504,16 @@
 			The noiseIntensity of pass component
 		</p>
 
+		<h3>[property:EventEmitter onDestory] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when before destory. The argument will be the loaded self
+		</p>
+
+		<h3>[property:EventEmitter onLoad] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when load completes. The argument will be the loaded self
+		</p>
+
 		<h3>[property:number opacity]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The opacity of pass component
@@ -485,17 +525,27 @@
 			Notice - case insensitive.
 		</p>
 
-		<h3>[property:Material overrideMaterial]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:IMaterial overrideMaterial]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The overrideMaterial of pass component
 		</p>
 
-		<h3>[property:BokehPassParamters params]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:any overrideParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The override params
+		</p>
+
+		<h3>[property:IBokehPassParamters params]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The params of pass component
 		</p>
 
-		<h3>[property:Texture|TextureComponent patternTexture]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:any parent]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Parent of abstract subscribe component
+		</p>
+
+		<h3>[property:ITexture|TextureComponent patternTexture]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The patternTexture of pass component
 		</p>
@@ -515,7 +565,7 @@
 			The refer of pass component
 		</p>
 
-		<h3>[property:WebGLRenderTarget renderTarget]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:IWebGLRenderTarget renderTarget]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The renderTarget of pass component
 		</p>
@@ -605,9 +655,14 @@
 			The selectedObjects of pass component
 		</p>
 
-		<h3>[property:Mesh[] selects]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:IMesh[] selects]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Define whether the material uses morphTargets. Default is false.
+		</p>
+
+		<h3>[property:any selfAny] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
 		</p>
 
 		<h3>[property:string shader]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -621,7 +676,7 @@
 			The sigma of pass component
 		</p>
 
-		<h3>[property:Vector2|SizeComponent size]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:IVector2|SizeComponent size]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The size of pass component
 		</p>
@@ -631,7 +686,12 @@
 			The strength of pass component
 		</p>
 
-		<h3>[property:Texture|TextureComponent texture]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string subscribeType]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Subscribe type of abstract subscribe component
+		</p>
+
+		<h3>[property:ITexture|TextureComponent texture]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The texture of pass component
 		</p>
@@ -644,6 +704,11 @@
 		<h3>[property:number threshold]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The threshold of pass component
+		</p>
+
+		<h3>[property:any tween]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Tween animation params
 		</p>
 
 		<h3>[property:string type] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -676,6 +741,11 @@
 			The usePatternTexture of pass component
 		</p>
 
+		<h3>[property:any userData]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			An object that can be used to store custom data about the Object3D. It should not hold references to functions as these will not be cloned.
+		</p>
+
 		<h3>[property:string vertexShader]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The vertexShader of pass component
@@ -698,9 +768,23 @@
 			   '100%' = 1024, '50%' = 512, '50%-10' = 502, '50%+30' = 542
 		</p>
 
+		<h3>[property:string windowExport]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Export this Object to window global variables
+		</p>
+
 		<h2>Methods</h2>
 		<p>
 			See the base [page:AbstractSubscribeComponent AbstractSubscribeComponent] class for common methods.
+		</p>
+
+		<h3>[method:void addChanges](  [param:string|string[]|SimpleChanges key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[]|SimpleChanges key] - The key.
+		</p>
+		<p>
+			Adds changes
 		</p>
 
 		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -710,6 +794,77 @@
 		</p>
 		<p>
 			Applys changes
+		</p>
+
+		<h3>[method:void callOnLoad](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Calls on load
+		</p>
+
+		<h3>[method:SimpleChanges checkChanges](  [param:SimpleChanges changes] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:SimpleChanges changes] - The changes.
+		</p>
+		<p>
+			Checks changes<br />
+			<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:void clearChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Clears changes
+		</p>
+
+		<h3>[method:void consoleLog](  [param:string key],  [param:any object],  [param:string level] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:string level] - The level.
+		</p>
+		<p>
+			Consoles log
+		</p>
+
+		<h3>[method:void consoleLogTime](  [param:string key],  [param:any object],  [param:number repeat] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:number repeat] - The repeat.
+		</p>
+		<p>
+			Consoles log time
+		</p>
+
+		<h3>[method:void destroyLocalComponent](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			Destroys local component
+		</p>
+
+		<h3>[method:void dispose](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Disposes abstract subscribe component
+		</p>
+
+		<h3>[method:string[] getChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Gets changes<br />
+			<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:string getId](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets id<br />
+			<br />
+			Returns : id
 		</p>
 
 		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -726,25 +881,1096 @@
 			Returns : pass
 		</p>
 
-		<h3>[method:void setEffectComposer](  [param:Scene scene]?,  [param:Camera camera]?,  [param:EffectComposer effectComposer]?,  [param:WebGLRenderer renderer]? )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:Observable getSubscribe](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets subscribe<br />
+			<br />
+			Returns : subscribe
+		</p>
+
+		<h3>[method:Promise getTimeout](  [param:number timeDelay] )<i class="modifier modifier-protected">Protected</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Scene scene] - (optional) The scene.<br />
-			[parameter:Camera camera] - (optional) The camera.<br />
-			[parameter:EffectComposer effectComposer] - (optional) The effect composer.<br />
-			[parameter:WebGLRenderer renderer] - (optional) The renderer.
+			[parameter:number timeDelay] - The time delay.
+		</p>
+		<p>
+			Gets timeout<br />
+			특정 시간후에 이벤트 발생시키기<br />
+			<br />
+			Returns : timeout
+		</p>
+
+		<h3>[method:void getUserData](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets user data
+		</p>
+
+		<h3>[method:T initLocalComponent](  [param:string key],  [param:T component] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:T component] - The component.
+		</p>
+		<p>
+			Inits local component<br />
+			<br />
+			Returns : local component
+		</p>
+
+		<h3>[method:boolean isIdEuals](  [param:string id] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string id] - The id.
+		</p>
+		<p>
+			Determines whether id euals is<br />
+			<br />
+			Returns : true if id euals
+		</p>
+
+		<h3>[method:void runSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Runs subscribe next
+		</p>
+
+		<h3>[method:void setEffectComposer](  [param:IScene scene]?,  [param:ICamera camera]?,  [param:IEffectComposer effectComposer]?,  [param:IWebGLRenderer renderer]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:IScene scene] - (optional) The scene.<br />
+			[parameter:ICamera camera] - (optional) The camera.<br />
+			[parameter:IEffectComposer effectComposer] - (optional) The effect composer.<br />
+			[parameter:IWebGLRenderer renderer] - (optional) The renderer.
 		</p>
 		<p>
 			Sets effect composer
 		</p>
 
-		<h3>[method:void setScene](  [param:Scene scene]? )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:void setObject](  [param:any obj] )<i class="modifier modifier-protected">Protected</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Scene scene] - (optional) The scene.
+			[parameter:any obj] - The obj.
+		</p>
+		<p>
+			Sets object
+		</p>
+
+		<h3>[method:boolean setParent](  [param:any parent] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any parent] - The parent.
+		</p>
+		<p>
+			Sets parent<br />
+			<br />
+			Returns : true if parent
+		</p>
+
+		<h3>[method:void setScene](  [param:IScene scene]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:IScene scene] - (optional) The scene.
 		</p>
 		<p>
 			Sets scene
+		</p>
+
+		<h3>[method:void setSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Sets subscribe next
+		</p>
+
+		<h3>[method:void setSubscribeType](  [param:string subscribeType] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string subscribeType] - The subscribe type.
+		</p>
+		<p>
+			Sets subscribe type
+		</p>
+
+		<h3>[method:void setTween](  [param:any tweenData] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any tweenData] - The tween data.
+		</p>
+		<p>
+			Sets tween
+		</p>
+
+		<h3>[method:void setUserData](  [param:string key],  [param:any value] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any value] - The value.
+		</p>
+		<p>
+			Sets user data
+		</p>
+
+		<h3>[method:void subscribeListQuery](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query
+		</p>
+
+		<h3>[method:void subscribeListQueryChange](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query change
+		</p>
+
+		<h3>[method:void subscribeRefer](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer
+		</p>
+
+		<h3>[method:void subscribeReferList](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer list
+		</p>
+
+		<h3>[method:void unSubscribeRefer](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer
+		</p>
+
+		<h3>[method:void unSubscribeReferList](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer list
+		</p>
+
+		<h3>[method:Subscription[] unSubscription](  [param:Subscription[] subscriptions] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Subscription[] subscriptions] - The subscriptions.
+		</p>
+		<p>
+			subscription<br />
+			<br />
+			Returns : subscription
+		</p>
+
+		<h3>[method:void updateInputParams](  [param:any params],  [param:boolean firstChange],  [param:SimpleChanges changes],  [param:string type] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any params] - The params.<br />
+			[parameter:boolean firstChange] - The first change.<br />
+			[parameter:SimpleChanges changes] - The changes.<br />
+			[parameter:string type] - The type.
+		</p>
+		<p>
+			Updates input params
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="IBokehPassParamters">IBokehPassParamters <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:number aperture]? -  The aperture.<br />
+			[property:number aspect]? -  The aspect.<br />
+			[property:number focus]? -  The focus.<br />
+			[property:number height]? -  The height.<br />
+			[property:number maxblur]? -  The maxblur.<br />
+			[property:number width]? -  The width.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IEventDispatcher] &rarr; [page:IObject3D] &rarr;
+
+		<h3 id="ICamera">ICamera <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:ICamera ICamera](  ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:IAnimationClip[] animations] - Array with animation clips.<br />
+			[property:boolean castShadow] - Gets rendered into shadow map.<br />
+			[property:IObject3D[] children] - Array with object's children.<br />
+			[property:IMaterial customDepthMaterial] - Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br />
+			When shadow-casting with a DirectionalLight or SpotLight, if you are (a) modifying vertex positions in<br />
+			the vertex shader, (b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a<br />
+			transparent texture with alphaTest, you must specify a customDepthMaterial for proper shadows.<br />
+			[property:IMaterial customDistanceMaterial] - Same as customDepthMaterial, but used with PointLight.<br />
+			[property:boolean frustumCulled] - When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object.<br />
+			If set to false the object gets rendered every frame even if it is not in the frustum of the camera.<br />
+			[property:number id] - Unique number of this object instance.<br />
+			[property:any isCamera] -  The is camera.<br />
+			[property:any isObject3D] - Used to check whether this or derived classes are Object3Ds. Default is true.<br />
+			You should not change this, as it is used internally for optimisation.<br />
+			[property:ILayers layers] -  The layers.<br />
+			[property:IMatrix4 matrix] - Local transform.<br />
+			[property:boolean matrixAutoUpdate] - When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also<br />
+			recalculates the matrixWorld property.<br />
+			[property:IMatrix4 matrixWorld] - The global transform of the object. If the Object3d has no parent, then it's identical to the local transform.<br />
+			[property:IMatrix4|Matrix4 matrixWorldInverse] - This is the inverse of matrixWorld. MatrixWorld contains the Matrix which has the world transform of the Camera.<br />
+			[property:boolean matrixWorldNeedsUpdate] - When this is set, it calculates the matrixWorld in that frame and resets this property to false.<br />
+			[property:IMatrix4 modelViewMatrix] -  The model view matrix.<br />
+			[property:string name] - Optional name of the object (doesn't need to be unique).<br />
+			[property:IMatrix3 normalMatrix] -  The normal matrix.<br />
+			[property:IObject3D parent] - Object's parent in the scene graph.<br />
+			[property:IVector3 position] - Object's local position.<br />
+			[property:IMatrix4|Matrix4 projectionMatrix] - This is the matrix which contains the projection.<br />
+			[property:IMatrix4|Matrix4 projectionMatrixInverse] - This is the inverse of projectionMatrix.<br />
+			[property:IQuaternion quaternion] - Object's local rotation as a Quaternion.<br />
+			[property:boolean receiveShadow] - Material gets baked in shadow receiving.<br />
+			[property:number renderOrder] - Overrides the default rendering order of scene graph objects, from lowest to highest renderOrder.<br />
+			Opaque and transparent objects remain sorted independently though.<br />
+			When this property is set for an instance of Group, all descendants objects will be sorted and rendered together.<br />
+			[property:IEuler rotation] - Object's local rotation (Euler angles), in radians.<br />
+			[property:IVector3 scale] - Object's local scale.<br />
+			[property:string type] -  The type.<br />
+			[property:IVector3 up] - Up direction.<br />
+			[property:any userData] - An object that can be used to store custom data about the Object3d. It should not hold references to functions as these will not be cloned.<br />
+			[property:string uuid] -  The uuid.<br />
+			[property:boolean visible] - Object gets rendered if true.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:ICamera add](  [param:IObject3D[] object] ) - Adds object as child of this object.<br />
+			[method:void addEventListener](  [param:T type],  [param:IEventListener listener] ) - Adds a listener to an event type.<br />
+			[method:void applyMatrix4](  [param:IMatrix4 matrix] ) - This updates the position, rotation and scale with the matrix.<br />
+			[method:ICamera applyQuaternion](  [param:IQuaternion|Quaternion quaternion] ) <br />
+			[method:ICamera attach](  [param:IObject3D object] ) - Adds object as a child of this, while maintaining the object's world transform.<br />
+			[method:ICamera clear](  ) - Removes all child objects.<br />
+			[method:ICamera clone](  [param:boolean recursive]? ) <br />
+			[method:ICamera copy](  [param:ICamera source],  [param:boolean recursive]? ) <br />
+			[method:void dispatchEvent](  [param:IEvent event] ) - Fire an event type.<br />
+			[method:IObject3D getObjectById](  [param:number id] ) - Searches through the object's children and returns the first with a matching id.<br />
+			[method:IObject3D getObjectByName](  [param:string name] ) - Searches through the object's children and returns the first with a matching name.<br />
+			[method:IObject3D getObjectByProperty](  [param:string name],  [param:string value] ) <br />
+			[method:IVector3 getWorldDirection](  [param:IVector3|Vector3 target] ) <br />
+			[method:IVector3 getWorldPosition](  [param:IVector3|Vector3 target] ) <br />
+			[method:IQuaternion|Quaternion getWorldQuaternion](  [param:IQuaternion|Quaternion target] ) <br />
+			[method:IVector3 getWorldScale](  [param:IVector3|Vector3 target] ) <br />
+			[method:boolean hasEventListener](  [param:T type],  [param:IEventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:IVector3 localToWorld](  [param:IVector3|Vector3 vector] ) - Updates the vector from local space to world space.<br />
+			[method:void lookAt](  [param:number|IVector3|Vector3 vector],  [param:number y]?,  [param:number z]? ) - Rotates object to face point in space.<br />
+			[method:void onAfterRender](  [param:IWebGLRenderer renderer],  [param:IScene scene],  [param:ICamera camera],  [param:IBufferGeometry geometry],  [param:IMaterial material],  [param:IGroup group] ) - Calls after rendering object<br />
+			[method:void onBeforeRender](  [param:IWebGLRenderer renderer],  [param:IScene scene],  [param:ICamera camera],  [param:IBufferGeometry geometry],  [param:IMaterial material],  [param:IGroup group] ) - Calls before rendering object<br />
+			[method:void raycast](  [param:IRaycaster raycaster],  [param:IIntersection[] intersects] ) <br />
+			[method:ICamera remove](  [param:IObject3D[] object] ) - Removes object as child of this object.<br />
+			[method:void removeEventListener](  [param:T type],  [param:IEventListener listener] ) - Removes a listener from an event type.<br />
+			[method:ICamera removeFromParent](  ) - Removes this object from its current parent.<br />
+			[method:ICamera rotateOnAxis](  [param:IVector3|Vector3 axis],  [param:number angle] ) - Rotate an object along an axis in object space. The axis is assumed to be normalized.<br />
+			[method:ICamera rotateOnWorldAxis](  [param:IVector3|Vector3 axis],  [param:number angle] ) - Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.<br />
+			[method:ICamera rotateX](  [param:number angle] ) <br />
+			[method:ICamera rotateY](  [param:number angle] ) <br />
+			[method:ICamera rotateZ](  [param:number angle] ) <br />
+			[method:void setRotationFromAxisAngle](  [param:IVector3|Vector3 axis],  [param:number angle] ) <br />
+			[method:void setRotationFromEuler](  [param:IEuler|Euler euler] ) <br />
+			[method:void setRotationFromMatrix](  [param:IMatrix4|Matrix4 m] ) <br />
+			[method:void setRotationFromQuaternion](  [param:IQuaternion|Quaternion q] ) <br />
+			[method:any toJSON](  [param:any meta]? ) <br />
+			[method:ICamera translateOnAxis](  [param:IVector3|Vector3 axis],  [param:number distance] ) <br />
+			[method:ICamera translateX](  [param:number distance] ) - Translates object along x axis by distance.<br />
+			[method:ICamera translateY](  [param:number distance] ) - Translates object along y axis by distance.<br />
+			[method:ICamera translateZ](  [param:number distance] ) - Translates object along z axis by distance.<br />
+			[method:void traverse](  [param:any callback] ) <br />
+			[method:void traverseAncestors](  [param:any callback] ) <br />
+			[method:void traverseVisible](  [param:any callback] ) <br />
+			[method:void updateMatrix](  ) - Updates local transform.<br />
+			[method:void updateMatrixWorld](  [param:boolean force]? ) - Updates global transform of the object and its children.<br />
+			[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] ) <br />
+			[method:IVector3 worldToLocal](  [param:IVector3|Vector3 vector] ) - Updates the vector from world space to local space.
+		</p>
+
+		<p class="desc">
+			Abstract base class for cameras. This class should always be inherited when you build a new camera.
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IEventDispatcher] &rarr; [page:ITexture] &rarr;
+
+		<h3 id="ICubeTexture">ICubeTexture <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:ICubeTexture ICubeTexture](  [param:any[] images]?,  [param:Mapping mapping]?,  [param:Wrapping wrapS]?,  [param:Wrapping wrapT]?,  [param:TextureFilter magFilter]?,  [param:TextureFilter minFilter]?,  [param:PixelFormat format]?,  [param:TextureDataType type]?,  [param:number anisotropy]?,  [param:TextureEncoding encoding]? ) <br />
+			[constructor:ICubeTexture ICubeTexture](  [param:any[] images]?,  [param:Mapping mapping]?,  [param:Wrapping wrapS]?,  [param:Wrapping wrapT]?,  [param:TextureFilter magFilter]?,  [param:TextureFilter minFilter]?,  [param:PixelFormat format]?,  [param:TextureDataType type]?,  [param:number anisotropy]?,  [param:TextureEncoding encoding]?,  [param:HTMLCanvasElement|HTMLVideoElement|HTMLImageElement image]?,  [param:Mapping mapping]?,  [param:Wrapping wrapS]?,  [param:Wrapping wrapT]?,  [param:TextureFilter magFilter]?,  [param:TextureFilter minFilter]?,  [param:PixelFormat format]?,  [param:TextureDataType type]?,  [param:number anisotropy]?,  [param:TextureEncoding encoding]? ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:number anisotropy] -  The anisotropy.<br />
+			[property:IVector2|Vector2 center] -  The center.<br />
+			[property:TextureEncoding encoding] -  The encoding.<br />
+			[property:boolean flipY] -  The flip y.<br />
+			[property:PixelFormat format] -  The format.<br />
+			[property:boolean generateMipmaps] -  The generate mipmaps.<br />
+			[property:number id] -  The id.<br />
+			[property:any image] -  The image.<br />
+			[property:any images] -  The images.<br />
+			[property:PixelFormatGPU internalFormat] -  The internal format.<br />
+			[property:any isCubeTexture] -  The is cube texture.<br />
+			[property:boolean isRenderTargetTexture] -  The is render target texture.<br />
+			[property:any isTexture] -  The is texture.<br />
+			[property:TextureFilter magFilter] -  The mag filter.<br />
+			[property:Mapping mapping] -  The mapping.<br />
+			[property:IMatrix3|Matrix3 matrix] -  The matrix.<br />
+			[property:boolean matrixAutoUpdate] -  The matrix auto update.<br />
+			[property:TextureFilter minFilter] -  The min filter.<br />
+			[property:any[] mipmaps] -  The mipmaps.<br />
+			[property:string name] -  The name.<br />
+			[property:boolean needsUpdate] -  The needs update.<br />
+			[property:IVector2|Vector2 offset] -  The offset.<br />
+			[property:boolean premultiplyAlpha] -  The premultiply alpha.<br />
+			[property:IVector2|Vector2 repeat] -  The repeat.<br />
+			[property:number rotation] -  The rotation.<br />
+			[property:string sourceFile] -  The source file.<br />
+			[property:TextureDataType type] -  The type.<br />
+			[property:number unpackAlignment] -  The unpack alignment.<br />
+			[property:any userData] - An object that can be used to store custom data about the Material. It should not hold references to functions as these will not be cloned.<br />
+			[property:string uuid] -  The uuid.<br />
+			[property:number version] -  The version.<br />
+			[property:Wrapping wrapS] -  The wrap s.<br />
+			[property:Wrapping wrapT] -  The wrap t.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void addEventListener](  [param:T type],  [param:IEventListener listener] ) - Adds a listener to an event type.<br />
+			[method:ICubeTexture clone](  ) <br />
+			[method:ICubeTexture copy](  [param:ITexture source] ) <br />
+			[method:void dispatchEvent](  [param:Event event] ) - Fire an event type.<br />
+			[method:void dispose](  ) <br />
+			[method:boolean hasEventListener](  [param:T type],  [param:IEventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:void onUpdate](  ) <br />
+			[method:void removeEventListener](  [param:T type],  [param:IEventListener listener] ) - Removes a listener from an event type.<br />
+			[method:any toJSON](  [param:any meta] ) <br />
+			[method:IVector2 transformUv](  [param:IVector2|Vector2 uv] ) <br />
+			[method:void updateMatrix](  ) 
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="IEffectComposer">IEffectComposer <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:IEffectComposer IEffectComposer](  [param:IWebGLRenderer renderer],  [param:IWebGLRenderTarget renderTarget]? ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:IClock clock] -  The clock.<br />
+			[property:IShaderPass copyPass] -  The copy pass.<br />
+			[property:IPass[] passes] -  The passes.<br />
+			[property:IWebGLRenderTarget readBuffer] -  The read buffer.<br />
+			[property:IWebGLRenderTarget renderTarget1] -  The render target1.<br />
+			[property:IWebGLRenderTarget renderTarget2] -  The render target2.<br />
+			[property:boolean renderToScreen] -  The render to screen.<br />
+			[property:IWebGLRenderer renderer] -  The renderer.<br />
+			[property:IWebGLRenderTarget writeBuffer] -  The write buffer.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void addPass](  [param:IPass pass] ) <br />
+			[method:void insertPass](  [param:IPass pass],  [param:number index] ) <br />
+			[method:boolean isLastEnabledPass](  [param:number passIndex] ) <br />
+			[method:void removePass](  [param:IPass pass] ) <br />
+			[method:void render](  [param:number deltaTime]? ) <br />
+			[method:void reset](  [param:IWebGLRenderTarget renderTarget]? ) <br />
+			[method:void setPixelRatio](  [param:number pixelRatio] ) <br />
+			[method:void setSize](  [param:number width],  [param:number height] ) <br />
+			[method:void swapBuffers](  ) 
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IEventDispatcher] &rarr;
+
+		<h3 id="IMaterial">IMaterial <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:IMaterial IMaterial](  [param:IMaterialParameters parameters]? ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:number alphaTest] - Sets the alpha value to be used when running an alpha test. Default is 0.<br />
+			[property:boolean alphaToCoverage] - Enables alpha to coverage. Can only be used with MSAA-enabled rendering contexts.<br />
+			[property:BlendingDstFactor blendDst] - Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.<br />
+			[property:number blendDstAlpha] - The tranparency of the .blendDst. Default is null.<br />
+			[property:BlendingEquation blendEquation] - Blending equation to use when applying blending. It's one of the constants defined in Three.js. Default is {@link AddEquation}.<br />
+			[property:number blendEquationAlpha] - The tranparency of the .blendEquation. Default is null.<br />
+			[property:BlendingDstFactor|BlendingSrcFactor blendSrc] - Blending source. It's one of the blending mode constants defined in Three.js. Default is {@link SrcAlphaFactor}.<br />
+			[property:number blendSrcAlpha] - The tranparency of the .blendSrc. Default is null.<br />
+			[property:Blending blending] - Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.<br />
+			[property:boolean clipIntersection] - Changes the behavior of clipping planes so that only their intersection is clipped, rather than their union. Default is false.<br />
+			[property:boolean clipShadows] - Defines whether to clip shadows according to the clipping planes specified on this material. Default is false.<br />
+			[property:any clippingPlanes] - User-defined clipping planes specified as IPlane objects in world space.<br />
+			These planes apply to the objects this material is attached to.<br />
+			Points in space whose signed distance to the plane is negative are clipped (not rendered).<br />
+			See the WebGL / clipping /intersection example. Default is null.<br />
+			[property:boolean colorWrite] - Whether to render the material's color. This can be used in conjunction with a mesh's .renderOrder property to create invisible objects that occlude other objects. Default is true.<br />
+			[property:any defines] - Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI * 2 }.<br />
+			The pairs are defined in both vertex and fragment shaders. Default is undefined.<br />
+			[property:DepthModes depthFunc] - Which depth function to use. Default is {@link LessEqualDepth}. See the depth mode constants for all possible values.<br />
+			[property:boolean depthTest] - Whether to have depth test enabled when rendering this material. Default is true.<br />
+			[property:boolean depthWrite] - Whether rendering this material has any effect on the depth buffer. Default is true.<br />
+			When drawing 2D overlays it can be useful to disable the depth writing in order to layer several things together without creating z-index artifacts.<br />
+			[property:boolean dithering] - Whether to apply dithering to the color to remove the appearance of banding. Default is false.<br />
+			[property:boolean fog] - Whether the material is affected by fog. Default is true.<br />
+			[property:PixelFormat format] - When this property is set to O3JS.RGBFormat, the material is considered to be opaque and alpha values are ignored.<br />
+			[property:number id] - Unique number of this material instance.<br />
+			[property:any isMaterial] - Used to check whether this or derived classes are materials. Default is true.<br />
+			You should not change this, as it used internally for optimisation.<br />
+			[property:string name] - Material name. Default is an empty string.<br />
+			[property:boolean needsUpdate] - Specifies that the material needs to be updated, WebGL wise. Set it to true if you made changes that need to be reflected in WebGL.<br />
+			This property is automatically set to true when instancing a new material.<br />
+			[property:number opacity] - Opacity. Default is 1.<br />
+			[property:boolean polygonOffset] - Whether to use polygon offset. Default is false. This corresponds to the POLYGON_OFFSET_FILL WebGL feature.<br />
+			[property:number polygonOffsetFactor] - Sets the polygon offset factor. Default is 0.<br />
+			[property:number polygonOffsetUnits] - Sets the polygon offset units. Default is 0.<br />
+			[property:'highp'|'mediump'|'lowp' precision] - Override the renderer's default precision for this material. Can be "highp", "mediump" or "lowp". Defaults is null.<br />
+			[property:boolean premultipliedAlpha] - Whether to premultiply the alpha (transparency) value. See WebGL / Materials / Transparency for an example of the difference. Default is false.<br />
+			[property:Side shadowSide] - Defines which of the face sides will cast shadows. Default is *null*.<br />
+			If *null*, the value is opposite that of side, above.<br />
+			[property:Side side] - Defines which of the face sides will be rendered - front, back or both.<br />
+			Default is O3JS.FrontSide. Other options are O3JS.BackSide and O3JS.DoubleSide.<br />
+			[property:StencilOp stencilFail] - Which stencil operation to perform when the comparison function returns false. Default is {@link KeepStencilOp}. See the stencil operation constants for all possible values.<br />
+			[property:StencilFunc stencilFunc] - The stencil comparison function to use. Default is {@link AlwaysStencilFunc}. See stencil operation constants for all possible values.<br />
+			[property:number stencilFuncMask] - The bit mask to use when comparing against the stencil buffer. Default is *0xFF*.<br />
+			[property:number stencilRef] - The value to use when performing stencil comparisons or stencil operations. Default is *0*.<br />
+			[property:boolean stencilWrite] - Whether rendering this material has any effect on the stencil buffer. Default is *false*.<br />
+			[property:number stencilWriteMask] - The bit mask to use when writing to the stencil buffer. Default is *0xFF*.<br />
+			[property:StencilOp stencilZFail] - Which stencil operation to perform when the comparison function returns true but the depth test fails.<br />
+			Default is {@link KeepStencilOp}.<br />
+			See the stencil operation constants for all possible values.<br />
+			[property:StencilOp stencilZPass] - Which stencil operation to perform when the comparison function returns true and the depth test passes.<br />
+			Default is {@link KeepStencilOp}.<br />
+			See the stencil operation constants for all possible values.<br />
+			[property:boolean toneMapped] - Defines whether this material is tone mapped according to the renderer's toneMapping setting.<br />
+			Default is true.<br />
+			[property:boolean transparent] - Defines whether this material is transparent. This has an effect on rendering as transparent objects need special treatment and are rendered after non-transparent objects.<br />
+			When set to true, the extent to which the material is transparent is controlled by setting it's .opacity property.<br />
+			Default is false.<br />
+			[property:string type] - Value is the string 'Material'. This shouldn't be changed, and can be used to find all objects of this type in a scene.<br />
+			[property:any userData] - An object that can be used to store custom data about the Material. It should not hold references to functions as these will not be cloned.<br />
+			[property:string uuid] - UUID of this material instance. This gets automatically assigned, so this shouldn't be edited.<br />
+			[property:number version] - This starts at 0 and counts how many times .needsUpdate is set to true.<br />
+			[property:boolean vertexColors] - Defines whether vertex coloring is used. Default is false.<br />
+			[property:boolean visible] - Defines whether this material is visible. Default is true.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void addEventListener](  [param:T type],  [param:IEventListener listener] ) - Adds a listener to an event type.<br />
+			[method:IMaterial clone](  ) - Return a new material with the same parameters as this material.<br />
+			[method:IMaterial copy](  [param:IMaterial material] ) - Copy the parameters from the passed material into this material.<br />
+			[method:string customProgramCacheKey](  ) - In case onBeforeCompile is used, this callback can be used to identify values of settings used in onBeforeCompile, so three.js can reuse a cached shader or recompile the shader as needed.<br />
+			[method:void dispatchEvent](  [param:Event event] ) - Fire an event type.<br />
+			[method:void dispose](  ) - This disposes the material. Textures of a material don't get disposed. These needs to be disposed by {@line THREE.Texture}.<br />
+			[method:boolean hasEventListener](  [param:T type],  [param:IEventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:void onBeforeCompile](  [param:IShader shader],  [param:IWebGLRenderer renderer] ) - An optional callback that is executed immediately before the shader program is compiled.<br />
+			This function is called with the shader source code as a parameter.<br />
+			Useful for the modification of built-in materials.<br />
+			[method:void removeEventListener](  [param:T type],  [param:IEventListener listener] ) - Removes a listener from an event type.<br />
+			[method:void setValues](  [param:IMaterialParameters values] ) - Sets the properties based on the values.<br />
+			[method:any toJSON](  [param:any meta]? ) - Convert the material to three.js JSON format.
+		</p>
+
+		<p class="desc">
+			Materials describe the appearance of objects. They are defined in a (mostly) renderer-independent way, so you don't have to rewrite materials if you decide to use a different renderer.
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IEventDispatcher] &rarr; [page:IObject3D] &rarr;
+
+		<h3 id="IMesh">IMesh <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:IMesh IMesh](  [param:TGeometry geometry]?,  [param:TMaterial material]? ) <br />
+			[constructor:IMesh IMesh](  [param:TGeometry geometry]?,  [param:TMaterial material]? ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:IAnimationClip[] animations] - Array with animation clips.<br />
+			[property:boolean castShadow] - Gets rendered into shadow map.<br />
+			[property:IObject3D[] children] - Array with object's children.<br />
+			[property:IMaterial customDepthMaterial] - Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br />
+			When shadow-casting with a DirectionalLight or SpotLight, if you are (a) modifying vertex positions in<br />
+			the vertex shader, (b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a<br />
+			transparent texture with alphaTest, you must specify a customDepthMaterial for proper shadows.<br />
+			[property:IMaterial customDistanceMaterial] - Same as customDepthMaterial, but used with PointLight.<br />
+			[property:boolean frustumCulled] - When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object.<br />
+			If set to false the object gets rendered every frame even if it is not in the frustum of the camera.<br />
+			[property:TGeometry geometry] -  The geometry.<br />
+			[property:number id] - Unique number of this object instance.<br />
+			[property:any isMesh] -  The is mesh.<br />
+			[property:any isObject3D] - Used to check whether this or derived classes are Object3Ds. Default is true.<br />
+			You should not change this, as it is used internally for optimisation.<br />
+			[property:ILayers layers] -  The layers.<br />
+			[property:TMaterial material] -  The material.<br />
+			[property:IMatrix4 matrix] - Local transform.<br />
+			[property:boolean matrixAutoUpdate] - When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also<br />
+			recalculates the matrixWorld property.<br />
+			[property:IMatrix4 matrixWorld] - The global transform of the object. If the Object3d has no parent, then it's identical to the local transform.<br />
+			[property:boolean matrixWorldNeedsUpdate] - When this is set, it calculates the matrixWorld in that frame and resets this property to false.<br />
+			[property:IMatrix4 modelViewMatrix] -  The model view matrix.<br />
+			[property:any morphTargetDictionary]? -  The morph target dictionary.<br />
+			[property:number[] morphTargetInfluences]? -  The morph target influences.<br />
+			[property:string name] - Optional name of the object (doesn't need to be unique).<br />
+			[property:IMatrix3 normalMatrix] -  The normal matrix.<br />
+			[property:IObject3D parent] - Object's parent in the scene graph.<br />
+			[property:IVector3 position] - Object's local position.<br />
+			[property:IQuaternion quaternion] - Object's local rotation as a Quaternion.<br />
+			[property:boolean receiveShadow] - Material gets baked in shadow receiving.<br />
+			[property:number renderOrder] - Overrides the default rendering order of scene graph objects, from lowest to highest renderOrder.<br />
+			Opaque and transparent objects remain sorted independently though.<br />
+			When this property is set for an instance of Group, all descendants objects will be sorted and rendered together.<br />
+			[property:IEuler rotation] - Object's local rotation (Euler angles), in radians.<br />
+			[property:IVector3 scale] - Object's local scale.<br />
+			[property:string type] -  The type.<br />
+			[property:IVector3 up] - Up direction.<br />
+			[property:any userData] - An object that can be used to store custom data about the Object3d. It should not hold references to functions as these will not be cloned.<br />
+			[property:string uuid] -  The uuid.<br />
+			[property:boolean visible] - Object gets rendered if true.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:IMesh add](  [param:IObject3D[] object] ) - Adds object as child of this object.<br />
+			[method:void addEventListener](  [param:T type],  [param:IEventListener listener] ) - Adds a listener to an event type.<br />
+			[method:void applyMatrix4](  [param:IMatrix4 matrix] ) - This updates the position, rotation and scale with the matrix.<br />
+			[method:IMesh applyQuaternion](  [param:IQuaternion|Quaternion quaternion] ) <br />
+			[method:IMesh attach](  [param:IObject3D object] ) - Adds object as a child of this, while maintaining the object's world transform.<br />
+			[method:IMesh clear](  ) - Removes all child objects.<br />
+			[method:IMesh clone](  [param:boolean recursive]? ) <br />
+			[method:IMesh copy](  [param:IMesh source],  [param:boolean recursive]? ) <br />
+			[method:void dispatchEvent](  [param:IEvent event] ) - Fire an event type.<br />
+			[method:IObject3D getObjectById](  [param:number id] ) - Searches through the object's children and returns the first with a matching id.<br />
+			[method:IObject3D getObjectByName](  [param:string name] ) - Searches through the object's children and returns the first with a matching name.<br />
+			[method:IObject3D getObjectByProperty](  [param:string name],  [param:string value] ) <br />
+			[method:IVector3 getWorldDirection](  [param:IVector3|Vector3 target] ) <br />
+			[method:IVector3 getWorldPosition](  [param:IVector3|Vector3 target] ) <br />
+			[method:IQuaternion|Quaternion getWorldQuaternion](  [param:IQuaternion|Quaternion target] ) <br />
+			[method:IVector3 getWorldScale](  [param:IVector3|Vector3 target] ) <br />
+			[method:boolean hasEventListener](  [param:T type],  [param:IEventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:IVector3 localToWorld](  [param:IVector3|Vector3 vector] ) - Updates the vector from local space to world space.<br />
+			[method:void lookAt](  [param:number|IVector3|Vector3 vector],  [param:number y]?,  [param:number z]? ) - Rotates object to face point in space.<br />
+			[method:void onAfterRender](  [param:IWebGLRenderer renderer],  [param:IScene scene],  [param:ICamera camera],  [param:IBufferGeometry geometry],  [param:IMaterial material],  [param:IGroup group] ) - Calls after rendering object<br />
+			[method:void onBeforeRender](  [param:IWebGLRenderer renderer],  [param:IScene scene],  [param:ICamera camera],  [param:IBufferGeometry geometry],  [param:IMaterial material],  [param:IGroup group] ) - Calls before rendering object<br />
+			[method:void raycast](  [param:IRaycaster raycaster],  [param:IIntersection[] intersects] ) <br />
+			[method:IMesh remove](  [param:IObject3D[] object] ) - Removes object as child of this object.<br />
+			[method:void removeEventListener](  [param:T type],  [param:IEventListener listener] ) - Removes a listener from an event type.<br />
+			[method:IMesh removeFromParent](  ) - Removes this object from its current parent.<br />
+			[method:IMesh rotateOnAxis](  [param:IVector3|Vector3 axis],  [param:number angle] ) - Rotate an object along an axis in object space. The axis is assumed to be normalized.<br />
+			[method:IMesh rotateOnWorldAxis](  [param:IVector3|Vector3 axis],  [param:number angle] ) - Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.<br />
+			[method:IMesh rotateX](  [param:number angle] ) <br />
+			[method:IMesh rotateY](  [param:number angle] ) <br />
+			[method:IMesh rotateZ](  [param:number angle] ) <br />
+			[method:void setRotationFromAxisAngle](  [param:IVector3|Vector3 axis],  [param:number angle] ) <br />
+			[method:void setRotationFromEuler](  [param:IEuler|Euler euler] ) <br />
+			[method:void setRotationFromMatrix](  [param:IMatrix4|Matrix4 m] ) <br />
+			[method:void setRotationFromQuaternion](  [param:IQuaternion|Quaternion q] ) <br />
+			[method:any toJSON](  [param:any meta]? ) <br />
+			[method:IMesh translateOnAxis](  [param:IVector3|Vector3 axis],  [param:number distance] ) <br />
+			[method:IMesh translateX](  [param:number distance] ) - Translates object along x axis by distance.<br />
+			[method:IMesh translateY](  [param:number distance] ) - Translates object along y axis by distance.<br />
+			[method:IMesh translateZ](  [param:number distance] ) - Translates object along z axis by distance.<br />
+			[method:void traverse](  [param:any callback] ) <br />
+			[method:void traverseAncestors](  [param:any callback] ) <br />
+			[method:void traverseVisible](  [param:any callback] ) <br />
+			[method:void updateMatrix](  ) - Updates local transform.<br />
+			[method:void updateMatrixWorld](  [param:boolean force]? ) - Updates global transform of the object and its children.<br />
+			[method:void updateMorphTargets](  ) <br />
+			[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] ) <br />
+			[method:IVector3 worldToLocal](  [param:IVector3|Vector3 vector] ) - Updates the vector from world space to local space.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IEventDispatcher] &rarr; [page:IObject3D] &rarr;
+
+		<h3 id="IScene">IScene <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:IScene IScene](  ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:IAnimationClip[] animations] - Array with animation clips.<br />
+			[property:boolean autoUpdate] -  The auto update.<br />
+			[property:ITexture|IColor background] -  The background.<br />
+			[property:boolean castShadow] - Gets rendered into shadow map.<br />
+			[property:IObject3D[] children] - Array with object's children.<br />
+			[property:IMaterial customDepthMaterial] - Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br />
+			When shadow-casting with a DirectionalLight or SpotLight, if you are (a) modifying vertex positions in<br />
+			the vertex shader, (b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a<br />
+			transparent texture with alphaTest, you must specify a customDepthMaterial for proper shadows.<br />
+			[property:IMaterial customDistanceMaterial] - Same as customDepthMaterial, but used with PointLight.<br />
+			[property:ITexture environment] -  The environment.<br />
+			[property:IFogBase fog] - A fog instance defining the type of fog that affects everything rendered in the scene. Default is null.<br />
+			[property:boolean frustumCulled] - When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object.<br />
+			If set to false the object gets rendered every frame even if it is not in the frustum of the camera.<br />
+			[property:number id] - Unique number of this object instance.<br />
+			[property:any isObject3D] - Used to check whether this or derived classes are Object3Ds. Default is true.<br />
+			You should not change this, as it is used internally for optimisation.<br />
+			[property:any isScene] -  The is scene.<br />
+			[property:ILayers layers] -  The layers.<br />
+			[property:IMatrix4 matrix] - Local transform.<br />
+			[property:boolean matrixAutoUpdate] - When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also<br />
+			recalculates the matrixWorld property.<br />
+			[property:IMatrix4 matrixWorld] - The global transform of the object. If the Object3d has no parent, then it's identical to the local transform.<br />
+			[property:boolean matrixWorldNeedsUpdate] - When this is set, it calculates the matrixWorld in that frame and resets this property to false.<br />
+			[property:IMatrix4 modelViewMatrix] -  The model view matrix.<br />
+			[property:string name] - Optional name of the object (doesn't need to be unique).<br />
+			[property:IMatrix3 normalMatrix] -  The normal matrix.<br />
+			[property:IMaterial overrideMaterial] - If not null, it will force everything in the scene to be rendered with that material. Default is null.<br />
+			[property:IObject3D parent] - Object's parent in the scene graph.<br />
+			[property:IVector3 position] - Object's local position.<br />
+			[property:IQuaternion quaternion] - Object's local rotation as a Quaternion.<br />
+			[property:boolean receiveShadow] - Material gets baked in shadow receiving.<br />
+			[property:number renderOrder] - Overrides the default rendering order of scene graph objects, from lowest to highest renderOrder.<br />
+			Opaque and transparent objects remain sorted independently though.<br />
+			When this property is set for an instance of Group, all descendants objects will be sorted and rendered together.<br />
+			[property:IEuler rotation] - Object's local rotation (Euler angles), in radians.<br />
+			[property:IVector3 scale] - Object's local scale.<br />
+			[property:any type] -  The type.<br />
+			[property:IVector3 up] - Up direction.<br />
+			[property:any userData] - An object that can be used to store custom data about the Object3d. It should not hold references to functions as these will not be cloned.<br />
+			[property:string uuid] -  The uuid.<br />
+			[property:boolean visible] - Object gets rendered if true.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:IScene add](  [param:IObject3D[] object] ) - Adds object as child of this object.<br />
+			[method:void addEventListener](  [param:T type],  [param:IEventListener listener] ) - Adds a listener to an event type.<br />
+			[method:void applyMatrix4](  [param:IMatrix4 matrix] ) - This updates the position, rotation and scale with the matrix.<br />
+			[method:IScene applyQuaternion](  [param:IQuaternion|Quaternion quaternion] ) <br />
+			[method:IScene attach](  [param:IObject3D object] ) - Adds object as a child of this, while maintaining the object's world transform.<br />
+			[method:IScene clear](  ) - Removes all child objects.<br />
+			[method:IScene clone](  [param:boolean recursive]? ) <br />
+			[method:IScene copy](  [param:IScene source],  [param:boolean recursive]? ) <br />
+			[method:void dispatchEvent](  [param:IEvent event] ) - Fire an event type.<br />
+			[method:IObject3D getObjectById](  [param:number id] ) - Searches through the object's children and returns the first with a matching id.<br />
+			[method:IObject3D getObjectByName](  [param:string name] ) - Searches through the object's children and returns the first with a matching name.<br />
+			[method:IObject3D getObjectByProperty](  [param:string name],  [param:string value] ) <br />
+			[method:IVector3 getWorldDirection](  [param:IVector3|Vector3 target] ) <br />
+			[method:IVector3 getWorldPosition](  [param:IVector3|Vector3 target] ) <br />
+			[method:IQuaternion|Quaternion getWorldQuaternion](  [param:IQuaternion|Quaternion target] ) <br />
+			[method:IVector3 getWorldScale](  [param:IVector3|Vector3 target] ) <br />
+			[method:boolean hasEventListener](  [param:T type],  [param:IEventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:IVector3 localToWorld](  [param:IVector3|Vector3 vector] ) - Updates the vector from local space to world space.<br />
+			[method:void lookAt](  [param:number|IVector3|Vector3 vector],  [param:number y]?,  [param:number z]? ) - Rotates object to face point in space.<br />
+			[method:void onAfterRender](  [param:IWebGLRenderer renderer],  [param:IScene scene],  [param:ICamera camera] ) - Calls after rendering scene<br />
+			[method:void onBeforeRender](  [param:IWebGLRenderer renderer],  [param:IScene scene],  [param:ICamera camera],  [param:any renderTarget] ) - Calls before rendering scene<br />
+			[method:void raycast](  [param:IRaycaster raycaster],  [param:IIntersection[] intersects] ) <br />
+			[method:IScene remove](  [param:IObject3D[] object] ) - Removes object as child of this object.<br />
+			[method:void removeEventListener](  [param:T type],  [param:IEventListener listener] ) - Removes a listener from an event type.<br />
+			[method:IScene removeFromParent](  ) - Removes this object from its current parent.<br />
+			[method:IScene rotateOnAxis](  [param:IVector3|Vector3 axis],  [param:number angle] ) - Rotate an object along an axis in object space. The axis is assumed to be normalized.<br />
+			[method:IScene rotateOnWorldAxis](  [param:IVector3|Vector3 axis],  [param:number angle] ) - Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.<br />
+			[method:IScene rotateX](  [param:number angle] ) <br />
+			[method:IScene rotateY](  [param:number angle] ) <br />
+			[method:IScene rotateZ](  [param:number angle] ) <br />
+			[method:void setRotationFromAxisAngle](  [param:IVector3|Vector3 axis],  [param:number angle] ) <br />
+			[method:void setRotationFromEuler](  [param:IEuler|Euler euler] ) <br />
+			[method:void setRotationFromMatrix](  [param:IMatrix4|Matrix4 m] ) <br />
+			[method:void setRotationFromQuaternion](  [param:IQuaternion|Quaternion q] ) <br />
+			[method:any toJSON](  [param:any meta]? ) <br />
+			[method:IScene translateOnAxis](  [param:IVector3|Vector3 axis],  [param:number distance] ) <br />
+			[method:IScene translateX](  [param:number distance] ) - Translates object along x axis by distance.<br />
+			[method:IScene translateY](  [param:number distance] ) - Translates object along y axis by distance.<br />
+			[method:IScene translateZ](  [param:number distance] ) - Translates object along z axis by distance.<br />
+			[method:void traverse](  [param:any callback] ) <br />
+			[method:void traverseAncestors](  [param:any callback] ) <br />
+			[method:void traverseVisible](  [param:any callback] ) <br />
+			[method:void updateMatrix](  ) - Updates local transform.<br />
+			[method:void updateMatrixWorld](  [param:boolean force]? ) - Updates global transform of the object and its children.<br />
+			[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] ) <br />
+			[method:IVector3 worldToLocal](  [param:IVector3|Vector3 vector] ) - Updates the vector from world space to local space.
+		</p>
+
+		<p class="desc">
+			Scenes allow you to set up what and where is to be rendered by three.js. This is where you place objects, lights and cameras.
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IEventDispatcher] &rarr;
+
+		<h3 id="ITexture">ITexture <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:ITexture ITexture](  [param:HTMLCanvasElement|HTMLVideoElement|HTMLImageElement image]?,  [param:Mapping mapping]?,  [param:Wrapping wrapS]?,  [param:Wrapping wrapT]?,  [param:TextureFilter magFilter]?,  [param:TextureFilter minFilter]?,  [param:PixelFormat format]?,  [param:TextureDataType type]?,  [param:number anisotropy]?,  [param:TextureEncoding encoding]? ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:number anisotropy] -  The anisotropy.<br />
+			[property:IVector2|Vector2 center] -  The center.<br />
+			[property:TextureEncoding encoding] -  The encoding.<br />
+			[property:boolean flipY] -  The flip y.<br />
+			[property:PixelFormat format] -  The format.<br />
+			[property:boolean generateMipmaps] -  The generate mipmaps.<br />
+			[property:number id] -  The id.<br />
+			[property:any image] -  The image.<br />
+			[property:PixelFormatGPU internalFormat] -  The internal format.<br />
+			[property:boolean isRenderTargetTexture] -  The is render target texture.<br />
+			[property:any isTexture] -  The is texture.<br />
+			[property:TextureFilter magFilter] -  The mag filter.<br />
+			[property:Mapping mapping] -  The mapping.<br />
+			[property:IMatrix3|Matrix3 matrix] -  The matrix.<br />
+			[property:boolean matrixAutoUpdate] -  The matrix auto update.<br />
+			[property:TextureFilter minFilter] -  The min filter.<br />
+			[property:any[] mipmaps] -  The mipmaps.<br />
+			[property:string name] -  The name.<br />
+			[property:boolean needsUpdate] -  The needs update.<br />
+			[property:IVector2|Vector2 offset] -  The offset.<br />
+			[property:boolean premultiplyAlpha] -  The premultiply alpha.<br />
+			[property:IVector2|Vector2 repeat] -  The repeat.<br />
+			[property:number rotation] -  The rotation.<br />
+			[property:string sourceFile] -  The source file.<br />
+			[property:TextureDataType type] -  The type.<br />
+			[property:number unpackAlignment] -  The unpack alignment.<br />
+			[property:any userData] - An object that can be used to store custom data about the Material. It should not hold references to functions as these will not be cloned.<br />
+			[property:string uuid] -  The uuid.<br />
+			[property:number version] -  The version.<br />
+			[property:Wrapping wrapS] -  The wrap s.<br />
+			[property:Wrapping wrapT] -  The wrap t.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void addEventListener](  [param:T type],  [param:IEventListener listener] ) - Adds a listener to an event type.<br />
+			[method:ITexture clone](  ) <br />
+			[method:ITexture copy](  [param:ITexture source] ) <br />
+			[method:void dispatchEvent](  [param:Event event] ) - Fire an event type.<br />
+			[method:void dispose](  ) <br />
+			[method:boolean hasEventListener](  [param:T type],  [param:IEventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:void onUpdate](  ) <br />
+			[method:void removeEventListener](  [param:T type],  [param:IEventListener listener] ) - Removes a listener from an event type.<br />
+			[method:any toJSON](  [param:any meta] ) <br />
+			[method:IVector2 transformUv](  [param:IVector2|Vector2 uv] ) <br />
+			[method:void updateMatrix](  ) 
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IVector] &rarr;
+
+		<h3 id="IVector2">IVector2 <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:IVector2 IVector2](  [param:number x]?,  [param:number y]? ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:number height] -  The height.<br />
+			[property:any isVector2] -  The is vector2.<br />
+			[property:number width] -  The width.<br />
+			[property:number x] -  The x.<br />
+			[property:number y] -  The y.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:IVector2 add](  [param:IVector2|Vector2 v],  [param:IVector2|Vector2 w]? ) - Adds v to this vector.<br />
+			[method:IVector2 addScalar](  [param:number s] ) - Adds the scalar value s to this vector's x and y values.<br />
+			[method:IVector2 addScaledVector](  [param:IVector2|Vector2 v],  [param:number s] ) - Adds the multiple of v and s to this vector.<br />
+			[method:IVector2 addVectors](  [param:IVector2|Vector2 a],  [param:IVector2|Vector2 b] ) - Sets this vector to a + b.<br />
+			[method:number angle](  ) - computes the angle in radians with respect to the positive x-axis<br />
+			[method:IVector2 applyMatrix3](  [param:IMatrix3|Matrix3 m] ) - Multiplies this vector (with an implicit 1 as the 3rd component) by m.<br />
+			[method:IVector2 ceil](  ) - The x and y components of the vector are rounded up to the nearest integer value.<br />
+			[method:IVector2 clamp](  [param:IVector2|Vector2 min],  [param:IVector2|Vector2 max] ) - If this vector's x or y value is greater than the max vector's x or y value, it is replaced by the corresponding value.<br />
+			If this vector's x or y value is less than the min vector's x or y value, it is replaced by the corresponding value.<br />
+			[method:IVector2 clampLength](  [param:number min],  [param:number max] ) - If this vector's length is greater than the max value, it is replaced by the max value.<br />
+			If this vector's length is less than the min value, it is replaced by the min value.<br />
+			[method:IVector2 clampScalar](  [param:number min],  [param:number max] ) - If this vector's x or y values are greater than the max value, they are replaced by the max value.<br />
+			If this vector's x or y values are less than the min value, they are replaced by the min value.<br />
+			[method:IVector2 clone](  ) - Returns a new Vector2 instance with the same `x` and `y` values.<br />
+			[method:IVector2 copy](  [param:IVector2|Vector2 v] ) - Copies value of v to this vector.<br />
+			[method:number cross](  [param:IVector2|Vector2 v] ) - Computes cross product of this vector and v.<br />
+			[method:number distanceTo](  [param:IVector2|Vector2 v] ) - Computes distance of this vector to v.<br />
+			[method:number distanceToManhattan](  [param:IVector2|Vector2 v] ) <br />
+			[method:number distanceToSquared](  [param:IVector2|Vector2 v] ) - Computes squared distance of this vector to v.<br />
+			[method:IVector2 divide](  [param:IVector2|Vector2 v] ) - Divides this vector by v.<br />
+			[method:IVector2 divideScalar](  [param:number s] ) - Divides this vector by scalar s.<br />
+			Set vector to ( 0, 0 ) if s == 0.<br />
+			[method:number dot](  [param:IVector2|Vector2 v] ) - Computes dot product of this vector and v.<br />
+			[method:boolean equals](  [param:IVector2|Vector2 v] ) - Checks for strict equality of this vector and v.<br />
+			[method:IVector2 floor](  ) - The components of the vector are rounded down to the nearest integer value.<br />
+			[method:IVector2 fromArray](  [param:number[]|ArrayLike array],  [param:number offset]? ) - Sets this vector's x and y value from the provided array or array-like.<br />
+			[method:IVector2 fromBufferAttribute](  [param:IBufferAttribute attribute],  [param:number index] ) - Sets this vector's x and y values from the attribute.<br />
+			[method:number getComponent](  [param:number index] ) - Gets a component of this vector.<br />
+			[method:number length](  ) - Computes length of this vector.<br />
+			[method:number lengthManhattan](  ) <br />
+			[method:number lengthSq](  ) - Computes squared length of this vector.<br />
+			[method:IVector2 lerp](  [param:IVector2|Vector2 v],  [param:number alpha] ) - Linearly interpolates between this vector and v, where alpha is the distance along the line - alpha = 0 will be this vector, and alpha = 1 will be v.<br />
+			[method:IVector2 lerpVectors](  [param:IVector2|Vector2 v1],  [param:IVector2|Vector2 v2],  [param:number alpha] ) - Sets this vector to be the vector linearly interpolated between v1 and v2 where alpha is the distance along the line connecting the two vectors - alpha = 0 will be v1, and alpha = 1 will be v2.<br />
+			[method:number manhattanDistanceTo](  [param:IVector2|Vector2 v] ) - Computes the Manhattan length (distance) from this vector to the given vector v<br />
+			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}<br />
+			[method:number manhattanLength](  ) - Computes the Manhattan length of this vector.<br />
+			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}<br />
+			[method:IVector2 max](  [param:IVector2|Vector2 v] ) - If this vector's x or y value is less than v's x or y value, replace that value with the corresponding max value.<br />
+			[method:IVector2 min](  [param:IVector2|Vector2 v] ) - If this vector's x or y value is greater than v's x or y value, replace that value with the corresponding min value.<br />
+			[method:IVector2 multiply](  [param:IVector2|Vector2 v] ) - Multiplies this vector by v.<br />
+			[method:IVector2 multiplyScalar](  [param:number scalar] ) - Multiplies this vector by scalar s.<br />
+			[method:IVector2 negate](  ) - Inverts this vector.<br />
+			[method:IVector2 normalize](  ) - Normalizes this vector.<br />
+			[method:IVector2 random](  ) - Sets this vector's x and y from Math.random<br />
+			[method:IVector2 rotateAround](  [param:IVector2|Vector2 center],  [param:number angle] ) - Rotates the vector around center by angle radians.<br />
+			[method:IVector2 round](  ) - The components of the vector are rounded to the nearest integer value.<br />
+			[method:IVector2 roundToZero](  ) - The components of the vector are rounded towards zero (up if negative, down if positive) to an integer value.<br />
+			[method:IVector2 set](  [param:number x],  [param:number y] ) - Sets value of this vector.<br />
+			[method:IVector2 setComponent](  [param:number index],  [param:number value] ) - Sets a component of this vector.<br />
+			[method:IVector2 setLength](  [param:number length] ) - Normalizes this vector and multiplies it by l.<br />
+			[method:IVector2 setScalar](  [param:number scalar] ) - Sets the x and y values of this vector both equal to scalar.<br />
+			[method:IVector2 setX](  [param:number x] ) - Sets X component of this vector.<br />
+			[method:IVector2 setY](  [param:number y] ) - Sets Y component of this vector.<br />
+			[method:IVector2 sub](  [param:IVector2|Vector2 v] ) - Subtracts v from this vector.<br />
+			[method:IVector2 subScalar](  [param:number s] ) - Subtracts s from this vector's x and y components.<br />
+			[method:IVector2 subVectors](  [param:IVector2|Vector2 a],  [param:IVector2|Vector2 b] ) - Sets this vector to a - b.<br />
+			[method:number[] toArray](  [param:number[] array]?,  [param:number offset]? ) - Returns an array [x, y], or copies x and y into the provided array.<br />
+			<br />
+			Returns : The created or provided array.<br />
+			[method:TVector2Tuple toArray](  [param:number[] array]?,  [param:number offset]?,  [param:TVector2Tuple array]?,  [param:any offset]? ) <br />
+			[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:TVector2Tuple array]?,  [param:any offset]?,  [param:ArrayLike array],  [param:number offset]? ) - Copies x and y into the provided array-like.<br />
+			<br />
+			Returns : The provided array-like.
+		</p>
+
+		<p class="desc">
+			2D vector.<br />
+			( class Vector2 implements Vector&lt;Vector2&gt; )
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IEventDispatcher] &rarr;
+
+		<h3 id="IWebGLRenderTarget">IWebGLRenderTarget <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:IWebGLRenderTarget IWebGLRenderTarget](  [param:number width],  [param:number height],  [param:IWebGLRenderTargetOptions options]? ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:any anisotropy] -  The anisotropy.<br />
+			[property:number depth] -  The depth.<br />
+			[property:boolean depthBuffer] -  The depth buffer.<br />
+			[property:IDepthTexture depthTexture] -  The depth texture.<br />
+			[property:any format] -  The format.<br />
+			[property:any generateMipmaps] -  The generate mipmaps.<br />
+			[property:number height] -  The height.<br />
+			[property:any isWebGLRenderTarget] -  The is web g l render target.<br />
+			[property:any magFilter] -  The mag filter.<br />
+			[property:any minFilter] -  The min filter.<br />
+			[property:any offset] -  The offset.<br />
+			[property:any repeat] -  The repeat.<br />
+			[property:IVector4 scissor] -  The scissor.<br />
+			[property:boolean scissorTest] -  The scissor test.<br />
+			[property:boolean stencilBuffer] -  The stencil buffer.<br />
+			[property:ITexture texture] -  The texture.<br />
+			[property:any type] -  The type.<br />
+			[property:string uuid] -  The uuid.<br />
+			[property:IVector4 viewport] -  The viewport.<br />
+			[property:number width] -  The width.<br />
+			[property:any wrapS] -  The wrap s.<br />
+			[property:any wrapT] -  The wrap t.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void addEventListener](  [param:T type],  [param:IEventListener listener] ) - Adds a listener to an event type.<br />
+			[method:IWebGLRenderTarget clone](  ) <br />
+			[method:IWebGLRenderTarget copy](  [param:IWebGLRenderTarget source] ) <br />
+			[method:void dispatchEvent](  [param:Event event] ) - Fire an event type.<br />
+			[method:void dispose](  ) <br />
+			[method:boolean hasEventListener](  [param:T type],  [param:IEventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:void removeEventListener](  [param:T type],  [param:IEventListener listener] ) - Removes a listener from an event type.<br />
+			[method:void setSize](  [param:number width],  [param:number height],  [param:number depth]? ) <br />
+			[method:void setTexture](  [param:ITexture texture] ) 
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:IRenderer] &rarr;
+
+		<h3 id="IWebGLRenderer">IWebGLRenderer <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:IWebGLRenderer IWebGLRenderer](  [param:IWebGLRendererParameters parameters]? ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean autoClear] - Defines whether the renderer should automatically clear its output before rendering.<br />
+			[property:boolean autoClearColor] - If autoClear is true, defines whether the renderer should clear the color buffer. Default is true.<br />
+			[property:boolean autoClearDepth] - If autoClear is true, defines whether the renderer should clear the depth buffer. Default is true.<br />
+			[property:boolean autoClearStencil] - If autoClear is true, defines whether the renderer should clear the stencil buffer. Default is true.<br />
+			[property:WebGLCapabilities capabilities] -  The capabilities.<br />
+			[property:any[] clippingPlanes] -  The clipping planes.<br />
+			[property:WebGLRenderingContext context] - The HTML5 Canvas's 'webgl' context obtained from the canvas where the renderer will draw.<br />
+			[property:IWebGLDebug debug] - Debug configurations.<br />
+			[property:HTMLCanvasElement domElement] - A Canvas where the renderer draws its output.<br />
+			This is automatically created by the renderer in the constructor (if not provided already); you just need to add it to your page.<br />
+			[property:WebGLExtensions extensions] -  The extensions.<br />
+			[property:number gammaFactor] -  The gamma factor.<br />
+			[property:WebGLInfo info] -  The info.<br />
+			[property:boolean localClippingEnabled] -  The local clipping enabled.<br />
+			[property:TextureEncoding outputEncoding] - Default is LinearEncoding.<br />
+			[property:boolean physicallyCorrectLights] -  The physically correct lights.<br />
+			[property:number pixelRatio] -  The pixel ratio.<br />
+			[property:WebGLProperties properties] -  The properties.<br />
+			[property:WebGLRenderLists renderLists] -  The render lists.<br />
+			[property:WebGLShadowMap shadowMap] -  The shadow map.<br />
+			[property:CullFace shadowMapCullFace] -  The shadow map cull face.<br />
+			[property:boolean shadowMapEnabled] -  The shadow map enabled.<br />
+			[property:ShadowMapType shadowMapType] -  The shadow map type.<br />
+			[property:boolean sortObjects] - Defines whether the renderer should sort objects. Default is true.<br />
+			[property:WebGLState state] -  The state.<br />
+			[property:ToneMapping toneMapping] -  The tone mapping.<br />
+			[property:number toneMappingExposure] -  The tone mapping exposure.<br />
+			[property:boolean vr] -  The vr.<br />
+			[property:WebXRManager xr] -  The xr.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void animate](  [param:any callback] ) <br />
+			[method:void clear](  [param:boolean color]?,  [param:boolean depth]?,  [param:boolean stencil]? ) - Tells the renderer to clear its color, depth or stencil drawing buffer(s).<br />
+			Arguments default to true<br />
+			[method:void clearColor](  ) <br />
+			[method:void clearDepth](  ) <br />
+			[method:void clearStencil](  ) <br />
+			[method:void clearTarget](  [param:IWebGLRenderTarget renderTarget],  [param:boolean color],  [param:boolean depth],  [param:boolean stencil] ) <br />
+			[method:void compile](  [param:IObject3D scene],  [param:ICamera camera] ) - Compiles all materials in the scene with the camera. This is useful to precompile shaders before the first rendering.<br />
+			[method:void copyFramebufferToTexture](  [param:IVector2|Vector2 position],  [param:ITexture texture],  [param:number level]? ) - Copies a region of the currently bound framebuffer into the selected mipmap level of the selected texture.<br />
+			This region is defined by the size of the destination texture's mip level, offset by the input position.<br />
+			[method:void copyTextureToTexture](  [param:IVector2|Vector2 position],  [param:ITexture srcTexture],  [param:ITexture dstTexture],  [param:number level]? ) - Copies srcTexture to the specified level of dstTexture, offset by the input position.<br />
+			[method:void copyTextureToTexture3D](  [param:IBox3 sourceBox],  [param:IVector3 position],  [param:ITexture srcTexture],  [param:IDataTexture3D|IDataTexture2DArray dstTexture],  [param:number level]? ) - Copies the pixels of a texture in the bounds sourceBox in the desination texture starting from the given position.<br />
+			[method:void dispose](  ) <br />
+			[method:any enableScissorTest](  [param:any boolean] ) <br />
+			[method:void forceContextLoss](  ) <br />
+			[method:void forceContextRestore](  ) <br />
+			[method:number getActiveCubeFace](  ) - Returns the current active cube face.<br />
+			[method:number getActiveMipmapLevel](  ) - Returns the current active mipmap level.<br />
+			[method:number getClearAlpha](  ) - Returns a float with the current clear alpha. Ranges from 0 to 1.<br />
+			[method:IColor getClearColor](  [param:IColor target] ) - Returns a O3JS.Color instance with the current clear color.<br />
+			[method:WebGLRenderingContext getContext](  ) - Return the WebGL context.<br />
+			[method:any getContextAttributes](  ) <br />
+			[method:IWebGLRenderTarget getCurrentRenderTarget](  ) <br />
+			[method:IVector4 getCurrentViewport](  [param:IVector4|Vector4 target] ) <br />
+			[method:IVector2 getDrawingBufferSize](  [param:IVector2|Vector2 target] ) <br />
+			[method:number getMaxAnisotropy](  ) <br />
+			[method:number getPixelRatio](  ) <br />
+			[method:string getPrecision](  ) <br />
+			[method:IWebGLRenderTarget getRenderTarget](  ) - Returns the current render target. If no render target is set, null is returned.<br />
+			[method:IVector4 getScissor](  [param:IVector4|Vector4 target] ) - Copies the scissor area into target.<br />
+			[method:boolean getScissorTest](  ) - Returns true if scissor test is enabled; returns false otherwise.<br />
+			[method:IVector2 getSize](  [param:IVector2|Vector2 target] ) <br />
+			[method:IVector4 getViewport](  [param:IVector4|Vector4 target] ) - Copies the viewport into target.<br />
+			[method:void initTexture](  [param:ITexture texture] ) - Initializes the given texture. Can be used to preload a texture rather than waiting until first render (which can cause noticeable lags due to decode and GPU upload overhead).<br />
+			[method:void readRenderTargetPixels](  [param:IWebGLRenderTarget|IWebGLMultipleRenderTargets renderTarget],  [param:number x],  [param:number y],  [param:number width],  [param:number height],  [param:any buffer],  [param:number activeCubeFaceIndex]? ) <br />
+			[method:void render](  [param:IObject3D scene],  [param:ICamera camera] ) - Render a scene or an object using a camera.<br />
+			The render is done to a previously specified {@line THREE.WebGLRenderTarget#renderTarget .renderTarget} set by calling<br />
+			{@line THREE.WebGLRenderer#setRenderTarget .setRenderTarget} or to the canvas as usual.<br />
+			By default render buffers are cleared before rendering but you can prevent this by setting the property<br />
+			{@line THREE.WebGLRenderer#autoClear autoClear} to false. If you want to prevent only certain buffers being cleared<br />
+			you can set either the {@line THREE.WebGLRenderer#autoClearColor autoClearColor},<br />
+			{@line THREE.WebGLRenderer#autoClearStencil autoClearStencil} or {@line THREE.WebGLRenderer#autoClearDepth autoClearDepth}<br />
+			properties to false. To forcibly clear one ore more buffers call {@line THREE.WebGLRenderer#clear .clear}.<br />
+			[method:void renderBufferDirect](  [param:ICamera camera],  [param:IScene scene],  [param:IBufferGeometry geometry],  [param:IMaterial material],  [param:IObject3D object],  [param:any geometryGroup] ) <br />
+			[method:void resetGLState](  ) <br />
+			[method:void resetState](  ) - Can be used to reset the internal WebGL state.<br />
+			[method:void setAnimationLoop](  [param:TXRAnimationLoopCallback callback] ) - A build in function that can be used instead of requestAnimationFrame. For WebXR projects this function must be used.<br />
+			[method:void setClearAlpha](  [param:number alpha] ) <br />
+			[method:void setClearColor](  [param:any color],  [param:number alpha]? ) - Sets the clear color, using color for the color and alpha for the opacity.<br />
+			[method:void setDrawingBufferSize](  [param:number width],  [param:number height],  [param:number pixelRatio] ) <br />
+			[method:void setOpaqueSort](  [param:any method] ) - Sets the custom opaque sort function for the WebGLRenderLists. Pass null to use the default painterSortStable function.<br />
+			[method:void setPixelRatio](  [param:number value] ) <br />
+			[method:void setRenderTarget](  [param:IWebGLRenderTarget|IWebGLMultipleRenderTargets renderTarget],  [param:number activeCubeFace]?,  [param:number activeMipmapLevel]? ) - Sets the active render target.<br />
+			[method:void setScissor](  [param:number|IVector4|Vector4 x],  [param:number y]?,  [param:number width]?,  [param:number height]? ) - Sets the scissor area from (x, y) to (x + width, y + height).<br />
+			[method:void setScissorTest](  [param:boolean enable] ) - Enable the scissor test. When this is enabled, only the pixels within the defined scissor area will be affected by further renderer actions.<br />
+			[method:void setSize](  [param:number width],  [param:number height],  [param:boolean updateStyle]? ) - Resizes the output canvas to (width, height), and also sets the viewport to fit that size, starting in (0, 0).<br />
+			[method:void setTransparentSort](  [param:any method] ) - Sets the custom transparent sort function for the WebGLRenderLists. Pass null to use the default reversePainterSortStable function.<br />
+			[method:void setViewport](  [param:number|IVector4|Vector4 x],  [param:number y]?,  [param:number width]?,  [param:number height]? ) - Sets the viewport to render from (x, y) to (x + width, y + height).<br />
+			(x, y) is the lower-left corner of the region.<br />
+			[method:any supportsBlendMinMax](  ) <br />
+			[method:any supportsCompressedTexturePVRTC](  ) <br />
+			[method:any supportsCompressedTextureS3TC](  ) <br />
+			[method:any supportsFloatTextures](  ) <br />
+			[method:any supportsHalfFloatTextures](  ) <br />
+			[method:any supportsInstancedArrays](  ) <br />
+			[method:any supportsStandardDerivatives](  ) <br />
+			[method:any supportsVertexTextures](  ) 
+		</p>
+
+		<p class="desc">
+			The WebGL renderer displays your beautifully crafted scenes using WebGL, if your device supports it.<br />
+			This renderer has way better performance than CanvasRenderer.<br />
+			see {@link https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js|src/renderers/WebGLRenderer.js}
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="ThreeColor">ThreeColor <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h3>[property:string|number|IColor ThreeColor]</h3>
+
+
+		<p class="desc">
+			Three Color<br />
+			string hexcode - #ffffff<br />
+			string hsl(0,1,1)<br />
+			string rgb(255,255,255)<br />
+			string color name - red,blue...  'aliceblue': 0xF0F8FF, 'antiquewhite': 0xFAEBD7, 'aqua': 0x00FFFF ...<br />
+			string random<br />
+			number 0xffffff<br />
+			THREE.Color
 		</p>
 
 		<br /><br />

@@ -9,6 +9,12 @@
 			}
 		},
 		"ngx - Reference": {
+			"NameSpace": {
+				"I3JS": "ngxapi/en/I3JS",
+				"THREE": "ngxapi/en/THREE",
+				"AMMO": "ngxapi/en/AMMO",
+				"XR": "ngxapi/en/XR"
+			},
 			"Abstract": {
 				"AbstractGeometryComponent": "ngxapi/en/AbstractGeometryComponent",
 				"AbstractMaterialComponent": "ngxapi/en/AbstractMaterialComponent",

@@ -209,7 +209,12 @@ export class DocsComponent implements OnInit {
 					} catch (ex: any) {}
 					break;
 				default:
-					if (pageName.startsWith('examples/')) {
+					const char2 = pageName[1];
+					if ((pageName.startsWith('I') ||  pageName.startsWith('E') || pageName.startsWith('T')) && char2 == char2.toUpperCase() ) {
+						try {
+							this.router.navigateByUrl('/docs/ngxapi/en/I3JS.' + pageName);
+						} catch (ex: any) {}
+					} else if (pageName.startsWith('examples/')) {
 						this.router.navigateByUrl(pageName);
 					} else {
 						console.log(this.loadedPageInfo, pageName);
