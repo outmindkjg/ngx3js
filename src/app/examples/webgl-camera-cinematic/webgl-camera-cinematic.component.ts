@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BaseComponent,
-	CameraComponent, CinematicCamera, THREE, RendererTimer
+	CameraComponent, ICinematicCamera, RendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -78,7 +78,7 @@ export class WebglCameraCinematicComponent extends BaseComponent<{
 
 	matChanger() {
 		if (this.camera !== null) {
-			const camera : CinematicCamera = this.camera.getObject3d() as any;
+			const camera : ICinematicCamera = this.camera.getObject3d() as any;
 			const postprocessing = camera.postprocessing as any;
 			for (const e in this.controls) {
 				if (e in postprocessing.bokeh_uniforms) {

@@ -1,44 +1,28 @@
 {
-	"id": 7049,
-	"name": "__type",
-	"kind": 65536,
-	"kindString": "Type literal",
-	"flags": {},
-	"sources": [
-		{ "fileName": "src/lib/directive.abstract.ts", "line": 23, "character": 31 }
-	],
+	"id": 80624,
+	"name": "change",
+	"kind": 2048,
+	"kindString": "Method",
+	"flags": { "isOptional": true },
+	"sources": [{ "fileName": "lib/interface.ts", "line": 559, "character": 1 }],
 	"signatures": [
 		{
-			"id": 7050,
-			"name": "__type",
+			"id": 80625,
+			"name": "change",
 			"kind": 4096,
 			"kindString": "Call signature",
 			"flags": {},
-			"comment": { "shortText": "Object3dFunction" },
+			"comment": {
+				"shortText": "The change event is fired for <input>, <select>, and <textarea> elements when an alteration to the elements value."
+			},
 			"parameters": [
 				{
-					"id": 7051,
-					"name": "object3d",
-					"kind": 32768,
-					"kindString": "Parameter",
-					"flags": {},
-					"type": { "type": "reference", "name": "THREE.Object3D" }
-				},
-				{
-					"id": 7052,
-					"name": "elapsedTime",
+					"id": 80626,
+					"name": "e",
 					"kind": 32768,
 					"kindString": "Parameter",
 					"flags": { "isOptional": true },
-					"type": { "type": "intrinsic", "name": "number" }
-				},
-				{
-					"id": 7053,
-					"name": "timer",
-					"kind": 32768,
-					"kindString": "Parameter",
-					"flags": { "isOptional": true },
-					"type": { "type": "reference", "id": 9558, "name": "RendererTimer" }
+					"type": { "type": "intrinsic", "name": "any" }
 				}
 			],
 			"type": { "type": "intrinsic", "name": "void" }

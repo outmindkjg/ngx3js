@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, NODES, RendererTimer } from 'ngx3js';
+import { BaseComponent, MeshComponent, RendererTimer, THREE, I3JS } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-compile',
@@ -36,30 +36,30 @@ export class WebglMaterialsCompileComponent extends BaseComponent<{}> {
 				if (mesh.material) {
 					mesh.material.dispose();
 				}
-				const mtl = new NODES.PhongNodeMaterial();
-				const time = new NODES.TimerNode();
-				const speed = new NODES.FloatNode(Math.random());
-				const color = new NODES.ColorNode(Math.random() * 0xffffff);
-				const timeSpeed = new NODES.OperatorNode(
+				const mtl = new THREE.PhongNodeMaterial();
+				const time = new THREE.TimerNode();
+				const speed = new THREE.FloatNode(Math.random());
+				const color = new THREE.ColorNode(Math.random() * 0xffffff);
+				const timeSpeed = new THREE.OperatorNode(
 					time,
 					speed,
-					NODES.OperatorNode.MUL
+					THREE.OperatorNode.MUL
 				);
-				const sinCycleInSecs = new NODES.OperatorNode(
+				const sinCycleInSecs = new THREE.OperatorNode(
 					timeSpeed,
-					new NODES.ConstNode(NODES.ConstNode.PI2),
-					NODES.OperatorNode.MUL
+					new THREE.ConstNode(THREE.ConstNode.PI2),
+					THREE.OperatorNode.MUL
 				);
-				const cycle = new NODES.MathNode(sinCycleInSecs, NODES.MathNode.SIN);
-				const cycleColor = new NODES.OperatorNode(
+				const cycle = new THREE.MathNode(sinCycleInSecs, THREE.MathNode.SIN);
+				const cycleColor = new THREE.OperatorNode(
 					cycle,
 					color,
-					NODES.OperatorNode.MUL
+					THREE.OperatorNode.MUL
 				);
-				const cos = new NODES.MathNode(cycleColor, NODES.MathNode.SIN);
-				mtl.color = new NODES.ColorNode(0);
+				const cos = new THREE.MathNode(cycleColor, THREE.MathNode.SIN);
+				mtl.color = new THREE.ColorNode(0);
 				mtl.emissive = cos;
-				const transformer = new NODES.ExpressionNode(
+				const transformer = new THREE.ExpressionNode(
 					'position + 0.0 * ' + Math.random(),
 					'vec3',
 					[]
@@ -70,10 +70,10 @@ export class WebglMaterialsCompileComponent extends BaseComponent<{}> {
 				// set material
 				mesh.material = mtl;
 			});
-			this.frame = new NODES.NodeFrame(0);
+			this.frame = new THREE.NodeFrame(0);
 		}
 	}
-	frame: NODES.NodeFrame = null;
+	frame: I3JS.INodeFrame = null;
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);
 		if (this.frame != null && this.meshChildren !== null) {

@@ -4,7 +4,6 @@ import {
 	GuiControlParam,
 	MaterialComponent,
 	MeshComponent,
-	NODES,
  	I3JS, THREE } from 'ngx3js';
 
 @Component({
@@ -285,19 +284,19 @@ export class WebglMaterialsNodesComponent extends BaseComponent<{
 	map: I3JS.ITexture = null;
 	envMap: I3JS.ITexture = null;
 	normalMap: I3JS.ITexture = null;
-	sataturation: NODES.FloatNode = null;
+	sataturation: I3JS.IFloatNode = null;
 	changeMaterial(key: string) {
 		if (this.material !== null) {
 			switch (key) {
 				case 'map':
 					if (this.controls.useMap) {
 						if (this.controls.useNode) {
-							this.material = new NODES.MeshStandardNodeMaterial();
-							this.sataturation = new NODES.FloatNode(1);
-							this.material.map = new NODES.ColorAdjustmentNode(
-								new NODES.TextureNode(this.map as any),
+							this.material = new THREE.MeshStandardNodeMaterial();
+							this.sataturation = new THREE.FloatNode(1);
+							this.material.map = new THREE.ColorAdjustmentNode(
+								new THREE.TextureNode(this.map as any),
 								this.sataturation,
-								NODES.ColorAdjustmentNode.SATURATION
+								THREE.ColorAdjustmentNode.SATURATION
 							);
 						} else {
 							this.material = new THREE.MeshStandardMaterial();

@@ -76,7 +76,7 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 		this.geometryObb.halfSize.set(10, 5, 6).multiplyScalar(0.5);
 	}
 
-	geometryObb: OBB = null;
+	geometryObb: I3JS.IOBB = null;
 
 	onRender(timer: RendererTimer) {
 		super.onRender(timer);
@@ -87,7 +87,7 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 				child.rotation.y += delta * Math.PI * 0.1;
 				child.updateMatrix();
 				child.updateMatrixWorld();
-				const obb = child.userData.obb as OBB;
+				const obb = child.userData.obb as I3JS.IOBB;
 				obb.copy(this.geometryObb);
 				obb.applyMatrix4(child.matrixWorld as any);
 				const material = child['material'] ;
