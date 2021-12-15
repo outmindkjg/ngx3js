@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE, RendererTimer } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-instancing-performance',
 	templateUrl: './webgl-instancing-performance.component.html',
 	styleUrls: ['./webgl-instancing-performance.component.scss'],
 })
-export class WebglInstancingPerformanceComponent extends BaseComponent<{
+export class WebglInstancingPerformanceComponent extends NgxBaseComponent<{
 	amount: number;
 	count: number;
 	method: string;
@@ -48,7 +48,7 @@ export class WebglInstancingPerformanceComponent extends BaseComponent<{
 	}
 	randomizeMatrix = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 	}
 }

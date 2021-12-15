@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, THREE, TeapotGeometry } from 'ngx3js';
+import { I3JS, NgxBaseComponent, TeapotGeometry, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-teapot',
 	templateUrl: './webgl-geometry-teapot.component.html',
 	styleUrls: ['./webgl-geometry-teapot.component.scss'],
 })
-export class WebglGeometryTeapotComponent extends BaseComponent<{
+export class WebglGeometryTeapotComponent extends NgxBaseComponent<{
 	shininess: number;
 	ka: number;
 	kd: number;
@@ -296,7 +296,7 @@ export class WebglGeometryTeapotComponent extends BaseComponent<{
 		);
 	}
 
-	teapot: I3JS.IBufferGeometry = null;
+	teapot: I3JS.BufferGeometry = null;
 	material: {
 		type: string;
 		color: number;

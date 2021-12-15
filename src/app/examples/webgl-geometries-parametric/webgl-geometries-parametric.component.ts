@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometries-parametric',
 	templateUrl: './webgl-geometries-parametric.component.html',
 	styleUrls: ['./webgl-geometries-parametric.component.scss'],
 })
-export class WebglGeometriesParametricComponent extends BaseComponent<{}> {
+export class WebglGeometriesParametricComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -21,7 +21,7 @@ export class WebglGeometriesParametricComponent extends BaseComponent<{}> {
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const elapsedTime = timer.elapsedTime / 10;
 		if (this.camera !== null) {

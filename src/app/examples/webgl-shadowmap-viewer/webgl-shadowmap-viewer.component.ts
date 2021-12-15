@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shadowmap-viewer',
 	templateUrl: './webgl-shadowmap-viewer.component.html',
 	styleUrls: ['./webgl-shadowmap-viewer.component.scss'],
 })
-export class WebglShadowmapViewerComponent extends BaseComponent<{}> {
+export class WebglShadowmapViewerComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren !== null) {
 			const delta = timer.delta;

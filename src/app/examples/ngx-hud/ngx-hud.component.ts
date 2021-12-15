@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-hud',
 	templateUrl: './ngx-hud.component.html',
 	styleUrls: ['./ngx-hud.component.scss'],
 })
-export class NgxHudComponent extends BaseComponent<{
+export class NgxHudComponent extends NgxBaseComponent<{
 	color: boolean;
 	size: boolean;
 	type: boolean;
@@ -59,7 +59,7 @@ export class NgxHudComponent extends BaseComponent<{
 		return false;
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			const elapsedTime = timer.elapsedTime;

@@ -19,7 +19,7 @@ export class MiscUvTestsComponent implements OnInit, AfterViewInit {
 
 	ngOnInit() {}
 
-	addTest(name: string, geometry: I3JS.IBufferGeometry) {
+	addTest(name: string, geometry: I3JS.BufferGeometry) {
 		const d = document.createElement('div');
 		d.innerHTML = '<h3>' + name + '</h3>';
 		d.appendChild(UVsDebug(geometry as any, 1024));

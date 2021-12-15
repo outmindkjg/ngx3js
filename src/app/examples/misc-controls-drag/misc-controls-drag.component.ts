@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	ControlComponent,
-	DragControls, I3JS, MeshComponent,
-	RendererEvent
+	I3JS, NgxBaseComponent,
+	NgxControlComponent, NgxMeshComponent,
+	IRendererEvent
 } from 'ngx3js';
 
 @Component({
@@ -11,7 +10,7 @@ import {
 	templateUrl: './misc-controls-drag.component.html',
 	styleUrls: ['./misc-controls-drag.component.scss'],
 })
-export class MiscControlsDragComponent extends BaseComponent<{}> {
+export class MiscControlsDragComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -48,7 +47,7 @@ export class MiscControlsDragComponent extends BaseComponent<{}> {
 	}[] = [];
 
 	enableSelection: boolean = false;
-	onMouseClick(event: RendererEvent) {
+	onMouseClick(event: IRendererEvent) {
 		if (this.camera !== null) {
 			switch (event.type) {
 				case 'keydown':
@@ -87,7 +86,7 @@ export class MiscControlsDragComponent extends BaseComponent<{}> {
 		}
 	}
 
-	setDragControl(control: ControlComponent) {
+	setDragControl(control: NgxControlComponent) {
 		this.control = control.getControl();
 		if (this.meshChildren !== null) {
 			const draggableObjects = this.control.getObjects();
@@ -98,11 +97,11 @@ export class MiscControlsDragComponent extends BaseComponent<{}> {
 		}
 	}
 
-	setGroup(mesh: MeshComponent) {
+	setGroup(mesh: NgxMeshComponent) {
 		this.group = mesh.getObject3d();
 	}
 
-	group: I3JS.IObject3D = null;
+	group: I3JS.Object3D = null;
 
-	control: I3JS.IDragControls = null;
+	control: I3JS.DragControls = null;
 }

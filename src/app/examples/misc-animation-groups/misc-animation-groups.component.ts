@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-animation-groups',
 	templateUrl: './misc-animation-groups.component.html',
 	styleUrls: ['./misc-animation-groups.component.scss'],
 })
-export class MiscAnimationGroupsComponent extends BaseComponent<{}> {
+export class MiscAnimationGroupsComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

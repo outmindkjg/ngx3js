@@ -1,21 +1,20 @@
 import { Component, ViewChild } from '@angular/core';
 import {
-	BaseComponent,
-	MeshComponent,
-	MeshSurfaceSampler,
-	RendererTimer, I3JS, THREE } from 'ngx3js';
+	I3JS, MeshSurfaceSampler, NgxBaseComponent,
+	NgxMeshComponent, IRendererTimer, THREE
+} from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-instancing-scatter',
 	templateUrl: './webgl-instancing-scatter.component.html',
 	styleUrls: ['./webgl-instancing-scatter.component.scss'],
 })
-export class WebglInstancingScatterComponent extends BaseComponent<{
+export class WebglInstancingScatterComponent extends NgxBaseComponent<{
 	count: number;
 	distribution: string;
 	resample: () => void;
 }> {
-	@ViewChild('flower') flower: MeshComponent = null;
+	@ViewChild('flower') flower: NgxMeshComponent = null;
 
 	constructor() {
 		super(
@@ -61,12 +60,12 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
 		}
 	}
 
-	stemMaterial: I3JS.IMaterial = null;
-	blossomMaterial: I3JS.IMaterial = null;
-	stemGeometry: I3JS.IInstancedBufferGeometry = null;
-	blossomGeometry: I3JS.IInstancedBufferGeometry = null;
+	stemMaterial: I3JS.Material = null;
+	blossomMaterial: I3JS.Material = null;
+	stemGeometry: I3JS.InstancedBufferGeometry = null;
+	blossomGeometry: I3JS.InstancedBufferGeometry = null;
 
-	setFlower(meshCom: MeshComponent) {
+	setFlower(meshCom: NgxMeshComponent) {
 		const mesh = meshCom.getObject3d();
 		const _stemMesh = mesh.getObjectByName('Stem') as any;
 		const _blossomMesh = mesh.getObjectByName('Blossom') as any ;
@@ -116,7 +115,7 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
 		}
 	}
 
-	surface: I3JS.IMesh = null;
+	surface: I3JS.Mesh = null;
 	sampler: any = null;
 	dummy = new THREE.Object3D();
 
@@ -126,20 +125,20 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
 
 	ages: Float32Array;
 	scales: Float32Array;
-	stemMesh: I3JS.IInstancedMesh = null;
-	blossomMesh: I3JS.IInstancedMesh = null;
+	stemMesh: I3JS.InstancedMesh = null;
+	blossomMesh: I3JS.InstancedMesh = null;
 
-	setStemMesh(mesh: MeshComponent) {
+	setStemMesh(mesh: NgxMeshComponent) {
 		this.stemMesh = mesh.getRealMesh() as any;
 		this.reSample();
 	}
 
-	setBlossomMesh(mesh: MeshComponent) {
+	setBlossomMesh(mesh: NgxMeshComponent) {
 		this.blossomMesh = mesh.getRealMesh() as any ;
 		this.reSample();
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.surface = this.mesh.getRealMesh() as any;
 		this.reSample();
@@ -234,7 +233,7 @@ export class WebglInstancingScatterComponent extends BaseComponent<{
 		this.blossomMesh.setMatrixAt(i, this.dummy.matrix);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.stemMesh && this.blossomMesh) {
 			for (let i = 0; i < this.controls.count; i++) {

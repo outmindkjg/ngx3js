@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, THREE, RendererEvent } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererEvent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-interactive-lines',
 	templateUrl: './webgl-interactive-lines.component.html',
 	styleUrls: ['./webgl-interactive-lines.component.scss'],
 })
-export class WebglInteractiveLinesComponent extends BaseComponent<{}> {
+export class WebglInteractiveLinesComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -98,18 +98,18 @@ export class WebglInteractiveLinesComponent extends BaseComponent<{}> {
 		scale: { x: number; y: number; z: number };
 	}[] = [];
 
-	sphere: I3JS.IObject3D = null;
+	sphere: I3JS.Object3D = null;
 
-	setSphere(mesh: MeshComponent) {
+	setSphere(mesh: NgxMeshComponent) {
 		this.sphere = mesh.getObject3d();
 	}
 
-	parent: I3JS.IObject3D = null;
-	setParentTransform(mesh: MeshComponent) {
+	parent: I3JS.Object3D = null;
+	setParentTransform(mesh: NgxMeshComponent) {
 		this.parent = mesh.getObject3d();
 	}
 
-	onMouseMove(event: RendererEvent) {
+	onMouseMove(event: IRendererEvent) {
 		if (this.camera !== null && this.parent !== null && this.sphere !== null) {
 			const intersect = this.camera.getIntersection(
 				event.mouse,

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent, I3JS, MeshComponent, THREE, RendererEvent,
-	RendererTimer,
-	ThreeUtil
+	I3JS, NgxBaseComponent, NgxMeshComponent, NgxThreeUtil, IRendererEvent,
+	IRendererTimer, THREE
 } from 'ngx3js';
 
 
@@ -11,7 +10,7 @@ import {
 	templateUrl: './webgl-lightningstrike.component.html',
 	styleUrls: ['./webgl-lightningstrike.component.scss'],
 })
-export class WebglLightningstrikeComponent extends BaseComponent<{
+export class WebglLightningstrikeComponent extends NgxBaseComponent<{
 	scene: string;
 	timeRate: number;
 	outlineEnabled: boolean;
@@ -230,12 +229,12 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 	}
 
 	starVertices: any[] = [];
-	starMesh: I3JS.IMesh = null;
-	setStarMesh(mesh: MeshComponent) {
+	starMesh: I3JS.Mesh = null;
+	setStarMesh(mesh: NgxMeshComponent) {
 		this.starMesh = mesh.getMesh() as any;
 	}
 
-	onMouseClick(e: RendererEvent) {
+	onMouseClick(e: IRendererEvent) {
 		switch (this.controls.scene) {
 			case 'ball':
 				switch (e.type) {
@@ -420,8 +419,8 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 		z: 0,
 	};
 
-	sourceOffset: I3JS.IVector3 = new THREE.Vector3();
-	destOffset: I3JS.IVector3 = new THREE.Vector3();
+	sourceOffset: I3JS.Vector3 = new THREE.Vector3();
+	destOffset: I3JS.Vector3 = new THREE.Vector3();
 
 	currentTime: number = 0;
 
@@ -457,7 +456,7 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 			material.color = new THREE.Color(this.controls.lightningColor);
 		} else {
 			const storm = (this.meshObject3d.getObjectByName('storm') || null) as any;
-			if (ThreeUtil.isNotNull(storm)) {
+			if (NgxThreeUtil.isNotNull(storm)) {
 				const material = storm.lightningMaterial;
 				material.color = new THREE.Color(this.controls.lightningColor);
 			}
@@ -473,7 +472,7 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 		this.rayParams.subrayDutyCycle = this.controls.subrayDutyCycle;
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.controls.straightness = this.rayParams.straightness;
 		this.controls.roughness = this.rayParams.roughness;
@@ -487,7 +486,7 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 		this.updateRayParams();
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			this.currentTime += this.controls.timeRate * timer.delta;
@@ -501,8 +500,8 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 						const coneHeight = 200;
 						const coneHeightHalf = coneHeight * 0.5;
 						if (
-							ThreeUtil.isNotNull(coneMesh1) &&
-							ThreeUtil.isNotNull(coneMesh2)
+							NgxThreeUtil.isNotNull(coneMesh1) &&
+							NgxThreeUtil.isNotNull(coneMesh2)
 						) {
 							coneMesh1.position.set(
 								Math.sin(0.5 * time) * conesDistance * 0.6,
@@ -515,7 +514,7 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 								0
 							);
 							const lightningStrike = this.getLightningStrike();
-							if (ThreeUtil.isNotNull(lightningStrike)) {
+							if (NgxThreeUtil.isNotNull(lightningStrike)) {
 								this.sourceOffset.copy(coneMesh1.position);
 								this.sourceOffset.y -= coneHeightHalf;
 								this.destOffset.copy(coneMesh2.position);
@@ -524,7 +523,7 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 									.geometry;
 								lightningStrikeGeometry.update(time);
 								const posLight = this.meshObject3d.getObjectByName('posLight');
-								if (ThreeUtil.isNotNull(posLight)) {
+								if (NgxThreeUtil.isNotNull(posLight)) {
 									posLight.position.lerpVectors(
 										this.sourceOffset,
 										this.destOffset,
@@ -537,7 +536,7 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 					break;
 				case 'ball':
 					const lightningStrike = this.getLightningStrike();
-					if (ThreeUtil.isNotNull(lightningStrike)) {
+					if (NgxThreeUtil.isNotNull(lightningStrike)) {
 						const lightningStrikeGeometry = (lightningStrike as any).geometry;
 						lightningStrikeGeometry.update(time);
 					}
@@ -545,7 +544,7 @@ export class WebglLightningstrikeComponent extends BaseComponent<{
 				case 'storm':
 					const storm = (this.meshObject3d.getObjectByName('storm') ||
 						null) as any;
-					if (ThreeUtil.isNotNull(storm)) {
+					if (NgxThreeUtil.isNotNull(storm)) {
 						storm.update(time);
 					}
 					break;

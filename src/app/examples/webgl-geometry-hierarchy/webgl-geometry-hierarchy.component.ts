@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererEvent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererEvent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-hierarchy',
 	templateUrl: './webgl-geometry-hierarchy.component.html',
 	styleUrls: ['./webgl-geometry-hierarchy.component.scss'],
 })
-export class WebglGeometryHierarchyComponent extends BaseComponent<{}> {
+export class WebglGeometryHierarchyComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -33,12 +33,12 @@ export class WebglGeometryHierarchyComponent extends BaseComponent<{}> {
 	}
 
 	mouse = { x: 0, y: 0 };
-	setEventListener(event: RendererEvent) {
+	setEventListener(event: IRendererEvent) {
 		this.mouse = event.mouse.multiplyScalar(10);
 	}
 
 	elapsedTime: number = 0;
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.camera !== null && this.mesh !== null) {
 			const position = this.camera.getPosition();

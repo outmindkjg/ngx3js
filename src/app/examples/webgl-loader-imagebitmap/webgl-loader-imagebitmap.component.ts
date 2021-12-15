@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-imagebitmap',
 	templateUrl: './webgl-loader-imagebitmap.component.html',
 	styleUrls: ['./webgl-loader-imagebitmap.component.scss'],
 })
-export class WebglLoaderImagebitmapComponent extends BaseComponent<{}> {
+export class WebglLoaderImagebitmapComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

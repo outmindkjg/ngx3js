@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-texture-hdr',
 	templateUrl: './webgl-loader-texture-hdr.component.html',
 	styleUrls: ['./webgl-loader-texture-hdr.component.scss'],
 })
-export class WebglLoaderTextureHdrComponent extends BaseComponent<{
+export class WebglLoaderTextureHdrComponent extends NgxBaseComponent<{
 	exposure: number;
 }> {
 	constructor() {

@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import {
-	AbstractGeometryComponent,
-	AbstractMaterialComponent,
-	AbstractTextureComponent,
-	BaseComponent,
-	RendererTimer,
-	SharedComponent, I3JS, THREE } from 'ngx3js';
+	NgxAbstractGeometryComponent,
+	NgxAbstractMaterialComponent,
+	NgxAbstractTextureComponent,
+	NgxBaseComponent, NgxSharedComponent, IRendererTimer
+} from 'ngx3js';
 
 interface FontInfo {
 	font: string;
@@ -17,7 +16,7 @@ interface FontInfo {
 	templateUrl: './ngx-font.component.html',
 	styleUrls: ['./ngx-font.component.scss'],
 })
-export class NgxFontComponent extends BaseComponent<{
+export class NgxFontComponent extends NgxBaseComponent<{
 	color: number;
 	size: number;
 	height: number;
@@ -337,8 +336,8 @@ export class NgxFontComponent extends BaseComponent<{
 		x: number;
 		y: number;
 		z: number;
-		geometry: AbstractGeometryComponent;
-		material: AbstractMaterialComponent;
+		geometry: NgxAbstractGeometryComponent;
+		material: NgxAbstractMaterialComponent;
 	}[] = [];
 
 	fontTextInfo: {
@@ -349,13 +348,13 @@ export class NgxFontComponent extends BaseComponent<{
 	}[] = [];
 
 	fontTexureInfo: {
-		texture: AbstractTextureComponent;
+		texture: NgxAbstractTextureComponent;
 		x: number;
 		y: number;
 		z: number;
 	}[] = [];
 
-	setShared(shared: SharedComponent) {
+	setShared(shared: NgxSharedComponent) {
 		this.fontGeometry = shared.getGeometryComponents();
 		this.fontMaterial = shared.getMaterialComponents();
 		this.fontTexture = shared.getTextureComponents();
@@ -364,11 +363,11 @@ export class NgxFontComponent extends BaseComponent<{
 		});
 	}
 
-	fontGeometry: AbstractGeometryComponent[] = [];
-	fontMaterial: AbstractMaterialComponent[] = [];
-	fontTexture: AbstractTextureComponent[] = [];
+	fontGeometry: NgxAbstractGeometryComponent[] = [];
+	fontMaterial: NgxAbstractMaterialComponent[] = [];
+	fontTexture: NgxAbstractTextureComponent[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null && this.controls.autoRotate) {
 			const elapsedTime = timer.delta;

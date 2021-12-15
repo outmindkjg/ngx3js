@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererEvent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-physics-ammo-volume',
 	templateUrl: './physics-ammo-volume.component.html',
 	styleUrls: ['./physics-ammo-volume.component.scss'],
 })
-export class PhysicsAmmoVolumeComponent extends BaseComponent<{}> {
+export class PhysicsAmmoVolumeComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({});
 	}
@@ -20,7 +20,7 @@ export class PhysicsAmmoVolumeComponent extends BaseComponent<{}> {
 		vz: number;
 	}[] = [];
 
-	onMouseClick(event: RendererEvent) {
+	onMouseClick(event: IRendererEvent) {
 		switch (event.type) {
 			case 'pointerdown':
 				if (this.camera !== null) {

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererEvent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererEvent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-physics',
 	templateUrl: './ngx-physics.component.html',
 	styleUrls: ['./ngx-physics.component.scss'],
 })
-export class NgxPhysicsComponent extends BaseComponent<{
+export class NgxPhysicsComponent extends NgxBaseComponent<{
 	gravity: {
 		x: number;
 		y: number;
@@ -332,7 +332,7 @@ export class NgxPhysicsComponent extends BaseComponent<{
 		z: number;
 	} = null;
 
-	onMouseClick(event: RendererEvent) {
+	onMouseClick(event: IRendererEvent) {
 		switch (event.type) {
 			case 'pointerdown':
 				if (this.camera !== null) {
@@ -353,7 +353,7 @@ export class NgxPhysicsComponent extends BaseComponent<{
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 	}
 }

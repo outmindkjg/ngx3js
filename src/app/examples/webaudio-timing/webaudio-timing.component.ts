@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, THREE, RendererTimer } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webaudio-timing',
 	templateUrl: './webaudio-timing.component.html',
 	styleUrls: ['./webaudio-timing.component.scss'],
 })
-export class WebaudioTimingComponent extends BaseComponent<{
+export class WebaudioTimingComponent extends NgxBaseComponent<{
 	position?: any;
 }> {
 	constructor() {
@@ -47,7 +47,7 @@ export class WebaudioTimingComponent extends BaseComponent<{
 
 	ballInfos: { x: number; y: number; z: number; speed: number }[] = [];
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.controls.position = this.meshObject3d.position;
 	}
@@ -55,7 +55,7 @@ export class WebaudioTimingComponent extends BaseComponent<{
 	height = 3;
 	offset = 0.5;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren && this.meshChildren.length > 0) {
 			const time = timer.elapsedTime;

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-ssaa',
 	templateUrl: './webgl-postprocessing-ssaa.component.html',
 	styleUrls: ['./webgl-postprocessing-ssaa.component.scss'],
 })
-export class WebglPostprocessingSsaaComponent extends BaseComponent<{
+export class WebglPostprocessingSsaaComponent extends NgxBaseComponent<{
 	sampleLevel: number;
 	renderToScreen: boolean;
 	unbiased: boolean;

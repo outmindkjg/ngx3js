@@ -1,30 +1,30 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-refraction',
 	templateUrl: './webgl-refraction.component.html',
 	styleUrls: ['./webgl-refraction.component.scss'],
 })
-export class WebglRefractionComponent extends BaseComponent<{}> {
+export class WebglRefractionComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	setSmallSphere(smallSphere: MeshComponent) {
+	setSmallSphere(smallSphere: NgxMeshComponent) {
 		this.smallSphere = smallSphere.getObject3d();
 	}
 
-	smallSphere: I3JS.IObject3D = null;
+	smallSphere: I3JS.Object3D = null;
 
-	setRefractor(refractor: MeshComponent) {
+	setRefractor(refractor: NgxMeshComponent) {
 		this.refractorMaterial = (refractor.getObject3d() as any).material ;
 		// this.refractorMaterial.side = DoubleSide;
 	}
 
-	refractorMaterial: I3JS.IShaderMaterial = null;
+	refractorMaterial: I3JS.ShaderMaterial = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.refractorMaterial !== null) {
 			this.refractorMaterial.uniforms['time'].value += timer.delta;

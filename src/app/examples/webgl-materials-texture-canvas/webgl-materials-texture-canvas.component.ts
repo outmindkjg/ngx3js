@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-texture-canvas',
 	templateUrl: './webgl-materials-texture-canvas.component.html',
 	styleUrls: ['./webgl-materials-texture-canvas.component.scss'],
 })
-export class WebglMaterialsTextureCanvasComponent extends BaseComponent<{
+export class WebglMaterialsTextureCanvasComponent extends NgxBaseComponent<{
 	backgroundColor: number;
 	lineColor: number;
 }> {

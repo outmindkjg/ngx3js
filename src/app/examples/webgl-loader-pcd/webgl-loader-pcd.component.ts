@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererEvent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-pcd',
 	templateUrl: './webgl-loader-pcd.component.html',
 	styleUrls: ['./webgl-loader-pcd.component.scss'],
 })
-export class WebglLoaderPcdComponent extends BaseComponent<{}> {
+export class WebglLoaderPcdComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	setKeyPress(event: RendererEvent) {
+	setKeyPress(event: IRendererEvent) {
 		if (
 			this.meshObject3d !== null &&
 			this.meshObject3d.userData.storageSource !== null &&

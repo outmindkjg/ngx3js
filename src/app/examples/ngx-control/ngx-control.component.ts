@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
-	BaseComponent,
-	ControlComponent,
-	MeshComponent,
-	RendererTimer
+	NgxBaseComponent,
+	NgxControlComponent as Ngx3JsControlComponent,
+	NgxMeshComponent,
+	IRendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -12,7 +12,7 @@ import {
 	templateUrl: './ngx-control.component.html',
 	styleUrls: ['./ngx-control.component.scss'],
 })
-export class NgxControlComponent extends BaseComponent<{
+export class NgxControlComponent extends NgxBaseComponent<{
 	controlType: string;
 	minDistance: number;
 	maxDistance: number;
@@ -67,7 +67,7 @@ export class NgxControlComponent extends BaseComponent<{
 	}
 
 	control: any = null;
-	setControl(control: ControlComponent) {
+	setControl(control: Ngx3JsControlComponent) {
 		this.control = control.getControl();
 		this.changeControl();
 	}
@@ -92,7 +92,7 @@ export class NgxControlComponent extends BaseComponent<{
 		}
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.changeControl();
 	}
@@ -103,7 +103,7 @@ export class NgxControlComponent extends BaseComponent<{
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			const elapsedTime = timer.elapsedTime;

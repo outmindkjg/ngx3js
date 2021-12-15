@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	MaterialComponent,
-	PlaneComponent,
-	RendererComponent,
-	RendererTimer
+	NgxBaseComponent,
+	NgxMaterialComponent,
+	NgxPlaneComponent,
+	NgxRendererComponent,
+	IRendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -12,7 +12,7 @@ import {
 	templateUrl: './webgl-clipping.component.html',
 	styleUrls: ['./webgl-clipping.component.scss'],
 })
-export class WebglClippingComponent extends BaseComponent<{
+export class WebglClippingComponent extends NgxBaseComponent<{
 	localClipping: {
 		enabled: boolean;
 		shadow: boolean;
@@ -122,27 +122,27 @@ export class WebglClippingComponent extends BaseComponent<{
 		);
 	}
 
-	globalPlane: PlaneComponent = null;
-	setGlobalPlane(globalPlane: PlaneComponent) {
+	globalPlane: NgxPlaneComponent = null;
+	setGlobalPlane(globalPlane: NgxPlaneComponent) {
 		this.globalPlane = globalPlane;
 	}
 
-	localPlane: PlaneComponent = null;
-	setLocalPlane(localPlane: PlaneComponent) {
+	localPlane: NgxPlaneComponent = null;
+	setLocalPlane(localPlane: NgxPlaneComponent) {
 		this.localPlane = localPlane;
 	}
 
-	renderer: RendererComponent = null;
-	setRenderer(renderer: RendererComponent) {
+	renderer: NgxRendererComponent = null;
+	setRenderer(renderer: NgxRendererComponent) {
 		this.renderer = renderer;
 	}
 
-	material: MaterialComponent = null;
-	setMaterial(material: MaterialComponent) {
+	material: NgxMaterialComponent = null;
+	setMaterial(material: NgxMaterialComponent) {
 		this.material = material;
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 
 		if (this.mesh !== null) {

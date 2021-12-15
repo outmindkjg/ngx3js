@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-crossfade',
 	templateUrl: './webgl-postprocessing-crossfade.component.html',
 	styleUrls: ['./webgl-postprocessing-crossfade.component.scss'],
 })
-export class WebglPostprocessingCrossfadeComponent extends BaseComponent<{
+export class WebglPostprocessingCrossfadeComponent extends NgxBaseComponent<{
 	useTexture: boolean;
 	transition: number;
 	transitionSpeed: number;

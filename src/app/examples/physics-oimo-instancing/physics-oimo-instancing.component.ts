@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent, I3JS, THREE, PhysicsComponent,
-	RendererTimer,
-	RigidbodyComponent,
-	ThreeUtil
+	I3JS, NgxBaseComponent, NgxPhysicsComponent, NgxRigidbodyComponent,
+	NgxThreeUtil, IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -11,12 +9,12 @@ import {
 	templateUrl: './physics-oimo-instancing.component.html',
 	styleUrls: ['./physics-oimo-instancing.component.scss'],
 })
-export class PhysicsOimoInstancingComponent extends BaseComponent<{}> {
+export class PhysicsOimoInstancingComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	makeMatrix(mat: I3JS.IMatrix4) {
+	makeMatrix(mat: I3JS.Matrix4) {
 		mat.setPosition(
 			Math.random() - 0.5,
 			Math.random() * 2,
@@ -24,17 +22,17 @@ export class PhysicsOimoInstancingComponent extends BaseComponent<{}> {
 		);
 	}
 
-	makeColor(color: I3JS.IColor) {
+	makeColor(color: I3JS.Color) {
 		color.setHex(0xffffff * Math.random());
 	}
 
-	setPhysics(physics: PhysicsComponent) {
+	setPhysics(physics: NgxPhysicsComponent) {
 		this.physics = physics.getPhysics();
 	}
 
 	physics: any = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (
 			this.physics !== null &&
@@ -43,8 +41,8 @@ export class PhysicsOimoInstancingComponent extends BaseComponent<{}> {
 		) {
 			const position = new THREE.Vector3();
 			this.meshChildren.forEach((child: any) => {
-				const rigidbodyComponent: RigidbodyComponent =
-					ThreeUtil.getRigidbodyComponent(child);
+				const rigidbodyComponent: NgxRigidbodyComponent =
+					NgxThreeUtil.getRigidbodyComponent(child);
 				if (rigidbodyComponent !== null) {
 					for (let i = 0; i < 5; i++) {
 						let index = Math.min(

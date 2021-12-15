@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
-	selector: 'app-webgl-Effects-stereo',
-	templateUrl: './webgl-Effects-stereo.component.html',
-	styleUrls: ['./webgl-Effects-stereo.component.scss'],
+	selector: 'app-webgl-effects-stereo',
+	templateUrl: './webgl-effects-stereo.component.html',
+	styleUrls: ['./webgl-effects-stereo.component.scss'],
 })
-export class WebglEffectsStereoComponent extends BaseComponent<{
+export class WebglEffectsStereoComponent extends NgxBaseComponent<{
 	refractionRatio: number;
 }> {
 	constructor() {
@@ -40,12 +40,12 @@ export class WebglEffectsStereoComponent extends BaseComponent<{
 		}
 	}
 
-	spheres: MeshComponent[] = [];
-	setSpheres(spheres: MeshComponent) {
+	spheres: NgxMeshComponent[] = [];
+	setSpheres(spheres: NgxMeshComponent) {
 		this.spheres.push(spheres);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const elapsedTime = timer.elapsedTime / 100;
 		this.spheres.forEach((sphere, i) => {

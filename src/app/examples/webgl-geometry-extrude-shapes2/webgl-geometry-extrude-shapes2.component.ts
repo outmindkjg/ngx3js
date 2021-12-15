@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-extrude-shapes2',
 	templateUrl: './webgl-geometry-extrude-shapes2.component.html',
 	styleUrls: ['./webgl-geometry-extrude-shapes2.component.scss'],
 })
-export class WebglGeometryExtrudeShapes2Component extends BaseComponent<{
+export class WebglGeometryExtrudeShapes2Component extends NgxBaseComponent<{
 	taipei: {
 		visible: boolean;
 		color: number;

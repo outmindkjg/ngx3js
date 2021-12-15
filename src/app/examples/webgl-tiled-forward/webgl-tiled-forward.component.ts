@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-tiled-forward',
 	templateUrl: './webgl-tiled-forward.component.html',
 	styleUrls: ['./webgl-tiled-forward.component.scss'],
 })
-export class WebglTiledForwardComponent extends BaseComponent<{}> {
+export class WebglTiledForwardComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

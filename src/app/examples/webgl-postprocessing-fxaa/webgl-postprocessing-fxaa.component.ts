@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-fxaa',
 	templateUrl: './webgl-postprocessing-fxaa.component.html',
 	styleUrls: ['./webgl-postprocessing-fxaa.component.scss'],
 })
-export class WebglPostprocessingFxaaComponent extends BaseComponent<{}> {
+export class WebglPostprocessingFxaaComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

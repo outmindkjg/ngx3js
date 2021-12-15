@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webxr-vr-sandbox',
 	templateUrl: './webxr-vr-sandbox.component.html',
 	styleUrls: ['./webxr-vr-sandbox.component.scss'],
 })
-export class WebxrVrSandboxComponent extends BaseComponent<{
+export class WebxrVrSandboxComponent extends NgxBaseComponent<{
 	radius: number;
 	tube: number;
 	tubularSegments: number;
@@ -38,7 +38,7 @@ export class WebxrVrSandboxComponent extends BaseComponent<{
 		);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			const time = timer.elapsedTime * 0.2;

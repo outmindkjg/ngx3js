@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	MaterialComponent,
-	RendererTimer,
-	ThreeUtil,
-	I3JS,
-	THREE,
+	NgxBaseComponent,
+	NgxMaterialComponent, NgxThreeUtil, IRendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -13,7 +9,7 @@ import {
 	templateUrl: './webgl-loader-nodes.component.html',
 	styleUrls: ['./webgl-loader-nodes.component.scss'],
 })
-export class WebglLoaderNodesComponent extends BaseComponent<{
+export class WebglLoaderNodesComponent extends NgxBaseComponent<{
 	load: string;
 	scale: number;
 }> {
@@ -57,9 +53,9 @@ export class WebglLoaderNodesComponent extends BaseComponent<{
 
 	storageName: string = '';
 
-	setMaterial(material: MaterialComponent) {
+	setMaterial(material: NgxMaterialComponent) {
 		const loadedMaterial = material.getMaterial();
-		if (ThreeUtil.isNotNull(loadedMaterial.userData.storageSource)) {
+		if (NgxThreeUtil.isNotNull(loadedMaterial.userData.storageSource)) {
 			const timerNode =
 				loadedMaterial.userData.storageSource.getObjectByName('time');
 			if (timerNode !== null && timerNode !== undefined) {
@@ -74,10 +70,10 @@ export class WebglLoaderNodesComponent extends BaseComponent<{
 		}
 	}
 
-	material: MaterialComponent = null;
+	material: NgxMaterialComponent = null;
 	timerNode: any = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.material !== null) {
 			this.material.updateNode(timer.delta);

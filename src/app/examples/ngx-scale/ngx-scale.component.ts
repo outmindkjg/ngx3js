@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-scale',
 	templateUrl: './ngx-scale.component.html',
 	styleUrls: ['./ngx-scale.component.scss'],
 })
-export class NgxScaleComponent extends BaseComponent<{
+export class NgxScaleComponent extends NgxBaseComponent<{
 	scale: {
 		x: number;
 		y: number;

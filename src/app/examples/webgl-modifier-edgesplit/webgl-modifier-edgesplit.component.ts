@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-modifier-edgesplit',
 	templateUrl: './webgl-modifier-edgesplit.component.html',
 	styleUrls: ['./webgl-modifier-edgesplit.component.scss'],
 })
-export class WebglModifierEdgesplitComponent extends BaseComponent<{
+export class WebglModifierEdgesplitComponent extends NgxBaseComponent<{
 	smoothShading: boolean;
 	edgeSplit: boolean;
 	cutOffAngle: number;

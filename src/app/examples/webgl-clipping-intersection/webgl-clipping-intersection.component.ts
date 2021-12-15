@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MaterialComponent, THREE, PlaneComponent } from 'ngx3js';
+import { NgxBaseComponent, NgxMaterialComponent, NgxPlaneComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-clipping-intersection',
 	templateUrl: './webgl-clipping-intersection.component.html',
 	styleUrls: ['./webgl-clipping-intersection.component.scss'],
 })
-export class WebglClippingIntersectionComponent extends BaseComponent<{
+export class WebglClippingIntersectionComponent extends NgxBaseComponent<{
 	clipIntersection: boolean;
 	planeConstant: number;
 	showHelpers: boolean;
@@ -79,15 +79,15 @@ export class WebglClippingIntersectionComponent extends BaseComponent<{
 		}
 	}
 
-	localPlane: PlaneComponent[] = [];
-	setLocalPlane(localPlane: PlaneComponent) {
+	localPlane: NgxPlaneComponent[] = [];
+	setLocalPlane(localPlane: NgxPlaneComponent) {
 		if (this.localPlane.indexOf(localPlane) === -1) {
 			this.localPlane.push(localPlane);
 		}
 	}
 
-	localMaterial: MaterialComponent[] = [];
-	setLocalMaterial(localMaterial: MaterialComponent) {
+	localMaterial: NgxMaterialComponent[] = [];
+	setLocalMaterial(localMaterial: NgxMaterialComponent) {
 		if (this.localMaterial.indexOf(localMaterial) === -1) {
 			this.localMaterial.push(localMaterial);
 		}

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl2-buffergeometry-attributes-integer',
 	templateUrl: './webgl2-buffergeometry-attributes-integer.component.html',
 	styleUrls: ['./webgl2-buffergeometry-attributes-integer.component.scss'],
 })
-export class Webgl2BuffergeometryAttributesIntegerComponent extends BaseComponent<{}> {
+export class Webgl2BuffergeometryAttributesIntegerComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

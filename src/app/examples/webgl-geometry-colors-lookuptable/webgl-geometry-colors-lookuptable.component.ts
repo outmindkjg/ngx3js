@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, Lut, MeshComponent, THREE } from 'ngx3js';
+import { I3JS, Lut, NgxBaseComponent, NgxMeshComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-colors-lookuptable',
 	templateUrl: './webgl-geometry-colors-lookuptable.component.html',
 	styleUrls: ['./webgl-geometry-colors-lookuptable.component.scss'],
 })
-export class WebglGeometryColorsLookuptableComponent extends BaseComponent<{
+export class WebglGeometryColorsLookuptableComponent extends NgxBaseComponent<{
 	colorMap: string;
 }> {
 	constructor() {
@@ -23,7 +23,7 @@ export class WebglGeometryColorsLookuptableComponent extends BaseComponent<{
 	}
 
 	ngOnInit() {
-		this.setGeometry = (geometry: I3JS.IBufferGeometry) => {
+		this.setGeometry = (geometry: I3JS.BufferGeometry) => {
 			if (geometry.attributes.position) {
 				const colors = [];
 				for (let i = 0, n = geometry.attributes.position.count; i < n; ++i) {
@@ -41,9 +41,9 @@ export class WebglGeometryColorsLookuptableComponent extends BaseComponent<{
 	}
 	lut = new Lut();
 
-	geometry: I3JS.IBufferGeometry = null;
+	geometry: I3JS.BufferGeometry = null;
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 	}
 

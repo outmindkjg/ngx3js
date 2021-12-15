@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE } from 'ngx3js';
+import { NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-parallaxmap',
 	templateUrl: './webgl-materials-parallaxmap.component.html',
 	styleUrls: ['./webgl-materials-parallaxmap.component.scss'],
 })
-export class WebglMaterialsParallaxmapComponent extends BaseComponent<{
+export class WebglMaterialsParallaxmapComponent extends NgxBaseComponent<{
 	mode: string;
 	scale: number;
 	minLayers: number;

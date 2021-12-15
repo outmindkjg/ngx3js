@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-points-nodes',
 	templateUrl: './webgl-points-nodes.component.html',
 	styleUrls: ['./webgl-points-nodes.component.scss'],
 })
-export class WebglPointsNodesComponent extends BaseComponent<{}> {
+export class WebglPointsNodesComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -34,7 +34,7 @@ export class WebglPointsNodesComponent extends BaseComponent<{}> {
 	positions: number[] = [];
 	scales: number[] = [];
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		const geometry = (mesh.getObject3d() as any).geometry;
 		this.position =
@@ -43,10 +43,10 @@ export class WebglPointsNodesComponent extends BaseComponent<{}> {
 			(geometry.getAttribute('scale') ) || null;
 	}
 
-	position: I3JS.IBufferAttribute = null;
-	scale: I3JS.IBufferAttribute = null;
+	position: I3JS.BufferAttribute = null;
+	scale: I3JS.BufferAttribute = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.position !== null && this.scale !== null) {
 			const positions = this.position.array as any;

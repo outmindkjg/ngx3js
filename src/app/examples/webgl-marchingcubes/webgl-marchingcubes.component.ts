@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, ThreeUtil  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent, NgxThreeUtil, IRendererTimer } from 'ngx3js';
 
 export interface MaterialInfo {
 	type: string;
@@ -25,7 +25,7 @@ export interface MaterialInfo {
 	templateUrl: './webgl-marchingcubes.component.html',
 	styleUrls: ['./webgl-marchingcubes.component.scss'],
 })
-export class WebglMarchingcubesComponent extends BaseComponent<{
+export class WebglMarchingcubesComponent extends NgxBaseComponent<{
 	material: string;
 	speed: 1.0;
 	numBlobs: 10;
@@ -463,14 +463,14 @@ export class WebglMarchingcubesComponent extends BaseComponent<{
 		},
 	};
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.Effect = mesh.getObject3d();
 	}
 
 	Effect: any = null;
 	time: number = 0;
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.Effect !== null) {
 			this.time += timer.delta * this.controls.speed * 0.5;
@@ -483,7 +483,7 @@ export class WebglMarchingcubesComponent extends BaseComponent<{
 					blobInfo.z,
 					blobInfo.strength,
 					blobInfo.subtract,
-					ThreeUtil.getColorSafe(blobInfo.colors)
+					NgxThreeUtil.getColorSafe(blobInfo.colors)
 				);
 			});
 			this.planeInfos.forEach((plane) => {

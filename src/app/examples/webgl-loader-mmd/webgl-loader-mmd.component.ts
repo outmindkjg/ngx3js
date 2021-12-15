@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, CameraComponent, I3JS, MixerComponent } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxCameraComponent, NgxMixerComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-mmd',
 	templateUrl: './webgl-loader-mmd.component.html',
 	styleUrls: ['./webgl-loader-mmd.component.scss'],
 })
-export class WebglLoaderMmdComponent extends BaseComponent<{
+export class WebglLoaderMmdComponent extends NgxBaseComponent<{
 	animation: boolean;
 	ik: boolean;
 	outline: boolean;
@@ -85,7 +85,7 @@ export class WebglLoaderMmdComponent extends BaseComponent<{
 	}
 
 	Effect: any = null;
-	setCamera(camera: CameraComponent) {
+	setCamera(camera: NgxCameraComponent) {
 		super.setCamera(camera);
 		// this.Effect = camera.getEffectEffect();
 	}
@@ -96,9 +96,9 @@ export class WebglLoaderMmdComponent extends BaseComponent<{
 		}
 	}
 
-	mmdAnimationHelpers: I3JS.IObject3D[] = [];
+	mmdAnimationHelpers: I3JS.Object3D[] = [];
 	mmdAnimationHelper: any = null;
-	setMixer(mixer: MixerComponent) {
+	setMixer(mixer: NgxMixerComponent) {
 		this.mmdAnimationHelper = mixer.getMmdAnimationHelper();
 		this.mmdAnimationHelpers = mixer.getMmdAnimationHelperObject3D();
 		if (this.mmdAnimationHelpers && this.mmdAnimationHelpers.length == 2) {

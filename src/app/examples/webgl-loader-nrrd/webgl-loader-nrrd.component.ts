@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-nrrd',
 	templateUrl: './webgl-loader-nrrd.component.html',
 	styleUrls: ['./webgl-loader-nrrd.component.scss'],
 })
-export class WebglLoaderNrrdComponent extends BaseComponent<{
+export class WebglLoaderNrrdComponent extends NgxBaseComponent<{
 	modelVisible: boolean;
 	xVisible: boolean;
 	indexX: number;

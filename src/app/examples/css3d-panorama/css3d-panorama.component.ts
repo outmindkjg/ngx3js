@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-css3d-panorama',
 	templateUrl: './css3d-panorama.component.html',
 	styleUrls: ['./css3d-panorama.component.scss'],
 })
-export class Css3dPanoramaComponent extends BaseComponent<{}> {
+export class Css3dPanoramaComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

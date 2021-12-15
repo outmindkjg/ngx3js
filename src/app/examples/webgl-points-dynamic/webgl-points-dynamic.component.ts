@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-points-dynamic',
 	templateUrl: './webgl-points-dynamic.component.html',
 	styleUrls: ['./webgl-points-dynamic.component.scss'],
 })
-export class WebglPointsDynamicComponent extends BaseComponent<{}> {
+export class WebglPointsDynamicComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -69,8 +69,8 @@ export class WebglPointsDynamicComponent extends BaseComponent<{}> {
 	}
 
 	meshInfos: {
-		geometry?: I3JS.IBufferGeometry;
-		mesh?: I3JS.IPoints;
+		geometry?: I3JS.BufferGeometry;
+		mesh?: I3JS.Points;
 		geoType: string;
 		position: { x: number; y: number; z: number };
 		scale: number;
@@ -85,7 +85,7 @@ export class WebglPointsDynamicComponent extends BaseComponent<{}> {
 		isClone: boolean;
 	}[] = [];
 
-	setGeometry(idx: number, mesh: MeshComponent) {
+	setGeometry(idx: number, mesh: NgxMeshComponent) {
 		const realMesh = mesh.getObject3d() as any ;
 		setTimeout(() => {
 			const geometry = realMesh.geometry;
@@ -121,7 +121,7 @@ export class WebglPointsDynamicComponent extends BaseComponent<{}> {
 		}, 3000);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		let delta = timer.delta * 10;
 		delta = delta < 2 ? delta : 2;

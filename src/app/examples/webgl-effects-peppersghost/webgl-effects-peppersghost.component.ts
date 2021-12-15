@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, THREE, RendererTimer } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
-	selector: 'app-webgl-Effects-peppersghost',
-	templateUrl: './webgl-Effects-peppersghost.component.html',
-	styleUrls: ['./webgl-Effects-peppersghost.component.scss'],
+	selector: 'app-webgl-effects-peppersghost',
+	templateUrl: './webgl-effects-peppersghost.component.html',
+	styleUrls: ['./webgl-effects-peppersghost.component.scss'],
 })
-export class WebglEffectsPeppersghostComponent extends BaseComponent<{}> {
+export class WebglEffectsPeppersghostComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		const meshTree = mesh.getObject3d() as any;
 		if (meshTree instanceof THREE.Mesh) {
@@ -54,7 +54,7 @@ export class WebglEffectsPeppersghostComponent extends BaseComponent<{}> {
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		if (this.meshObject3d !== null) {
 			this.meshObject3d.rotation.y += 0.01 * 40 * timer.delta;
 		}

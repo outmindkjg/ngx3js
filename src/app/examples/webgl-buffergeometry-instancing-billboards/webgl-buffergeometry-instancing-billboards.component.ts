@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-instancing-billboards',
 	templateUrl: './webgl-buffergeometry-instancing-billboards.component.html',
 	styleUrls: ['./webgl-buffergeometry-instancing-billboards.component.scss'],
 })
-export class WebglBuffergeometryInstancingBillboardsComponent extends BaseComponent<{}> {
+export class WebglBuffergeometryInstancingBillboardsComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -30,16 +30,16 @@ export class WebglBuffergeometryInstancingBillboardsComponent extends BaseCompon
 	attributes: any = null;
 	translateArray: number[] = [];
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.object3d = mesh.getObject3d();
 		this.uniforms = (this.object3d as any).material.uniforms;
 	}
 
-	object3d: I3JS.IObject3D = null;
+	object3d: I3JS.Object3D = null;
 	uniforms: { [uniform: string]: I3JS.IUniform } = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.object3d !== null && this.uniforms !== null) {
 			const time = timer.elapsedTime * 0.5;

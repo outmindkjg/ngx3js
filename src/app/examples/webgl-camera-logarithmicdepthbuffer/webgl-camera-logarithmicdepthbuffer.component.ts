@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	CameraComponent, I3JS, THREE, RendererComponent,
-	RendererTimer
+	I3JS, NgxBaseComponent,
+	NgxCameraComponent, NgxRendererComponent,
+	IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -10,7 +10,7 @@ import {
 	templateUrl: './webgl-camera-logarithmicdepthbuffer.component.html',
 	styleUrls: ['./webgl-camera-logarithmicdepthbuffer.component.scss'],
 })
-export class WebglCameraLogarithmicdepthbufferComponent extends BaseComponent<{
+export class WebglCameraLogarithmicdepthbufferComponent extends NgxBaseComponent<{
 	screenRate: number;
 	reset: () => void;
 }> {
@@ -62,25 +62,25 @@ export class WebglCameraLogarithmicdepthbufferComponent extends BaseComponent<{
 		});
 	}
 
-	renderer: RendererComponent = null;
+	renderer: NgxRendererComponent = null;
 
-	setRenderer(renderer: RendererComponent) {
+	setRenderer(renderer: NgxRendererComponent) {
 		this.renderer = renderer;
 	}
 
-	camera1: I3JS.ICamera = null;
+	camera1: I3JS.Camera = null;
 
-	setCamera1(camera: CameraComponent) {
+	setCamera1(camera: NgxCameraComponent) {
 		this.camera1 = camera.getCamera();
 	}
 
-	camera2: I3JS.ICamera = null;
+	camera2: I3JS.Camera = null;
 
-	setCamera2(camera: CameraComponent) {
+	setCamera2(camera: NgxCameraComponent) {
 		this.camera2 = camera.getCamera();
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const minzoom = this.labelData[0].size * this.labelData[0].scale * 1;
 		const maxzoom =

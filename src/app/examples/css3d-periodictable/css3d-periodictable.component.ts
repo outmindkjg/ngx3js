@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent  , I3JS, THREE } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-css3d-periodictable',
 	templateUrl: './css3d-periodictable.component.html',
 	styleUrls: ['./css3d-periodictable.component.scss'],
 })
-export class Css3dPeriodictableComponent extends BaseComponent<{
+export class Css3dPeriodictableComponent extends NgxBaseComponent<{
 	autoPlay: boolean;
 	display: string;
 }> {
@@ -729,7 +729,7 @@ export class Css3dPeriodictableComponent extends BaseComponent<{
 			this.meshChildren &&
 			this.meshChildren.length > 0
 		) {
-			let baseTable: { position: I3JS.IVector3; rotation: I3JS.IEuler }[] =
+			let baseTable: { position: I3JS.Vector3; rotation: I3JS.Euler }[] =
 				null;
 			switch (this.controls.display) {
 				case 'table':
@@ -772,10 +772,10 @@ export class Css3dPeriodictableComponent extends BaseComponent<{
 	private checkAutoPlayBind: any = null;
 
 	tweenTable: {
-		table: { position: I3JS.IVector3; rotation: I3JS.IEuler }[];
-		sphere: { position: I3JS.IVector3; rotation: I3JS.IEuler }[];
-		helix: { position: I3JS.IVector3; rotation: I3JS.IEuler }[];
-		grid: { position: I3JS.IVector3; rotation: I3JS.IEuler }[];
+		table: { position: I3JS.Vector3; rotation: I3JS.Euler }[];
+		sphere: { position: I3JS.Vector3; rotation: I3JS.Euler }[];
+		helix: { position: I3JS.Vector3; rotation: I3JS.Euler }[];
+		grid: { position: I3JS.Vector3; rotation: I3JS.Euler }[];
 	} = {
 		table: null,
 		sphere: null,
@@ -792,7 +792,7 @@ export class Css3dPeriodictableComponent extends BaseComponent<{
 		duration: number;
 	}[] = [];
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		setTimeout(() => {
 			this.changeTable();

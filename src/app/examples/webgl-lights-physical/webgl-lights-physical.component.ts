@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent, THREE, MeshComponent,
-	RendererComponent,
-	RendererTimer
+	NgxBaseComponent, THREE, NgxMeshComponent,
+	NgxRendererComponent,
+	IRendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -10,7 +10,7 @@ import {
 	templateUrl: './webgl-lights-physical.component.html',
 	styleUrls: ['./webgl-lights-physical.component.scss'],
 })
-export class WebglLightsPhysicalComponent extends BaseComponent<{
+export class WebglLightsPhysicalComponent extends NgxBaseComponent<{
 	shadows: true;
 	exposure: 0.68;
 	bulbPower: string;
@@ -113,7 +113,7 @@ export class WebglLightsPhysicalComponent extends BaseComponent<{
 		'50000 lx (Direct Sun)': 50000,
 	};
 
-	setRender(renderer: RendererComponent) {
+	setRender(renderer: NgxRendererComponent) {
 		super.setRender(renderer);
 		const render = renderer.getRenderer() as any;
 		render.physicallyCorrectLights = true;
@@ -124,11 +124,11 @@ export class WebglLightsPhysicalComponent extends BaseComponent<{
 
 	bulbLight: any = null;
 
-	setBulbLight(light: MeshComponent) {
+	setBulbLight(light: NgxMeshComponent) {
 		this.bulbLight = light.getObject3d();
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.bulbLight !== null) {
 			const time = Date.now() * 0.0005;

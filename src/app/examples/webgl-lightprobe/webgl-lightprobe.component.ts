@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, LightComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxLightComponent, NgxMeshComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lightprobe',
 	templateUrl: './webgl-lightprobe.component.html',
 	styleUrls: ['./webgl-lightprobe.component.scss'],
 })
-export class WebglLightprobeComponent extends BaseComponent<{
+export class WebglLightprobeComponent extends NgxBaseComponent<{
 	lightProbeIntensity: number;
 	directionalLightIntensity: number;
 	envMapIntensity: number;
@@ -66,15 +66,15 @@ export class WebglLightprobeComponent extends BaseComponent<{
 	directionalLight: any;
 	meshMaterial: any;
 
-	setlightProbe(lightProbe: LightComponent) {
+	setlightProbe(lightProbe: NgxLightComponent) {
 		this.lightProbe = lightProbe.getObject3d();
 	}
 
-	setLight(light: LightComponent) {
+	setLight(light: NgxLightComponent) {
 		this.directionalLight = light.getObject3d();
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.meshMaterial = (this.mesh.getRealMesh() as any).material;
 	}

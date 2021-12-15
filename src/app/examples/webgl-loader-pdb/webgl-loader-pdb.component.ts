@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-pdb',
 	templateUrl: './webgl-loader-pdb.component.html',
 	styleUrls: ['./webgl-loader-pdb.component.scss'],
 })
-export class WebglLoaderPdbComponent extends BaseComponent<{
+export class WebglLoaderPdbComponent extends NgxBaseComponent<{
 	molecule: string;
 }> {
 	constructor() {

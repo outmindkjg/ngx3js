@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	GeometryComponent, I3JS, MaterialComponent,
-	MeshComponent, THREE, RendererTimer
+	I3JS, NgxBaseComponent,
+	NgxGeometryComponent, NgxMaterialComponent,
+	NgxMeshComponent, IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -10,7 +10,7 @@ import {
 	templateUrl: './webgl-instancing-modified.component.html',
 	styleUrls: ['./webgl-instancing-modified.component.scss'],
 })
-export class WebglInstancingModifiedComponent extends BaseComponent<{}> {
+export class WebglInstancingModifiedComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -18,7 +18,7 @@ export class WebglInstancingModifiedComponent extends BaseComponent<{}> {
 	amount: number = 8;
 	count: number = Math.pow(this.amount, 3);
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 	}
 	colorParsChunk = [
@@ -41,7 +41,7 @@ export class WebglInstancingModifiedComponent extends BaseComponent<{}> {
 		'vec4 diffuseColor = vec4( diffuse * vInstanceColor, opacity );',
 	].join('\n');
 
-	setGeometry(geometry: GeometryComponent) {
+	setGeometry(geometry: NgxGeometryComponent) {
 		const instanceColors = [];
 		for (let i = 0; i < this.count; i++) {
 			instanceColors.push(Math.random());
@@ -56,7 +56,7 @@ export class WebglInstancingModifiedComponent extends BaseComponent<{}> {
 			);
 	}
 
-	setMaterial(material: MaterialComponent) {
+	setMaterial(material: NgxMaterialComponent) {
 		const meshMatcapMaterial = material.getMaterial();
 		meshMatcapMaterial.onBeforeCompile = (shader) => {
 			shader.vertexShader = shader.vertexShader
@@ -73,7 +73,7 @@ export class WebglInstancingModifiedComponent extends BaseComponent<{}> {
 
 	dummy = new THREE.Object3D();
 
-	makeMatrix = (matrix: I3JS.IMatrix4, i: number, time: number = 0) => {
+	makeMatrix = (matrix: I3JS.Matrix4, i: number, time: number = 0) => {
 		const offset = (this.amount - 1) / 2;
 		const x = i % this.amount;
 		i = Math.floor((i - x) / this.amount);
@@ -91,11 +91,11 @@ export class WebglInstancingModifiedComponent extends BaseComponent<{}> {
 
 	matrix = new THREE.Matrix4();
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			const time = timer.elapsedTime;
-			const instancedMesh: I3JS.IInstancedMesh = this.meshObject3d as any;
+			const instancedMesh: I3JS.InstancedMesh = this.meshObject3d as any;
 			instancedMesh.rotation.x = Math.sin(time / 4);
 			instancedMesh.rotation.y = Math.sin(time / 2);
 			for (let i = 0; i < this.count; i++) {

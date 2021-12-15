@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, LightComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxLightComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shadowmap-vsm',
 	templateUrl: './webgl-shadowmap-vsm.component.html',
 	styleUrls: ['./webgl-shadowmap-vsm.component.scss'],
 })
-export class WebglShadowmapVsmComponent extends BaseComponent<{
+export class WebglShadowmapVsmComponent extends NgxBaseComponent<{
 	spotlightRadius: number;
 	spotlightSamples: number;
 	dirlightRadius: number;
@@ -91,19 +91,19 @@ export class WebglShadowmapVsmComponent extends BaseComponent<{
 		);
 	}
 
-	setSpotLight(light: LightComponent) {
+	setSpotLight(light: NgxLightComponent) {
 		this.spotLight = light.getObject3d() ;
 	}
 
-	spotLight: I3JS.ISpotLight = null;
+	spotLight: I3JS.SpotLight = null;
 
-	setDirLight(light: LightComponent) {
+	setDirLight(light: NgxLightComponent) {
 		this.dirLight = light.getObject3d() ;
 	}
 
-	dirLight: I3JS.IDirectionalLight = null;
+	dirLight: I3JS.DirectionalLight = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
 			const delta = timer.delta;

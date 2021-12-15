@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-blending',
 	templateUrl: './webgl-materials-blending.component.html',
 	styleUrls: ['./webgl-materials-blending.component.scss'],
 })
-export class WebglMaterialsBlendingComponent extends BaseComponent<{}> {
+export class WebglMaterialsBlendingComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -71,14 +71,14 @@ export class WebglMaterialsBlendingComponent extends BaseComponent<{}> {
 		ctx.fillRect(96, 96, 32, 32);
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.mapBg = (this.mesh.getObject3d() as any).material.map;
 	}
 
 	mapBg: any = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mapBg !== null && this.mapBg.repeat) {
 			const time = timer.elapsedTime * 0.25;

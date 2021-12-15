@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererEvent } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-interactive-voxelpainter',
 	templateUrl: './webgl-interactive-voxelpainter.component.html',
 	styleUrls: ['./webgl-interactive-voxelpainter.component.scss'],
 })
-export class WebglInteractiveVoxelpainterComponent extends BaseComponent<{
+export class WebglInteractiveVoxelpainterComponent extends NgxBaseComponent<{
 	clear: () => void;
 }> {
 	constructor() {
@@ -20,19 +20,19 @@ export class WebglInteractiveVoxelpainterComponent extends BaseComponent<{
 		);
 	}
 
-	rollOver: I3JS.IObject3D = null;
+	rollOver: I3JS.Object3D = null;
 
-	setRollOver(mesh: MeshComponent) {
+	setRollOver(mesh: NgxMeshComponent) {
 		this.rollOver = mesh.getObject3d();
 	}
 
-	plane: I3JS.IObject3D = null;
+	plane: I3JS.Object3D = null;
 
-	setPlane(mesh: MeshComponent) {
+	setPlane(mesh: NgxMeshComponent) {
 		this.plane = mesh.getObject3d();
 	}
 
-	onMouseEvent(event: RendererEvent) {
+	onMouseEvent(event: IRendererEvent) {
 		if (this.camera !== null && this.plane !== null && this.rollOver !== null) {
 			const mesh = this.mesh.getObject3d();
 			const intersect = this.camera.getIntersection(event.mouse, [

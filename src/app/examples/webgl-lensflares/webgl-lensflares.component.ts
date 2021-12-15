@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE } from 'ngx3js';
+import { NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lensflares',
 	templateUrl: './webgl-lensflares.component.html',
 	styleUrls: ['./webgl-lensflares.component.scss'],
 })
-export class WebglLensflaresComponent extends BaseComponent<{}> {
+export class WebglLensflaresComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

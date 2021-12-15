@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer, TextureComponent , I3JS, THREE } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxTextureComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-texture-partialupdate',
 	templateUrl: './webgl-materials-texture-partialupdate.component.html',
 	styleUrls: ['./webgl-materials-texture-partialupdate.component.scss'],
 })
-export class WebglMaterialsTexturePartialupdateComponent extends BaseComponent<{}> {
+export class WebglMaterialsTexturePartialupdateComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	setDiffuseMap(texture: TextureComponent) {
+	setDiffuseMap(texture: NgxTextureComponent) {
 		this.diffuseMap = texture.getTexture();
 		const width = 31;
 		const height = 31;
@@ -23,12 +23,12 @@ export class WebglMaterialsTexturePartialupdateComponent extends BaseComponent<{
 			THREE.RGBFormat
 		);
 	}
-	diffuseMap: I3JS.ITexture = null;
+	diffuseMap: I3JS.Texture = null;
 
 	last: number = 0;
 	position = new THREE.Vector2();
 	color = new THREE.Color();
-	dataTexture: I3JS.IDataTexture = null;
+	dataTexture: I3JS.DataTexture = null;
 
 	updateDataTexture(texture) {
 		const color = this.color;
@@ -48,7 +48,7 @@ export class WebglMaterialsTexturePartialupdateComponent extends BaseComponent<{
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (
 			this.diffuseMap !== null &&

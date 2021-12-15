@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, GeometryUtils, I3JS, THREE } from 'ngx3js';
+import { GeometryUtils, I3JS, NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lines-dashed',
 	templateUrl: './webgl-lines-dashed.component.html',
 	styleUrls: ['./webgl-lines-dashed.component.scss'],
 })
-export class WebglLinesDashedComponent extends BaseComponent<{}> {
+export class WebglLinesDashedComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -111,6 +111,6 @@ export class WebglLinesDashedComponent extends BaseComponent<{}> {
 		);
 	}
 
-	samples: I3JS.IVector3[] = [];
+	samples: I3JS.Vector3[] = [];
 	position: number[] = [];
 }

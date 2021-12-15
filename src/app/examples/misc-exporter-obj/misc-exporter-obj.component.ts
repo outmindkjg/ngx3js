@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { BaseComponent, LocalStorageService  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxLocalStorageService } from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-exporter-obj',
 	templateUrl: './misc-exporter-obj.component.html',
 	styleUrls: ['./misc-exporter-obj.component.scss'],
 })
-export class MiscExporterObjComponent extends BaseComponent<{
+export class MiscExporterObjComponent extends NgxBaseComponent<{
 	type: string;
 	export: () => void;
 }> {
-	constructor(private localStorageService: LocalStorageService) {
+	constructor(private localStorageService: NgxLocalStorageService) {
 		super(
 			{
 				type: 'triangle',

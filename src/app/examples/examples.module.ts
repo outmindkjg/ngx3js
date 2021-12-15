@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Ngx3JsModule  , I3JS, THREE } from 'ngx3js';
+import { Ngx3JsModule } from 'ngx3js';
 import { Css2dLabelComponent } from './css2d-label/css2d-label.component';
 import { Css3dMoleculesComponent } from './css3d-molecules/css3d-molecules.component';
 import { Css3dOrthographicComponent } from './css3d-orthographic/css3d-orthographic.component';
@@ -14,6 +14,7 @@ import { Css3dSpritesComponent } from './css3d-sprites/css3d-sprites.component';
 import { Css3dYoutubeComponent } from './css3d-youtube/css3d-youtube.component';
 import { ExamplesRoutingModule } from './examples-routing.module';
 import { GamesFpsComponent } from './games-fps/games-fps.component';
+import { HelloWorldComponent } from './hello-world/hello-world.component';
 import { MiscAnimationGroupsComponent } from './misc-animation-groups/misc-animation-groups.component';
 import { MiscAnimationKeysComponent } from './misc-animation-keys/misc-animation-keys.component';
 import { MiscBoxselectionComponent } from './misc-boxselection/misc-boxselection.component';
@@ -45,15 +46,16 @@ import { NgxChartMixedComponent } from './ngx-chart-mixed/ngx-chart-mixed.compon
 import { NgxChartPolarComponent } from './ngx-chart-polar/ngx-chart-polar.component';
 import { NgxChartRadarComponent } from './ngx-chart-radar/ngx-chart-radar.component';
 import { NgxChartScatterComponent } from './ngx-chart-scatter/ngx-chart-scatter.component';
-import { NgxEffectComponent } from './ngx-effect/ngx-effect.component';
 import { NgxControlComponent } from './ngx-control/ngx-control.component';
 import { NgxCurveComponent } from './ngx-curve/ngx-curve.component';
 import { NgxDirectivesComponent } from './ngx-directives/ngx-directives.component';
+import { NgxEffectComponent } from './ngx-effect/ngx-effect.component';
 import { NgxFontComponent } from './ngx-font/ngx-font.component';
 import { NgxGeometryComponent } from './ngx-geometry/ngx-geometry.component';
 import { NgxHudComponent } from './ngx-hud/ngx-hud.component';
 import { NgxLightComponent } from './ngx-light/ngx-light.component';
 import { NgxMaterialComponent } from './ngx-material/ngx-material.component';
+import { NgxMeshComponent } from './ngx-mesh/ngx-mesh.component';
 import { NgxPhysicsComponent } from './ngx-physics/ngx-physics.component';
 import { NgxPipesComponent } from './ngx-pipes/ngx-pipes.component';
 import { NgxPositionComponent } from './ngx-position/ngx-position.component';
@@ -112,11 +114,11 @@ import { WebglCustomAttributesPoints3Component } from './webgl-custom-attributes
 import { WebglCustomAttributesComponent } from './webgl-custom-attributes/webgl-custom-attributes.component';
 import { WebglDecalsComponent } from './webgl-decals/webgl-decals.component';
 import { WebglDepthTextureComponent } from './webgl-depth-texture/webgl-depth-texture.component';
-import { WebglEffectsAnaglyphComponent } from './webgl-Effects-anaglyph/webgl-Effects-anaglyph.component';
-import { WebglEffectsAsciiComponent } from './webgl-Effects-ascii/webgl-Effects-ascii.component';
-import { WebglEffectsParallaxbarrierComponent } from './webgl-Effects-parallaxbarrier/webgl-Effects-parallaxbarrier.component';
-import { WebglEffectsPeppersghostComponent } from './webgl-Effects-peppersghost/webgl-Effects-peppersghost.component';
-import { WebglEffectsStereoComponent } from './webgl-Effects-stereo/webgl-Effects-stereo.component';
+import { WebglEffectsAnaglyphComponent } from './webgl-effects-anaglyph/webgl-effects-anaglyph.component';
+import { WebglEffectsAsciiComponent } from './webgl-effects-ascii/webgl-effects-ascii.component';
+import { WebglEffectsParallaxbarrierComponent } from './webgl-effects-parallaxbarrier/webgl-effects-parallaxbarrier.component';
+import { WebglEffectsPeppersghostComponent } from './webgl-effects-peppersghost/webgl-effects-peppersghost.component';
+import { WebglEffectsStereoComponent } from './webgl-effects-stereo/webgl-effects-stereo.component';
 import { WebglFramebufferTextureComponent } from './webgl-framebuffer-texture/webgl-framebuffer-texture.component';
 import { WebglFurnaceTestComponent } from './webgl-furnace-test/webgl-furnace-test.component';
 import { WebglGeometriesParametricComponent } from './webgl-geometries-parametric/webgl-geometries-parametric.component';
@@ -435,8 +437,6 @@ import { WebxrVrRollercoasterComponent } from './webxr-vr-rollercoaster/webxr-vr
 import { WebxrVrSandboxComponent } from './webxr-vr-sandbox/webxr-vr-sandbox.component';
 import { WebxrVrSculptComponent } from './webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component';
-import { HelloWorldComponent } from './hello-world/hello-world.component';
-import { NgxMeshComponent } from './ngx-mesh/ngx-mesh.component';
 @NgModule({
 	declarations: [
 		WebglAnimationClothComponent,

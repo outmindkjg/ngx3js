@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	MeshComponent,
-	RendererEvent,
-	RendererTimer
+	NgxBaseComponent,
+	NgxMeshComponent,
+	IRendererEvent,
+	IRendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -11,7 +11,7 @@ import {
 	templateUrl: './webgl-performance-static.component.html',
 	styleUrls: ['./webgl-performance-static.component.scss'],
 })
-export class WebglPerformanceStaticComponent extends BaseComponent<{}> {
+export class WebglPerformanceStaticComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -46,7 +46,7 @@ export class WebglPerformanceStaticComponent extends BaseComponent<{}> {
 		scale: { x: number; y: number; z: number };
 	}[] = [];
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.meshChildren = mesh.getObject3d().children;
 	}
@@ -54,12 +54,12 @@ export class WebglPerformanceStaticComponent extends BaseComponent<{}> {
 	mouseX: number = 0;
 	mouseY: number = 0;
 
-	onMouseMove(event: RendererEvent) {
+	onMouseMove(event: IRendererEvent) {
 		this.mouseX = event.mouse.x * event.width * 2;
 		this.mouseY = event.mouse.y * event.height * 2;
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.camera !== null) {
 			const camera = this.camera.getObject3d();

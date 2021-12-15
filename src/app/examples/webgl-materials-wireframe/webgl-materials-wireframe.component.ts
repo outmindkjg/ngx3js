@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, THREE, ThreeUtil } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxThreeUtil, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-wireframe',
 	templateUrl: './webgl-materials-wireframe.component.html',
 	styleUrls: ['./webgl-materials-wireframe.component.scss'],
 })
-export class WebglMaterialsWireframeComponent extends BaseComponent<{
+export class WebglMaterialsWireframeComponent extends NgxBaseComponent<{
 	widthFactor: number;
 }> {
 	constructor() {
@@ -18,8 +18,8 @@ export class WebglMaterialsWireframeComponent extends BaseComponent<{
 		);
 	}
 
-	setGeometry(geometry: I3JS.IBufferGeometry) {
-		if (ThreeUtil.isNotNull(geometry.attributes.position)) {
+	setGeometry(geometry: I3JS.BufferGeometry) {
+		if (NgxThreeUtil.isNotNull(geometry.attributes.position)) {
 			geometry.deleteAttribute('normal');
 			geometry.deleteAttribute('uv');
 			const vectors = [

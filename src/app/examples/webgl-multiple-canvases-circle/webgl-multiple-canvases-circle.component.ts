@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, THREE } from 'ngx3js';
+import { I3JS, NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-multiple-canvases-circle',
 	templateUrl: './webgl-multiple-canvases-circle.component.html',
 	styleUrls: ['./webgl-multiple-canvases-circle.component.scss'],
 })
-export class WebglMultipleCanvasesCircleComponent extends BaseComponent<{
+export class WebglMultipleCanvasesCircleComponent extends NgxBaseComponent<{
 	screenCnt: number;
 	screenWidth: number;
 	screenHeight: number;
@@ -157,7 +157,7 @@ export class WebglMultipleCanvasesCircleComponent extends BaseComponent<{
 		}
 	}
 
-	setIcosahedronGeometry(geometry1: I3JS.IBufferGeometry) {
+	setIcosahedronGeometry(geometry1: I3JS.BufferGeometry) {
 		const count = geometry1.attributes.position.count;
 		geometry1.setAttribute(
 			'color',

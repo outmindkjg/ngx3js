@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lod',
 	templateUrl: './webgl-lod.component.html',
 	styleUrls: ['./webgl-lod.component.scss'],
 })
-export class WebglLodComponent extends BaseComponent<{}> {
+export class WebglLodComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

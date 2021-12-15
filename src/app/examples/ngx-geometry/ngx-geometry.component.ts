@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-geometry',
 	templateUrl: './ngx-geometry.component.html',
 	styleUrls: ['./ngx-geometry.component.scss'],
 })
-export class NgxGeometryComponent extends BaseComponent<{
+export class NgxGeometryComponent extends NgxBaseComponent<{
 	color: number;
 	geometry: {
 		type: string;
@@ -200,7 +200,7 @@ export class NgxGeometryComponent extends BaseComponent<{
 		);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			const elapsedTime = timer.elapsedTime;

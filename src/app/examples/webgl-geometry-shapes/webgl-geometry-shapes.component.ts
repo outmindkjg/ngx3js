@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, THREE } from 'ngx3js';
+import { I3JS, NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-shapes',
 	templateUrl: './webgl-geometry-shapes.component.html',
 	styleUrls: ['./webgl-geometry-shapes.component.scss'],
 })
-export class WebglGeometryShapesComponent extends BaseComponent<{}> {
+export class WebglGeometryShapesComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
 	shapesInfos: {
-		shape: I3JS.IShape;
+		shape: I3JS.Shape;
 		extrudeSettings: {
 			depth: number;
 			bevelEnabled: boolean;
@@ -32,9 +32,9 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 	}[] = [];
 
 	lineShapesInfos: {
-		shape: I3JS.IShape;
-		points: I3JS.IVector2[];
-		spacedPoints: I3JS.IVector2[];
+		shape: I3JS.Shape;
+		points: I3JS.Vector2[];
+		spacedPoints: I3JS.Vector2[];
 		color: number;
 		x: number;
 		y: number;
@@ -45,7 +45,7 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 		s: number;
 	}[] = [];
 
-	addShape(shape: I3JS.IShape, extrudeSettings, color, x, y, z, rx, ry, rz, s) {
+	addShape(shape: I3JS.Shape, extrudeSettings, color, x, y, z, rx, ry, rz, s) {
 		this.shapesInfos.push({
 			shape: shape.clone() ,
 			extrudeSettings: extrudeSettings,
@@ -61,7 +61,7 @@ export class WebglGeometryShapesComponent extends BaseComponent<{}> {
 		this.addLineShape(shape, color, x, y, z, rx, ry, rz, s);
 	}
 
-	addLineShape(shape: I3JS.IShape | I3JS.IPath, color, x, y, z, rx, ry, rz, s) {
+	addLineShape(shape: I3JS.Shape | I3JS.Path, color, x, y, z, rx, ry, rz, s) {
 		const lineShape = shape.clone() ;
 		lineShape.autoClose = true;
 		const points = lineShape.getPoints();

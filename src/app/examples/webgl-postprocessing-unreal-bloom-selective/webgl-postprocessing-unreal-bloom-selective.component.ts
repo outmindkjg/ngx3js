@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	EffectComponent, I3JS, THREE, PassComponent,
-	RendererEvent,
-	RendererInfo
+	I3JS, NgxBaseComponent,
+	NgxEffectComponent, NgxPassComponent,
+	IRendererEvent,
+	IRendererInfo, THREE
 } from 'ngx3js';
 
 @Component({
@@ -11,7 +11,7 @@ import {
 	templateUrl: './webgl-postprocessing-unreal-bloom-selective.component.html',
 	styleUrls: ['./webgl-postprocessing-unreal-bloom-selective.component.scss'],
 })
-export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseComponent<{
+export class WebglPostprocessingUnrealBloomSelectiveComponent extends NgxBaseComponent<{
 	exposure: number;
 	bloomStrength: number;
 	bloomThreshold: number;
@@ -130,7 +130,7 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 		layer?: number[];
 	}[] = [];
 
-	onPointerDown(event: RendererEvent) {
+	onPointerDown(event: IRendererEvent) {
 		if (this.camera !== null) {
 			const intersect = this.camera.getIntersection(
 				event.mouse,
@@ -142,7 +142,7 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 		}
 	}
 
-	setBloomPass(pass: PassComponent) {
+	setBloomPass(pass: NgxPassComponent) {
 		this.bloomPass = pass.getPass();
 		this.bloomPass.threshold = this.controls.bloomThreshold;
 		this.bloomPass.strength = this.controls.bloomStrength;
@@ -150,9 +150,9 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 	}
 
 	bloomPass: any = null;
-	bloomLayer: I3JS.ILayers = null;
+	bloomLayer: I3JS.Layers = null;
 	darkMaterial = new THREE.MeshBasicMaterial({ color: 'black' });
-	beforeRender = (renderInfo: RendererInfo): boolean => {
+	beforeRender = (renderInfo: IRendererInfo): boolean => {
 		if (
 			this.finalEffect !== null &&
 			this.bloomEffect !== null &&
@@ -201,11 +201,11 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends BaseCompon
 	finalEffect: any = null;
 	bloomEffect: any = null;
 
-	setFinalEffect(composer: EffectComponent) {
+	setFinalEffect(composer: NgxEffectComponent) {
 		this.finalEffect = composer.getEffect();
 	}
 
-	setBloomEffect(composer: EffectComponent) {
+	setBloomEffect(composer: NgxEffectComponent) {
 		this.bloomEffect = composer.getEffect();
 	}
 }

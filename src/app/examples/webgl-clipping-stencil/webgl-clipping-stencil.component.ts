@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	HelperComponent, I3JS, PlaneComponent,
-	RendererTimer
+	I3JS, NgxBaseComponent,
+	NgxHelperComponent, NgxPlaneComponent,
+	IRendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -10,7 +10,7 @@ import {
 	templateUrl: './webgl-clipping-stencil.component.html',
 	styleUrls: ['./webgl-clipping-stencil.component.scss'],
 })
-export class WebglClippingStencilComponent extends BaseComponent<{
+export class WebglClippingStencilComponent extends NgxBaseComponent<{
 	animate: boolean;
 	planeX: {
 		constant: number;
@@ -164,7 +164,7 @@ export class WebglClippingStencilComponent extends BaseComponent<{
 
 	constantHelper(axis: string, value: number) {
 		if (this.localHelper !== null) {
-			let helper: I3JS.IPlaneHelper = this.getAxisHelper(axis);
+			let helper: I3JS.PlaneHelper = this.getAxisHelper(axis);
 			if (helper !== null) {
 				helper.plane.constant = value;
 			}
@@ -173,7 +173,7 @@ export class WebglClippingStencilComponent extends BaseComponent<{
 
 	negatedHelper(axis: string): number {
 		if (this.localHelper !== null) {
-			let helper: I3JS.IPlaneHelper = this.getAxisHelper(axis);
+			let helper: I3JS.PlaneHelper = this.getAxisHelper(axis);
 			if (helper !== null) {
 				helper.plane.negate();
 				return helper.plane.constant;
@@ -184,15 +184,15 @@ export class WebglClippingStencilComponent extends BaseComponent<{
 
 	displayHelper(axis: string, visible: boolean) {
 		if (this.localHelper !== null) {
-			let helper: I3JS.IPlaneHelper = this.getAxisHelper(axis);
+			let helper: I3JS.PlaneHelper = this.getAxisHelper(axis);
 			if (helper !== null) {
 				helper.visible = visible;
 			}
 		}
 	}
 
-	getAxisHelper(axis: string): I3JS.IPlaneHelper {
-		let helper: I3JS.IPlaneHelper = null;
+	getAxisHelper(axis: string): I3JS.PlaneHelper {
+		let helper: I3JS.PlaneHelper = null;
 		let x = 0,
 			y = 0,
 			z = 0;
@@ -222,8 +222,8 @@ export class WebglClippingStencilComponent extends BaseComponent<{
 		return helper;
 	}
 
-	localHelper: HelperComponent = null;
-	setLocalHelper(localHelper: HelperComponent) {
+	localHelper: NgxHelperComponent = null;
+	setLocalHelper(localHelper: NgxHelperComponent) {
 		this.localHelper = localHelper;
 		const helperGroup = this.localHelper.getHelper();
 		helperGroup.visible = true;
@@ -232,14 +232,14 @@ export class WebglClippingStencilComponent extends BaseComponent<{
 		});
 	}
 
-	localPlane: PlaneComponent[] = [];
-	setLocalPlane(localPlane: PlaneComponent) {
+	localPlane: NgxPlaneComponent[] = [];
+	setLocalPlane(localPlane: NgxPlaneComponent) {
 		if (this.localPlane.indexOf(localPlane) === -1) {
 			this.localPlane.push(localPlane);
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (
 			this.mesh !== null &&

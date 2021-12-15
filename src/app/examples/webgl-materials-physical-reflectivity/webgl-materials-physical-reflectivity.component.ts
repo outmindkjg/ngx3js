@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-physical-reflectivity',
 	templateUrl: './webgl-materials-physical-reflectivity.component.html',
 	styleUrls: ['./webgl-materials-physical-reflectivity.component.scss'],
 })
-export class WebglMaterialsPhysicalReflectivityComponent extends BaseComponent<{
+export class WebglMaterialsPhysicalReflectivityComponent extends NgxBaseComponent<{
 	projection: string;
 	autoRotate: boolean;
 	reflectivity: number;

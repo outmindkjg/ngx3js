@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererEvent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-interactive-cubes-gpu',
 	templateUrl: './webgl-interactive-cubes-gpu.component.html',
 	styleUrls: ['./webgl-interactive-cubes-gpu.component.scss'],
 })
-export class WebglInteractiveCubesGpuComponent extends BaseComponent<{}> {
+export class WebglInteractiveCubesGpuComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -43,7 +43,7 @@ export class WebglInteractiveCubesGpuComponent extends BaseComponent<{}> {
 	}
 
 	lastIntersect: any = null;
-	onMouseMove(event: RendererEvent) {
+	onMouseMove(event: IRendererEvent) {
 		if (this.camera !== null && this.mesh !== null) {
 			const mesh = this.mesh.getObject3d();
 			const intersect = this.camera.getIntersection(event.mouse, mesh.children);

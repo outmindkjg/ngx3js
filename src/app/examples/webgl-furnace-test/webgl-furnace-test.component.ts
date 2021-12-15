@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE, RendererEvent } from 'ngx3js';
+import { NgxBaseComponent, IRendererEvent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-furnace-test',
 	templateUrl: './webgl-furnace-test.component.html',
 	styleUrls: ['./webgl-furnace-test.component.scss'],
 })
-export class WebglFurnaceTestComponent extends BaseComponent<{}> {
+export class WebglFurnaceTestComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -25,7 +25,7 @@ export class WebglFurnaceTestComponent extends BaseComponent<{}> {
 		}
 	}
 
-	mouseEvent(event: RendererEvent) {
+	mouseEvent(event: IRendererEvent) {
 		if (this.meshObject3d !== null) {
 			switch (event.type) {
 				case 'mouseover':

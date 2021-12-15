@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-collada-kinematics',
 	templateUrl: './webgl-loader-collada-kinematics.component.html',
 	styleUrls: ['./webgl-loader-collada-kinematics.component.scss'],
 })
-export class WebglLoaderColladaKinematicsComponent extends BaseComponent<{}> {
+export class WebglLoaderColladaKinematicsComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		const dae = mesh.getObject3d();
 		dae.traverse((child: any) => {

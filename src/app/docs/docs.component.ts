@@ -205,7 +205,7 @@ export class DocsComponent implements OnInit {
 				case 'ThreeUniform':
 				case 'ThreeUniforms':
 					try {
-						this.router.navigateByUrl('/docs/ngxapi/en/ThreeUtil.' + pageName);
+						this.router.navigateByUrl('/docs/ngxapi/en/NgxThreeUtil.' + pageName);
 					} catch (ex: any) {}
 					break;
 				default:

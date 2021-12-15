@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererEvent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-physics-ammo-cloth',
 	templateUrl: './physics-ammo-cloth.component.html',
 	styleUrls: ['./physics-ammo-cloth.component.scss'],
 })
-export class PhysicsAmmoClothComponent extends BaseComponent<{}> {
+export class PhysicsAmmoClothComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -76,7 +76,7 @@ export class PhysicsAmmoClothComponent extends BaseComponent<{}> {
 	}[] = [];
 
 	armMovement: number = 0;
-	onKeyDown(event: RendererEvent) {
+	onKeyDown(event: IRendererEvent) {
 		switch (event.type) {
 			case 'keydown':
 				switch (event.keyInfo.code) {

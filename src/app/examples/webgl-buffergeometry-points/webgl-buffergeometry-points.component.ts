@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE } from 'ngx3js';
+import { NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-points',
 	templateUrl: './webgl-buffergeometry-points.component.html',
 	styleUrls: ['./webgl-buffergeometry-points.component.scss'],
 })
-export class WebglBuffergeometryPointsComponent extends BaseComponent<{}> {
+export class WebglBuffergeometryPointsComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

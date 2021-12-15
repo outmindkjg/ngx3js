@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-md2',
 	templateUrl: './webgl-loader-md2.component.html',
 	styleUrls: ['./webgl-loader-md2.component.scss'],
 })
-export class WebglLoaderMd2Component extends BaseComponent<{
+export class WebglLoaderMd2Component extends NgxBaseComponent<{
 	animation: string;
 	weaponIdx: number;
 	skinIdx: number;

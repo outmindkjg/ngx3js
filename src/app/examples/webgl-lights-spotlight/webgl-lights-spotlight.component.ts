@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	HelperComponent,
-	LightComponent,
-	RendererTimer,
- 	I3JS, THREE } from 'ngx3js';
+	NgxBaseComponent,
+	NgxHelperComponent,
+	NgxLightComponent,
+	IRendererTimer
+} from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lights-spotlight',
 	templateUrl: './webgl-lights-spotlight.component.html',
 	styleUrls: ['./webgl-lights-spotlight.component.scss'],
 })
-export class WebglLightsSpotlightComponent extends BaseComponent<{
+export class WebglLightsSpotlightComponent extends NgxBaseComponent<{
 	lightColor: number;
 	intensity: number;
 	distance: number;
@@ -100,18 +100,18 @@ export class WebglLightsSpotlightComponent extends BaseComponent<{
 	}
 
 	lightHelper: any = null;
-	setLightHelper(helper: HelperComponent) {
+	setLightHelper(helper: NgxHelperComponent) {
 		this.lightHelper = helper.getHelper();
 	}
 
 	shadowCameraHelper: any = null;
-	setShadowCameraHelper(helper: HelperComponent) {
+	setShadowCameraHelper(helper: NgxHelperComponent) {
 		this.shadowCameraHelper = helper.getHelper();
 	}
 
 	spotLight: any = null;
-	spotLightObj3d: LightComponent = null;
-	setSpotLight(light: LightComponent) {
+	spotLightObj3d: NgxLightComponent = null;
+	setSpotLight(light: NgxLightComponent) {
 		this.spotLightObj3d = light;
 		this.spotLight = light.getObject3d();
 		this.updateLight();
@@ -126,7 +126,7 @@ export class WebglLightsSpotlightComponent extends BaseComponent<{
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 	}
 }

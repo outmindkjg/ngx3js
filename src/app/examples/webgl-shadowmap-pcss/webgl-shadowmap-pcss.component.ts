@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BaseComponent, RendererTimer, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shadowmap-pcss',
@@ -7,7 +7,7 @@ import { BaseComponent, RendererTimer, THREE } from 'ngx3js';
 	styleUrls: ['./webgl-shadowmap-pcss.component.scss'],
 })
 export class WebglShadowmapPcssComponent
-	extends BaseComponent<{}>
+	extends NgxBaseComponent<{}>
 	implements OnInit, OnDestroy
 {
 	constructor() {
@@ -149,7 +149,7 @@ export class WebglShadowmapPcssComponent
 		color: number;
 	}[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren !== null && this.meshChildren.length > 0) {
 			const time = timer.elapsedTime;

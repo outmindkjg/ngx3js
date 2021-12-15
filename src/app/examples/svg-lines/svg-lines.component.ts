@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-svg-lines',
 	templateUrl: './svg-lines.component.html',
 	styleUrls: ['./svg-lines.component.scss'],
 })
-export class SvgLinesComponent extends BaseComponent<{}> {
+export class SvgLinesComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -35,7 +35,7 @@ export class SvgLinesComponent extends BaseComponent<{}> {
 
 	vertices: number[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren && this.meshChildren.length > 0) {
 			let count = 0;

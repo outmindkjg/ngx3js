@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, THREE, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 @Component({
 	selector: 'app-webxr-vr-cubes',
 	templateUrl: './webxr-vr-cubes.component.html',
 	styleUrls: ['./webxr-vr-cubes.component.scss'],
 })
-export class WebxrVrCubesComponent extends BaseComponent<{}> {
+export class WebxrVrCubesComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -44,13 +44,13 @@ export class WebxrVrCubesComponent extends BaseComponent<{}> {
 		position: { x: number; y: number; z: number };
 		rotation: { x: number; y: number; z: number };
 		scale: { x: number; y: number; z: number };
-		velocity: I3JS.IVector3;
+		velocity: I3JS.Vector3;
 	}[] = [];
 
 	normal = new THREE.Vector3();
 	relativeVelocity = new THREE.Vector3();
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		if (this.meshChildren !== null && this.meshChildren.length > 0) {
 			const delta = timer.delta * 60; // slow down simulation
 			this.meshChildren.forEach((cube) => {

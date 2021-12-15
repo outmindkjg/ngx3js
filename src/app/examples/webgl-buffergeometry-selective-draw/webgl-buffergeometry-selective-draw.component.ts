@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE } from 'ngx3js';
+import { NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-selective-draw',
 	templateUrl: './webgl-buffergeometry-selective-draw.component.html',
 	styleUrls: ['./webgl-buffergeometry-selective-draw.component.scss'],
 })
-export class WebglBuffergeometrySelectiveDrawComponent extends BaseComponent<{}> {
+export class WebglBuffergeometrySelectiveDrawComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

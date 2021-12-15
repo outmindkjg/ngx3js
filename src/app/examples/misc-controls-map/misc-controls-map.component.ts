@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-controls-map',
 	templateUrl: './misc-controls-map.component.html',
 	styleUrls: ['./misc-controls-map.component.scss'],
 })
-export class MiscControlsMapComponent extends BaseComponent<{
+export class MiscControlsMapComponent extends NgxBaseComponent<{
 	screenSpacePanning: boolean;
 }> {
 	constructor() {

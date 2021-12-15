@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-svg',
 	templateUrl: './webgl-loader-svg.component.html',
 	styleUrls: ['./webgl-loader-svg.component.scss'],
 })
-export class WebglLoaderSvgComponent extends BaseComponent<{
+export class WebglLoaderSvgComponent extends NgxBaseComponent<{
 	currentURL: string;
 	drawFillShapes: boolean;
 	drawStrokes: boolean;

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-simple-gi',
 	templateUrl: './webgl-simple-gi.component.html',
 	styleUrls: ['./webgl-simple-gi.component.scss'],
 })
-export class WebglSimpleGiComponent extends BaseComponent<{}> {
+export class WebglSimpleGiComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, THREE, RendererEvent, ThreeUtil } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, NgxThreeUtil, IRendererEvent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-decals',
 	templateUrl: './webgl-decals.component.html',
 	styleUrls: ['./webgl-decals.component.scss'],
 })
-export class WebglDecalsComponent extends BaseComponent<{
+export class WebglDecalsComponent extends NgxBaseComponent<{
 	rotate: boolean;
 	minScale: number;
 	maxScale: number;
@@ -33,7 +33,7 @@ export class WebglDecalsComponent extends BaseComponent<{
 
 	private move: boolean = false;
 	private underProcess: boolean = false;
-	setEventListener(event: RendererEvent) {
+	setEventListener(event: IRendererEvent) {
 		if (this.camera !== null && !this.underProcess) {
 			this.underProcess = true;
 			switch (event.type) {
@@ -64,8 +64,8 @@ export class WebglDecalsComponent extends BaseComponent<{
 	decals: { scale: number; color: number; orientation: any; position: any }[] =
 		[];
 
-	shoot(intersection: I3JS.IIntersection) {
-		if (ThreeUtil.isNull(intersection)) {
+	shoot(intersection: I3JS.Intersection) {
+		if (NgxThreeUtil.isNull(intersection)) {
 			return;
 		}
 		const position = new THREE.Vector3();
@@ -89,8 +89,8 @@ export class WebglDecalsComponent extends BaseComponent<{
 		});
 	}
 
-	checkIntersection(mouse: I3JS.IVector2): I3JS.IIntersection {
-		if (ThreeUtil.isNull(this.mesh) || ThreeUtil.isNull(this.camera))
+	checkIntersection(mouse: I3JS.Vector2): I3JS.Intersection {
+		if (NgxThreeUtil.isNull(this.mesh) || NgxThreeUtil.isNull(this.camera))
 			return null;
 		const intersection = this.camera.getIntersection(
 			mouse,
@@ -109,7 +109,7 @@ export class WebglDecalsComponent extends BaseComponent<{
 			// intersection.normal.copy( intersects[ 0 ].face.normal );
 			mouseHelper.lookAt(n);
 			const line = this.mouseLine.getObject3d() as any;
-			if (ThreeUtil.isNull(line)) {
+			if (NgxThreeUtil.isNull(line)) {
 				return;
 			}
 			const positions = line.geometry.attributes.position;
@@ -120,13 +120,13 @@ export class WebglDecalsComponent extends BaseComponent<{
 		return intersection;
 	}
 
-	mouseHelper: MeshComponent = null;
-	setMouseHelper(mouseHelper: MeshComponent) {
+	mouseHelper: NgxMeshComponent = null;
+	setMouseHelper(mouseHelper: NgxMeshComponent) {
 		this.mouseHelper = mouseHelper;
 	}
 
-	mouseLine: MeshComponent = null;
-	setMouseLine(mouseLine: MeshComponent) {
+	mouseLine: NgxMeshComponent = null;
+	setMouseLine(mouseLine: NgxMeshComponent) {
 		this.mouseLine = mouseLine;
 	}
 }

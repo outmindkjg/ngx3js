@@ -1,22 +1,20 @@
 import { Component } from '@angular/core';
 import {
-	AbstractMaterialComponent,
-	BaseComponent,
-	MaterialComponent,
-	RendererTimer,
-	SharedComponent, I3JS, THREE } from 'ngx3js';
+	NgxAbstractMaterialComponent,
+	NgxBaseComponent, NgxSharedComponent, IRendererTimer
+} from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-worker-offscreencanvas',
 	templateUrl: './webgl-worker-offscreencanvas.component.html',
 	styleUrls: ['./webgl-worker-offscreencanvas.component.scss'],
 })
-export class WebglWorkerOffscreencanvasComponent extends BaseComponent<{}> {
+export class WebglWorkerOffscreencanvasComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	setShared(shared: SharedComponent) {
+	setShared(shared: NgxSharedComponent) {
 		const materialList = shared.getMaterialComponents();
 		const meshInfos = [];
 		for (let i = 0; i < 100; i++) {
@@ -39,10 +37,10 @@ export class WebglWorkerOffscreencanvasComponent extends BaseComponent<{}> {
 		y: number;
 		z: number;
 		scale: number;
-		material: AbstractMaterialComponent;
+		material: NgxAbstractMaterialComponent;
 	}[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			this.meshObject3d.rotation.y -= timer.delta / 4;

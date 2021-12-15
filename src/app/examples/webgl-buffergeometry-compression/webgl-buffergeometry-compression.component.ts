@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	I3JS, MeshComponent, THREE, RendererTimer
+	I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -9,7 +8,7 @@ import {
 	templateUrl: './webgl-buffergeometry-compression.component.html',
 	styleUrls: ['./webgl-buffergeometry-compression.component.scss'],
 })
-export class WebglBuffergeometryCompressionComponent extends BaseComponent<{
+export class WebglBuffergeometryCompressionComponent extends NgxBaseComponent<{
 	model: string;
 	wireframe: boolean;
 	texture: boolean;
@@ -204,18 +203,18 @@ export class WebglBuffergeometryCompressionComponent extends BaseComponent<{
 		q?: number;
 	};
 
-	setLightGroup(mesh: MeshComponent) {
+	setLightGroup(mesh: NgxMeshComponent) {
 		this.lights = mesh.getObject3d().children;
 	}
-	lights: I3JS.IObject3D[] = [];
+	lights: I3JS.Object3D[] = [];
 
-	setGeometry(mesh: MeshComponent) {
+	setGeometry(mesh: NgxMeshComponent) {
 		const geometry = (mesh.getObject3d() as any).geometry;
 		this.controls.totalGPUMemory =
 			THREE.GeometryUtils.estimateBytesUsed(geometry) + ' bytes';
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		this.lights.forEach((light) => {
 			const direction = light.position.clone();

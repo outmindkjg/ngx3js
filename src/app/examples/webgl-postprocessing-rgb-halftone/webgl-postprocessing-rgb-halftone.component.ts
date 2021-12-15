@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-rgb-halftone',
 	templateUrl: './webgl-postprocessing-rgb-halftone.component.html',
 	styleUrls: ['./webgl-postprocessing-rgb-halftone.component.scss'],
 })
-export class WebglPostprocessingRgbHalftoneComponent extends BaseComponent<{
+export class WebglPostprocessingRgbHalftoneComponent extends NgxBaseComponent<{
 	shape: number;
 	radius: number;
 	rotateR: number;

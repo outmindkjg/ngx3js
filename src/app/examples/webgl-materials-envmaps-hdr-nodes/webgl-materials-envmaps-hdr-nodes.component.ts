@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-envmaps-hdr-nodes',
 	templateUrl: './webgl-materials-envmaps-hdr-nodes.component.html',
 	styleUrls: ['./webgl-materials-envmaps-hdr-nodes.component.scss'],
 })
-export class WebglMaterialsEnvmapsHdrNodesComponent extends BaseComponent<{
+export class WebglMaterialsEnvmapsHdrNodesComponent extends NgxBaseComponent<{
 	envMap: string;
 	roughness: number;
 	metalness: number;
@@ -99,7 +99,7 @@ export class WebglMaterialsEnvmapsHdrNodesComponent extends BaseComponent<{
 		encoding?: string;
 	};
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null && this.controls.animate) {
 			const mesh = this.mesh.getObject3d();

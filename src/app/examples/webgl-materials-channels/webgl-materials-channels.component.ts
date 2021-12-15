@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-channels',
 	templateUrl: './webgl-materials-channels.component.html',
 	styleUrls: ['./webgl-materials-channels.component.scss'],
 })
-export class WebglMaterialsChannelsComponent extends BaseComponent<{
+export class WebglMaterialsChannelsComponent extends NgxBaseComponent<{
 	material: string;
 	camera: string;
 	side: string;

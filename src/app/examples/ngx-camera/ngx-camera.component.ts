@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-camera',
 	templateUrl: './ngx-camera.component.html',
 	styleUrls: ['./ngx-camera.component.scss'],
 })
-export class NgxCameraComponent extends BaseComponent<{
+export class NgxCameraComponent extends NgxBaseComponent<{
 	environment: {
 		clearColor: string;
 		background: string;
@@ -168,14 +168,14 @@ export class NgxCameraComponent extends BaseComponent<{
 	cameraPosition: { x: number; y: number; z: number } = { x: 0, y: 5, z: 10 };
 	changeCamera() {
 		if (this.cameraObject3d !== null) {
-			const position: I3JS.IVector3 = this.cameraObject3d.position;
+			const position: I3JS.Vector3 = this.cameraObject3d.position;
 			this.cameraPosition.x = position.x;
 			this.cameraPosition.y = position.y;
 			this.cameraPosition.z = position.z;
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			const elapsedTime = timer.elapsedTime;

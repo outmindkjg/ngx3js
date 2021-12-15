@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-css3d-sandbox',
 	templateUrl: './css3d-sandbox.component.html',
 	styleUrls: ['./css3d-sandbox.component.scss'],
 })
-export class Css3dSandboxComponent extends BaseComponent<{}> {
+export class Css3dSandboxComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

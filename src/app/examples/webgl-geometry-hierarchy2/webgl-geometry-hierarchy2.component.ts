@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	MeshComponent, THREE, RendererEvent,
-	RendererTimer
+	NgxBaseComponent,
+	NgxMeshComponent, IRendererEvent,
+	IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -10,7 +10,7 @@ import {
 	templateUrl: './webgl-geometry-hierarchy2.component.html',
 	styleUrls: ['./webgl-geometry-hierarchy2.component.scss'],
 })
-export class WebglGeometryHierarchy2Component extends BaseComponent<{}> {
+export class WebglGeometryHierarchy2Component extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -24,13 +24,13 @@ export class WebglGeometryHierarchy2Component extends BaseComponent<{}> {
 	];
 
 	mouse = { x: 0, y: 0 };
-	setEventListener(event: RendererEvent) {
+	setEventListener(event: IRendererEvent) {
 		this.mouse = event.mouse.multiplyScalar(10);
 	}
 
-	childMeshes: MeshComponent[] = [];
+	childMeshes: NgxMeshComponent[] = [];
 	addChildMesh(
-		mesh: MeshComponent,
+		mesh: NgxMeshComponent,
 		position: { x: number; y: number; z: number }
 	) {
 		if (this.childMeshes.indexOf(mesh) === -1) {
@@ -49,7 +49,7 @@ export class WebglGeometryHierarchy2Component extends BaseComponent<{}> {
 	}
 
 	elapsedTime: number = 0;
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.camera !== null && this.mesh !== null) {
 			const position = this.camera.getPosition();

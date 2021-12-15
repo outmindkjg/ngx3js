@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	PassComponent,
-	RendererTimer,
-	RenderPass,
-	TAARenderPass, I3JS, THREE } from 'ngx3js';
+	I3JS, NgxBaseComponent,
+	NgxPassComponent,
+	IRendererTimer
+} from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-taa',
 	templateUrl: './webgl-postprocessing-taa.component.html',
 	styleUrls: ['./webgl-postprocessing-taa.component.scss'],
 })
-export class WebglPostprocessingTaaComponent extends BaseComponent<{
+export class WebglPostprocessingTaaComponent extends NgxBaseComponent<{
 	TAAEnabled: boolean;
 	TAASampleLevel: string;
 }> {
@@ -48,16 +47,16 @@ export class WebglPostprocessingTaaComponent extends BaseComponent<{
 		);
 	}
 
-	setTaaPass(pass: PassComponent) {
-		this.pass = pass.getPass() as I3JS.ITAARenderPass;
+	setTaaPass(pass: NgxPassComponent) {
+		this.pass = pass.getPass() as I3JS.TAARenderPass;
 	}
 
-	setRenderPass(pass: PassComponent) {
-		this.renderPass = pass.getPass() as I3JS.IRenderPass;
+	setRenderPass(pass: NgxPassComponent) {
+		this.renderPass = pass.getPass() as I3JS.RenderPass;
 	}
 
-	pass: I3JS.ITAARenderPass = null;
-	renderPass: I3JS.IRenderPass = null;
+	pass: I3JS.TAARenderPass = null;
+	renderPass: I3JS.RenderPass = null;
 
 	changePass() {
 		if (this.pass !== null && this.renderPass !== null) {
@@ -68,7 +67,7 @@ export class WebglPostprocessingTaaComponent extends BaseComponent<{
 	}
 
 	index: number = 0;
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren !== null && this.meshChildren.length > 0) {
 			this.index++;

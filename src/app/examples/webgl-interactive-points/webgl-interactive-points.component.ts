@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	I3JS, MeshComponent, THREE, RendererEvent
+	I3JS, NgxBaseComponent, NgxMeshComponent, IRendererEvent, THREE
 } from 'ngx3js';
 
 @Component({
@@ -9,14 +8,14 @@ import {
 	templateUrl: './webgl-interactive-points.component.html',
 	styleUrls: ['./webgl-interactive-points.component.scss'],
 })
-export class WebglInteractivePointsComponent extends BaseComponent<{}> {
+export class WebglInteractivePointsComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
 	ngOnInit() {
 		const PARTICLE_SIZE = 20;
-		let boxGeometry: I3JS.IBufferGeometry = new THREE.BoxGeometry(
+		let boxGeometry: I3JS.BufferGeometry = new THREE.BoxGeometry(
 			200,
 			200,
 			200,
@@ -53,14 +52,14 @@ export class WebglInteractivePointsComponent extends BaseComponent<{}> {
 	colors: number[] = [];
 	sizes: number[] = [];
 
-	particles: I3JS.IPoints = null;
-	setMesh(mesh: MeshComponent) {
+	particles: I3JS.Points = null;
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.particles = mesh.getObject3d() ;
 	}
 
 	lastIntersect: number = null;
-	onMouseMove(event: RendererEvent) {
+	onMouseMove(event: IRendererEvent) {
 		if (this.camera !== null && this.mesh !== null && this.particles !== null) {
 			const intersect = this.camera.getIntersection(
 				event.mouse,

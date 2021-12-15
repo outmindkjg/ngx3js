@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, THREE, I3JS } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-compile',
 	templateUrl: './webgl-materials-compile.component.html',
 	styleUrls: ['./webgl-materials-compile.component.scss'],
 })
-export class WebglMaterialsCompileComponent extends BaseComponent<{}> {
+export class WebglMaterialsCompileComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -23,7 +23,7 @@ export class WebglMaterialsCompileComponent extends BaseComponent<{}> {
 	}
 	teapotInfos: { x: number; y: number; z: number }[] = [];
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		setTimeout(() => {
 			this.setMeshChild();
@@ -73,8 +73,8 @@ export class WebglMaterialsCompileComponent extends BaseComponent<{}> {
 			this.frame = new THREE.NodeFrame(0);
 		}
 	}
-	frame: I3JS.INodeFrame = null;
-	onRender(timer: RendererTimer) {
+	frame: I3JS.NodeFrame = null;
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.frame != null && this.meshChildren !== null) {
 			this.frame.update(timer.delta);

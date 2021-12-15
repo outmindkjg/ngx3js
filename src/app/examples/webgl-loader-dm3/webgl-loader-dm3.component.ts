@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, ThreeUtil } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, NgxThreeUtil } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-dm3',
 	templateUrl: './webgl-loader-dm3.component.html',
 	styleUrls: ['./webgl-loader-dm3.component.scss'],
 })
-export class WebglLoaderDm3Component extends BaseComponent<{
+export class WebglLoaderDm3Component extends NgxBaseComponent<{
 	pointclouds: boolean;
 	textdot: boolean;
 	curves: boolean;
@@ -74,8 +74,8 @@ export class WebglLoaderDm3Component extends BaseComponent<{
 	setMeshVisible(name: string, visible: boolean) {
 		this.loadedMesh = this.meshObject3d as any;
 		if (
-			ThreeUtil.isNotNull(this.loadedMesh) &&
-			ThreeUtil.isNotNull(this.loadedMesh.userData.layers)
+			NgxThreeUtil.isNotNull(this.loadedMesh) &&
+			NgxThreeUtil.isNotNull(this.loadedMesh.userData.layers)
 		) {
 			const layers = this.loadedMesh.userData.layers;
 			this.loadedMesh.traverse(function (child) {
@@ -91,9 +91,9 @@ export class WebglLoaderDm3Component extends BaseComponent<{
 		}
 	}
 
-	private loadedMesh: I3JS.IMesh = null;
+	private loadedMesh: I3JS.Mesh = null;
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 	}
 }

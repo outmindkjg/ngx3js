@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, GeometryComponent, THREE, RendererTimer } from 'ngx3js';
+import { NgxBaseComponent, NgxGeometryComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-video',
 	templateUrl: './webgl-materials-video.component.html',
 	styleUrls: ['./webgl-materials-video.component.scss'],
 })
-export class WebglMaterialsVideoComponent extends BaseComponent<{}> {
+export class WebglMaterialsVideoComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -47,7 +47,7 @@ export class WebglMaterialsVideoComponent extends BaseComponent<{}> {
 	}
 
 	setGeometry(
-		geometry: GeometryComponent,
+		geometry: NgxGeometryComponent,
 		unitx: number,
 		unity: number,
 		offsetx: number,
@@ -81,7 +81,7 @@ export class WebglMaterialsVideoComponent extends BaseComponent<{}> {
 
 	counter: number = 1;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren !== null) {
 			const time = timer.elapsedTime * 0.5;

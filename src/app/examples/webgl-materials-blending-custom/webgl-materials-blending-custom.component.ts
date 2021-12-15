@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-blending-custom',
 	templateUrl: './webgl-materials-blending-custom.component.html',
 	styleUrls: ['./webgl-materials-blending-custom.component.scss'],
 })
-export class WebglMaterialsBlendingCustomComponent extends BaseComponent<{
+export class WebglMaterialsBlendingCustomComponent extends NgxBaseComponent<{
 	foreground: string;
 	background: string;
 	equation: string;
@@ -277,14 +277,14 @@ export class WebglMaterialsBlendingCustomComponent extends BaseComponent<{
 		ctx.fillText(text, 8, 22);
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.mapBg = (this.mesh.getObject3d() as any).material.map;
 	}
 
 	mapBg: any = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mapBg !== null && this.mapBg.repeat) {
 			const time = timer.elapsedTime * 0.25;

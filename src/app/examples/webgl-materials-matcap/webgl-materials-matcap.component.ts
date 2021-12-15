@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-matcap',
 	templateUrl: './webgl-materials-matcap.component.html',
 	styleUrls: ['./webgl-materials-matcap.component.scss'],
 })
-export class WebglMaterialsMatcapComponent extends BaseComponent<{
+export class WebglMaterialsMatcapComponent extends NgxBaseComponent<{
 	color: number;
 	exposure: number;
 }> {

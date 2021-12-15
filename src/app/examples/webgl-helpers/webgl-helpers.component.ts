@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { BaseComponent, HelperComponent, I3JS, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxHelperComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-helpers',
 	templateUrl: './webgl-helpers.component.html',
 	styleUrls: ['./webgl-helpers.component.scss'],
 })
-export class WebglHelpersComponent extends BaseComponent<{}> {
+export class WebglHelpersComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	selectStoreMesh(object: I3JS.IObject3D): I3JS.IObject3D {
+	selectStoreMesh(object: I3JS.Object3D): I3JS.Object3D {
 		const mesh = object.children[0] as any;
 		if (mesh.geometry) {
 			mesh.geometry.computeTangents();
@@ -19,7 +19,7 @@ export class WebglHelpersComponent extends BaseComponent<{}> {
 		return mesh;
 	}
 
-	setHelper(helper: HelperComponent, type: string) {
+	setHelper(helper: NgxHelperComponent, type: string) {
 		switch (type.toLowerCase()) {
 			case 'normals':
 				this.vertexNormals = helper.getHelper();
@@ -33,7 +33,7 @@ export class WebglHelpersComponent extends BaseComponent<{}> {
 	vertexNormals: any = null;
 	vertexTangents: any = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.vertexNormals !== null && this.vertexNormals.update) {
 			this.vertexNormals.update();

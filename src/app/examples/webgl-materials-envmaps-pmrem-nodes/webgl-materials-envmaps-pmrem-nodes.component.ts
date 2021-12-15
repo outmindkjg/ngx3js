@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-envmaps-pmrem-nodes',
 	templateUrl: './webgl-materials-envmaps-pmrem-nodes.component.html',
 	styleUrls: ['./webgl-materials-envmaps-pmrem-nodes.component.scss'],
 })
-export class WebglMaterialsEnvmapsPmremNodesComponent extends BaseComponent<{
+export class WebglMaterialsEnvmapsPmremNodesComponent extends NgxBaseComponent<{
 	roughness: number;
 	metalness: number;
 	exposure: number;
@@ -48,7 +48,7 @@ export class WebglMaterialsEnvmapsPmremNodesComponent extends BaseComponent<{
 		);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null && this.controls.animate) {
 			const mesh = this.mesh.getObject3d();

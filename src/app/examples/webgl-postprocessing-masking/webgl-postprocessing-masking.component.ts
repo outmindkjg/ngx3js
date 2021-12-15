@@ -1,28 +1,28 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-masking',
 	templateUrl: './webgl-postprocessing-masking.component.html',
 	styleUrls: ['./webgl-postprocessing-masking.component.scss'],
 })
-export class WebglPostprocessingMaskingComponent extends BaseComponent<{}> {
+export class WebglPostprocessingMaskingComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	box: I3JS.IObject3D = null;
-	setBox(mesh: MeshComponent) {
+	box: I3JS.Object3D = null;
+	setBox(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.box = mesh.getObject3d();
 	}
 
-	torus: I3JS.IObject3D = null;
-	setTorus(mesh: MeshComponent) {
+	torus: I3JS.Object3D = null;
+	setTorus(mesh: NgxMeshComponent) {
 		this.torus = mesh.getObject3d();
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.box !== null && this.torus !== null) {
 			const time = timer.elapsedTime + 6000;

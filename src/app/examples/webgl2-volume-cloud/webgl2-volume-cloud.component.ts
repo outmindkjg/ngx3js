@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, RendererTimer } from 'ngx3js';
+import { NgxBaseComponent, I3JS, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl2-volume-cloud',
 	templateUrl: './webgl2-volume-cloud.component.html',
 	styleUrls: ['./webgl2-volume-cloud.component.scss'],
 })
-export class Webgl2VolumeCloudComponent extends BaseComponent<{
+export class Webgl2VolumeCloudComponent extends NgxBaseComponent<{
 	threshold: number;
 	opacity: number;
 	range: number;
@@ -83,7 +83,7 @@ export class Webgl2VolumeCloudComponent extends BaseComponent<{
 		return null;
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.camera !== null && this.meshObject3d !== null) {
 			this.meshObject3d.rotation.y = timer.elapsedTime / 7.5;

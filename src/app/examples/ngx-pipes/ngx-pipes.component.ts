@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-pipes',
 	templateUrl: './ngx-pipes.component.html',
 	styleUrls: ['./ngx-pipes.component.scss'],
 })
-export class NgxPipesComponent extends BaseComponent<{
+export class NgxPipesComponent extends NgxBaseComponent<{
 	colorPipes: {
 		color1: string;
 		returnType: string;
@@ -156,7 +156,7 @@ export class NgxPipesComponent extends BaseComponent<{
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			const elapsedTime = timer.elapsedTime;

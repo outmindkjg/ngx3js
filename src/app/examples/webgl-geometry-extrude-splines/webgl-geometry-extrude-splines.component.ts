@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	CameraComponent,
-	GeometryComponent,
-	HelperComponent, I3JS, MeshComponent, THREE, RendererTimer
+	I3JS, NgxBaseComponent,
+	NgxCameraComponent,
+	NgxGeometryComponent, NgxHelperComponent, NgxMeshComponent, IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -11,7 +10,7 @@ import {
 	templateUrl: './webgl-geometry-extrude-splines.component.html',
 	styleUrls: ['./webgl-geometry-extrude-splines.component.scss'],
 })
-export class WebglGeometryExtrudeSplinesComponent extends BaseComponent<{
+export class WebglGeometryExtrudeSplinesComponent extends NgxBaseComponent<{
 	spline: string;
 	scale: number;
 	extrusionSegments: number;
@@ -179,8 +178,8 @@ export class WebglGeometryExtrudeSplinesComponent extends BaseComponent<{
 		this.setSpline(this.controls.spline);
 	}
 
-	tubeGeometry: I3JS.ITubeGeometry;
-	setTubeGeometry(tubeGeometry: GeometryComponent) {
+	tubeGeometry: I3JS.TubeGeometry;
+	setTubeGeometry(tubeGeometry: NgxGeometryComponent) {
 		this.tubeGeometry = tubeGeometry.getGeometry();
 	}
 
@@ -190,24 +189,24 @@ export class WebglGeometryExtrudeSplinesComponent extends BaseComponent<{
 	position = new THREE.Vector3();
 	lookAt = new THREE.Vector3();
 
-	cameraHelper: I3JS.ICameraHelper = null;
-	splineCamera: I3JS.ICamera = null;
-	cameraEye: I3JS.IObject3D = null;
+	cameraHelper: I3JS.CameraHelper = null;
+	splineCamera: I3JS.Camera = null;
+	cameraEye: I3JS.Object3D = null;
 
-	setCameraHelper(cameraHelper: HelperComponent) {
+	setCameraHelper(cameraHelper: NgxHelperComponent) {
 		this.cameraHelper = cameraHelper.getHelper();
 	}
 
-	setSplineCamera(splineCamera: CameraComponent) {
+	setSplineCamera(splineCamera: NgxCameraComponent) {
 		this.splineCamera = splineCamera.getObject3d();
 	}
 
-	setCameraEye(cameraEye: MeshComponent) {
+	setCameraEye(cameraEye: NgxMeshComponent) {
 		this.cameraEye = cameraEye.getRealMesh() as any;
 	}
 
 	elapsedTime: number = 0;
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (
 			this.mesh !== null &&

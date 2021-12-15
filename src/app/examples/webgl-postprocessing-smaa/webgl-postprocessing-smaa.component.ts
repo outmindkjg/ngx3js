@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-smaa',
 	templateUrl: './webgl-postprocessing-smaa.component.html',
 	styleUrls: ['./webgl-postprocessing-smaa.component.scss'],
 })
-export class WebglPostprocessingSmaaComponent extends BaseComponent<{}> {
+export class WebglPostprocessingSmaaComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren.length > 0) {
 			const delta = timer.delta * 50;

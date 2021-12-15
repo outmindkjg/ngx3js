@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, PassComponent, UnrealBloomPass } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxPassComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-unreal-bloom',
 	templateUrl: './webgl-postprocessing-unreal-bloom.component.html',
 	styleUrls: ['./webgl-postprocessing-unreal-bloom.component.scss'],
 })
-export class WebglPostprocessingUnrealBloomComponent extends BaseComponent<{
+export class WebglPostprocessingUnrealBloomComponent extends NgxBaseComponent<{
 	exposure: number;
 	bloomStrength: number;
 	bloomThreshold: number;
@@ -69,11 +69,11 @@ export class WebglPostprocessingUnrealBloomComponent extends BaseComponent<{
 		);
 	}
 
-	setBloomPass(pass: PassComponent) {
-		this.bloomPass = pass.getPass() as I3JS.IUnrealBloomPass;
+	setBloomPass(pass: NgxPassComponent) {
+		this.bloomPass = pass.getPass() as I3JS.UnrealBloomPass;
 	}
 
-	bloomPass: I3JS.IUnrealBloomPass = null;
+	bloomPass: I3JS.UnrealBloomPass = null;
 	changeBloomPass() {
 		if (this.bloomPass !== null) {
 			this.bloomPass.threshold = this.controls.bloomThreshold;

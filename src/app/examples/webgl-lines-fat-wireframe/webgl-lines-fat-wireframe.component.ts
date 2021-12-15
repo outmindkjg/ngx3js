@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lines-fat-wireframe',
 	templateUrl: './webgl-lines-fat-wireframe.component.html',
 	styleUrls: ['./webgl-lines-fat-wireframe.component.scss'],
 })
-export class WebglLinesFatWireframeComponent extends BaseComponent<{
+export class WebglLinesFatWireframeComponent extends NgxBaseComponent<{
 	lineType: string;
 	width: number;
 	dashed: boolean;

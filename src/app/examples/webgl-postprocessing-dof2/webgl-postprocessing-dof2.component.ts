@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-dof2',
 	templateUrl: './webgl-postprocessing-dof2.component.html',
 	styleUrls: ['./webgl-postprocessing-dof2.component.scss'],
 })
-export class WebglPostprocessingDof2Component extends BaseComponent<{
+export class WebglPostprocessingDof2Component extends NgxBaseComponent<{
 	enabled: true;
 	jsDepthCalculation: true;
 	shaderFocus: false;
@@ -142,8 +142,8 @@ export class WebglPostprocessingDof2Component extends BaseComponent<{
 
 	monkeyInfos: { x: number; y: number; z: number; ry: number }[] = [];
 	ballInfos: { x: number; y: number; z: number; color: number }[] = [];
-	meshLeaves: I3JS.IObject3D[] = [];
-	setLeaves(mesh: MeshComponent) {
+	meshLeaves: I3JS.Object3D[] = [];
+	setLeaves(mesh: NgxMeshComponent) {
 		this.meshLeaves = mesh.getObject3d().children;
 		this.meshLeaves.forEach((child) => {
 			child.userData.refInfo = {
@@ -161,7 +161,7 @@ export class WebglPostprocessingDof2Component extends BaseComponent<{
 		});
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshLeaves !== null && this.meshLeaves.length > 0) {
 			this.meshLeaves.forEach((plane) => {

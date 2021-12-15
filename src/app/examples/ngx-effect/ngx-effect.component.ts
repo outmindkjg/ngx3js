@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BaseComponent, PassComponent, RendererTimer, ThreeUtil  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxPassComponent, NgxThreeUtil, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-effect',
 	templateUrl: './ngx-effect.component.html',
 	styleUrls: ['./ngx-effect.component.scss'],
 })
-export class NgxEffectComponent extends BaseComponent<{
+export class NgxEffectComponent extends NgxBaseComponent<{
 	type: string;
 	filmPass: {
 		enabled: boolean;
@@ -689,7 +689,7 @@ export class NgxEffectComponent extends BaseComponent<{
 		);
 	}
 
-	setShaderPass(pass: PassComponent, name: string) {
+	setShaderPass(pass: NgxPassComponent, name: string) {
 		const threePass: any = pass.getPass();
 		switch (name) {
 			case 'afterimage':
@@ -830,7 +830,7 @@ export class NgxEffectComponent extends BaseComponent<{
 		if (this.rgbShiftUniforms !== null) {
 			const uniforms = this.rgbShiftUniforms;
 			uniforms.amount.value = this.controls.rgbShift.amount;
-			uniforms.angle.value = ThreeUtil.getAngleSafe(
+			uniforms.angle.value = NgxThreeUtil.getAngleSafe(
 				this.controls.rgbShift.angle
 			);
 		}
@@ -874,7 +874,7 @@ export class NgxEffectComponent extends BaseComponent<{
 		if (this.pixelUniforms !== null) {
 			const uniforms = this.pixelUniforms;
 			uniforms.pixelSize.value = this.controls.pixel.pixelSize;
-			uniforms.resolution.value = ThreeUtil.getVector2Safe(
+			uniforms.resolution.value = NgxThreeUtil.getVector2Safe(
 				this.controls.pixel.resolutionX,
 				this.controls.pixel.resolutionY
 			);
@@ -895,7 +895,7 @@ export class NgxEffectComponent extends BaseComponent<{
 	changeSobelOperator() {
 		if (this.sobelOperatorUniforms !== null) {
 			const uniforms = this.sobelOperatorUniforms;
-			uniforms.resolution.value = ThreeUtil.getVector2Safe(
+			uniforms.resolution.value = NgxThreeUtil.getVector2Safe(
 				this.controls.sobelOperator.resolutionX,
 				this.controls.sobelOperator.resolutionY
 			);
@@ -914,7 +914,7 @@ export class NgxEffectComponent extends BaseComponent<{
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null && this.meshObject3d !== null) {
 			const elapsedTime = timer.elapsedTime;

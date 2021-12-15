@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, PassComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxPassComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-sao',
 	templateUrl: './webgl-postprocessing-sao.component.html',
 	styleUrls: ['./webgl-postprocessing-sao.component.scss'],
 })
-export class WebglPostprocessingSaoComponent extends BaseComponent<{
+export class WebglPostprocessingSaoComponent extends NgxBaseComponent<{
 	output: string;
 	saoBias: 0.5;
 	saoIntensity: 0.18;
@@ -130,7 +130,7 @@ export class WebglPostprocessingSaoComponent extends BaseComponent<{
 		);
 	}
 
-	setSaoPass(pass: PassComponent) {
+	setSaoPass(pass: NgxPassComponent) {
 		this.saoPassParam = (pass.getPass() as any).params;
 		this.changeSaoParam();
 	}

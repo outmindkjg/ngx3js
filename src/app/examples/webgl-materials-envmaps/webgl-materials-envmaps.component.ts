@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-envmaps',
 	templateUrl: './webgl-materials-envmaps.component.html',
 	styleUrls: ['./webgl-materials-envmaps.component.scss'],
 })
-export class WebglMaterialsEnvmapsComponent extends BaseComponent<{
+export class WebglMaterialsEnvmapsComponent extends NgxBaseComponent<{
 	background: string;
 	refraction: boolean;
 }> {

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-backgrounds',
 	templateUrl: './webgl-postprocessing-backgrounds.component.html',
 	styleUrls: ['./webgl-postprocessing-backgrounds.component.scss'],
 })
-export class WebglPostprocessingBackgroundsComponent extends BaseComponent<{
+export class WebglPostprocessingBackgroundsComponent extends NgxBaseComponent<{
 	clearPass: boolean;
 	clearColor: string;
 	clearAlpha: number;

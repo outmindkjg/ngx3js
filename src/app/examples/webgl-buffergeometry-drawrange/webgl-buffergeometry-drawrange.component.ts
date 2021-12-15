@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-drawrange',
 	templateUrl: './webgl-buffergeometry-drawrange.component.html',
 	styleUrls: ['./webgl-buffergeometry-drawrange.component.scss'],
 })
-export class WebglBuffergeometryDrawrangeComponent extends BaseComponent<{
+export class WebglBuffergeometryDrawrangeComponent extends NgxBaseComponent<{
 	showDots: boolean;
 	showLines: boolean;
 	minDistance: number;
@@ -69,21 +69,21 @@ export class WebglBuffergeometryDrawrangeComponent extends BaseComponent<{
 	particlePositions: Float32Array = null;
 	lineColors: Float32Array = null;
 	linePositions: Float32Array = null;
-	particlesData: { velocity: I3JS.IVector3; numConnections: number }[] = [];
+	particlesData: { velocity: I3JS.Vector3; numConnections: number }[] = [];
 
-	setLineMesh(mesh: MeshComponent) {
+	setLineMesh(mesh: NgxMeshComponent) {
 		this.linesMesh = mesh.getMesh() as any;
 	}
 
-	linesMesh: I3JS.ILineSegments = null;
+	linesMesh: I3JS.LineSegments = null;
 
-	setPointCloud(mesh: MeshComponent) {
+	setPointCloud(mesh: NgxMeshComponent) {
 		this.pointCloud = mesh.getMesh() as any;
 	}
 
-	pointCloud: I3JS.IPoints = null;
+	pointCloud: I3JS.Points = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (
 			this.meshObject3d !== null &&

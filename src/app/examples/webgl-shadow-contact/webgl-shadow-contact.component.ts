@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shadow-contact',
 	templateUrl: './webgl-shadow-contact.component.html',
 	styleUrls: ['./webgl-shadow-contact.component.scss'],
 })
-export class WebglShadowContactComponent extends BaseComponent<{
+export class WebglShadowContactComponent extends NgxBaseComponent<{
 	shadow: {
 		blur: number;
 		darkness: number;

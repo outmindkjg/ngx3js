@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-performance-nodes',
 	templateUrl: './webgl-performance-nodes.component.html',
 	styleUrls: ['./webgl-performance-nodes.component.scss'],
 })
-export class WebglPerformanceNodesComponent extends BaseComponent<{
+export class WebglPerformanceNodesComponent extends NgxBaseComponent<{
 	meshStandardMaterial: () => void;
 	meshStandardNodeMaterial: () => void;
 }> {

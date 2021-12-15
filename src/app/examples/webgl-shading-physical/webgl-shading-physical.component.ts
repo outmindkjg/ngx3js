@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shading-physical',
 	templateUrl: './webgl-shading-physical.component.html',
 	styleUrls: ['./webgl-shading-physical.component.scss'],
 })
-export class WebglShadingPhysicalComponent extends BaseComponent<{
+export class WebglShadingPhysicalComponent extends NgxBaseComponent<{
 	shadowCameraVisible: boolean;
 	shadowCameraNear: number;
 	shadowCameraFar: number;

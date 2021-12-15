@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lights-pointlights2',
 	templateUrl: './webgl-lights-pointlights2.component.html',
 	styleUrls: ['./webgl-lights-pointlights2.component.scss'],
 })
-export class WebglLightsPointlights2Component extends BaseComponent<{}> {
+export class WebglLightsPointlights2Component extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -38,12 +38,12 @@ export class WebglLightsPointlights2Component extends BaseComponent<{}> {
 	];
 
 	lights: any[] = [];
-	addLight(mesh: MeshComponent) {
+	addLight(mesh: NgxMeshComponent) {
 		const light = mesh.getObject3d();
 		this.lights.push(light);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const d = 150;
 		const time = timer.elapsedTime;

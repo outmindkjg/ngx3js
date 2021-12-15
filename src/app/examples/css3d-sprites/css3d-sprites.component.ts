@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { BaseComponent, CSS3DSprite, THREE, RendererTimer } from 'ngx3js';
+import { CSS3DSprite, NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 @Component({
 	selector: 'app-css3d-sprites',
 	templateUrl: './css3d-sprites.component.html',
 	styleUrls: ['./css3d-sprites.component.scss'],
 })
-export class Css3dSpritesComponent extends BaseComponent<{}> {
+export class Css3dSpritesComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -112,7 +112,7 @@ export class Css3dSpritesComponent extends BaseComponent<{}> {
 		}, 6000);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren && this.meshChildren.length > 0) {
 			const time = timer.elapsedTime;

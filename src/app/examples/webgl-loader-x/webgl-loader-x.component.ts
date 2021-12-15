@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-x',
 	templateUrl: './webgl-loader-x.component.html',
 	styleUrls: ['./webgl-loader-x.component.scss'],
 })
-export class WebglLoaderXComponent extends BaseComponent<{
+export class WebglLoaderXComponent extends NgxBaseComponent<{
 	anime: string;
 }> {
 	constructor() {

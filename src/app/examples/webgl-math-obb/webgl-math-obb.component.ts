@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent, I3JS, MeshComponent, OBB, RendererEvent,
-	RendererTimer
+	I3JS, NgxBaseComponent, NgxMeshComponent, OBB, IRendererEvent,
+	IRendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -9,7 +9,7 @@ import {
 	templateUrl: './webgl-math-obb.component.html',
 	styleUrls: ['./webgl-math-obb.component.scss'],
 })
-export class WebglMathObbComponent extends BaseComponent<{}> {
+export class WebglMathObbComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -42,13 +42,13 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 		scale: { x: number; y: number; z: number };
 	}[] = [];
 
-	setHitBox(mesh: MeshComponent) {
+	setHitBox(mesh: NgxMeshComponent) {
 		this.hitBox = mesh.getObject3d();
 	}
 
-	hitBox: I3JS.IObject3D;
+	hitBox: I3JS.Object3D;
 
-	eventListener(event: RendererEvent) {
+	eventListener(event: IRendererEvent) {
 		if (this.camera !== null && this.hitBox !== null) {
 			const intersect = this.camera.getIntersection(
 				event.mouse,
@@ -66,7 +66,7 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 		}
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.meshChildren = mesh.getObject3d().children;
 		this.meshChildren.forEach((child) => {
@@ -76,9 +76,9 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 		this.geometryObb.halfSize.set(10, 5, 6).multiplyScalar(0.5);
 	}
 
-	geometryObb: I3JS.IOBB = null;
+	geometryObb: I3JS.OBB = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren !== null) {
 			const delta = timer.delta;
@@ -87,7 +87,7 @@ export class WebglMathObbComponent extends BaseComponent<{}> {
 				child.rotation.y += delta * Math.PI * 0.1;
 				child.updateMatrix();
 				child.updateMatrixWorld();
-				const obb = child.userData.obb as I3JS.IOBB;
+				const obb = child.userData.obb as I3JS.OBB;
 				obb.copy(this.geometryObb);
 				obb.applyMatrix4(child.matrixWorld as any);
 				const material = child['material'] ;

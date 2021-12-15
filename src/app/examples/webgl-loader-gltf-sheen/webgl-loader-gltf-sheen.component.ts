@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-gltf-sheen',
 	templateUrl: './webgl-loader-gltf-sheen.component.html',
 	styleUrls: ['./webgl-loader-gltf-sheen.component.scss'],
 })
-export class WebglLoaderGltfSheenComponent extends BaseComponent<{
+export class WebglLoaderGltfSheenComponent extends NgxBaseComponent<{
 	sheen: number;
 }> {
 	constructor() {
@@ -27,7 +27,7 @@ export class WebglLoaderGltfSheenComponent extends BaseComponent<{
 
 	material: any;
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		const object = this.meshObject3d.getObjectByName(
 			'SheenChair_fabric'

@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
-	BaseComponent,
-	ControlComponent, I3JS, THREE, PointerLockControls, RendererEvent,
-	RendererTimer
+	I3JS, NgxBaseComponent,
+	NgxControlComponent, IRendererEvent,
+	IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -10,7 +10,7 @@ import {
 	templateUrl: './misc-controls-pointerlock.component.html',
 	styleUrls: ['./misc-controls-pointerlock.component.scss'],
 })
-export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
+export class MiscControlsPointerlockComponent extends NgxBaseComponent<{}> {
 	/**
 	 * View child of renderer component
 	 */
@@ -20,7 +20,7 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
 		super({}, []);
 	}
 
-	initFloor(floorGeometry: I3JS.IBufferGeometry) {
+	initFloor(floorGeometry: I3JS.BufferGeometry) {
 		floorGeometry = floorGeometry.toNonIndexed(); // ensure each face has unique vertices
 		floorGeometry.rotateX(-Math.PI / 2);
 		let position = floorGeometry.attributes.position;
@@ -51,7 +51,7 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
 		return floorGeometry;
 	}
 
-	initBox(boxGeometry: I3JS.IBufferGeometry) {
+	initBox(boxGeometry: I3JS.BufferGeometry) {
 		const position = boxGeometry.attributes.position;
 		const colorsBox = [];
 		const color = new THREE.Color();
@@ -86,7 +86,7 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
 		}
 	}
 
-	setPointerLock(control: ControlComponent) {
+	setPointerLock(control: NgxControlComponent) {
 		this.pointerLockControls = control.getControl();
 		this.pointerLockControls.addEventListener('lock', () => {
 			this.controlLock(true);
@@ -96,7 +96,7 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
 		});
 	}
 
-	pointerLockControls: I3JS.IPointerLockControls = null;
+	pointerLockControls: I3JS.PointerLockControls = null;
 
 	controlLockStart() {
 		this.pointerLockControls.lock();
@@ -123,7 +123,7 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
 		10
 	);
 
-	keyDownEvent(event: RendererEvent) {
+	keyDownEvent(event: IRendererEvent) {
 		switch (event.type) {
 			case 'keyup':
 				switch (event.event.code) {
@@ -182,7 +182,7 @@ export class MiscControlsPointerlockComponent extends BaseComponent<{}> {
 		z: number;
 	}[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.pointerLockControls !== null) {
 			const controls = this.pointerLockControls;

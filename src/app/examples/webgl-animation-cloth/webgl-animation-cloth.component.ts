@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
-	BaseComponent,
-	GeometryComponent, I3JS, MeshComponent, THREE, RendererTimer
+	I3JS, NgxBaseComponent,
+	NgxGeometryComponent, NgxMeshComponent, IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -10,7 +10,7 @@ import {
 	styleUrls: ['./webgl-animation-cloth.component.scss'],
 })
 export class WebglAnimationClothComponent
-	extends BaseComponent<{
+	extends NgxBaseComponent<{
 		enableWind: boolean;
 		showBall: boolean;
 		togglePins: () => void;
@@ -90,14 +90,14 @@ export class WebglAnimationClothComponent
 		super.ngOnInit();
 	}
 
-	clothGeometry: I3JS.IBufferGeometry = null;
-	sphere: I3JS.IMesh = null;
+	clothGeometry: I3JS.BufferGeometry = null;
+	sphere: I3JS.Mesh = null;
 
-	setClothGeometry(geometry: GeometryComponent) {
+	setClothGeometry(geometry: NgxGeometryComponent) {
 		this.clothGeometry = geometry.getGeometry();
 	}
 
-	setSphere(sphere: MeshComponent) {
+	setSphere(sphere: NgxMeshComponent) {
 		this.sphere = sphere.getObject3d();
 	}
 
@@ -208,7 +208,7 @@ export class WebglAnimationClothComponent
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		if (
 			this.cloth !== null &&
 			this.clothGeometry !== null &&

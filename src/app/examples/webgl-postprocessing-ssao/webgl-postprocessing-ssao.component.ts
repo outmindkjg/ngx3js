@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, PassComponent, RendererTimer, SSAOPass  , I3JS, THREE } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxPassComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-ssao',
 	templateUrl: './webgl-postprocessing-ssao.component.html',
 	styleUrls: ['./webgl-postprocessing-ssao.component.scss'],
 })
-export class WebglPostprocessingSsaoComponent extends BaseComponent<{
+export class WebglPostprocessingSsaoComponent extends NgxBaseComponent<{
 	output: string;
 	kernelRadius: number;
 	minDistance: number;
@@ -67,12 +67,12 @@ export class WebglPostprocessingSsaoComponent extends BaseComponent<{
 		);
 	}
 
-	setSsaoPass(pass: PassComponent) {
-		this.pass = pass.getPass() as I3JS.ISSAOPass;
+	setSsaoPass(pass: NgxPassComponent) {
+		this.pass = pass.getPass() as I3JS.SSAOPass;
 		this.changePass();
 	}
 
-	pass: I3JS.ISSAOPass = null;
+	pass: I3JS.SSAOPass = null;
 
 	changePass() {
 		if (this.pass !== null) {
@@ -110,7 +110,7 @@ export class WebglPostprocessingSsaoComponent extends BaseComponent<{
 		color: number;
 	}[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
 			const elapsedTime = timer.elapsedTime;

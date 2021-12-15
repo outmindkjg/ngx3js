@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererComponent } from 'ngx3js';
+import { NgxBaseComponent, NgxRendererComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-texture-anisotropy',
 	templateUrl: './webgl-materials-texture-anisotropy.component.html',
 	styleUrls: ['./webgl-materials-texture-anisotropy.component.scss'],
 })
-export class WebglMaterialsTextureAnisotropyComponent extends BaseComponent<{}> {
+export class WebglMaterialsTextureAnisotropyComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	setRender(render: RendererComponent) {
+	setRender(render: NgxRendererComponent) {
 		super.setRender(render);
 		setTimeout(() => {
 			this.anisotropy = (

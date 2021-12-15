@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, THREE, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webxr-vr-ballshooter',
 	templateUrl: './webxr-vr-ballshooter.component.html',
 	styleUrls: ['./webxr-vr-ballshooter.component.scss'],
 })
-export class WebxrVrBallshooterComponent extends BaseComponent<{}> {
+export class WebxrVrBallshooterComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -33,13 +33,13 @@ export class WebxrVrBallshooterComponent extends BaseComponent<{}> {
 		x: number;
 		y: number;
 		z: number;
-		velocity: I3JS.IVector3;
+		velocity: I3JS.Vector3;
 	}[] = [];
 
 	normal = new THREE.Vector3();
 	relativeVelocity = new THREE.Vector3();
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		if (this.meshChildren !== null && this.meshChildren.length > 0) {
 			const delta = timer.delta * 0.8; // slow down simulation
 			const radius = 0.08;

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE, RendererTimer } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-test-memory2',
 	templateUrl: './webgl-test-memory2.component.html',
 	styleUrls: ['./webgl-test-memory2.component.scss'],
 })
-export class WebglTestMemory2Component extends BaseComponent<{}> {
+export class WebglTestMemory2Component extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -56,7 +56,7 @@ export class WebglTestMemory2Component extends BaseComponent<{}> {
 	meshPositions: { x: number; y: number; z: number; fragmentShader: string }[] =
 		[];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren != null) {
 			this.meshChildren.forEach((child) => {

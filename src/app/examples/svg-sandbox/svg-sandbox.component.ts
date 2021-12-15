@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE, RendererTimer } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-svg-sandbox',
 	templateUrl: './svg-sandbox.component.html',
 	styleUrls: ['./svg-sandbox.component.scss'],
 })
-export class SvgSandboxComponent extends BaseComponent<{}> {
+export class SvgSandboxComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -106,7 +106,7 @@ export class SvgSandboxComponent extends BaseComponent<{}> {
 	vertices: number[] = [];
 	colors: number[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			const group = this.meshObject3d.getObjectByName('group');

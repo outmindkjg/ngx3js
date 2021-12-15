@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-godrays',
 	templateUrl: './webgl-postprocessing-godrays.component.html',
 	styleUrls: ['./webgl-postprocessing-godrays.component.scss'],
 })
-export class WebglPostprocessingGodraysComponent extends BaseComponent<{}> {
+export class WebglPostprocessingGodraysComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	setSphere(mesh: MeshComponent) {
+	setSphere(mesh: NgxMeshComponent) {
 		this.sphere = mesh.getObject3d();
 	}
 
-	sphere: I3JS.IObject3D = null;
+	sphere: I3JS.Object3D = null;
 	orbitRadius: number = 200;
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.sphere !== null) {
 			const time = timer.elapsedTime / 4;

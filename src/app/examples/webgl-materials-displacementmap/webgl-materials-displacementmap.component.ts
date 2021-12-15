@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-displacementmap',
 	templateUrl: './webgl-materials-displacementmap.component.html',
 	styleUrls: ['./webgl-materials-displacementmap.component.scss'],
 })
-export class WebglMaterialsDisplacementmapComponent extends BaseComponent<{
+export class WebglMaterialsDisplacementmapComponent extends NgxBaseComponent<{
 	metalness: number;
 	roughness: number;
 	ambientIntensity: number;

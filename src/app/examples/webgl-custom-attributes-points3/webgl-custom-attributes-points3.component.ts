@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
-import {
-	BaseComponent, I3JS, MeshComponent, THREE, RendererTimer
-} from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-custom-attributes-points3',
 	templateUrl: './webgl-custom-attributes-points3.component.html',
 	styleUrls: ['./webgl-custom-attributes-points3.component.scss'],
 })
-export class WebglCustomAttributesPoints3Component extends BaseComponent<{}> {
+export class WebglCustomAttributesPoints3Component extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -144,18 +142,18 @@ export class WebglCustomAttributesPoints3Component extends BaseComponent<{}> {
 	colors: number[] = null;
 	sizes: number[] = null;
 
-	object3d: I3JS.IObject3D = null;
-	geometry: I3JS.IBufferGeometry = null;
-	setMesh(mesh: MeshComponent) {
+	object3d: I3JS.Object3D = null;
+	geometry: I3JS.BufferGeometry = null;
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.object3d = mesh.getObject3d();
-		const geometry: I3JS.IBufferGeometry = (this.object3d as any).geometry;
+		const geometry: I3JS.BufferGeometry = (this.object3d as any).geometry;
 		if (geometry !== null && geometry.getAttribute('position') !== undefined) {
 			this.geometry = geometry;
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.object3d !== null && this.geometry !== null) {
 			const time = timer.elapsedTime * 10;

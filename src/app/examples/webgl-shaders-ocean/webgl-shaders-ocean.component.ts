@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shaders-ocean',
 	templateUrl: './webgl-shaders-ocean.component.html',
 	styleUrls: ['./webgl-shaders-ocean.component.scss'],
 })
-export class WebglShadersOceanComponent extends BaseComponent<{
+export class WebglShadersOceanComponent extends NgxBaseComponent<{
 	sky: {
 		inclination: number;
 		azimuth: number;
@@ -93,7 +93,7 @@ export class WebglShadersOceanComponent extends BaseComponent<{
 
 	sunDirection: number[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
 			const time = timer.elapsedTime;

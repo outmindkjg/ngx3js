@@ -1,26 +1,26 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-portal',
 	templateUrl: './webgl-portal.component.html',
 	styleUrls: ['./webgl-portal.component.scss'],
 })
-export class WebglPortalComponent extends BaseComponent<{}> {
+export class WebglPortalComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	smallSphereOne: I3JS.IObject3D = null;
-	setSmallSphereOne(mesh: MeshComponent) {
+	smallSphereOne: I3JS.Object3D = null;
+	setSmallSphereOne(mesh: NgxMeshComponent) {
 		this.smallSphereOne = mesh.getObject3d();
 	}
-	smallSphereTwo: I3JS.IObject3D = null;
-	setSmallSphereTwo(mesh: MeshComponent) {
+	smallSphereTwo: I3JS.Object3D = null;
+	setSmallSphereTwo(mesh: NgxMeshComponent) {
 		this.smallSphereTwo = mesh.getObject3d();
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.smallSphereOne !== null && this.smallSphereTwo !== null) {
 			const timerOne = timer.elapsedTime * 1000 * 0.01;

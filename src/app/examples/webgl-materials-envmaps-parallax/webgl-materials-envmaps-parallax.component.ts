@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, THREE } from 'ngx3js';
+import { I3JS, NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-envmaps-parallax',
 	templateUrl: './webgl-materials-envmaps-parallax.component.html',
 	styleUrls: ['./webgl-materials-envmaps-parallax.component.scss'],
 })
-export class WebglMaterialsEnvmapsParallaxComponent extends BaseComponent<{
+export class WebglMaterialsEnvmapsParallaxComponent extends NgxBaseComponent<{
 	boxProjected: boolean;
 }> {
 	constructor() {
@@ -25,7 +25,7 @@ export class WebglMaterialsEnvmapsParallaxComponent extends BaseComponent<{
 	}
 
 	onBeforeCompile: any = null;
-	_onBeforeCompile(shader: I3JS.IShader) {
+	_onBeforeCompile(shader: I3JS.Shader) {
 		shader.uniforms.cubeMapSize = { value: new THREE.Vector3(200, 200, 100) };
 		shader.uniforms.cubeMapPos = { value: new THREE.Vector3(0, -50, 0) };
 

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, THREE } from 'ngx3js';
+import { I3JS, NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-multiple-views',
 	templateUrl: './webgl-multiple-views.component.html',
 	styleUrls: ['./webgl-multiple-views.component.scss'],
 })
-export class WebglMultipleViewsComponent extends BaseComponent<{}> {
+export class WebglMultipleViewsComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -46,7 +46,7 @@ export class WebglMultipleViewsComponent extends BaseComponent<{}> {
 			},
 		],
 	};
-	setGeometry1(geometry: I3JS.IIcosahedronBufferGeometry) {
+	setGeometry1(geometry: I3JS.IcosahedronBufferGeometry) {
 		const count = geometry.attributes.position.count;
 		geometry.setAttribute(
 			'color',
@@ -62,7 +62,7 @@ export class WebglMultipleViewsComponent extends BaseComponent<{}> {
 		}
 	}
 
-	setGeometry2(geometry: I3JS.IIcosahedronBufferGeometry) {
+	setGeometry2(geometry: I3JS.IcosahedronBufferGeometry) {
 		const count = geometry.attributes.position.count;
 		geometry.setAttribute(
 			'color',
@@ -78,7 +78,7 @@ export class WebglMultipleViewsComponent extends BaseComponent<{}> {
 		}
 	}
 
-	setGeometry3(geometry: I3JS.IIcosahedronBufferGeometry) {
+	setGeometry3(geometry: I3JS.IcosahedronBufferGeometry) {
 		const count = geometry.attributes.position.count;
 		geometry.setAttribute(
 			'color',

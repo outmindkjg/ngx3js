@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-css3d-orthographic',
 	templateUrl: './css3d-orthographic.component.html',
 	styleUrls: ['./css3d-orthographic.component.scss'],
 })
-export class Css3dOrthographicComponent extends BaseComponent<{}> {
+export class Css3dOrthographicComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-trails',
 	templateUrl: './webgl-trails.component.html',
 	styleUrls: ['./webgl-trails.component.scss'],
 })
-export class WebglTrailsComponent extends BaseComponent<{}> {
+export class WebglTrailsComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-ifc',
 	templateUrl: './webgl-loader-ifc.component.html',
 	styleUrls: ['./webgl-loader-ifc.component.scss'],
 })
-export class WebglLoaderIfcComponent extends BaseComponent<{}> {
+export class WebglLoaderIfcComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 	}
 }

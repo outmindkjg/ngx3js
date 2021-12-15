@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-custom-attributes',
 	templateUrl: './webgl-custom-attributes.component.html',
 	styleUrls: ['./webgl-custom-attributes.component.scss'],
 })
-export class WebglCustomAttributesComponent extends BaseComponent<{}> {
+export class WebglCustomAttributesComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
 	noise: Float32Array = null;
 	displacement: Float32Array = null;
-	object3d: I3JS.IObject3D = null;
-	geometry: I3JS.IBufferGeometry = null;
+	object3d: I3JS.Object3D = null;
+	geometry: I3JS.BufferGeometry = null;
 	uniforms: { [uniform: string]: I3JS.IUniform } = null;
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.object3d = mesh.getObject3d();
 		this.geometry = (this.object3d as any).geometry;
@@ -29,7 +29,7 @@ export class WebglCustomAttributesComponent extends BaseComponent<{}> {
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (
 			this.object3d !== null &&

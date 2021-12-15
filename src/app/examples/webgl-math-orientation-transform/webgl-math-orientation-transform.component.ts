@@ -1,31 +1,31 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
+import { NgxBaseComponent, I3JS, NgxMeshComponent, THREE, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-math-orientation-transform',
 	templateUrl: './webgl-math-orientation-transform.component.html',
 	styleUrls: ['./webgl-math-orientation-transform.component.scss'],
 })
-export class WebglMathOrientationTransformComponent extends BaseComponent<{}> {
+export class WebglMathOrientationTransformComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	setTarget(mesh: MeshComponent) {
+	setTarget(mesh: NgxMeshComponent) {
 		this.target = mesh.getObject3d();
 		this.generateTarget();
 	}
 
-	setCone(mesh: MeshComponent) {
+	setCone(mesh: NgxMeshComponent) {
 		this.corn = mesh.getObject3d();
 		this.generateTarget();
 	}
 
-	target: I3JS.IObject3D = null;
-	corn: I3JS.IObject3D = null;
-	targetQuaternion: I3JS.IQuaternion = new THREE.Quaternion();
-	spherical: I3JS.ISpherical = new THREE.Spherical();
-	rotationMatrix: I3JS.IMatrix4 = new THREE.Matrix4();
+	target: I3JS.Object3D = null;
+	corn: I3JS.Object3D = null;
+	targetQuaternion: I3JS.Quaternion = new THREE.Quaternion();
+	spherical: I3JS.Spherical = new THREE.Spherical();
+	rotationMatrix: I3JS.Matrix4 = new THREE.Matrix4();
 
 	generateTarget() {
 		if (this.target !== null && this.corn !== null) {
@@ -46,7 +46,7 @@ export class WebglMathOrientationTransformComponent extends BaseComponent<{}> {
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.corn !== null && this.target !== null) {
 			const targetMaterial = this.target['material'] ;

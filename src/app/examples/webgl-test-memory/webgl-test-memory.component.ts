@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, THREE, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-test-memory',
 	templateUrl: './webgl-test-memory.component.html',
 	styleUrls: ['./webgl-test-memory.component.scss'],
 })
-export class WebglTestMemoryComponent extends BaseComponent<{}> {
+export class WebglTestMemoryComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -27,8 +27,8 @@ export class WebglTestMemoryComponent extends BaseComponent<{}> {
 		context.fillRect(0, 0, 256, 256);
 		return canvas;
 	}
-	lastMesh: I3JS.IMesh = null;
-	onRender(timer: RendererTimer) {
+	lastMesh: I3JS.Mesh = null;
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
 			if (this.lastMesh !== null) {

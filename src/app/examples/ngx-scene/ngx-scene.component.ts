@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-scene',
 	templateUrl: './ngx-scene.component.html',
 	styleUrls: ['./ngx-scene.component.scss'],
 })
-export class NgxSceneComponent extends BaseComponent<{
+export class NgxSceneComponent extends NgxBaseComponent<{
 	background: {
 		type: string;
 		color: string;
@@ -211,7 +211,7 @@ export class NgxSceneComponent extends BaseComponent<{
 		mapping?: string;
 	};
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			const elapsedTime = timer.elapsedTime;

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-dof',
 	templateUrl: './webgl-postprocessing-dof.component.html',
 	styleUrls: ['./webgl-postprocessing-dof.component.scss'],
 })
-export class WebglPostprocessingDofComponent extends BaseComponent<{
+export class WebglPostprocessingDofComponent extends NgxBaseComponent<{
 	focus: number;
 	aperture: number;
 	maxblur: number;
@@ -46,7 +46,7 @@ export class WebglPostprocessingDofComponent extends BaseComponent<{
 	}
 	meshInfos: { x: number; y: number; z: number; scale: number }[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren !== null && this.meshChildren.length > 0) {
 			const totalLen = this.meshChildren.length;

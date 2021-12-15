@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-rotation',
 	templateUrl: './ngx-rotation.component.html',
 	styleUrls: ['./ngx-rotation.component.scss'],
 })
-export class NgxRotationComponent extends BaseComponent<{
+export class NgxRotationComponent extends NgxBaseComponent<{
 	rotation: {
 		x: number;
 		y: number;

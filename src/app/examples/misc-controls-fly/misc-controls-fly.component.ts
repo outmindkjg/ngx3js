@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import {
-	AbstractGeometryComponent,
-	AbstractMaterialComponent,
-	BaseComponent,
-	ControlComponent,
-	FlyControls, I3JS, MeshComponent, THREE, RendererTimer,
-	SharedComponent
+	I3JS, NgxAbstractGeometryComponent,
+	NgxAbstractMaterialComponent,
+	NgxBaseComponent,
+	NgxControlComponent, NgxMeshComponent, NgxSharedComponent, IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -13,7 +11,7 @@ import {
 	templateUrl: './misc-controls-fly.component.html',
 	styleUrls: ['./misc-controls-fly.component.scss'],
 })
-export class MiscControlsFlyComponent extends BaseComponent<{}> {
+export class MiscControlsFlyComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -70,7 +68,7 @@ export class MiscControlsFlyComponent extends BaseComponent<{}> {
 		size: number;
 	}[] = [];
 
-	setShared(shared: SharedComponent) {
+	setShared(shared: NgxSharedComponent) {
 		const starsMaterials = shared.getMaterialComponents();
 		const starsGeometry = shared.getGeometryComponents();
 		setTimeout(() => {
@@ -93,29 +91,29 @@ export class MiscControlsFlyComponent extends BaseComponent<{}> {
 		y: number;
 		z: number;
 		scale: number;
-		geometry: AbstractGeometryComponent;
-		material: AbstractMaterialComponent;
+		geometry: NgxAbstractGeometryComponent;
+		material: NgxAbstractMaterialComponent;
 	}[] = [];
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.meshPlanet = this.meshObject3d.getObjectByName('meshPlanet');
 		this.meshClouds = this.meshObject3d.getObjectByName('meshClouds');
 		this.meshMoon = this.meshObject3d.getObjectByName('meshMoon');
 	}
 
-	meshPlanet: I3JS.IObject3D = null;
-	meshClouds: I3JS.IObject3D = null;
-	meshMoon: I3JS.IObject3D = null;
+	meshPlanet: I3JS.Object3D = null;
+	meshClouds: I3JS.Object3D = null;
+	meshMoon: I3JS.Object3D = null;
 
-	setControl(control: ControlComponent) {
+	setControl(control: NgxControlComponent) {
 		this.flyControl = control.getControl();
 	}
 
-	flyControl: I3JS.IFlyControls = null;
+	flyControl: I3JS.FlyControls = null;
 	dMoonVec = new THREE.Vector3();
 	radius = 6371;
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const delta = timer.delta;
 		const rotationSpeed = 0.02;
@@ -128,7 +126,7 @@ export class MiscControlsFlyComponent extends BaseComponent<{}> {
 			this.camera !== null &&
 			this.meshMoon !== null
 		) {
-			const camera: I3JS.ICamera = this.camera.getCamera();
+			const camera: I3JS.Camera = this.camera.getCamera();
 			const dPlanet = camera.position.length();
 			this.dMoonVec.subVectors(camera.position, this.meshMoon.position);
 			const dMoon = this.dMoonVec.length();

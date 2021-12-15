@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererEvent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-ttf',
 	templateUrl: './webgl-loader-ttf.component.html',
 	styleUrls: ['./webgl-loader-ttf.component.scss'],
 })
-export class WebglLoaderTtfComponent extends BaseComponent<{}> {
+export class WebglLoaderTtfComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	setKeyDown(event: RendererEvent) {
+	setKeyDown(event: IRendererEvent) {
 		switch (event.type) {
 			case 'keydown':
 				{

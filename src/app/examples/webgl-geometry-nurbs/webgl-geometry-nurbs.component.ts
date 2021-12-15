@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE, NURBSCurve, NURBSSurface, INURBSSurface } from 'ngx3js';
+import { NgxBaseComponent, NURBSCurve, NURBSSurface, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-nurbs',
 	templateUrl: './webgl-geometry-nurbs.component.html',
 	styleUrls: ['./webgl-geometry-nurbs.component.scss'],
 })
-export class WebglGeometryNurbsComponent extends BaseComponent<{}> {
+export class WebglGeometryNurbsComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
 	nurbsCurvePoints: any = null;
 	controlPoints: any = null;
-	nurbsSurface: INURBSSurface = null;
+	nurbsSurface: NURBSSurface = null;
 	ngOnInit() {
 		const nurbsControlPoints = [];
 		const nurbsKnots = [];

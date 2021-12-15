@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webxr-vr-handinput-pointerdrag',
 	templateUrl: './webxr-vr-handinput-pointerdrag.component.html',
 	styleUrls: ['./webxr-vr-handinput-pointerdrag.component.scss'],
 })
-export class WebxrVrHandinputPointerdragComponent extends BaseComponent<{}> {
+export class WebxrVrHandinputPointerdragComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

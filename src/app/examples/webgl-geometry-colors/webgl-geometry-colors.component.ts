@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, THREE } from 'ngx3js';
+import { I3JS, NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-colors',
 	templateUrl: './webgl-geometry-colors.component.html',
 	styleUrls: ['./webgl-geometry-colors.component.scss'],
 })
-export class WebglGeometryColorsComponent extends BaseComponent<{}> {
+export class WebglGeometryColorsComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
 	radius = 200;
 
-	setGeometry1(geometry: I3JS.IBufferGeometry) {
+	setGeometry1(geometry: I3JS.BufferGeometry) {
 		const count = geometry.attributes.position.count;
 		geometry.setAttribute(
 			'color',
@@ -28,7 +28,7 @@ export class WebglGeometryColorsComponent extends BaseComponent<{}> {
 		}
 	}
 
-	setGeometry2(geometry: I3JS.IBufferGeometry) {
+	setGeometry2(geometry: I3JS.BufferGeometry) {
 		const count = geometry.attributes.position.count;
 		geometry.setAttribute(
 			'color',
@@ -43,7 +43,7 @@ export class WebglGeometryColorsComponent extends BaseComponent<{}> {
 		}
 	}
 
-	setGeometry3(geometry: I3JS.IBufferGeometry) {
+	setGeometry3(geometry: I3JS.BufferGeometry) {
 		const count = geometry.attributes.position.count;
 		geometry.setAttribute(
 			'color',

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE } from 'ngx3js';
+import { NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-tonemapping',
 	templateUrl: './webgl-tonemapping.component.html',
 	styleUrls: ['./webgl-tonemapping.component.scss'],
 })
-export class WebglTonemappingComponent extends BaseComponent<{
+export class WebglTonemappingComponent extends NgxBaseComponent<{
 	toneMapping: string;
 	exposure: number;
 }> {

@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	GeometryUtils, I3JS, THREE, RendererTimer,
-	TextureComponent
+	GeometryUtils, I3JS, NgxBaseComponent, NgxTextureComponent, IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -10,12 +8,12 @@ import {
 	templateUrl: './webgl-framebuffer-texture.component.html',
 	styleUrls: ['./webgl-framebuffer-texture.component.scss'],
 })
-export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
+export class WebglFramebufferTextureComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	loadGeometry(geometry: I3JS.IBufferGeometry) {
+	loadGeometry(geometry: I3JS.BufferGeometry) {
 		const points = GeometryUtils.gosper(8);
 		const positionAttribute = new THREE.Float32BufferAttribute(points, 3);
 		geometry.setAttribute('position', positionAttribute);
@@ -36,11 +34,11 @@ export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
 		this.spriteData = new Uint8Array(this.textureSize * this.textureSize * 3);
 	}
 
-	setTexture(texture: TextureComponent) {
+	setTexture(texture: NgxTextureComponent) {
 		this.texture = texture.getTexture() ;
 	}
 
-	texture: I3JS.IDataTexture = null;
+	texture: I3JS.DataTexture = null;
 
 	spriteData: Uint8Array = null;
 
@@ -48,8 +46,8 @@ export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
 	dpr = 0;
 
 	textureSize = 0;
-	vector: I3JS.IVector2 = null;
-	color: I3JS.IColor = null;
+	vector: I3JS.Vector2 = null;
+	color: I3JS.Color = null;
 
 	updateColors(colorAttribute) {
 		const l = colorAttribute.count;
@@ -64,7 +62,7 @@ export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
 		this.offset -= 25;
 	}
 
-	onBeforeRenderOrthographicCamera(timer: RendererTimer) {
+	onBeforeRenderOrthographicCamera(timer: IRendererTimer) {
 		if (
 			this.texture !== null &&
 			timer.renderer instanceof THREE.WebGLRenderer
@@ -77,8 +75,8 @@ export class WebglFramebufferTextureComponent extends BaseComponent<{}> {
 		}
 	}
 
-	varctor: I3JS.IVector2 = new THREE.Vector2();
-	onRender(timer: RendererTimer) {
+	varctor: I3JS.Vector2 = new THREE.Vector2();
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
 			const mesh = this.mesh.getObject3d() as any;

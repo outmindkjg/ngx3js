@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, THREE } from 'ngx3js';
+import { I3JS, NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-multiple-renderers',
 	templateUrl: './webgl-multiple-renderers.component.html',
 	styleUrls: ['./webgl-multiple-renderers.component.scss'],
 })
-export class WebglMultipleRenderersComponent extends BaseComponent<{
+export class WebglMultipleRenderersComponent extends NgxBaseComponent<{
 	layout: string;
 	rate: number;
 	margin: number;
@@ -93,7 +93,7 @@ export class WebglMultipleRenderersComponent extends BaseComponent<{
 		height: string | number;
 	} = null;
 
-	setGeometry1(geometry: I3JS.IIcosahedronBufferGeometry) {
+	setGeometry1(geometry: I3JS.IcosahedronBufferGeometry) {
 		const count = geometry.attributes.position.count;
 		geometry.setAttribute(
 			'color',
@@ -109,7 +109,7 @@ export class WebglMultipleRenderersComponent extends BaseComponent<{
 		}
 	}
 
-	setGeometry2(geometry: I3JS.IIcosahedronBufferGeometry) {
+	setGeometry2(geometry: I3JS.IcosahedronBufferGeometry) {
 		const count = geometry.attributes.position.count;
 		geometry.setAttribute(
 			'color',
@@ -125,7 +125,7 @@ export class WebglMultipleRenderersComponent extends BaseComponent<{
 		}
 	}
 
-	setGeometry3(geometry: I3JS.IIcosahedronBufferGeometry) {
+	setGeometry3(geometry: I3JS.IcosahedronBufferGeometry) {
 		const count = geometry.attributes.position.count;
 		geometry.setAttribute(
 			'color',

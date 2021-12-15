@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
 import {
-	AbstractGeometryComponent,
-	BaseComponent,
-	RendererTimer,
-	SharedComponent, I3JS, THREE } from 'ngx3js';
+	NgxAbstractGeometryComponent,
+	NgxBaseComponent, NgxSharedComponent, IRendererTimer
+} from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-pixel',
 	templateUrl: './webgl-postprocessing-pixel.component.html',
 	styleUrls: ['./webgl-postprocessing-pixel.component.scss'],
 })
-export class WebglPostprocessingPixelComponent extends BaseComponent<{
+export class WebglPostprocessingPixelComponent extends NgxBaseComponent<{
 	pixelSize: number;
 	postprocessing: boolean;
 }> {
@@ -27,14 +26,14 @@ export class WebglPostprocessingPixelComponent extends BaseComponent<{
 		);
 	}
 
-	setShared(shared: SharedComponent) {
+	setShared(shared: NgxSharedComponent) {
 		this.geometries = shared.getGeometryComponents();
 		setTimeout(() => {
 			this.setMeshInfos(25);
 		}, 100);
 	}
 
-	geometries: AbstractGeometryComponent[] = null;
+	geometries: NgxAbstractGeometryComponent[] = null;
 
 	setMeshInfos(len: number) {
 		this.meshInfos = [];
@@ -68,14 +67,14 @@ export class WebglPostprocessingPixelComponent extends BaseComponent<{
 	}
 
 	meshInfos: {
-		geometry: AbstractGeometryComponent;
+		geometry: NgxAbstractGeometryComponent;
 		color: string;
 		scale: number;
 		position: { x: number; y: number; z: number; multiply: number };
 		rotation: { x: number; y: number; z: number };
 	}[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 
 		if (this.mesh !== null) {

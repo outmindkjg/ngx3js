@@ -1,17 +1,15 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	GuiControlParam,
-	MaterialComponent,
-	MeshComponent,
- 	I3JS, THREE } from 'ngx3js';
+	IGuiControlParam, I3JS, NgxBaseComponent, NgxMaterialComponent,
+	NgxMeshComponent, THREE
+} from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-nodes',
 	templateUrl: './webgl-materials-nodes.component.html',
 	styleUrls: ['./webgl-materials-nodes.component.scss'],
 })
-export class WebglMaterialsNodesComponent extends BaseComponent<{
+export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 	example: string;
 	useMap: boolean;
 	useEnvMap: boolean;
@@ -48,7 +46,7 @@ export class WebglMaterialsNodesComponent extends BaseComponent<{
 	}
 
 	changeExample() {
-		const controlsParams: GuiControlParam[] = [];
+		const controlsParams: IGuiControlParam[] = [];
 		controlsParams.push({
 			name: 'example',
 			type: 'select',
@@ -258,11 +256,11 @@ export class WebglMaterialsNodesComponent extends BaseComponent<{
 	}
 
 	meshObj: any = null;
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.meshObj = mesh.getObject3d();
 	}
-	setMaterial(matrial: MaterialComponent) {
+	setMaterial(matrial: NgxMaterialComponent) {
 		this.material = this.orgMaterial = matrial.getMaterial();
 		this.map = this.orgMaterial.map;
 		this.envMap = this.orgMaterial.envMap;
@@ -281,10 +279,10 @@ export class WebglMaterialsNodesComponent extends BaseComponent<{
 	}
 	orgMaterial: any = null;
 	material: any = null;
-	map: I3JS.ITexture = null;
-	envMap: I3JS.ITexture = null;
-	normalMap: I3JS.ITexture = null;
-	sataturation: I3JS.IFloatNode = null;
+	map: I3JS.Texture = null;
+	envMap: I3JS.Texture = null;
+	normalMap: I3JS.Texture = null;
+	sataturation: I3JS.FloatNode = null;
 	changeMaterial(key: string) {
 		if (this.material !== null) {
 			switch (key) {

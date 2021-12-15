@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer, ThreeUtil } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, NgxThreeUtil, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-morphtargets-sphere',
 	templateUrl: './webgl-morphtargets-sphere.component.html',
 	styleUrls: ['./webgl-morphtargets-sphere.component.scss'],
 })
-export class WebglMorphtargetsSphereComponent extends BaseComponent<{}> {
+export class WebglMorphtargetsSphereComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.subscribeRefer(
 			'loaded',
-			ThreeUtil.getSubscribe(
+			NgxThreeUtil.getSubscribe(
 				mesh,
 				() => {
 					this.realMesh = mesh.getRealMesh() as any;
@@ -30,7 +30,7 @@ export class WebglMorphtargetsSphereComponent extends BaseComponent<{}> {
 		if (
 			this.realMesh !== null &&
 			this.points !== null &&
-			ThreeUtil.isNotNull(this.realMesh.morphTargetDictionary)
+			NgxThreeUtil.isNotNull(this.realMesh.morphTargetDictionary)
 		) {
 			setTimeout(() => {
 				this.points.geometry = this.realMesh.geometry;
@@ -41,20 +41,20 @@ export class WebglMorphtargetsSphereComponent extends BaseComponent<{}> {
 		}
 	}
 
-	setPoints(mesh: MeshComponent) {
+	setPoints(mesh: NgxMeshComponent) {
 		this.points = mesh.getMesh() ;
 		this.synkMorphTarget();
 	}
 
-	points: I3JS.IPoints = null;
+	points: I3JS.Points = null;
 
-	realMesh: I3JS.IMesh = null;
+	realMesh: I3JS.Mesh = null;
 	sign: number = 1;
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (
 			this.realMesh !== null &&
-			ThreeUtil.isNotNull(this.realMesh.morphTargetInfluences)
+			NgxThreeUtil.isNotNull(this.realMesh.morphTargetInfluences)
 		) {
 			const delta = timer.delta;
 			const step = delta * 0.5;

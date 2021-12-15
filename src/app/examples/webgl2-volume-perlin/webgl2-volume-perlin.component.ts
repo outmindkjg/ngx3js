@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl2-volume-perlin',
 	templateUrl: './webgl2-volume-perlin.component.html',
 	styleUrls: ['./webgl2-volume-perlin.component.scss'],
 })
-export class Webgl2VolumePerlinComponent extends BaseComponent<{
+export class Webgl2VolumePerlinComponent extends NgxBaseComponent<{
 	threshold: number;
 	steps: number;
 }> {
@@ -56,7 +56,7 @@ export class Webgl2VolumePerlinComponent extends BaseComponent<{
 		return null;
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.camera !== null && this.meshObject3d !== null) {
 			this.meshObject3d.rotation.y = timer.elapsedTime / 7.5;

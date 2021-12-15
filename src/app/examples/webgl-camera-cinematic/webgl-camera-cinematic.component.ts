@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	CameraComponent, ICinematicCamera, RendererTimer, THREE
+	CinematicCamera, NgxBaseComponent, NgxCameraComponent, IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -9,7 +8,7 @@ import {
 	templateUrl: './webgl-camera-cinematic.component.html',
 	styleUrls: ['./webgl-camera-cinematic.component.scss'],
 })
-export class WebglCameraCinematicComponent extends BaseComponent<{
+export class WebglCameraCinematicComponent extends NgxBaseComponent<{
 	focalLength: number;
 	fstop: number;
 	showFocus: boolean;
@@ -69,16 +68,16 @@ export class WebglCameraCinematicComponent extends BaseComponent<{
 		);
 	}
 
-	camera: CameraComponent = null;
+	camera: NgxCameraComponent = null;
 
-	setCamera(camera: CameraComponent) {
+	setCamera(camera: NgxCameraComponent) {
 		this.camera = camera;
 		this.matChanger();
 	}
 
 	matChanger() {
 		if (this.camera !== null) {
-			const camera : ICinematicCamera = this.camera.getObject3d() as any;
+			const camera : CinematicCamera = this.camera.getObject3d() as any;
 			const postprocessing = camera.postprocessing as any;
 			for (const e in this.controls) {
 				if (e in postprocessing.bokeh_uniforms) {
@@ -116,7 +115,7 @@ export class WebglCameraCinematicComponent extends BaseComponent<{
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.camera !== null) {
 			const radius = 100;

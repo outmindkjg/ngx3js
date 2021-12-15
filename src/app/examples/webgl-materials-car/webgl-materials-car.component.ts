@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	HelperComponent,
-	MeshComponent,
-	RendererTimer,
-	ThreeUtil,
-	I3JS,
-	THREE,
+	NgxBaseComponent,
+	NgxHelperComponent,
+	NgxMeshComponent, NgxThreeUtil, IRendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -14,7 +10,7 @@ import {
 	templateUrl: './webgl-materials-car.component.html',
 	styleUrls: ['./webgl-materials-car.component.scss'],
 })
-export class WebglMaterialsCarComponent extends BaseComponent<{
+export class WebglMaterialsCarComponent extends NgxBaseComponent<{
 	body: string;
 	glass: string;
 	detail: string;
@@ -34,15 +30,15 @@ export class WebglMaterialsCarComponent extends BaseComponent<{
 		);
 	}
 
-	setGridHelp(helper: HelperComponent) {
+	setGridHelp(helper: NgxHelperComponent) {
 		this.grid = helper.getHelper();
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		const carModel = mesh.getObject3d();
 		const body = carModel.getObjectByName('body');
-		if (ThreeUtil.isNotNull(body)) {
+		if (NgxThreeUtil.isNotNull(body)) {
 			this.wheels = [
 				carModel.getObjectByName('wheel_fl'),
 				carModel.getObjectByName('wheel_fr'),
@@ -55,7 +51,7 @@ export class WebglMaterialsCarComponent extends BaseComponent<{
 	grid: any = null;
 	wheels: any[] = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const time = -timer.elapsedTime;
 		if (this.wheels !== null && this.wheels.length > 0) {

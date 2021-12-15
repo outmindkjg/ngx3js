@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, LocalStorageService  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxLocalStorageService } from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-exporter-collada',
 	templateUrl: './misc-exporter-collada.component.html',
 	styleUrls: ['./misc-exporter-collada.component.scss'],
 })
-export class MiscExporterColladaComponent extends BaseComponent<{
+export class MiscExporterColladaComponent extends NgxBaseComponent<{
 	shininess: number;
 	ka: number;
 	kd: number;
@@ -32,7 +32,7 @@ export class MiscExporterColladaComponent extends BaseComponent<{
 	newShading: string;
 	export: () => void;
 }> {
-	constructor(private localStorageService: LocalStorageService) {
+	constructor(private localStorageService: NgxLocalStorageService) {
 		super(
 			{
 				shininess: 40.0,

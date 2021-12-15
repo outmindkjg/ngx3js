@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-lines',
 	templateUrl: './webgl-buffergeometry-lines.component.html',
 	styleUrls: ['./webgl-buffergeometry-lines.component.scss'],
 })
-export class WebglBuffergeometryLinesComponent extends BaseComponent<{
+export class WebglBuffergeometryLinesComponent extends NgxBaseComponent<{
 	morphTargets: boolean;
 }> {
 	constructor() {
@@ -61,14 +61,14 @@ export class WebglBuffergeometryLinesComponent extends BaseComponent<{
 		position: number[][];
 	} = null;
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.object3d = mesh.getObject3d() ;
 	}
 
-	object3d: I3JS.ILine = null;
+	object3d: I3JS.Line = null;
 	t: number = 0;
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.object3d !== null) {
 			const delta = timer.delta;

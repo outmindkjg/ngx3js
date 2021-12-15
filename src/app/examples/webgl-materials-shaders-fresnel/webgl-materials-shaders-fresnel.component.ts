@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-shaders-fresnel',
 	templateUrl: './webgl-materials-shaders-fresnel.component.html',
 	styleUrls: ['./webgl-materials-shaders-fresnel.component.scss'],
 })
-export class WebglMaterialsShadersFresnelComponent extends BaseComponent<{}> {
+export class WebglMaterialsShadersFresnelComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -30,7 +30,7 @@ export class WebglMaterialsShadersFresnelComponent extends BaseComponent<{}> {
 		scale: number;
 	}[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren !== null) {
 			const time = timer.elapsedTime * 0.1;

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-position',
 	templateUrl: './ngx-position.component.html',
 	styleUrls: ['./ngx-position.component.scss'],
 })
-export class NgxPositionComponent extends BaseComponent<{
+export class NgxPositionComponent extends NgxBaseComponent<{
 	position: {
 		x: number;
 		y: number;
@@ -39,7 +39,7 @@ export class NgxPositionComponent extends BaseComponent<{
 		);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			const elapsedTime = timer.elapsedTime;

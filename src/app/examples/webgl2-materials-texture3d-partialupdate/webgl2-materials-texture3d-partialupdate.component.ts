@@ -1,16 +1,12 @@
 import { Component } from '@angular/core';
-import {
-	BaseComponent, I3JS,
-	THREE, RendererTimer,
-	SharedComponent
-} from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxSharedComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl2-materials-texture3d-partialupdate',
 	templateUrl: './webgl2-materials-texture3d-partialupdate.component.html',
 	styleUrls: ['./webgl2-materials-texture3d-partialupdate.component.scss'],
 })
-export class Webgl2MaterialsTexture3dPartialupdateComponent extends BaseComponent<{
+export class Webgl2MaterialsTexture3dPartialupdateComponent extends NgxBaseComponent<{
 	threshold: number;
 	opacity: number;
 	range: number;
@@ -85,7 +81,7 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends BaseComponen
 		}
 	}
 
-	setShared(shared: SharedComponent) {
+	setShared(shared: NgxSharedComponent) {
 		const textureList = shared.getTextureComponents();
 		this.texture3dList = [];
 		textureList.forEach((texture) => {
@@ -94,7 +90,7 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends BaseComponen
 	}
 
 	textureInfos: { scale: number; x: number; y: number; z: number }[] = [];
-	texture3dList: I3JS.IDataTexture3D[] = [];
+	texture3dList: I3JS.DataTexture3D[] = [];
 	addedCnt: number = 0;
 	updateUniforms() {
 		const uniforms = this.getUniforms();
@@ -115,7 +111,7 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends BaseComponen
 	}
 
 	nextTime: number = 0;
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.camera !== null && this.meshObject3d !== null) {
 			this.meshObject3d.rotation.y = timer.elapsedTime / 7.5;

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE, ThreeUtil } from 'ngx3js';
+import { NgxBaseComponent, THREE, NgxThreeUtil } from 'ngx3js';
 
 @Component({
 	selector: 'app-webxr-vr-panorama',
 	templateUrl: './webxr-vr-panorama.component.html',
 	styleUrls: ['./webxr-vr-panorama.component.scss'],
 })
-export class WebxrVrPanoramaComponent extends BaseComponent<{
+export class WebxrVrPanoramaComponent extends NgxBaseComponent<{
 	left: boolean;
 	right: boolean;
 }> {
@@ -49,7 +49,7 @@ export class WebxrVrPanoramaComponent extends BaseComponent<{
 
 	ngOnInit() {
 		const loader = new THREE.ImageLoader();
-		const atlasImgUrl = ThreeUtil.getStoreUrl(
+		const atlasImgUrl = NgxThreeUtil.getStoreUrl(
 			'textures/cube/sun_temple_stripe_stereo.jpg'
 		);
 		loader.load(atlasImgUrl, (imageObj) => {

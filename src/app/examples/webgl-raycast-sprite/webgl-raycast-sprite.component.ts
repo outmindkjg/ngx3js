@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, THREE, RendererEvent } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererEvent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-raycast-sprite',
 	templateUrl: './webgl-raycast-sprite.component.html',
 	styleUrls: ['./webgl-raycast-sprite.component.scss'],
 })
-export class WebglRaycastSpriteComponent extends BaseComponent<{}> {
+export class WebglRaycastSpriteComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.sprites = [];
 		mesh.getObject3d().traverse((child : any) => {
@@ -21,10 +21,10 @@ export class WebglRaycastSpriteComponent extends BaseComponent<{}> {
 		});
 	}
 
-	sprites: I3JS.ISprite[] = [];
+	sprites: I3JS.Sprite[] = [];
 
-	selectedSprites: I3JS.ISprite = null;
-	onMouseOver(event: RendererEvent) {
+	selectedSprites: I3JS.Sprite = null;
+	onMouseOver(event: IRendererEvent) {
 		if (this.camera !== null && this.sprites.length > 0) {
 			const intersect = this.camera.getIntersection(event.mouse, this.sprites);
 			if (this.selectedSprites !== null) {

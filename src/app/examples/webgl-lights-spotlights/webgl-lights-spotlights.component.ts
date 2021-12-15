@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, HelperComponent, TweenComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxHelperComponent, NgxTweenComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lights-spotlights',
 	templateUrl: './webgl-lights-spotlights.component.html',
 	styleUrls: ['./webgl-lights-spotlights.component.scss'],
 })
-export class WebglLightsSpotlightsComponent extends BaseComponent<{}> {
+export class WebglLightsSpotlightsComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -34,8 +34,8 @@ export class WebglLightsSpotlightsComponent extends BaseComponent<{}> {
 		});
 	}
 
-	tweens: TweenComponent[] = [];
-	setLightTween(tween: TweenComponent) {
+	tweens: NgxTweenComponent[] = [];
+	setLightTween(tween: NgxTweenComponent) {
 		if (this.tweens.indexOf(tween) === -1) {
 			this.tweens.push(tween);
 		}
@@ -44,8 +44,8 @@ export class WebglLightsSpotlightsComponent extends BaseComponent<{}> {
 		}
 	}
 
-	lightHelpers: HelperComponent[] = [];
-	setLightHelpers(helper: HelperComponent) {
+	lightHelpers: NgxHelperComponent[] = [];
+	setLightHelpers(helper: NgxHelperComponent) {
 		if (this.lightHelpers.indexOf(helper) === -1) {
 			this.lightHelpers.push(helper);
 		}

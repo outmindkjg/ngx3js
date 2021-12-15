@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BaseComponent, GeometryUtils, I3JS, THREE, RendererTimer } from 'ngx3js';
+import { GeometryUtils, I3JS, NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-mesh',
 	templateUrl: './ngx-mesh.component.html',
 	styleUrls: ['./ngx-mesh.component.scss'],
 })
-export class NgxMeshComponent extends BaseComponent<{
+export class NgxMeshComponent extends NgxBaseComponent<{
 	type: string;
 	background: {
 		type: string;
@@ -153,7 +153,7 @@ export class NgxMeshComponent extends BaseComponent<{
 		);
 	}
 
-	loadLineGeometry(geometry: I3JS.IBufferGeometry) {
+	loadLineGeometry(geometry: I3JS.BufferGeometry) {
 		const points = GeometryUtils.gosper(8);
 		const positionAttribute = new THREE.Float32BufferAttribute(points, 3);
 		geometry.setAttribute('position', positionAttribute);
@@ -182,19 +182,19 @@ export class NgxMeshComponent extends BaseComponent<{
 		onLightningDown: (lightning) => {},
 	};
 
-	makeMatrix = (mat: I3JS.IMatrix4, index: number) => {
+	makeMatrix = (mat: I3JS.Matrix4, index: number) => {
 		const rate = index / 100;
 		const x = Math.sin(rate * 50) * rate * 5;
 		const y = 3 - rate * 3;
 		const z = Math.cos(rate * 50) * rate * 5;
-		const translation: I3JS.IVector3 = new THREE.Vector3(x, y, z);
-		const rotation: I3JS.IQuaternion = new THREE.Quaternion();
+		const translation: I3JS.Vector3 = new THREE.Vector3(x, y, z);
+		const rotation: I3JS.Quaternion = new THREE.Quaternion();
 		rotation.setFromAxisAngle(new THREE.Vector3(0, 1, 0), rate * 50);
-		const scale: I3JS.IVector3 = new THREE.Vector3(rate, rate, rate);
+		const scale: I3JS.Vector3 = new THREE.Vector3(rate, rate, rate);
 		mat.compose(translation, rotation, scale);
 	};
 
-	makeColor = (color: I3JS.IColor, index: number) => {
+	makeColor = (color: I3JS.Color, index: number) => {
 		const rate = index / 100;
 		const x = Math.sin(rate * Math.PI * 2) / 2 + 0.5;
 		const z = Math.cos(rate * Math.PI * 2) / 2 + 0.5;
@@ -379,7 +379,7 @@ export class NgxMeshComponent extends BaseComponent<{
 		mapping?: string;
 	};
 
-	color: I3JS.IColor = new THREE.Color();
+	color: I3JS.Color = new THREE.Color();
 	offset = 0;
 	updateLineColors(colorAttribute) {
 		const l = colorAttribute.count;
@@ -394,7 +394,7 @@ export class NgxMeshComponent extends BaseComponent<{
 		this.offset -= 25;
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			switch (this.controls.type) {
@@ -406,7 +406,7 @@ export class NgxMeshComponent extends BaseComponent<{
 					break;
 				case 'Line':
 					if (this.meshObject3d.children.length > 0) {
-						const mesh = this.meshObject3d.children[0] as I3JS.ILine;
+						const mesh = this.meshObject3d.children[0] as I3JS.Line;
 						if (mesh.geometry) {
 							const geometry = mesh.geometry;
 							const colorAttribute = geometry.getAttribute('color');

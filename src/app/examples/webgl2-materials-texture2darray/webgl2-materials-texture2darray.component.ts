@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl2-materials-texture2darray',
 	templateUrl: './webgl2-materials-texture2darray.component.html',
 	styleUrls: ['./webgl2-materials-texture2darray.component.scss'],
 })
-export class Webgl2MaterialsTexture2darrayComponent extends BaseComponent<{}> {
+export class Webgl2MaterialsTexture2darrayComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
 	uniformsDepth: I3JS.IUniform = null;
 	depthStep: number = 0.4;
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		const object3d = mesh.getObject3d() as any;
 		if (object3d instanceof THREE.Mesh) {
@@ -21,7 +21,7 @@ export class Webgl2MaterialsTexture2darrayComponent extends BaseComponent<{}> {
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.uniformsDepth !== null) {
 			let value = this.uniformsDepth.value;

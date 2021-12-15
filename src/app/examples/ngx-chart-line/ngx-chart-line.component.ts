@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-chart-line',
 	templateUrl: './ngx-chart-line.component.html',
 	styleUrls: ['./ngx-chart-line.component.scss'],
 })
-export class NgxChartLineComponent extends BaseComponent<{
+export class NgxChartLineComponent extends NgxBaseComponent<{
 	pointStyle: string;
 }> {
 	constructor() {

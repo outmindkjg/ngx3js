@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	GeometryComponent, I3JS, MeshComponent, THREE, RendererTimer
+	I3JS, NgxBaseComponent,
+	NgxGeometryComponent, NgxMeshComponent, IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -9,7 +9,7 @@ import {
 	templateUrl: './webgl-morphtargets.component.html',
 	styleUrls: ['./webgl-morphtargets.component.scss'],
 })
-export class WebglMorphtargetsComponent extends BaseComponent<{
+export class WebglMorphtargetsComponent extends NgxBaseComponent<{
 	spherify: number;
 	twist: number;
 	animation: boolean;
@@ -67,7 +67,7 @@ export class WebglMorphtargetsComponent extends BaseComponent<{
 		}
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		const threeMesh = mesh.getObject3d();
 		if (threeMesh instanceof THREE.Mesh) {
@@ -75,7 +75,7 @@ export class WebglMorphtargetsComponent extends BaseComponent<{
 		}
 	}
 
-	setGeometry(geo: GeometryComponent) {
+	setGeometry(geo: NgxGeometryComponent) {
 		const geometry = geo.getGeometry();
 		if (
 			geometry.attributes.position != undefined &&
@@ -121,9 +121,9 @@ export class WebglMorphtargetsComponent extends BaseComponent<{
 		}
 	}
 
-	threeMesh: I3JS.IMesh = null;
+	threeMesh: I3JS.Mesh = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (
 			this.threeMesh !== null &&

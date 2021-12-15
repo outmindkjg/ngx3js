@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	CameraComponent,
-	ControlComponent,
-	CSMHelper,
-	HelperComponent, I3JS, THREE, RendererTimer
+	I3JS, NgxBaseComponent,
+	NgxCameraComponent,
+	NgxControlComponent, NgxHelperComponent, IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -12,7 +10,7 @@ import {
 	templateUrl: './webgl-shadowmap-csm.component.html',
 	styleUrls: ['./webgl-shadowmap-csm.component.scss'],
 })
-export class WebglShadowmapCsmComponent extends BaseComponent<{
+export class WebglShadowmapCsmComponent extends NgxBaseComponent<{
 	orthographic: boolean;
 	fade: boolean;
 	far: number;
@@ -244,7 +242,7 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
 		orthoCamera.updateProjectionMatrix();
 	}
 
-	setCsm(control: ControlComponent) {
+	setCsm(control: NgxControlComponent) {
 		this.csm = control.getControl();
 	}
 
@@ -259,22 +257,22 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
 		}
 	}
 
-	setHelper(helper: HelperComponent) {
+	setHelper(helper: NgxHelperComponent) {
 		this.helper = helper.getHelper() as any;
 	}
 
-	setPerspectiveCamera(camera: CameraComponent) {
+	setPerspectiveCamera(camera: NgxCameraComponent) {
 		this.pCamera = camera.getObject3d() as any;
 	}
 
-	setOrthographicCamera(camera: CameraComponent) {
+	setOrthographicCamera(camera: NgxCameraComponent) {
 		this.oCamera = camera.getObject3d() as any;
 	}
 
 	csm: any = null;
-	helper: I3JS.ICSMHelper = null;
-	oCamera: I3JS.IOrthographicCamera = null;
-	pCamera: I3JS.IPerspectiveCamera = null;
+	helper: I3JS.CSMHelper = null;
+	oCamera: I3JS.OrthographicCamera = null;
+	pCamera: I3JS.PerspectiveCamera = null;
 
 	ngOnInit() {
 		this.cubeInfos = [];
@@ -301,7 +299,7 @@ export class WebglShadowmapCsmComponent extends BaseComponent<{
 		matrial: boolean;
 	}[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.csm !== null && this.controls.orthographic) {
 			this.updateOrthoCamera();

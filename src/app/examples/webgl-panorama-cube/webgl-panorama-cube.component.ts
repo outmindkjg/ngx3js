@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, ThreeUtil  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxThreeUtil } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-panorama-cube',
 	templateUrl: './webgl-panorama-cube.component.html',
 	styleUrls: ['./webgl-panorama-cube.component.scss'],
 })
-export class WebglPanoramaCubeComponent extends BaseComponent<{}> {
+export class WebglPanoramaCubeComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -36,7 +36,7 @@ export class WebglPanoramaCubeComponent extends BaseComponent<{}> {
 				this.canvasList.push(canvas);
 			}
 		};
-		imageObj.src = ThreeUtil.getStoreUrl('textures/cube/sun_temple_stripe.jpg');
+		imageObj.src = NgxThreeUtil.getStoreUrl('textures/cube/sun_temple_stripe.jpg');
 	}
 
 	canvasList: any[] = [];

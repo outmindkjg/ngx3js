@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { RendererComponent, ThreeUtil  , I3JS, THREE } from 'ngx3js';
+import { NgxRendererComponent, NgxThreeUtil  , I3JS, THREE } from 'ngx3js';
 import { HttpClient } from '@angular/common/http';
 import { MenuComponent } from '../menu/menu.component';
 
@@ -103,8 +103,8 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 	ngAfterViewInit() {}
 
 	downloadThumbFile() {
-		if (ThreeUtil.lastRenderer !== null) {
-			const lastRenderer = ThreeUtil.lastRenderer as RendererComponent;
+		if (NgxThreeUtil.lastRenderer !== null) {
+			const lastRenderer = NgxThreeUtil.lastRenderer as NgxRendererComponent;
 			lastRenderer.getCanvasJson((json) => {}, {
 				width: 400,
 				height: 250,
@@ -298,15 +298,15 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 				case 'css3d':
 				case 'svg':
 				case 'tests':
-					image = ThreeUtil.getStoreUrl('screenshots/' + id + '.jpg');
+					image = NgxThreeUtil.getStoreUrl('screenshots/' + id + '.jpg');
 					url = '/examples/' + id;
 					break;
 				case 'ngx3js':
-					image = ThreeUtil.getStoreUrl('screenshots/' + id + '.jpeg');
+					image = NgxThreeUtil.getStoreUrl('screenshots/' + id + '.jpeg');
 					url = '/examples/' + id;
 					break;
 				default:
-					image = ThreeUtil.getStoreUrl('screenshots/css2d_label.jpg');
+					image = NgxThreeUtil.getStoreUrl('screenshots/css2d_label.jpg');
 					url = '/examples/' + id;
 					break;
 			}

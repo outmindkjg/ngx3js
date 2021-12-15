@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE } from 'ngx3js';
+import { NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-extrude-shapes',
 	templateUrl: './webgl-geometry-extrude-shapes.component.html',
 	styleUrls: ['./webgl-geometry-extrude-shapes.component.scss'],
 })
-export class WebglGeometryExtrudeShapesComponent extends BaseComponent<{}> {
+export class WebglGeometryExtrudeShapesComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

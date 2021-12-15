@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-variations-standard',
 	templateUrl: './webgl-materials-variations-standard.component.html',
 	styleUrls: ['./webgl-materials-variations-standard.component.scss'],
 })
-export class WebglMaterialsVariationsStandardComponent extends BaseComponent<{}> {
+export class WebglMaterialsVariationsStandardComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -88,13 +88,13 @@ export class WebglMaterialsVariationsStandardComponent extends BaseComponent<{}>
 		z: number;
 	}[] = [];
 
-	setPointLight(mesh: MeshComponent) {
+	setPointLight(mesh: NgxMeshComponent) {
 		this.pointLight = mesh.getObject3d();
 	}
 
-	pointLight: I3JS.IObject3D = null;
+	pointLight: I3JS.Object3D = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.pointLight !== null) {
 			const time = timer.elapsedTime * 0.25;

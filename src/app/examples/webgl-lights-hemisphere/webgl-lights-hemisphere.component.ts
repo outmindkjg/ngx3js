@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, HelperComponent, LightComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxHelperComponent, NgxLightComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lights-hemisphere',
 	templateUrl: './webgl-lights-hemisphere.component.html',
 	styleUrls: ['./webgl-lights-hemisphere.component.scss'],
 })
-export class WebglLightsHemisphereComponent extends BaseComponent<{
+export class WebglLightsHemisphereComponent extends NgxBaseComponent<{
 	dirLight: boolean;
 	hemiLight: boolean;
 }> {
@@ -48,20 +48,20 @@ export class WebglLightsHemisphereComponent extends BaseComponent<{
 	}
 
 	hemiLight: any = null;
-	setHemiLight(light: LightComponent) {
+	setHemiLight(light: NgxLightComponent) {
 		this.hemiLight = light.getObject3d();
 	}
 	dirLight: any = null;
-	setDirLight(light: LightComponent) {
+	setDirLight(light: NgxLightComponent) {
 		this.dirLight = light.getObject3d();
 	}
 
 	hemiLightHelper: any = null;
-	setHemiLightHelper(light: HelperComponent) {
+	setHemiLightHelper(light: NgxHelperComponent) {
 		this.hemiLightHelper = light.getHelper();
 	}
 	dirLightHelper: any = null;
-	setDirLightHelper(light: HelperComponent) {
+	setDirLightHelper(light: NgxHelperComponent) {
 		this.dirLightHelper = light.getHelper();
 	}
 }

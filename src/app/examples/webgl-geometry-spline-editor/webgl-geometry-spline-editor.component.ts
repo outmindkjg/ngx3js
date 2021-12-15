@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	ControlComponent, I3JS, MeshComponent, THREE, RendererEvent
+	I3JS, NgxBaseComponent,
+	NgxControlComponent, NgxMeshComponent, IRendererEvent, THREE
 } from 'ngx3js';
 
 @Component({
@@ -9,7 +9,7 @@ import {
 	templateUrl: './webgl-geometry-spline-editor.component.html',
 	styleUrls: ['./webgl-geometry-spline-editor.component.scss'],
 })
-export class WebglGeometrySplineEditorComponent extends BaseComponent<{
+export class WebglGeometrySplineEditorComponent extends NgxBaseComponent<{
 	uniform: boolean;
 	tension: number;
 	centripetal: boolean;
@@ -99,18 +99,18 @@ export class WebglGeometrySplineEditorComponent extends BaseComponent<{
 		};
 	}
 
-	transformControl: ControlComponent = null;
-	setTransformControl(transformControl: ControlComponent) {
+	transformControl: NgxControlComponent = null;
+	setTransformControl(transformControl: NgxControlComponent) {
 		this.transformControl = transformControl;
 	}
 
-	orbitControl: ControlComponent = null;
-	setOrbitControl(orbitControl: ControlComponent) {
+	orbitControl: NgxControlComponent = null;
+	setOrbitControl(orbitControl: NgxControlComponent) {
 		this.orbitControl = orbitControl;
 	}
 
-	pointMesh: I3JS.IObject3D[] = [];
-	setPointMesh(mesh: MeshComponent) {
+	pointMesh: I3JS.Object3D[] = [];
+	setPointMesh(mesh: NgxMeshComponent) {
 		const object = mesh.getObject3d();
 		if (this.pointMesh.indexOf(object) === -1) {
 			this.pointMesh.push(object);
@@ -118,7 +118,7 @@ export class WebglGeometrySplineEditorComponent extends BaseComponent<{
 		this.checkPointMesh();
 	}
 
-	unsetPointMesh(mesh: MeshComponent) {
+	unsetPointMesh(mesh: NgxMeshComponent) {
 		const object = mesh.getObject3d();
 		const idx = this.pointMesh.indexOf(object);
 		if (idx > -1) {
@@ -128,7 +128,7 @@ export class WebglGeometrySplineEditorComponent extends BaseComponent<{
 	}
 
 	checkPointMesh() {
-		const pointMesh: I3JS.IObject3D[] = [];
+		const pointMesh: I3JS.Object3D[] = [];
 		this.pointMesh.forEach((mesh) => {
 			if (mesh.parent !== null && mesh.parent !== undefined) {
 				pointMesh.push(mesh);
@@ -163,7 +163,7 @@ export class WebglGeometrySplineEditorComponent extends BaseComponent<{
 		}
 	}
 
-	setEventListener(event: RendererEvent) {
+	setEventListener(event: IRendererEvent) {
 		switch (event.type) {
 			case 'pointerdown':
 				this.onDownPosition.x = event.offsetX;

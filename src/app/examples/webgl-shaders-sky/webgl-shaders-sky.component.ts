@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shaders-sky',
 	templateUrl: './webgl-shaders-sky.component.html',
 	styleUrls: ['./webgl-shaders-sky.component.scss'],
 })
-export class WebglShadersSkyComponent extends BaseComponent<{
+export class WebglShadersSkyComponent extends NgxBaseComponent<{
 	turbidity: number;
 	rayleigh: number;
 	mieCoefficient: number;

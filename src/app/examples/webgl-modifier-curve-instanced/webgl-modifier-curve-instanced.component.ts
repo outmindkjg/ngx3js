@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	ControlComponent, I3JS, MeshComponent, THREE, RendererEvent
+	I3JS, NgxBaseComponent,
+	NgxControlComponent, NgxMeshComponent, IRendererEvent, THREE
 } from 'ngx3js';
 
 @Component({
@@ -9,7 +9,7 @@ import {
 	templateUrl: './webgl-modifier-curve-instanced.component.html',
 	styleUrls: ['./webgl-modifier-curve-instanced.component.scss'],
 })
-export class WebglModifierCurveInstancedComponent extends BaseComponent<{}> {
+export class WebglModifierCurveInstancedComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -35,13 +35,13 @@ export class WebglModifierCurveInstancedComponent extends BaseComponent<{}> {
 	onUpPosition = new THREE.Vector2();
 	onDownPosition = new THREE.Vector2();
 
-	orbitControl: ControlComponent = null;
-	setOrbitControl(orbitControl: ControlComponent) {
+	orbitControl: NgxControlComponent = null;
+	setOrbitControl(orbitControl: NgxControlComponent) {
 		this.orbitControl = orbitControl;
 	}
 
-	transformControl: ControlComponent = null;
-	setTransformControl(transformControl: ControlComponent) {
+	transformControl: NgxControlComponent = null;
+	setTransformControl(transformControl: NgxControlComponent) {
 		this.transformControl = transformControl;
 	}
 
@@ -79,19 +79,19 @@ export class WebglModifierCurveInstancedComponent extends BaseComponent<{}> {
 		}
 	}
 
-	setPointMesh1(mesh: MeshComponent) {
+	setPointMesh1(mesh: NgxMeshComponent) {
 		this.pointMesh1.push(mesh.getObject3d());
 	}
 
-	pointMesh1: I3JS.IObject3D[] = [];
+	pointMesh1: I3JS.Object3D[] = [];
 
-	setPointMesh2(mesh: MeshComponent) {
+	setPointMesh2(mesh: NgxMeshComponent) {
 		this.pointMesh2.push(mesh.getObject3d());
 	}
 
-	pointMesh2: I3JS.IObject3D[] = [];
+	pointMesh2: I3JS.Object3D[] = [];
 
-	setEventListener(event: RendererEvent) {
+	setEventListener(event: IRendererEvent) {
 		switch (event.type) {
 			case 'pointerdown':
 				this.onDownPosition.x = event.offsetX;

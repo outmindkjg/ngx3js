@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-text',
 	templateUrl: './webgl-geometry-text.component.html',
 	styleUrls: ['./webgl-geometry-text.component.scss'],
 })
-export class WebglGeometryTextComponent extends BaseComponent<{
+export class WebglGeometryTextComponent extends NgxBaseComponent<{
 	color: number;
 	height: number;
 	size: number;

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE, RendererTimer } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-instancing-dynamic',
 	templateUrl: './webgl-instancing-dynamic.component.html',
 	styleUrls: ['./webgl-instancing-dynamic.component.scss'],
 })
-export class WebglInstancingDynamicComponent extends BaseComponent<{
+export class WebglInstancingDynamicComponent extends NgxBaseComponent<{
 	amount: number;
 	count: number;
 }> {
@@ -20,7 +20,7 @@ export class WebglInstancingDynamicComponent extends BaseComponent<{
 		);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
 			const mesh = this.mesh.getRealMesh() as any;

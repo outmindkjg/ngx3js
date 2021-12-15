@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-procedural',
 	templateUrl: './webgl-postprocessing-procedural.component.html',
 	styleUrls: ['./webgl-postprocessing-procedural.component.scss'],
 })
-export class WebglPostprocessingProceduralComponent extends BaseComponent<{
+export class WebglPostprocessingProceduralComponent extends NgxBaseComponent<{
 	procedure: string;
 }> {
 	constructor() {

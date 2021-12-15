@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-css3d-youtube',
 	templateUrl: './css3d-youtube.component.html',
 	styleUrls: ['./css3d-youtube.component.scss'],
 })
-export class Css3dYoutubeComponent extends BaseComponent<{}> {
+export class Css3dYoutubeComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

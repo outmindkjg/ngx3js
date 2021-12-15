@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-multiple-scenes-comparison',
 	templateUrl: './webgl-multiple-scenes-comparison.component.html',
 	styleUrls: ['./webgl-multiple-scenes-comparison.component.scss'],
 })
-export class WebglMultipleScenesComparisonComponent extends BaseComponent<{
+export class WebglMultipleScenesComparisonComponent extends NgxBaseComponent<{
 	layout: string;
 	rate: number;
 	margin: number;

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-animation-skinning-additive-blending',
 	templateUrl: './webgl-animation-skinning-additive-blending.component.html',
 	styleUrls: ['./webgl-animation-skinning-additive-blending.component.scss'],
 })
-export class WebglAnimationSkinningAdditiveBlendingComponent extends BaseComponent<{
+export class WebglAnimationSkinningAdditiveBlendingComponent extends NgxBaseComponent<{
 	action: string;
 	sneak_pose: number;
 	sad_pose: number;

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent, I3JS, MeshComponent,
-	RendererComponent,
-	RendererTimer
+	I3JS, NgxBaseComponent, NgxMeshComponent,
+	NgxRendererComponent,
+	IRendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -10,7 +10,7 @@ import {
 	templateUrl: './webgl-raymarching-reflect.component.html',
 	styleUrls: ['./webgl-raymarching-reflect.component.scss'],
 })
-export class WebglRaymarchingReflectComponent extends BaseComponent<{
+export class WebglRaymarchingReflectComponent extends NgxBaseComponent<{
 	saveImage: () => void;
 	resolution: string;
 }> {
@@ -43,7 +43,7 @@ export class WebglRaymarchingReflectComponent extends BaseComponent<{
 		);
 	}
 
-	setRender(renderer: RendererComponent) {
+	setRender(renderer: NgxRendererComponent) {
 		super.setRender(renderer);
 		this.changeSize();
 	}
@@ -59,13 +59,13 @@ export class WebglRaymarchingReflectComponent extends BaseComponent<{
 		}
 	}
 
-	setDolly(mesh: MeshComponent) {
+	setDolly(mesh: NgxMeshComponent) {
 		this.dolly = mesh.getObject3d();
 	}
 
-	dolly: I3JS.IObject3D = null;
+	dolly: I3JS.Object3D = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.dolly !== null) {
 			const elapsedTime = timer.elapsedTime;

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-css2d-label',
 	templateUrl: './css2d-label.component.html',
 	styleUrls: ['./css2d-label.component.scss'],
 })
-export class Css2dLabelComponent extends BaseComponent<{}> {
+export class Css2dLabelComponent extends NgxBaseComponent<{}> {
 	/**
 	 * Creates an instance of css2d label component.
 	 *
@@ -20,20 +20,20 @@ export class Css2dLabelComponent extends BaseComponent<{}> {
 	 *
 	 * @param mesh
 	 */
-	setMoon(mesh: MeshComponent) {
+	setMoon(mesh: NgxMeshComponent) {
 		this.moon = mesh.getObject3d();
 	}
 
 	/**
 	 * Moon  of css2d label component
 	 */
-	moon: I3JS.IObject3D = null;
+	moon: I3JS.Object3D = null;
 
 	/**
 	 * Determines whether render on
 	 * @param timer
 	 */
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.moon !== null) {
 			const elapsed = timer.elapsedTime;

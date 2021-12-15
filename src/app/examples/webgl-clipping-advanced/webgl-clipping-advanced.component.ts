@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	MaterialComponent, THREE, PlaneComponent,
-	RendererComponent,
-	RendererTimer
+	NgxBaseComponent,
+	NgxMaterialComponent, NgxPlaneComponent,
+	NgxRendererComponent,
+	IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -11,7 +11,7 @@ import {
 	templateUrl: './webgl-clipping-advanced.component.html',
 	styleUrls: ['./webgl-clipping-advanced.component.scss'],
 })
-export class WebglClippingAdvancedComponent extends BaseComponent<{
+export class WebglClippingAdvancedComponent extends NgxBaseComponent<{
 	localClipping: {
 		enabled: boolean;
 		shadow: boolean;
@@ -147,29 +147,29 @@ export class WebglClippingAdvancedComponent extends BaseComponent<{
 		return result;
 	}
 
-	globalPlane: PlaneComponent = null;
-	setGlobalPlane(globalPlane: PlaneComponent) {
+	globalPlane: NgxPlaneComponent = null;
+	setGlobalPlane(globalPlane: NgxPlaneComponent) {
 		this.globalPlane = globalPlane;
 	}
 
-	localPlane: PlaneComponent[] = [];
-	setLocalPlane(localPlane: PlaneComponent) {
+	localPlane: NgxPlaneComponent[] = [];
+	setLocalPlane(localPlane: NgxPlaneComponent) {
 		if (this.localPlane.indexOf(localPlane) === -1) {
 			this.localPlane.push(localPlane);
 		}
 	}
 
-	renderer: RendererComponent = null;
-	setRenderer(renderer: RendererComponent) {
+	renderer: NgxRendererComponent = null;
+	setRenderer(renderer: NgxRendererComponent) {
 		this.renderer = renderer;
 	}
 
-	material: MaterialComponent = null;
-	setMaterial(material: MaterialComponent) {
+	material: NgxMaterialComponent = null;
+	setMaterial(material: NgxMaterialComponent) {
 		this.material = material;
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
 			if (!this.controls.meshRotate.autoRotate) {

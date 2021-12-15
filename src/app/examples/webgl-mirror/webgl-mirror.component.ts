@@ -1,27 +1,27 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { NgxBaseComponent, I3JS, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-mirror',
 	templateUrl: './webgl-mirror.component.html',
 	styleUrls: ['./webgl-mirror.component.scss'],
 })
-export class WebglMirrorComponent extends BaseComponent<{}> {
+export class WebglMirrorComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	setSphereGroup(mesh: MeshComponent) {
+	setSphereGroup(mesh: NgxMeshComponent) {
 		this.sphereGroup = mesh.getObject3d();
 	}
-	sphereGroup: I3JS.IObject3D = null;
+	sphereGroup: I3JS.Object3D = null;
 
-	setSmallSphere(mesh: MeshComponent) {
+	setSmallSphere(mesh: NgxMeshComponent) {
 		this.smallSphere = mesh.getObject3d();
 	}
-	smallSphere: I3JS.IObject3D = null;
+	smallSphere: I3JS.Object3D = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.sphereGroup !== null && this.smallSphere !== null) {
 			const elapsedTime = timer.elapsedTime * 10;

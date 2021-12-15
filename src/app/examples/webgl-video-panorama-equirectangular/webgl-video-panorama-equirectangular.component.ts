@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-video-panorama-equirectangular',
 	templateUrl: './webgl-video-panorama-equirectangular.component.html',
 	styleUrls: ['./webgl-video-panorama-equirectangular.component.scss'],
 })
-export class WebglVideoPanoramaEquirectangularComponent extends BaseComponent<{}> {
+export class WebglVideoPanoramaEquirectangularComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

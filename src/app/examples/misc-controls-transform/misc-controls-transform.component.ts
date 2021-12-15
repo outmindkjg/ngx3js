@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	ControlComponent,
-	MeshComponent, THREE, RendererComponent,
-	RendererEvent
+	NgxBaseComponent,
+	NgxControlComponent,
+	NgxMeshComponent, NgxRendererComponent,
+	IRendererEvent, THREE
 } from 'ngx3js';
 
 @Component({
@@ -11,7 +11,7 @@ import {
 	templateUrl: './misc-controls-transform.component.html',
 	styleUrls: ['./misc-controls-transform.component.scss'],
 })
-export class MiscControlsTransformComponent extends BaseComponent<{}> {
+export class MiscControlsTransformComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -19,30 +19,30 @@ export class MiscControlsTransformComponent extends BaseComponent<{}> {
 	onUpPosition = new THREE.Vector2();
 	onDownPosition = new THREE.Vector2();
 
-	transformControl: ControlComponent = null;
+	transformControl: NgxControlComponent = null;
 
-	setRender(renderer: RendererComponent) {
+	setRender(renderer: NgxRendererComponent) {
 		super.setRender(renderer);
 		this.setOrbitControl(renderer.getRenderControl());
 	}
 
-	setTransformControl(transformControl: ControlComponent) {
+	setTransformControl(transformControl: NgxControlComponent) {
 		this.transformControl = transformControl;
 		if (this.meshObject3d !== null) {
 			this.transformControl.getControl().attach(this.meshObject3d);
 		}
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		if (this.transformControl !== null) {
 			this.transformControl.getControl().attach(this.meshObject3d);
 		}
 	}
 
-	orbitControl: ControlComponent = null;
+	orbitControl: NgxControlComponent = null;
 
-	setOrbitControl(orbitControl: ControlComponent) {
+	setOrbitControl(orbitControl: NgxControlComponent) {
 		this.orbitControl = orbitControl;
 	}
 
@@ -59,7 +59,7 @@ export class MiscControlsTransformComponent extends BaseComponent<{}> {
 		}
 	}
 
-	setEventListener(event: RendererEvent) {
+	setEventListener(event: IRendererEvent) {
 		if (this.transformControl !== null) {
 			const control = this.transformControl.getControl();
 			switch (event.type) {

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webxr-vr-haptics',
 	templateUrl: './webxr-vr-haptics.component.html',
 	styleUrls: ['./webxr-vr-haptics.component.scss'],
 })
-export class WebxrVrHapticsComponent extends BaseComponent<{}> {
+export class WebxrVrHapticsComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

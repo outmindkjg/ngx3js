@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-afterimage',
 	templateUrl: './webgl-postprocessing-afterimage.component.html',
 	styleUrls: ['./webgl-postprocessing-afterimage.component.scss'],
 })
-export class WebglPostprocessingAfterimageComponent extends BaseComponent<{
+export class WebglPostprocessingAfterimageComponent extends NgxBaseComponent<{
 	value: number;
 	enable: boolean;
 }> {
@@ -23,7 +23,7 @@ export class WebglPostprocessingAfterimageComponent extends BaseComponent<{
 		);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
 			const mesh = this.mesh.getObject3d();

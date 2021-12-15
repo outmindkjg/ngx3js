@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, LightComponent, MeshComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxLightComponent, NgxMeshComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lightprobe-cubecamera',
 	templateUrl: './webgl-lightprobe-cubecamera.component.html',
 	styleUrls: ['./webgl-lightprobe-cubecamera.component.scss'],
 })
-export class WebglLightprobeCubecameraComponent extends BaseComponent<{
+export class WebglLightprobeCubecameraComponent extends NgxBaseComponent<{
 	lightProbeIntensity: number;
 	directionalLightIntensity: number;
 	envMapIntensity: number;
@@ -66,15 +66,15 @@ export class WebglLightprobeCubecameraComponent extends BaseComponent<{
 	directionalLight: any;
 	meshMaterial: any;
 
-	setlightProbe(lightProbe: LightComponent) {
+	setlightProbe(lightProbe: NgxLightComponent) {
 		this.lightProbe = lightProbe.getObject3d();
 	}
 
-	setLight(light: LightComponent) {
+	setLight(light: NgxLightComponent) {
 		this.directionalLight = light.getObject3d();
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		if (this.meshObject3d !== null) {
 			this.meshMaterial = (this.meshObject3d as any).material;

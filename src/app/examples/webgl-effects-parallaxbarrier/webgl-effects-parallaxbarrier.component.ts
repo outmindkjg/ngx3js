@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
-	selector: 'app-webgl-Effects-parallaxbarrier',
-	templateUrl: './webgl-Effects-parallaxbarrier.component.html',
-	styleUrls: ['./webgl-Effects-parallaxbarrier.component.scss'],
+	selector: 'app-webgl-effects-parallaxbarrier',
+	templateUrl: './webgl-effects-parallaxbarrier.component.html',
+	styleUrls: ['./webgl-effects-parallaxbarrier.component.scss'],
 })
-export class WebglEffectsParallaxbarrierComponent extends BaseComponent<{}> {
+export class WebglEffectsParallaxbarrierComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -25,12 +25,12 @@ export class WebglEffectsParallaxbarrierComponent extends BaseComponent<{}> {
 		}
 	}
 
-	spheres: MeshComponent[] = [];
-	setSpheres(sphere: MeshComponent) {
+	spheres: NgxMeshComponent[] = [];
+	setSpheres(sphere: NgxMeshComponent) {
 		this.spheres.push(sphere);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const elapsedTime = 0.01 * timer.elapsedTime;
 		this.spheres.forEach((sphere, idx) => {

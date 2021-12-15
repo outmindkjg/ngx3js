@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-d3lut',
 	templateUrl: './webgl-postprocessing-d3lut.component.html',
 	styleUrls: ['./webgl-postprocessing-d3lut.component.scss'],
 })
-export class WebglPostprocessingD3lutComponent extends BaseComponent<{
+export class WebglPostprocessingD3lutComponent extends NgxBaseComponent<{
 	enabled: boolean;
 	lut: string;
 	intensity: number;

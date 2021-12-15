@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-cubemap-balls-reflection',
 	templateUrl: './webgl-materials-cubemap-balls-reflection.component.html',
 	styleUrls: ['./webgl-materials-cubemap-balls-reflection.component.scss'],
 })
-export class WebglMaterialsCubemapBallsReflectionComponent extends BaseComponent<{}> {
+export class WebglMaterialsCubemapBallsReflectionComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -25,13 +25,13 @@ export class WebglMaterialsCubemapBallsReflectionComponent extends BaseComponent
 
 	sphereInfos: { x: number; y: number; z: number; scale: number }[] = [];
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.sphereChildren = mesh.getObject3d().children;
 	}
 	sphereChildren: any[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.sphereChildren && this.sphereChildren.length > 0) {
 			const elapsedTime = timer.elapsedTime * 0.1;

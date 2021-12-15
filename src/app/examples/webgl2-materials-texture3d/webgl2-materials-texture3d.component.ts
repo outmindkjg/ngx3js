@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, SharedComponent } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxSharedComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl2-materials-texture3d',
 	templateUrl: './webgl2-materials-texture3d.component.html',
 	styleUrls: ['./webgl2-materials-texture3d.component.scss'],
 })
-export class Webgl2MaterialsTexture3dComponent extends BaseComponent<{
+export class Webgl2MaterialsTexture3dComponent extends NgxBaseComponent<{
 	clim1: number;
 	clim2: number;
 	renderstyle: string;
@@ -73,7 +73,7 @@ export class Webgl2MaterialsTexture3dComponent extends BaseComponent<{
 		);
 	}
 
-	setColorMapTexture(shared: SharedComponent) {
+	setColorMapTexture(shared: NgxSharedComponent) {
 		const textureComponents = shared.getTextureComponents();
 		textureComponents.forEach((texture) => {
 			switch (texture.name) {
@@ -87,8 +87,8 @@ export class Webgl2MaterialsTexture3dComponent extends BaseComponent<{
 		});
 	}
 
-	viridisTexture: I3JS.ITexture = null;
-	grayTexture: I3JS.ITexture = null;
+	viridisTexture: I3JS.Texture = null;
+	grayTexture: I3JS.Texture = null;
 
 	updateUniforms() {
 		if (this.mesh !== null) {

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-physical-transmission',
 	templateUrl: './webgl-materials-physical-transmission.component.html',
 	styleUrls: ['./webgl-materials-physical-transmission.component.scss'],
 })
-export class WebglMaterialsPhysicalTransmissionComponent extends BaseComponent<{
+export class WebglMaterialsPhysicalTransmissionComponent extends NgxBaseComponent<{
 	opacity: number;
 	metalness: number;
 	roughness: number;
@@ -56,7 +56,7 @@ export class WebglMaterialsPhysicalTransmissionComponent extends BaseComponent<{
 		);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren !== null) {
 			const t = timer.elapsedTime;

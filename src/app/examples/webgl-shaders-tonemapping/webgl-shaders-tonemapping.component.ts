@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE } from 'ngx3js';
+import { NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shaders-tonemapping',
 	templateUrl: './webgl-shaders-tonemapping.component.html',
 	styleUrls: ['./webgl-shaders-tonemapping.component.scss'],
 })
-export class WebglShadersTonemappingComponent extends BaseComponent<{
+export class WebglShadersTonemappingComponent extends NgxBaseComponent<{
 	bloomAmount: number;
 	sunLight: number;
 	enabled: boolean;

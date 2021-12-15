@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent, I3JS, MeshComponent, THREE, RendererEvent,
-	RendererTimer
+	I3JS, NgxBaseComponent, NgxMeshComponent, IRendererEvent,
+	IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -9,7 +9,7 @@ import {
 	templateUrl: './webgl-interactive-buffergeometry.component.html',
 	styleUrls: ['./webgl-interactive-buffergeometry.component.scss'],
 })
-export class WebglInteractiveBuffergeometryComponent extends BaseComponent<{}> {
+export class WebglInteractiveBuffergeometryComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -120,21 +120,21 @@ export class WebglInteractiveBuffergeometryComponent extends BaseComponent<{}> {
 	normals: Float32Array;
 	colors: Float32Array;
 
-	line: I3JS.ILine = null;
+	line: I3JS.Line = null;
 
-	realMesh: I3JS.IMesh = null;
+	realMesh: I3JS.Mesh = null;
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.realMesh = mesh.getRealMesh() as any;
 	}
 
-	setLine(line: MeshComponent) {
+	setLine(line: NgxMeshComponent) {
 		this.line = line.getRealMesh() as any;
 		this.line.visible = false;
 	}
 
-	onMouseMove(event: RendererEvent) {
+	onMouseMove(event: IRendererEvent) {
 		if (this.camera !== null && this.line !== null) {
 			const intersect = this.camera.getIntersection(event.mouse, this.realMesh);
 			if (intersect !== null) {
@@ -153,7 +153,7 @@ export class WebglInteractiveBuffergeometryComponent extends BaseComponent<{}> {
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 	}
 }

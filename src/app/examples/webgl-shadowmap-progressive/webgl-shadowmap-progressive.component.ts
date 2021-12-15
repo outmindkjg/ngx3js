@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	MeshComponent, THREE, RendererTimer,
-	ViewerComponent
+	NgxBaseComponent,
+	NgxMeshComponent,
+	NgxViewerComponent, IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -10,7 +10,7 @@ import {
 	templateUrl: './webgl-shadowmap-progressive.component.html',
 	styleUrls: ['./webgl-shadowmap-progressive.component.scss'],
 })
-export class WebglShadowmapProgressiveComponent extends BaseComponent<{
+export class WebglShadowmapProgressiveComponent extends NgxBaseComponent<{
 	enable: boolean;
 	blurEdges: boolean;
 	blendWindow: number;
@@ -62,7 +62,7 @@ export class WebglShadowmapProgressiveComponent extends BaseComponent<{
 
 	ngOnInit() {}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.lightmapObjects = [];
 		this.dirLights = [];
@@ -102,13 +102,13 @@ export class WebglShadowmapProgressiveComponent extends BaseComponent<{
 	dirLights: any[] = [];
 	lightmapObjects: any[] = [];
 
-	setProgressiveSurfacemap(viewer: ViewerComponent) {
+	setProgressiveSurfacemap(viewer: NgxViewerComponent) {
 		this.progressiveSurfacemap = viewer.getViewer();
 	}
 
 	progressiveSurfacemap: any = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 	}
 }

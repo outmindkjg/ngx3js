@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, TextureComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxTextureComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-texture-lottie',
 	templateUrl: './webgl-loader-texture-lottie.component.html',
 	styleUrls: ['./webgl-loader-texture-lottie.component.scss'],
 })
-export class WebglLoaderTextureLottieComponent extends BaseComponent<{
+export class WebglLoaderTextureLottieComponent extends NgxBaseComponent<{
 	pause: () => void;
 	play: () => void;
 	scrubber: number;
@@ -48,7 +48,7 @@ export class WebglLoaderTextureLottieComponent extends BaseComponent<{
 		);
 	}
 
-	setLottie(texture: TextureComponent) {
+	setLottie(texture: NgxTextureComponent) {
 		this.animation = (texture.getTexture() as any).animation;
 		this.totalFrames = this.animation?.totalFrames;
 		this.animation?.addEventListener('enterFrame', () => {

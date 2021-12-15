@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, TextureComponent } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxTextureComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-texture-rotation',
 	templateUrl: './webgl-materials-texture-rotation.component.html',
 	styleUrls: ['./webgl-materials-texture-rotation.component.scss'],
 })
-export class WebglMaterialsTextureRotationComponent extends BaseComponent<{
+export class WebglMaterialsTextureRotationComponent extends NgxBaseComponent<{
 	test: boolean;
 	offsetX: number;
 	offsetY: number;
@@ -106,9 +106,9 @@ export class WebglMaterialsTextureRotationComponent extends BaseComponent<{
 
 	updateUvTransform() {}
 
-	setTexture(texture: TextureComponent) {
+	setTexture(texture: NgxTextureComponent) {
 		this.texture = texture.getTexture();
 	}
 
-	texture: I3JS.ITexture = null;
+	texture: I3JS.Texture = null;
 }

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shader-lava',
 	templateUrl: './webgl-shader-lava.component.html',
 	styleUrls: ['./webgl-shader-lava.component.scss'],
 })
-export class WebglShaderLavaComponent extends BaseComponent<{
+export class WebglShaderLavaComponent extends NgxBaseComponent<{
 	speed: number;
 }> {
 	constructor() {

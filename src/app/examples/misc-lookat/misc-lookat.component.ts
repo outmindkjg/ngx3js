@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-lookat',
 	templateUrl: './misc-lookat.component.html',
 	styleUrls: ['./misc-lookat.component.scss'],
 })
-export class MiscLookatComponent extends BaseComponent<{}> {
+export class MiscLookatComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -30,13 +30,13 @@ export class MiscLookatComponent extends BaseComponent<{}> {
 		scale: number;
 	}[] = [];
 
-	setSphere(mesh: MeshComponent) {
+	setSphere(mesh: NgxMeshComponent) {
 		this.sphere = mesh.getObject3d();
 	}
 
-	sphere: I3JS.IObject3D = null;
+	sphere: I3JS.Object3D = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.sphere !== null) {
 			const time = timer.elapsedTime * 0.5;

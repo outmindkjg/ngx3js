@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-gltf-extensions',
 	templateUrl: './webgl-loader-gltf-extensions.component.html',
 	styleUrls: ['./webgl-loader-gltf-extensions.component.scss'],
 })
-export class WebglLoaderGltfExtensionsComponent extends BaseComponent<{
+export class WebglLoaderGltfExtensionsComponent extends NgxBaseComponent<{
 	scene: string;
 	playAnimation: boolean;
 	extension: string;

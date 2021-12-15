@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, PassComponent, RendererEvent } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxPassComponent, IRendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-outline',
 	templateUrl: './webgl-postprocessing-outline.component.html',
 	styleUrls: ['./webgl-postprocessing-outline.component.scss'],
 })
-export class WebglPostprocessingOutlineComponent extends BaseComponent<{
+export class WebglPostprocessingOutlineComponent extends NgxBaseComponent<{
 	edgeStrength: number;
 	edgeGlow: number;
 	edgeThickness: number;
@@ -62,12 +62,12 @@ export class WebglPostprocessingOutlineComponent extends BaseComponent<{
 	}[] = [];
 
 	outlinePass: any = null;
-	setOutlinePass(pass: PassComponent) {
+	setOutlinePass(pass: NgxPassComponent) {
 		this.outlinePass = pass.getPass();
 		this.outlinePass.selectedObjects = this.selectedObjects;
 	}
 
-	onMouseDownEvent(event: RendererEvent) {
+	onMouseDownEvent(event: IRendererEvent) {
 		if (this.camera !== null) {
 			const intersection = this.camera.getIntersection(
 				event.mouse,
@@ -85,5 +85,5 @@ export class WebglPostprocessingOutlineComponent extends BaseComponent<{
 		}
 	}
 
-	selectedObjects: I3JS.IObject3D[] = [];
+	selectedObjects: I3JS.Object3D[] = [];
 }

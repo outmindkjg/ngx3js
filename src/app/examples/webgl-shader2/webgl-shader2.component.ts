@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shader2',
 	templateUrl: './webgl-shader2.component.html',
 	styleUrls: ['./webgl-shader2.component.scss'],
 })
-export class WebglShader2Component extends BaseComponent<{ speed: number }> {
+export class WebglShader2Component extends NgxBaseComponent<{ speed: number }> {
 	constructor() {
 		super(
 			{
@@ -16,14 +16,14 @@ export class WebglShader2Component extends BaseComponent<{ speed: number }> {
 		);
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.children = mesh.getObject3d().children;
 	}
 
-	children: I3JS.IObject3D[] = null;
+	children: I3JS.Object3D[] = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.children !== null) {
 			const delta = timer.delta;

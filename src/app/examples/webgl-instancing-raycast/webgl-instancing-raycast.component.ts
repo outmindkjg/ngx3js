@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, THREE, RendererEvent } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent, IRendererEvent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-instancing-raycast',
 	templateUrl: './webgl-instancing-raycast.component.html',
 	styleUrls: ['./webgl-instancing-raycast.component.scss'],
 })
-export class WebglInstancingRaycastComponent extends BaseComponent<{
+export class WebglInstancingRaycastComponent extends NgxBaseComponent<{
 	amount: number;
 	count: number;
 }> {
@@ -34,7 +34,7 @@ export class WebglInstancingRaycastComponent extends BaseComponent<{
 		);
 	}
 
-	onMouseMove(event: RendererEvent) {
+	onMouseMove(event: IRendererEvent) {
 		if (this.camera !== null && this.mesh !== null) {
 			const mesh = this.mesh.getObject3d() as any;
 			const intersection = this.camera.getIntersection(event.mouse, mesh);
@@ -47,7 +47,7 @@ export class WebglInstancingRaycastComponent extends BaseComponent<{
 		}
 	}
 
-	setMesh(meshcom: MeshComponent) {
+	setMesh(meshcom: NgxMeshComponent) {
 		super.setMesh(meshcom);
 		const amount = this.controls.amount;
 		let i = 0;

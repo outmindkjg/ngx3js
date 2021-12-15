@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-video-kinect',
 	templateUrl: './webgl-video-kinect.component.html',
 	styleUrls: ['./webgl-video-kinect.component.scss'],
 })
-export class WebglVideoKinectComponent extends BaseComponent<{}> {
+export class WebglVideoKinectComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -28,7 +28,7 @@ export class WebglVideoKinectComponent extends BaseComponent<{}> {
 		map: { type: 'video', value: 'textures/kinect.mp4', options: 'nearest' },
 	};
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 	}
 }

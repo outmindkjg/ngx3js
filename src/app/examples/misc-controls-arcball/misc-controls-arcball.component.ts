@@ -1,13 +1,12 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component } from '@angular/core';
-import { BaseComponent, ControlComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxControlComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-controls-arcball',
 	templateUrl: './misc-controls-arcball.component.html',
 	styleUrls: ['./misc-controls-arcball.component.scss'],
 })
-export class MiscControlsArcballComponent extends BaseComponent<{
+export class MiscControlsArcballComponent extends NgxBaseComponent<{
 	gizmoVisible: boolean;
 	arcballControl: {
 		enabled: boolean;
@@ -147,14 +146,14 @@ export class MiscControlsArcballComponent extends BaseComponent<{
 
 	arcballControl: any = null;
 
-	setControl(control: ControlComponent) {
+	setControl(control: NgxControlComponent) {
 		this.arcballControl = control.getControl();
 		this.replaceControlsValue(this.arcballControl, 'arcballControl');
 	}
 
 	ngOnInit() {}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const delta = timer.delta;
 	}

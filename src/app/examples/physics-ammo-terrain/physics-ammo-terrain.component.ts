@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-physics-ammo-terrain',
 	templateUrl: './physics-ammo-terrain.component.html',
 	styleUrls: ['./physics-ammo-terrain.component.scss'],
 })
-export class PhysicsAmmoTerrainComponent extends BaseComponent<{
+export class PhysicsAmmoTerrainComponent extends NgxBaseComponent<{
 	addShape: () => void;
 }> {
 	constructor() {

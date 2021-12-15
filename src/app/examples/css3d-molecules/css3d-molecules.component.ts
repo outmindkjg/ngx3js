@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, ThreeUtil  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent, NgxThreeUtil } from 'ngx3js';
 
 @Component({
 	selector: 'app-css3d-molecules',
 	templateUrl: './css3d-molecules.component.html',
 	styleUrls: ['./css3d-molecules.component.scss'],
 })
-export class Css3dMoleculesComponent extends BaseComponent<{
+export class Css3dMoleculesComponent extends NgxBaseComponent<{
 	atoms: boolean;
 	bones: boolean;
 	labels: boolean;
@@ -86,11 +86,11 @@ export class Css3dMoleculesComponent extends BaseComponent<{
 		});
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.subscribeRefer(
 			'loaded',
-			ThreeUtil.getSubscribe(
+			NgxThreeUtil.getSubscribe(
 				mesh,
 				() => {
 					this.changeVisible();

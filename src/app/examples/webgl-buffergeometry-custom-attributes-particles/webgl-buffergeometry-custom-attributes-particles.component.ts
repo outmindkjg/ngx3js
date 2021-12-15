@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-custom-attributes-particles',
@@ -9,7 +9,7 @@ import { BaseComponent, I3JS, MeshComponent, THREE, RendererTimer } from 'ngx3js
 		'./webgl-buffergeometry-custom-attributes-particles.component.scss',
 	],
 })
-export class WebglBuffergeometryCustomAttributesParticlesComponent extends BaseComponent<{}> {
+export class WebglBuffergeometryCustomAttributesParticlesComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -38,17 +38,17 @@ export class WebglBuffergeometryCustomAttributesParticlesComponent extends BaseC
 	colors: number[] = [];
 	sizes: number[] = [];
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.particleSystem = mesh.getObject3d();
-		const geometry: I3JS.IBufferGeometry = (mesh.getObject3d() as any).geometry;
+		const geometry: I3JS.BufferGeometry = (mesh.getObject3d() as any).geometry;
 		this.attributesSizes = geometry.attributes.size;
 	}
 
-	particleSystem: I3JS.IObject3D = null;
+	particleSystem: I3JS.Object3D = null;
 	attributesSizes: any = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.particleSystem !== null) {
 			const time = timer.elapsedTime * 5;

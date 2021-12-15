@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { Component } from '@angular/core';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-camera-array',
 	templateUrl: './webgl-camera-array.component.html',
 	styleUrls: ['./webgl-camera-array.component.scss'],
 })
-export class WebglCameraArrayComponent extends BaseComponent<{}> {
+export class WebglCameraArrayComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -37,7 +37,7 @@ export class WebglCameraArrayComponent extends BaseComponent<{}> {
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		if (this.mesh !== null) {
 			this.mesh.addRotation(0.28, 0, 0.57);
 		}

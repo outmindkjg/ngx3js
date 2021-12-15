@@ -9,9 +9,9 @@ import { AppComponent } from './app.component';
 import { ApiReadComponent } from './docs/api-read/api-read.component';
 import { DocsComponent } from './docs/docs.component';
 import { ExamplesComponent } from './examples/examples.component';
-import { ExampleViewerComponent } from './viewer/viewer.component';
-import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
+import { MenuComponent } from './menu/menu.component';
+import { ExampleViewerComponent } from './viewer/viewer.component';
 
 @NgModule({
 	declarations: [

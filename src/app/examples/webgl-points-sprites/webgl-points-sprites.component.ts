@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent, I3JS, MaterialComponent,
-	MeshComponent,
-	RendererTimer
+	I3JS, NgxBaseComponent, NgxMaterialComponent,
+	NgxMeshComponent,
+	IRendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -10,7 +10,7 @@ import {
 	templateUrl: './webgl-points-sprites.component.html',
 	styleUrls: ['./webgl-points-sprites.component.scss'],
 })
-export class WebglPointsSpritesComponent extends BaseComponent<{
+export class WebglPointsSpritesComponent extends NgxBaseComponent<{
 	texture: boolean;
 }> {
 	constructor() {
@@ -45,7 +45,7 @@ export class WebglPointsSpritesComponent extends BaseComponent<{
 	}
 	vertices: number[] = [];
 
-	setMaterial(material: MaterialComponent) {
+	setMaterial(material: NgxMaterialComponent) {
 		const mat = material.getMaterial() as any;
 		if (this.materials.indexOf(mat) < 0) {
 			mat.userData.map = mat.map;
@@ -54,15 +54,15 @@ export class WebglPointsSpritesComponent extends BaseComponent<{
 		}
 	}
 
-	materials: I3JS.IPointsMaterial[] = [];
+	materials: I3JS.PointsMaterial[] = [];
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.children = mesh.getObject3d().children;
 	}
 
-	children: I3JS.IObject3D[] = [];
-	onRender(timer: RendererTimer) {
+	children: I3JS.Object3D[] = [];
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const time = timer.elapsedTime * 0.05;
 

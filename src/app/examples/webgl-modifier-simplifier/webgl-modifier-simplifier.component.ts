@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-modifier-simplifier',
 	templateUrl: './webgl-modifier-simplifier.component.html',
 	styleUrls: ['./webgl-modifier-simplifier.component.scss'],
 })
-export class WebglModifierSimplifierComponent extends BaseComponent<{
+export class WebglModifierSimplifierComponent extends NgxBaseComponent<{
 	simplify: boolean;
 	count: number;
 }> {

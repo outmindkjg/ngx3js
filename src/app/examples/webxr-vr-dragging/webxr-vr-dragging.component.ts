@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
 import {
-	AbstractGeometryComponent,
-	BaseComponent,
-	GeometryComponent,
-	SharedComponent,
-	I3JS,
-	THREE,
+	NgxAbstractGeometryComponent, NgxBaseComponent, NgxSharedComponent
 } from 'ngx3js';
 
 @Component({
@@ -13,7 +8,7 @@ import {
 	templateUrl: './webxr-vr-dragging.component.html',
 	styleUrls: ['./webxr-vr-dragging.component.scss'],
 })
-export class WebxrVrDraggingComponent extends BaseComponent<{
+export class WebxrVrDraggingComponent extends NgxBaseComponent<{
 	lookat: {
 		x: number;
 		y: number;
@@ -44,7 +39,7 @@ export class WebxrVrDraggingComponent extends BaseComponent<{
 		);
 	}
 
-	setShared(shared: SharedComponent) {
+	setShared(shared: NgxSharedComponent) {
 		const geometries = shared.getGeometryComponents();
 		setTimeout(() => {
 			this.geoInfos = [];
@@ -69,7 +64,7 @@ export class WebxrVrDraggingComponent extends BaseComponent<{
 	}
 
 	geoInfos: {
-		geometry: AbstractGeometryComponent;
+		geometry: NgxAbstractGeometryComponent;
 		color: number;
 		position: { x: number; y: number; z: number };
 		rotation: { x: number; y: number; z: number };

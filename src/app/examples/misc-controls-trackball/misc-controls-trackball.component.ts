@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-controls-trackball',
 	templateUrl: './misc-controls-trackball.component.html',
 	styleUrls: ['./misc-controls-trackball.component.scss'],
 })
-export class MiscControlsTrackballComponent extends BaseComponent<{
+export class MiscControlsTrackballComponent extends NgxBaseComponent<{
 	orthographicCamera: boolean;
 }> {
 	constructor() {

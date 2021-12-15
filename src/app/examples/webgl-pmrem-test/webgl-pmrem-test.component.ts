@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, LightComponent, THREE, RendererEvent } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxLightComponent, IRendererEvent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-pmrem-test',
 	templateUrl: './webgl-pmrem-test.component.html',
 	styleUrls: ['./webgl-pmrem-test.component.scss'],
 })
-export class WebglPmremTestComponent extends BaseComponent<{}> {
+export class WebglPmremTestComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -34,13 +34,13 @@ export class WebglPmremTestComponent extends BaseComponent<{}> {
 		y: number;
 	}[] = [];
 
-	setLight(light: LightComponent) {
+	setLight(light: NgxLightComponent) {
 		this.directionalLight = light.getLight() ;
 	}
 
-	directionalLight: I3JS.IDirectionalLight = null;
+	directionalLight: I3JS.DirectionalLight = null;
 
-	mouseEvent(event: RendererEvent) {
+	mouseEvent(event: IRendererEvent) {
 		if (this.meshObject3d !== null && this.directionalLight !== null) {
 			switch (event.type) {
 				case 'mouseover':

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-physical-sheen',
 	templateUrl: './webgl-materials-physical-sheen.component.html',
 	styleUrls: ['./webgl-materials-physical-sheen.component.scss'],
 })
-export class WebglMaterialsPhysicalSheenComponent extends BaseComponent<{
+export class WebglMaterialsPhysicalSheenComponent extends NgxBaseComponent<{
 	nodeMaterial: true;
 	color: number;
 	sheenBRDF: true;

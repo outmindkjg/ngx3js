@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	CameraComponent, I3JS, MeshComponent,
-	RendererEvent,
-	RendererTimer
+	I3JS, NgxBaseComponent,
+	NgxCameraComponent, NgxMeshComponent,
+	IRendererEvent,
+	IRendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -11,7 +11,7 @@ import {
 	templateUrl: './webgl-interactive-raycasting-points.component.html',
 	styleUrls: ['./webgl-interactive-raycasting-points.component.scss'],
 })
-export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}> {
+export class WebglInteractiveRaycastingPointsComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -91,15 +91,15 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
 		}
 		return { position: positions, color: colors };
 	}
-	sphereMesh: I3JS.IObject3D = null;
-	setSphere(mesh: MeshComponent) {
+	sphereMesh: I3JS.Object3D = null;
+	setSphere(mesh: NgxMeshComponent) {
 		this.sphereMesh = mesh.getObject3d();
 		setTimeout(() => {
 			this.spheres = this.sphereMesh.children;
 		}, 1000);
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.meshObject3d.add;
 		setTimeout(() => {
@@ -110,7 +110,7 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
 		}, 1000);
 	}
 
-	setCamera(camera: CameraComponent) {
+	setCamera(camera: NgxCameraComponent) {
 		super.setCamera(camera);
 		const raycaster = camera.getRaycaster();
 		raycaster.params.Points.threshold = 0.1;
@@ -118,9 +118,9 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
 
 	toggle = 0;
 	spheresIndex = 0;
-	spheres: I3JS.IObject3D[] = null;
+	spheres: I3JS.Object3D[] = null;
 
-	onMouseMove(event: RendererEvent) {
+	onMouseMove(event: IRendererEvent) {
 		if (
 			this.sphereMesh !== null &&
 			this.camera !== null &&
@@ -132,7 +132,7 @@ export class WebglInteractiveRaycastingPointsComponent extends BaseComponent<{}>
 
 	mouseEvent: any = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (
 			this.sphereMesh !== null &&

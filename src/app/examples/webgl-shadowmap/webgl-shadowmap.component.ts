@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererEvent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererEvent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shadowmap',
 	templateUrl: './webgl-shadowmap.component.html',
 	styleUrls: ['./webgl-shadowmap.component.scss'],
 })
-export class WebglShadowmapComponent extends BaseComponent<{
+export class WebglShadowmapComponent extends NgxBaseComponent<{
 	hudEnable: boolean;
 }> {
 	constructor() {
@@ -84,7 +84,7 @@ export class WebglShadowmapComponent extends BaseComponent<{
 	flamingoPositions: { x: number; y: number; z: number; delay: number }[] = [];
 
 	private isKeyUp: boolean = false;
-	onKeyDown(event: RendererEvent) {
+	onKeyDown(event: IRendererEvent) {
 		switch (event.type) {
 			case 'keydown':
 				if (this.isKeyUp) {
@@ -103,7 +103,7 @@ export class WebglShadowmapComponent extends BaseComponent<{
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
 			const children = this.mesh.getObject3d().children;

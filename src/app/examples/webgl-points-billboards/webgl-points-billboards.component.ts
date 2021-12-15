@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-points-billboards',
 	templateUrl: './webgl-points-billboards.component.html',
 	styleUrls: ['./webgl-points-billboards.component.scss'],
 })
-export class WebglPointsBillboardsComponent extends BaseComponent<{
+export class WebglPointsBillboardsComponent extends NgxBaseComponent<{
 	sizeAttenuation: boolean;
 }> {
 	constructor() {
@@ -29,15 +29,15 @@ export class WebglPointsBillboardsComponent extends BaseComponent<{
 	}
 	vertices: number[] = [];
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		const tmpMesh = mesh.getObject3d() as any;
 		this.material = tmpMesh.material ;
 	}
 
-	material: I3JS.IPointsMaterial = null;
+	material: I3JS.PointsMaterial = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.material !== null) {
 			const time = timer.elapsedTime * 0.05;

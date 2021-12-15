@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { BaseComponent, GeometryComponent, THREE, RendererTimer } from 'ngx3js';
+import { NgxBaseComponent, NgxGeometryComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-modifier-tessellation',
 	templateUrl: './webgl-modifier-tessellation.component.html',
 	styleUrls: ['./webgl-modifier-tessellation.component.scss'],
 })
-export class WebglModifierTessellationComponent extends BaseComponent<{}> {
+export class WebglModifierTessellationComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
 	uniforms = { amplitude: { value: 1.0 } };
 
-	setGeometry(geometryCom: GeometryComponent) {
+	setGeometry(geometryCom: NgxGeometryComponent) {
 		const geometry = geometryCom.getGeometry();
 		if (geometry.attributes.position !== undefined) {
 			const numFaces = geometry.attributes.position.count / 3;
@@ -47,7 +47,7 @@ export class WebglModifierTessellationComponent extends BaseComponent<{}> {
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const time = timer.elapsedTime;
 		this.uniforms.amplitude.value = 1.0 + Math.sin(time * 0.5);

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shadowmap-performance',
 	templateUrl: './webgl-shadowmap-performance.component.html',
 	styleUrls: ['./webgl-shadowmap-performance.component.scss'],
 })
-export class WebglShadowmapPerformanceComponent extends BaseComponent<{}> {
+export class WebglShadowmapPerformanceComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -26,7 +26,7 @@ export class WebglShadowmapPerformanceComponent extends BaseComponent<{}> {
 	floor: number = -250;
 	horsePositions: { x: number; y: number; z: number; delay: number }[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
 			const children = this.mesh.getObject3d().children;

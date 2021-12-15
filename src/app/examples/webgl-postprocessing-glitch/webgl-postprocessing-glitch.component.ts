@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-glitch',
 	templateUrl: './webgl-postprocessing-glitch.component.html',
 	styleUrls: ['./webgl-postprocessing-glitch.component.scss'],
 })
-export class WebglPostprocessingGlitchComponent extends BaseComponent<{
+export class WebglPostprocessingGlitchComponent extends NgxBaseComponent<{
 	wildGlitch: boolean;
 }> {
 	constructor() {

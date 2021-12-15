@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, LocalStorageService } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxLocalStorageService } from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-exporter-gltf',
 	templateUrl: './misc-exporter-gltf.component.html',
 	styleUrls: ['./misc-exporter-gltf.component.scss'],
 })
-export class MiscExporterGltfComponent extends BaseComponent<{
+export class MiscExporterGltfComponent extends NgxBaseComponent<{
 	scene1: () => void;
 	scenes: () => void;
 	object: () => void;
@@ -19,7 +19,7 @@ export class MiscExporterGltfComponent extends BaseComponent<{
 	binary: boolean;
 	maxTextureSize: number;
 }> {
-	constructor(private localStorageService: LocalStorageService) {
+	constructor(private localStorageService: NgxLocalStorageService) {
 		super(
 			{
 				scene1: () => {
@@ -78,7 +78,7 @@ export class MiscExporterGltfComponent extends BaseComponent<{
 	}
 
 	exportGLTF(name: string | string[], fileName: string) {
-		const objects: I3JS.IObject3D[] = [];
+		const objects: I3JS.Object3D[] = [];
 		const objNames: string[] = [];
 		if (Array.isArray(name)) {
 			name.forEach((txt) => {
@@ -87,7 +87,7 @@ export class MiscExporterGltfComponent extends BaseComponent<{
 		} else {
 			objNames.push(name);
 		}
-		const scene1: I3JS.IScene = this.scene.getObject3d();
+		const scene1: I3JS.Scene = this.scene.getObject3d();
 		objNames.forEach((objName) => {
 			switch (objName) {
 				case 'scene1':

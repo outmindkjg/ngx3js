@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-gpgpu-water',
 	templateUrl: './webgl-gpgpu-water.component.html',
 	styleUrls: ['./webgl-gpgpu-water.component.scss'],
 })
-export class WebglGpgpuWaterComponent extends BaseComponent<{
+export class WebglGpgpuWaterComponent extends NgxBaseComponent<{
 	mouseSize: number;
 	viscosity: number;
 	spheresEnabled: boolean;

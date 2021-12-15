@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgpu-skinning',
 	templateUrl: './webgpu-skinning.component.html',
 	styleUrls: ['./webgpu-skinning.component.scss'],
 })
-export class WebgpuSkinningComponent extends BaseComponent<{}> {
+export class WebgpuSkinningComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

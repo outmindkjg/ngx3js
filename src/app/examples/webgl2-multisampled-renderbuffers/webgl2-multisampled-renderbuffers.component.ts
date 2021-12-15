@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl2-multisampled-renderbuffers',
 	templateUrl: './webgl2-multisampled-renderbuffers.component.html',
 	styleUrls: ['./webgl2-multisampled-renderbuffers.component.scss'],
 })
-export class Webgl2MultisampledRenderbuffersComponent extends BaseComponent<{}> {
+export class Webgl2MultisampledRenderbuffersComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webxr-ar-lighting',
 	templateUrl: './webxr-ar-lighting.component.html',
 	styleUrls: ['./webxr-ar-lighting.component.scss'],
 })
-export class WebxrArLightingComponent extends BaseComponent<{}> {
+export class WebxrArLightingComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

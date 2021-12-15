@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-controls-orbit',
 	templateUrl: './misc-controls-orbit.component.html',
 	styleUrls: ['./misc-controls-orbit.component.scss'],
 })
-export class MiscControlsOrbitComponent extends BaseComponent<{}> {
+export class MiscControlsOrbitComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererEvent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-physics-ammo-break',
 	templateUrl: './physics-ammo-break.component.html',
 	styleUrls: ['./physics-ammo-break.component.scss'],
 })
-export class PhysicsAmmoBreakComponent extends BaseComponent<{}> {
+export class PhysicsAmmoBreakComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -53,7 +53,7 @@ export class PhysicsAmmoBreakComponent extends BaseComponent<{}> {
 		vz: number;
 	}[] = [];
 
-	onMouseClick(event: RendererEvent) {
+	onMouseClick(event: IRendererEvent) {
 		switch (event.type) {
 			case 'pointerdown':
 				if (this.camera !== null) {

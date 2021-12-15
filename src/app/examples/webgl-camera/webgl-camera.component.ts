@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	CameraComponent, I3JS, MeshComponent, THREE, RendererTimer
+	I3JS, NgxBaseComponent,
+	NgxCameraComponent, NgxMeshComponent, IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -9,7 +9,7 @@ import {
 	templateUrl: './webgl-camera.component.html',
 	styleUrls: ['./webgl-camera.component.scss'],
 })
-export class WebglCameraComponent extends BaseComponent<{
+export class WebglCameraComponent extends NgxBaseComponent<{
 	cameraType: string;
 }> {
 	constructor() {
@@ -53,42 +53,42 @@ export class WebglCameraComponent extends BaseComponent<{
 		}
 	}
 
-	public sphere1: MeshComponent = null;
+	public sphere1: NgxMeshComponent = null;
 
-	setSphere1(sphere1: MeshComponent) {
+	setSphere1(sphere1: NgxMeshComponent) {
 		this.sphere1 = sphere1;
 	}
 
-	public cameraRig: MeshComponent = null;
+	public cameraRig: NgxMeshComponent = null;
 
-	setCameraRig(cameraRig: MeshComponent) {
+	setCameraRig(cameraRig: NgxMeshComponent) {
 		this.cameraRig = cameraRig;
 	}
 
-	public cameraMain: CameraComponent = null;
+	public cameraMain: NgxCameraComponent = null;
 
-	setCameraMain(cameraMain: CameraComponent) {
+	setCameraMain(cameraMain: NgxCameraComponent) {
 		this.cameraMain = cameraMain;
 		this.changeCameraType();
 	}
 
-	public cameraPerspective: CameraComponent = null;
+	public cameraPerspective: NgxCameraComponent = null;
 
-	setCameraPerspective(cameraPerspective: CameraComponent) {
+	setCameraPerspective(cameraPerspective: NgxCameraComponent) {
 		this.cameraPerspective = cameraPerspective;
 		this.changeCameraType();
 	}
 
-	public cameraOrthographic: CameraComponent = null;
+	public cameraOrthographic: NgxCameraComponent = null;
 
-	setCameraOrthographic(cameraOrthographic: CameraComponent) {
+	setCameraOrthographic(cameraOrthographic: NgxCameraComponent) {
 		this.cameraOrthographic = cameraOrthographic;
 		this.changeCameraType();
 	}
 
-	public cameraControl: CameraComponent = null;
+	public cameraControl: NgxCameraComponent = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const r = timer.elapsedTime * 0.5;
 		if (this.mesh !== null) {
@@ -115,13 +115,13 @@ export class WebglCameraComponent extends BaseComponent<{
 			this.mesh !== null
 		) {
 			if (this.cameraPerspective === this.cameraControl) {
-				const cameraPerspective: I3JS.IPerspectiveCamera =
+				const cameraPerspective: I3JS.PerspectiveCamera =
 					this.cameraPerspective.getCamera();
 				cameraPerspective.fov = 35 + 30 * Math.sin(0.5 * r);
 				cameraPerspective.far = this.mesh.getPosition().length();
 				cameraPerspective.updateProjectionMatrix();
 			} else if (this.cameraOrthographic === this.cameraControl) {
-				const cameraOrthographic: I3JS.IOrthographicCamera =
+				const cameraOrthographic: I3JS.OrthographicCamera =
 					this.cameraOrthographic.getCamera();
 				cameraOrthographic.far = this.mesh.getPosition().length();
 				cameraOrthographic.updateProjectionMatrix();

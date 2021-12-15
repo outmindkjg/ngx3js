@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-ldraw',
 	templateUrl: './webgl-loader-ldraw.component.html',
 	styleUrls: ['./webgl-loader-ldraw.component.scss'],
 })
-export class WebglLoaderLdrawComponent extends BaseComponent<{
+export class WebglLoaderLdrawComponent extends NgxBaseComponent<{
 	modelFileName: string;
 	envMapActivated: boolean;
 	separateObjects: boolean;

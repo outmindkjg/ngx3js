@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-standard',
 	templateUrl: './webgl-materials-standard.component.html',
 	styleUrls: ['./webgl-materials-standard.component.scss'],
 })
-export class WebglMaterialsStandardComponent extends BaseComponent<{
+export class WebglMaterialsStandardComponent extends NgxBaseComponent<{
 	environment: string;
 }> {
 	constructor() {

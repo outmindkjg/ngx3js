@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MaterialComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMaterialComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-subsurface-scattering',
 	templateUrl: './webgl-materials-subsurface-scattering.component.html',
 	styleUrls: ['./webgl-materials-subsurface-scattering.component.scss'],
 })
-export class WebglMaterialsSubsurfaceScatteringComponent extends BaseComponent<{
+export class WebglMaterialsSubsurfaceScatteringComponent extends NgxBaseComponent<{
 	distortion: number;
 	ambient: number;
 	attenuation: number;
@@ -83,11 +83,11 @@ export class WebglMaterialsSubsurfaceScatteringComponent extends BaseComponent<{
 		);
 	}
 
-	setMatrial(matrial: MaterialComponent) {
+	setMatrial(matrial: NgxMaterialComponent) {
 		this.matrial = matrial.getMaterial() ;
 	}
 
-	matrial: I3JS.IShaderMaterial = null;
+	matrial: I3JS.ShaderMaterial = null;
 
 	updateUniforms(key: string, value: number) {
 		if (this.matrial !== null) {
@@ -98,7 +98,7 @@ export class WebglMaterialsSubsurfaceScatteringComponent extends BaseComponent<{
 		}
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			this.meshObject3d.rotation.y = timer.elapsedTime / 5;

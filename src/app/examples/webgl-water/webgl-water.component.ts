@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-water',
 	templateUrl: './webgl-water.component.html',
 	styleUrls: ['./webgl-water.component.scss'],
 })
-export class WebglWaterComponent extends BaseComponent<{
+export class WebglWaterComponent extends NgxBaseComponent<{
 	color: string;
 	scale: number;
 	flowX: number;
@@ -85,13 +85,13 @@ export class WebglWaterComponent extends BaseComponent<{
 		);
 	}
 
-	setWater(mesh: MeshComponent) {
+	setWater(mesh: NgxMeshComponent) {
 		this.uniforms = (mesh.getObject3d() as any).material.uniforms;
 	}
 
 	uniforms: { [uniform: string]: I3JS.IUniform } = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
 			const delta = timer.delta;

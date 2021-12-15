@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-ngx-renderer',
 	templateUrl: './ngx-renderer.component.html',
 	styleUrls: ['./ngx-renderer.component.scss'],
 })
-export class NgxRendererComponent extends BaseComponent<{
+export class NgxRendererComponent extends NgxBaseComponent<{
 	controler: {
 		type: string;
 		enablePan: boolean;
@@ -127,7 +127,7 @@ export class NgxRendererComponent extends BaseComponent<{
 		);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			const elapsedTime = timer.elapsedTime;

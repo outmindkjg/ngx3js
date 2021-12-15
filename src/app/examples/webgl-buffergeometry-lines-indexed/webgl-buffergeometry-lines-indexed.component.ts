@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE, RendererTimer } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-buffergeometry-lines-indexed',
 	templateUrl: './webgl-buffergeometry-lines-indexed.component.html',
 	styleUrls: ['./webgl-buffergeometry-lines-indexed.component.scss'],
 })
-export class WebglBuffergeometryLinesIndexedComponent extends BaseComponent<{}> {
+export class WebglBuffergeometryLinesIndexedComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -141,7 +141,7 @@ export class WebglBuffergeometryLinesIndexedComponent extends BaseComponent<{}> 
 		);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
 			const object3d = this.mesh.getObject3d();

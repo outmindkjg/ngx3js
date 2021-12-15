@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	GeometryComponent, I3JS, MeshComponent,
-	RendererEvent,
-	TextureComponent
+	I3JS, NgxBaseComponent,
+	NgxGeometryComponent, NgxMeshComponent, NgxTextureComponent, IRendererEvent
 } from 'ngx3js';
 
 @Component({
@@ -11,7 +9,7 @@ import {
 	templateUrl: './webgl-raycast-texture.component.html',
 	styleUrls: ['./webgl-raycast-texture.component.scss'],
 })
-export class WebglRaycastTextureComponent extends BaseComponent<{
+export class WebglRaycastTextureComponent extends NgxBaseComponent<{
 	wrapS: string;
 	wrapT: string;
 	offset: {
@@ -82,7 +80,7 @@ export class WebglRaycastTextureComponent extends BaseComponent<{
 		);
 	}
 
-	setGeometry(type: string, geometryCom: GeometryComponent) {
+	setGeometry(type: string, geometryCom: NgxGeometryComponent) {
 		const geometry = geometryCom.getGeometry();
 		const uvs = geometry.attributes.uv.array as any;
 		switch (type) {
@@ -99,7 +97,7 @@ export class WebglRaycastTextureComponent extends BaseComponent<{
 		}
 	}
 
-	setTexture(texture: TextureComponent) {
+	setTexture(texture: NgxTextureComponent) {
 		const textureOrg = texture.getTexture();
 		if (textureOrg.image) {
 			if (textureOrg.image instanceof HTMLImageElement) {
@@ -195,14 +193,14 @@ export class WebglRaycastTextureComponent extends BaseComponent<{
 		this.draw();
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.children = mesh.getObject3d().children;
 	}
 
-	children: I3JS.IObject3D[] = [];
+	children: I3JS.Object3D[] = [];
 
-	setMouseMove(event: RendererEvent) {
+	setMouseMove(event: IRendererEvent) {
 		if (this.camera !== null && this.children.length > 0) {
 			const intersect = this.camera.getIntersection(event.mouse, this.children);
 			if (intersect !== null) {

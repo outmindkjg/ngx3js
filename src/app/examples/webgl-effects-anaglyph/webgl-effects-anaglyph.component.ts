@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
-	selector: 'app-webgl-Effects-anaglyph',
-	templateUrl: './webgl-Effects-anaglyph.component.html',
-	styleUrls: ['./webgl-Effects-anaglyph.component.scss'],
+	selector: 'app-webgl-effects-anaglyph',
+	templateUrl: './webgl-effects-anaglyph.component.html',
+	styleUrls: ['./webgl-effects-anaglyph.component.scss'],
 })
-export class WebglEffectsAnaglyphComponent extends BaseComponent<{}> {
+export class WebglEffectsAnaglyphComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -25,12 +25,12 @@ export class WebglEffectsAnaglyphComponent extends BaseComponent<{}> {
 		}
 	}
 
-	spheres: MeshComponent[] = [];
-	setSpheres(sphere: MeshComponent) {
+	spheres: NgxMeshComponent[] = [];
+	setSpheres(sphere: NgxMeshComponent) {
 		this.spheres.push(sphere);
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const elapsedTime = 0.01 * timer.elapsedTime;
 		this.spheres.forEach((sphere, idx) => {

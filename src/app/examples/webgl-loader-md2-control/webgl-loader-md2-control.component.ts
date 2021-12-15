@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { BaseComponent, CharacterControl, RendererEvent  , I3JS, THREE } from 'ngx3js';
+import { ICharacterControl, NgxBaseComponent, IRendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-md2-control',
 	templateUrl: './webgl-loader-md2-control.component.html',
 	styleUrls: ['./webgl-loader-md2-control.component.scss'],
 })
-export class WebglLoaderMd2ControlComponent extends BaseComponent<{}> {
+export class WebglLoaderMd2ControlComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	characterControls: CharacterControl = {
+	characterControls: ICharacterControl = {
 		moveForward: false,
 		moveBackward: false,
 		moveLeft: false,
@@ -76,7 +76,7 @@ export class WebglLoaderMd2ControlComponent extends BaseComponent<{}> {
 		useGyro: boolean;
 	}[] = [];
 
-	setKeyDownEvent(event: RendererEvent) {
+	setKeyDownEvent(event: IRendererEvent) {
 		switch (event.type) {
 			case 'keydown':
 				switch (event.event.code) {

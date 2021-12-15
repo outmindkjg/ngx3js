@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, GeometryUtils, THREE } from 'ngx3js';
+import { GeometryUtils, NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-lines-fat',
 	templateUrl: './webgl-lines-fat.component.html',
 	styleUrls: ['./webgl-lines-fat.component.scss'],
 })
-export class WebglLinesFatComponent extends BaseComponent<{}> {
+export class WebglLinesFatComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

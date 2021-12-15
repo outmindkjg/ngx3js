@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-loader-vrml',
 	templateUrl: './webgl-loader-vrml.component.html',
 	styleUrls: ['./webgl-loader-vrml.component.scss'],
 })
-export class WebglLoaderVrmlComponent extends BaseComponent<{
+export class WebglLoaderVrmlComponent extends NgxBaseComponent<{
 	asset: string;
 }> {
 	constructor() {

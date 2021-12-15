@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-grass',
 	templateUrl: './webgl-materials-grass.component.html',
 	styleUrls: ['./webgl-materials-grass.component.scss'],
 })
-export class WebglMaterialsGrassComponent extends BaseComponent<{}> {
+export class WebglMaterialsGrassComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, THREE } from 'ngx3js';
+import { I3JS, NgxBaseComponent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-video-webcam',
 	templateUrl: './webgl-materials-video-webcam.component.html',
 	styleUrls: ['./webgl-materials-video-webcam.component.scss'],
 })
-export class WebglMaterialsVideoWebcamComponent extends BaseComponent<{}> {
+export class WebglMaterialsVideoWebcamComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -24,5 +24,5 @@ export class WebglMaterialsVideoWebcamComponent extends BaseComponent<{}> {
 		}
 	}
 
-	planePostion: I3JS.IVector3[] = [];
+	planePostion: I3JS.Vector3[] = [];
 }

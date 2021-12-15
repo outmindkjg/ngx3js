@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { BaseComponent, THREE, MeshComponent, RendererTimer } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-dynamic',
 	templateUrl: './webgl-geometry-dynamic.component.html',
 	styleUrls: ['./webgl-geometry-dynamic.component.scss'],
 })
-export class WebglGeometryDynamicComponent extends BaseComponent<{}> {
+export class WebglGeometryDynamicComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
 	worldWidth = 128;
 	worldDepth = 128;
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		const geometry = this.mesh.getGeometry();
 		geometry.rotateX(Math.PI / 2);
@@ -26,7 +26,7 @@ export class WebglGeometryDynamicComponent extends BaseComponent<{}> {
 		position.needsUpdate = true;
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
 			const geometry = this.mesh.getGeometry();

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, THREE, ThreeUtil } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxThreeUtil, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-curvature',
 	templateUrl: './webgl-materials-curvature.component.html',
 	styleUrls: ['./webgl-materials-curvature.component.scss'],
 })
-export class WebglMaterialsCurvatureComponent extends BaseComponent<{
+export class WebglMaterialsCurvatureComponent extends NgxBaseComponent<{
 	filterConvex: () => void;
 	filterConcave: () => void;
 	filterBoth: () => void;
@@ -66,7 +66,7 @@ export class WebglMaterialsCurvatureComponent extends BaseComponent<{
 	loadGeometry: any = null;
 
 	ngOnInit() {
-		this.loadGeometry = (bufferGeo: I3JS.IBufferGeometry) => {
+		this.loadGeometry = (bufferGeo: I3JS.BufferGeometry) => {
 			this._loadGeometry(bufferGeo);
 		};
 	}
@@ -110,8 +110,8 @@ export class WebglMaterialsCurvatureComponent extends BaseComponent<{
 		}
 	}
 
-	_loadGeometry(bufferGeo: I3JS.IBufferGeometry) {
-		if (ThreeUtil.isNull(bufferGeo.attributes.position)) {
+	_loadGeometry(bufferGeo: I3JS.BufferGeometry) {
+		if (NgxThreeUtil.isNull(bufferGeo.attributes.position)) {
 			return;
 		}
 

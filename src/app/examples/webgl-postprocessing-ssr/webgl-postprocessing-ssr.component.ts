@@ -1,17 +1,12 @@
 import { Component } from '@angular/core';
-import {
-	BaseComponent, I3JS, MeshComponent, THREE, PassComponent,
-	RendererEvent,
-	SceneComponent,
-	SSRPass
-} from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, NgxPassComponent, NgxSceneComponent, IRendererEvent, THREE } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-ssr',
 	templateUrl: './webgl-postprocessing-ssr.component.html',
 	styleUrls: ['./webgl-postprocessing-ssr.component.scss'],
 })
-export class WebglPostprocessingSsrComponent extends BaseComponent<{
+export class WebglPostprocessingSsrComponent extends NgxBaseComponent<{
 	enableSSR: boolean;
 	autoRotate: boolean;
 	otherMeshes: boolean;
@@ -145,8 +140,8 @@ export class WebglPostprocessingSsrComponent extends BaseComponent<{
 		);
 	}
 
-	selectableMesh: I3JS.IMesh[] = [];
-	setSSRrPass(pass: PassComponent) {
+	selectableMesh: I3JS.Mesh[] = [];
+	setSSRrPass(pass: NgxPassComponent) {
 		this.pass = pass.getPass();
 		this.updatePass();
 		setTimeout(() => {
@@ -222,19 +217,19 @@ export class WebglPostprocessingSsrComponent extends BaseComponent<{
 		}
 	}
 
-	setScene(scene: SceneComponent) {
+	setScene(scene: NgxSceneComponent) {
 		super.setScene(scene);
 	}
 
-	pass: I3JS.ISSRPass = null;
+	pass: I3JS.SSRPass = null;
 
-	selected: I3JS.IMesh[] = [];
+	selected: I3JS.Mesh[] = [];
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 	}
 
-	onPointerDown(event: RendererEvent) {
+	onPointerDown(event: IRendererEvent) {
 		if (this.pass !== null && this.camera !== null) {
 			switch (event.type) {
 				case 'pointerdown':

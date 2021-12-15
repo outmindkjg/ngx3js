@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent, DirectiveOptions, I3JS, Object3dFunction,
-	ObjectFunction, RendererTimer
+	IDirectiveOptions, I3JS, NgxBaseComponent, TObject3dFunction,
+	TObjectFunction, IRendererTimer
 } from 'ngx3js';
 
 const easingOptions = [
@@ -61,9 +61,9 @@ const easingOptions = [
  */
 interface ObjectOptions {
 	/** rotate */
-	rotate?: DirectiveOptions;
-	scale?: DirectiveOptions;
-	position?: DirectiveOptions;
+	rotate?: IDirectiveOptions;
+	scale?: IDirectiveOptions;
+	position?: IDirectiveOptions;
 }
 
 @Component({
@@ -71,10 +71,10 @@ interface ObjectOptions {
 	templateUrl: './ngx-directives.component.html',
 	styleUrls: ['./ngx-directives.component.scss'],
 })
-export class NgxDirectivesComponent extends BaseComponent<{
-	directionalIntensity: DirectiveOptions;
-	ambientIntensity: DirectiveOptions;
-	floorOpacity: DirectiveOptions;
+export class NgxDirectivesComponent extends NgxBaseComponent<{
+	directionalIntensity: IDirectiveOptions;
+	ambientIntensity: IDirectiveOptions;
+	floorOpacity: IDirectiveOptions;
 	main: ObjectOptions;
 	object1: ObjectOptions;
 	object2: ObjectOptions;
@@ -1557,25 +1557,25 @@ export class NgxDirectivesComponent extends BaseComponent<{
 	}
 
 	getObject3dRotateOption(
-		option: DirectiveOptions
-	): DirectiveOptions | string | Object3dFunction {
+		option: IDirectiveOptions
+	): IDirectiveOptions | string | TObject3dFunction {
 		switch (option.type) {
 			case 'none':
 				return 'stop';
 			case 'cos':
 				return (
-					object3d: I3JS.IObject3D,
+					object3d: I3JS.Object3D,
 					elapsedTime: number,
-					timer: RendererTimer
+					timer: IRendererTimer
 				) => {
 					const angle = Math.cos(elapsedTime * option.speed) * Math.PI;
 					object3d.rotation.set(angle, angle * 0.1, angle * 0.5);
 				};
 			case 'sin':
 				return (
-					object3d: I3JS.IObject3D,
+					object3d: I3JS.Object3D,
 					elapsedTime: number,
-					timer: RendererTimer
+					timer: IRendererTimer
 				) => {
 					const angle = Math.sin(elapsedTime * option.speed) * Math.PI;
 					object3d.rotation.set(angle, angle * 0.1, angle * 0.5);
@@ -1623,25 +1623,25 @@ export class NgxDirectivesComponent extends BaseComponent<{
 	}
 
 	getObject3dScaleOption(
-		option: DirectiveOptions
-	): DirectiveOptions | string | Object3dFunction {
+		option: IDirectiveOptions
+	): IDirectiveOptions | string | TObject3dFunction {
 		switch (option.type) {
 			case 'none':
 				return 'stop';
 			case 'cos':
 				return (
-					object3d: I3JS.IObject3D,
+					object3d: I3JS.Object3D,
 					elapsedTime: number,
-					_: RendererTimer
+					_: IRendererTimer
 				) => {
 					const scale = Math.cos(elapsedTime * option.speed) + 1;
 					object3d.scale.set(scale, scale, scale);
 				};
 			case 'sin':
 				return (
-					object3d: I3JS.IObject3D,
+					object3d: I3JS.Object3D,
 					elapsedTime: number,
-					_: RendererTimer
+					_: IRendererTimer
 				) => {
 					const scale = Math.sin(elapsedTime * option.speed) + 1;
 					object3d.scale.set(scale, scale, scale);
@@ -1689,16 +1689,16 @@ export class NgxDirectivesComponent extends BaseComponent<{
 	}
 
 	getObject3dPositionOption(
-		option: DirectiveOptions
-	): DirectiveOptions | string | Object3dFunction {
+		option: IDirectiveOptions
+	): IDirectiveOptions | string | TObject3dFunction {
 		switch (option.type) {
 			case 'none':
 				return 'stop';
 			case 'circle':
 				return (
-					object3d: I3JS.IObject3D,
+					object3d: I3JS.Object3D,
 					elapsedTime: number,
-					_: RendererTimer
+					_: IRendererTimer
 				) => {
 					const timeValue = elapsedTime * option.speed;
 					const x = Math.cos(timeValue) * 5;
@@ -1708,9 +1708,9 @@ export class NgxDirectivesComponent extends BaseComponent<{
 				};
 			case 'rect':
 				return (
-					object3d: I3JS.IObject3D,
+					object3d: I3JS.Object3D,
 					elapsedTime: number,
-					_: RendererTimer
+					_: IRendererTimer
 				) => {
 					const scale = Math.sin(elapsedTime * option.speed) + 1;
 					object3d.position.set(scale, scale, scale);
@@ -1758,13 +1758,13 @@ export class NgxDirectivesComponent extends BaseComponent<{
 	}
 
 	getObjectNumberOption(
-		option: DirectiveOptions
-	): DirectiveOptions | string | ObjectFunction {
+		option: IDirectiveOptions
+	): IDirectiveOptions | string | TObjectFunction {
 		switch (option.type) {
 			case 'none':
 				return 'stop';
 			case 'sin':
-				return (object: any, elapsedTime: number, _: RendererTimer) => {
+				return (object: any, elapsedTime: number, _: IRendererTimer) => {
 					const timeValue = elapsedTime * option.speed;
 					object.intensity = Math.sin(timeValue) * 0.5 + 0.5;
 				};
@@ -1800,25 +1800,25 @@ export class NgxDirectivesComponent extends BaseComponent<{
 		}
 	}
 
-	ngx3jsMainRotate: DirectiveOptions | string | Object3dFunction = null;
-	ngx3jsObject1Rotate: DirectiveOptions | string | Object3dFunction = null;
-	ngx3jsObject2Rotate: DirectiveOptions | string | Object3dFunction = null;
-	ngx3jsObject3Rotate: DirectiveOptions | string | Object3dFunction = null;
-	ngx3jsObject4Rotate: DirectiveOptions | string | Object3dFunction = null;
+	ngx3jsMainRotate: IDirectiveOptions | string | TObject3dFunction = null;
+	ngx3jsObject1Rotate: IDirectiveOptions | string | TObject3dFunction = null;
+	ngx3jsObject2Rotate: IDirectiveOptions | string | TObject3dFunction = null;
+	ngx3jsObject3Rotate: IDirectiveOptions | string | TObject3dFunction = null;
+	ngx3jsObject4Rotate: IDirectiveOptions | string | TObject3dFunction = null;
 
-	ngx3jsMainScale: DirectiveOptions | string | Object3dFunction = null;
-	ngx3jsObject1Scale: DirectiveOptions | string | Object3dFunction = null;
-	ngx3jsObject2Scale: DirectiveOptions | string | Object3dFunction = null;
-	ngx3jsObject3Scale: DirectiveOptions | string | Object3dFunction = null;
-	ngx3jsObject4Scale: DirectiveOptions | string | Object3dFunction = null;
+	ngx3jsMainScale: IDirectiveOptions | string | TObject3dFunction = null;
+	ngx3jsObject1Scale: IDirectiveOptions | string | TObject3dFunction = null;
+	ngx3jsObject2Scale: IDirectiveOptions | string | TObject3dFunction = null;
+	ngx3jsObject3Scale: IDirectiveOptions | string | TObject3dFunction = null;
+	ngx3jsObject4Scale: IDirectiveOptions | string | TObject3dFunction = null;
 
-	ngx3jsMainPosition: DirectiveOptions | string | Object3dFunction = null;
-	ngx3jsObject1Position: DirectiveOptions | string | Object3dFunction = null;
-	ngx3jsObject2Position: DirectiveOptions | string | Object3dFunction = null;
-	ngx3jsObject3Position: DirectiveOptions | string | Object3dFunction = null;
-	ngx3jsObject4Position: DirectiveOptions | string | Object3dFunction = null;
+	ngx3jsMainPosition: IDirectiveOptions | string | TObject3dFunction = null;
+	ngx3jsObject1Position: IDirectiveOptions | string | TObject3dFunction = null;
+	ngx3jsObject2Position: IDirectiveOptions | string | TObject3dFunction = null;
+	ngx3jsObject3Position: IDirectiveOptions | string | TObject3dFunction = null;
+	ngx3jsObject4Position: IDirectiveOptions | string | TObject3dFunction = null;
 
-	ngx3jsDirectionalIntensity: DirectiveOptions | string | ObjectFunction = null;
-	ngx3jsAmbientIntensity: DirectiveOptions | string | ObjectFunction = null;
-	ngx3jsFloorOpacity: DirectiveOptions | string | ObjectFunction = null;
+	ngx3jsDirectionalIntensity: IDirectiveOptions | string | TObjectFunction = null;
+	ngx3jsAmbientIntensity: IDirectiveOptions | string | TObjectFunction = null;
+	ngx3jsFloorOpacity: IDirectiveOptions | string | TObjectFunction = null;
 }

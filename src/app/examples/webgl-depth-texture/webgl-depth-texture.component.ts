@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-depth-texture',
 	templateUrl: './webgl-depth-texture.component.html',
 	styleUrls: ['./webgl-depth-texture.component.scss'],
 })
-export class WebglDepthTextureComponent extends BaseComponent<{
+export class WebglDepthTextureComponent extends NgxBaseComponent<{
 	format: string;
 	type: string;
 }> {

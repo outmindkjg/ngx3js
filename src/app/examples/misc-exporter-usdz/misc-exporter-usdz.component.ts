@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { BaseComponent, LocalStorageService  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxLocalStorageService } from 'ngx3js';
 
 @Component({
 	selector: 'app-misc-exporter-usdz',
 	templateUrl: './misc-exporter-usdz.component.html',
 	styleUrls: ['./misc-exporter-usdz.component.scss'],
 })
-export class MiscExporterUsdzComponent extends BaseComponent<{
+export class MiscExporterUsdzComponent extends NgxBaseComponent<{
 	downloadUsdz: () => void;
 }> {
-	constructor(private localStorageService: LocalStorageService) {
+	constructor(private localStorageService: NgxLocalStorageService) {
 		super(
 			{
 				downloadUsdz: () => {

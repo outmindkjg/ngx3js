@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, LightComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxLightComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-instance-uniform-nodes',
 	templateUrl: './webgl-materials-instance-uniform-nodes.component.html',
 	styleUrls: ['./webgl-materials-instance-uniform-nodes.component.scss'],
 })
-export class WebglMaterialsInstanceUniformNodesComponent extends BaseComponent<{}> {
+export class WebglMaterialsInstanceUniformNodesComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -30,9 +30,9 @@ export class WebglMaterialsInstanceUniformNodesComponent extends BaseComponent<{
 		}
 	}
 
-	pointLight: I3JS.IObject3D = null;
+	pointLight: I3JS.Object3D = null;
 
-	setLight(light: LightComponent) {
+	setLight(light: NgxLightComponent) {
 		this.pointLight = light.getLight();
 	}
 
@@ -42,7 +42,7 @@ export class WebglMaterialsInstanceUniformNodesComponent extends BaseComponent<{
 		rotation: { x: number; y: number; z: number };
 	}[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.pointLight !== null) {
 			const elapsedTime = timer.elapsedTime * 0.1;

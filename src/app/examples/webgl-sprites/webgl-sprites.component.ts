@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-sprites',
 	templateUrl: './webgl-sprites.component.html',
 	styleUrls: ['./webgl-sprites.component.scss'],
 })
-export class WebglSpritesComponent extends BaseComponent<{}> {
+export class WebglSpritesComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -44,14 +44,14 @@ export class WebglSpritesComponent extends BaseComponent<{}> {
 		mapType: string;
 	}[] = [];
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.children = mesh.getObject3d().children as any[];
 	}
 
-	children: I3JS.ISprite[] = [];
+	children: I3JS.Sprite[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.children.length > 0) {
 			const l = this.children.length;

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MixerComponent  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxMixerComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-animation-skinning-blending',
 	templateUrl: './webgl-animation-skinning-blending.component.html',
 	styleUrls: ['./webgl-animation-skinning-blending.component.scss'],
 })
-export class WebglAnimationSkinningBlendingComponent extends BaseComponent<{
+export class WebglAnimationSkinningBlendingComponent extends NgxBaseComponent<{
 	activate: boolean;
 	continue: boolean;
 	singleStep: boolean;
@@ -152,9 +152,9 @@ export class WebglAnimationSkinningBlendingComponent extends BaseComponent<{
 		);
 	}
 
-	mixer: MixerComponent = null;
+	mixer: NgxMixerComponent = null;
 
-	setMixer(mixer: MixerComponent) {
+	setMixer(mixer: NgxMixerComponent) {
 		this.mixer = mixer;
 	}
 

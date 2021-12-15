@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MixerComponent, ThreeUtil } from 'ngx3js';
+import { NgxBaseComponent, NgxMixerComponent, NgxThreeUtil } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-animation-skinning-morph',
 	templateUrl: './webgl-animation-skinning-morph.component.html',
 	styleUrls: ['./webgl-animation-skinning-morph.component.scss'],
 })
-export class WebglAnimationSkinningMorphComponent extends BaseComponent<{
+export class WebglAnimationSkinningMorphComponent extends NgxBaseComponent<{
 	status: string;
 	jump: () => void;
 	yes: () => void;
@@ -119,11 +119,11 @@ export class WebglAnimationSkinningMorphComponent extends BaseComponent<{
 		restoreDuration?: number
 	) {
 		if (this.mixer !== null) {
-			restoreAction = ThreeUtil.getTypeSafe(
+			restoreAction = NgxThreeUtil.getTypeSafe(
 				restoreAction,
 				this.controls.status
 			);
-			restoreDuration = ThreeUtil.getTypeSafe(restoreDuration, 0.2);
+			restoreDuration = NgxThreeUtil.getTypeSafe(restoreDuration, 0.2);
 			this.mixer.fadeToAction(
 				endAction,
 				duration,
@@ -136,19 +136,19 @@ export class WebglAnimationSkinningMorphComponent extends BaseComponent<{
 	updateExpressions(name: string, value: number) {
 		if (this.mixer !== null && this.mesh !== null) {
 			const face = this.mesh.getObjectByName('Head_4') as any;
-			if (ThreeUtil.isNotNull(face)) {
+			if (NgxThreeUtil.isNotNull(face)) {
 				const morphTargetDictionary = face.morphTargetDictionary;
 				const idx = morphTargetDictionary[name];
-				if (ThreeUtil.isNotNull(idx)) {
+				if (NgxThreeUtil.isNotNull(idx)) {
 					face.morphTargetInfluences[idx] = value;
 				}
 			}
 		}
 	}
 
-	mixer: MixerComponent = null;
+	mixer: NgxMixerComponent = null;
 
-	setMixer(mixer: MixerComponent) {
+	setMixer(mixer: NgxMixerComponent) {
 		this.mixer = mixer;
 	}
 }

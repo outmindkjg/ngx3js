@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
-	BaseComponent,
-	CurveUtils, I3JS, MeshComponent, THREE, RendererTimer
+	NgxBaseComponent,
+	CurveUtils, I3JS, NgxMeshComponent, THREE, IRendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -9,17 +9,17 @@ import {
 	templateUrl: './webxr-vr-rollercoaster.component.html',
 	styleUrls: ['./webxr-vr-rollercoaster.component.scss'],
 })
-export class WebxrVrRollercoasterComponent extends BaseComponent<{}> {
+export class WebxrVrRollercoasterComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	curve: I3JS.ICurve<I3JS.IVector3> = null;
+	curve: I3JS.Curve<I3JS.Vector3> = null;
 	ngOnInit() {
 		this.curve = CurveUtils.getCurve('rollercoaster');
 	}
 
-	initGeometry(geometry: I3JS.IBufferGeometry) {
+	initGeometry(geometry: I3JS.BufferGeometry) {
 		geometry.rotateX(-Math.PI / 2);
 		const positions = geometry.attributes.position.array;
 		const vertex = new THREE.Vector3();
@@ -35,25 +35,25 @@ export class WebxrVrRollercoasterComponent extends BaseComponent<{}> {
 		geometry.computeVertexNormals();
 	}
 
-	setFunfairs(mesh: MeshComponent) {
+	setFunfairs(mesh: NgxMeshComponent) {
 		this.funfairs = mesh.getMesh().children;
 	}
 
-	funfairs: I3JS.IObject3D[] = [];
+	funfairs: I3JS.Object3D[] = [];
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.train = this.meshObject3d;
 	}
 
-	train: I3JS.IObject3D = null;
+	train: I3JS.Object3D = null;
 	velocity = 0;
 	progress = 0;
 	position = new THREE.Vector3();
 	tangent = new THREE.Vector3();
 	lookAt = new THREE.Vector3();
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const time = timer.elapsedTime * 1000;
 		this.funfairs.forEach((funfair) => {

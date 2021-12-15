@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-shadowmesh',
 	templateUrl: './webgl-shadowmesh.component.html',
 	styleUrls: ['./webgl-shadowmesh.component.scss'],
 })
-export class WebglShadowmeshComponent extends BaseComponent<{
+export class WebglShadowmeshComponent extends NgxBaseComponent<{
 	lightType: string;
 }> {
 	constructor() {
@@ -45,29 +45,29 @@ export class WebglShadowmeshComponent extends BaseComponent<{
 
 	lightPosition: { x: number; y: number; z: number } = null;
 
-	cube: I3JS.IObject3D = null;
-	setCube(mesh: MeshComponent) {
+	cube: I3JS.Object3D = null;
+	setCube(mesh: NgxMeshComponent) {
 		this.cube = mesh.getObject3d();
 	}
 
-	cylinder: I3JS.IObject3D = null;
-	setCylinder(mesh: MeshComponent) {
+	cylinder: I3JS.Object3D = null;
+	setCylinder(mesh: NgxMeshComponent) {
 		this.cylinder = mesh.getObject3d();
 	}
 
-	torus: I3JS.IObject3D = null;
-	setTorus(mesh: MeshComponent) {
+	torus: I3JS.Object3D = null;
+	setTorus(mesh: NgxMeshComponent) {
 		this.torus = mesh.getObject3d();
 	}
 
-	pyramid: I3JS.IObject3D = null;
-	setPyramid(mesh: MeshComponent) {
+	pyramid: I3JS.Object3D = null;
+	setPyramid(mesh: NgxMeshComponent) {
 		this.pyramid = mesh.getObject3d();
 	}
 	horizontalAngle: number = 0;
 	verticalAngle: number = 0;
 	TWO_PI: number = Math.PI * 2;
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const frameTime = timer.delta;
 		this.horizontalAngle += 0.5 * frameTime;

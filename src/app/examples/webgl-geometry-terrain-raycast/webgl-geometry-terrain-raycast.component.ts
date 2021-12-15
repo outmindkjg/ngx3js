@@ -1,29 +1,29 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MeshComponent, RendererEvent } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererEvent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-terrain-raycast',
 	templateUrl: './webgl-geometry-terrain-raycast.component.html',
 	styleUrls: ['./webgl-geometry-terrain-raycast.component.scss'],
 })
-export class WebglGeometryTerrainRaycastComponent extends BaseComponent<{}> {
+export class WebglGeometryTerrainRaycastComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	helper: I3JS.IMesh = null;
-	setHelper(helper: MeshComponent) {
+	helper: I3JS.Mesh = null;
+	setHelper(helper: NgxMeshComponent) {
 		this.helper = helper.getRealMesh() as any ;
 	}
 
-	setMesh(mesh: MeshComponent) {
+	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		if (this.mesh !== null) {
 			this.meshObject3d = this.mesh.getRealMesh() as any;
 		}
 	}
 
-	setEventListener(event: RendererEvent) {
+	setEventListener(event: IRendererEvent) {
 		switch (event.type) {
 			case 'pointermove':
 			case 'mousemove':

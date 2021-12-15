@@ -1,27 +1,27 @@
 import { Component } from '@angular/core';
-import { BaseComponent, MeshComponent, RendererTimer, ThreeUtil  , I3JS, THREE } from 'ngx3js';
+import { NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-cubemap-dynamic',
 	templateUrl: './webgl-materials-cubemap-dynamic.component.html',
 	styleUrls: ['./webgl-materials-cubemap-dynamic.component.scss'],
 })
-export class WebglMaterialsCubemapDynamicComponent extends BaseComponent<{}> {
+export class WebglMaterialsCubemapDynamicComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
 	cube: any = null;
-	setCube(mesh: MeshComponent) {
+	setCube(mesh: NgxMeshComponent) {
 		this.cube = mesh.getObject3d();
 	}
 
 	torus: any = null;
-	setTorus(mesh: MeshComponent) {
+	setTorus(mesh: NgxMeshComponent) {
 		this.torus = mesh.getObject3d();
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const time = timer.elapsedTime * 1000;
 		if (this.cube !== null) {

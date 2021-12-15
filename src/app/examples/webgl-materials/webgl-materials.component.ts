@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, LightComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxLightComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials',
 	templateUrl: './webgl-materials.component.html',
 	styleUrls: ['./webgl-materials.component.scss'],
 })
-export class WebglMaterialsComponent extends BaseComponent<{}> {
+export class WebglMaterialsComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
@@ -86,8 +86,8 @@ export class WebglMaterialsComponent extends BaseComponent<{}> {
 		});
 	}
 
-	pointLight: I3JS.IObject3D = null;
-	setPointLight(light: LightComponent) {
+	pointLight: I3JS.Object3D = null;
+	setPointLight(light: NgxLightComponent) {
 		this.pointLight = light.getLight();
 	}
 
@@ -109,7 +109,7 @@ export class WebglMaterialsComponent extends BaseComponent<{}> {
 		};
 	}[] = [];
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		const elapsedTime = timer.elapsedTime * 0.1;
 		if (this.pointLight !== null) {

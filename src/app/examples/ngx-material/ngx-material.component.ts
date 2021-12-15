@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
-	BaseComponent,
-	GeometryComponent, I3JS, MaterialComponent, THREE, RendererTimer
+	I3JS, NgxBaseComponent,
+	NgxGeometryComponent, NgxMaterialComponent as Ngx3JsMaterialComponent, IRendererTimer, THREE
 } from 'ngx3js';
 
 @Component({
@@ -10,7 +10,7 @@ import {
 	templateUrl: './ngx-material.component.html',
 	styleUrls: ['./ngx-material.component.scss'],
 })
-export class NgxMaterialComponent extends BaseComponent<{
+export class NgxMaterialComponent extends NgxBaseComponent<{
 	material: {
 		type: string;
 		color: number;
@@ -264,7 +264,7 @@ export class NgxMaterialComponent extends BaseComponent<{
 
 	loadedGeometry: any[] = [];
 
-	setGeometry(geo: GeometryComponent) {
+	setGeometry(geo: NgxGeometryComponent) {
 		switch (this.controls.material.type) {
 			case 'ShaderCustomAttributesLinesMaterial':
 				const geometry = geo.getGeometry();
@@ -282,7 +282,7 @@ export class NgxMaterialComponent extends BaseComponent<{
 						new THREE.Float32BufferAttribute(itemCount * 3, 3)
 					);
 					const customColor = geometry.attributes
-						.customColor as I3JS.IBufferAttribute;
+						.customColor as I3JS.BufferAttribute;
 					const color = new THREE.Color(0xffffff);
 					for (let i = 0, l = customColor.count; i < l; i++) {
 						color.setHSL(i / l, 0.5, 0.5);
@@ -294,7 +294,7 @@ export class NgxMaterialComponent extends BaseComponent<{
 		}
 	}
 
-	setMaterial(mat: MaterialComponent) {
+	setMaterial(mat: Ngx3JsMaterialComponent) {
 		const material: any = mat.getMaterial();
 		if (material.uniforms) {
 			this.loadedUniforms = material.uniforms;
@@ -303,7 +303,7 @@ export class NgxMaterialComponent extends BaseComponent<{
 
 	loadedUniforms: any = null;
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshObject3d !== null) {
 			const elapsedTime = timer.elapsedTime;

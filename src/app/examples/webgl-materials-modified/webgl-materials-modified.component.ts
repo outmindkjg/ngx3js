@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { BaseComponent, I3JS, MaterialComponent, RendererTimer } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxMaterialComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-modified',
 	templateUrl: './webgl-materials-modified.component.html',
 	styleUrls: ['./webgl-materials-modified.component.scss'],
 })
-export class WebglMaterialsModifiedComponent extends BaseComponent<{}> {
+export class WebglMaterialsModifiedComponent extends NgxBaseComponent<{}> {
 	constructor() {
 		super({}, []);
 	}
 
-	setMaterial(matCom: MaterialComponent, amount: number) {
-		const material: I3JS.IMeshNormalMaterial =
+	setMaterial(matCom: NgxMaterialComponent, amount: number) {
+		const material: I3JS.MeshNormalMaterial =
 			matCom.getMaterial() ;
 		material.onBeforeCompile = (shader) => {
 			shader.uniforms.time = { value: 0 };
@@ -38,7 +38,7 @@ export class WebglMaterialsModifiedComponent extends BaseComponent<{}> {
 		};
 	}
 
-	onRender(timer: RendererTimer) {
+	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.meshChildren != null && this.meshChildren.length > 0) {
 			const time = timer.elapsedTime;
