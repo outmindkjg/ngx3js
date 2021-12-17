@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	NgxBaseComponent,
-	CurveUtils, I3JS, NgxMeshComponent, THREE, IRendererTimer
+	NgxCurveUtils, I3JS, NgxMeshComponent, THREE, IRendererTimer
 } from 'ngx3js';
 
 @Component({
@@ -16,7 +16,7 @@ export class WebxrVrRollercoasterComponent extends NgxBaseComponent<{}> {
 
 	curve: I3JS.Curve<I3JS.Vector3> = null;
 	ngOnInit() {
-		this.curve = CurveUtils.getCurve('rollercoaster');
+		this.curve = NgxCurveUtils.getCurve('rollercoaster');
 	}
 
 	initGeometry(geometry: I3JS.BufferGeometry) {
