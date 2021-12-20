@@ -226,16 +226,16 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				'.$3" id="$3">new $3</a> $4 : <a class="param" href="#$1">$1</a>$2'
 		);
 		text = text.replace(
-			/\[param:([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
-			'$3 : <a class="param" href="#$1">$1</a>$2'
+			/\[param:([\w\.]+)(\[\]|) ([\w\.\s]+)\](\?|)/gi,
+			'$3$4 : <a class="param" href="#$1">$1</a>$2'
 		); // [param:name title]
 		text = text.replace(
-			/\[param:([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
-			'$5 : <a class="param" href="#$1">$1</a>$2 | <a class="param" href="#$3">$3</a>$4'
+			/\[param:([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\](\?|)/gi,
+			'$5$6 : <a class="param" href="#$1">$1</a>$2 | <a class="param" href="#$3">$3</a>$4'
 		); // [param:name|name title]
 		text = text.replace(
-			/\[param:([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
-			'$7 : <a class="param" href="#$1">$1</a>$2 | <a class="param" href="#$3">$3</a>$4 | <a class="param" href="#$5">$5</a>$6'
+			/\[param:([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\](\?|)/gi,
+			'$7$8 : <a class="param" href="#$1">$1</a>$2 | <a class="param" href="#$3">$3</a>$4 | <a class="param" href="#$5">$5</a>$6'
 		); // [param:name|name| title]
 		text = text.replace(/\[link:([\w|\:|\/|\.|\-|\_]+)\]/gi, '[link:$1 $1]'); // [link:url] to [link:url title]
 		text = text.replace(
@@ -272,25 +272,23 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				const href: string = htmlAnchorElement.getAttribute(
 					'href'
 				);
-				if (htmlAnchorElement.parentElement.tagName != 'P' || htmlAnchorElement.className == 'param') {
-					let hrefId = href.substr(href.indexOf('#') + 1);
-					if (
-						href.startsWith('http://') ||
-						href.startsWith('https://') ||
-						href.startsWith('//')
-					) {
-						return true;
-					} else if (hrefId === this.pageName) {
-						this.setFocus(null);
+				let hrefId = href.substr(href.indexOf('#') + 1);
+				if (
+					href.startsWith('http://') ||
+					href.startsWith('https://') ||
+					href.startsWith('//')
+				) {
+					return true;
+				} else if (hrefId === this.pageName) {
+					this.setFocus(null);
+				} else {
+					if (!hrefId.startsWith('THREE.') && hrefId.startsWith(this.pageName + '.')) {
+						hrefId = hrefId.substr(this.pageName.length + 1);
+					} 
+					if (this.menuId.endsWith('.THREE') && this.menuId.endsWith('.I3JS') && this.menuId.endsWith('.AMMO') && this.setElementById(hrefId) !== null) {
+						this.setFocus(hrefId);
 					} else {
-						if (!hrefId.startsWith('THREE.') && hrefId.startsWith(this.pageName + '.')) {
-							hrefId = hrefId.substr(this.pageName.length + 1);
-						} 
-						if (this.setElementById(hrefId) !== null) {
-							this.setFocus(hrefId);
-						} else {
-							this.docsComponent.changePage(hrefId);
-						}
+						this.docsComponent.changePage(hrefId, this.menuId);
 					}
 				}
 				e.stopPropagation();

@@ -10,7 +10,7 @@
 		<h1>Box2</h1>
 
 		<p class="desc">
-			
+			Box2Represents an axis-aligned bounding box (AABB) in 2D space.
 		</p>
 
 		<h2>Constructor</h2>
@@ -27,12 +27,12 @@
 		<h2>Properties</h2>
 		<h3>[property:Vector2 max]</h3>
 		<p>
-			
+			Vector2 representing the lower upper (x, y) boundary of the box. Default is ( - Infinity, - Infinity ).
 		</p>
 
 		<h3>[property:Vector2 min]</h3>
 		<p>
-			
+			Vector2 representing the lower (x, y) boundary of the box. Default is ( + Infinity, + Infinity ).
 		</p>
 
 		<h2>Methods</h2>
@@ -40,15 +40,19 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector2 point] - The point.<br />
-			[parameter:Vector2 target] - The target.
+			[parameter:Vector2 target] - the result will be copied into this Vector2.
 		</p>
 		<p>
-			
+			Clamps the point within the bounds of this box.<br />
+			<br />
+			Returns : point
 		</p>
 
 		<h3>[method:Box2 clone](  )</h3>
 		<p>
-			
+			Returns a new Box2 with the same min and max as this one.<br />
+			<br />
+			Returns : clone
 		</p>
 
 		<h3>[method:boolean containsBox](  [param:Box2 box] )</h3>
@@ -57,7 +61,9 @@
 			[parameter:Box2 box] - The box.
 		</p>
 		<p>
-			
+			Returns true if this box includes the entirety of box. If this and box are identical, this function also returns true.<br />
+			<br />
+			Returns : true if box
 		</p>
 
 		<h3>[method:boolean containsPoint](  [param:Vector2 point] )</h3>
@@ -66,7 +72,9 @@
 			[parameter:Vector2 point] - The point.
 		</p>
 		<p>
-			
+			Returns true if the specified point lies within or on the boundaries of this box.<br />
+			<br />
+			Returns : true if point
 		</p>
 
 		<h3>[method:Box2 copy](  [param:Box2 box] )</h3>
@@ -75,7 +83,9 @@
 			[parameter:Box2 box] - The box.
 		</p>
 		<p>
-			
+			Copies the min and max from box to this box.<br />
+			<br />
+			Returns : copy
 		</p>
 
 		<h3>[method:number distanceToPoint](  [param:Vector2 point] )</h3>
@@ -84,12 +94,14 @@
 			[parameter:Vector2 point] - The point.
 		</p>
 		<p>
-			
+			Returns the distance from any edge of this box to the specified point. If the point lies inside of this box, the distance will be 0.<br />
+			<br />
+			Returns : to point
 		</p>
 
 		<h3>[method:any empty](  )</h3>
 		<p>
-			
+			deprecated - Use {@link Box2#isEmpty .isEmpty()} instead.
 		</p>
 
 		<h3>[method:boolean equals](  [param:Box2 box] )</h3>
@@ -98,7 +110,9 @@
 			[parameter:Box2 box] - The box.
 		</p>
 		<p>
-			
+			Returns true if this box and box share the same lower and upper bounds.<br />
+			<br />
+			Returns : true if equals
 		</p>
 
 		<h3>[method:Box2 expandByPoint](  [param:Vector2 point] )</h3>
@@ -107,7 +121,9 @@
 			[parameter:Vector2 point] - The point.
 		</p>
 		<p>
-			
+			Expands the boundaries of this box to include point.<br />
+			<br />
+			Returns : by point
 		</p>
 
 		<h3>[method:Box2 expandByScalar](  [param:number scalar] )</h3>
@@ -116,7 +132,9 @@
 			[parameter:number scalar] - The scalar.
 		</p>
 		<p>
-			
+			Expands each dimension of the box by scalar. If negative, the dimensions of the box will be contracted.<br />
+			<br />
+			Returns : by scalar
 		</p>
 
 		<h3>[method:Box2 expandByVector](  [param:Vector2 vector] )</h3>
@@ -125,7 +143,9 @@
 			[parameter:Vector2 vector] - The vector.
 		</p>
 		<p>
-			
+			Expands this box equilaterally by vector. The width of this box will be expanded by the x component of vector in both directions. The height of this box will be expanded by the y component of vector in both directions.<br />
+			<br />
+			Returns : by vector
 		</p>
 
 		<h3>[method:Vector2 getCenter](  [param:Vector2 target] )</h3>
@@ -141,10 +161,12 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector2 point] - The point.<br />
-			[parameter:Vector2 target] - The target.
+			[parameter:Vector2 target] - the result will be copied into this Vector2.
 		</p>
 		<p>
-			
+			Returns a point as a proportion of this box's width and height.<br />
+			<br />
+			Returns : parameter
 		</p>
 
 		<h3>[method:Vector2 getSize](  [param:Vector2 target] )</h3>
@@ -162,16 +184,20 @@
 			[parameter:Box2 box] - The box.
 		</p>
 		<p>
-			
+			Returns the intersection of this and box, setting the upper bound of this box to the lesser of the two boxes' upper bounds and the lower bound of this box to the greater of the two boxes' lower bounds.<br />
+			<br />
+			Returns : intersect
 		</p>
 
 		<h3>[method:boolean intersectsBox](  [param:Box2 box] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Box2 box] - The box.
+			[parameter:Box2 box] - Box to check for intersection against.
 		</p>
 		<p>
-			
+			Determines whether or not this box intersects box.<br />
+			<br />
+			Returns : true if box
 		</p>
 
 		<h3>[method:boolean isEmpty](  )</h3>
@@ -185,7 +211,7 @@
 			[parameter:any b] - The b.
 		</p>
 		<p>
-			
+			deprecated - Use {@link Box2#intersectsBox .intersectsBox()} instead.
 		</p>
 
 		<h3>[method:Box2 makeEmpty](  )</h3>
@@ -196,30 +222,36 @@
 		<h3>[method:Box2 set](  [param:Vector2 min],  [param:Vector2 max] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2 min] - The min.<br />
-			[parameter:Vector2 max] - The max.
+			[parameter:Vector2 min] - (required ) Vector2 representing the lower (x, y) boundary of the box.<br />
+			[parameter:Vector2 max] - (required) Vector2 representing the upper (x, y) boundary of the box.
 		</p>
 		<p>
-			
+			Sets the lower and upper (x, y) boundaries of this box. Please note that this method only copies the values from the given objects.<br />
+			<br />
+			Returns : set
 		</p>
 
 		<h3>[method:Box2 setFromCenterAndSize](  [param:Vector2 center],  [param:Vector2 size] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2 center] - The center.<br />
-			[parameter:Vector2 size] - The size.
+			[parameter:Vector2 center] - Desired center position of the box (Vector2).<br />
+			[parameter:Vector2 size] - -Desired x and y dimensions of the box (Vector2).
 		</p>
 		<p>
-			
+			Centers this box on center and sets this box's width and height to the values specified in size.<br />
+			<br />
+			Returns : from center and size
 		</p>
 
 		<h3>[method:Box2 setFromPoints](  [param:Vector2[] points] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2[] points] - The points.
+			[parameter:Vector2[] points] - Array of Vector2s that the resulting box will contain.
 		</p>
 		<p>
-			
+			Sets the upper and lower bounds of this box to include all of the points in points.<br />
+			<br />
+			Returns : from points
 		</p>
 
 		<h3>[method:Box2 translate](  [param:Vector2 offset] )</h3>
@@ -228,7 +260,9 @@
 			[parameter:Vector2 offset] - The offset.
 		</p>
 		<p>
-			
+			Adds offset to both the upper and lower bounds of this box, effectively moving this box offset units in 2D space.<br />
+			<br />
+			Returns : translate
 		</p>
 
 		<h3>[method:Box2 union](  [param:Box2 box] )</h3>
@@ -237,7 +271,9 @@
 			[parameter:Box2 box] - The box.
 		</p>
 		<p>
-			
+			Unions this box with box, setting the upper bound of this box to the greater of the two boxes' upper bounds and the lower bound of this box to the lesser of the two boxes' lower bounds.<br />
+			<br />
+			Returns : union
 		</p>
 
 

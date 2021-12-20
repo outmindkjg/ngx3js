@@ -76,7 +76,7 @@
 			[parameter:any v] - The v.
 		</p>
 		<p>
-			
+			deprecated - Use {@link Vector3#applyMatrix4 vector.applyMatrix4( matrix )} instead.
 		</p>
 
 		<h3>[method:Matrix4 decompose](  [param:Vector3 translation],  [param:Quaternion rotation],  [param:Vector3 scale] )</h3>
@@ -122,7 +122,7 @@
 			[parameter:Matrix4 m] - The m.
 		</p>
 		<p>
-			
+			deprecated - Use {@link Matrix4#copyPosition .copyPosition()} instead.
 		</p>
 
 		<h3>[method:Matrix4 extractRotation](  [param:Matrix4 m] )</h3>
@@ -141,7 +141,7 @@
 			[parameter:number offset] - The offset.
 		</p>
 		<p>
-			
+			deprecated - Use {@link Matrix4#toArray .toArray()} instead.
 		</p>
 
 		<h3>[method:Matrix4 fromArray](  [param:ArrayLike|number[] array],  [param:number offset]? )</h3>
@@ -160,7 +160,7 @@
 			[parameter:Matrix matrix] - The matrix.
 		</p>
 		<p>
-			
+			deprecated - Use {@link Matrix4#invert .invert()} instead.
 		</p>
 
 		<h3>[method:number getMaxScaleOnAxis](  )</h3>
@@ -361,7 +361,9 @@
 		</p>
 		<p>
 			Sets this matrix to a x b and stores the result into the flat array r.<br />
-			r can be either a regular Array or a TypedArray.
+			r can be either a regular Array or a TypedArray.<br />
+			<br />
+			deprecated - This method has been removed completely.
 		</p>
 
 		<h3>[method:any multiplyVector3](  [param:any v] )</h3>
@@ -370,7 +372,7 @@
 			[parameter:any v] - The v.
 		</p>
 		<p>
-			
+			deprecated - Use {@link Vector3#applyMatrix4 vector.applyMatrix4( matrix )} instead.
 		</p>
 
 		<h3>[method:number[] multiplyVector3Array](  [param:number[] array] )</h3>
@@ -379,7 +381,7 @@
 			[parameter:number[] array] - The array.
 		</p>
 		<p>
-			
+			deprecated - This method has been removed completely.
 		</p>
 
 		<h3>[method:any multiplyVector4](  [param:any v] )</h3>
@@ -388,7 +390,7 @@
 			[parameter:any v] - The v.
 		</p>
 		<p>
-			
+			deprecated - Use {@link Vector4#applyMatrix4 vector.applyMatrix4( matrix )} instead.
 		</p>
 
 		<h3>[method:Matrix4 premultiply](  [param:Matrix4 m] )</h3>
@@ -406,7 +408,7 @@
 			[parameter:any v] - The v.
 		</p>
 		<p>
-			
+			deprecated - Use {@link Vector3#transformDirection Vector3.transformDirection( matrix )} instead.
 		</p>
 
 		<h3>[method:Matrix4 scale](  [param:Vector3 v] )</h3>
@@ -468,7 +470,7 @@
 			[parameter:Quaternion q] - The q.
 		</p>
 		<p>
-			
+			deprecated - Use {@link Matrix4#makeRotationFromQuaternion .makeRotationFromQuaternion()} instead.
 		</p>
 
 		<h3>[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:Matrix4Tuple array]?,  [param:any offset]?,  [param:ArrayLike array]?,  [param:number offset]? )</h3>

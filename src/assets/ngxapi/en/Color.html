@@ -11,6 +11,22 @@
 
 		<p class="desc">
 			Represents a color. See also {@link ColorUtils}.<br />
+			<code data-type="javascript"><br />
+			//empty constructor - will default white<br />
+			const color1 = new THREE.Color();<br />
+			//Hexadecimal color (recommended)<br />
+			const color2 = new THREE.Color( 0xff0000 );<br />
+			//RGB string<br />
+			const color3 = new THREE.Color("rgb(255, 0, 0)");<br />
+			const color4 = new THREE.Color("rgb(100%, 0%, 0%)");<br />
+			//X11 color name - all 140 color names are supported.<br />
+			//Note the lack of CamelCase in the name<br />
+			const color5 = new THREE.Color( 'skyblue' );<br />
+			//HSL string<br />
+			const color6 = new THREE.Color("hsl(0, 100%, 50%)");<br />
+			//Separate RGB values between 0 and 1<br />
+			const color7 = new THREE.Color( 1, 0, 0 );<br />
+			</code><br />
 			see {@link https://github.com/mrdoob/three.js/blob/master/src/math/Color.js|src/math/Color.js}
 		</p>
 
@@ -59,7 +75,7 @@
 			[parameter:Color color] - The color.
 		</p>
 		<p>
-			
+			Returns : add
 		</p>
 
 		<h3>[method:Color addColors](  [param:Color color1],  [param:Color color2] )</h3>
@@ -69,7 +85,7 @@
 			[parameter:Color color2] - The color2.
 		</p>
 		<p>
-			
+			Returns : colors
 		</p>
 
 		<h3>[method:Color addScalar](  [param:number s] )</h3>
@@ -78,7 +94,7 @@
 			[parameter:number s] - The s.
 		</p>
 		<p>
-			
+			Returns : scalar
 		</p>
 
 		<h3>[method:Color clone](  )</h3>
@@ -164,10 +180,10 @@
 		<h3>[method:boolean equals](  [param:Color color] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Color color] - The color.
+			[parameter:Color color] - asadsa
 		</p>
 		<p>
-			
+			Returns : true if equals
 		</p>
 
 		<h3>[method:Color fromArray](  [param:ArrayLike|number[] array],  [param:number offset]? )</h3>
@@ -187,7 +203,7 @@
 			[parameter:number index] - The index.
 		</p>
 		<p>
-			
+			Returns : buffer attribute
 		</p>
 
 		<h3>[method:HSL getHSL](  [param:HSL target] )</h3>
@@ -196,7 +212,7 @@
 			[parameter:HSL target] - The target.
 		</p>
 		<p>
-			
+			Returns : hsl
 		</p>
 
 		<h3>[method:number getHex](  )</h3>
@@ -222,7 +238,7 @@
 			[parameter:number alpha] - The alpha.
 		</p>
 		<p>
-			
+			Returns : lerp
 		</p>
 
 		<h3>[method:Color lerpColors](  [param:Color color1],  [param:Color color2],  [param:number alpha] )</h3>
@@ -233,7 +249,7 @@
 			[parameter:number alpha] - The alpha.
 		</p>
 		<p>
-			
+			Returns : colors
 		</p>
 
 		<h3>[method:Color lerpHSL](  [param:Color color],  [param:number alpha] )</h3>
@@ -243,7 +259,7 @@
 			[parameter:number alpha] - The alpha.
 		</p>
 		<p>
-			
+			Returns : hsl
 		</p>
 
 		<h3>[method:Color multiply](  [param:Color color] )</h3>
@@ -252,7 +268,7 @@
 			[parameter:Color color] - The color.
 		</p>
 		<p>
-			
+			Returns : multiply
 		</p>
 
 		<h3>[method:Color multiplyScalar](  [param:number s] )</h3>
@@ -261,7 +277,7 @@
 			[parameter:number s] - The s.
 		</p>
 		<p>
-			
+			Returns : scalar
 		</p>
 
 		<h3>[method:Color offsetHSL](  [param:number h],  [param:number s],  [param:number l] )</h3>
@@ -272,7 +288,7 @@
 			[parameter:number l] - The l.
 		</p>
 		<p>
-			
+			Returns : hsl
 		</p>
 
 		<h3>[method:Color set](  [param:ColorRepresentation color] )</h3>
@@ -281,7 +297,7 @@
 			[parameter:ColorRepresentation color] - The color.
 		</p>
 		<p>
-			
+			Returns : set
 		</p>
 
 		<h3>[method:Color setColorName](  [param:string style] )</h3>
@@ -312,7 +328,7 @@
 			[parameter:number hex] - The hex.
 		</p>
 		<p>
-			
+			Returns : hex
 		</p>
 
 		<h3>[method:Color setRGB](  [param:number r],  [param:number g],  [param:number b] )</h3>
@@ -332,7 +348,7 @@
 			[parameter:number scalar] - The scalar.
 		</p>
 		<p>
-			
+			Returns : scalar
 		</p>
 
 		<h3>[method:Color setStyle](  [param:string style] )</h3>
@@ -350,7 +366,7 @@
 			[parameter:Color color] - The color.
 		</p>
 		<p>
-			
+			Returns : sub
 		</p>
 
 		<h3>[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:ArrayLike xyz],  [param:number offset]? )</h3>

@@ -10,7 +10,18 @@
 		<h1>Box3</h1>
 
 		<p class="desc">
-			
+			Box3<br />
+			Represents an axis-aligned bounding box (AABB) in 3D space.<br />
+			<code data-type="javascript"><br />
+			const box = new THREE.Box3();<br />
+			const mesh = new THREE.Mesh( new THREE.SphereGeometry(), new THREE.MeshBasicMaterial());<br />
+			// ensure the bounding box is computed for its geometry<br />
+			// this should be done only once (assuming static geometries)<br />
+			mesh.geometry.computeBoundingBox();<br />
+			// ...<br />
+			// in the animation loop, compute the current bounding box with the world matrix<br />
+			box.copy( mesh.geometry.boundingBox ).applyMatrix4( mesh.matrixWorld );<br />
+			</code>
 		</p>
 
 		<h2>Constructor</h2>
@@ -32,22 +43,24 @@
 
 		<h3>[property:Vector3 max]</h3>
 		<p>
-			
+			Vector3 representing the upper (x, y, z) boundary of the box. Default is ( - Infinity, - Infinity, - Infinity ).
 		</p>
 
 		<h3>[property:Vector3 min]</h3>
 		<p>
-			
+			Vector3 representing the lower (x, y, z) boundary of the box. Default is ( + Infinity, + Infinity, + Infinity ).
 		</p>
 
 		<h2>Methods</h2>
 		<h3>[method:Box3 applyMatrix4](  [param:Matrix4 matrix] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Matrix4 matrix] - The matrix.
+			[parameter:Matrix4 matrix] - The Matrix4 to apply
 		</p>
 		<p>
-			
+			Transforms this Box3 with the supplied matrix.<br />
+			<br />
+			Returns : matrix4
 		</p>
 
 		<h3>[method:Vector3 clampPoint](  [param:Vector3 point],  [param:Vector3 target] )</h3>
@@ -57,12 +70,12 @@
 			[parameter:Vector3 target] - The target.
 		</p>
 		<p>
-			
+			Returns : point
 		</p>
 
 		<h3>[method:Box3 clone](  )</h3>
 		<p>
-			
+			Returns : clone
 		</p>
 
 		<h3>[method:boolean containsBox](  [param:Box3 box] )</h3>
@@ -71,7 +84,7 @@
 			[parameter:Box3 box] - The box.
 		</p>
 		<p>
-			
+			Returns : true if box
 		</p>
 
 		<h3>[method:boolean containsPoint](  [param:Vector3 point] )</h3>
@@ -80,7 +93,7 @@
 			[parameter:Vector3 point] - The point.
 		</p>
 		<p>
-			
+			Returns : true if point
 		</p>
 
 		<h3>[method:Box3 copy](  [param:Box3 box] )</h3>
@@ -89,7 +102,7 @@
 			[parameter:Box3 box] - The box.
 		</p>
 		<p>
-			
+			Returns : copy
 		</p>
 
 		<h3>[method:number distanceToPoint](  [param:Vector3 point] )</h3>
@@ -98,12 +111,12 @@
 			[parameter:Vector3 point] - The point.
 		</p>
 		<p>
-			
+			Returns : to point
 		</p>
 
 		<h3>[method:any empty](  )</h3>
 		<p>
-			
+			deprecated - Use {@link Box3#isEmpty .isEmpty()} instead.
 		</p>
 
 		<h3>[method:boolean equals](  [param:Box3 box] )</h3>
@@ -112,7 +125,7 @@
 			[parameter:Box3 box] - The box.
 		</p>
 		<p>
-			
+			Returns : true if equals
 		</p>
 
 		<h3>[method:Box3 expandByObject](  [param:Object3D object] )</h3>
@@ -121,7 +134,7 @@
 			[parameter:Object3D object] - The object.
 		</p>
 		<p>
-			
+			Returns : by object
 		</p>
 
 		<h3>[method:Box3 expandByPoint](  [param:Vector3 point] )</h3>
@@ -130,7 +143,7 @@
 			[parameter:Vector3 point] - The point.
 		</p>
 		<p>
-			
+			Returns : by point
 		</p>
 
 		<h3>[method:Box3 expandByScalar](  [param:number scalar] )</h3>
@@ -139,7 +152,7 @@
 			[parameter:number scalar] - The scalar.
 		</p>
 		<p>
-			
+			Returns : by scalar
 		</p>
 
 		<h3>[method:Box3 expandByVector](  [param:Vector3 vector] )</h3>
@@ -148,7 +161,7 @@
 			[parameter:Vector3 vector] - The vector.
 		</p>
 		<p>
-			
+			Returns : by vector
 		</p>
 
 		<h3>[method:Sphere getBoundingSphere](  [param:Sphere target] )</h3>
@@ -157,7 +170,7 @@
 			[parameter:Sphere target] - The target.
 		</p>
 		<p>
-			
+			Returns : bounding sphere
 		</p>
 
 		<h3>[method:Vector3 getCenter](  [param:Vector3 target] )</h3>
@@ -166,7 +179,7 @@
 			[parameter:Vector3 target] - The target.
 		</p>
 		<p>
-			
+			Returns : center
 		</p>
 
 		<h3>[method:Vector3 getParameter](  [param:Vector3 point],  [param:Vector3 target] )</h3>
@@ -176,7 +189,7 @@
 			[parameter:Vector3 target] - The target.
 		</p>
 		<p>
-			
+			Returns : parameter
 		</p>
 
 		<h3>[method:Vector3 getSize](  [param:Vector3 target] )</h3>
@@ -185,7 +198,7 @@
 			[parameter:Vector3 target] - The target.
 		</p>
 		<p>
-			
+			Returns : size
 		</p>
 
 		<h3>[method:Box3 intersect](  [param:Box3 box] )</h3>
@@ -194,7 +207,7 @@
 			[parameter:Box3 box] - The box.
 		</p>
 		<p>
-			
+			Returns : intersect
 		</p>
 
 		<h3>[method:boolean intersectsBox](  [param:Box3 box] )</h3>
@@ -203,7 +216,7 @@
 			[parameter:Box3 box] - The box.
 		</p>
 		<p>
-			
+			Returns : true if box
 		</p>
 
 		<h3>[method:boolean intersectsPlane](  [param:Plane plane] )</h3>
@@ -212,7 +225,7 @@
 			[parameter:Plane plane] - The plane.
 		</p>
 		<p>
-			
+			Returns : true if plane
 		</p>
 
 		<h3>[method:boolean intersectsSphere](  [param:Sphere sphere] )</h3>
@@ -221,7 +234,7 @@
 			[parameter:Sphere sphere] - The sphere.
 		</p>
 		<p>
-			
+			Returns : true if sphere
 		</p>
 
 		<h3>[method:boolean intersectsTriangle](  [param:Triangle triangle] )</h3>
@@ -230,12 +243,12 @@
 			[parameter:Triangle triangle] - The triangle.
 		</p>
 		<p>
-			
+			Returns : true if triangle
 		</p>
 
 		<h3>[method:boolean isEmpty](  )</h3>
 		<p>
-			
+			Returns : true if empty
 		</p>
 
 		<h3>[method:any isIntersectionBox](  [param:any b] )</h3>
@@ -244,7 +257,7 @@
 			[parameter:any b] - The b.
 		</p>
 		<p>
-			
+			deprecated - Use {@link Box3#intersectsBox .intersectsBox()} instead.
 		</p>
 
 		<h3>[method:any isIntersectionSphere](  [param:any s] )</h3>
@@ -253,12 +266,12 @@
 			[parameter:any s] - The s.
 		</p>
 		<p>
-			
+			deprecated - Use {@link Box3#intersectsSphere .intersectsSphere()} instead.
 		</p>
 
 		<h3>[method:Box3 makeEmpty](  )</h3>
 		<p>
-			
+			Returns : empty
 		</p>
 
 		<h3>[method:Box3 set](  [param:Vector3 min],  [param:Vector3 max] )</h3>
@@ -268,7 +281,7 @@
 			[parameter:Vector3 max] - The max.
 		</p>
 		<p>
-			
+			Returns : set
 		</p>
 
 		<h3>[method:Box3 setFromArray](  [param:ArrayLike array] )</h3>
@@ -277,7 +290,7 @@
 			[parameter:ArrayLike array] - The array.
 		</p>
 		<p>
-			
+			Returns : from array
 		</p>
 
 		<h3>[method:Box3 setFromBufferAttribute](  [param:BufferAttribute bufferAttribute] )</h3>
@@ -286,7 +299,7 @@
 			[parameter:BufferAttribute bufferAttribute] - The buffer attribute.
 		</p>
 		<p>
-			
+			Returns : from buffer attribute
 		</p>
 
 		<h3>[method:Box3 setFromCenterAndSize](  [param:Vector3 center],  [param:Vector3 size] )</h3>
@@ -296,7 +309,7 @@
 			[parameter:Vector3 size] - The size.
 		</p>
 		<p>
-			
+			Returns : from center and size
 		</p>
 
 		<h3>[method:Box3 setFromObject](  [param:Object3D object] )</h3>
@@ -305,7 +318,7 @@
 			[parameter:Object3D object] - The object.
 		</p>
 		<p>
-			
+			Returns : from object
 		</p>
 
 		<h3>[method:Box3 setFromPoints](  [param:Vector3[] points] )</h3>
@@ -314,7 +327,7 @@
 			[parameter:Vector3[] points] - The points.
 		</p>
 		<p>
-			
+			Returns : from points
 		</p>
 
 		<h3>[method:Box3 translate](  [param:Vector3 offset] )</h3>
@@ -323,7 +336,7 @@
 			[parameter:Vector3 offset] - The offset.
 		</p>
 		<p>
-			
+			Returns : translate
 		</p>
 
 		<h3>[method:Box3 union](  [param:Box3 box] )</h3>
@@ -332,7 +345,7 @@
 			[parameter:Box3 box] - The box.
 		</p>
 		<p>
-			
+			Returns : union
 		</p>
 
 
