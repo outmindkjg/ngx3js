@@ -33,17 +33,13 @@
     "@babel/core": "^7.15.8",
     "gsap": "^3.8.0",
     "three": "0.135.0",
-    "chroma-js": "^2.1.2",
-    "lil-gui": "^0.12.0",
     "ngx-highlightjs": "^4.1.4",
     "ngx3js": "file:../ngx3js-module/dist/ngx3js",
     "path": "^0.12.7",
     "rxjs": "^6.6.7",
     "tslib": "^2.3.1",
     "webpack": "^5.58.2",
-    "zone.js": "~0.11.4",
-    "fs": "0.0.1-security",
-    "fs-web": "^1.0.1"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^13.0.2",
@@ -66,8 +62,7 @@
     "typescript": "~4.4.4",
     "webworkify": "^1.5.0",
     "worker-loader": "^3.0.8",
-    "@types/three": "0.135.0",
-    "@types/chroma-js": "^2.1.2"
+    "@types/three": "0.135.0"
   },
   "keywords": [
     "three",
