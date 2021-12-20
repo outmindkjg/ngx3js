@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>Ray</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:Ray Ray](  [param:Vector3 origin]?,  [param:Vector3 direction]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 origin] - (optional) The origin.<br />
+			[parameter:Vector3 direction] - (optional) The direction.
+		</p>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:Vector3 direction]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Vector3 origin]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:Ray applyMatrix4](  [param:Matrix4 matrix4] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 matrix4] - The matrix4.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector3 at](  [param:number t],  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number t] - The t.<br />
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Ray clone](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector3 closestPointToPoint](  [param:Vector3 point],  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 point] - The point.<br />
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Ray copy](  [param:Ray ray] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Ray ray] - The ray.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number distanceSqToPoint](  [param:Vector3 point] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 point] - The point.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number distanceSqToSegment](  [param:Vector3 v0],  [param:Vector3 v1],  [param:Vector3 optionalPointOnRay]?,  [param:Vector3 optionalPointOnSegment]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 v0] - The v0.<br />
+			[parameter:Vector3 v1] - The v1.<br />
+			[parameter:Vector3 optionalPointOnRay] - (optional) The optional point on ray.<br />
+			[parameter:Vector3 optionalPointOnSegment] - (optional) The optional point on segment.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number distanceToPlane](  [param:Plane plane] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Plane plane] - The plane.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number distanceToPoint](  [param:Vector3 point] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 point] - The point.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean equals](  [param:Ray ray] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Ray ray] - The ray.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector3 intersectBox](  [param:Box3 box],  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Box3 box] - The box.<br />
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector3 intersectPlane](  [param:Plane plane],  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Plane plane] - The plane.<br />
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector3 intersectSphere](  [param:Sphere sphere],  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Sphere sphere] - The sphere.<br />
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector3 intersectTriangle](  [param:Vector3 a],  [param:Vector3 b],  [param:Vector3 c],  [param:boolean backfaceCulling],  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 a] - The a.<br />
+			[parameter:Vector3 b] - The b.<br />
+			[parameter:Vector3 c] - The c.<br />
+			[parameter:boolean backfaceCulling] - The backface culling.<br />
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean intersectsBox](  [param:Box3 box] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Box3 box] - The box.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean intersectsPlane](  [param:Plane plane] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Plane plane] - The plane.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean intersectsSphere](  [param:Sphere sphere] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Sphere sphere] - The sphere.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:any isIntersectionBox](  [param:any b] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any b] - The b.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:any isIntersectionPlane](  [param:any p] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any p] - The p.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:any isIntersectionSphere](  [param:any s] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any s] - The s.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Ray lookAt](  [param:Vector3 v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 v] - The v.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Ray recast](  [param:number t] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number t] - The t.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Ray set](  [param:Vector3 origin],  [param:Vector3 direction] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 origin] - The origin.<br />
+			[parameter:Vector3 direction] - The direction.
+		</p>
+		<p>
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/math.ts /threejs-library/types/three/math.ts]</p>
+	</body>
+</html>

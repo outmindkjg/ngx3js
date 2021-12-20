@@ -7,7 +7,7 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:CubeCamera] &rarr;
+		[page:EventDispatcher] &rarr; [page:Object3D] &rarr; [page:CubeCamera] &rarr;
 
 		<h1>NgxCubeCamera</h1>
 
@@ -22,87 +22,56 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:NgxCubeCamera NgxCubeCamera](  [param:number near],  [param:number far],  [param:IWebGLCubeRenderTarget renderTarget] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>[constructor:NgxCubeCamera NgxCubeCamera](  [param:number near],  [param:number far],  [param:WebGLCubeRenderTarget renderTarget] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number near] - The near.<br />
 			[parameter:number far] - The far.<br />
-			[parameter:IWebGLCubeRenderTarget renderTarget] - The render target.
+			[parameter:WebGLCubeRenderTarget renderTarget] - The render target.
 		</p>
 		<p>
 			Creates an instance of ngx cube camera.
 		</p>
 
-		<h3>[constructor:NgxCubeCamera NgxCubeCamera](  [param:number near],  [param:number far],  [param:IWebGLCubeRenderTarget renderTarget] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h2>Constructor</h2>
+		<h3>[constructor:NgxCubeCamera NgxCubeCamera](  [param:number near],  [param:number far],  [param:WebGLCubeRenderTarget renderTarget] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number near] - The near.<br />
 			[parameter:number far] - The far.<br />
-			[parameter:IWebGLCubeRenderTarget renderTarget] - The render target.
+			[parameter:WebGLCubeRenderTarget renderTarget] - The render target.
 		</p>
 		<p>
-			
+			Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
 		</p>
 
 		<h2>Properties</h2>
+		<p>
+			See the base [page:EventDispatcher EventDispatcher] class for common properties.
+		</p>
+		<p>
+			See the base [page:Object3D Object3D] class for common properties.
+		</p>
 		<p>
 			See the base [page:CubeCamera CubeCamera] class for common properties.
 		</p>
 
 		<h2>Methods</h2>
 		<p>
+			See the base [page:EventDispatcher EventDispatcher] class for common methods.
+		</p>
+		<p>
+			See the base [page:Object3D Object3D] class for common methods.
+		</p>
+		<p>
 			See the base [page:CubeCamera CubeCamera] class for common methods.
 		</p>
 
-		<hr class="interface-line"/>
-		[page:IEventDispatcher] &rarr; [page:IWebGLRenderTarget] &rarr;
 
-		<h3 id="IWebGLCubeRenderTarget">IWebGLCubeRenderTarget <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line"/>
-		<h4>Constructor</h4>
-		<p>
-			[constructor:IWebGLCubeRenderTarget IWebGLCubeRenderTarget](  [param:number size],  [param:IWebGLRenderTargetOptions options]? ) <br />
-			[constructor:IWebGLCubeRenderTarget IWebGLCubeRenderTarget](  [param:number size],  [param:IWebGLRenderTargetOptions options]?,  [param:number width],  [param:number height],  [param:IWebGLRenderTargetOptions options]? ) 
+		<p class="desc">
+			
 		</p>
-		<h4>Properties</h4>
-		<p>
-			[property:any anisotropy] -  The anisotropy.<br />
-			[property:number depth] -  The depth.<br />
-			[property:boolean depthBuffer] -  The depth buffer.<br />
-			[property:IDepthTexture depthTexture] -  The depth texture.<br />
-			[property:any format] -  The format.<br />
-			[property:any generateMipmaps] -  The generate mipmaps.<br />
-			[property:number height] -  The height.<br />
-			[property:any isWebGLRenderTarget] -  The is web g l render target.<br />
-			[property:any magFilter] -  The mag filter.<br />
-			[property:any minFilter] -  The min filter.<br />
-			[property:any offset] -  The offset.<br />
-			[property:any repeat] -  The repeat.<br />
-			[property:IVector4 scissor] -  The scissor.<br />
-			[property:boolean scissorTest] -  The scissor test.<br />
-			[property:boolean stencilBuffer] -  The stencil buffer.<br />
-			[property:ICubeTexture texture] -  The texture.<br />
-			[property:any type] -  The type.<br />
-			[property:string uuid] -  The uuid.<br />
-			[property:IVector4 viewport] -  The viewport.<br />
-			[property:number width] -  The width.<br />
-			[property:any wrapS] -  The wrap s.<br />
-			[property:any wrapT] -  The wrap t.
-		</p>
-		<h4>Methods</h4>
-		<p>
-			[method:void addEventListener](  [param:T type],  [param:IEventListener listener] ) - Adds a listener to an event type.<br />
-			[method:void clear](  [param:IWebGLRenderer renderer],  [param:boolean color],  [param:boolean depth],  [param:boolean stencil] ) <br />
-			[method:IWebGLCubeRenderTarget clone](  ) <br />
-			[method:IWebGLCubeRenderTarget copy](  [param:IWebGLRenderTarget source] ) <br />
-			[method:void dispatchEvent](  [param:Event event] ) - Fire an event type.<br />
-			[method:void dispose](  ) <br />
-			[method:IWebGLCubeRenderTarget fromEquirectangularTexture](  [param:IWebGLRenderer renderer],  [param:ITexture texture] ) <br />
-			[method:boolean hasEventListener](  [param:T type],  [param:IEventListener listener] ) - Checks if listener is added to an event type.<br />
-			[method:void removeEventListener](  [param:T type],  [param:IEventListener listener] ) - Removes a listener from an event type.<br />
-			[method:void setSize](  [param:number width],  [param:number height],  [param:number depth]? ) <br />
-			[method:void setTexture](  [param:ITexture texture] ) 
-		</p>
+
 
 		<p class="desc">
 			

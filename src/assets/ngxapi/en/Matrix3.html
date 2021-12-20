@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:Matrix] &rarr;
+
+		<h1>Matrix3</h1>
+
+		<p class="desc">
+			( class Matrix3 extends Matrix&lt;Matrix3&gt; )
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:Matrix3 Matrix3](  )</h3>
+		<p>
+			Creates an identity matrix.
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:Matrix Matrix] class for common properties.
+		</p>
+
+		<h3>[property:number[] elements]</h3>
+		<p>
+			Array with matrix values.
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:Matrix Matrix] class for common methods.
+		</p>
+
+		<h3>[method:Matrix3 clone](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			clone():T;
+		</p>
+
+		<h3>[method:Matrix3 copy](  [param:Matrix3 m] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix3 m] - The m.
+		</p>
+		<p>
+			copy(m:T):T;
+		</p>
+
+		<h3>[method:number determinant](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean equals](  [param:Matrix3 matrix] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix3 matrix] - The matrix.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix3 extractBasis](  [param:Vector3 xAxis],  [param:Vector3 yAxis],  [param:Vector3 zAxis] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 xAxis] - The x axis.<br />
+			[parameter:Vector3 yAxis] - The y axis.<br />
+			[parameter:Vector3 zAxis] - The z axis.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number[] flattenToArrayOffset](  [param:number[] array],  [param:number offset] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number[] array] - The array.<br />
+			[parameter:number offset] - The offset.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix3 fromArray](  [param:ArrayLike|number[] array],  [param:number offset]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ArrayLike|number[] array] - the source array or array-like.<br />
+			[parameter:number offset] - (optional) (optional) offset into the array-like. Default is 0.
+		</p>
+		<p>
+			Sets the values of this matrix from the provided array or array-like.
+		</p>
+
+		<h3>[method:Matrix getInverse](  [param:Matrix4 matrix],  [param:boolean throwOnDegenerate]?,  [param:Matrix matrix] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 matrix] - The matrix.<br />
+			[parameter:boolean throwOnDegenerate] - (optional) The throw on degenerate.<br />
+			[parameter:Matrix matrix] - The matrix.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix3 getNormalMatrix](  [param:Matrix4 matrix4] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 matrix4] - The matrix4.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix3 identity](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			identity():T;
+		</p>
+
+		<h3>[method:Matrix3 invert](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Inverts this matrix in place.
+		</p>
+
+		<h3>[method:Matrix3 multiply](  [param:Matrix3 m] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix3 m] - The m.
+		</p>
+		<p>
+			Multiplies this matrix by m.
+		</p>
+
+		<h3>[method:Matrix3 multiplyMatrices](  [param:Matrix3 a],  [param:Matrix3 b] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix3 a] - The a.<br />
+			[parameter:Matrix3 b] - The b.
+		</p>
+		<p>
+			Sets this matrix to a x b.
+		</p>
+
+		<h3>[method:Matrix3 multiplyScalar](  [param:number s] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number s] - The s.
+		</p>
+		<p>
+			multiplyScalar(s:number):T;
+		</p>
+
+		<h3>[method:any multiplyVector3](  [param:Vector3 vector] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 vector] - The vector.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:any multiplyVector3Array](  [param:any a] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any a] - The a.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix3 premultiply](  [param:Matrix3 m] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix3 m] - The m.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix3 rotate](  [param:number theta] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number theta] - The theta.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix3 scale](  [param:number sx],  [param:number sy] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number sx] - The sx.<br />
+			[parameter:number sy] - The sy.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix3 set](  [param:number n11],  [param:number n12],  [param:number n13],  [param:number n21],  [param:number n22],  [param:number n23],  [param:number n31],  [param:number n32],  [param:number n33] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number n11] - The n11.<br />
+			[parameter:number n12] - The n12.<br />
+			[parameter:number n13] - The n13.<br />
+			[parameter:number n21] - The n21.<br />
+			[parameter:number n22] - The n22.<br />
+			[parameter:number n23] - The n23.<br />
+			[parameter:number n31] - The n31.<br />
+			[parameter:number n32] - The n32.<br />
+			[parameter:number n33] - The n33.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix3 setFromMatrix4](  [param:Matrix4 m] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 m] - The m.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix3 setUvTransform](  [param:number tx],  [param:number ty],  [param:number sx],  [param:number sy],  [param:number rotation],  [param:number cx],  [param:number cy] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number tx] - The tx.<br />
+			[parameter:number ty] - The ty.<br />
+			[parameter:number sx] - The sx.<br />
+			[parameter:number sy] - The sy.<br />
+			[parameter:number rotation] - The rotation.<br />
+			[parameter:number cx] - The cx.<br />
+			[parameter:number cy] - The cy.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:Matrix3Tuple array]?,  [param:any offset]?,  [param:ArrayLike array]?,  [param:number offset]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number[] array] - (optional) (optional) array to store the matrix to. If this is not provided, a new array will be created.<br />
+			[parameter:number offset] - (optional) (optional) optional offset into the array.<br />
+			[parameter:Matrix3Tuple array] - (optional) The array.<br />
+			[parameter:any offset] - (optional) The offset.<br />
+			[parameter:ArrayLike array] - (optional) array-like to store the matrix to.<br />
+			[parameter:number offset] - (optional) (optional) optional offset into the array-like.
+		</p>
+		<p>
+			Copies he values of this matrix into the provided array-like.<br />
+			<br />
+			Returns : The provided array-like.
+		</p>
+
+		<h3>[method:Matrix3 translate](  [param:number tx],  [param:number ty] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number tx] - The tx.<br />
+			[parameter:number ty] - The ty.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix3 transpose](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Transposes this matrix in place.
+		</p>
+
+		<h3>[method:Matrix3 transposeIntoArray](  [param:number[] r] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number[] r] - The r.
+		</p>
+		<p>
+			Transposes this matrix into the supplied array r, and returns itself.
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/math.ts /threejs-library/types/three/math.ts]</p>
+	</body>
+</html>

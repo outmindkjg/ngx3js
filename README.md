@@ -36,11 +36,6 @@ npm install --save ngx3js
 npm install --save three@0.135.0
 npm install --save-dev @types/three@0.135.0
 npm install --save gsap
-npm install --save lil-gui
-npm install --save chroma-js
-npm install --save-dev @types/chroma-js
-npm install --save fs
-npm install --save fs-web
 ```
 
 
@@ -99,9 +94,6 @@ the assets url can be changed by your site.
       "architect": {
         "build": {
           "options": {
-            "allowedCommonJsDependencies" : [
-              "fs"
-            ],
             "assets": [
                 {
                     "glob": "**/*",

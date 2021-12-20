@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:NgxAbstractSubscribeComponent] &rarr; [page:NgxAbstractTweenComponent] &rarr; [page:NgxAbstractObject3dComponent] &rarr;
+
+		<h1>NgxSvgComponent</h1>
+
+		<p class="desc">
+			The Svg component.<br />
+			See the [page:SvgComponent ngx3js docs] page for details.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-geometry<br />
+				[type]="'Extrude'"<br />
+				[depth]="map.depth" [steps]="1" [bevelEnabled]="false"<br />
+			&gt;<br />
+				&lt;ngx3js-svg [path]="map.path"&gt;&lt;/ngx3js-svg&gt;<br />
+			&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-mesh&gt;<br />
+				&lt;ngx3js-svg<br />
+					[type]="'line'"<br />
+					[geometryType]="'buffer'"<br />
+					[text]="'   Three.js\nSimple text.'"<br />
+					[align]="'center'"<br />
+					[font]="'helvetiker'"<br />
+					[weight]="'regular'"<br />
+					[size]="100"<br />
+				&gt;<br />
+					&lt;ngx3js-material<br />
+						[type]="'LineBasic'"<br />
+						[color]="'0x006699'"<br />
+						[side]="'double'"<br />
+					&gt;&lt;/ngx3js-material&gt;<br />
+				&lt;/ngx3js-svg&gt;<br />
+			&lt;/ngx3js-mesh&gt;<br />
+			</code>
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:NgxSvgComponent NgxSvgComponent](  [param:ElementRef ele],  [param:NgxLocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ElementRef ele] - The ele.<br />
+			[parameter:NgxLocalStorageService localStorageService] - The local storage service.
+		</p>
+		<p>
+			Creates an instance of svg component.
+		</p>
+
+		<h3>Angular Html Template [ Input ] ( Output )</h3>
+		<code data-type="html">&lt;ngx3js-svg
+			[ align ]="... string -- The align of svg component "
+			[ bevelEnabled ]="... boolean -- The bevelEnabled of svg compon... "
+			[ bevelOffset ]="... number -- The bevelOffset of svg compone... "
+			[ bevelSegments ]="... number -- The bevelSegments of svg compo... "
+			[ bevelSize ]="... number -- The bevelSize of svg component "
+			[ bevelThickness ]="... number -- The bevelThickness of svg comp... "
+			[ castShadow ]="... boolean -- Whether the object gets render... "
+			[ center ]="... boolean -- The center of svg component "
+			[ closed ]="... boolean -- The closed of svg component "
+			[ color ]="... string|number -- The color of svg component "
+			[ computeVertexNormals ]="... boolean -- The computeVertexNormals of sv... "
+			[ curvePath ]="... INgxVector[] -- The curvePath of svg component "
+			[ curvePathType ]="... string -- The curvePathType of svg compo... "
+			[ curveSegments ]="... number -- The curveSegments of svg compo... "
+			[ curveType ]="... string -- The curveType of svg component "
+			[ debug ]="... boolean -- Debug this Object "
+			[ depth ]="... number -- The depth of svg component "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ extrudePath ]="... INgxVector[] -- The extrudePath of svg compone... "
+			[ extrudePathType ]="... string -- The extrudePathType of svg com... "
+			[ font ]="... string -- The font of svg component "
+			[ frustumCulled ]="... boolean -- When this is set, it checks ev... "
+			[ geometry ]="... any -- The geometry of mesh "
+			[ geometryType ]="... string -- The geometryType of svg compon... "
+			[ isCCW ]="... boolean -- The isCCW of svg component "
+			[ material ]="... Material|NgxAbstractMaterialComponent -- The material of mesh "
+			[ materialIsArray ]="... boolean -- The material of mesh is array "
+			[ matrixAutoUpdate ]="... boolean -- When this is set, it calculate... "
+			[ name ]="... string -- The name of the object (doesn'... "
+			[ noHoles ]="... boolean -- The noHoles of svg component "
+			( onDestory )="...($event : NgxSvgComponent -- Will be called when before des... )"
+			( onLoad )="...($event : NgxSvgComponent -- Will be called when load compl... )"
+			[ opacity ]="... number -- The opacity of svg component "
+			[ overrideParams ]="... any -- The override params "
+			[ path ]="... string -- The path of svg component "
+			[ receiveShadow ]="... boolean -- Whether the material receives ... "
+			[ shininess ]="... number -- The shininess of svg component "
+			[ size ]="... number -- The size of svg component "
+			[ steps ]="... number -- The steps of svg component "
+			[ stroke ]="... number -- The stroke of svg component "
+			[ tension ]="... number -- The tension of svg component "
+			[ text ]="... string -- The text of svg component "
+			[ textAlign ]="... string -- The textAlign of svg component "
+			[ translation ]="... NgxTranslationComponent -- The translation of svg compone... "
+			[ transparent ]="... boolean -- The transparent of svg compone... "
+			[ tween ]="... any -- Tween animation params "
+			[ tweenStart ]="... boolean -- Start tween "
+			[ type ]="... string -- The type of svg component "
+			[ uVGenerator ]="... string -- The uVGenerator of svg compone... "
+			[ url ]="... string -- The url of svg component "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ visible ]="... boolean -- Object gets rendered if *true*... "
+			[ weight ]="... string -- The weight of svg component "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ wireframe ]="... boolean -- The wireframe of svg component "
+		&gt;&lt;/ngx3js-svg&gt;
+		</code>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common properties.
+		</p>
+		<p>
+			See the base [page:NgxAbstractTweenComponent NgxAbstractTweenComponent] class for common properties.
+		</p>
+		<p>
+			See the base [page:NgxAbstractObject3dComponent NgxAbstractObject3dComponent] class for common properties.
+		</p>
+
+		<h3>[property:string[] OBJECT3D_ATTR] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Object3 d attr of abstract object3d component
+		</p>
+
+		<h3>[property:string[] OBJECT_ATTR] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Object attr of abstract subscribe component
+		</p>
+
+		<h3>[property:string[] _changeList]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Change list of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean _needUpdate] &nbsp; = true <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Need update of abstract subscribe component
+		</p>
+
+		<h3>[property:string align]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The align of svg component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:boolean bevelEnabled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bevelEnabled of svg component
+		</p>
+
+		<h3>[property:number bevelOffset]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bevelOffset of svg component
+		</p>
+
+		<h3>[property:number bevelSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bevelSegments of svg component
+		</p>
+
+		<h3>[property:number bevelSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bevelSize of svg component
+		</p>
+
+		<h3>[property:number bevelThickness]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bevelThickness of svg component
+		</p>
+
+		<h3>[property:NgxAbstractGeometryComponent[] cachedGeometryList] &nbsp; = [] <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:NgxLookatComponent[] cachedLookatList] &nbsp; = [] <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:NgxAbstractMaterialComponent[] cachedMaterialList] &nbsp; = [] <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:NgxPositionComponent[] cachedPositionList] &nbsp; = [] <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:NgxRotationComponent[] cachedRotationList] &nbsp; = [] <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:NgxScaleComponent[] cachedScaleList] &nbsp; = [] <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean castShadow]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Whether the object gets rendered into shadow map. Default is *false*.
+		</p>
+
+		<h3>[property:boolean center] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The center of svg component
+		</p>
+
+		<h3>[property:boolean closed]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The closed of svg component
+		</p>
+
+		<h3>[property:string|number color]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The color of svg component
+		</p>
+
+		<h3>[property:boolean computeVertexNormals] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The computeVertexNormals of svg component
+		</p>
+
+		<h3>[property:QueryList controllerList]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Content children of abstract object3d component
+		</p>
+
+		<h3>[property:INgxVector[] curvePath]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The curvePath of svg component
+		</p>
+
+		<h3>[property:string curvePathType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The curvePathType of svg component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:number curveSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The curveSegments of svg component
+		</p>
+
+		<h3>[property:string curveType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The curveType of svg component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:boolean debug] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Debug this Object
+		</p>
+
+		<h3>[property:number depth]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The depth of svg component
+		</p>
+
+		<h3>[property:boolean enabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Enabled or Not
+		</p>
+
+		<h3>[property:INgxVector[] extrudePath]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The extrudePath of svg component
+		</p>
+
+		<h3>[property:string extrudePathType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The extrudePathType of svg component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:string font]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The font of svg component
+		</p>
+
+		<h3>[property:boolean frustumCulled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object. If set to `false` the object gets rendered every frame even if it is not in the frustum of the camera. Default is `true`.
+		</p>
+
+		<h3>[property:any geometry]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The geometry of mesh
+		</p>
+
+		<h3>[property:QueryList geometryList]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Content children of mesh component
+		</p>
+
+		<h3>[property:string geometryType] &nbsp; = 'shape' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The geometryType of svg component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:string id] &nbsp; = '' <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Id of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean isCCW]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The isCCW of svg component
+		</p>
+
+		<h3>[property:Material|NgxAbstractMaterialComponent material]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The material of mesh
+		</p>
+
+		<h3>[property:boolean materialIsArray]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The material of mesh is array
+		</p>
+
+		<h3>[property:QueryList materialList]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Content children of abstract object3d component
+		</p>
+
+		<h3>[property:boolean matrixAutoUpdate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate Object3D.DefaultMatrixAutoUpdate] (true).
+		</p>
+
+		<h3>[property:string name]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The name of the object (doesn't need to be unique). Default is an empty string.
+		</p>
+
+		<h3>[property:boolean noHoles]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The noHoles of svg component
+		</p>
+
+		<h3>[property:Object3D object3d]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Object3d of abstract object3d component
+		</p>
+
+		<h3>[property:QueryList object3dList]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Content children of abstract object3d component
+		</p>
+
+		<h3>[property:EventEmitter onDestory] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when before destory. The argument will be the loaded self
+		</p>
+
+		<h3>[property:EventEmitter onLoad] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when load completes. The argument will be the loaded self
+		</p>
+
+		<h3>[property:number opacity]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The opacity of svg component
+		</p>
+
+		<h3>[property:any overrideParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The override params
+		</p>
+
+		<h3>[property:any parent]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Parent of abstract subscribe component
+		</p>
+
+		<h3>[property:Object3D parentObject3d]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Parent object3d of abstract object3d component
+		</p>
+
+		<h3>[property:string path]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The path of svg component
+		</p>
+
+		<h3>[property:boolean receiveShadow]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Whether the material receives shadows. Default is *false*.
+		</p>
+
+		<h3>[property:any selfAny] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number shininess]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The shininess of svg component
+		</p>
+
+		<h3>[property:number size]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The size of svg component
+		</p>
+
+		<h3>[property:number steps]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The steps of svg component
+		</p>
+
+		<h3>[property:number stroke]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The stroke of svg component
+		</p>
+
+		<h3>[property:string subscribeType]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Subscribe type of abstract subscribe component
+		</p>
+
+		<h3>[property:number tension]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The tension of svg component
+		</p>
+
+		<h3>[property:string text]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The text of svg component
+		</p>
+
+		<h3>[property:string textAlign]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The textAlign of svg component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:NgxTranslationComponent translation]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The translation of svg component
+		</p>
+
+		<h3>[property:boolean transparent]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The transparent of svg component
+		</p>
+
+		<h3>[property:any tween]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Tween animation params
+		</p>
+
+		<h3>[property:boolean tweenStart] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Start tween
+		</p>
+
+		<h3>[property:string type] &nbsp; = 'mesh' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The type of svg component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:string uVGenerator]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The uVGenerator of svg component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:string url]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The url of svg component
+		</p>
+
+		<h3>[property:any userData]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			An object that can be used to store custom data about the Object3D. It should not hold references to functions as these will not be cloned.
+		</p>
+
+		<h3>[property:boolean visible] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Object gets rendered if *true*. Default is *true*.
+		</p>
+
+		<h3>[property:string weight]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The weight of svg component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:string windowExport]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Export this Object to window global variables
+		</p>
+
+		<h3>[property:boolean wireframe]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The wireframe of svg component
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common methods.
+		</p>
+		<p>
+			See the base [page:NgxAbstractTweenComponent NgxAbstractTweenComponent] class for common methods.
+		</p>
+		<p>
+			See the base [page:NgxAbstractObject3dComponent NgxAbstractObject3dComponent] class for common methods.
+		</p>
+
+		<h3>[method:void addChanges](  [param:string|string[]|SimpleChanges key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[]|SimpleChanges key] - The key.
+		</p>
+		<p>
+			Adds changes
+		</p>
+
+		<h3>[method:void addChildObject3d](  [param:Object3D object3d],  [param:string|string[] changes]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D object3d] - The object3d.<br />
+			[parameter:string|string[] changes] - (optional) The changes.
+		</p>
+		<p>
+			Adds child object3d
+		</p>
+
+		<h3>[method:string[] addDebugLine](  [param:Object3D[] objs],  [param:string[] lines],  [param:string prefix] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D[] objs] - The objs.<br />
+			[parameter:string[] lines] - The lines.<br />
+			[parameter:string prefix] - The prefix.
+		</p>
+		<p>
+			Adds debug line<br />
+			<br />
+			Returns : debug line
+		</p>
+
+		<h3>[method:void addParentObject3d](  [param:Object3D object3d],  [param:string|string[] changes]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D object3d] - The object3d.<br />
+			[parameter:string|string[] changes] - (optional) The changes.
+		</p>
+		<p>
+			Adds parent object3d
+		</p>
+
+		<h3>[method:NgxSvgComponent addPosition](  [param:number x],  [param:number y],  [param:number z] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.
+		</p>
+		<p>
+			Adds position<br />
+			<br />
+			Returns : position
+		</p>
+
+		<h3>[method:NgxSvgComponent addRotation](  [param:number x],  [param:number y],  [param:number z] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.
+		</p>
+		<p>
+			Adds rotation<br />
+			<br />
+			Returns : rotation
+		</p>
+
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string[] changes] - The changes.
+		</p>
+		<p>
+			Applys changes
+		</p>
+
+		<h3>[method:void applyChanges3d](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string[] changes] - The changes.
+		</p>
+		<p>
+			Applys changes3d
+		</p>
+
+		<h3>[method:BufferGeometry applyTextAlign](  [param:BufferGeometry geometry],  [param:Sphere boundingSphere],  [param:string def] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:BufferGeometry geometry] - The geometry.<br />
+			[parameter:Sphere boundingSphere] - The bounding sphere.<br />
+			[parameter:string def] - The def.
+		</p>
+		<p>
+			Applys text align<br />
+			<br />
+			Returns : text align
+		</p>
+
+		<h3>[method:void callOnLoad](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Calls on load
+		</p>
+
+		<h3>[method:SimpleChanges checkChanges](  [param:SimpleChanges changes] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:SimpleChanges changes] - The changes.
+		</p>
+		<p>
+			Checks changes<br />
+			<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:void clearChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Clears changes
+		</p>
+
+		<h3>[method:void consoleLog](  [param:string key],  [param:any object],  [param:string level] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:string level] - The level.
+		</p>
+		<p>
+			Consoles log
+		</p>
+
+		<h3>[method:void consoleLogTime](  [param:string key],  [param:any object],  [param:number repeat] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:number repeat] - The repeat.
+		</p>
+		<p>
+			Consoles log time
+		</p>
+
+		<h3>[method:void destroyLocalComponent](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			Destroys local component
+		</p>
+
+		<h3>[method:void dispose](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Disposes abstract subscribe component
+		</p>
+
+		<h3>[method:string[] getChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Gets changes<br />
+			<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:BufferGeometry getGeometry](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets geometry<br />
+			<br />
+			Returns : geometry
+		</p>
+
+		<h3>[method:string getId](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets id<br />
+			<br />
+			Returns : id
+		</p>
+
+		<h3>[method:Material getMaterialOne](  [param:MeshBasicMaterialParameters parameters]?,  [param:boolean required] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:MeshBasicMaterialParameters parameters] - (optional) The parameters.<br />
+			[parameter:boolean required] - The required.
+		</p>
+		<p>
+			Gets material one<br />
+			<br />
+			Returns : material one
+		</p>
+
+		<h3>[method:Material|Material[] getMaterials](  [param:MeshBasicMaterialParameters parameters]?,  [param:boolean required] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:MeshBasicMaterialParameters parameters] - (optional) The parameters.<br />
+			[parameter:boolean required] - The required.
+		</p>
+		<p>
+			Gets materials<br />
+			<br />
+			Returns : materials
+		</p>
+
+		<h3>[method:Material[] getMaterialsMulti](  [param:MeshBasicMaterialParameters parameters]?,  [param:boolean required] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:MeshBasicMaterialParameters parameters] - (optional) The parameters.<br />
+			[parameter:boolean required] - The required.
+		</p>
+		<p>
+			Gets materials multi<br />
+			<br />
+			Returns : materials multi
+		</p>
+
+		<h3>[method:string getName](  [param:string def]? )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets name<br />
+			<br />
+			Returns : name
+		</p>
+
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets object<br />
+			<br />
+			Returns : object
+		</p>
+
+		<h3>[method:T getObject3d](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets object3d<br />
+			<br />
+			Returns : object3d
+		</p>
+
+		<h3>[method:Object3D getObjectById](  [param:number id] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number id] - The id.
+		</p>
+		<p>
+			Gets object by id<br />
+			<br />
+			Returns : object by id
+		</p>
+
+		<h3>[method:Object3D getObjectByName](  [param:string name] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string name] - The name.
+		</p>
+		<p>
+			Gets object by name<br />
+			<br />
+			Returns : object by name
+		</p>
+
+		<h3>[method:Object3D getObjectByProperty](  [param:string name],  [param:string value] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string name] - The name.<br />
+			[parameter:string value] - The value.
+		</p>
+		<p>
+			Gets object by property<br />
+			<br />
+			Returns : object by property
+		</p>
+
+		<h3>[method:Object3D getObjectTop](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets object top<br />
+			<br />
+			Returns : object top
+		</p>
+
+		<h3>[method:void getPaths](  [param:any onload] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any onload] - The onload.
+		</p>
+		<p>
+			Gets paths
+		</p>
+
+		<h3>[method:Vector3 getPosition](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets position<br />
+			<br />
+			Returns : position
+		</p>
+
+		<h3>[method:Euler getRotation](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets rotation<br />
+			<br />
+			Returns : rotation
+		</p>
+
+		<h3>[method:void getSVGResult](  [param:any onload] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any onload] - The onload.
+		</p>
+		<p>
+			Gets svgresult
+		</p>
+
+		<h3>[method:Vector3 getScale](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets scale<br />
+			<br />
+			Returns : scale
+		</p>
+
+		<h3>[method:void getShapes](  [param:any onload] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any onload] - The onload.
+		</p>
+		<p>
+			Gets shapes
+		</p>
+
+		<h3>[method:Observable getSubscribe](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets subscribe<br />
+			<br />
+			Returns : subscribe
+		</p>
+
+		<h3>[method:void getTagAttributeObject3d](  [param:ITagAttributes tagAttributes] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ITagAttributes tagAttributes] - The tag attributes.
+		</p>
+		<p>
+			Gets tag attribute object3d
+		</p>
+
+		<h3>[method:Promise getTimeout](  [param:number timeDelay] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number timeDelay] - The time delay.
+		</p>
+		<p>
+			Gets timeout<br />
+			특정 시간후에 이벤트 발생시키기<br />
+			<br />
+			Returns : timeout
+		</p>
+
+		<h3>[method:void getUserData](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets user data
+		</p>
+
+		<h3>[method:boolean getVisible](  [param:boolean def]? )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean def] - (optional) The def.
+		</p>
+		<p>
+			Gets visible<br />
+			<br />
+			Returns : true if visible
+		</p>
+
+		<h3>[method:T initLocalComponent](  [param:string key],  [param:T component] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:T component] - The component.
+		</p>
+		<p>
+			Inits local component<br />
+			<br />
+			Returns : local component
+		</p>
+
+		<h3>[method:boolean isIdEuals](  [param:string id] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string id] - The id.
+		</p>
+		<p>
+			Determines whether id euals is<br />
+			<br />
+			Returns : true if id euals
+		</p>
+
+		<h3>[method:void resetMeshes](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Resets meshes
+		</p>
+
+		<h3>[method:void resetTween](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Resets tween
+		</p>
+
+		<h3>[method:void runSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Runs subscribe next
+		</p>
+
+		<h3>[method:NgxSvgComponent setLookat](  [param:number x],  [param:number y],  [param:number z] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.
+		</p>
+		<p>
+			Sets lookat<br />
+			<br />
+			Returns : lookat
+		</p>
+
+		<h3>[method:void setObject](  [param:any obj] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any obj] - The obj.
+		</p>
+		<p>
+			Sets object
+		</p>
+
+		<h3>[method:void setObject3d](  [param:Object3D object3d] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D object3d] - The object3d.
+		</p>
+		<p>
+			Sets object3d
+		</p>
+
+		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D parent] - The parent.
+		</p>
+		<p>
+			Sets parent<br />
+			<br />
+			Returns : true if parent
+		</p>
+
+		<h3>[method:void setParentObject3d](  [param:Object3D object3d] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D object3d] - The object3d.
+		</p>
+		<p>
+			Sets parent object3d
+		</p>
+
+		<h3>[method:NgxSvgComponent setPosition](  [param:number x],  [param:number y],  [param:number z] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.
+		</p>
+		<p>
+			Sets position<br />
+			<br />
+			Returns : position
+		</p>
+
+		<h3>[method:NgxSvgComponent setRotation](  [param:number x],  [param:number y],  [param:number z] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.
+		</p>
+		<p>
+			Sets rotation<br />
+			<br />
+			Returns : rotation
+		</p>
+
+		<h3>[method:NgxSvgComponent setScale](  [param:number x],  [param:number y],  [param:number z] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.
+		</p>
+		<p>
+			Sets scale<br />
+			<br />
+			Returns : scale
+		</p>
+
+		<h3>[method:NgxSvgComponent setScaleScalar](  [param:number scalar] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number scalar] - The scalar.
+		</p>
+		<p>
+			Sets scale scalar<br />
+			<br />
+			Returns : scale scalar
+		</p>
+
+		<h3>[method:void setSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Sets subscribe next
+		</p>
+
+		<h3>[method:void setSubscribeType](  [param:string subscribeType] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string subscribeType] - The subscribe type.
+		</p>
+		<p>
+			Sets subscribe type
+		</p>
+
+		<h3>[method:void setTween](  [param:any tweenData] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any tweenData] - The tween data.
+		</p>
+		<p>
+			Sets tween
+		</p>
+
+		<h3>[method:void setTweenTarget](  [param:any tweenTarget] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any tweenTarget] - The tween target.
+		</p>
+		<p>
+			Sets tween target
+		</p>
+
+		<h3>[method:void setUserData](  [param:string key],  [param:any value] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any value] - The value.
+		</p>
+		<p>
+			Sets user data
+		</p>
+
+		<h3>[method:void setVisible](  [param:boolean visible],  [param:boolean _] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean visible] - The visible.<br />
+			[parameter:boolean _] - The _.
+		</p>
+		<p>
+			Sets visible
+		</p>
+
+		<h3>[method:void showDebug](  [param:Object3D obj] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D obj] - The obj.
+		</p>
+		<p>
+			Shows debug
+		</p>
+
+		<h3>[method:void subscribeListQuery](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query
+		</p>
+
+		<h3>[method:void subscribeListQueryChange](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query change
+		</p>
+
+		<h3>[method:void subscribeRefer](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer
+		</p>
+
+		<h3>[method:void subscribeReferList](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer list
+		</p>
+
+		<h3>[method:void unSubscribeRefer](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer
+		</p>
+
+		<h3>[method:void unSubscribeReferList](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer list
+		</p>
+
+		<h3>[method:Subscription[] unSubscription](  [param:Subscription[] subscriptions] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Subscription[] subscriptions] - The subscriptions.
+		</p>
+		<p>
+			subscription<br />
+			<br />
+			Returns : subscription
+		</p>
+
+		<h3>[method:void updateInputParams](  [param:any params],  [param:boolean firstChange],  [param:SimpleChanges changes],  [param:string type] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any params] - The params.<br />
+			[parameter:boolean firstChange] - The first change.<br />
+			[parameter:SimpleChanges changes] - The changes.<br />
+			[parameter:string type] - The type.
+		</p>
+		<p>
+			Updates input params
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="INgxVector">INgxVector <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:number w]? -  The w.<br />
+			[property:number x] -  The x.<br />
+			[property:number y] -  The y.<br />
+			[property:number z]? -  The z.
+		</p>
+
+		<p class="desc">
+			Three Vector
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="ITagAttributes">ITagAttributes <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:any attributes] -  The attributes.<br />
+			[property:any children]? -  The children.<br />
+			[property:any options]? -  The options.<br />
+			[property:string tag] -  The tag.
+		</p>
+
+		<p class="desc">
+			Tag attributes
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/svg/svg.component.ts /svg/svg.component.ts]</p>
+	</body>
+</html>

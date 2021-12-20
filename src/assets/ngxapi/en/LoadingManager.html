@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>LoadingManager</h1>
+
+		<p class="desc">
+			Handles and keeps track of loaded and pending data.
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:LoadingManager LoadingManager](  [param:any onLoad]?,  [param:any onProgress]?,  [param:any onError]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any onLoad] - (optional) The on load.<br />
+			[parameter:any onProgress] - (optional) The on progress.<br />
+			[parameter:any onError] - (optional) The on error.
+		</p>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:any onStart]?<i class="modifier modifier-optional">Optional</i></h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:LoadingManager addHandler](  [param:RegExp regex],  [param:Loader loader] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:RegExp regex] - The regex.<br />
+			[parameter:Loader loader] - The loader.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Loader getHandler](  [param:string file] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string file] - The file.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void itemEnd](  [param:string url] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void itemError](  [param:string url] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void itemStart](  [param:string url] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void onError](  [param:string url] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url of the item that errored.
+		</p>
+		<p>
+			Will be called when item loading fails.<br />
+			The default is a with empty body.
+		</p>
+
+		<h3>[method:void onLoad](  )</h3>
+		<p>
+			Will be called when all items finish loading.<br />
+			The default is a with empty body.
+		</p>
+
+		<h3>[method:void onProgress](  [param:string url],  [param:number loaded],  [param:number total] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url of the item just loaded.<br />
+			[parameter:number loaded] - The number of items already loaded so far.<br />
+			[parameter:number total] - The total amount of items to be loaded.
+		</p>
+		<p>
+			Will be called for each loaded item.<br />
+			The default is a with empty body.
+		</p>
+
+		<h3>[method:LoadingManager removeHandler](  [param:RegExp regex] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:RegExp regex] - The regex.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:string resolveURL](  [param:string url] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - the url to load
+		</p>
+		<p>
+			Given a URL, uses the URL modifier callback (if any) and returns a resolved URL.<br />
+			If no URL modifier is set, returns the original URL.
+		</p>
+
+		<h3>[method:LoadingManager setURLModifier](  [param:any callback]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any callback] - (optional) URL modifier callback. Called with url argument, and must return resolvedURL.
+		</p>
+		<p>
+			If provided, the callback will be passed each resource URL before a request is sent.<br />
+			The callback may return the original URL, or a new URL to override loading behavior.<br />
+			This behavior can be used to load assets from .ZIP files, drag-and-drop APIs, and Data URIs.
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/loaders.ts /threejs-library/types/three/loaders.ts]</p>
+	</body>
+</html>

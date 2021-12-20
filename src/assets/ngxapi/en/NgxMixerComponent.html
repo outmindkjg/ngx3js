@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:NgxAbstractSubscribeComponent] &rarr;
+
+		<h1>NgxMixerComponent</h1>
+
+		<p class="desc">
+			The Mixer component.<br />
+			See the [page:MixerComponent ngx3js docs] page for details.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-mixer [action]="'default'"&gt;<br />
+				&lt;ngx3js-clip [name]="'default'" [index]="0"&gt;&lt;/ngx3js-clip&gt;<br />
+			&lt;/ngx3js-mixer&gt;<br />
+			&lt;ngx3js-mixer<br />
+				[action]="controls.animation"<br />
+				[type]="'Character'"<br />
+				[skin]="controls.skinIdx" [weapon]="controls.weaponIdx"<br />
+			&gt;&lt;/ngx3js-mixer&gt;<br />
+			&lt;ngx3js-mixer<br />
+				[type]="'MMDAnimationHelper'"<br />
+				[mmdHelpers]="['iksolver', 'physics']"<br />
+				[afterglow]="2.0" [gravity]="-9.8 * 10" [physics]="true"<br />
+				(onLoad)="setMixer($event)"<br />
+			&gt;&lt;/ngx3js-mixer&gt;<br />
+			&lt;ngx3js-mixer<br />
+				[type]="'MMDAnimationHelper'"<br />
+				[animationHelper]="animationHelper"<br />
+			&gt;&lt;/ngx3js-mixer&gt;<br />
+			&lt;ngx3js-mixer<br />
+				[type]="'MMDAnimationHelper'"<br />
+				[afterglow]="2.0" [gravity]="-9.8 * 10" [physics]="true"<br />
+			&gt;&lt;/ngx3js-mixer&gt;<br />
+			&lt;ngx3js-mixer [action]="'run'" [delayTime]="info.delay"&gt;<br />
+				&lt;ngx3js-clip [name]="'run'" [index]="0"&gt;&lt;/ngx3js-clip&gt;<br />
+			&lt;/ngx3js-mixer&gt;<br />
+			</code>
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:NgxMixerComponent NgxMixerComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of mixer component.
+		</p>
+
+		<h3>Angular Html Template [ Input ] ( Output )</h3>
+		<code data-type="html">&lt;ngx3js-mixer
+			[ action ]="... string -- The Input of mixer component "
+			[ afterglow ]="... number -- The afterglow of mixer compone... "
+			[ angularSpeed ]="... number -- The rate of MD2Character "
+			[ animationFPS ]="... number -- The rate of MD2Character "
+			[ animationHelper ]="... NgxMixerComponent -- The animationHelper of mixer c... "
+			[ backAcceleration ]="... number -- The rate of MD2Character "
+			[ controls ]="... ICharacterControl -- The controls of mixer componen... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ delayTime ]="... number -- The delayTime of mixer compone... "
+			[ duration ]="... number -- Sets the duration for a single... "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ fps ]="... number -- The fps of mixer component "
+			[ frontAcceleration ]="... number -- The rate of MD2Character "
+			[ frontDecceleration ]="... number -- The rate of MD2Character "
+			[ gravity ]="... number -- The gravity of mixer component "
+			[ maxReverseSpeed ]="... number -- The rate of MD2Character "
+			[ maxSpeed ]="... number -- The rate of MD2Character "
+			[ maxStepNum ]="... number -- The maxStepNum of mixer compon... "
+			[ mmdHelpers ]="... string[] -- The mmdHelpers of mixer compon... "
+			( onDestory )="...($event : NgxMixerComponent -- Will be called when before des... )"
+			( onLoad )="...($event : NgxMixerComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ physics ]="... boolean -- The physics of mixer component "
+			[ rate ]="... number -- The rate of MD2Character "
+			[ resetPhysicsOnLoop ]="... boolean -- The resetPhysicsOnLoop of mixe... "
+			[ scale ]="... number -- The rate of MD2Character "
+			[ skin ]="... string|number -- The skin of mixer component "
+			[ sync ]="... boolean -- The sync of mixer component "
+			[ timeScale ]="... number -- Scaling factor for the [Keyfra... "
+			[ transitionFrames ]="... number -- The rate of MD2Character "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The Input of mixer component "
+			[ unitStep ]="... number -- The unitStep of mixer componen... "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ warmup ]="... number -- The warmup of mixer component "
+			[ weapon ]="... string|number -- The weapon of mixer component "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ wireframe ]="... boolean -- The wireframe of mixer compone... "
+		&gt;&lt;/ngx3js-mixer&gt;
+		</code>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common properties.
+		</p>
+
+		<h3>[property:string[] OBJECT_ATTR] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Object attr of abstract subscribe component
+		</p>
+
+		<h3>[property:string[] _changeList]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Change list of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean _needUpdate] &nbsp; = true <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Need update of abstract subscribe component
+		</p>
+
+		<h3>[property:string action] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Input of mixer component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:number afterglow]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The afterglow of mixer component
+		</p>
+
+		<h3>[property:number angularSpeed]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The rate of MD2Character
+		</p>
+
+		<h3>[property:number animationFPS]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The rate of MD2Character
+		</p>
+
+		<h3>[property:NgxMixerComponent animationHelper]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The animationHelper of mixer component
+		</p>
+
+		<h3>[property:number backAcceleration]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The rate of MD2Character
+		</p>
+
+		<h3>[property:ICharacterControl controls]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The controls of mixer component
+		</p>
+
+		<h3>[property:boolean debug] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Debug this Object
+		</p>
+
+		<h3>[property:number delayTime]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The delayTime of mixer component
+		</p>
+
+		<h3>[property:number duration] &nbsp; = 0.5 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Sets the duration for a single loop of this action (by adjusting [page:AnimationAction.timeScale AnimationAction.timeScale] and stopping any scheduled warping). This method can be chained.
+		</p>
+
+		<h3>[property:boolean enabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Enabled or Not
+		</p>
+
+		<h3>[property:number fps]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The fps of mixer component
+		</p>
+
+		<h3>[property:number frontAcceleration]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The rate of MD2Character
+		</p>
+
+		<h3>[property:number frontDecceleration]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The rate of MD2Character
+		</p>
+
+		<h3>[property:number gravity]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The gravity of mixer component
+		</p>
+
+		<h3>[property:string id] &nbsp; = '' <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Id of abstract subscribe component
+		</p>
+
+		<h3>[property:number maxReverseSpeed]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The rate of MD2Character
+		</p>
+
+		<h3>[property:number maxSpeed]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The rate of MD2Character
+		</p>
+
+		<h3>[property:number maxStepNum]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The maxStepNum of mixer component
+		</p>
+
+		<h3>[property:string[] mmdHelpers]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The mmdHelpers of mixer component
+		</p>
+
+		<h3>[property:EventEmitter onDestory] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when before destory. The argument will be the loaded self
+		</p>
+
+		<h3>[property:EventEmitter onLoad] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when load completes. The argument will be the loaded self
+		</p>
+
+		<h3>[property:any overrideParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The override params
+		</p>
+
+		<h3>[property:any parent]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Parent of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean physics]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The physics of mixer component
+		</p>
+
+		<h3>[property:number rate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The rate of MD2Character
+		</p>
+
+		<h3>[property:boolean resetPhysicsOnLoop]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The resetPhysicsOnLoop of mixer component
+		</p>
+
+		<h3>[property:number scale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The rate of MD2Character
+		</p>
+
+		<h3>[property:any selfAny] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string|number skin]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The skin of mixer component
+		</p>
+
+		<h3>[property:string subscribeType]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Subscribe type of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean sync]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The sync of mixer component
+		</p>
+
+		<h3>[property:number timeScale] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Scaling factor for the [page:KeyframeTrack.time KeyframeTrack.time]. A value of 0 causes the animation to pause. Negative values cause the animation to play backwards. Default is 1.<br />
+			Properties/methods concerning *timeScale* (respectively *time*)
+		</p>
+
+		<h3>[property:number transitionFrames]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The rate of MD2Character
+		</p>
+
+		<h3>[property:any tween]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Tween animation params
+		</p>
+
+		<h3>[property:string type] &nbsp; = 'mixer' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Input of mixer component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:number unitStep]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The unitStep of mixer component
+		</p>
+
+		<h3>[property:any userData]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			An object that can be used to store custom data about the Object3D. It should not hold references to functions as these will not be cloned.
+		</p>
+
+		<h3>[property:number warmup]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The warmup of mixer component
+		</p>
+
+		<h3>[property:string|number weapon]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The weapon of mixer component
+		</p>
+
+		<h3>[property:string windowExport]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Export this Object to window global variables
+		</p>
+
+		<h3>[property:boolean wireframe]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The wireframe of mixer component
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common methods.
+		</p>
+
+		<h3>[method:void addChanges](  [param:string|string[]|SimpleChanges key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[]|SimpleChanges key] - The key.
+		</p>
+		<p>
+			Adds changes
+		</p>
+
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string[] changes] - The changes.
+		</p>
+		<p>
+			Applys changes
+		</p>
+
+		<h3>[method:void callOnLoad](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Calls on load
+		</p>
+
+		<h3>[method:SimpleChanges checkChanges](  [param:SimpleChanges changes] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:SimpleChanges changes] - The changes.
+		</p>
+		<p>
+			Checks changes<br />
+			<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:void checkModel](  [param:AnimationObjectGroup|Object3D parent] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:AnimationObjectGroup|Object3D parent] - The parent.
+		</p>
+		<p>
+			Checks model
+		</p>
+
+		<h3>[method:void clearChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Clears changes
+		</p>
+
+		<h3>[method:void consoleLog](  [param:string key],  [param:any object],  [param:string level] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:string level] - The level.
+		</p>
+		<p>
+			Consoles log
+		</p>
+
+		<h3>[method:void consoleLogTime](  [param:string key],  [param:any object],  [param:number repeat] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:number repeat] - The repeat.
+		</p>
+		<p>
+			Consoles log time
+		</p>
+
+		<h3>[method:void destroyLocalComponent](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			Destroys local component
+		</p>
+
+		<h3>[method:void dispose](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Disposes abstract subscribe component
+		</p>
+
+		<h3>[method:void fadeToAction](  [param:string endAction],  [param:number duration]?,  [param:string restoreAction]?,  [param:number restoreDuration]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string endAction] - The end action.<br />
+			[parameter:number duration] - (optional) The duration.<br />
+			[parameter:string restoreAction] - (optional) The restore action.<br />
+			[parameter:number restoreDuration] - (optional) The restore duration.
+		</p>
+		<p>
+			Fades to action
+		</p>
+
+		<h3>[method:string[] getChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Gets changes<br />
+			<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:string getId](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets id<br />
+			<br />
+			Returns : id
+		</p>
+
+		<h3>[method:AnimationMixer|MMDAnimationHelper|MD2Character|MD2CharacterComplex getMixer](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Resets mixer
+		</p>
+
+		<h3>[method:MMDAnimationHelper getMmdAnimationHelper](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets mmd animation helper<br />
+			<br />
+			Returns : mmd animation helper
+		</p>
+
+		<h3>[method:Object3D[] getMmdAnimationHelperObject3D](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets mmd animation helper object3 d<br />
+			<br />
+			Returns : mmd animation helper object3 d
+		</p>
+
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets object<br />
+			<br />
+			Returns : object
+		</p>
+
+		<h3>[method:Observable getSubscribe](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets subscribe<br />
+			<br />
+			Returns : subscribe
+		</p>
+
+		<h3>[method:Promise getTimeout](  [param:number timeDelay] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number timeDelay] - The time delay.
+		</p>
+		<p>
+			Gets timeout<br />
+			특정 시간후에 이벤트 발생시키기<br />
+			<br />
+			Returns : timeout
+		</p>
+
+		<h3>[method:void getUserData](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets user data
+		</p>
+
+		<h3>[method:T initLocalComponent](  [param:string key],  [param:T component] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:T component] - The component.
+		</p>
+		<p>
+			Inits local component<br />
+			<br />
+			Returns : local component
+		</p>
+
+		<h3>[method:boolean isIdEuals](  [param:string id] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string id] - The id.
+		</p>
+		<p>
+			Determines whether id euals is<br />
+			<br />
+			Returns : true if id euals
+		</p>
+
+		<h3>[method:boolean play](  [param:string name],  [param:number duration] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string name] - The name.<br />
+			[parameter:number duration] - The duration.
+		</p>
+		<p>
+			Plays mixer component<br />
+			<br />
+			Returns : true if play
+		</p>
+
+		<h3>[method:void runSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Runs subscribe next
+		</p>
+
+		<h3>[method:void setObject](  [param:any obj] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any obj] - The obj.
+		</p>
+		<p>
+			Sets object
+		</p>
+
+		<h3>[method:boolean setParent](  [param:AnimationObjectGroup|Object3D parent] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:AnimationObjectGroup|Object3D parent] - The parent.
+		</p>
+		<p>
+			Sets parent<br />
+			<br />
+			Returns : true if parent
+		</p>
+
+		<h3>[method:void setPhysics](  [param:NgxPhysicsComponent physics] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:NgxPhysicsComponent physics] - The physics.
+		</p>
+		<p>
+			Sets physics
+		</p>
+
+		<h3>[method:void setSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Sets subscribe next
+		</p>
+
+		<h3>[method:void setSubscribeType](  [param:string subscribeType] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string subscribeType] - The subscribe type.
+		</p>
+		<p>
+			Sets subscribe type
+		</p>
+
+		<h3>[method:void setTween](  [param:any tweenData] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any tweenData] - The tween data.
+		</p>
+		<p>
+			Sets tween
+		</p>
+
+		<h3>[method:void setUserData](  [param:string key],  [param:any value] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any value] - The value.
+		</p>
+		<p>
+			Sets user data
+		</p>
+
+		<h3>[method:void subscribeListQuery](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query
+		</p>
+
+		<h3>[method:void subscribeListQueryChange](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query change
+		</p>
+
+		<h3>[method:void subscribeRefer](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer
+		</p>
+
+		<h3>[method:void subscribeReferList](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer list
+		</p>
+
+		<h3>[method:void synkAnimationHelper](  [param:MMDAnimationHelper helper] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:MMDAnimationHelper helper] - The helper.
+		</p>
+		<p>
+			Synks animation helper
+		</p>
+
+		<h3>[method:void unSubscribeRefer](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer
+		</p>
+
+		<h3>[method:void unSubscribeReferList](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer list
+		</p>
+
+		<h3>[method:Subscription[] unSubscription](  [param:Subscription[] subscriptions] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Subscription[] subscriptions] - The subscriptions.
+		</p>
+		<p>
+			subscription<br />
+			<br />
+			Returns : subscription
+		</p>
+
+		<h3>[method:void update](  [param:IRendererTimer timer] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:IRendererTimer timer] - The timer.
+		</p>
+		<p>
+			Updates mixer component
+		</p>
+
+		<h3>[method:void updateInputParams](  [param:any params],  [param:boolean firstChange],  [param:SimpleChanges changes],  [param:string type] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any params] - The params.<br />
+			[parameter:boolean firstChange] - The first change.<br />
+			[parameter:SimpleChanges changes] - The changes.<br />
+			[parameter:string type] - The type.
+		</p>
+		<p>
+			Updates input params
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="ICharacterControl">ICharacterControl <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean attack]? -  The attack.<br />
+			[property:boolean crouch]? -  The crouch.<br />
+			[property:boolean jump]? -  The jump.<br />
+			[property:boolean moveBackward]? -  The move backward.<br />
+			[property:boolean moveForward]? -  The move forward.<br />
+			[property:boolean moveLeft]? -  The move left.<br />
+			[property:boolean moveRight]? -  The move right.
+		</p>
+
+		<p class="desc">
+			Character Control
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="IRendererTimer">IRendererTimer <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:number delta] -  The delta.<br />
+			[property:number elapsedTime] -  The elapsed time.<br />
+			[property:IRendererEvent event]? -  The event.<br />
+			[property:Renderer renderer]? -  The renderer.
+		</p>
+
+		<p class="desc">
+			Renderer timer
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/mixer/mixer.component.ts /mixer/mixer.component.ts]</p>
+	</body>
+</html>

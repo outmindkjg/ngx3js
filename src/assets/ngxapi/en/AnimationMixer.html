@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:EventDispatcher] &rarr;
+
+		<h1>AnimationMixer</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:AnimationMixer AnimationMixer](  [param:AnimationObjectGroup|Object3D root] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:AnimationObjectGroup|Object3D root] - The root.
+		</p>
+		<p>
+			Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:EventDispatcher EventDispatcher] class for common properties.
+		</p>
+
+		<h3>[property:number time]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number timeScale]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:EventDispatcher EventDispatcher] class for common methods.
+		</p>
+
+		<h3>[method:void addEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T type] - The type of event to listen to.<br />
+			[parameter:EventListener listener] - The that gets called when the event is fired.
+		</p>
+		<p>
+			Adds a listener to an event type.
+		</p>
+
+		<h3>[method:AnimationAction clipAction](  [param:AnimationClip clip],  [param:AnimationObjectGroup|Object3D root]?,  [param:AnimationBlendMode blendMode]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:AnimationClip clip] - The clip.<br />
+			[parameter:AnimationObjectGroup|Object3D root] - (optional) The root.<br />
+			[parameter:AnimationBlendMode blendMode] - (optional) The blend mode.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void dispatchEvent](  [param:Event event] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Event event] - The event.
+		</p>
+		<p>
+			Fire an event type.
+		</p>
+
+		<h3>[method:AnimationAction existingAction](  [param:AnimationClip clip],  [param:AnimationObjectGroup|Object3D root]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:AnimationClip clip] - The clip.<br />
+			[parameter:AnimationObjectGroup|Object3D root] - (optional) The root.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:AnimationObjectGroup|Object3D getRoot](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T type] - The type of event to listen to.<br />
+			[parameter:EventListener listener] - The that gets called when the event is fired.
+		</p>
+		<p>
+			Checks if listener is added to an event type.
+		</p>
+
+		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T type] - The type of the listener that gets removed.<br />
+			[parameter:EventListener listener] - The listener that gets removed.
+		</p>
+		<p>
+			Removes a listener from an event type.
+		</p>
+
+		<h3>[method:AnimationMixer setTime](  [param:number timeInSeconds] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number timeInSeconds] - The time in seconds.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:AnimationMixer stopAllAction](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:void uncacheAction](  [param:AnimationClip clip],  [param:AnimationObjectGroup|Object3D root]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:AnimationClip clip] - The clip.<br />
+			[parameter:AnimationObjectGroup|Object3D root] - (optional) The root.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void uncacheClip](  [param:AnimationClip clip] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:AnimationClip clip] - The clip.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void uncacheRoot](  [param:AnimationObjectGroup|Object3D root] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:AnimationObjectGroup|Object3D root] - The root.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:AnimationMixer update](  [param:number deltaTime] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number deltaTime] - The delta time.
+		</p>
+		<p>
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/animation.ts /threejs-library/types/three/animation.ts]</p>
+	</body>
+</html>

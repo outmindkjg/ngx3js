@@ -7,7 +7,7 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:OrthographicCamera] &rarr;
+		[page:EventDispatcher] &rarr; [page:Object3D] &rarr; [page:Camera] &rarr; [page:OrthographicCamera] &rarr;
 
 		<h1>NgxOrthographicCamera</h1>
 
@@ -36,26 +36,45 @@
 			Creates an instance of ngx orthographic camera.
 		</p>
 
-		<h3>[constructor:NgxOrthographicCamera NgxOrthographicCamera](  [param:number left],  [param:number right],  [param:number top],  [param:number bottom],  [param:number near]?,  [param:number far]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h2>Constructor</h2>
+		<h3>[constructor:NgxOrthographicCamera NgxOrthographicCamera](  [param:number left]?,  [param:number right]?,  [param:number top]?,  [param:number bottom]?,  [param:number near]?,  [param:number far]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number left] - Camera frustum left plane.<br />
-			[parameter:number right] - Camera frustum right plane.<br />
-			[parameter:number top] - Camera frustum top plane.<br />
-			[parameter:number bottom] - Camera frustum bottom plane.<br />
+			[parameter:number left] - (optional) Camera frustum left plane.<br />
+			[parameter:number right] - (optional) Camera frustum right plane.<br />
+			[parameter:number top] - (optional) Camera frustum top plane.<br />
+			[parameter:number bottom] - (optional) Camera frustum bottom plane.<br />
 			[parameter:number near] - (optional) The near.<br />
 			[parameter:number far] - (optional) The far.
 		</p>
 		<p>
-			
+			Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
 		</p>
 
 		<h2>Properties</h2>
+		<p>
+			See the base [page:EventDispatcher EventDispatcher] class for common properties.
+		</p>
+		<p>
+			See the base [page:Object3D Object3D] class for common properties.
+		</p>
+		<p>
+			See the base [page:Camera Camera] class for common properties.
+		</p>
 		<p>
 			See the base [page:OrthographicCamera OrthographicCamera] class for common properties.
 		</p>
 
 		<h2>Methods</h2>
+		<p>
+			See the base [page:EventDispatcher EventDispatcher] class for common methods.
+		</p>
+		<p>
+			See the base [page:Object3D Object3D] class for common methods.
+		</p>
+		<p>
+			See the base [page:Camera Camera] class for common methods.
+		</p>
 		<p>
 			See the base [page:OrthographicCamera OrthographicCamera] class for common methods.
 		</p>

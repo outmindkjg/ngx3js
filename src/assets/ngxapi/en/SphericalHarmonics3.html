@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>SphericalHarmonics3</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:SphericalHarmonics3 SphericalHarmonics3](  )</h3>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:Vector3[] coefficients]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any isSphericalHarmonics3]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:SphericalHarmonics3 add](  [param:SphericalHarmonics3 sh] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:SphericalHarmonics3 sh] - The sh.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:SphericalHarmonics3 addScaledSH](  [param:SphericalHarmonics3 sh],  [param:number s] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:SphericalHarmonics3 sh] - The sh.<br />
+			[parameter:number s] - The s.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:SphericalHarmonics3 clone](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:SphericalHarmonics3 copy](  [param:SphericalHarmonics3 sh] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:SphericalHarmonics3 sh] - The sh.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean equals](  [param:SphericalHarmonics3 sh] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:SphericalHarmonics3 sh] - The sh.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:SphericalHarmonics3 fromArray](  [param:ArrayLike|number[] array],  [param:number offset]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ArrayLike|number[] array] - the source array or array-like.<br />
+			[parameter:number offset] - (optional) (optional) offset into the array. Default is 0.
+		</p>
+		<p>
+			Sets the values of this spherical harmonics from the provided array or array-like.
+		</p>
+
+		<h3>[method:Vector3 getAt](  [param:Vector3 normal],  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 normal] - The normal.<br />
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void getBasisAt](  [param:Vector3 normal],  [param:number[] shBasis] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 normal] - The normal.<br />
+			[parameter:number[] shBasis] - The sh basis.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector3 getIrradianceAt](  [param:Vector3 normal],  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 normal] - The normal.<br />
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:SphericalHarmonics3 lerp](  [param:SphericalHarmonics3 sh],  [param:number alpha] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:SphericalHarmonics3 sh] - The sh.<br />
+			[parameter:number alpha] - The alpha.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:SphericalHarmonics3 scale](  [param:number s] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number s] - The s.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:SphericalHarmonics3 set](  [param:Vector3[] coefficients] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3[] coefficients] - The coefficients.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:ArrayLike array],  [param:number offset]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number[] array] - (optional) (optional) array to store the spherical harmonics to. If this is not provided, a new array will be created.<br />
+			[parameter:number offset] - (optional) (optional) optional offset into the array.<br />
+			[parameter:ArrayLike array] - array-like to store the spherical harmonics to.<br />
+			[parameter:number offset] - (optional) (optional) optional offset into the array-like.
+		</p>
+		<p>
+			Returns an array with the values of this spherical harmonics, or copies them into the provided array-like.<br />
+			<br />
+			Returns : The provided array-like.
+		</p>
+
+		<h3>[method:SphericalHarmonics3 zero](  )</h3>
+		<p>
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/math.ts /threejs-library/types/three/math.ts]</p>
+	</body>
+</html>

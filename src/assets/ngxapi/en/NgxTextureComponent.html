@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:NgxAbstractSubscribeComponent] &rarr; [page:NgxAbstractTextureComponent] &rarr;
+
+		<h1>NgxTextureComponent</h1>
+
+		<p class="desc">
+			Texture Component<br />
+			See the [page:TextureComponent ngx3js docs] page for details.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-texture<br />
+				[type]="'environment'"<br />
+				[storageName]="'textures/equirectangular/venice_sunset_1k.hdr'"<br />
+				[mapping]="'EquirectangularReflectionMapping'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'map'"<br />
+				[image]="'models/obj/cerberus/Cerberus_A.jpg'"<br />
+				[encoding]="'sRGBEncoding'" [wrapS]="'RepeatWrapping'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'metalnessMap'"<br />
+				[image]="'models/obj/cerberus/Cerberus_RM.jpg'"<br />
+				[wrapS]="'RepeatWrapping'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'roughnessMap'"<br />
+				[image]="'models/obj/cerberus/Cerberus_RM.jpg'"<br />
+				[wrapS]="'RepeatWrapping'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'normalMap'"<br />
+				[image]="'models/obj/cerberus/Cerberus_N.jpg'"<br />
+				[wrapS]="'RepeatWrapping'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'map'"<br />
+				[image]="'textures/planets/earth_atmos_2048.jpg'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'specularMap'"<br />
+				[image]="'textures/planets/earth_specular_2048.jpg'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'normalMap'"<br />
+				[image]="'textures/planets/earth_normal_2048.jpg'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[program]="'shadow2'"<br />
+				[width]="128" [height]="128"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'background-environment'"<br />
+				[storageName]="'textures/equirectangular/venice_sunset_1k.hdr'"<br />
+				[cubeType]="'Equirectangular'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[type]="'map'"<br />
+				[image]="'textures/uv_grid_opengl.jpg'"<br />
+				[wrap]="'RepeatWrapping'"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[image]="'textures/grid.png'"<br />
+				[wrap]="'RepeatWrapping'" [repeat]="40"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[image]="'textures/grid.png'"<br />
+				[wrap]="'RepeatWrapping'" [repeatX]="4 * 5" [repeatY]="3 * 5"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[image]="'textures/patterns/circuit_pattern.png'"<br />
+				[anisotropy]="16"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			&lt;ngx3js-texture<br />
+				[image]="'textures/crate.gif'"<br />
+				[flipY]="true"<br />
+			&gt;&lt;/ngx3js-texture&gt;<br />
+			</code>
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:NgxTextureComponent NgxTextureComponent](  [param:NgxLocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:NgxLocalStorageService localStorageService] - The local storage service.
+		</p>
+		<p>
+			Creates an instance of texture component.
+		</p>
+
+		<h3>Angular Html Template [ Input ] ( Output )</h3>
+		<code data-type="html">&lt;ngx3js-texture
+			[ add ]="... string|number -- The add of texture component "
+			[ anisotropy ]="... number -- The number of samples taken al... "
+			[ canvas ]="... string|HTMLCanvasElement|HTMLVideoElement|HTMLImageElement|ImageBitmap -- The canvas of texture componen... "
+			[ center ]="... number -- The point around which rotatio... "
+			[ centerX ]="... number -- The point around which rotatio... "
+			[ centerY ]="... number -- The point around which rotatio... "
+			[ color ]="... string|number -- The color of texture component "
+			[ cubeImage ]="... string[] -- The cubeImage of texture compo... "
+			[ cubeType ]="... string -- The CubeType of Texture - "
+			[ data ]="... number[]|BufferSource -- The data of DataTexture "
+			[ dataType ]="... string -- This must correspond to the [.... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ depth ]="... number -- depth of the texture. "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ encoding ]="... string -- [THREE.LinearEncoding](https:/... "
+			[ filter ]="... string -- The Default Value of magFilter... "
+			[ flipY ]="... boolean -- If set to *true*, the texture ... "
+			[ format ]="... string -- The default is [THREE.RGBAForm... "
+			[ generateMipmaps ]="... boolean -- Whether to generate mipmaps (i... "
+			[ height ]="... number -- height of the texture. "
+			[ image ]="... string -- The image of texture component "
+			[ loaderType ]="... string -- The LoadType of Texture - vide... "
+			[ magFilter ]="... string -- How the texture is sampled whe... "
+			[ mapping ]="... string -- How the image is applied to th... "
+			[ minFilter ]="... string -- How the texture is sampled whe... "
+			[ name ]="... string -- The name of the object (doesn'... "
+			[ offset ]="... number -- How much a single repetition o... "
+			[ offsetX ]="... number -- How much a single repetition o... "
+			[ offsetY ]="... number -- How much a single repetition o... "
+			( onDestory )="...($event : NgxTextureComponent -- Will be called when before des... )"
+			( onLoad )="...($event : NgxTextureComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ perlin ]="... any -- The perlin of texture componen... "
+			[ premultiplyAlpha ]="... boolean -- If set to *true*, the alpha ch... "
+			[ program ]="... string|TCanvasFunctionType -- The program of texture compone... "
+			[ programMipmaps ]="... any[] -- The texture program mipmaps "
+			[ programParam ]="... any -- The texture program params "
+			[ refName ]="... string|string[] -- The refName of geometry compon... "
+			[ refer ]="... any -- The refer of texture component "
+			[ repeat ]="... number -- How many times the texture is ... "
+			[ repeatX ]="... number -- How many times the texture is ... "
+			[ repeatY ]="... number -- How many times the texture is ... "
+			[ rotation ]="... number -- How much the texture is rotate... "
+			[ scale ]="... number -- scale of the texture. "
+			[ storageName ]="... string -- The storageName of texture com... "
+			[ storageOption ]="... any -- The storageOption of texture c... "
+			[ sunX ]="... number -- The sunX of texture component "
+			[ sunY ]="... number -- The sunY of texture component "
+			[ sunZ ]="... number -- The sunZ of texture component "
+			[ text ]="... string -- The Texture param use when cal... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The Type of Texture of Matrial "
+			[ unpackAlignment ]="... number -- 4 by default. Specifies the al... "
+			[ useDropImage ]="... boolean -- The useDropImage of texture co... "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ width ]="... number -- width of the texture. "
+			[ windowExport ]="... string -- Export this Object to window g... "
+			[ wrap ]="... string -- This defines how the texture i... "
+			[ wrapS ]="... string -- This defines how the texture i... "
+			[ wrapT ]="... string -- This defines how the texture i... "
+		&gt;&lt;/ngx3js-texture&gt;
+		</code>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common properties.
+		</p>
+		<p>
+			See the base [page:NgxAbstractTextureComponent NgxAbstractTextureComponent] class for common properties.
+		</p>
+
+		<h3>[property:string[] OBJECT_ATTR] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Object attr of abstract subscribe component
+		</p>
+
+		<h3>[property:string[] TEXTURE_ATTR] &nbsp; = [] <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The base attribute can be fine without re-make Texture
+		</p>
+
+		<h3>[property:string[] _changeList]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Change list of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean _needUpdate] &nbsp; = true <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Need update of abstract subscribe component
+		</p>
+
+		<h3>[property:string|number add]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The add of texture component
+		</p>
+
+		<h3>[property:number anisotropy]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The number of samples taken along the axis through the pixel that has the highest density of texels.<br />
+			By default, this value is 1. A higher value gives a less blurry result than a basic mipmap, at the cost of more texture samples being used. Use [page:WebGLRenderer.getMaxAnisotropy renderer.getMaxAnisotropy]() to find the maximum valid anisotropy value for the GPU; this value is usually a power of 2.
+		</p>
+
+		<h3>[property:string|HTMLCanvasElement|HTMLVideoElement|HTMLImageElement|ImageBitmap canvas]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The canvas of texture component
+		</p>
+
+		<h3>[property:number center]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.<br />
+			The default value of centerX, centerY
+		</p>
+
+		<h3>[property:number centerX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.<br />
+			The value of center.x
+		</p>
+
+		<h3>[property:number centerY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.<br />
+			The value of center.y
+		</p>
+
+		<h3>[property:string|number color]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The color of texture component
+		</p>
+
+		<h3>[property:string[] cubeImage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The cubeImage of texture component
+		</p>
+
+		<h3>[property:string cubeType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The CubeType of Texture -<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:number[]|BufferSource data]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The data of DataTexture
+		</p>
+
+		<h3>[property:string dataType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			This must correspond to the [.format](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/Texture.format). The default is [THREE.UnsignedByteType](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), which will be used for most texture formats.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details of other formats.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureDataType TextureDataType] - THREE.TextureDataType <br />
+			[page:UnsignedByteType UnsignedByteType] - THREE.UnsignedByteType - UnsignedByteType , UnsignedByte<br />
+			[page:ByteType ByteType] - THREE.ByteType - ByteType , Byte<br />
+			[page:ShortType ShortType] - THREE.ShortType - ShortType , Short<br />
+			[page:UnsignedShortType UnsignedShortType] - THREE.UnsignedShortType - UnsignedShortType , UnsignedShort<br />
+			[page:IntType IntType] - THREE.IntType - IntType , Int<br />
+			[page:UnsignedIntType UnsignedIntType] - THREE.UnsignedIntType - UnsignedIntType , UnsignedInt<br />
+			[page:FloatType FloatType] - THREE.FloatType - FloatType , Float<br />
+			[page:HalfFloatType HalfFloatType] - THREE.HalfFloatType - HalfFloatType , HalfFloat<br />
+			[page:UnsignedShort4444Type UnsignedShort4444Type] - THREE.UnsignedShort4444Type - UnsignedShort4444Type , UnsignedShort4444<br />
+			[page:UnsignedShort5551Type UnsignedShort5551Type] - THREE.UnsignedShort5551Type - UnsignedShort5551Type , UnsignedShort5551<br />
+			[page:UnsignedShort565Type UnsignedShort565Type] - THREE.UnsignedShort565Type - UnsignedShort565Type , UnsignedShort565<br />
+			[page:UnsignedInt248Type UnsignedInt248Type] - THREE.UnsignedInt248Type - UnsignedInt248Type , UnsignedInt248
+		</p>
+
+		<h3>[property:boolean debug] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Debug this Object
+		</p>
+
+		<h3>[property:number depth]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			depth of the texture.
+		</p>
+
+		<h3>[property:boolean enabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Enabled or Not
+		</p>
+
+		<h3>[property:string encoding]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			[THREE.LinearEncoding](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) is the default.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details of other formats.<br />
+			Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br />
+			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br />
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br />
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br />
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br />
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br />
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br />
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br />
+			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
+		</p>
+
+		<h3>[property:string filter]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Default Value of magFilter, minFilter<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br />
+			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br />
+			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br />
+			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br />
+			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br />
+			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br />
+			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
+		</p>
+
+		<h3>[property:boolean flipY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			If set to *true*, the texture is flipped along the vertical axis when uploaded to the GPU. Default is *true*.<br />
+			Note that this property has no effect for [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap].<br />
+			You need to configure on bitmap creation instead. See [page:ImageBitmapLoader ImageBitmapLoader].
+		</p>
+
+		<h3>[property:string format]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The default is [THREE.RGBAFormat](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), although the [TextureLoader](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/TextureLoader) will automatically set this to [THREE.RGBFormat](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) for JPG images.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details of other formats.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:PixelFormat PixelFormat] - THREE.PixelFormat<br />
+			[page:AlphaFormat AlphaFormat] - THREE.AlphaFormat - AlphaFormat, Alpha<br />
+			[page:RedFormat RedFormat] - THREE.RedFormat - RedFormat, Red<br />
+			[page:RedIntegerFormat RedIntegerFormat] - THREE.RedIntegerFormat - RedIntegerFormat, RedInteger<br />
+			[page:RGFormat RGFormat] - THREE.RGFormat - RGFormat, RG<br />
+			[page:RGIntegerFormat RGIntegerFormat] - THREE.RGIntegerFormat - RGIntegerFormat, RGInteger<br />
+			[page:RGBFormat RGBFormat] - THREE.RGBFormat - RGBFormat, RGB<br />
+			[page:RGBIntegerFormat RGBIntegerFormat] - THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger<br />
+			[page:RGBAIntegerFormat RGBAIntegerFormat] - THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger<br />
+			[page:LuminanceFormat LuminanceFormat] - THREE.LuminanceFormat - LuminanceFormat, Luminance<br />
+			[page:LuminanceAlphaFormat LuminanceAlphaFormat] - THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha<br />
+			[page:RGBEFormat RGBEFormat] - THREE.RGBEFormat - RGBEFormat, RGBE<br />
+			[page:DepthFormat DepthFormat] - THREE.DepthFormat - DepthFormat, Depth<br />
+			[page:DepthStencilFormat DepthStencilFormat] - THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil<br />
+			[page:RGBAFormat RGBAFormat] - THREE.RGBAFormat - RGBAFormat, RGBA
+		</p>
+
+		<h3>[property:boolean generateMipmaps]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Whether to generate mipmaps (if possible) for a texture. True by default. Set this to false if you are creating mipmaps manually.
+		</p>
+
+		<h3>[property:number height]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			height of the texture.
+		</p>
+
+		<h3>[property:string id] &nbsp; = '' <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Id of abstract subscribe component
+		</p>
+
+		<h3>[property:string image]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The image of texture component
+		</p>
+
+		<h3>[property:string loaderType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The LoadType of Texture - video, image etc<br />
+			 hdrcube, hdrcubetexture -<br />
+			 rgbm, rgbmtexture<br />
+			 auto<br />
+			 video<br />
+			 imagebitmap<br />
+			 image<br />
+			 texture, texture2d, texture3d<br />
+			 datatexture, datatexture2d, datatexture3d<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:string magFilter]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			How the texture is sampled when a texel covers more than one pixel. The default is<br />
+			[THREE.LinearFilter](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), which takes the four closest texels and bilinearly interpolates among them.<br />
+			The other option is [THREE.NearestFilter](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), which uses the value of the closest texel.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br />
+			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br />
+			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br />
+			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br />
+			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br />
+			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br />
+			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
+		</p>
+
+		<h3>[property:string mapping]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			How the image is applied to the object. An object type of [THREE.UVMapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) is the default, where the U,V coordinates are used to apply the map.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for other mapping types.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:UVMapping UVMapping] - THREE.UVMapping               - UVMapping, uv<br />
+			[page:CubeReflectionMapping CubeReflectionMapping] - THREE.CubeReflectionMapping   - CubeReflectionMapping, cubereflection<br />
+			[page:CubeRefractionMapping CubeRefractionMapping] - THREE.CubeRefractionMapping   - CubeRefractionMapping, cuberefraction<br />
+			[page:EquirectangularReflectionMapping EquirectangularReflectionMapping] - THREE.EquirectangularReflectionMapping   - EquirectangularReflectionMapping, equirectangularreflection<br />
+			[page:EquirectangularRefractionMapping EquirectangularRefractionMapping] - THREE.EquirectangularRefractionMapping   - EquirectangularRefractionMapping, equirectangularrefraction<br />
+			[page:CubeUVReflectionMapping CubeUVReflectionMapping] - THREE.CubeUVReflectionMapping   - CubeUVReflectionMapping, cubeuvreflection<br />
+			[page:CubeUVRefractionMapping CubeUVRefractionMapping] - THREE.CubeUVRefractionMapping   - CubeUVRefractionMapping, cubeuvrefraction<br />
+			[page:Texture Texture] - THREE.Texture.DEFAULT_MAPPING   - default
+		</p>
+
+		<h3>[property:string minFilter]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			How the texture is sampled when a texel covers less than one pixel. The default is<br />
+			[THREE.LinearMipmapLinearFilter](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), which uses mipmapping and a trilinear filter.<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for all possible choices.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br />
+			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br />
+			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br />
+			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br />
+			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br />
+			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br />
+			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear
+		</p>
+
+		<h3>[property:string name]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The name of the object (doesn't need to be unique). Default is an empty string.
+		</p>
+
+		<h3>[property:number offset]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br />
+			Typical range is *0.0* to *1.0*.<br />
+			The default value of offsetX, offsetY
+		</p>
+
+		<h3>[property:number offsetX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br />
+			Typical range is *0.0* to *1.0*.<br />
+			The value of offset.x
+		</p>
+
+		<h3>[property:number offsetY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br />
+			Typical range is *0.0* to *1.0*.<br />
+			The value of offset.y
+		</p>
+
+		<h3>[property:EventEmitter onDestory] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when before destory. The argument will be the loaded self
+		</p>
+
+		<h3>[property:EventEmitter onLoad] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when load completes. The argument will be the loaded self
+		</p>
+
+		<h3>[property:any overrideParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The override params
+		</p>
+
+		<h3>[property:any parent]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Parent of abstract subscribe component
+		</p>
+
+		<h3>[property:any perlin]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The perlin of texture component
+		</p>
+
+		<h3>[property:boolean premultiplyAlpha]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			If set to *true*, the alpha channel, if present, is multiplied into the color channels when the texture is uploaded to the GPU. Default is *false*.<br />
+			Note that this property has no effect for [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap].<br />
+			You need to configure on bitmap creation instead. See [page:ImageBitmapLoader ImageBitmapLoader].
+		</p>
+
+		<h3>[property:string|TCanvasFunctionType program]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The program of texture component
+		</p>
+
+		<h3>[property:any[] programMipmaps]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The texture program mipmaps
+		</p>
+
+		<h3>[property:any programParam]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The texture program params
+		</p>
+
+		<h3>[property:string|string[] refName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The refName of geometry component
+		</p>
+
+		<h3>[property:any refer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The refer of texture component
+		</p>
+
+		<h3>[property:number repeat]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to<br />
+			[THREE.RepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) or [THREE.MirroredRepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [Texture.offset](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/Texture.offset).<br />
+			The default value of repeatX , repeatY
+		</p>
+
+		<h3>[property:number repeatX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to<br />
+			[THREE.RepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) or [THREE.MirroredRepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [Texture.offset](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/Texture.offset).<br />
+			The value of repeat.x
+		</p>
+
+		<h3>[property:number repeatY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to<br />
+			[THREE.RepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) or [THREE.MirroredRepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [Texture.offset](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/Texture.offset).<br />
+			The value of repeat.y
+		</p>
+
+		<h3>[property:number rotation]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			How much the texture is rotated around the center point, in radians. Positive values are counter-clockwise. Default is *0*.
+		</p>
+
+		<h3>[property:number scale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			scale of the texture.
+		</p>
+
+		<h3>[property:any selfAny] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string storageName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The storageName of texture component
+		</p>
+
+		<h3>[property:any storageOption]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The storageOption of texture component
+		</p>
+
+		<h3>[property:string subscribeType]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Subscribe type of abstract subscribe component
+		</p>
+
+		<h3>[property:number sunX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The sunX of texture component
+		</p>
+
+		<h3>[property:number sunY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The sunY of texture component
+		</p>
+
+		<h3>[property:number sunZ]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The sunZ of texture component
+		</p>
+
+		<h3>[property:string text]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Texture param use when call Canvas Program.
+		</p>
+
+		<h3>[property:Texture texture]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Texture of abstract texture component
+		</p>
+
+		<h3>[property:any tween]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Tween animation params
+		</p>
+
+		<h3>[property:string type] &nbsp; = 'map' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Type of Texture of Matrial
+		</p>
+
+		<h3>[property:number unpackAlignment]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			4 by default. Specifies the alignment requirements for the start of each pixel row in memory.<br />
+			The allowable values are 1 (byte-alignment), 2 (rows aligned to even-numbered bytes), 4 (word-alignment), and 8 (rows start on double-word boundaries).<br />
+			See [link:http://www.khronos.org/opengles/sdk/docs/man/xhtml/glPixelStorei.xml glPixelStorei] for more information.
+		</p>
+
+		<h3>[property:boolean useDropImage] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The useDropImage of texture component
+		</p>
+
+		<h3>[property:any userData]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			An object that can be used to store custom data about the Object3D. It should not hold references to functions as these will not be cloned.
+		</p>
+
+		<h3>[property:number width]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			width of the texture.
+		</p>
+
+		<h3>[property:string windowExport]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Export this Object to window global variables
+		</p>
+
+		<h3>[property:string wrap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br />
+			The default is [THREE.ClampToEdgeWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), where the edge is clamped to the outer edge texels.<br />
+			The other two choices are [THREE.RepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) and [THREE.MirroredRepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures).<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details.<br />
+			The Default Value of wrapS, wrapT.<br />
+			<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br />
+			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat<br />
+			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
+		</p>
+
+		<h3>[property:string wrapS]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br />
+			The default is [THREE.ClampToEdgeWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), where the edge is clamped to the outer edge texels.<br />
+			The other two choices are [THREE.RepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) and [THREE.MirroredRepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures).<br />
+			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br />
+			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat<br />
+			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
+		</p>
+
+		<h3>[property:string wrapT]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			This defines how the texture is wrapped vertically and corresponds to *V* in UV mapping.<br />
+			The same choices are available as for [property:number wrapS].<br />
+			NOTE: tiling of images in textures only functions if image dimensions are powers of two<br />
+			(2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...) in terms of pixels.<br />
+			Individual dimensions need not be equal, but each must be a power of two.<br />
+			This is a limitation of WebGL, not three.js.<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br />
+			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, mirroredrepeat<br />
+			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping    - ClampToEdgeWrapping, clamptoedge
+		</p>
+
+		<h3>[property:CubeTextureLoader cubeTextureLoader]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Cube texture loader of abstract texture component
+		</p>
+
+		<h3>[property:FileLoader fileLoader]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			File loader of abstract texture component
+		</p>
+
+		<h3>[property:HDRCubeTextureLoader hdrCubeMapLoader]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Hdr cube map loader of abstract texture component
+		</p>
+
+		<h3>[property:ImageBitmapLoader imageBitmapLoader]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Image bitmap loader of abstract texture component
+		</p>
+
+		<h3>[property:NRRDLoader nrrdLoader]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Nrrd loader of abstract texture component
+		</p>
+
+		<h3>[property:RGBMLoader rgbmLoader]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Rgbm loader of abstract texture component
+		</p>
+
+		<h3>[property:TextureLoader textureLoader]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Texture loader of abstract texture component
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common methods.
+		</p>
+		<p>
+			See the base [page:NgxAbstractTextureComponent NgxAbstractTextureComponent] class for common methods.
+		</p>
+
+		<h3>[method:void addChanges](  [param:string|string[]|SimpleChanges key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[]|SimpleChanges key] - The key.
+		</p>
+		<p>
+			Adds changes
+		</p>
+
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string[] changes] - The changes.
+		</p>
+		<p>
+			Applys changes
+		</p>
+
+		<h3>[method:void applyTexture2Material](  [param:Material material],  [param:string key],  [param:Texture texture] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Material material] - The material.<br />
+			[parameter:string key] - The key.<br />
+			[parameter:Texture texture] - The texture.
+		</p>
+		<p>
+			Applys texture2 material
+		</p>
+
+		<h3>[method:void callOnLoad](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Calls on load
+		</p>
+
+		<h3>[method:SimpleChanges checkChanges](  [param:SimpleChanges changes] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:SimpleChanges changes] - The changes.
+		</p>
+		<p>
+			Checks changes<br />
+			<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:void clearChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Clears changes
+		</p>
+
+		<h3>[method:void consoleLog](  [param:string key],  [param:any object],  [param:string level] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:string level] - The level.
+		</p>
+		<p>
+			Consoles log
+		</p>
+
+		<h3>[method:void consoleLogTime](  [param:string key],  [param:any object],  [param:number repeat] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:number repeat] - The repeat.
+		</p>
+		<p>
+			Consoles log time
+		</p>
+
+		<h3>[method:void destroyLocalComponent](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			Destroys local component
+		</p>
+
+		<h3>[method:void dispose](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Disposes abstract subscribe component
+		</p>
+
+		<h3>[method:string[] getChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Gets changes<br />
+			<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:string getId](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets id<br />
+			<br />
+			Returns : id
+		</p>
+
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets object<br />
+			<br />
+			Returns : object
+		</p>
+
+		<h3>[method:Vector2 getOffset](  [param:number defX],  [param:number defY] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number defX] - The def x.<br />
+			[parameter:number defY] - The def y.
+		</p>
+		<p>
+			Gets offset<br />
+			<br />
+			Returns : offset
+		</p>
+
+		<h3>[method:Vector2 getRepeat](  [param:number defX],  [param:number defY] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number defX] - The def x.<br />
+			[parameter:number defY] - The def y.
+		</p>
+		<p>
+			Gets repeat<br />
+			<br />
+			Returns : repeat
+		</p>
+
+		<h3>[method:Observable getSubscribe](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets subscribe<br />
+			<br />
+			Returns : subscribe
+		</p>
+
+		<h3>[method:T getTexture](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Gets texture<br />
+			<br />
+			Returns : texture
+		</p>
+
+		<h3>[method:Texture getTextureImage](  [param:string image],  [param:string[] cubeImage]?,  [param:string|TCanvasFunctionType program]?,  [param:any onLoad]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string image] - The image.<br />
+			[parameter:string[] cubeImage] - (optional) The cube image.<br />
+			[parameter:string|TCanvasFunctionType program] - (optional) The program.<br />
+			[parameter:any onLoad] - (optional) The on load.
+		</p>
+		<p>
+			Gets texture image<br />
+			<br />
+			Returns : texture image
+		</p>
+
+		<h3>[method:void getTextureOptions](  [param:any options] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any options] - The options.
+		</p>
+		<p>
+			Gets texture options<br />
+			<br />
+			Returns : texture options
+		</p>
+
+		<h3>[method:Promise getTimeout](  [param:number timeDelay] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number timeDelay] - The time delay.
+		</p>
+		<p>
+			Gets timeout<br />
+			특정 시간후에 이벤트 발생시키기<br />
+			<br />
+			Returns : timeout
+		</p>
+
+		<h3>[method:void getUserData](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets user data
+		</p>
+
+		<h3>[method:T initLocalComponent](  [param:string key],  [param:T component] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:T component] - The component.
+		</p>
+		<p>
+			Inits local component<br />
+			<br />
+			Returns : local component
+		</p>
+
+		<h3>[method:boolean isIdEuals](  [param:string id] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string id] - The id.
+		</p>
+		<p>
+			Determines whether id euals is<br />
+			<br />
+			Returns : true if id euals
+		</p>
+
+		<h3>[method:boolean isTexture](  [param:String type] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:String type] - The type.
+		</p>
+		<p>
+			Determines whether texture is<br />
+			<br />
+			Returns : true if texture
+		</p>
+
+		<h3>[method:void runSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Runs subscribe next
+		</p>
+
+		<h3>[method:void setMaterial](  [param:NgxAbstractSubscribeComponent material],  [param:string refType] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:NgxAbstractSubscribeComponent material] - The material.<br />
+			[parameter:string refType] - The ref type.
+		</p>
+		<p>
+			Sets material
+		</p>
+
+		<h3>[method:void setObject](  [param:any obj] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any obj] - The obj.
+		</p>
+		<p>
+			Sets object
+		</p>
+
+		<h3>[method:boolean setParent](  [param:any parent] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any parent] - The parent.
+		</p>
+		<p>
+			Sets parent<br />
+			<br />
+			Returns : true if parent
+		</p>
+
+		<h3>[method:void setReferTexture](  [param:any texture] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any texture] - The texture.
+		</p>
+		<p>
+			Sets refer texture
+		</p>
+
+		<h3>[method:void setSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Sets subscribe next
+		</p>
+
+		<h3>[method:void setSubscribeType](  [param:string subscribeType] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string subscribeType] - The subscribe type.
+		</p>
+		<p>
+			Sets subscribe type
+		</p>
+
+		<h3>[method:void setTexture](  [param:Texture refTexture] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Texture refTexture] - The ref texture.
+		</p>
+		<p>
+			Sets texture
+		</p>
+
+		<h3>[method:void setTextureLoaded](  [param:Texture texture] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Texture texture] - The texture.
+		</p>
+		<p>
+			Sets texture loaded
+		</p>
+
+		<h3>[method:void setTween](  [param:any tweenData] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any tweenData] - The tween data.
+		</p>
+		<p>
+			Sets tween
+		</p>
+
+		<h3>[method:void setUserData](  [param:string key],  [param:any value] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any value] - The value.
+		</p>
+		<p>
+			Sets user data
+		</p>
+
+		<h3>[method:void subscribeListQuery](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query
+		</p>
+
+		<h3>[method:void subscribeListQueryChange](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query change
+		</p>
+
+		<h3>[method:void subscribeRefer](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer
+		</p>
+
+		<h3>[method:void subscribeReferList](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer list
+		</p>
+
+		<h3>[method:void unSubscribeRefer](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer
+		</p>
+
+		<h3>[method:void unSubscribeReferList](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer list
+		</p>
+
+		<h3>[method:Subscription[] unSubscription](  [param:Subscription[] subscriptions] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Subscription[] subscriptions] - The subscriptions.
+		</p>
+		<p>
+			subscription<br />
+			<br />
+			Returns : subscription
+		</p>
+
+		<h3>[method:void unsetMaterial](  [param:NgxAbstractSubscribeComponent material] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:NgxAbstractSubscribeComponent material] - The material.
+		</p>
+		<p>
+			unSets object3d
+		</p>
+
+		<h3>[method:void updateInputParams](  [param:any params],  [param:boolean firstChange],  [param:SimpleChanges changes],  [param:string type] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any params] - The params.<br />
+			[parameter:boolean firstChange] - The first change.<br />
+			[parameter:SimpleChanges changes] - The changes.<br />
+			[parameter:string type] - The type.
+		</p>
+		<p>
+			Updates input params
+		</p>
+
+		<h3>[method:Texture getTextureImage](  [param:string image],  [param:string[] cubeImage]?,  [param:string|TCanvasFunctionType program]?,  [param:any options]?,  [param:any onLoad]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string image] - The image.<br />
+			[parameter:string[] cubeImage] - (optional) The cube image.<br />
+			[parameter:string|TCanvasFunctionType program] - (optional) The program.<br />
+			[parameter:any options] - (optional) The options.<br />
+			[parameter:any onLoad] - (optional) The on load.
+		</p>
+		<p>
+			Gets texture image<br />
+			<br />
+			Returns : texture image
+		</p>
+
+		<h3>[method:Texture getTextureImageOption](  [param:any image],  [param:string optionsTxt]?,  [param:string loaderType]?,  [param:string[] cubeImage]?,  [param:any onLoad]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any image] - The image.<br />
+			[parameter:string optionsTxt] - (optional) The options txt.<br />
+			[parameter:string loaderType] - (optional) The loader type.<br />
+			[parameter:string[] cubeImage] - (optional) The cube image.<br />
+			[parameter:any onLoad] - (optional) The on load.
+		</p>
+		<p>
+			Gets texture image option<br />
+			<br />
+			Returns : texture image option
+		</p>
+
+		<h3>[method:any setTextureOptions](  [param:any texture],  [param:any options] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any texture] - The texture.<br />
+			[parameter:any options] - The options.
+		</p>
+		<p>
+			Sets texture options<br />
+			<br />
+			Returns : texture options
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="TCanvasFunctionType">TCanvasFunctionType <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>[method:void function](  [param:CanvasRenderingContext2D ctx]?,  [param:string text]?,  [param:number width]?,  [param:number height]?,  [param:any options]? )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:CanvasRenderingContext2D ctx]? -  The ctx.<br />
+			[property:string text]? -  The text.<br />
+			[property:number width]? -  The width.<br />
+			[property:number height]? -  The height.<br />
+			[property:any options]? -  The options.
+		</p>
+		<p>
+			TCanvasFunctionType
+		</p>
+
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/texture/texture.component.ts /texture/texture.component.ts]</p>
+	</body>
+</html>

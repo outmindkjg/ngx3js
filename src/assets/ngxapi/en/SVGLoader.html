@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:Loader] &rarr;
+
+		<h1>SVGLoader</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:SVGLoader SVGLoader](  [param:LoadingManager manager]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:LoadingManager manager] - (optional) The manager.
+		</p>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:Loader Loader] class for common properties.
+		</p>
+
+		<h3>[property:string crossOrigin]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number defaultDPI]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string defaultUnit]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:LoadingManager manager]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string path]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any requestHeader]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string resourcePath]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean withCredentials]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:Loader Loader] class for common methods.
+		</p>
+
+		<h3>[method:Shape[] createShapes](  [param:ShapePath shapePath] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ShapePath shapePath] - The shape path.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:StrokeStyle getStrokeStyle](  [param:number width]?,  [param:string color]?,  [param:string lineJoin]?,  [param:string lineCap]?,  [param:number miterLimit]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number width] - (optional) The width.<br />
+			[parameter:string color] - (optional) The color.<br />
+			[parameter:string lineJoin] - (optional) The line join.<br />
+			[parameter:string lineCap] - (optional) The line cap.<br />
+			[parameter:number miterLimit] - (optional) The miter limit.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void load](  [param:string url],  [param:any onLoad],  [param:any onProgress]?,  [param:any onError]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.<br />
+			[parameter:any onLoad] - The on load.<br />
+			[parameter:any onProgress] - (optional) The on progress.<br />
+			[parameter:any onError] - (optional) The on error.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Promise loadAsync](  [param:string url],  [param:any onProgress]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.<br />
+			[parameter:any onProgress] - (optional) The on progress.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:SVGResult parse](  [param:string text] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string text] - The text.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferGeometry pointsToStroke](  [param:Vector3[] points],  [param:StrokeStyle style],  [param:number arcDivisions]?,  [param:number minDistance]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3[] points] - The points.<br />
+			[parameter:StrokeStyle style] - The style.<br />
+			[parameter:number arcDivisions] - (optional) The arc divisions.<br />
+			[parameter:number minDistance] - (optional) The min distance.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number pointsToStrokeWithBuffers](  [param:Vector3[] points],  [param:StrokeStyle style],  [param:number arcDivisions]?,  [param:number minDistance]?,  [param:number[] vertices]?,  [param:number[] normals]?,  [param:number[] uvs]?,  [param:number vertexOffset]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3[] points] - The points.<br />
+			[parameter:StrokeStyle style] - The style.<br />
+			[parameter:number arcDivisions] - (optional) The arc divisions.<br />
+			[parameter:number minDistance] - (optional) The min distance.<br />
+			[parameter:number[] vertices] - (optional) The vertices.<br />
+			[parameter:number[] normals] - (optional) The normals.<br />
+			[parameter:number[] uvs] - (optional) The uvs.<br />
+			[parameter:number vertexOffset] - (optional) The vertex offset.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:SVGLoader setCrossOrigin](  [param:string crossOrigin] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string crossOrigin] - The cross origin.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:SVGLoader setPath](  [param:string path] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string path] - The path.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:SVGLoader setRequestHeader](  [param:any requestHeader] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any requestHeader] - The request header.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:SVGLoader setResourcePath](  [param:string resourcePath] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string resourcePath] - The resource path.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:SVGLoader setWithCredentials](  [param:boolean value] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean value] - The value.
+		</p>
+		<p>
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/loaders.ts /threejs-library/types/three/examples/loaders.ts]</p>
+	</body>
+</html>

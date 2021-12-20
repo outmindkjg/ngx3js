@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:Loader] &rarr;
+
+		<h1>TDSLoader</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:TDSLoader TDSLoader](  [param:LoadingManager manager]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:LoadingManager manager] - (optional) The manager.
+		</p>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:Loader Loader] class for common properties.
+		</p>
+
+		<h3>[property:string crossOrigin]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean debug]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Group group]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:LoadingManager manager]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Material[] materials]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Mesh[] meshes]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string path]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number position]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any requestHeader]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string resourcePath]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean withCredentials]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:Loader Loader] class for common methods.
+		</p>
+
+		<h3>[method:void debugMessage](  [param:object message] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:object message] - The message.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void endChunk](  [param:object chunk] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:object chunk] - The chunk.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void load](  [param:string url],  [param:any onLoad],  [param:any onProgress]?,  [param:any onError]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.<br />
+			[parameter:any onLoad] - The on load.<br />
+			[parameter:any onProgress] - (optional) The on progress.<br />
+			[parameter:any onError] - (optional) The on error.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Promise loadAsync](  [param:string url],  [param:any onProgress]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.<br />
+			[parameter:any onProgress] - (optional) The on progress.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void nextChunk](  [param:DataView data],  [param:object chunk] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.<br />
+			[parameter:object chunk] - The chunk.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Group parse](  [param:ArrayBuffer arraybuffer],  [param:string path] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ArrayBuffer arraybuffer] - The arraybuffer.<br />
+			[parameter:string path] - The path.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number readByte](  [param:DataView data] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:object readChunk](  [param:DataView data] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Color readColor](  [param:DataView data] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number readDWord](  [param:DataView data] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void readFaceArray](  [param:DataView data],  [param:Mesh mesh] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.<br />
+			[parameter:Mesh mesh] - The mesh.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void readFile](  [param:ArrayBuffer arraybuffer],  [param:string path] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ArrayBuffer arraybuffer] - The arraybuffer.<br />
+			[parameter:string path] - The path.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number readFloat](  [param:DataView data] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number readInt](  [param:DataView data] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Texture readMap](  [param:DataView data],  [param:string path] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.<br />
+			[parameter:string path] - The path.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void readMaterialEntry](  [param:DataView data],  [param:string path] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.<br />
+			[parameter:string path] - The path.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:object readMaterialGroup](  [param:DataView data] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Mesh readMesh](  [param:DataView data] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void readMeshData](  [param:DataView data],  [param:string path] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.<br />
+			[parameter:string path] - The path.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void readNamedObject](  [param:DataView data] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number readShort](  [param:DataView data] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:string readString](  [param:DataView data],  [param:number maxLength] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.<br />
+			[parameter:number maxLength] - The max length.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number readWord](  [param:DataView data] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DataView data] - The data.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void resetPosition](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:TDSLoader setCrossOrigin](  [param:string crossOrigin] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string crossOrigin] - The cross origin.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:TDSLoader setPath](  [param:string path] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string path] - The path.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:TDSLoader setRequestHeader](  [param:any requestHeader] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any requestHeader] - The request header.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:TDSLoader setResourcePath](  [param:string resourcePath] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string resourcePath] - The resource path.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:TDSLoader setWithCredentials](  [param:boolean value] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean value] - The value.
+		</p>
+		<p>
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/loaders.ts /threejs-library/types/three/examples/loaders.ts]</p>
+	</body>
+</html>

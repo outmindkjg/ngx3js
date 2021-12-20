@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>Quaternion</h1>
+
+		<p class="desc">
+			Implementation of a quaternion. This is used for rotating things without incurring in the dreaded gimbal lock issue, amongst other advantages.
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:Quaternion Quaternion](  [param:number x]?,  [param:number y]?,  [param:number z]?,  [param:number w]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - (optional) x coordinate<br />
+			[parameter:number y] - (optional) y coordinate<br />
+			[parameter:number z] - (optional) z coordinate<br />
+			[parameter:number w] - (optional) w coordinate
+		</p>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:any isQuaternion]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number w]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number x]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number y]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number z]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:Quaternion _onChange](  [param:any callback] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any callback] - The callback.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void _onChangeCallback](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:number angleTo](  [param:Quaternion q] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion q] - The q.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Quaternion clone](  )</h3>
+		<p>
+			Clones this quaternion.
+		</p>
+
+		<h3>[method:Quaternion conjugate](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:Quaternion copy](  [param:Quaternion q] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion q] - The q.
+		</p>
+		<p>
+			Copies values of q to this quaternion.
+		</p>
+
+		<h3>[method:number dot](  [param:Quaternion v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion v] - The v.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean equals](  [param:Quaternion v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion v] - The v.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Quaternion fromArray](  [param:ArrayLike|number[] array],  [param:number offset]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ArrayLike|number[] array] - the source array or array-like.<br />
+			[parameter:number offset] - (optional) (optional) offset into the array. Default is 0.
+		</p>
+		<p>
+			Sets this quaternion's x, y, z and w value from the provided array or array-like.
+		</p>
+
+		<h3>[method:Quaternion identity](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:Quaternion inverse](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:Quaternion invert](  )</h3>
+		<p>
+			Inverts this quaternion.
+		</p>
+
+		<h3>[method:number length](  )</h3>
+		<p>
+			Computes length of this quaternion.
+		</p>
+
+		<h3>[method:number lengthSq](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:Quaternion multiply](  [param:Quaternion q] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion q] - The q.
+		</p>
+		<p>
+			Multiplies this quaternion by b.
+		</p>
+
+		<h3>[method:Quaternion multiplyQuaternions](  [param:Quaternion a],  [param:Quaternion b] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion a] - The a.<br />
+			[parameter:Quaternion b] - The b.
+		</p>
+		<p>
+			Sets this quaternion to a x b<br />
+			Adapted from http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm.
+		</p>
+
+		<h3>[method:number[] multiplyQuaternionsFlat](  [param:number[] dst],  [param:number dstOffset],  [param:number[] src0],  [param:number srcOffset],  [param:number[] src1],  [param:number stcOffset1] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number[] dst] - The dst.<br />
+			[parameter:number dstOffset] - The dst offset.<br />
+			[parameter:number[] src0] - The src0.<br />
+			[parameter:number srcOffset] - The src offset.<br />
+			[parameter:number[] src1] - The src1.<br />
+			[parameter:number stcOffset1] - The stc offset1.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:any multiplyVector3](  [param:any v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any v] - The v.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Quaternion normalize](  )</h3>
+		<p>
+			Normalizes this quaternion.
+		</p>
+
+		<h3>[method:Quaternion premultiply](  [param:Quaternion q] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion q] - The q.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Quaternion random](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:Quaternion rotateTowards](  [param:Quaternion q],  [param:number step] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion q] - The q.<br />
+			[parameter:number step] - The step.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Quaternion set](  [param:number x],  [param:number y],  [param:number z],  [param:number w] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:number w] - The w.
+		</p>
+		<p>
+			Sets values of this quaternion.
+		</p>
+
+		<h3>[method:Quaternion setFromAxisAngle](  [param:Vector3 axis],  [param:number angle] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 axis] - The axis.<br />
+			[parameter:number angle] - The angle.
+		</p>
+		<p>
+			Sets this quaternion from rotation specified by axis and angle.<br />
+			Adapted from http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm.<br />
+			Axis have to be normalized, angle is in radians.
+		</p>
+
+		<h3>[method:Quaternion setFromEuler](  [param:Euler euler],  [param:boolean update]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Euler euler] - The euler.<br />
+			[parameter:boolean update] - (optional) The update.
+		</p>
+		<p>
+			Sets this quaternion from rotation specified by Euler angles.
+		</p>
+
+		<h3>[method:Quaternion setFromRotationMatrix](  [param:Matrix4 m] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 m] - The m.
+		</p>
+		<p>
+			Sets this quaternion from rotation component of m. Adapted from http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm.
+		</p>
+
+		<h3>[method:Quaternion setFromUnitVectors](  [param:Vector3 vFrom],  [param:Vector3 vTo] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 vFrom] - The v from.<br />
+			[parameter:Vector3 vTo] - The v to.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number slerp](  [param:Quaternion qb],  [param:number t],  [param:Quaternion qa],  [param:Quaternion qb],  [param:Quaternion qm],  [param:number t] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion qb] - The qb.<br />
+			[parameter:number t] - The t.<br />
+			[parameter:Quaternion qa] - The qa.<br />
+			[parameter:Quaternion qb] - The qb.<br />
+			[parameter:Quaternion qm] - The qm.<br />
+			[parameter:number t] - The t.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Quaternion slerpFlat](  [param:number[] dst],  [param:number dstOffset],  [param:number[] src0],  [param:number srcOffset],  [param:number[] src1],  [param:number stcOffset1],  [param:number t] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number[] dst] - The dst.<br />
+			[parameter:number dstOffset] - The dst offset.<br />
+			[parameter:number[] src0] - The src0.<br />
+			[parameter:number srcOffset] - The src offset.<br />
+			[parameter:number[] src1] - The src1.<br />
+			[parameter:number stcOffset1] - The stc offset1.<br />
+			[parameter:number t] - The t.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Quaternion slerpQuaternions](  [param:Quaternion qa],  [param:Quaternion qb],  [param:number t] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion qa] - The qa.<br />
+			[parameter:Quaternion qb] - The qb.<br />
+			[parameter:number t] - The t.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:ArrayLike array],  [param:number offset]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number[] array] - (optional) (optional) array to store the quaternion to. If this is not provided, a new array will be created.<br />
+			[parameter:number offset] - (optional) (optional) optional offset into the array.<br />
+			[parameter:ArrayLike array] - array-like to store the quaternion to.<br />
+			[parameter:number offset] - (optional) (optional) optional offset into the array.
+		</p>
+		<p>
+			Copies x, y, z and w into the provided array-like.<br />
+			<br />
+			Returns : The provided array-like.
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/math.ts /threejs-library/types/three/math.ts]</p>
+	</body>
+</html>

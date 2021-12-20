@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:EventDispatcher] &rarr; [page:BufferGeometry] &rarr;
+
+		<h1>RingGeometry</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:RingGeometry RingGeometry](  [param:number innerRadius]?,  [param:number outerRadius]?,  [param:number thetaSegments]?,  [param:number phiSegments]?,  [param:number thetaStart]?,  [param:number thetaLength]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number innerRadius] - (optional) The inner radius.<br />
+			[parameter:number outerRadius] - (optional) The outer radius.<br />
+			[parameter:number thetaSegments] - (optional) The theta segments.<br />
+			[parameter:number phiSegments] - (optional) The phi segments.<br />
+			[parameter:number thetaStart] - (optional) The theta start.<br />
+			[parameter:number thetaLength] - (optional) The theta length.
+		</p>
+		<p>
+			Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:EventDispatcher EventDispatcher] class for common properties.
+		</p>
+		<p>
+			See the base [page:BufferGeometry BufferGeometry] class for common properties.
+		</p>
+
+		<h3>[property:number MaxIndex]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any attributes]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Box3 boundingBox]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Sphere boundingSphere]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any drawRange]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any drawcalls]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any groups]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number id]</h3>
+		<p>
+			Unique number of this buffergeometry instance
+		</p>
+
+		<h3>[property:BufferAttribute index]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any isBufferGeometry]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any morphAttributes]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean morphTargetsRelative]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string name]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any offsets]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any parameters]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string type]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any userData]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string uuid]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:EventDispatcher EventDispatcher] class for common methods.
+		</p>
+		<p>
+			See the base [page:BufferGeometry BufferGeometry] class for common methods.
+		</p>
+
+		<h3>[method:any addAttribute](  [param:string name],  [param:BufferAttribute|InterleavedBufferAttribute attribute],  [param:any name],  [param:any array],  [param:any itemSize] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string name] - The name.<br />
+			[parameter:BufferAttribute|InterleavedBufferAttribute attribute] - The attribute.<br />
+			[parameter:any name] - The name.<br />
+			[parameter:any array] - The array.<br />
+			[parameter:any itemSize] - The item size.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void addDrawCall](  [param:any start],  [param:any count],  [param:any indexOffset]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any start] - The start.<br />
+			[parameter:any count] - The count.<br />
+			[parameter:any indexOffset] - (optional) The index offset.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void addEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T type] - The type of event to listen to.<br />
+			[parameter:EventListener listener] - The that gets called when the event is fired.
+		</p>
+		<p>
+			Adds a listener to an event type.
+		</p>
+
+		<h3>[method:void addGroup](  [param:number start],  [param:number count],  [param:number materialIndex]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number start] - The start.<br />
+			[parameter:number count] - The count.<br />
+			[parameter:number materialIndex] - (optional) The material index.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void addIndex](  [param:any index] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any index] - The index.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferGeometry applyMatrix4](  [param:Matrix4 matrix] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 matrix] - The matrix.
+		</p>
+		<p>
+			Bakes matrix transform directly into vertex coordinates.
+		</p>
+
+		<h3>[method:BufferGeometry applyQuaternion](  [param:Quaternion q] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion q] - The q.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferGeometry center](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:void clearDrawCalls](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:void clearGroups](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferGeometry clone](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:void computeBoundingBox](  )</h3>
+		<p>
+			Computes bounding box of the geometry, updating Geometry.boundingBox attribute.<br />
+			Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are null.
+		</p>
+
+		<h3>[method:void computeBoundingSphere](  )</h3>
+		<p>
+			Computes bounding sphere of the geometry, updating Geometry.boundingSphere attribute.<br />
+			Bounding spheres aren't' computed by default. They need to be explicitly computed, otherwise they are null.
+		</p>
+
+		<h3>[method:void computeTangents](  )</h3>
+		<p>
+			Computes and adds tangent attribute to this geometry.
+		</p>
+
+		<h3>[method:void computeVertexNormals](  )</h3>
+		<p>
+			Computes vertex normals by averaging face normals.
+		</p>
+
+		<h3>[method:RingGeometry copy](  [param:BufferGeometry source] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:BufferGeometry source] - The source.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferGeometry deleteAttribute](  [param:BuiltinShaderAttributeName name] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:BuiltinShaderAttributeName name] - The name.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void dispatchEvent](  [param:Event event] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Event event] - The event.
+		</p>
+		<p>
+			Fire an event type.
+		</p>
+
+		<h3>[method:void dispose](  )</h3>
+		<p>
+			Disposes the object from memory.<br />
+			You need to call this when you want the bufferGeometry removed while the application is running.
+		</p>
+
+		<h3>[method:RingGeometry fromJSON](  [param:any data] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any data] - The data.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferAttribute|InterleavedBufferAttribute getAttribute](  [param:BuiltinShaderAttributeName name] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:BuiltinShaderAttributeName name] - The name.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferAttribute getIndex](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean hasAttribute](  [param:BuiltinShaderAttributeName name] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:BuiltinShaderAttributeName name] - The name.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T type] - The type of event to listen to.<br />
+			[parameter:EventListener listener] - The that gets called when the event is fired.
+		</p>
+		<p>
+			Checks if listener is added to an event type.
+		</p>
+
+		<h3>[method:void lookAt](  [param:Vector3 v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 v] - The v.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferGeometry merge](  [param:BufferGeometry geometry],  [param:number offset]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:BufferGeometry geometry] - The geometry.<br />
+			[parameter:number offset] - (optional) The offset.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void normalizeNormals](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferGeometry removeAttribute](  [param:string name] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string name] - The name.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T type] - The type of the listener that gets removed.<br />
+			[parameter:EventListener listener] - The listener that gets removed.
+		</p>
+		<p>
+			Removes a listener from an event type.
+		</p>
+
+		<h3>[method:BufferGeometry rotateX](  [param:number angle] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number angle] - The angle.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferGeometry rotateY](  [param:number angle] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number angle] - The angle.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferGeometry rotateZ](  [param:number angle] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number angle] - The angle.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferGeometry scale](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferGeometry setAttribute](  [param:BuiltinShaderAttributeName name],  [param:BufferAttribute|InterleavedBufferAttribute attribute] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:BuiltinShaderAttributeName name] - The name.<br />
+			[parameter:BufferAttribute|InterleavedBufferAttribute attribute] - The attribute.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void setDrawRange](  [param:number start],  [param:number count] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number start] - The start.<br />
+			[parameter:number count] - The count.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferGeometry setFromPoints](  [param:Vector3[]|Vector2[] points] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3[]|Vector2[] points] - The points.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferGeometry setIndex](  [param:BufferAttribute|number[] index] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:BufferAttribute|number[] index] - The index.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:any toJSON](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferGeometry toNonIndexed](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:BufferGeometry translate](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.
+		</p>
+		<p>
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/geometries.ts /threejs-library/types/three/geometries.ts]</p>
+	</body>
+</html>

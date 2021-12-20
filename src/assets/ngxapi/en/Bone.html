@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:EventDispatcher] &rarr; [page:Object3D] &rarr;
+
+		<h1>Bone</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:Bone Bone](  )</h3>
+		<p>
+			Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:EventDispatcher EventDispatcher] class for common properties.
+		</p>
+		<p>
+			See the base [page:Object3D Object3D] class for common properties.
+		</p>
+
+		<h3>[property:boolean DefaultMatrixAutoUpdate]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Vector3 DefaultUp]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:AnimationClip[] animations]</h3>
+		<p>
+			Array with animation clips.
+		</p>
+
+		<h3>[property:boolean castShadow]</h3>
+		<p>
+			Gets rendered into shadow map.
+		</p>
+
+		<h3>[property:Object3D[] children]</h3>
+		<p>
+			Array with object's children.
+		</p>
+
+		<h3>[property:Material customDepthMaterial]</h3>
+		<p>
+			Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br />
+			When shadow-casting with a DirectionalLight or SpotLight, if you are (a) modifying vertex positions in<br />
+			the vertex shader, (b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a<br />
+			transparent texture with alphaTest, you must specify a customDepthMaterial for proper shadows.
+		</p>
+
+		<h3>[property:Material customDistanceMaterial]</h3>
+		<p>
+			Same as customDepthMaterial, but used with PointLight.
+		</p>
+
+		<h3>[property:boolean frustumCulled]</h3>
+		<p>
+			When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object.<br />
+			If set to false the object gets rendered every frame even if it is not in the frustum of the camera.
+		</p>
+
+		<h3>[property:number id]</h3>
+		<p>
+			Unique number of this object instance.
+		</p>
+
+		<h3>[property:any isBone]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any isObject3D]</h3>
+		<p>
+			Used to check whether this or derived classes are Object3Ds. Default is true.<br />
+			You should not change this, as it is used internally for optimisation.
+		</p>
+
+		<h3>[property:Layers layers]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Matrix4 matrix]</h3>
+		<p>
+			Local transform.
+		</p>
+
+		<h3>[property:boolean matrixAutoUpdate]</h3>
+		<p>
+			When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also<br />
+			recalculates the matrixWorld property.
+		</p>
+
+		<h3>[property:Matrix4 matrixWorld]</h3>
+		<p>
+			The global transform of the object. If the Object3d has no parent, then it's identical to the local transform.
+		</p>
+
+		<h3>[property:boolean matrixWorldNeedsUpdate]</h3>
+		<p>
+			When this is set, it calculates the matrixWorld in that frame and resets this property to false.
+		</p>
+
+		<h3>[property:Matrix4 modelViewMatrix]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string name]</h3>
+		<p>
+			Optional name of the object (doesn't need to be unique).
+		</p>
+
+		<h3>[property:Matrix3 normalMatrix]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Object3D parent]</h3>
+		<p>
+			Object's parent in the scene graph.
+		</p>
+
+		<h3>[property:Vector3 position]</h3>
+		<p>
+			Object's local position.
+		</p>
+
+		<h3>[property:Quaternion quaternion]</h3>
+		<p>
+			Object's local rotation as a Quaternion.
+		</p>
+
+		<h3>[property:boolean receiveShadow]</h3>
+		<p>
+			Material gets baked in shadow receiving.
+		</p>
+
+		<h3>[property:number renderOrder]</h3>
+		<p>
+			Overrides the default rendering order of scene graph objects, from lowest to highest renderOrder.<br />
+			Opaque and transparent objects remain sorted independently though.<br />
+			When this property is set for an instance of Group, all descendants objects will be sorted and rendered together.
+		</p>
+
+		<h3>[property:Euler rotation]</h3>
+		<p>
+			Object's local rotation (Euler angles), in radians.
+		</p>
+
+		<h3>[property:Vector3 scale]</h3>
+		<p>
+			Object's local scale.
+		</p>
+
+		<h3>[property:any type]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Vector3 up]</h3>
+		<p>
+			Up direction.
+		</p>
+
+		<h3>[property:any userData]</h3>
+		<p>
+			An object that can be used to store custom data about the Object3d. It should not hold references to functions as these will not be cloned.
+		</p>
+
+		<h3>[property:string uuid]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean visible]</h3>
+		<p>
+			Object gets rendered if true.
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:EventDispatcher EventDispatcher] class for common methods.
+		</p>
+		<p>
+			See the base [page:Object3D Object3D] class for common methods.
+		</p>
+
+		<h3>[method:Bone add](  [param:Object3D[] object] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D[] object] - The object.
+		</p>
+		<p>
+			Adds object as child of this object.
+		</p>
+
+		<h3>[method:void addEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T type] - The type of event to listen to.<br />
+			[parameter:EventListener listener] - The that gets called when the event is fired.
+		</p>
+		<p>
+			Adds a listener to an event type.
+		</p>
+
+		<h3>[method:void applyMatrix4](  [param:Matrix4 matrix] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 matrix] - The matrix.
+		</p>
+		<p>
+			Applies the matrix transform to the object and updates the object's position, rotation and scale.
+		</p>
+
+		<h3>[method:Bone applyQuaternion](  [param:Quaternion quaternion] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion quaternion] - The quaternion.
+		</p>
+		<p>
+			Applies the rotation represented by the quaternion to the object.
+		</p>
+
+		<h3>[method:Bone attach](  [param:Object3D object] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D object] - The object.
+		</p>
+		<p>
+			Adds object as a child of this, while maintaining the object's world transform.
+		</p>
+
+		<h3>[method:Bone clear](  )</h3>
+		<p>
+			Removes all child objects.
+		</p>
+
+		<h3>[method:Bone clone](  [param:boolean recursive]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean recursive] - (optional) The recursive.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Bone copy](  [param:Bone source],  [param:boolean recursive]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Bone source] - The source.<br />
+			[parameter:boolean recursive] - (optional) The recursive.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void dispatchEvent](  [param:Event event] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Event event] - The event.
+		</p>
+		<p>
+			Fire an event type.
+		</p>
+
+		<h3>[method:Object3D getObjectById](  [param:number id] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number id] - Unique number of the object instance
+		</p>
+		<p>
+			Searches through the object's children and returns the first with a matching id.
+		</p>
+
+		<h3>[method:Object3D getObjectByName](  [param:string name] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string name] - String to match to the children's Object3d.name property.
+		</p>
+		<p>
+			Searches through the object's children and returns the first with a matching name.
+		</p>
+
+		<h3>[method:Object3D getObjectByProperty](  [param:string name],  [param:string value] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string name] - The name.<br />
+			[parameter:string value] - The value.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector3 getWorldDirection](  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector3 getWorldPosition](  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Quaternion getWorldQuaternion](  [param:Quaternion target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector3 getWorldScale](  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T type] - The type of event to listen to.<br />
+			[parameter:EventListener listener] - The that gets called when the event is fired.
+		</p>
+		<p>
+			Checks if listener is added to an event type.
+		</p>
+
+		<h3>[method:Vector3 localToWorld](  [param:Vector3 vector] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 vector] - A local vector.
+		</p>
+		<p>
+			Updates the vector from local space to world space.
+		</p>
+
+		<h3>[method:void lookAt](  [param:number|Vector3 vector],  [param:number y]?,  [param:number z]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number|Vector3 vector] - A world vector to look at.<br />
+			[parameter:number y] - (optional) The y.<br />
+			[parameter:number z] - (optional) The z.
+		</p>
+		<p>
+			Optionally, the x, y and z components of the world space position.<br />
+			Rotates the object to face a point in world space.<br />
+			This method does not support objects having non-uniformly-scaled parent(s).
+		</p>
+
+		<h3>[method:void onAfterRender](  [param:WebGLRenderer renderer],  [param:Scene scene],  [param:Camera camera],  [param:BufferGeometry geometry],  [param:Material material],  [param:Group group] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:WebGLRenderer renderer] - The renderer.<br />
+			[parameter:Scene scene] - The scene.<br />
+			[parameter:Camera camera] - The camera.<br />
+			[parameter:BufferGeometry geometry] - The geometry.<br />
+			[parameter:Material material] - The material.<br />
+			[parameter:Group group] - The group.
+		</p>
+		<p>
+			Calls after rendering object
+		</p>
+
+		<h3>[method:void onBeforeRender](  [param:WebGLRenderer renderer],  [param:Scene scene],  [param:Camera camera],  [param:BufferGeometry geometry],  [param:Material material],  [param:Group group] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:WebGLRenderer renderer] - The renderer.<br />
+			[parameter:Scene scene] - The scene.<br />
+			[parameter:Camera camera] - The camera.<br />
+			[parameter:BufferGeometry geometry] - The geometry.<br />
+			[parameter:Material material] - The material.<br />
+			[parameter:Group group] - The group.
+		</p>
+		<p>
+			Calls before rendering object
+		</p>
+
+		<h3>[method:void raycast](  [param:Raycaster raycaster],  [param:Intersection[] intersects] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Raycaster raycaster] - The raycaster.<br />
+			[parameter:Intersection[] intersects] - The intersects.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Bone remove](  [param:Object3D[] object] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D[] object] - The object.
+		</p>
+		<p>
+			Removes object as child of this object.
+		</p>
+
+		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T type] - The type of the listener that gets removed.<br />
+			[parameter:EventListener listener] - The listener that gets removed.
+		</p>
+		<p>
+			Removes a listener from an event type.
+		</p>
+
+		<h3>[method:Bone removeFromParent](  )</h3>
+		<p>
+			Removes this object from its current parent.
+		</p>
+
+		<h3>[method:Bone rotateOnAxis](  [param:Vector3 axis],  [param:number angle] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 axis] - A normalized vector in object space.<br />
+			[parameter:number angle] - The angle in radians.
+		</p>
+		<p>
+			Rotate an object along an axis in object space. The axis is assumed to be normalized.
+		</p>
+
+		<h3>[method:Bone rotateOnWorldAxis](  [param:Vector3 axis],  [param:number angle] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 axis] - A normalized vector in object space.<br />
+			[parameter:number angle] - The angle in radians.
+		</p>
+		<p>
+			Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.
+		</p>
+
+		<h3>[method:Bone rotateX](  [param:number angle] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number angle] - the angle to rotate in radians.
+		</p>
+		<p>
+			Rotates the object around x axis in local space.
+		</p>
+
+		<h3>[method:Bone rotateY](  [param:number angle] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number angle] - the angle to rotate in radians.
+		</p>
+		<p>
+			Rotates the object around y axis in local space.
+		</p>
+
+		<h3>[method:Bone rotateZ](  [param:number angle] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number angle] - the angle to rotate in radians.
+		</p>
+		<p>
+			Rotates the object around z axis in local space.
+		</p>
+
+		<h3>[method:void setRotationFromAxisAngle](  [param:Vector3 axis],  [param:number angle] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 axis] - A normalized vector in object space.<br />
+			[parameter:number angle] - angle in radians
+		</p>
+		<p>
+			axis -- A normalized vector in object space.<br />
+			angle -- angle in radians
+		</p>
+
+		<h3>[method:void setRotationFromEuler](  [param:Euler euler] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Euler euler] - Euler angle specifying rotation amount.
+		</p>
+		<p>
+			Calls setRotationFromEuler(euler) on the .quaternion.
+		</p>
+
+		<h3>[method:void setRotationFromMatrix](  [param:Matrix4 m] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 m] - rotate the quaternion by the rotation component of the matrix.
+		</p>
+		<p>
+			Calls setFromRotationMatrix(m) on the .quaternion.<br />
+			Note that this assumes that the upper 3x3 of m is a pure rotation matrix (i.e, unscaled).
+		</p>
+
+		<h3>[method:void setRotationFromQuaternion](  [param:Quaternion q] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion q] - normalized Quaternion
+		</p>
+		<p>
+			Copy the given quaternion into .quaternion.
+		</p>
+
+		<h3>[method:any toJSON](  [param:any meta]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any meta] - (optional) The meta.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Bone translateOnAxis](  [param:Vector3 axis],  [param:number distance] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 axis] - A normalized vector in object space.<br />
+			[parameter:number distance] - The distance to translate.
+		</p>
+		<p>
+			Translate an object by distance along an axis in object space. The axis is assumed to be normalized.
+		</p>
+
+		<h3>[method:Bone translateX](  [param:number distance] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number distance] - Distance.
+		</p>
+		<p>
+			Translates object along x axis by distance.
+		</p>
+
+		<h3>[method:Bone translateY](  [param:number distance] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number distance] - Distance.
+		</p>
+		<p>
+			Translates object along y axis by distance.
+		</p>
+
+		<h3>[method:Bone translateZ](  [param:number distance] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number distance] - Distance.
+		</p>
+		<p>
+			Translates object along z axis by distance.
+		</p>
+
+		<h3>[method:void traverse](  [param:any callback] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any callback] - The callback.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void traverseAncestors](  [param:any callback] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any callback] - The callback.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void traverseVisible](  [param:any callback] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any callback] - The callback.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void updateMatrix](  )</h3>
+		<p>
+			Updates local transform.
+		</p>
+
+		<h3>[method:void updateMatrixWorld](  [param:boolean force]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean force] - (optional) The force.
+		</p>
+		<p>
+			Updates global transform of the object and its children.
+		</p>
+
+		<h3>[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean updateParents] - recursively updates global transform of ancestors.<br />
+			[parameter:boolean updateChildren] - recursively updates global transform of descendants.
+		</p>
+		<p>
+			Updates the global transform of the object.
+		</p>
+
+		<h3>[method:Vector3 worldToLocal](  [param:Vector3 vector] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 vector] - A world vector.
+		</p>
+		<p>
+			Updates the vector from world space to local space.
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/objects.ts /threejs-library/types/three/objects.ts]</p>
+	</body>
+</html>

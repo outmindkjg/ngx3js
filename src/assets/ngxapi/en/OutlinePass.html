@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:Pass] &rarr;
+
+		<h1>OutlinePass</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:OutlinePass OutlinePass](  [param:Vector2 resolution],  [param:Scene scene],  [param:Camera camera],  [param:Object3D[] selectedObjects]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 resolution] - The resolution.<br />
+			[parameter:Scene scene] - The scene.<br />
+			[parameter:Camera camera] - The camera.<br />
+			[parameter:Object3D[] selectedObjects] - (optional) The selected objects.
+		</p>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:Pass Pass] class for common properties.
+		</p>
+
+		<h3>[property:boolean clear]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:object copyUniforms]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:MeshDepthMaterial depthMaterial]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number downSampleRatio]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:ShaderMaterial edgeDetectionMaterial]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number edgeGlow]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number edgeStrength]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number edgeThickness]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean enabled]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:object fsQuad]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Color hiddenEdgeColor]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:MeshBasicMaterial maskBufferMaterial]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:ShaderMaterial materialCopy]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean needsSwap]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number oldClearAlpha]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Color oldClearColor]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:ShaderMaterial overlayMaterial]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Texture patternTexture]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:ShaderMaterial prepareMaskMaterial]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number pulsePeriod]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Camera renderCamera]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Scene renderScene]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:WebGLRenderTarget renderTargetBlurBuffer1]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:WebGLRenderTarget renderTargetBlurBuffer2]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:WebGLRenderTarget renderTargetDepthBuffer]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:WebGLRenderTarget renderTargetEdgeBuffer1]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:WebGLRenderTarget renderTargetEdgeBuffer2]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:WebGLRenderTarget renderTargetMaskBuffer]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:WebGLRenderTarget renderTargetMaskDownSampleBuffer]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean renderToScreen]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Vector2 resolution]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Object3D[] selectedObjects]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:ShaderMaterial separableBlurMaterial1]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:ShaderMaterial separableBlurMaterial2]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Color tempPulseColor1]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Color tempPulseColor2]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Matrix4 textureMatrix]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean usePatternTexture]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Color visibleEdgeColor]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:Pass Pass] class for common methods.
+		</p>
+
+		<h3>[method:void changeVisibilityOfNonSelectedObjects](  [param:boolean bVisible] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean bVisible] - The b visible.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void changeVisibilityOfSelectedObjects](  [param:boolean bVisible] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean bVisible] - The b visible.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void dispose](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:ShaderMaterial getEdgeDetectionMaterial](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:ShaderMaterial getOverlayMaterial](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:ShaderMaterial getPrepareMaskMaterial](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:ShaderMaterial getSeperableBlurMaterial](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:void render](  [param:WebGLRenderer renderer],  [param:WebGLRenderTarget writeBuffer],  [param:WebGLRenderTarget readBuffer],  [param:number deltaTime],  [param:boolean maskActive] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:WebGLRenderer renderer] - The renderer.<br />
+			[parameter:WebGLRenderTarget writeBuffer] - The write buffer.<br />
+			[parameter:WebGLRenderTarget readBuffer] - The read buffer.<br />
+			[parameter:number deltaTime] - The delta time.<br />
+			[parameter:boolean maskActive] - The mask active.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void setSize](  [param:number width],  [param:number height] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number width] - The width.<br />
+			[parameter:number height] - The height.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void updateTextureMatrix](  )</h3>
+		<p>
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/postprocessing.ts /threejs-library/types/three/examples/postprocessing.ts]</p>
+	</body>
+</html>

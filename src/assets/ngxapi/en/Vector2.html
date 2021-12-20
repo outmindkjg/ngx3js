@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:Vector] &rarr;
+
+		<h1>Vector2</h1>
+
+		<p class="desc">
+			2D vector.<br />
+			( class Vector2 extends Vector&lt;Vector2&gt; )
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:Vector2 Vector2](  [param:number x]?,  [param:number y]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - (optional) The x.<br />
+			[parameter:number y] - (optional) The y.
+		</p>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:Vector Vector] class for common properties.
+		</p>
+
+		<h3>[property:number height]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any isVector2]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number width]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number x]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number y]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:Vector Vector] class for common methods.
+		</p>
+
+		<h3>[method:Vector2 add](  [param:Vector2 v],  [param:Vector2 w]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - The v.<br />
+			[parameter:Vector2 w] - (optional) The w.
+		</p>
+		<p>
+			Adds v to this vector.
+		</p>
+
+		<h3>[method:Vector2 addScalar](  [param:number s] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number s] - The s.
+		</p>
+		<p>
+			Adds the scalar value s to this vector's x and y values.
+		</p>
+
+		<h3>[method:Vector2 addScaledVector](  [param:Vector2 v],  [param:number s] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - The v.<br />
+			[parameter:number s] - The s.
+		</p>
+		<p>
+			Adds the multiple of v and s to this vector.
+		</p>
+
+		<h3>[method:Vector2 addVectors](  [param:Vector2 a],  [param:Vector2 b] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 a] - The a.<br />
+			[parameter:Vector2 b] - The b.
+		</p>
+		<p>
+			Sets this vector to a + b.
+		</p>
+
+		<h3>[method:number angle](  )</h3>
+		<p>
+			computes the angle in radians with respect to the positive x-axis
+		</p>
+
+		<h3>[method:Vector2 applyMatrix3](  [param:Matrix3 m] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix3 m] - The m.
+		</p>
+		<p>
+			Multiplies this vector (with an implicit 1 as the 3rd component) by m.
+		</p>
+
+		<h3>[method:Vector2 ceil](  )</h3>
+		<p>
+			The x and y components of the vector are rounded up to the nearest integer value.
+		</p>
+
+		<h3>[method:Vector2 clamp](  [param:Vector2 min],  [param:Vector2 max] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 min] - the minimum x and y values.<br />
+			[parameter:Vector2 max] - the maximum x and y values in the desired range.
+		</p>
+		<p>
+			If this vector's x or y value is greater than the max vector's x or y value, it is replaced by the corresponding value.<br />
+			If this vector's x or y value is less than the min vector's x or y value, it is replaced by the corresponding value.
+		</p>
+
+		<h3>[method:Vector2 clampLength](  [param:number min],  [param:number max] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number min] - the minimum value the length will be clamped to.<br />
+			[parameter:number max] - the maximum value the length will be clamped to.
+		</p>
+		<p>
+			If this vector's length is greater than the max value, it is replaced by the max value.<br />
+			If this vector's length is less than the min value, it is replaced by the min value.
+		</p>
+
+		<h3>[method:Vector2 clampScalar](  [param:number min],  [param:number max] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number min] - the minimum value the components will be clamped to.<br />
+			[parameter:number max] - the maximum value the components will be clamped to.
+		</p>
+		<p>
+			If this vector's x or y values are greater than the max value, they are replaced by the max value.<br />
+			If this vector's x or y values are less than the min value, they are replaced by the min value.
+		</p>
+
+		<h3>[method:Vector2 clone](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Returns a new Vector2 instance with the same `x` and `y` values.
+		</p>
+
+		<h3>[method:Vector2 copy](  [param:Vector2 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - The v.
+		</p>
+		<p>
+			Copies value of v to this vector.
+		</p>
+
+		<h3>[method:number cross](  [param:Vector2 v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - The v.
+		</p>
+		<p>
+			Computes cross product of this vector and v.
+		</p>
+
+		<h3>[method:number distanceTo](  [param:Vector2 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - The v.
+		</p>
+		<p>
+			Computes distance of this vector to v.
+		</p>
+
+		<h3>[method:number distanceToManhattan](  [param:Vector2 v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - The v.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number distanceToSquared](  [param:Vector2 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - The v.
+		</p>
+		<p>
+			Computes squared distance of this vector to v.
+		</p>
+
+		<h3>[method:Vector2 divide](  [param:Vector2 v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - The v.
+		</p>
+		<p>
+			Divides this vector by v.
+		</p>
+
+		<h3>[method:Vector2 divideScalar](  [param:number s] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number s] - The s.
+		</p>
+		<p>
+			Divides this vector by scalar s.<br />
+			Set vector to ( 0, 0 ) if s == 0.
+		</p>
+
+		<h3>[method:number dot](  [param:Vector2 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - The v.
+		</p>
+		<p>
+			Computes dot product of this vector and v.
+		</p>
+
+		<h3>[method:boolean equals](  [param:Vector2 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - The v.
+		</p>
+		<p>
+			Checks for strict equality of this vector and v.
+		</p>
+
+		<h3>[method:Vector2 floor](  )</h3>
+		<p>
+			The components of the vector are rounded down to the nearest integer value.
+		</p>
+
+		<h3>[method:Vector2 fromArray](  [param:ArrayLike|number[] array],  [param:number offset]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ArrayLike|number[] array] - the source array or array-like.<br />
+			[parameter:number offset] - (optional) (optional) offset into the array. Default is 0.
+		</p>
+		<p>
+			Sets this vector's x and y value from the provided array or array-like.
+		</p>
+
+		<h3>[method:Vector2 fromBufferAttribute](  [param:BufferAttribute attribute],  [param:number index] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:BufferAttribute attribute] - the source attribute.<br />
+			[parameter:number index] - index in the attribute.
+		</p>
+		<p>
+			Sets this vector's x and y values from the attribute.
+		</p>
+
+		<h3>[method:number getComponent](  [param:number index] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number index] - The index.
+		</p>
+		<p>
+			Gets a component of this vector.
+		</p>
+
+		<h3>[method:number length](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Computes length of this vector.
+		</p>
+
+		<h3>[method:number lengthManhattan](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:number lengthSq](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Computes squared length of this vector.
+		</p>
+
+		<h3>[method:Vector2 lerp](  [param:Vector2 v],  [param:number alpha] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - vector to interpolate towards.<br />
+			[parameter:number alpha] - interpolation factor in the closed interval [0, 1].
+		</p>
+		<p>
+			Linearly interpolates between this vector and v, where alpha is the distance along the line - alpha = 0 will be this vector, and alpha = 1 will be v.
+		</p>
+
+		<h3>[method:Vector2 lerpVectors](  [param:Vector2 v1],  [param:Vector2 v2],  [param:number alpha] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v1] - the starting vector.<br />
+			[parameter:Vector2 v2] - vector to interpolate towards.<br />
+			[parameter:number alpha] - interpolation factor in the closed interval [0, 1].
+		</p>
+		<p>
+			Sets this vector to be the vector linearly interpolated between v1 and v2 where alpha is the distance along the line connecting the two vectors - alpha = 0 will be v1, and alpha = 1 will be v2.
+		</p>
+
+		<h3>[method:number manhattanDistanceTo](  [param:Vector2 v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - The v.
+		</p>
+		<p>
+			Computes the Manhattan length (distance) from this vector to the given vector v<br />
+			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
+		</p>
+
+		<h3>[method:number manhattanLength](  )</h3>
+		<p>
+			Computes the Manhattan length of this vector.<br />
+			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
+		</p>
+
+		<h3>[method:Vector2 max](  [param:Vector2 v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - The v.
+		</p>
+		<p>
+			If this vector's x or y value is less than v's x or y value, replace that value with the corresponding max value.
+		</p>
+
+		<h3>[method:Vector2 min](  [param:Vector2 v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - The v.
+		</p>
+		<p>
+			If this vector's x or y value is greater than v's x or y value, replace that value with the corresponding min value.
+		</p>
+
+		<h3>[method:Vector2 multiply](  [param:Vector2 v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - The v.
+		</p>
+		<p>
+			Multiplies this vector by v.
+		</p>
+
+		<h3>[method:Vector2 multiplyScalar](  [param:number scalar] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number scalar] - The scalar.
+		</p>
+		<p>
+			Multiplies this vector by scalar s.
+		</p>
+
+		<h3>[method:Vector2 negate](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Inverts this vector.
+		</p>
+
+		<h3>[method:Vector2 normalize](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Normalizes this vector.
+		</p>
+
+		<h3>[method:Vector2 random](  )</h3>
+		<p>
+			Sets this vector's x and y from Math.random
+		</p>
+
+		<h3>[method:Vector2 rotateAround](  [param:Vector2 center],  [param:number angle] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 center] - the point around which to rotate.<br />
+			[parameter:number angle] - the angle to rotate, in radians.
+		</p>
+		<p>
+			Rotates the vector around center by angle radians.
+		</p>
+
+		<h3>[method:Vector2 round](  )</h3>
+		<p>
+			The components of the vector are rounded to the nearest integer value.
+		</p>
+
+		<h3>[method:Vector2 roundToZero](  )</h3>
+		<p>
+			The components of the vector are rounded towards zero (up if negative, down if positive) to an integer value.
+		</p>
+
+		<h3>[method:Vector2 set](  [param:number x],  [param:number y] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.
+		</p>
+		<p>
+			Sets value of this vector.
+		</p>
+
+		<h3>[method:Vector2 setComponent](  [param:number index],  [param:number value] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number index] - The index.<br />
+			[parameter:number value] - The value.
+		</p>
+		<p>
+			Sets a component of this vector.
+		</p>
+
+		<h3>[method:Vector2 setLength](  [param:number length] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number length] - The length.
+		</p>
+		<p>
+			Normalizes this vector and multiplies it by l.
+		</p>
+
+		<h3>[method:Vector2 setScalar](  [param:number scalar] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number scalar] - The scalar.
+		</p>
+		<p>
+			Sets the x and y values of this vector both equal to scalar.
+		</p>
+
+		<h3>[method:Vector2 setX](  [param:number x] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.
+		</p>
+		<p>
+			Sets X component of this vector.
+		</p>
+
+		<h3>[method:Vector2 setY](  [param:number y] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number y] - The y.
+		</p>
+		<p>
+			Sets Y component of this vector.
+		</p>
+
+		<h3>[method:Vector2 sub](  [param:Vector2 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 v] - The v.
+		</p>
+		<p>
+			Subtracts v from this vector.
+		</p>
+
+		<h3>[method:Vector2 subScalar](  [param:number s] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number s] - The s.
+		</p>
+		<p>
+			Subtracts s from this vector's x and y components.
+		</p>
+
+		<h3>[method:Vector2 subVectors](  [param:Vector2 a],  [param:Vector2 b] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2 a] - The a.<br />
+			[parameter:Vector2 b] - The b.
+		</p>
+		<p>
+			Sets this vector to a - b.
+		</p>
+
+		<h3>[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:Vector2Tuple array]?,  [param:any offset]?,  [param:ArrayLike array],  [param:number offset]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number[] array] - (optional) (optional) array to store the vector to. If this is not provided, a new array will be created.<br />
+			[parameter:number offset] - (optional) (optional) optional offset into the array.<br />
+			[parameter:Vector2Tuple array] - (optional) The array.<br />
+			[parameter:any offset] - (optional) The offset.<br />
+			[parameter:ArrayLike array] - array-like to store the vector to.<br />
+			[parameter:number offset] - (optional) (optional) optional offset into the array.
+		</p>
+		<p>
+			Copies x and y into the provided array-like.<br />
+			<br />
+			Returns : The provided array-like.
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/math.ts /threejs-library/types/three/math.ts]</p>
+	</body>
+</html>

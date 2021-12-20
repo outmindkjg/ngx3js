@@ -19,12 +19,7 @@
     "lib": [
       "es2018",
       "dom"
-    ],
-    "paths": {
-      "fs": [
-        "./node_modules/fs-web"
-      ]
-    }
+    ]
   },
   "typedocOptions": {
     "entryPoints": [

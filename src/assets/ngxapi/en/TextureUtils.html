@@ -26,27 +26,27 @@
 		</p>
 
 		<h2>Methods</h2>
-		<h3>[method:void addCanvas](  [param:string key],  [param:CanvasFunctionType canvas] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>[method:void addCanvas](  [param:string key],  [param:TCanvasFunctionType canvas] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string key] - The key.<br />
-			[parameter:CanvasFunctionType canvas] - The canvas.
+			[parameter:TCanvasFunctionType canvas] - The canvas.
 		</p>
 		<p>
 			Adds canvas
 		</p>
 
-		<h3>[method:void addDataTexture](  [param:string key],  [param:DataFunctionType data] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>[method:void addDataTexture](  [param:string key],  [param:TDataFunctionType data] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string key] - The key.<br />
-			[parameter:DataFunctionType data] - The data.
+			[parameter:TDataFunctionType data] - The data.
 		</p>
 		<p>
 			Adds data texture
 		</p>
 
-		<h3>[method:IDataTexture|IDataTexture3D dataTexture](  [param:any value],  [param:any onload]?,  [param:any options]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>[method:DataTexture|DataTexture3D dataTexture](  [param:any value],  [param:any onload]?,  [param:any options]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any value] - The value.<br />
@@ -59,10 +59,10 @@
 			Returns : texture
 		</p>
 
-		<h3>[method:void drawCanvas](  [param:string|CanvasFunctionType program],  [param:CanvasRenderingContext2D ctx]?,  [param:string text]?,  [param:number width]?,  [param:number height]?,  [param:any programParam]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>[method:void drawCanvas](  [param:string|TCanvasFunctionType program],  [param:CanvasRenderingContext2D ctx]?,  [param:string text]?,  [param:number width]?,  [param:number height]?,  [param:any programParam]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string|CanvasFunctionType program] - The program.<br />
+			[parameter:string|TCanvasFunctionType program] - The program.<br />
 			[parameter:CanvasRenderingContext2D ctx] - (optional) The ctx.<br />
 			[parameter:string text] - (optional) The text.<br />
 			[parameter:number width] - (optional) The width.<br />
@@ -73,10 +73,10 @@
 			Draws canvas
 		</p>
 
-		<h3>[method:CanvasFunctionType getCanvas](  [param:string|CanvasFunctionType key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>[method:TCanvasFunctionType getCanvas](  [param:string|TCanvasFunctionType key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string|CanvasFunctionType key] - The key.
+			[parameter:string|TCanvasFunctionType key] - The key.
 		</p>
 		<p>
 			Gets canvas<br />
@@ -84,10 +84,10 @@
 			Returns : canvas
 		</p>
 
-		<h3>[method:DataFunctionType getDataTexture](  [param:string|DataFunctionType key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>[method:TDataFunctionType getDataTexture](  [param:string|TDataFunctionType key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string|DataFunctionType key] - The key.
+			[parameter:string|TDataFunctionType key] - The key.
 		</p>
 		<p>
 			Gets data texture<br />
@@ -95,7 +95,7 @@
 			Returns : data texture
 		</p>
 
-		<h3>[method:IVector2 scale](  [param:number w],  [param:number h],  [param:number ow],  [param:number oh] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>[method:Vector2 scale](  [param:number w],  [param:number h],  [param:number ow],  [param:number oh] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number w] - The w.<br />
@@ -110,7 +110,7 @@
 		</p>
 
 		<hr class="interface-line"/>
-		<h3 id="CanvasFunctionType">CanvasFunctionType <i class="modifier modifier-interface">Interface</i></h3>
+		<h3 id="TCanvasFunctionType">TCanvasFunctionType <i class="modifier modifier-interface">Interface</i></h3>
 		<hr class="interface-line"/>
 		<h4>[method:void function](  [param:CanvasRenderingContext2D ctx]?,  [param:string text]?,  [param:number width]?,  [param:number height]?,  [param:any options]? )</h4>
 		<h4>Parameters</h4>
@@ -122,7 +122,7 @@
 			[property:any options]? -  The options.
 		</p>
 		<p>
-			CanvasFunctionType
+			TCanvasFunctionType
 		</p>
 
 
@@ -132,15 +132,15 @@
 		</p>
 
 		<hr class="interface-line"/>
-		<h3 id="DataFunctionType">DataFunctionType <i class="modifier modifier-interface">Interface</i></h3>
+		<h3 id="TDataFunctionType">TDataFunctionType <i class="modifier modifier-interface">Interface</i></h3>
 		<hr class="interface-line"/>
-		<h4>[method:I3JS.IDataTexture|I3JS.IDataTexture3D function](  [param:any options]? )</h4>
+		<h4>[method:I3JS.DataTexture|I3JS.DataTexture3D function](  [param:any options]? )</h4>
 		<h4>Parameters</h4>
 		<p>
 			[property:any options]? -  The options.
 		</p>
 		<p>
-			DataFunctionType
+			TDataFunctionType
 		</p>
 
 

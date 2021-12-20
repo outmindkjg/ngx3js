@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>NgxThreeUtil</h1>
+
+		<p class="desc">
+			Three util<br />
+			See the [page:NgxThreeUtil ngx3js docs] page for details.
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:NgxThreeUtil NgxThreeUtil](  )</h3>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:any lastRenderer]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Last renderer of three util
+		</p>
+
+		<h3>[property:NgxThreeStats stats]<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			The Stats of three util
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:string addCssStyle](  [param:HTMLElement ele],  [param:string|ICssStyle styles],  [param:string clazzName]?,  [param:string classPrefix]?,  [param:string vertualClass]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:HTMLElement ele] - The ele.<br />
+			[parameter:string|ICssStyle styles] - The styles.<br />
+			[parameter:string clazzName] - (optional) The clazz name.<br />
+			[parameter:string classPrefix] - (optional) The class prefix.<br />
+			[parameter:string vertualClass] - (optional) The vertual class.
+		</p>
+		<p>
+			Adds css style<br />
+			<br />
+			Returns : css style
+		</p>
+
+		<h3>[method:string camelCaseToDash](  [param:string myStr] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string myStr] - The my str.
+		</p>
+		<p>
+			Camels case to dash
+		</p>
+
+		<h3>[method:boolean cssEject](  [param:string id],  [param:any indoc]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string id] - The id.<br />
+			[parameter:any indoc] - (optional) The indoc.
+		</p>
+		<p>
+			Css eject<br />
+			<br />
+			Returns : true if eject
+		</p>
+
+		<h3>[method:boolean cssInject](  [param:string cssContent],  [param:string id]?,  [param:any indoc]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string cssContent] - The css content.<br />
+			[parameter:string id] - (optional) The id.<br />
+			[parameter:any indoc] - (optional) The indoc.
+		</p>
+		<p>
+			Css inject<br />
+			<br />
+			Returns : true if inject
+		</p>
+
+		<h3>[method:number getAngle2RadianSafe](  [param:number angle],  [param:number altangle]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number angle] - The angle.<br />
+			[parameter:number altangle] - (optional) The altangle.
+		</p>
+		<p>
+			Gets angle2 radian safe<br />
+			<br />
+			Returns : angle2 radian safe
+		</p>
+
+		<h3>[method:number getAngleSafe](  [param:string|number angle],  [param:number altangle]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|number angle] - The angle.<br />
+			[parameter:number altangle] - (optional) The altangle.
+		</p>
+		<p>
+			Gets angle safe<br />
+			<br />
+			Returns : angle safe
+		</p>
+
+		<h3>[method:BlendingDstFactor getBlendDstSafe](  [param:string baseBlendSrc],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseBlendSrc] - The base blend src.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Which blending to use when displaying objects with this material.<br />
+			This must be set to [CustomBlending](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials) to use custom [blendSrc](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials.blendSrc), [blendDst](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials.blendDst) or [blendEquation](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials.blendEquation).<br />
+			See the blending mode [constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials) for all possible values. Default is [NormalBlending](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials).<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:BlendingDstFactor BlendingDstFactor] - THREE.BlendingDstFactor<br />
+			[page:ZeroFactor ZeroFactor] - THREE.ZeroFactor - ZeroFactor , Zero<br />
+			[page:OneFactor OneFactor] - THREE.OneFactor - OneFactor , One<br />
+			[page:SrcColorFactor SrcColorFactor] - THREE.SrcColorFactor - SrcColorFactor , SrcColor<br />
+			[page:OneMinusSrcColorFactor OneMinusSrcColorFactor] - THREE.OneMinusSrcColorFactor - OneMinusSrcColorFactor , OneMinusSrcColor<br />
+			[page:SrcAlphaFactor SrcAlphaFactor] - THREE.SrcAlphaFactor - SrcAlphaFactor , SrcAlpha<br />
+			[page:OneMinusSrcAlphaFactor OneMinusSrcAlphaFactor] - THREE.OneMinusSrcAlphaFactor - OneMinusSrcAlphaFactor , OneMinusSrcAlpha<br />
+			[page:DstAlphaFactor DstAlphaFactor] - THREE.DstAlphaFactor - DstAlphaFactor , DstAlpha<br />
+			[page:OneMinusDstAlphaFactor OneMinusDstAlphaFactor] - THREE.OneMinusDstAlphaFactor - OneMinusDstAlphaFactor , OneMinusDstAlpha<br />
+			[page:DstColorFactor DstColorFactor] - THREE.DstColorFactor - DstColorFactor , DstColor<br />
+			[page:OneMinusDstColorFactor OneMinusDstColorFactor] - THREE.OneMinusDstColorFactor - OneMinusDstColorFactor , OneMinusDstColor<br />
+			<br />
+			Returns : blend src
+		</p>
+
+		<h3>[method:BlendingEquation getBlendEquationSafe](  [param:string baseBlendEquation],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseBlendEquation] - The base blend equation.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets blend equation<br />
+			custom blending equations (numbers start from 100 not to clash with other mappings to OpenGL constants defined in Texture.js)<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:AddEquation AddEquation] - THREE.AddEquation - Add<br />
+			[page:SubtractEquation SubtractEquation] - THREE.SubtractEquation - Subtract<br />
+			[page:ReverseSubtractEquation ReverseSubtractEquation] - THREE.ReverseSubtractEquation - ReverseSubtract, Reverse<br />
+			[page:MinEquation MinEquation] - THREE.MinEquation - Nin<br />
+			[page:MaxEquation MaxEquation] - THREE.MaxEquation - Max<br />
+			<br />
+			Returns : blend equation
+		</p>
+
+		<h3>[method:AnimationBlendMode getBlendModeSafe](  [param:string baseBlendMode],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseBlendMode] - The base blend mode.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets blend mode<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:AnimationBlendMode AnimationBlendMode] - THREE.AnimationBlendMode<br />
+			[page:NormalAnimationBlendMode NormalAnimationBlendMode] - THREE.NormalAnimationBlendMode - NormalAnimationBlendMode, NormalAnimation, Normal<br />
+			[page:AdditiveAnimationBlendMode AdditiveAnimationBlendMode] - THREE.AdditiveAnimationBlendMode - AdditiveAnimationBlendMode, AdditiveAnimation, Additive<br />
+			<br />
+			Returns : blend mode
+		</p>
+
+		<h3>[method:SrcAlphaSaturateFactor getBlendSrcSafe](  [param:string baseBlendSrc],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseBlendSrc] - The base blend src.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Which blending to use when displaying objects with this material.<br />
+			This must be set to [CustomBlending](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials) to use custom [blendSrc](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials.blendSrc), [blendDst](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials.blendDst) or [blendEquation](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials.blendEquation).<br />
+			See the blending mode [constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials) for all possible values. Default is [NormalBlending](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Materials).<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:BlendingSrcFactor BlendingSrcFactor] - THREE.BlendingSrcFactor<br />
+			[page:SrcAlphaSaturateFactor SrcAlphaSaturateFactor] - THREE.SrcAlphaSaturateFactor - SrcAlphaSaturateFactor , SrcAlphaSaturate, SrcAlpha<br />
+			<br />
+			Returns : blend src
+		</p>
+
+		<h3>[method:Blending getBlendingSafe](  [param:string baseBlending],  [param:string altBlending]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseBlending] - The base blending.<br />
+			[parameter:string altBlending] - (optional) The alt blending.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.<br />
+			<br />
+			[page:NoBlending NoBlending] - THREE.NoBlending - NoBlending, No<br />
+			[page:NormalBlending NormalBlending] - THREE.NormalBlending - NormalBlending, Normal<br />
+			[page:AdditiveBlending AdditiveBlending] - THREE.AdditiveBlending - AdditiveBlending, Additive<br />
+			[page:SubtractiveBlending SubtractiveBlending] - THREE.SubtractiveBlending - SubtractiveBlending, Subtractive<br />
+			[page:MultiplyBlending MultiplyBlending] - THREE.MultiplyBlending - MultiplyBlending, Multiply<br />
+			[page:CustomBlending CustomBlending] - THREE.CustomBlending - CustomBlending, Custom<br />
+			<br />
+			Returns : blending safe
+		</p>
+
+		<h3>[method:boolean getBooleanSafe](  [param:string|number|boolean bl],  [param:string|number|boolean altbl]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|number|boolean bl] - The bl.<br />
+			[parameter:string|number|boolean altbl] - (optional) The altbl.
+		</p>
+		<p>
+			Gets boolean safe<br />
+			<br />
+			Returns : true if boolean safe
+		</p>
+
+		<h3>[method:BuiltinShaderAttributeName getBuiltinShaderAttributeNameSafe](  [param:string baseShaderAttributeName],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseShaderAttributeName] - The base shader attribute name.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets builtin shader attribute name safe<br />
+			<br />
+			Returns : builtin shader attribute name safe
+		</p>
+
+		<h3>[method:HTMLElement getChildElementSave](  [param:HTMLElement parentEle] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:HTMLElement parentEle] - The parent ele.
+		</p>
+		<p>
+			Gets child element save<br />
+			<br />
+			Returns : child element save
+		</p>
+
+		<h3>[method:NgxThreeClock getClock](  [param:boolean autoStart]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean autoStart] - (optional) The auto start.
+		</p>
+		<p>
+			Gets clock<br />
+			<br />
+			Returns : clock
+		</p>
+
+		<h3>[method:Color getColor](  [param:INgxColor color] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:INgxColor color] - The color.
+		</p>
+		<p>
+			Gets color<br />
+			<br />
+			Returns : color
+		</p>
+
+		<h3>[method:Color|Vector4 getColorAlphaSafe](  [param:INgxColor color],  [param:number alpha],  [param:INgxColor altColor]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:INgxColor color] - The color.<br />
+			[parameter:number alpha] - The alpha.<br />
+			[parameter:INgxColor altColor] - (optional) The alt color.
+		</p>
+		<p>
+			Gets color alpha safe<br />
+			<br />
+			Returns : color alpha safe
+		</p>
+
+		<h3>[method:Color getColorHSL](  [param:number h]?,  [param:number s]?,  [param:number l]?,  [param:INgxColor color]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number h] - (optional) The h.<br />
+			[parameter:number s] - (optional) The s.<br />
+			[parameter:number l] - (optional) The l.<br />
+			[parameter:INgxColor color] - (optional) The color.
+		</p>
+		<p>
+			Gets color hsl<br />
+			<br />
+			Returns : color hsl
+		</p>
+
+		<h3>[method:number getColorHex](  [param:INgxColor color]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:INgxColor color] - (optional) The color.
+		</p>
+		<p>
+			Gets color hex<br />
+			<br />
+			Returns : color hex
+		</p>
+
+		<h3>[method:string getColorHexString](  [param:INgxColor color]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:INgxColor color] - (optional) The color.
+		</p>
+		<p>
+			Gets color hex string<br />
+			<br />
+			Returns : color hex string
+		</p>
+
+		<h3>[method:Color getColorMultiplySafe](  [param:INgxColor color],  [param:INgxColor altColor]?,  [param:number multiply]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:INgxColor color] - The color.<br />
+			[parameter:INgxColor altColor] - (optional) The alt color.<br />
+			[parameter:number multiply] - (optional) The multiply.
+		</p>
+		<p>
+			Gets color multiply safe<br />
+			<br />
+			Returns : color multiply safe
+		</p>
+
+		<h3>[method:Color getColorRGB](  [param:number r],  [param:number g],  [param:number b],  [param:INgxColor color]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number r] - The r.<br />
+			[parameter:number g] - The g.<br />
+			[parameter:number b] - The b.<br />
+			[parameter:INgxColor color] - (optional) The color.
+		</p>
+		<p>
+			Gets color rgb<br />
+			<br />
+			Returns : color rgb
+		</p>
+
+		<h3>[method:Color getColorSafe](  [param:INgxColor color],  [param:INgxColor altColor]?,  [param:INgxColor nullColor]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:INgxColor color] - The color.<br />
+			[parameter:INgxColor altColor] - (optional) The alt color.<br />
+			[parameter:INgxColor nullColor] - (optional) The null color.
+		</p>
+		<p>
+			Gets color safe<br />
+			<br />
+			Returns : color safe
+		</p>
+
+		<h3>[method:string getColorStyle](  [param:INgxColor color]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:INgxColor color] - (optional) The color.
+		</p>
+		<p>
+			Gets color style<br />
+			<br />
+			Returns : color style
+		</p>
+
+		<h3>[method:Combine getCombineSafe](  [param:string baseCombine],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseCombine] - The base combine.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets combine<br />
+			<br />
+			Returns : combine
+		</p>
+
+		<h3>[method:CompressedPixelFormat getCompressedPixelFormatSafe](  [param:string baseFormat],  [param:string altFormat]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseFormat] - The base format.<br />
+			[parameter:string altFormat] - (optional) The alt format.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets pixel format safe<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:PixelFormat PixelFormat] - THREE.PixelFormat<br />
+			[page:AlphaFormat AlphaFormat] - THREE.AlphaFormat - AlphaFormat, Alpha<br />
+			[page:RedFormat RedFormat] - THREE.RedFormat - RedFormat, Red<br />
+			[page:RedIntegerFormat RedIntegerFormat] - THREE.RedIntegerFormat - RedIntegerFormat, RedInteger<br />
+			[page:RGFormat RGFormat] - THREE.RGFormat - RGFormat, RG<br />
+			[page:RGIntegerFormat RGIntegerFormat] - THREE.RGIntegerFormat - RGIntegerFormat, RGInteger<br />
+			[page:RGBFormat RGBFormat] - THREE.RGBFormat - RGBFormat, RGB<br />
+			[page:RGBIntegerFormat RGBIntegerFormat] - THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger<br />
+			[page:RGBAIntegerFormat RGBAIntegerFormat] - THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger<br />
+			[page:LuminanceFormat LuminanceFormat] - THREE.LuminanceFormat - LuminanceFormat, Luminance<br />
+			[page:LuminanceAlphaFormat LuminanceAlphaFormat] - THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha<br />
+			[page:RGBEFormat RGBEFormat] - THREE.RGBEFormat - RGBEFormat, RGBE<br />
+			[page:DepthFormat DepthFormat] - THREE.DepthFormat - DepthFormat, Depth<br />
+			[page:DepthStencilFormat DepthStencilFormat] - THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil<br />
+			[page:RGBAFormat RGBAFormat] - THREE.RGBAFormat - RGBAFormat, RGBA<br />
+			<br />
+			Returns : pixel format safe
+		</p>
+
+		<h3>[method:void getControls](  [param:T param],  [param:any component],  [param:boolean addBaseParam] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T param] - The param.<br />
+			[parameter:any component] - The component.<br />
+			[parameter:boolean addBaseParam] - The add base param.
+		</p>
+		<p>
+			Gets controls<br />
+			<br />
+			Returns : controls
+		</p>
+
+		<h3>[method:void getControlsOnRender](  [param:IRendererTimer timer],  [param:any component] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:IRendererTimer timer] - The timer.<br />
+			[parameter:any component] - The component.
+		</p>
+		<p>
+			Gets controls on render
+		</p>
+
+		<h3>[method:IGuiControlParam[] getControlsParams](  [param:IGuiControlParam[] params],  [param:any component],  [param:boolean addBaseParam] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:IGuiControlParam[] params] - The params.<br />
+			[parameter:any component] - The component.<br />
+			[parameter:boolean addBaseParam] - The add base param.
+		</p>
+		<p>
+			Gets controls params<br />
+			<br />
+			Returns : controls params
+		</p>
+
+		<h3>[method:string[] getCubeImage](  [param:string[] cubeImage] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string[] cubeImage] - The cube image.
+		</p>
+		<p>
+			Gets cube image<br />
+			<br />
+			Returns : cube image
+		</p>
+
+		<h3>[method:CullFace getCullFaceSafe](  [param:string baseCullFace],  [param:string altCullFace]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseCullFace] - The base cull face.<br />
+			[parameter:string altCullFace] - (optional) The alt cull face.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets CullFace safe<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:CullFace CullFace] - THREE.CullFace<br />
+			[page:CullFaceNone CullFaceNone] - THREE.CullFaceNone - none<br />
+			[page:CullFaceBack CullFaceBack] - THREE.CullFaceBack - back<br />
+			[page:CullFaceFront CullFaceFront] - THREE.CullFaceFront - front<br />
+			[page:CullFaceFrontBack CullFaceFrontBack] - THREE.CullFaceFrontBack - frontback<br />
+			<br />
+			Returns : CullFace safe
+		</p>
+
+		<h3>[method:DepthModes getDepthModesSafe](  [param:string baseDepthFunc],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseDepthFunc] - The base depth func.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets depth func<br />
+			<br />
+			Returns : depth func
+		</p>
+
+		<h3>[method:DepthPackingStrategies getDepthPackingSafe](  [param:string baseDepthPacking],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseDepthPacking] - The base depth packing.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets depth packing, Depth packing strategies<br />
+			<br />
+			Returns : depth packing
+		</p>
+
+		<h3>[method:Euler getEulerSafe](  [param:string|number x],  [param:string|number y],  [param:string|number z],  [param:Euler altValue]?,  [param:boolean isRequired]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|number x] - The x.<br />
+			[parameter:string|number y] - The y.<br />
+			[parameter:string|number z] - The z.<br />
+			[parameter:Euler altValue] - (optional) The alt value.<br />
+			[parameter:boolean isRequired] - (optional) The is required.
+		</p>
+		<p>
+			Gets euler safe<br />
+			<br />
+			Returns : euler safe
+		</p>
+
+		<h3>[method:T getFirst](  [param:T|T[] value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T|T[] value] - The value.
+		</p>
+		<p>
+			Gets first<br />
+			<br />
+			Returns : first
+		</p>
+
+		<h3>[method:BufferGeometry getGeometry](  [param:any geometry] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any geometry] - The geometry.
+		</p>
+		<p>
+			Gets geometry<br />
+			<br />
+			Returns : geometry
+		</p>
+
+		<h3>[method:GLSLVersion getGlslVersionSafe](  [param:string baseGlslVersion],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseGlslVersion] - The base glsl version.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets glsl version<br />
+			<br />
+			Returns : glsl version
+		</p>
+
+		<h3>[method:string getHtmlCode](  [param:ITagAttributes info],  [param:string preTab] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ITagAttributes info] - The info.<br />
+			[parameter:string preTab] - The pre tab.
+		</p>
+		<p>
+			Gets html code<br />
+			<br />
+			Returns : html code
+		</p>
+
+		<h3>[method:IGuiControlParam getIGuiControlParam](  [param:IGuiControlParam[] children],  [param:string name] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:IGuiControlParam[] children] - The children.<br />
+			[parameter:string name] - The name.
+		</p>
+		<p>
+			Gets gui control param<br />
+			<br />
+			Returns : gui control param
+		</p>
+
+		<h3>[method:InterpolationEndingModes getInterpolationEndingSafe](  [param:string baseInterpolation],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseInterpolation] - The base interpolation.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets interpolation ending<br />
+			Notice - case insensitive.<br />
+			<br />
+			Returns : interpolation ending
+		</p>
+
+		<h3>[method:InterpolationModes getInterpolationSafe](  [param:string baseInterpolation],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseInterpolation] - The base interpolation.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets interpolation<br />
+			Notice - case insensitive.<br />
+			<br />
+			Returns : interpolation
+		</p>
+
+		<h3>[method:Light getLight](  [param:any light] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any light] - The light.
+		</p>
+		<p>
+			Gets light<br />
+			<br />
+			Returns : light
+		</p>
+
+		<h3>[method:LoadingManager getLoadingManager](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Gets loading manager<br />
+			<br />
+			Returns : loading manager
+		</p>
+
+		<h3>[method:Vector3 getLookAt](  [param:any lookat] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any lookat] - The lookat.
+		</p>
+		<p>
+			Gets look at<br />
+			<br />
+			Returns : look at
+		</p>
+
+		<h3>[method:AnimationActionLoopStyles getLoopSafe](  [param:string baseLoop],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseLoop] - The base loop.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets loop<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:AnimationActionLoopStyles AnimationActionLoopStyles] - THREE.AnimationActionLoopStyles<br />
+			[page:LoopOnce LoopOnce] - THREE.LoopOnce - LoopOnce, Once<br />
+			[page:LoopRepeat LoopRepeat] - THREE.LoopRepeat - LoopRepeat, Repeat<br />
+			[page:LoopPingPong LoopPingPong] - THREE.LoopPingPong - LoopPingPong, PingPong<br />
+			<br />
+			Returns : loop
+		</p>
+
+		<h3>[method:Mapping getMappingSafe](  [param:string baseMapping],  [param:string altMapping]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseMapping] - The base mapping.<br />
+			[parameter:string altMapping] - (optional) The alt mapping.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets mapping safe<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:Mapping Mapping] - THREE.Mapping<br />
+			[page:UVMapping UVMapping] - THREE.UVMapping - UVMapping, UV<br />
+			[page:CubeReflectionMapping CubeReflectionMapping] - THREE.CubeReflectionMapping - CubeReflectionMapping, CubeReflection<br />
+			[page:CubeRefractionMapping CubeRefractionMapping] - THREE.CubeRefractionMapping - CubeRefractionMapping, CubeRefraction<br />
+			[page:EquirectangularReflectionMapping EquirectangularReflectionMapping] - THREE.EquirectangularReflectionMapping - EquirectangularReflectionMapping, EquirectangularReflection<br />
+			[page:EquirectangularRefractionMapping EquirectangularRefractionMapping] - THREE.EquirectangularRefractionMapping - EquirectangularRefractionMapping, EquirectangularRefraction<br />
+			[page:CubeUVReflectionMapping CubeUVReflectionMapping] - THREE.CubeUVReflectionMapping - CubeUVReflectionMapping, CubeUVReflection<br />
+			[page:CubeUVRefractionMapping CubeUVRefractionMapping] - THREE.CubeUVRefractionMapping - CubeUVRefractionMapping, CubeUVRefraction<br />
+			<br />
+			Returns : mapping safe
+		</p>
+
+		<h3>[method:Material|Material[] getMaterial](  [param:any material] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any material] - The material.
+		</p>
+		<p>
+			Gets material<br />
+			<br />
+			Returns : material
+		</p>
+
+		<h3>[method:Material getMaterialByType](  [param:any material],  [param:string materialType]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any material] - The material.<br />
+			[parameter:string materialType] - (optional) The material type.
+		</p>
+		<p>
+			Gets material by type<br />
+			<br />
+			Returns : material by type
+		</p>
+
+		<h3>[method:Material getMaterialOne](  [param:any material] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any material] - The material.
+		</p>
+		<p>
+			Gets material one<br />
+			<br />
+			Returns : material one
+		</p>
+
+		<h3>[method:Matrix4 getMatrix4Safe](  [param:Object3D obj],  [param:string matrixType] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D obj] - The obj.<br />
+			[parameter:string matrixType] - The matrix type.
+		</p>
+		<p>
+			Gets matrix4 safe<br />
+			<br />
+			Returns : matrix4 safe
+		</p>
+
+		<h3>[method:Mesh getMesh](  [param:any mesh] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any mesh] - The mesh.
+		</p>
+		<p>
+			Gets mesh<br />
+			<br />
+			Returns : mesh
+		</p>
+
+		<h3>[method:Mesh getMeshFind](  [param:any mesh] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any mesh] - The mesh.
+		</p>
+		<p>
+			Gets mesh find<br />
+			<br />
+			Returns : mesh find
+		</p>
+
+		<h3>[method:MOUSE getMouseSafe](  [param:string baseMouse],  [param:string altMouse]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseMouse] - The base mouse.<br />
+			[parameter:string altMouse] - (optional) The alt mouse.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets mouse safe<br />
+			https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.button<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:MOUSE MOUSE] - THREE.MOUSE<br />
+			[page:MOUSE MOUSE] - THREE.MOUSE.LEFT - left<br />
+			[page:MOUSE MOUSE] - THREE.MOUSE.MIDDLE - middle<br />
+			[page:MOUSE MOUSE] - THREE.MOUSE.RIGHT - right<br />
+			[page:MOUSE MOUSE] - THREE.MOUSE.ROTATE - rotate<br />
+			[page:MOUSE MOUSE] - THREE.MOUSE.DOLLY - dolly<br />
+			[page:MOUSE MOUSE] - THREE.MOUSE.PAN - pan<br />
+			<br />
+			Returns : mouse safe
+		</p>
+
+		<h3>[method:NormalMapTypes getNormalMapTypeSafe](  [param:string baseNormalMapType],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseNormalMapType] - The base normal map type.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets normal map type<br />
+			<br />
+			Returns : normal map type
+		</p>
+
+		<h3>[method:number getNumberSafe](  [param:string|number num],  [param:number altnum]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|number num] - The num.<br />
+			[parameter:number altnum] - (optional) The altnum.
+		</p>
+		<p>
+			Gets number safe<br />
+			<br />
+			Returns : number safe
+		</p>
+
+		<h3>[method:T getObject3d](  [param:any object3d],  [param:boolean isRequired] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any object3d] - The object3d.<br />
+			[parameter:boolean isRequired] - The is required.
+		</p>
+		<p>
+			Gets object3d<br />
+			<br />
+			Returns : object3d
+		</p>
+
+		<h3>[method:number getParseFloat](  [param:string value],  [param:number max] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string value] - The value.<br />
+			[parameter:number max] - The max.
+		</p>
+		<p>
+			Gets parse float<br />
+			<br />
+			Returns : parse float
+		</p>
+
+		<h3>[method:PixelFormatGPU getPixelFormatGPUSafe](  [param:string baseFormat],  [param:string altFormat]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseFormat] - The base format.<br />
+			[parameter:string altFormat] - (optional) The alt format.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets pixel format gpusafe, Internal Pixel Formats<br />
+			<br />
+			Returns : pixel format gpusafe
+		</p>
+
+		<h3>[method:PixelFormat|CompressedPixelFormat getPixelFormatOrCompressedPixelFormatSafe](  [param:string baseFormat],  [param:string altFormat]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseFormat] - The base format.<br />
+			[parameter:string altFormat] - (optional) The alt format.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets pixel format or compressed pixel format safe<br />
+			<br />
+			Returns : pixel format or compressed pixel format safe
+		</p>
+
+		<h3>[method:PixelFormat getPixelFormatSafe](  [param:string baseFormat],  [param:string altFormat]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseFormat] - The base format.<br />
+			[parameter:string altFormat] - (optional) The alt format.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets pixel format safe<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:PixelFormat PixelFormat] - THREE.PixelFormat<br />
+			[page:AlphaFormat AlphaFormat] - THREE.AlphaFormat - AlphaFormat, Alpha<br />
+			[page:RedFormat RedFormat] - THREE.RedFormat - RedFormat, Red<br />
+			[page:RedIntegerFormat RedIntegerFormat] - THREE.RedIntegerFormat - RedIntegerFormat, RedInteger<br />
+			[page:RGFormat RGFormat] - THREE.RGFormat - RGFormat, RG<br />
+			[page:RGIntegerFormat RGIntegerFormat] - THREE.RGIntegerFormat - RGIntegerFormat, RGInteger<br />
+			[page:RGBFormat RGBFormat] - THREE.RGBFormat - RGBFormat, RGB<br />
+			[page:RGBIntegerFormat RGBIntegerFormat] - THREE.RGBIntegerFormat - RGBIntegerFormat, RGBInteger<br />
+			[page:RGBAIntegerFormat RGBAIntegerFormat] - THREE.RGBAIntegerFormat - RGBAIntegerFormat, RGBAInteger<br />
+			[page:LuminanceFormat LuminanceFormat] - THREE.LuminanceFormat - LuminanceFormat, Luminance<br />
+			[page:LuminanceAlphaFormat LuminanceAlphaFormat] - THREE.LuminanceAlphaFormat - LuminanceAlphaFormat, LuminanceAlpha<br />
+			[page:RGBEFormat RGBEFormat] - THREE.RGBEFormat - RGBEFormat, RGBE<br />
+			[page:DepthFormat DepthFormat] - THREE.DepthFormat - DepthFormat, Depth<br />
+			[page:DepthStencilFormat DepthStencilFormat] - THREE.DepthStencilFormat - DepthStencilFormat, DepthStencil<br />
+			[page:RGBAFormat RGBAFormat] - THREE.RGBAFormat - RGBAFormat, RGBA<br />
+			<br />
+			Returns : pixel format safe
+		</p>
+
+		<h3>[method:PMREMGenerator getPmremGenerator](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Gets pmrem generator<br />
+			<br />
+			Returns : pmrem generator
+		</p>
+
+		<h3>[method:Vector3 getPosition](  [param:any position] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any position] - The position.
+		</p>
+		<p>
+			Gets position<br />
+			<br />
+			Returns : position
+		</p>
+
+		<h3>[method:void getPrecisionSafe](  [param:string basePrecision],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string basePrecision] - The base precision.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets precision safe<br />
+			<br />
+			Returns : precision safe
+		</p>
+
+		<h3>[method:number getRadian2AngleSafe](  [param:number angle],  [param:number altangle]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number angle] - The angle.<br />
+			[parameter:number altangle] - (optional) The altangle.
+		</p>
+		<p>
+			Gets radian2 angle safe<br />
+			<br />
+			Returns : radian2 angle safe
+		</p>
+
+		<h3>[method:Renderer getRenderer](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Gets renderer<br />
+			<br />
+			Returns : renderer
+		</p>
+
+		<h3>[method:Vector2 getRendererSize](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Gets renderer size<br />
+			<br />
+			Returns : renderer size
+		</p>
+
+		<h3>[method:btRigidBody getRigidbody](  [param:any object] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any object] - The object.
+		</p>
+		<p>
+			Gets rigidbody<br />
+			<br />
+			Returns : rigidbody
+		</p>
+
+		<h3>[method:any getRigidbodyComponent](  [param:any object] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any object] - The object.
+		</p>
+		<p>
+			Gets rigidbody component<br />
+			<br />
+			Returns : rigidbody component
+		</p>
+
+		<h3>[method:Euler getRotation](  [param:any rotation] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any rotation] - The rotation.
+		</p>
+		<p>
+			Gets rotation<br />
+			<br />
+			Returns : rotation
+		</p>
+
+		<h3>[method:Vector3 getScale](  [param:any scale] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any scale] - The scale.
+		</p>
+		<p>
+			Gets scale<br />
+			<br />
+			Returns : scale
+		</p>
+
+		<h3>[method:Shading getShadingSafe](  [param:string baseSide],  [param:string altSide]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseSide] - The base side.<br />
+			[parameter:string altSide] - (optional) The alt side.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets Shading<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:Shading Shading] - THREE.Shading<br />
+			[page:FlatShading FlatShading] - THREE.FlatShading - Flat<br />
+			[page:SmoothShading SmoothShading] - THREE.SmoothShading - Smooth<br />
+			<br />
+			Returns : Shading
+		</p>
+
+		<h3>[method:ShadowMapType getShadowMapTypeSafe](  [param:string baseShadowMapType],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseShadowMapType] - The base shadow map type.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets Shadowing Type<br />
+			<br />
+			Returns : shadow map type safe
+		</p>
+
+		<h3>[method:Side getSideSafe](  [param:string baseSide],  [param:string altSide]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseSide] - The base side.<br />
+			[parameter:string altSide] - (optional) The alt side.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets side<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:Side Side] - THREE.Side<br />
+			[page:FrontSide FrontSide] - THREE.FrontSide - FrontSide , Front<br />
+			[page:BackSide BackSide] - THREE.BackSide - BackSide , Back<br />
+			[page:DoubleSide DoubleSide] - THREE.DoubleSide - DoubleSide , Double<br />
+			<br />
+			Returns : side
+		</p>
+
+		<h3>[method:Observable getSizeSubscribe](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Gets size subscribe<br />
+			<br />
+			Returns : size subscribe
+		</p>
+
+		<h3>[method:NgxThreeStats getStats](  [param:object style]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:object style] - (optional) The style.
+		</p>
+		<p>
+			Gets stats<br />
+			<br />
+			Returns : stats
+		</p>
+
+		<h3>[method:StencilFunc getStencilFuncSafe](  [param:string baseStencilFunc],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseStencilFunc] - The base stencil func.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets stencil func<br />
+			<br />
+			Returns : stencil func
+		</p>
+
+		<h3>[method:StencilOp getStencilOpSafe](  [param:string baseStencilFail],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseStencilFail] - The base stencil fail.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets stencil fail<br />
+			<br />
+			Returns : stencil fail
+		</p>
+
+		<h3>[method:string getStoreUrl](  [param:string url] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.
+		</p>
+		<p>
+			Gets store url<br />
+			<br />
+			Returns : store url
+		</p>
+
+		<h3>[method:Subscription getSubscribe](  [param:any object],  [param:any callBack],  [param:string nextKey] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any object] - The object.<br />
+			[parameter:any callBack] - The call back.<br />
+			[parameter:string nextKey] - The next key.
+		</p>
+		<p>
+			Gets subscribe<br />
+			<br />
+			Returns : subscribe
+		</p>
+
+		<h3>[method:Texture getTexture](  [param:any texture],  [param:string refType],  [param:boolean isRequired] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any texture] - The texture.<br />
+			[parameter:string refType] - The ref type.<br />
+			[parameter:boolean isRequired] - The is required.
+		</p>
+		<p>
+			Gets texture<br />
+			<br />
+			Returns : texture
+		</p>
+
+		<h3>[method:TextureDataType getTextureDataTypeSafe](  [param:string baseFormat],  [param:string altFormat]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseFormat] - The base format.<br />
+			[parameter:string altFormat] - (optional) The alt format.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets texture data type safe<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureDataType TextureDataType] - THREE.TextureDataType<br />
+			[page:ByteType ByteType] - THREE.ByteType - ByteType, Byte<br />
+			[page:ShortType ShortType] - THREE.ShortType - ShortType, Short<br />
+			[page:UnsignedShortType UnsignedShortType] - THREE.UnsignedShortType - UnsignedShortType, UnsignedShort<br />
+			[page:IntType IntType] - THREE.IntType - IntType, Int<br />
+			[page:UnsignedIntType UnsignedIntType] - THREE.UnsignedIntType - UnsignedIntType, UnsignedInt<br />
+			[page:FloatType FloatType] - THREE.FloatType - FloatType, Float<br />
+			[page:HalfFloatType HalfFloatType] - THREE.HalfFloatType - HalfFloatType, HalfFloat<br />
+			[page:UnsignedShort4444Type UnsignedShort4444Type] - THREE.UnsignedShort4444Type - UnsignedShort4444Type, UnsignedShort4444<br />
+			[page:UnsignedShort5551Type UnsignedShort5551Type] - THREE.UnsignedShort5551Type - UnsignedShort5551Type, UnsignedShort5551<br />
+			[page:UnsignedShort565Type UnsignedShort565Type] - THREE.UnsignedShort565Type - UnsignedShort565Type, UnsignedShort565<br />
+			[page:UnsignedInt248Type UnsignedInt248Type] - THREE.UnsignedInt248Type - UnsignedInt248Type, UnsignedInt248<br />
+			[page:UnsignedByteType UnsignedByteType] - THREE.UnsignedByteType - UnsignedByteType, UnsignedByte<br />
+			<br />
+			Returns : texture data type safe
+		</p>
+
+		<h3>[method:TextureEncoding getTextureEncodingSafe](  [param:string baseEncoding],  [param:string altEncoding]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseEncoding] - The base encoding.<br />
+			[parameter:string altEncoding] - (optional) The alt encoding.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets texture encoding safe<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br />
+			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding, sRGB<br />
+			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding, Gamma<br />
+			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding, RGBE<br />
+			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding, LogLuv<br />
+			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding, RGBM7<br />
+			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding, RGBM16<br />
+			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding, RGBD<br />
+			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding, Linear<br />
+			<br />
+			Returns : texture encoding safe
+		</p>
+
+		<h3>[method:TextureFilter getTextureFilterSafe](  [param:string baseFilter],  [param:string altFilter]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseFilter] - The base filter.<br />
+			[parameter:string altFilter] - (optional) The alt filter.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets texture filter safe<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br />
+			[page:NearestFilter NearestFilter] - THREE.NearestFilter               - NearestFilter, Nearest<br />
+			[page:NearestMipmapNearestFilter NearestMipmapNearestFilter] - THREE.NearestMipmapNearestFilter  - NearestMipmapNearestFilter, nearestmipmapnearest<br />
+			[page:NearestMipmapLinearFilter NearestMipmapLinearFilter] - THREE.NearestMipmapLinearFilter   - NearestMipmapLinearFilter, nearestmipmaplinear<br />
+			[page:LinearMipmapNearestFilter LinearMipmapNearestFilter] - THREE.LinearMipmapNearestFilter   - LinearMipmapNearestFilter, linearmipmapnearest<br />
+			[page:LinearMipmapLinearFilter LinearMipmapLinearFilter] - THREE.LinearMipmapLinearFilter    - LinearMipmapLinearFilter, linearmipmaplinear<br />
+			[page:LinearFilter LinearFilter] - THREE.LinearFilter                - Linearfilter, linear<br />
+			<br />
+			Returns : texture filter safe
+		</p>
+
+		<h3>[method:any getThreeComponent](  [param:any object] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any object] - The object.
+		</p>
+		<p>
+			Gets three component<br />
+			<br />
+			Returns : three component
+		</p>
+
+		<h3>[method:ToneMapping getToneMappingSafe](  [param:string baseToneMapping],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseToneMapping] - The base tone mapping.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Notice - case insensitive.<br />
+			<br />
+			[page:ToneMapping ToneMapping] - THREE.ToneMapping<br />
+			[page:NoToneMapping NoToneMapping] - THREE.NoToneMapping - No<br />
+			[page:LinearToneMapping LinearToneMapping] - THREE.LinearToneMapping - Linear<br />
+			[page:ReinhardToneMapping ReinhardToneMapping] - THREE.ReinhardToneMapping - Reinhard<br />
+			[page:CineonToneMapping CineonToneMapping] - THREE.CineonToneMapping - Cineon<br />
+			[page:ACESFilmicToneMapping ACESFilmicToneMapping] - THREE.ACESFilmicToneMapping - ACESFilmic<br />
+			[page:CustomToneMapping CustomToneMapping] - THREE.CustomToneMapping - Custom<br />
+			<br />
+			Returns : toneMapping
+		</p>
+
+		<h3>[method:TOUCH getTouchSafe](  [param:string baseTouch],  [param:string altTouch]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseTouch] - The base touch.<br />
+			[parameter:string altTouch] - (optional) The alt touch.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets touch safe<br />
+			https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.button<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TOUCH TOUCH] - THREE.TOUCH<br />
+			[page:TOUCH TOUCH] - THREE.TOUCH.ROTATE - rotate<br />
+			[page:TOUCH TOUCH] - THREE.TOUCH.PAN - pan<br />
+			[page:TOUCH TOUCH] - THREE.TOUCH.DOLLY_PAN - dollypan, dolly_pan<br />
+			[page:TOUCH TOUCH] - THREE.TOUCH.DOLLY_ROTATE - dollyrotate, dolly_rotate<br />
+			<br />
+			Returns : touch safe
+		</p>
+
+		<h3>[method:TrianglesDrawModes getTrianglesDrawModesSafe](  [param:string baseBlendMode],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseBlendMode] - The base blend mode.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets TrianglesDraw mode<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:TrianglesDrawModes TrianglesDrawModes] - THREE.TrianglesDrawModes<br />
+			[page:TrianglesDrawMode TrianglesDrawMode] - THREE.TrianglesDrawMode - TrianglesDrawMode, DrawMode<br />
+			[page:TriangleStripDrawMode TriangleStripDrawMode] - THREE.TriangleStripDrawMode - TriangleStripDrawMode, StripDrawMode, Strip<br />
+			[page:TriangleFanDrawMode TriangleFanDrawMode] - THREE.TriangleFanDrawMode - TriangleFanDrawMode, FanDrawMode, Fan<br />
+			<br />
+			Returns : TrianglesDraw mode
+		</p>
+
+		<h3>[method:T getTypeSafe](  [param:T value],  [param:T altValue]?,  [param:T nullValue]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T value] - The value.<br />
+			[parameter:T altValue] - (optional) The alt value.<br />
+			[parameter:T nullValue] - (optional) The null value.
+		</p>
+		<p>
+			Gets type safe<br />
+			<br />
+			Returns : type safe
+		</p>
+
+		<h3>[method:Observable getUpdateSubscribe](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Gets update subscribe<br />
+			<br />
+			Returns : update subscribe
+		</p>
+
+		<h3>[method:Usage getUsageSafe](  [param:string baseUsage],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseUsage] - The base usage.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets usage<br />
+			<br />
+			Returns : usage
+		</p>
+
+		<h3>[method:Vector2 getVector2Safe](  [param:number x],  [param:number y],  [param:Vector2 altValue]?,  [param:Vector2|number[] v2]?,  [param:boolean isRequired]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:Vector2 altValue] - (optional) The alt value.<br />
+			[parameter:Vector2|number[] v2] - (optional) The v2.<br />
+			[parameter:boolean isRequired] - (optional) The is required.
+		</p>
+		<p>
+			Gets vector2 safe<br />
+			<br />
+			Returns : vector2 safe
+		</p>
+
+		<h3>[method:Vector2 getVector2VSafe](  [param:Vector2|number[] v2],  [param:Vector2 altValue]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector2|number[] v2] - The v2.<br />
+			[parameter:Vector2 altValue] - (optional) The alt value.
+		</p>
+		<p>
+			Gets vector2 vsafe<br />
+			<br />
+			Returns : vector2 vsafe
+		</p>
+
+		<h3>[method:Vector3 getVector3Safe](  [param:number x],  [param:number y],  [param:number z],  [param:Vector3 altValue]?,  [param:Vector3|number[] v3]?,  [param:boolean isRequired]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:Vector3 altValue] - (optional) The alt value.<br />
+			[parameter:Vector3|number[] v3] - (optional) The v3.<br />
+			[parameter:boolean isRequired] - (optional) The is required.
+		</p>
+		<p>
+			Gets vector3 safe<br />
+			<br />
+			Returns : vector3 safe
+		</p>
+
+		<h3>[method:Vector3 getVector3VSafe](  [param:Vector3|number[] v3],  [param:Vector3 altValue]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3|number[] v3] - The v3.<br />
+			[parameter:Vector3 altValue] - (optional) The alt value.
+		</p>
+		<p>
+			Gets vector3 vsafe<br />
+			<br />
+			Returns : vector3 vsafe
+		</p>
+
+		<h3>[method:Wrapping getWrappingSafe](  [param:string baseWrap],  [param:string altWrap]?,  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string baseWrap] - The base wrap.<br />
+			[parameter:string altWrap] - (optional) The alt wrap.<br />
+			[parameter:string def] - (optional) The def.
+		</p>
+		<p>
+			Gets wrapping safe<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:Wrapping Wrapping] - THREE.Wrapping<br />
+			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping - RepeatWrapping, Repeat<br />
+			[page:MirroredRepeatWrapping MirroredRepeatWrapping] - THREE.MirroredRepeatWrapping - MirroredRepeatWrapping, MirroredRepeat<br />
+			[page:ClampToEdgeWrapping ClampToEdgeWrapping] - THREE.ClampToEdgeWrapping - ClampToEdgeWrapping, ClampToEdge<br />
+			<br />
+			Returns : wrapping safe
+		</p>
+
+		<h3>[method:boolean isArray](  [param:any value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any value] - The value.
+		</p>
+		<p>
+			Determines whether array is<br />
+			<br />
+			Returns : true if array
+		</p>
+
+		<h3>[method:boolean isColor](  [param:any color] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any color] - The color.
+		</p>
+		<p>
+			Determines whether not null is color<br />
+			<br />
+			Returns : true if not null
+		</p>
+
+		<h3>[method:boolean isIndexOf](  [param:T[] data],  [param:T|T[] findMe] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T[] data] - The data.<br />
+			[parameter:T|T[] findMe] - The find me.
+		</p>
+		<p>
+			Determines whether index of is<br />
+			<br />
+			Returns : true if index of
+		</p>
+
+		<h3>[method:boolean isNotNull](  [param:any value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any value] - The value.
+		</p>
+		<p>
+			Determines whether not null is<br />
+			<br />
+			Returns : true if not null
+		</p>
+
+		<h3>[method:boolean isNull](  [param:any value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any value] - The value.
+		</p>
+		<p>
+			Determines whether null is<br />
+			<br />
+			Returns : true if null
+		</p>
+
+		<h3>[method:boolean isOnlyIndexOf](  [param:T[] data],  [param:T[] findMe],  [param:T[] addedFindMe]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T[] data] - The data.<br />
+			[parameter:T[] findMe] - The find me.<br />
+			[parameter:T[] addedFindMe] - (optional) The added find me.
+		</p>
+		<p>
+			Determines whether only index of is<br />
+			<br />
+			Returns : true if only index of
+		</p>
+
+		<h3>[method:boolean isTextureLoaded](  [param:Texture texture] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Texture texture] - The texture.
+		</p>
+		<p>
+			Determines whether texture loaded is<br />
+			<br />
+			Returns : true if texture loaded
+		</p>
+
+		<h3>[method:boolean isThreeComponent](  [param:any object],  [param:string key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any object] - The object.<br />
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			Determines whether three component is<br />
+			<br />
+			Returns : true if three component
+		</p>
+
+		<h3>[method:string makeUUID](  [param:number len],  [param:string pre]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number len] - The len.<br />
+			[parameter:string pre] - (optional) The pre.
+		</p>
+		<p>
+			Makes uuid
+		</p>
+
+		<h3>[method:T[] pushUniq](  [param:T[] data],  [param:T|T[] addMe] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T[] data] - The data.<br />
+			[parameter:T|T[] addMe] - The add me.
+		</p>
+		<p>
+			Pushs uniq<br />
+			<br />
+			Returns : uniq
+		</p>
+
+		<h3>[method:boolean removeCssStyle](  [param:HTMLElement ele],  [param:string clazzName]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:HTMLElement ele] - The ele.<br />
+			[parameter:string clazzName] - (optional) The clazz name.
+		</p>
+		<p>
+			Removes css style<br />
+			<br />
+			Returns : true if css style
+		</p>
+
+		<h3>[method:void render](  [param:IRendererTimer renderTimer] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:IRendererTimer renderTimer] - The render timer.
+		</p>
+		<p>
+			Renders three util
+		</p>
+
+		<h3>[method:void setAssetUrl](  [param:string url] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.
+		</p>
+		<p>
+			Gets store url
+		</p>
+
+		<h3>[method:void setGuiEnabled](  [param:INgxThreeGuiController control],  [param:boolean isEnable] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:INgxThreeGuiController control] - The control.<br />
+			[parameter:boolean isEnable] - The is enable.
+		</p>
+		<p>
+			Sets gui enabled
+		</p>
+
+		<h3>[method:void setLoadingProcess](  [param:string url],  [param:number loaded],  [param:number total] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.<br />
+			[parameter:number loaded] - The loaded.<br />
+			[parameter:number total] - The total.
+		</p>
+		<p>
+			Sets loading process
+		</p>
+
+		<h3>[method:void setRenderer](  [param:any lastRenderer] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any lastRenderer] - The last renderer.
+		</p>
+		<p>
+			Sets renderer
+		</p>
+
+		<h3>[method:void setSubscribeNext](  [param:any object],  [param:string|string[] key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any object] - The object.<br />
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Sets subscribe next
+		</p>
+
+		<h3>[method:void setThreeComponent](  [param:string key],  [param:any object]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - (optional) The object.
+		</p>
+		<p>
+			Sets three component
+		</p>
+
+		<h3>[method:INgxThreeGuiController setupGui](  [param:any control],  [param:INgxThreeGuiController gui],  [param:IGuiControlParam[] params] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any control] - The control.<br />
+			[parameter:INgxThreeGuiController gui] - The gui.<br />
+			[parameter:IGuiControlParam[] params] - The params.
+		</p>
+		<p>
+			Setups gui<br />
+			<br />
+			Returns : gui
+		</p>
+
+		<h3>[method:INgxThreeGuiController setupGuiChange](  [param:INgxThreeGuiController control],  [param:any onFinishChange]?,  [param:any onChange]?,  [param:boolean listen]?,  [param:string title]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:INgxThreeGuiController control] - The control.<br />
+			[parameter:any onFinishChange] - (optional) The on finish change.<br />
+			[parameter:any onChange] - (optional) The on change.<br />
+			[parameter:boolean listen] - (optional) The listen.<br />
+			[parameter:string title] - (optional) The title.
+		</p>
+		<p>
+			Setups gui change<br />
+			<br />
+			Returns : gui change
+		</p>
+
+		<h3>[method:boolean toggleCssStyle](  [param:HTMLElement ele],  [param:string clazzName]?,  [param:boolean isActive]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:HTMLElement ele] - The ele.<br />
+			[parameter:string clazzName] - (optional) The clazz name.<br />
+			[parameter:boolean isActive] - (optional) The is active.
+		</p>
+		<p>
+			Toggles css style<br />
+			<br />
+			Returns : true if css style
+		</p>
+
+
+		<p class="desc">
+			Three stats<br />
+			See the [page:NgxThreeStats ngx3js docs] page for details.
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="ICssStyle">ICssStyle <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:Vector4|INgxColor background]? - The background shorthand CSS property sets all background style properties at once, such as color, image, origin and size, or repeat method.<br />
+			[property:string backgroundClip]? - The background-clip CSS property sets whether an element's background extends underneath its border box, padding box, or content box.<br />
+			[property:Vector4|INgxColor backgroundColor]? - The background-color CSS property sets the background color of an element.<br />
+			[property:string backgroundImage]? - The background-image CSS property sets one or more background images on an element.<br />
+			[property:string backgroundPosition]? - The background-position CSS property sets the initial position for each background image. The position is relative to the position layer set by background-origin.<br />
+			[property:string|number backgroundPositionX]? - The background-position CSS property sets the initial position for each background image. The position is relative to the position layer set by background-origin.<br />
+			[property:string|number backgroundPositionY]? - The background-position CSS property sets the initial position for each background image. The position is relative to the position layer set by background-origin.<br />
+			[property:string backgroundRepeat]? - The background-repeat CSS property sets how background images are repeated. A background image can be repeated along the horizontal and vertical axes, or not repeated at all.<br />
+			[property:string backgroundRepeatX]? - The background-repeat CSS property sets how background images are repeated. A background image can be repeated along the horizontal and vertical axes, or not repeated at all.<br />
+			[property:string backgroundRepeatY]? - The background-repeat CSS property sets how background images are repeated. A background image can be repeated along the horizontal and vertical axes, or not repeated at all.<br />
+			[property:string|number backgroundSize]? - The background-size CSS property sets the size of the element's background image. The image can be left to its natural size, stretched, or constrained to fit the available space.<br />
+			[property:string|number backgroundSizeX]? - The background-size CSS property sets the size of the element's background image. The image can be left to its natural size, stretched, or constrained to fit the available space.<br />
+			[property:string|number backgroundSizeY]? - The background-size CSS property sets the size of the element's background image. The image can be left to its natural size, stretched, or constrained to fit the available space.<br />
+			[property:string|number border]? - The border shorthand CSS property sets an element's border. It sets the values of border-width, border-style, and border-color.<br />
+			[property:string|number borderBottom]? - The border-bottom shorthand CSS property sets an element's bottom border. It sets the values of border-bottom-width, border-bottom-style and border-bottom-color.<br />
+			[property:Vector4|INgxColor borderColor]? - The border-color shorthand CSS property sets the color of an element's border.<br />
+			[property:string borderImage]? - The border-image CSS property draws an image around a given element. It replaces the element's regular border.<br />
+			[property:string|number borderImageOutset]? - The border-image-outset CSS property sets the distance by which an element's border image is set out from its border box.<br />
+			The parts of the border image that are rendered outside the element's border box with border-image-outset do not trigger overflow scrollbars and don't capture mouse events.<br />
+			[property:string borderImageRepeat]? - The border-image-repeat CSS property defines how the edge regions of a source image are adjusted to fit the dimensions of an element's border image.<br />
+			[property:string|number borderImageSlice]? - The border-image-slice CSS property divides the image specified by border-image-source into regions. These regions form the components of an element's border image.<br />
+			[property:string borderImageSource]? - The border-image-source CSS property sets the source image used to create an element's border image.<br />
+			[property:string|number borderImageWidth]? - The border-image-width CSS property sets the width of an element's border image.<br />
+			[property:string|number borderLeft]? - The border-left shorthand CSS property sets all the properties of an element's left border.<br />
+			[property:string|number borderRadius]? - The border-radius CSS property rounds the corners of an element's outer border edge. You can set a single radius to make circular corners, or two radii to make elliptical corners.<br />
+			[property:string|number borderRight]? - The border-right shorthand CSS property sets all the properties of an element's right border.<br />
+			[property:string borderStyle]? - The border-style shorthand CSS property sets the line style for all four sides of an element's border.<br />
+			[property:string|number borderTop]? - The border-top shorthand CSS property sets all the properties of an element's top border.<br />
+			[property:string|number borderWidth]? - The border-width shorthand CSS property sets the width of an element's border.<br />
+			[property:string|number bottom]? - The bottom CSS property participates in setting the vertical position of a positioned element. It has no effect on non-positioned elements.<br />
+			[property:string className]? - The className property of the Element interface gets and sets the value of the class attribute of the specified element.<br />
+			[property:Vector4|INgxColor color]? - The color CSS property sets the foreground color value of an element's text and text decorations, and sets the &lt;currentcolor&gt; value. currentcolor may be used as an indirect value on other properties and is the default for other color properties, such as border-color.<br />
+			[property:string content]? - The content CSS property replaces an element with a generated value. Objects inserted using the content property are anonymous replaced elements.<br />
+			[property:boolean draggable]? - The draggable global attribute is an enumerated attribute that indicates whether the element can be dragged, either with native browser behavior or the HTML Drag and Drop API.<br />
+			[property:string fontFamily]? - The font-family CSS property specifies a prioritized list of one or more font family names and/or generic family names for the selected element.<br />
+			[property:string|number fontSize]? - The font-size CSS property sets the size of the font. Changing the font size also updates the sizes of the font size-relative &lt;length&gt; units, such as em, ex, and so forth.<br />
+			[property:string fontStyle]? - The font-style CSS property sets whether a font should be styled with a normal, italic, or oblique face from its font-family.<br />
+			[property:string|number fontWeight]? - The font-weight CSS property sets the weight (or boldness) of the font. The weights available depend on the font-family that is currently set.<br />
+			[property:string|number height]? - The height CSS property specifies the height of an element. By default, the property defines the height of the content area. If box-sizing is set to border-box, however, it instead determines the height of the border area.<br />
+			[property:string innerHTML]? - The Element property innerHTML gets or sets the HTML or XML markup contained within the element.<br />
+			[property:string innerHtml]? - The Element property innerHTML gets or sets the HTML or XML markup contained within the element.<br />
+			[property:string innerText]? - The innerText property of the HTMLElement interface represents the "rendered" text content of a node and its descendants.<br />
+			[property:string|number left]? - The left CSS property participates in specifying the horizontal position of a positioned element. It has no effect on non-positioned elements.<br />
+			[property:string letterSpacing]? - The letter-spacing CSS property sets the horizontal spacing behavior between text characters. This value is added to the natural spacing between characters while rendering the text. Positive values of letter-spacing causes characters to spread farther apart, while negative values of letter-spacing bring characters closer together.<br />
+			[property:string|number margin]? - The margin CSS shorthand property sets the margin area on all four sides of an element.<br />
+			[property:string|number marginBottom]? - The margin-bottom CSS property sets the margin area on the bottom of an element. A positive value places it farther from its neighbors, while a negative value places it closer.<br />
+			[property:string|number marginLeft]? - The margin-left CSS property sets the margin area on the left side of an element. A positive value places it farther from its neighbors, while a negative value places it closer.<br />
+			[property:string|number marginRight]? - The margin-right CSS property sets the margin area on the right side of an element. A positive value places it farther from its neighbors, while a negative value places it closer.<br />
+			[property:string|number marginTop]? - The margin-top CSS property sets the margin area on the top of an element. A positive value places it farther from its neighbors, while a negative value places it closer.<br />
+			[property:string|number maxHeight]? - The max-height CSS property sets the maximum height of an element. It prevents the used value of the height property from becoming larger than the value specified for max-height.<br />
+			[property:string|number maxWidth]? - The max-width CSS property sets the maximum width of an element. It prevents the used value of the width property from becoming larger than the value specified by max-width.<br />
+			[property:string|number minHeight]? - The min-height CSS property sets the minimum height of an element. It prevents the used value of the height property from becoming smaller than the value specified for min-height.<br />
+			[property:string|number minWidth]? - The min-width CSS property sets the minimum width of an element. It prevents the used value of the width property from becoming smaller than the value specified for min-width.<br />
+			[property:number opacity]? - The opacity CSS property sets the opacity of an element. Opacity is the degree to which content behind an element is hidden, and is the opposite of transparency.<br />
+			[property:string overflow]? - The overflow CSS shorthand property sets the desired behavior for an element's overflow — i.e. when an element's content is too big to fit in its block formatting context — in both directions.<br />
+			[property:string|number padding]? - The padding CSS shorthand property sets the padding area on all four sides of an element at once.<br />
+			[property:string|number paddingBottom]? - The padding-right CSS property sets the width of the padding area on the bottom of an element.<br />
+			[property:string|number paddingLeft]? - The padding-left CSS property sets the width of the padding area to the left of an element.<br />
+			[property:string|number paddingRight]? - The padding-right CSS property sets the width of the padding area on the right of an element.<br />
+			[property:string|number paddingTop]? - The padding-top CSS property sets the height of the padding area on the top of an element.<br />
+			[property:string pointerEvents]? - The pointer-events CSS property sets under what circumstances (if any) a particular graphic element can become the target of pointer events.<br />
+			[property:string position]? - The position CSS property sets how an element is positioned in a document. The top, right, bottom, and left properties determine the final location of positioned elements.<br />
+			[property:string|number right]? - The right CSS property participates in specifying the horizontal position of a positioned element. It has no effect on non-positioned elements.<br />
+			[property:string src]? - The HTTP Content-Security-Policy img-src directive specifies valid sources of images and favicons.<br />
+			The HTTP Content-Security-Policy (CSP) frame-src directive specifies valid sources for nested browsing contexts loading using elements such as &lt;frame&gt; and &lt;iframe&gt;.<br />
+			[property:string textAlign]? - The text-align CSS property sets the horizontal alignment of the content inside a block element or table-cell box. This means it works like vertical-align but in the horizontal direction.<br />
+			[property:string textContent]? - The textContent property of the Node interface represents the text content of the node and its descendants.<br />
+			[property:string textDecoration]? - The text-decoration shorthand CSS property sets the appearance of decorative lines on text. It is a shorthand for text-decoration-line, text-decoration-color, text-decoration-style, and the newer text-decoration-thickness property.<br />
+			[property:string|number textIndent]? - The text-indent CSS property sets the length of empty space (indentation) that is put before lines of text in a block.<br />
+			[property:string textJustify]? - The text-justify CSS property sets what type of justification should be applied to text when text-align: justify; is set on an element.<br />
+			[property:string textSizeAdjust]? - The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones and tablets. Other browsers will ignore this property.<br />
+			[property:string textTransform]? - The text-transform CSS property specifies how to capitalize an element's text. It can be used to make text appear in all-uppercase or all-lowercase, or with each word capitalized. It also can help improve legibility for ruby.<br />
+			[property:string|number top]? - The top CSS property participates in specifying the vertical position of a positioned element. It has no effect on non-positioned elements.<br />
+			[property:string|string[] transform]? - The transform CSS property lets you rotate, scale, skew, or translate an element. It modifies the coordinate space of the CSS visual formatting model.<br />
+			[property:string transformOrigin]? - The transform-origin CSS property sets the origin for an element's transformations.<br />
+			[property:string|string[] transition]? - The transition CSS property is a shorthand property for transition-property, transition-duration, transition-timing-function, and transition-delay.<br />
+			[property:string whiteSpace]? - The white-space CSS property sets how white space inside an element is handled.<br />
+			[property:string|number width]? - The width CSS property sets an element's width. By default, it sets the width of the content area, but if box-sizing is set to border-box, it sets the width of the border area.<br />
+			[property:string wordBreak]? - The word-break CSS property sets whether line breaks appear wherever the text would otherwise overflow its content box.<br />
+			[property:string wordSpacing]? - The word-spacing CSS property sets the length of space between words and between tags.<br />
+			[property:number zIndex]? - The z-index CSS property sets the z-order of a positioned element and its descendants or flex items. Overlapping elements with a larger z-index cover those with a smaller one.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void change](  [param:any e]? ) - The change event is fired for &lt;input&gt;, &lt;select&gt;, and &lt;textarea&gt; elements when an alteration to the element's value is committed by the user. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.<br />
+			[method:void click](  [param:any e]? ) - An element receives a click event when a pointing device button (such as a mouse's primary mouse button) is both pressed and released while the pointer is located inside the element.<br />
+			[method:void dblclick](  [param:any e]? ) - The dblclick event fires when a pointing device button (such as a mouse's primary button) is double-clicked; that is, when it's rapidly clicked twice on a single element within a very short span of time.<br />
+			[method:void focus](  [param:any e]? ) - The HTMLElement.focus() method sets focus on the specified element, if it can be focused. The focused element is the element which will receive keyboard and similar events by default.<br />
+			[method:void keydown](  [param:any e]? ) - The keydown event is fired when a key is pressed.<br />
+			[method:void keyup](  [param:any e]? ) - The keyup event is fired when a key is released.<br />
+			[method:void load](  [param:any e]? ) - The load event is fired when the whole page has loaded, including all dependent resources such as stylesheets and images.<br />
+			[method:void mousedown](  [param:any e]? ) - The mousedown event is fired at an Element when a pointing device button is pressed while the pointer is inside the element.<br />
+			[method:void mousemove](  [param:any e]? ) - The mousemove event is fired at an element when a pointing device (usually a mouse) is moved while the cursor's hotspot is inside it.<br />
+			[method:void mouseout](  [param:any e]? ) - The mouseout event is fired at an Element when a pointing device (usually a mouse) is used to move the cursor so that it is no longer contained within the element or one of its children.<br />
+			[method:void mouseover](  [param:any e]? ) - The mouseover event is fired at an Element when a pointing device (such as a mouse or trackpad) is used to move the cursor onto the element or one of its child elements.<br />
+			[method:void mouseup](  [param:any e]? ) - The mouseup event is fired at an Element when a button on a pointing device (such as a mouse or trackpad) is released while the pointer is located inside it.<br />
+			[method:void select](  [param:any e]? ) - The select event fires when some text has been selected.
+		</p>
+
+		<p class="desc">
+			Css style
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="IGuiControlParam">IGuiControlParam <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:IGuiControlParam[] children]? - The children of folder type<br />
+			[property:string control]? -  The control.<br />
+			[property:INgxThreeGuiController controller]? - The controller of gui<br />
+			[property:boolean isOpen]? - is opened in case folder<br />
+			[property:boolean listen]? -  The listen.<br />
+			[property:number max]? - The max value of number type<br />
+			[property:number min]? - The min value of number type<br />
+			[property:string name] - The name of gui control<br />
+			[property:string[] select]? - The select value of select type<br />
+			[property:number step]? - The step value of number type<br />
+			[property:string title]? - The title of gui name<br />
+			[property:'number'|'color'|'select'|'folder'|'button'|'checkbox'|'input'|'listen'|'auto' type]? - The type of gui control
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void change](  [param:any value]? ) - on change value trigger<br />
+			[method:void finishChange](  [param:any value]? ) - on change finish value trigger
+		</p>
+
+		<p class="desc">
+			Gui control param
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="INgxThreeGuiController">INgxThreeGuiController <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:HTMLElement domElement]? -  The dom element.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:INgxThreeGuiController add](  [param:any object],  [param:string property],  [param:any min]?,  [param:number max]?,  [param:number step]? ) <br />
+			[method:INgxThreeGuiController addColor](  [param:any object],  [param:string property] ) <br />
+			[method:INgxThreeGuiController addFolder](  [param:string name] ) <br />
+			[method:INgxThreeGuiController close](  ) <br />
+			[method:INgxThreeGuiController destroy](  ) <br />
+			[method:INgxThreeGuiController hide](  ) <br />
+			[method:INgxThreeGuiController listen](  ) <br />
+			[method:INgxThreeGuiController name](  [param:string name] ) <br />
+			[method:INgxThreeGuiController onChange](  [param:any callBack] ) <br />
+			[method:INgxThreeGuiController onFinishChange](  [param:any callBack] ) <br />
+			[method:INgxThreeGuiController open](  ) <br />
+			[method:INgxThreeGuiController remove](  [param:any controller] ) <br />
+			[method:INgxThreeGuiController removeFolder](  [param:any folder] ) <br />
+			[method:INgxThreeGuiController show](  ) 
+		</p>
+
+		<p class="desc">
+			Three gui controller
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="IRendererTimer">IRendererTimer <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:number delta] -  The delta.<br />
+			[property:number elapsedTime] -  The elapsed time.<br />
+			[property:IRendererEvent event]? -  The event.<br />
+			[property:Renderer renderer]? -  The renderer.
+		</p>
+
+		<p class="desc">
+			Renderer timer
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="ITagAttributes">ITagAttributes <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:any attributes] -  The attributes.<br />
+			[property:any children]? -  The children.<br />
+			[property:any options]? -  The options.<br />
+			[property:string tag] -  The tag.
+		</p>
+
+		<p class="desc">
+			Tag attributes
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="INgxColor">INgxColor <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h3>[property:string|number|Color INgxColor]</h3>
+
+
+		<p class="desc">
+			Three Color<br />
+			string hexcode - #ffffff<br />
+			string hsl(0,1,1)<br />
+			string rgb(255,255,255)<br />
+			string color name - red,blue...  'aliceblue': 0xF0F8FF, 'antiquewhite': 0xFAEBD7, 'aqua': 0x00FFFF ...<br />
+			string random<br />
+			number 0xffffff<br />
+			THREE.Color
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/three-util.ts /three-util.ts]</p>
+	</body>
+</html>

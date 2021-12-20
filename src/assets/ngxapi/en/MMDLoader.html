@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:Loader] &rarr;
+
+		<h1>MMDLoader</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:MMDLoader MMDLoader](  [param:LoadingManager manager]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:LoadingManager manager] - (optional) The manager.
+		</p>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:Loader Loader] class for common properties.
+		</p>
+
+		<h3>[property:object animationBuilder]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string animationPath]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string crossOrigin]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:FileLoader loader]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:LoadingManager manager]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:object meshBuilder]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:object parser]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string path]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any requestHeader]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string resourcePath]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean withCredentials]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:Loader Loader] class for common methods.
+		</p>
+
+		<h3>[method:void load](  [param:string url],  [param:any onLoad],  [param:any onProgress]?,  [param:any onError]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.<br />
+			[parameter:any onLoad] - The on load.<br />
+			[parameter:any onProgress] - (optional) The on progress.<br />
+			[parameter:any onError] - (optional) The on error.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void loadAnimation](  [param:string url],  [param:Camera|SkinnedMesh object],  [param:any onLoad],  [param:any onProgress]?,  [param:any onError]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.<br />
+			[parameter:Camera|SkinnedMesh object] - The object.<br />
+			[parameter:any onLoad] - The on load.<br />
+			[parameter:any onProgress] - (optional) The on progress.<br />
+			[parameter:any onError] - (optional) The on error.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Promise loadAsync](  [param:string url],  [param:any onProgress]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.<br />
+			[parameter:any onProgress] - (optional) The on progress.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void loadPMD](  [param:string url],  [param:any onLoad],  [param:any onProgress]?,  [param:any onError]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.<br />
+			[parameter:any onLoad] - The on load.<br />
+			[parameter:any onProgress] - (optional) The on progress.<br />
+			[parameter:any onError] - (optional) The on error.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void loadPMX](  [param:string url],  [param:any onLoad],  [param:any onProgress]?,  [param:any onError]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.<br />
+			[parameter:any onLoad] - The on load.<br />
+			[parameter:any onProgress] - (optional) The on progress.<br />
+			[parameter:any onError] - (optional) The on error.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void loadVMD](  [param:string url],  [param:any onLoad],  [param:any onProgress]?,  [param:any onError]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.<br />
+			[parameter:any onLoad] - The on load.<br />
+			[parameter:any onProgress] - (optional) The on progress.<br />
+			[parameter:any onError] - (optional) The on error.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void loadVPD](  [param:string url],  [param:boolean isUnicode],  [param:any onLoad],  [param:any onProgress]?,  [param:any onError]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.<br />
+			[parameter:boolean isUnicode] - The is unicode.<br />
+			[parameter:any onLoad] - The on load.<br />
+			[parameter:any onProgress] - (optional) The on progress.<br />
+			[parameter:any onError] - (optional) The on error.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void loadWithAnimation](  [param:string url],  [param:string|string[] vmdUrl],  [param:any onLoad],  [param:any onProgress]?,  [param:any onError]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.<br />
+			[parameter:string|string[] vmdUrl] - The vmd url.<br />
+			[parameter:any onLoad] - The on load.<br />
+			[parameter:any onProgress] - (optional) The on progress.<br />
+			[parameter:any onError] - (optional) The on error.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:MMDLoader setAnimationPath](  [param:string animationPath] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string animationPath] - The animation path.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:MMDLoader setCrossOrigin](  [param:string crossOrigin] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string crossOrigin] - The cross origin.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:MMDLoader setPath](  [param:string path] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string path] - The path.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:MMDLoader setRequestHeader](  [param:any requestHeader] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any requestHeader] - The request header.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:MMDLoader setResourcePath](  [param:string resourcePath] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string resourcePath] - The resource path.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:MMDLoader setWithCredentials](  [param:boolean value] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean value] - The value.
+		</p>
+		<p>
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/loaders.ts /threejs-library/types/three/examples/loaders.ts]</p>
+	</body>
+</html>

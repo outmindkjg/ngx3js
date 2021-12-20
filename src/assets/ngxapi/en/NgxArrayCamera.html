@@ -7,7 +7,7 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:ArrayCamera] &rarr;
+		[page:EventDispatcher] &rarr; [page:Object3D] &rarr; [page:Camera] &rarr; [page:PerspectiveCamera] &rarr; [page:ArrayCamera] &rarr;
 
 		<h1>NgxArrayCamera</h1>
 
@@ -22,188 +22,70 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:NgxArrayCamera NgxArrayCamera](  [param:IPerspectiveCamera[] cameras]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>[constructor:NgxArrayCamera NgxArrayCamera](  [param:PerspectiveCamera[] cameras]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:IPerspectiveCamera[] cameras] - (optional) The cameras.
+			[parameter:PerspectiveCamera[] cameras] - (optional) The cameras.
 		</p>
 		<p>
 			Creates an instance of ngx array camera.
 		</p>
 
-		<h3>[constructor:NgxArrayCamera NgxArrayCamera](  [param:IPerspectiveCamera[] cameras]?,  [param:number fov]?,  [param:number aspect]?,  [param:number near]?,  [param:number far]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h2>Constructor</h2>
+		<h3>[constructor:NgxArrayCamera NgxArrayCamera](  [param:number fov]?,  [param:number aspect]?,  [param:number near]?,  [param:number far]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:IPerspectiveCamera[] cameras] - (optional) The cameras.<br />
 			[parameter:number fov] - (optional) The fov.<br />
 			[parameter:number aspect] - (optional) The aspect.<br />
 			[parameter:number near] - (optional) The near.<br />
 			[parameter:number far] - (optional) The far.
 		</p>
 		<p>
-			
+			Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
 		</p>
 
 		<h2>Properties</h2>
+		<p>
+			See the base [page:EventDispatcher EventDispatcher] class for common properties.
+		</p>
+		<p>
+			See the base [page:Object3D Object3D] class for common properties.
+		</p>
+		<p>
+			See the base [page:Camera Camera] class for common properties.
+		</p>
+		<p>
+			See the base [page:PerspectiveCamera PerspectiveCamera] class for common properties.
+		</p>
 		<p>
 			See the base [page:ArrayCamera ArrayCamera] class for common properties.
 		</p>
 
 		<h2>Methods</h2>
 		<p>
+			See the base [page:EventDispatcher EventDispatcher] class for common methods.
+		</p>
+		<p>
+			See the base [page:Object3D Object3D] class for common methods.
+		</p>
+		<p>
+			See the base [page:Camera Camera] class for common methods.
+		</p>
+		<p>
+			See the base [page:PerspectiveCamera PerspectiveCamera] class for common methods.
+		</p>
+		<p>
 			See the base [page:ArrayCamera ArrayCamera] class for common methods.
 		</p>
 
-		<hr class="interface-line"/>
-		[page:IEventDispatcher] &rarr; [page:IObject3D] &rarr; [page:ICamera] &rarr;
-
-		<h3 id="IPerspectiveCamera">IPerspectiveCamera <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line"/>
-		<h4>Constructor</h4>
-		<p>
-			[constructor:IPerspectiveCamera IPerspectiveCamera](  [param:number fov]?,  [param:number aspect]?,  [param:number near]?,  [param:number far]? ) <br />
-			[constructor:IPerspectiveCamera IPerspectiveCamera](  [param:number fov]?,  [param:number aspect]?,  [param:number near]?,  [param:number far]? ) 
-		</p>
-		<h4>Properties</h4>
-		<p>
-			[property:IAnimationClip[] animations] - Array with animation clips.<br />
-			[property:number aspect] - Camera frustum aspect ratio, window width divided by window height.<br />
-			[property:boolean castShadow] - Gets rendered into shadow map.<br />
-			[property:IObject3D[] children] - Array with object's children.<br />
-			[property:IMaterial customDepthMaterial] - Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br />
-			When shadow-casting with a DirectionalLight or SpotLight, if you are (a) modifying vertex positions in<br />
-			the vertex shader, (b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a<br />
-			transparent texture with alphaTest, you must specify a customDepthMaterial for proper shadows.<br />
-			[property:IMaterial customDistanceMaterial] - Same as customDepthMaterial, but used with PointLight.<br />
-			[property:number far] - Camera frustum far plane.<br />
-			[property:number filmGauge] -  The film gauge.<br />
-			[property:number filmOffset] -  The film offset.<br />
-			[property:number focus] -  The focus.<br />
-			[property:number fov] - Camera frustum vertical field of view, from bottom to top of view, in degrees.<br />
-			[property:boolean frustumCulled] - When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object.<br />
-			If set to false the object gets rendered every frame even if it is not in the frustum of the camera.<br />
-			[property:number id] - Unique number of this object instance.<br />
-			[property:any isCamera] -  The is camera.<br />
-			[property:any isObject3D] - Used to check whether this or derived classes are Object3Ds. Default is true.<br />
-			You should not change this, as it is used internally for optimisation.<br />
-			[property:any isPerspectiveCamera] -  The is perspective camera.<br />
-			[property:ILayers layers] -  The layers.<br />
-			[property:IMatrix4 matrix] - Local transform.<br />
-			[property:boolean matrixAutoUpdate] - When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also<br />
-			recalculates the matrixWorld property.<br />
-			[property:IMatrix4 matrixWorld] - The global transform of the object. If the Object3d has no parent, then it's identical to the local transform.<br />
-			[property:IMatrix4|Matrix4 matrixWorldInverse] - This is the inverse of matrixWorld. MatrixWorld contains the Matrix which has the world transform of the Camera.<br />
-			[property:boolean matrixWorldNeedsUpdate] - When this is set, it calculates the matrixWorld in that frame and resets this property to false.<br />
-			[property:IMatrix4 modelViewMatrix] -  The model view matrix.<br />
-			[property:string name] - Optional name of the object (doesn't need to be unique).<br />
-			[property:number near] - Camera frustum near plane.<br />
-			[property:IMatrix3 normalMatrix] -  The normal matrix.<br />
-			[property:IObject3D parent] - Object's parent in the scene graph.<br />
-			[property:IVector3 position] - Object's local position.<br />
-			[property:IMatrix4|Matrix4 projectionMatrix] - This is the matrix which contains the projection.<br />
-			[property:IMatrix4|Matrix4 projectionMatrixInverse] - This is the inverse of projectionMatrix.<br />
-			[property:IQuaternion quaternion] - Object's local rotation as a Quaternion.<br />
-			[property:boolean receiveShadow] - Material gets baked in shadow receiving.<br />
-			[property:number renderOrder] - Overrides the default rendering order of scene graph objects, from lowest to highest renderOrder.<br />
-			Opaque and transparent objects remain sorted independently though.<br />
-			When this property is set for an instance of Group, all descendants objects will be sorted and rendered together.<br />
-			[property:IEuler rotation] - Object's local rotation (Euler angles), in radians.<br />
-			[property:IVector3 scale] - Object's local scale.<br />
-			[property:any type] -  The type.<br />
-			[property:IVector3 up] - Up direction.<br />
-			[property:any userData] - An object that can be used to store custom data about the Object3d. It should not hold references to functions as these will not be cloned.<br />
-			[property:string uuid] -  The uuid.<br />
-			[property:any view] -  The view.<br />
-			[property:boolean visible] - Object gets rendered if true.<br />
-			[property:number zoom] -  The zoom.
-		</p>
-		<h4>Methods</h4>
-		<p>
-			[method:IPerspectiveCamera add](  [param:IObject3D[] object] ) - Adds object as child of this object.<br />
-			[method:void addEventListener](  [param:T type],  [param:IEventListener listener] ) - Adds a listener to an event type.<br />
-			[method:void applyMatrix4](  [param:IMatrix4 matrix] ) - This updates the position, rotation and scale with the matrix.<br />
-			[method:IPerspectiveCamera applyQuaternion](  [param:IQuaternion|Quaternion quaternion] ) <br />
-			[method:IPerspectiveCamera attach](  [param:IObject3D object] ) - Adds object as a child of this, while maintaining the object's world transform.<br />
-			[method:IPerspectiveCamera clear](  ) - Removes all child objects.<br />
-			[method:void clearViewOffset](  ) <br />
-			[method:IPerspectiveCamera clone](  [param:boolean recursive]? ) <br />
-			[method:IPerspectiveCamera copy](  [param:IPerspectiveCamera source],  [param:boolean recursive]? ) <br />
-			[method:void dispatchEvent](  [param:IEvent event] ) - Fire an event type.<br />
-			[method:number getEffectiveFOV](  ) <br />
-			[method:number getFilmHeight](  ) <br />
-			[method:number getFilmWidth](  ) <br />
-			[method:number getFocalLength](  ) <br />
-			[method:IObject3D getObjectById](  [param:number id] ) - Searches through the object's children and returns the first with a matching id.<br />
-			[method:IObject3D getObjectByName](  [param:string name] ) - Searches through the object's children and returns the first with a matching name.<br />
-			[method:IObject3D getObjectByProperty](  [param:string name],  [param:string value] ) <br />
-			[method:IVector3 getWorldDirection](  [param:IVector3|Vector3 target] ) <br />
-			[method:IVector3 getWorldPosition](  [param:IVector3|Vector3 target] ) <br />
-			[method:IQuaternion|Quaternion getWorldQuaternion](  [param:IQuaternion|Quaternion target] ) <br />
-			[method:IVector3 getWorldScale](  [param:IVector3|Vector3 target] ) <br />
-			[method:boolean hasEventListener](  [param:T type],  [param:IEventListener listener] ) - Checks if listener is added to an event type.<br />
-			[method:IVector3 localToWorld](  [param:IVector3|Vector3 vector] ) - Updates the vector from local space to world space.<br />
-			[method:void lookAt](  [param:number|IVector3|Vector3 vector],  [param:number y]?,  [param:number z]? ) - Rotates object to face point in space.<br />
-			[method:void onAfterRender](  [param:IWebGLRenderer renderer],  [param:IScene scene],  [param:ICamera camera],  [param:IBufferGeometry geometry],  [param:IMaterial material],  [param:IGroup group] ) - Calls after rendering object<br />
-			[method:void onBeforeRender](  [param:IWebGLRenderer renderer],  [param:IScene scene],  [param:ICamera camera],  [param:IBufferGeometry geometry],  [param:IMaterial material],  [param:IGroup group] ) - Calls before rendering object<br />
-			[method:void raycast](  [param:IRaycaster raycaster],  [param:IIntersection[] intersects] ) <br />
-			[method:IPerspectiveCamera remove](  [param:IObject3D[] object] ) - Removes object as child of this object.<br />
-			[method:void removeEventListener](  [param:T type],  [param:IEventListener listener] ) - Removes a listener from an event type.<br />
-			[method:IPerspectiveCamera removeFromParent](  ) - Removes this object from its current parent.<br />
-			[method:IPerspectiveCamera rotateOnAxis](  [param:IVector3|Vector3 axis],  [param:number angle] ) - Rotate an object along an axis in object space. The axis is assumed to be normalized.<br />
-			[method:IPerspectiveCamera rotateOnWorldAxis](  [param:IVector3|Vector3 axis],  [param:number angle] ) - Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.<br />
-			[method:IPerspectiveCamera rotateX](  [param:number angle] ) <br />
-			[method:IPerspectiveCamera rotateY](  [param:number angle] ) <br />
-			[method:IPerspectiveCamera rotateZ](  [param:number angle] ) <br />
-			[method:void setFocalLength](  [param:number focalLength] ) <br />
-			[method:void setLens](  [param:number focalLength],  [param:number frameHeight]? ) <br />
-			[method:void setRotationFromAxisAngle](  [param:IVector3|Vector3 axis],  [param:number angle] ) <br />
-			[method:void setRotationFromEuler](  [param:IEuler|Euler euler] ) <br />
-			[method:void setRotationFromMatrix](  [param:IMatrix4|Matrix4 m] ) <br />
-			[method:void setRotationFromQuaternion](  [param:IQuaternion|Quaternion q] ) <br />
-			[method:void setViewOffset](  [param:number fullWidth],  [param:number fullHeight],  [param:number x],  [param:number y],  [param:number width],  [param:number height] ) - Sets an offset in a larger frustum. This is useful for multi-window or multi-monitor/multi-machine setups.<br />
-			For example, if you have 3x2 monitors and each monitor is 1920x1080 and the monitors are in grid like this:<br />
-			+---+---+---+<br />
-			| A | B | C |<br />
-			+---+---+---+<br />
-			| D | E | F |<br />
-			+---+---+---+<br />
-			<br />
-			then for each monitor you would call it like this:<br />
-			<br />
-			const w = 1920;<br />
-			const h = 1080;<br />
-			const fullWidth = w * 3;<br />
-			const fullHeight = h * 2;<br />
-			<br />
-			// A<br />
-			camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 0, w, h );<br />
-			// B<br />
-			camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 0, w, h );<br />
-			// C<br />
-			camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 0, w, h );<br />
-			// D<br />
-			camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 1, w, h );<br />
-			// E<br />
-			camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 1, w, h );<br />
-			// F<br />
-			camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 1, w, h ); Note there is no reason monitors have to be the same size or in a grid.<br />
-			[method:any toJSON](  [param:any meta]? ) <br />
-			[method:IPerspectiveCamera translateOnAxis](  [param:IVector3|Vector3 axis],  [param:number distance] ) <br />
-			[method:IPerspectiveCamera translateX](  [param:number distance] ) - Translates object along x axis by distance.<br />
-			[method:IPerspectiveCamera translateY](  [param:number distance] ) - Translates object along y axis by distance.<br />
-			[method:IPerspectiveCamera translateZ](  [param:number distance] ) - Translates object along z axis by distance.<br />
-			[method:void traverse](  [param:any callback] ) <br />
-			[method:void traverseAncestors](  [param:any callback] ) <br />
-			[method:void traverseVisible](  [param:any callback] ) <br />
-			[method:void updateMatrix](  ) - Updates local transform.<br />
-			[method:void updateMatrixWorld](  [param:boolean force]? ) - Updates global transform of the object and its children.<br />
-			[method:void updateProjectionMatrix](  ) - Updates the camera projection matrix. Must be called after change of parameters.<br />
-			[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] ) <br />
-			[method:IVector3 worldToLocal](  [param:IVector3|Vector3 vector] ) - Updates the vector from world space to local space.
-		</p>
 
 		<p class="desc">
-			Camera with perspective projection.
+			
+		</p>
+
+
+		<p class="desc">
+			
 		</p>
 
 		<br /><br />

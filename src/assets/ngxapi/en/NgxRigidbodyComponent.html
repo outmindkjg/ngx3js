@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:NgxAbstractSubscribeComponent] &rarr;
+
+		<h1>NgxRigidbodyComponent</h1>
+
+		<p class="desc">
+			The Rigidbody component.<br />
+			See the [page:RigidbodyComponent ngx3js docs] page for details.
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:NgxRigidbodyComponent NgxRigidbodyComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of rigidbody component.
+		</p>
+
+		<h3>Angular Html Template [ Input ] ( Output )</h3>
+		<code data-type="html">&lt;ngx3js-rigidbody
+			[ angDamping ]="... number -- The angDamping of rigidbody co... "
+			[ angStiffness ]="... number -- The angStiffness of rigidbody ... "
+			[ angularVelocityX ]="... number -- The angularVelocityX of rigidb... "
+			[ angularVelocityY ]="... number -- The angularVelocityY of rigidb... "
+			[ angularVelocityZ ]="... number -- The angularVelocityZ of rigidb... "
+			[ breakable ]="... boolean -- The breakable of rigidbody com... "
+			[ collisions ]="... string|number -- The collisions of rigidbody co... "
+			[ damping ]="... number -- The damping of rigidbody compo... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ depth ]="... number -- The depth of rigidbody compone... "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ friction ]="... number -- The friction of rigidbody comp... "
+			[ height ]="... number -- The height of rigidbody compon... "
+			[ inertia ]="... number -- The inertia of rigidbody compo... "
+			[ inertiaX ]="... number -- The inertiaX of rigidbody comp... "
+			[ inertiaY ]="... number -- The inertiaY of rigidbody comp... "
+			[ inertiaZ ]="... number -- The inertiaZ of rigidbody comp... "
+			[ isSoftBody ]="... boolean -- The isSoftBody of rigidbody co... "
+			[ linDamping ]="... number -- The linDamping of rigidbody co... "
+			[ linStiffness ]="... number -- The linStiffness of rigidbody ... "
+			[ margin ]="... number -- The margin of rigidbody compon... "
+			[ mass ]="... number -- The mass of rigidbody componen... "
+			( onDestory )="...($event : NgxRigidbodyComponent -- Will be called when before des... )"
+			( onLoad )="...($event : NgxRigidbodyComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ piterations ]="... number -- The piterations of rigidbody c... "
+			[ pressure ]="... number -- The pressure of rigidbody comp... "
+			[ radius ]="... number -- The radius of rigidbody compon... "
+			[ randomizeConstraints ]="... boolean -- The randomizeConstraints of ri... "
+			[ restitution ]="... number -- The restitution of rigidbody c... "
+			[ rollingFriction ]="... number -- The rollingFriction of rigidbo... "
+			[ stiffness ]="... number -- The stiffness of rigidbody com... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The type of rigidbody componen... "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ velocityType ]="... string -- The velocityType of rigidbody ... "
+			[ velocityX ]="... number -- The velocityX of rigidbody com... "
+			[ velocityY ]="... number -- The velocityY of rigidbody com... "
+			[ velocityZ ]="... number -- The velocityZ of rigidbody com... "
+			[ viterations ]="... number -- The viterations of rigidbody c... "
+			[ width ]="... number -- The width of rigidbody compone... "
+			[ windowExport ]="... string -- Export this Object to window g... "
+		&gt;&lt;/ngx3js-rigidbody&gt;
+		</code>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common properties.
+		</p>
+
+		<h3>[property:string[] OBJECT_ATTR] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Object attr of abstract subscribe component
+		</p>
+
+		<h3>[property:string[] _changeList]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Change list of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean _needUpdate] &nbsp; = true <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Need update of abstract subscribe component
+		</p>
+
+		<h3>[property:number angDamping]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The angDamping of rigidbody component
+		</p>
+
+		<h3>[property:number angStiffness]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The angStiffness of rigidbody component
+		</p>
+
+		<h3>[property:number angularVelocityX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The angularVelocityX of rigidbody component
+		</p>
+
+		<h3>[property:number angularVelocityY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The angularVelocityY of rigidbody component
+		</p>
+
+		<h3>[property:number angularVelocityZ]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The angularVelocityZ of rigidbody component
+		</p>
+
+		<h3>[property:boolean breakable]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The breakable of rigidbody component
+		</p>
+
+		<h3>[property:string|number collisions]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The collisions of rigidbody component
+		</p>
+
+		<h3>[property:number damping]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The damping of rigidbody component
+		</p>
+
+		<h3>[property:boolean debug] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Debug this Object
+		</p>
+
+		<h3>[property:number depth]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The depth of rigidbody component
+		</p>
+
+		<h3>[property:boolean enabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Enabled or Not
+		</p>
+
+		<h3>[property:number friction]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The friction of rigidbody component
+		</p>
+
+		<h3>[property:number height]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The height of rigidbody component
+		</p>
+
+		<h3>[property:string id] &nbsp; = '' <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Id of abstract subscribe component
+		</p>
+
+		<h3>[property:number inertia]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The inertia of rigidbody component
+		</p>
+
+		<h3>[property:number inertiaX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The inertiaX of rigidbody component
+		</p>
+
+		<h3>[property:number inertiaY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The inertiaY of rigidbody component
+		</p>
+
+		<h3>[property:number inertiaZ]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The inertiaZ of rigidbody component
+		</p>
+
+		<h3>[property:boolean isSoftBody] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The isSoftBody of rigidbody component
+		</p>
+
+		<h3>[property:number linDamping]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The linDamping of rigidbody component
+		</p>
+
+		<h3>[property:number linStiffness]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The linStiffness of rigidbody component
+		</p>
+
+		<h3>[property:number margin]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The margin of rigidbody component
+		</p>
+
+		<h3>[property:number mass]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The mass of rigidbody component
+		</p>
+
+		<h3>[property:EventEmitter onDestory] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when before destory. The argument will be the loaded self
+		</p>
+
+		<h3>[property:EventEmitter onLoad] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when load completes. The argument will be the loaded self
+		</p>
+
+		<h3>[property:any overrideParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The override params
+		</p>
+
+		<h3>[property:any parent]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Parent of abstract subscribe component
+		</p>
+
+		<h3>[property:number piterations]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The piterations of rigidbody component
+		</p>
+
+		<h3>[property:number pressure]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The pressure of rigidbody component
+		</p>
+
+		<h3>[property:number radius]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The radius of rigidbody component
+		</p>
+
+		<h3>[property:boolean randomizeConstraints] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The randomizeConstraints of rigidbody component
+		</p>
+
+		<h3>[property:number restitution]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The restitution of rigidbody component
+		</p>
+
+		<h3>[property:number rollingFriction]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The rollingFriction of rigidbody component
+		</p>
+
+		<h3>[property:any selfAny] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number stiffness]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The stiffness of rigidbody component
+		</p>
+
+		<h3>[property:string subscribeType]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Subscribe type of abstract subscribe component
+		</p>
+
+		<h3>[property:any tween]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Tween animation params
+		</p>
+
+		<h3>[property:string type] &nbsp; = 'auto' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The type  of rigidbody component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:any userData]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			An object that can be used to store custom data about the Object3D. It should not hold references to functions as these will not be cloned.
+		</p>
+
+		<h3>[property:string velocityType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The velocityType of rigidbody component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:number velocityX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The velocityX of rigidbody component
+		</p>
+
+		<h3>[property:number velocityY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The velocityY of rigidbody component
+		</p>
+
+		<h3>[property:number velocityZ]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The velocityZ of rigidbody component
+		</p>
+
+		<h3>[property:number viterations]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The viterations of rigidbody component
+		</p>
+
+		<h3>[property:number width]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The width of rigidbody component
+		</p>
+
+		<h3>[property:string windowExport]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Export this Object to window global variables
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common methods.
+		</p>
+
+		<h3>[method:void addChanges](  [param:string|string[]|SimpleChanges key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[]|SimpleChanges key] - The key.
+		</p>
+		<p>
+			Adds changes
+		</p>
+
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string[] changes] - The changes.
+		</p>
+		<p>
+			Applys changes
+		</p>
+
+		<h3>[method:void applyForce](  [param:number x],  [param:number y],  [param:number z],  [param:string type],  [param:number relX],  [param:number relY],  [param:number relZ],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:string type] - The type.<br />
+			[parameter:number relX] - The rel x.<br />
+			[parameter:number relY] - The rel y.<br />
+			[parameter:number relZ] - The rel z.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
+			Applys force
+		</p>
+
+		<h3>[method:void applyTorque](  [param:number x],  [param:number y],  [param:number z],  [param:string type],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:string type] - The type.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
+			Applys torque
+		</p>
+
+		<h3>[method:void callOnLoad](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Calls on load
+		</p>
+
+		<h3>[method:SimpleChanges checkChanges](  [param:SimpleChanges changes] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:SimpleChanges changes] - The changes.
+		</p>
+		<p>
+			Checks changes<br />
+			<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:void clearChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Clears changes
+		</p>
+
+		<h3>[method:void clearForces](  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number index] - The index.
+		</p>
+		<p>
+			Clears forces
+		</p>
+
+		<h3>[method:void consoleLog](  [param:string key],  [param:any object],  [param:string level] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:string level] - The level.
+		</p>
+		<p>
+			Consoles log
+		</p>
+
+		<h3>[method:void consoleLogTime](  [param:string key],  [param:any object],  [param:number repeat] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:number repeat] - The repeat.
+		</p>
+		<p>
+			Consoles log time
+		</p>
+
+		<h3>[method:void destroyLocalComponent](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			Destroys local component
+		</p>
+
+		<h3>[method:void dispose](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Disposes abstract subscribe component
+		</p>
+
+		<h3>[method:string[] getChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Gets changes<br />
+			<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:Vector3 getFactor](  [param:string type],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string type] - The type.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
+			Gets factor<br />
+			<br />
+			Returns : factor
+		</p>
+
+		<h3>[method:string getId](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets id<br />
+			<br />
+			Returns : id
+		</p>
+
+		<h3>[method:btMotionState getMotionState](  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number index] - The index.
+		</p>
+		<p>
+			Gets motion state<br />
+			<br />
+			Returns : motion state
+		</p>
+
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets object<br />
+			<br />
+			Returns : object
+		</p>
+
+		<h3>[method:RigidbodyType getRigidBody](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets rigid body<br />
+			<br />
+			Returns : rigid body
+		</p>
+
+		<h3>[method:Observable getSubscribe](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets subscribe<br />
+			<br />
+			Returns : subscribe
+		</p>
+
+		<h3>[method:Promise getTimeout](  [param:number timeDelay] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number timeDelay] - The time delay.
+		</p>
+		<p>
+			Gets timeout<br />
+			특정 시간후에 이벤트 발생시키기<br />
+			<br />
+			Returns : timeout
+		</p>
+
+		<h3>[method:void getUserData](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets user data
+		</p>
+
+		<h3>[method:Vector3 getVelocity](  [param:string type],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string type] - The type.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
+			Gets velocity<br />
+			<br />
+			Returns : velocity
+		</p>
+
+		<h3>[method:btSoftBodyWorldInfo getWorldInfo](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets world info<br />
+			<br />
+			Returns : world info
+		</p>
+
+		<h3>[method:T initLocalComponent](  [param:string key],  [param:T component] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:T component] - The component.
+		</p>
+		<p>
+			Inits local component<br />
+			<br />
+			Returns : local component
+		</p>
+
+		<h3>[method:boolean isIdEuals](  [param:string id] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string id] - The id.
+		</p>
+		<p>
+			Determines whether id euals is<br />
+			<br />
+			Returns : true if id euals
+		</p>
+
+		<h3>[method:void runSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Runs subscribe next
+		</p>
+
+		<h3>[method:void setFactor](  [param:number x],  [param:number y],  [param:number z],  [param:string type],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:string type] - The type.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
+			Sets factor
+		</p>
+
+		<h3>[method:void setMotionState](  [param:btMotionState motionState],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:btMotionState motionState] - The motion state.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
+			Sets motion state
+		</p>
+
+		<h3>[method:void setMotionStatePosition](  [param:number x],  [param:number y],  [param:number z],  [param:number rx],  [param:number ry],  [param:number rz],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:number rx] - The rx.<br />
+			[parameter:number ry] - The ry.<br />
+			[parameter:number rz] - The rz.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
+			Sets motion state position
+		</p>
+
+		<h3>[method:void setMotionStateRotation](  [param:number x],  [param:number y],  [param:number z],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
+			Sets motion state rotation
+		</p>
+
+		<h3>[method:void setObject](  [param:any obj] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any obj] - The obj.
+		</p>
+		<p>
+			Sets object
+		</p>
+
+		<h3>[method:boolean setParent](  [param:Object3D parent] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D parent] - The parent.
+		</p>
+		<p>
+			Sets parent<br />
+			<br />
+			Returns : true if parent
+		</p>
+
+		<h3>[method:void setPhysics](  [param:NgxPhysicsComponent physics] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:NgxPhysicsComponent physics] - The physics.
+		</p>
+		<p>
+			Sets physics
+		</p>
+
+		<h3>[method:void setPosition](  [param:number x],  [param:number y],  [param:number z],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
+			Sets position
+		</p>
+
+		<h3>[method:void setSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Sets subscribe next
+		</p>
+
+		<h3>[method:void setSubscribeType](  [param:string subscribeType] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string subscribeType] - The subscribe type.
+		</p>
+		<p>
+			Sets subscribe type
+		</p>
+
+		<h3>[method:void setTween](  [param:any tweenData] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any tweenData] - The tween data.
+		</p>
+		<p>
+			Sets tween
+		</p>
+
+		<h3>[method:void setUserData](  [param:string key],  [param:any value] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any value] - The value.
+		</p>
+		<p>
+			Sets user data
+		</p>
+
+		<h3>[method:void setVelocity](  [param:number x],  [param:number y],  [param:number z],  [param:string type],  [param:number index] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:string type] - The type.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
+			Sets velocity
+		</p>
+
+		<h3>[method:void subscribeListQuery](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query
+		</p>
+
+		<h3>[method:void subscribeListQueryChange](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query change
+		</p>
+
+		<h3>[method:void subscribeRefer](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer
+		</p>
+
+		<h3>[method:void subscribeReferList](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer list
+		</p>
+
+		<h3>[method:void unSubscribeRefer](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer
+		</p>
+
+		<h3>[method:void unSubscribeReferList](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer list
+		</p>
+
+		<h3>[method:Subscription[] unSubscription](  [param:Subscription[] subscriptions] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Subscription[] subscriptions] - The subscriptions.
+		</p>
+		<p>
+			subscription<br />
+			<br />
+			Returns : subscription
+		</p>
+
+		<h3>[method:void update](  [param:IRendererTimer timer] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:IRendererTimer timer] - The timer.
+		</p>
+		<p>
+			Updates rigidbody component
+		</p>
+
+		<h3>[method:void updateInputParams](  [param:any params],  [param:boolean firstChange],  [param:SimpleChanges changes],  [param:string type] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any params] - The params.<br />
+			[parameter:boolean firstChange] - The first change.<br />
+			[parameter:SimpleChanges changes] - The changes.<br />
+			[parameter:string type] - The type.
+		</p>
+		<p>
+			Updates input params
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="IRendererTimer">IRendererTimer <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:number delta] -  The delta.<br />
+			[property:number elapsedTime] -  The elapsed time.<br />
+			[property:IRendererEvent event]? -  The event.<br />
+			[property:Renderer renderer]? -  The renderer.
+		</p>
+
+		<p class="desc">
+			Renderer timer
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/rigidbody/rigidbody.component.ts /rigidbody/rigidbody.component.ts]</p>
+	</body>
+</html>

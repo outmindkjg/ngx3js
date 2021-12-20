@@ -7,7 +7,7 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:AbstractThreeDirective] &rarr; [page:AbstractObject3dDirective] &rarr;
+		[page:NgxNgxAbstractThreeDirective] &rarr; [page:NgxAbstractObject3dDirective] &rarr;
 
 		<h1>ScaleDirective</h1>
 
@@ -33,10 +33,10 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:ScaleDirective ScaleDirective](  [param:AbstractObject3dComponent object3d] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>[constructor:ScaleDirective ScaleDirective](  [param:NgxAbstractObject3dComponent object3d] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:AbstractObject3dComponent object3d] - The object3d.
+			[parameter:NgxAbstractObject3dComponent object3d] - The object3d.
 		</p>
 		<p>
 			Creates an instance of scale directive.
@@ -44,10 +44,10 @@
 
 		<h2>Properties</h2>
 		<p>
-			See the base [page:AbstractThreeDirective AbstractThreeDirective] class for common properties.
+			See the base [page:NgxNgxAbstractThreeDirective NgxNgxAbstractThreeDirective] class for common properties.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dDirective AbstractObject3dDirective] class for common properties.
+			See the base [page:NgxAbstractObject3dDirective NgxAbstractObject3dDirective] class for common properties.
 		</p>
 
 		<h3>[property:number elapsedTime] &nbsp; = 0 <i class="modifier modifier-protected">Protected</i></h3>
@@ -60,17 +60,17 @@
 			Enabled  of abstract directive
 		</p>
 
-		<h3>[property:string|Object3dFunction|ScaleOptions ngx3jsScale] &nbsp; = 'xyz' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string|TObject3dFunction|IScaleOptions ngx3jsScale] &nbsp; = 'xyz' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Input  of scale directive
 		</p>
 
-		<h3>[property:AbstractObject3dComponent object3dCom]<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[property:NgxAbstractObject3dComponent object3dCom]<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			
 		</p>
 
-		<h3>[property:Object3dFunction object3dFunction]<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[property:TObject3dFunction object3dFunction]<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			Object3d function of abstract object3d directive
 		</p>
@@ -80,17 +80,17 @@
 			
 		</p>
 
-		<h3>[property:ObjectFunction objectFunction]<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[property:TObjectFunction objectFunction]<i class="modifier modifier-protected">Protected</i></h3>
 		<p>
 			Object3d function of abstract object3d directive
 		</p>
 
 		<h2>Methods</h2>
 		<p>
-			See the base [page:AbstractThreeDirective AbstractThreeDirective] class for common methods.
+			See the base [page:NgxNgxAbstractThreeDirective NgxNgxAbstractThreeDirective] class for common methods.
 		</p>
 		<p>
-			See the base [page:AbstractObject3dDirective AbstractObject3dDirective] class for common methods.
+			See the base [page:NgxAbstractObject3dDirective NgxAbstractObject3dDirective] class for common methods.
 		</p>
 
 		<h3>[method:void consoleLogTime](  [param:string key],  [param:any object],  [param:number repeat] )<i class="modifier modifier-protected">Protected</i></h3>
@@ -104,7 +104,7 @@
 			Consoles log time
 		</p>
 
-		<h3>[method:EaseFunction getEasing](  [param:string type],  [param:number speed],  [param:string repeat],  [param:number start],  [param:number end] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h3>[method:IEaseFunction getEasing](  [param:string type],  [param:number speed],  [param:string repeat],  [param:number start],  [param:number end] )<i class="modifier modifier-protected">Protected</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string type] - The type.<br />
@@ -157,24 +157,24 @@
 			Returns : subscription
 		</p>
 
-		<h3>[method:void update](  [param:RendererTimer timer] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:void update](  [param:IRendererTimer timer] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:RendererTimer timer] - The timer.
+			[parameter:IRendererTimer timer] - The timer.
 		</p>
 		<p>
 			Updates abstract object3d directive
 		</p>
 
 		<hr class="interface-line"/>
-		<h3 id="RendererTimer">RendererTimer <i class="modifier modifier-interface">Interface</i></h3>
+		<h3 id="IRendererTimer">IRendererTimer <i class="modifier modifier-interface">Interface</i></h3>
 		<hr class="interface-line"/>
 		<h4>Properties</h4>
 		<p>
 			[property:number delta] -  The delta.<br />
 			[property:number elapsedTime] -  The elapsed time.<br />
-			[property:RendererEvent event]? -  The event.<br />
-			[property:IRenderer renderer]? -  The renderer.
+			[property:IRendererEvent event]? -  The event.<br />
+			[property:Renderer renderer]? -  The renderer.
 		</p>
 
 		<p class="desc">
@@ -182,9 +182,9 @@
 		</p>
 
 		<hr class="interface-line"/>
-		[page:DirectiveOptions] &rarr;
+		[page:IDirectiveOptions] &rarr;
 
-		<h3 id="ScaleOptions">ScaleOptions <i class="modifier modifier-interface">Interface</i></h3>
+		<h3 id="IScaleOptions">IScaleOptions <i class="modifier modifier-interface">Interface</i></h3>
 		<hr class="interface-line"/>
 		<h4>Properties</h4>
 		<p>
@@ -201,17 +201,17 @@
 		</p>
 
 		<hr class="interface-line"/>
-		<h3 id="Object3dFunction">Object3dFunction <i class="modifier modifier-interface">Interface</i></h3>
+		<h3 id="TObject3dFunction">TObject3dFunction <i class="modifier modifier-interface">Interface</i></h3>
 		<hr class="interface-line"/>
-		<h4>[method:void function](  [param:IObject3D object3d],  [param:number elapsedTime]?,  [param:RendererTimer timer]? )</h4>
+		<h4>[method:void function](  [param:Object3D object3d],  [param:number elapsedTime]?,  [param:IRendererTimer timer]? )</h4>
 		<h4>Parameters</h4>
 		<p>
-			[property:IObject3D object3d] -  The object3d.<br />
+			[property:Object3D object3d] -  The object3d.<br />
 			[property:number elapsedTime]? -  The elapsed time.<br />
-			[property:RendererTimer timer]? -  The timer.
+			[property:IRendererTimer timer]? -  The timer.
 		</p>
 		<p>
-			Object3dFunction
+			TObject3dFunction
 		</p>
 
 
@@ -221,17 +221,17 @@
 		</p>
 
 		<hr class="interface-line"/>
-		<h3 id="ObjectFunction">ObjectFunction <i class="modifier modifier-interface">Interface</i></h3>
+		<h3 id="TObjectFunction">TObjectFunction <i class="modifier modifier-interface">Interface</i></h3>
 		<hr class="interface-line"/>
-		<h4>[method:void function](  [param:any object],  [param:number elapsedTime]?,  [param:RendererTimer timer]? )</h4>
+		<h4>[method:void function](  [param:any object],  [param:number elapsedTime]?,  [param:IRendererTimer timer]? )</h4>
 		<h4>Parameters</h4>
 		<p>
 			[property:any object] -  The object.<br />
 			[property:number elapsedTime]? -  The elapsed time.<br />
-			[property:RendererTimer timer]? -  The timer.
+			[property:IRendererTimer timer]? -  The timer.
 		</p>
 		<p>
-			ObjectFunction
+			TObjectFunction
 		</p>
 
 

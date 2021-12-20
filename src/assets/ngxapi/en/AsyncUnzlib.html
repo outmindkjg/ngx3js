@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>AsyncUnzlib</h1>
+
+		<p class="desc">
+			Asynchronous streaming Zlib decompression
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:AsyncUnzlib AsyncUnzlib](  [param:AsyncFlateStreamHandler cb]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:AsyncFlateStreamHandler cb] - (optional) The callback to call whenever data is deflated
+		</p>
+		<p>
+			Creates an asynchronous Zlib decompression stream
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:AsyncFlateStreamHandler ondata]</h3>
+		<p>
+			The handler to call whenever data is available
+		</p>
+
+		<h3>[property:AsyncTerminable terminate]</h3>
+		<p>
+			A method to terminate the stream's internal worker. Subsequent calls to<br />
+			push() will silently fail.
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:void push](  [param:Uint8Array chunk],  [param:boolean final]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Uint8Array chunk] - The chunk to push<br />
+			[parameter:boolean final] - (optional) Whether this is the last chunk
+		</p>
+		<p>
+			Pushes a chunk to be decompressed from Zlib
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/libs.ts /threejs-library/types/three/examples/libs.ts]</p>
+	</body>
+</html>

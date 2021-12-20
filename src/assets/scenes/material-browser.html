@@ -94,7 +94,7 @@
 
 			const envMaps = (function () {
 				const path =
-					'../../examples/examples/textures/cube/SwedishRoyalCastle/';
+					'../examples/textures/cube/SwedishRoyalCastle/';
 				const format = '.jpg';
 				const urls = [
 					path + 'px' + format,
@@ -121,7 +121,7 @@
 
 			const diffuseMaps = (function () {
 				const bricks = textureLoader.load(
-					'../../examples/examples/textures/brick_diffuse.jpg'
+					'../examples/textures/brick_diffuse.jpg'
 				);
 				bricks.wrapS = THREE.RepeatWrapping;
 				bricks.wrapT = THREE.RepeatWrapping;
@@ -135,7 +135,7 @@
 
 			const roughnessMaps = (function () {
 				const bricks = textureLoader.load(
-					'../../examples/examples/textures/brick_roughness.jpg'
+					'../examples/textures/brick_roughness.jpg'
 				);
 				bricks.wrapT = THREE.RepeatWrapping;
 				bricks.wrapS = THREE.RepeatWrapping;
@@ -151,14 +151,14 @@
 				return {
 					none: null,
 					porcelainWhite: textureLoader.load(
-						'../../examples/examples/textures/matcaps/matcap-porcelain-white.jpg'
+						'../examples/textures/matcaps/matcap-porcelain-white.jpg'
 					),
 				};
 			})();
 
 			const alphaMaps = (function () {
 				const fibers = textureLoader.load(
-					'../../examples/examples/textures/alphaMap.jpg'
+					'../examples/textures/alphaMap.jpg'
 				);
 				fibers.wrapT = THREE.RepeatWrapping;
 				fibers.wrapS = THREE.RepeatWrapping;
@@ -172,13 +172,13 @@
 
 			const gradientMaps = (function () {
 				const threeTone = textureLoader.load(
-					'../../examples/examples/textures/gradientMaps/threeTone.jpg'
+					'../examples/textures/gradientMaps/threeTone.jpg'
 				);
 				threeTone.minFilter = THREE.NearestFilter;
 				threeTone.magFilter = THREE.NearestFilter;
 
 				const fiveTone = textureLoader.load(
-					'../../examples/examples/textures/gradientMaps/fiveTone.jpg'
+					'../examples/textures/gradientMaps/fiveTone.jpg'
 				);
 				fiveTone.minFilter = THREE.NearestFilter;
 				fiveTone.magFilter = THREE.NearestFilter;

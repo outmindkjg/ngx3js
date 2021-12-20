@@ -7,7 +7,7 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:Curve] &rarr; [page:CurvesGsap] &rarr;
+		[page:Curve] &rarr; [page:CurveVector3] &rarr; [page:CurvesGsap] &rarr;
 
 		<h1>CurvesGsapPower4EaseIn</h1>
 
@@ -22,16 +22,17 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:CurvesGsapPower4EaseIn CurvesGsapPower4EaseIn](  [param:number radius],  [param:CurvesParameters options]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>[constructor:CurvesGsapPower4EaseIn CurvesGsapPower4EaseIn](  [param:number radius],  [param:ICurvesParameters options]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number radius] &nbsp; = 1  - The radius.<br />
-			[parameter:CurvesParameters options] - (optional) The options.
+			[parameter:ICurvesParameters options] - (optional) The options.
 		</p>
 		<p>
 			Creates an instance of curves gsap.
 		</p>
 
+		<h2>Constructor</h2>
 		<h3>[constructor:CurvesGsapPower4EaseIn CurvesGsapPower4EaseIn](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			
@@ -42,6 +43,9 @@
 			See the base [page:Curve Curve] class for common properties.
 		</p>
 		<p>
+			See the base [page:CurveVector3 CurveVector3] class for common properties.
+		</p>
+		<p>
 			See the base [page:CurvesGsap CurvesGsap] class for common properties.
 		</p>
 
@@ -50,21 +54,24 @@
 			See the base [page:Curve Curve] class for common methods.
 		</p>
 		<p>
+			See the base [page:CurveVector3 CurveVector3] class for common methods.
+		</p>
+		<p>
 			See the base [page:CurvesGsap CurvesGsap] class for common methods.
 		</p>
 
-		<h3>[method:IVector3 getPoint](  [param:number t],  [param:IVector3 optionalTarget] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:Vector3 getPoint](  [param:number t],  [param:Vector3 optionalTarget] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number t] - The t.<br />
-			[parameter:IVector3 optionalTarget] - The optional target.
+			[parameter:Vector3 optionalTarget] - The optional target.
 		</p>
 		<p>
 			Gets point
 		</p>
 
 		<hr class="interface-line"/>
-		<h3 id="CurvesParameters">CurvesParameters <i class="modifier modifier-interface">Interface</i></h3>
+		<h3 id="ICurvesParameters">ICurvesParameters <i class="modifier modifier-interface">Interface</i></h3>
 		<hr class="interface-line"/>
 		<h4>Properties</h4>
 		<p>
@@ -80,108 +87,11 @@
 			Curves parameters
 		</p>
 
-		<hr class="interface-line"/>
-		[page:IVector] &rarr;
 
-		<h3 id="IVector3">IVector3 <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line"/>
-		<h4>Constructor</h4>
-		<p>
-			[constructor:IVector3 IVector3](  [param:number x]?,  [param:number y]?,  [param:number z]? ) 
+		<p class="desc">
+			
 		</p>
-		<h4>Properties</h4>
-		<p>
-			[property:any isVector3] -  The is vector3.<br />
-			[property:number x] -  The x.<br />
-			[property:number y] -  The y.<br />
-			[property:number z] -  The z.
-		</p>
-		<h4>Methods</h4>
-		<p>
-			[method:IVector3 add](  [param:IVector3|Vector3 v] ) - Adds v to this vector.<br />
-			[method:IVector3 addScalar](  [param:number s] ) - Adds the scalar value s to this vector's values.<br />
-			[method:IVector3 addScaledVector](  [param:IVector3|Vector3 v],  [param:number s] ) <br />
-			[method:IVector3 addVectors](  [param:IVector3|Vector3 a],  [param:IVector3|Vector3 b] ) - Sets this vector to a + b.<br />
-			[method:number angleTo](  [param:IVector3|Vector3 v] ) <br />
-			[method:IVector3 applyAxisAngle](  [param:IVector3|Vector3 axis],  [param:number angle] ) <br />
-			[method:IVector3 applyEuler](  [param:IEuler|Euler euler] ) <br />
-			[method:IVector3 applyMatrix3](  [param:IMatrix3|Matrix3 m] ) <br />
-			[method:IVector3 applyMatrix4](  [param:IMatrix4|Matrix4 m] ) <br />
-			[method:IVector3 applyNormalMatrix](  [param:IMatrix3|Matrix3 m] ) <br />
-			[method:IVector3 applyQuaternion](  [param:IQuaternion|Quaternion q] ) <br />
-			[method:IVector3 ceil](  ) <br />
-			[method:IVector3 clamp](  [param:IVector3|Vector3 min],  [param:IVector3|Vector3 max] ) <br />
-			[method:IVector3 clampLength](  [param:number min],  [param:number max] ) <br />
-			[method:IVector3 clampScalar](  [param:number min],  [param:number max] ) <br />
-			[method:IVector3 clone](  ) - Clones this vector.<br />
-			[method:IVector3 copy](  [param:IVector3|Vector3 v] ) - Copies value of v to this vector.<br />
-			[method:IVector3 cross](  [param:IVector3|Vector3 a] ) - Sets this vector to cross product of itself and v.<br />
-			[method:IVector3 crossVectors](  [param:IVector3|Vector3 a],  [param:IVector3|Vector3 b] ) - Sets this vector to cross product of a and b.<br />
-			[method:number distanceTo](  [param:IVector3|Vector3 v] ) - Computes distance of this vector to v.<br />
-			[method:number distanceToManhattan](  [param:IVector3|Vector3 v] ) <br />
-			[method:number distanceToSquared](  [param:IVector3|Vector3 v] ) - Computes squared distance of this vector to v.<br />
-			[method:IVector3 divide](  [param:IVector3|Vector3 v] ) <br />
-			[method:IVector3 divideScalar](  [param:number s] ) - Divides this vector by scalar s.<br />
-			Set vector to ( 0, 0, 0 ) if s == 0.<br />
-			[method:number dot](  [param:IVector3|Vector3 v] ) - Computes dot product of this vector and v.<br />
-			[method:boolean equals](  [param:IVector3|Vector3 v] ) - Checks for strict equality of this vector and v.<br />
-			[method:IVector3 floor](  ) <br />
-			[method:IVector3 fromArray](  [param:number[]|ArrayLike array],  [param:number offset]? ) - Sets this vector's x, y and z value from the provided array or array-like.<br />
-			[method:IVector3 fromBufferAttribute](  [param:IBufferAttribute|IInterleavedBufferAttribute attribute],  [param:number index] ) <br />
-			[method:number getComponent](  [param:number index] ) <br />
-			[method:number length](  ) - Computes length of this vector.<br />
-			[method:number lengthManhattan](  ) - Computes Manhattan length of this vector.<br />
-			http://en.wikipedia.org/wiki/Taxicab_geometry<br />
-			[method:number lengthSq](  ) - Computes squared length of this vector.<br />
-			[method:IVector3 lerp](  [param:IVector3|Vector3 v],  [param:number alpha] ) - lerp(v:T, alpha:number):T;<br />
-			[method:IVector3 lerpVectors](  [param:IVector3|Vector3 v1],  [param:IVector3|Vector3 v2],  [param:number alpha] ) <br />
-			[method:number manhattanDistanceTo](  [param:IVector3|Vector3 v] ) - Computes the Manhattan length (distance) from this vector to the given vector v<br />
-			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}<br />
-			[method:number manhattanLength](  ) - Computes the Manhattan length of this vector.<br />
-			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}<br />
-			[method:IVector3 max](  [param:IVector3|Vector3 v] ) <br />
-			[method:IVector3 min](  [param:IVector3|Vector3 v] ) <br />
-			[method:IVector3 multiply](  [param:IVector3|Vector3 v] ) <br />
-			[method:IVector3 multiplyScalar](  [param:number s] ) - Multiplies this vector by scalar s.<br />
-			[method:IVector3 multiplyVectors](  [param:IVector3|Vector3 a],  [param:IVector3|Vector3 b] ) <br />
-			[method:IVector3 negate](  ) - Inverts this vector.<br />
-			[method:IVector3 normalize](  ) - Normalizes this vector.<br />
-			[method:IVector3 project](  [param:ICamera camera] ) <br />
-			[method:IVector3 projectOnPlane](  [param:IVector3|Vector3 planeNormal] ) <br />
-			[method:IVector3 projectOnVector](  [param:IVector3|Vector3 v] ) <br />
-			[method:IVector3 random](  ) - Sets this vector's x, y and z from Math.random<br />
-			[method:IVector3 randomDirection](  ) <br />
-			[method:IVector3 reflect](  [param:IVector3|Vector3 vector] ) <br />
-			[method:IVector3 round](  ) <br />
-			[method:IVector3 roundToZero](  ) <br />
-			[method:IVector3 set](  [param:number x],  [param:number y],  [param:number z] ) - Sets value of this vector.<br />
-			[method:IVector3 setComponent](  [param:number index],  [param:number value] ) <br />
-			[method:IVector3 setFromCylindrical](  [param:ICylindrical s] ) <br />
-			[method:IVector3 setFromCylindricalCoords](  [param:number radius],  [param:number theta],  [param:number y] ) <br />
-			[method:IVector3 setFromMatrix3Column](  [param:IMatrix3|Matrix3 matrix],  [param:number index] ) <br />
-			[method:IVector3 setFromMatrixColumn](  [param:IMatrix4 matrix],  [param:number index] ) <br />
-			[method:IVector3 setFromMatrixPosition](  [param:IMatrix4|Matrix4 m] ) <br />
-			[method:IVector3 setFromMatrixScale](  [param:IMatrix4|Matrix4 m] ) <br />
-			[method:IVector3 setFromSpherical](  [param:ISpherical s] ) <br />
-			[method:IVector3 setFromSphericalCoords](  [param:number r],  [param:number phi],  [param:number theta] ) <br />
-			[method:IVector3 setLength](  [param:number l] ) - Normalizes this vector and multiplies it by l.<br />
-			[method:IVector3 setScalar](  [param:number scalar] ) - Sets all values of this vector.<br />
-			[method:IVector3 setX](  [param:number x] ) - Sets x value of this vector.<br />
-			[method:IVector3 setY](  [param:number y] ) - Sets y value of this vector.<br />
-			[method:IVector3 setZ](  [param:number z] ) - Sets z value of this vector.<br />
-			[method:IVector3 sub](  [param:IVector3|Vector3 a] ) - Subtracts v from this vector.<br />
-			[method:IVector3 subScalar](  [param:number s] ) <br />
-			[method:IVector3 subVectors](  [param:IVector3|Vector3 a],  [param:IVector3|Vector3 b] ) - Sets this vector to a - b.<br />
-			[method:number[] toArray](  [param:number[] array]?,  [param:number offset]? ) - Returns an array [x, y, z], or copies x, y and z into the provided array.<br />
-			<br />
-			Returns : The created or provided array.<br />
-			[method:TVector3Tuple toArray](  [param:number[] array]?,  [param:number offset]?,  [param:TVector3Tuple array]?,  [param:any offset]? ) <br />
-			[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:TVector3Tuple array]?,  [param:any offset]?,  [param:ArrayLike array],  [param:number offset]? ) - Copies x, y and z into the provided array-like.<br />
-			<br />
-			Returns : The provided array-like.<br />
-			[method:IVector3 transformDirection](  [param:IMatrix4|Matrix4 m] ) <br />
-			[method:IVector3 unproject](  [param:ICamera camera] ) 
-		</p>
+
 
 		<p class="desc">
 			

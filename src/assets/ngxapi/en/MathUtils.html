@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>MathUtils</h1>
+
+		<p class="desc">
+			[link:https://github.com/mrdoob/three.js/blob/master/src/math/MathUtils.js src/math/MathUtils.js]
+		</p>
+
+		<p>
+			None
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			None
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:number ceilPowerOfTwo](  [param:number value] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number value] - The value.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number clamp](  [param:number value],  [param:number min],  [param:number max] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number value] - Value to be clamped.<br />
+			[parameter:number min] - Minimum value<br />
+			[parameter:number max] - Maximum value.
+		</p>
+		<p>
+			Clamps the x to be between a and b.
+		</p>
+
+		<h3>[method:number damp](  [param:number x],  [param:number y],  [param:number lambda],  [param:number dt] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - Current point.<br />
+			[parameter:number y] - Target point.<br />
+			[parameter:number lambda] - A higher lambda value will make the movement more sudden, and a lower value will make the movement more gradual.<br />
+			[parameter:number dt] - Delta time in seconds.
+		</p>
+		<p>
+			Smoothly interpolate a number from x toward y in a spring-like<br />
+			manner using the dt to maintain frame rate independent movement.
+		</p>
+
+		<h3>[method:number degToRad](  [param:number degrees] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number degrees] - The degrees.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number euclideanModulo](  [param:number n],  [param:number m] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number n] - The n.<br />
+			[parameter:number m] - The m.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number floorPowerOfTwo](  [param:number value] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number value] - The value.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:string generateUUID](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:number inverseLerp](  [param:number x],  [param:number y],  [param:number t] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number t] - The t.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean isPowerOfTwo](  [param:number value] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number value] - The value.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number lerp](  [param:number x],  [param:number y],  [param:number t] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - Start point.<br />
+			[parameter:number y] - End point.<br />
+			[parameter:number t] - interpolation factor in the closed interval [0, 1]
+		</p>
+		<p>
+			Returns a value linearly interpolated from two known points based<br />
+			on the given interval - t = 0 will return x and t = 1 will return y.
+		</p>
+
+		<h3>[method:number mapLinear](  [param:number x],  [param:number a1],  [param:number a2],  [param:number b1],  [param:number b2] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - Value to be mapped.<br />
+			[parameter:number a1] - Minimum value for range A.<br />
+			[parameter:number a2] - Maximum value for range A.<br />
+			[parameter:number b1] - Minimum value for range B.<br />
+			[parameter:number b2] - Maximum value for range B.
+		</p>
+		<p>
+			Linear mapping of x from range [a1, a2] to range [b1, b2].
+		</p>
+
+		<h3>[method:number nearestPowerOfTwo](  [param:number value] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number value] - The value.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number nextPowerOfTwo](  [param:number value] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number value] - The value.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number pingpong](  [param:number x],  [param:number length]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The value to pingpong.<br />
+			[parameter:number length] - (optional) The positive value the export will pingpong to. Default is 1.
+		</p>
+		<p>
+			Returns a value that alternates between 0 and length.
+		</p>
+
+		<h3>[method:number radToDeg](  [param:number radians] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number radians] - The radians.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number randFloat](  [param:number low],  [param:number high] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number low] - The low.<br />
+			[parameter:number high] - The high.
+		</p>
+		<p>
+			Random float from low to high interval.
+		</p>
+
+		<h3>[method:number randFloatSpread](  [param:number range] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number range] - The range.
+		</p>
+		<p>
+			Random float from - range / 2 to range / 2 interval.
+		</p>
+
+		<h3>[method:number randInt](  [param:number low],  [param:number high] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number low] - The low.<br />
+			[parameter:number high] - The high.
+		</p>
+		<p>
+			Random integer from low to high interval.
+		</p>
+
+		<h3>[method:number random16](  )</h3>
+		<p>
+			Random float from 0 to 1 with 16 bits of randomness.<br />
+			Standard Math.random() creates repetitive patterns when applied over larger space.
+		</p>
+
+		<h3>[method:number seededRandom](  [param:number seed]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number seed] - (optional) The seed.
+		</p>
+		<p>
+			Deterministic pseudo-random float in the interval [ 0, 1 ].
+		</p>
+
+		<h3>[method:void setQuaternionFromProperEuler](  [param:Quaternion q],  [param:number a],  [param:number b],  [param:number c],  [param:string order] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion q] - The q.<br />
+			[parameter:number a] - The a.<br />
+			[parameter:number b] - The b.<br />
+			[parameter:number c] - The c.<br />
+			[parameter:string order] - The order.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number smootherstep](  [param:number x],  [param:number min],  [param:number max] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number min] - The min.<br />
+			[parameter:number max] - The max.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number smoothstep](  [param:number x],  [param:number min],  [param:number max] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number min] - The min.<br />
+			[parameter:number max] - The max.
+		</p>
+		<p>
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/math.ts /threejs-library/types/three/math.ts]</p>
+	</body>
+</html>

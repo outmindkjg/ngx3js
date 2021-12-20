@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:Curve] &rarr;
+
+		<h1>CurveVector3</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:CurveVector3 CurveVector3](  )</h3>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:Curve Curve] class for common properties.
+		</p>
+
+		<h3>[property:number arcLengthDivisions]</h3>
+		<p>
+			This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via .getLengths.<br />
+			To ensure precision when using methods like .getSpacedPoints, it is recommended to increase .arcLengthDivisions if the curve is very large.
+		</p>
+
+		<h3>[property:string type]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:Curve Curve] class for common methods.
+		</p>
+
+		<h3>[method:CurveVector3 clone](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:void computeFrenetFrames](  [param:number segments],  [param:boolean closed]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number segments] - The segments.<br />
+			[parameter:boolean closed] - (optional) The closed.
+		</p>
+		<p>
+			Generate Frenet frames of the curve
+		</p>
+
+		<h3>[method:CurveVector3 copy](  [param:Curve source] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Curve source] - The source.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void create](  [param:any constructorFunc],  [param:any getPointFunc] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any constructorFunc] - The constructor func.<br />
+			[parameter:any getPointFunc] - The get point func.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:CurveVector3 fromJSON](  [param:object json] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:object json] - The json.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number getLength](  )</h3>
+		<p>
+			Get total curve arc length
+		</p>
+
+		<h3>[method:number[] getLengths](  [param:number divisions]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number divisions] - (optional) The divisions.
+		</p>
+		<p>
+			Get list of cumulative segment lengths
+		</p>
+
+		<h3>[method:Vector3 getPoint](  [param:number t],  [param:Vector3 optionalTarget]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number t] - The t.<br />
+			[parameter:Vector3 optionalTarget] - (optional) The optional target.
+		</p>
+		<p>
+			Returns a vector for point t of the curve where t is between 0 and 1<br />
+			getPoint(t: number, optionalTarget?: T): T;
+		</p>
+
+		<h3>[method:Vector3 getPointAt](  [param:number u],  [param:Vector3 optionalTarget]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number u] - The u.<br />
+			[parameter:Vector3 optionalTarget] - (optional) The optional target.
+		</p>
+		<p>
+			Returns a vector for point at relative position in curve according to arc length<br />
+			getPointAt(u: number, optionalTarget?: T): T;
+		</p>
+
+		<h3>[method:Vector3[] getPoints](  [param:number divisions]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number divisions] - (optional) The divisions.
+		</p>
+		<p>
+			Get sequence of points using getPoint( t )<br />
+			getPoints(divisions?: number): T[];
+		</p>
+
+		<h3>[method:Vector3[] getSpacedPoints](  [param:number divisions]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number divisions] - (optional) The divisions.
+		</p>
+		<p>
+			Get sequence of equi-spaced points using getPointAt( u )<br />
+			getSpacedPoints(divisions?: number): T[];
+		</p>
+
+		<h3>[method:Vector3 getTangent](  [param:number t],  [param:Vector3 optionalTarget]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number t] - The t.<br />
+			[parameter:Vector3 optionalTarget] - (optional) The optional target.
+		</p>
+		<p>
+			Returns a unit vector tangent at t. If the subclassed curve do not implement its tangent derivation, 2 points a<br />
+			small delta apart will be used to find its gradient which seems to give a reasonable approximation<br />
+			getTangent(t: number, optionalTarget?: T): T;
+		</p>
+
+		<h3>[method:Vector3 getTangentAt](  [param:number u],  [param:Vector3 optionalTarget]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number u] - The u.<br />
+			[parameter:Vector3 optionalTarget] - (optional) The optional target.
+		</p>
+		<p>
+			Returns tangent at equidistance point u on the curve<br />
+			getTangentAt(u: number, optionalTarget?: T): T;
+		</p>
+
+		<h3>[method:number getUtoTmapping](  [param:number u],  [param:number distance] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number u] - The u.<br />
+			[parameter:number distance] - The distance.
+		</p>
+		<p>
+			Given u ( 0 .. 1 ), get a t to find p. This gives you points which are equi distance
+		</p>
+
+		<h3>[method:object toJSON](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:void updateArcLengths](  )</h3>
+		<p>
+			Update the cumlative segment distance cache
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/extras.ts /threejs-library/types/three/extras.ts]</p>
+	</body>
+</html>

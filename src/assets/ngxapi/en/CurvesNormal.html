@@ -7,7 +7,7 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:Curve] &rarr;
+		[page:Curve] &rarr; [page:CurveVector3] &rarr;
 
 		<h1>CurvesNormal</h1>
 
@@ -22,16 +22,17 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:CurvesNormal CurvesNormal](  [param:ICurve curve],  [param:CurvesNormalParameters parameters] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>[constructor:CurvesNormal CurvesNormal](  [param:Curve curve],  [param:ICurvesNormalParameters parameters] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:ICurve curve] - The curve.<br />
-			[parameter:CurvesNormalParameters parameters] - The parameters.
+			[parameter:Curve curve] - The curve.<br />
+			[parameter:ICurvesNormalParameters parameters] - The parameters.
 		</p>
 		<p>
 			Creates an instance of curves normal.
 		</p>
 
+		<h2>Constructor</h2>
 		<h3>[constructor:CurvesNormal CurvesNormal](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			
@@ -41,13 +42,16 @@
 		<p>
 			See the base [page:Curve Curve] class for common properties.
 		</p>
+		<p>
+			See the base [page:CurveVector3 CurveVector3] class for common properties.
+		</p>
 
-		<h3>[property:ICurve curve]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:Curve curve]<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Curve of curves normal
 		</p>
 
-		<h3>[property:IVector3 referCenter]<i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:Vector3 referCenter]<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Refer center of curves normal
 		</p>
@@ -56,12 +60,15 @@
 		<p>
 			See the base [page:Curve Curve] class for common methods.
 		</p>
+		<p>
+			See the base [page:CurveVector3 CurveVector3] class for common methods.
+		</p>
 
-		<h3>[method:IVector3 getPoint](  [param:number t],  [param:IVector3 optionalTarget]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>[method:Vector3 getPoint](  [param:number t],  [param:Vector3 optionalTarget]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number t] - The t.<br />
-			[parameter:IVector3 optionalTarget] - (optional) The optional target.
+			[parameter:Vector3 optionalTarget] - (optional) The optional target.
 		</p>
 		<p>
 			Gets point<br />
@@ -69,11 +76,11 @@
 			Returns : point
 		</p>
 
-		<h3>[method:IColor getPointColor](  [param:RendererTimer timer],  [param:IColor p] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:Color getPointColor](  [param:IRendererTimer timer],  [param:Color p] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:RendererTimer timer] - The timer.<br />
-			[parameter:IColor p] - The p.
+			[parameter:IRendererTimer timer] - The timer.<br />
+			[parameter:Color p] - The p.
 		</p>
 		<p>
 			Gets point color<br />
@@ -81,11 +88,11 @@
 			Returns : point color
 		</p>
 
-		<h3>[method:IEuler getPointEuler](  [param:RendererTimer timer],  [param:IEuler p] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:Euler getPointEuler](  [param:IRendererTimer timer],  [param:Euler p] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:RendererTimer timer] - The timer.<br />
-			[parameter:IEuler p] - The p.
+			[parameter:IRendererTimer timer] - The timer.<br />
+			[parameter:Euler p] - The p.
 		</p>
 		<p>
 			Gets point euler<br />
@@ -93,10 +100,10 @@
 			Returns : point euler
 		</p>
 
-		<h3>[method:number getPointFloat](  [param:RendererTimer timer],  [param:number min],  [param:number max] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:number getPointFloat](  [param:IRendererTimer timer],  [param:number min],  [param:number max] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:RendererTimer timer] - The timer.<br />
+			[parameter:IRendererTimer timer] - The timer.<br />
 			[parameter:number min] - The min.<br />
 			[parameter:number max] - The max.
 		</p>
@@ -106,11 +113,11 @@
 			Returns : point float
 		</p>
 
-		<h3>[method:IVector2 getPointV2](  [param:RendererTimer timer],  [param:IVector2 p] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:Vector2 getPointV2](  [param:IRendererTimer timer],  [param:Vector2 p] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:RendererTimer timer] - The timer.<br />
-			[parameter:IVector2 p] - The p.
+			[parameter:IRendererTimer timer] - The timer.<br />
+			[parameter:Vector2 p] - The p.
 		</p>
 		<p>
 			Gets point v2<br />
@@ -118,11 +125,11 @@
 			Returns : point v2
 		</p>
 
-		<h3>[method:IVector3 getPointV3](  [param:RendererTimer timer],  [param:IVector3 p] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:Vector3 getPointV3](  [param:IRendererTimer timer],  [param:Vector3 p] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:RendererTimer timer] - The timer.<br />
-			[parameter:IVector3 p] - The p.
+			[parameter:IRendererTimer timer] - The timer.<br />
+			[parameter:Vector3 p] - The p.
 		</p>
 		<p>
 			Gets point v3<br />
@@ -130,10 +137,10 @@
 			Returns : point v3
 		</p>
 
-		<h3>[method:void setCurve](  [param:ICurve curve] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:void setCurve](  [param:Curve curve] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:ICurve curve] - The curve.
+			[parameter:Curve curve] - The curve.
 		</p>
 		<p>
 			Sets curve
@@ -149,15 +156,15 @@
 		</p>
 
 		<hr class="interface-line"/>
-		<h3 id="CurvesNormalParameters">CurvesNormalParameters <i class="modifier modifier-interface">Interface</i></h3>
+		<h3 id="ICurvesNormalParameters">ICurvesNormalParameters <i class="modifier modifier-interface">Interface</i></h3>
 		<hr class="interface-line"/>
 		<h4>Properties</h4>
 		<p>
-			[property:IVector3 center]? -  The center.<br />
+			[property:Vector3 center]? -  The center.<br />
 			[property:number multiply]? -  The multiply.<br />
 			[property:string options]? -  The options.<br />
-			[property:IEuler rotation]? -  The rotation.<br />
-			[property:IVector3 scale]? -  The scale.
+			[property:Euler rotation]? -  The rotation.<br />
+			[property:Vector3 scale]? -  The scale.
 		</p>
 
 		<p class="desc">
@@ -165,361 +172,68 @@
 		</p>
 
 		<hr class="interface-line"/>
-		<h3 id="IColor">IColor <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line"/>
-		<h4>Constructor</h4>
-		<p>
-			[constructor:IColor IColor](  [param:any color]? ) <br />
-			[constructor:IColor IColor](  [param:any color]?,  [param:number r],  [param:number g],  [param:number b] ) 
-		</p>
-		<h4>Properties</h4>
-		<p>
-			[property:number b] - Blue channel value between 0 and 1. Default is 1.<br />
-			[property:number g] - Green channel value between 0 and 1. Default is 1.<br />
-			[property:any isColor] -  The is color.<br />
-			[property:number r] - Red channel value between 0 and 1. Default is 1.
-		</p>
-		<h4>Methods</h4>
-		<p>
-			[method:IColor add](  [param:IColor color] ) <br />
-			[method:IColor addColors](  [param:IColor color1],  [param:IColor color2] ) <br />
-			[method:IColor addScalar](  [param:number s] ) <br />
-			[method:IColor clone](  ) - Clones this color.<br />
-			[method:IColor convertGammaToLinear](  [param:number gammaFactor]? ) - Converts this color from gamma to linear space.<br />
-			[method:IColor convertLinearToGamma](  [param:number gammaFactor]? ) - Converts this color from linear to gamma space.<br />
-			[method:IColor convertLinearToSRGB](  ) - Converts this color from linear to sRGB space.<br />
-			[method:IColor convertSRGBToLinear](  ) - Converts this color from sRGB to linear space.<br />
-			[method:IColor copy](  [param:IColor color] ) - Copies given color.<br />
-			[method:IColor copyGammaToLinear](  [param:IColor color],  [param:number gammaFactor]? ) - Copies given color making conversion from gamma to linear space.<br />
-			[method:IColor copyLinearToGamma](  [param:IColor color],  [param:number gammaFactor]? ) - Copies given color making conversion from linear to gamma space.<br />
-			[method:IColor copyLinearToSRGB](  [param:IColor color] ) - Copies given color making conversion from linear to sRGB space.<br />
-			[method:IColor copySRGBToLinear](  [param:IColor color] ) - Copies given color making conversion from sRGB to linear space.<br />
-			[method:boolean equals](  [param:IColor color] ) <br />
-			[method:IColor fromArray](  [param:number[]|ArrayLike array],  [param:number offset]? ) - Sets this color's red, green and blue value from the provided array or array-like.<br />
-			[method:IColor fromBufferAttribute](  [param:IBufferAttribute attribute],  [param:number index] ) <br />
-			[method:IHSL getHSL](  [param:IHSL target] ) <br />
-			[method:number getHex](  ) - Returns the hexadecimal value of this color.<br />
-			[method:string getHexString](  ) - Returns the string formated hexadecimal value of this color.<br />
-			[method:string getStyle](  ) - Returns the value of this color in CSS context style.<br />
-			Example: rgb(r, g, b)<br />
-			[method:IColor lerp](  [param:IColor color],  [param:number alpha] ) <br />
-			[method:IColor lerpColors](  [param:IColor color1],  [param:IColor color2],  [param:number alpha] ) <br />
-			[method:IColor lerpHSL](  [param:IColor color],  [param:number alpha] ) <br />
-			[method:IColor multiply](  [param:IColor color] ) <br />
-			[method:IColor multiplyScalar](  [param:number s] ) <br />
-			[method:IColor offsetHSL](  [param:number h],  [param:number s],  [param:number l] ) <br />
-			[method:IColor set](  [param:any color] ) <br />
-			[method:IColor setColorName](  [param:string style] ) - Sets this color from a color name.<br />
-			Faster than {@line THREE.Color#setStyle .setStyle()} method if you don't need the other CSS-style formats.<br />
-			[method:IColor setHSL](  [param:number h],  [param:number s],  [param:number l] ) - Sets this color from HSL values.<br />
-			Based on MochiKit implementation by Bob Ippolito.<br />
-			[method:IColor setHex](  [param:number hex] ) <br />
-			[method:IColor setRGB](  [param:number r],  [param:number g],  [param:number b] ) - Sets this color from RGB values.<br />
-			[method:IColor setScalar](  [param:number scalar] ) <br />
-			[method:IColor setStyle](  [param:string style] ) - Sets this color from a CSS context style string.<br />
-			[method:IColor sub](  [param:IColor color] ) <br />
-			[method:number[] toArray](  [param:number[] array]?,  [param:number offset]? ) - Returns an array [red, green, blue], or copies red, green and blue into the provided array.<br />
-			<br />
-			Returns : The created or provided array.<br />
-			[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:ArrayLike xyz],  [param:number offset]? ) - Copies red, green and blue into the provided array-like.<br />
-			<br />
-			Returns : The provided array-like.
-		</p>
-
-		<p class="desc">
-			Represents a color. See also {@link ColorUtils}.<br />
-			see {@link https://github.com/mrdoob/three.js/blob/master/src/math/Color.js|src/math/Color.js}
-		</p>
-
-		<hr class="interface-line"/>
-		<h3 id="ICurve">ICurve <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line"/>
-		<h4>Constructor</h4>
-		<p>
-			[constructor:ICurve ICurve](  ) 
-		</p>
-		<h4>Properties</h4>
-		<p>
-			[property:number arcLengthDivisions] - This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via .getLengths.<br />
-			To ensure precision when using methods like .getSpacedPoints, it is recommended to increase .arcLengthDivisions if the curve is very large.<br />
-			[property:string type] -  The type.
-		</p>
-		<h4>Methods</h4>
-		<p>
-			[method:ICurve clone](  ) <br />
-			[method:void computeFrenetFrames](  [param:number segments],  [param:boolean closed]? ) - Generate Frenet frames of the curve<br />
-			[method:ICurve copy](  [param:ICurve source] ) <br />
-			[method:ICurve fromJSON](  [param:object json] ) <br />
-			[method:number getLength](  ) - Get total curve arc length<br />
-			[method:number[] getLengths](  [param:number divisions]? ) - Get list of cumulative segment lengths<br />
-			[method:T getPoint](  [param:number t],  [param:T optionalTarget]? ) - Returns a vector for point t of the curve where t is between 0 and 1<br />
-			getPoint(t: number, optionalTarget?: T): T;<br />
-			[method:T getPointAt](  [param:number u],  [param:T optionalTarget]? ) - Returns a vector for point at relative position in curve according to arc length<br />
-			getPointAt(u: number, optionalTarget?: T): T;<br />
-			[method:T[] getPoints](  [param:number divisions]? ) - Get sequence of points using getPoint( t )<br />
-			getPoints(divisions?: number): T[];<br />
-			[method:T[] getSpacedPoints](  [param:number divisions]? ) - Get sequence of equi-spaced points using getPointAt( u )<br />
-			getSpacedPoints(divisions?: number): T[];<br />
-			[method:T getTangent](  [param:number t],  [param:T optionalTarget]? ) - Returns a unit vector tangent at t. If the subclassed curve do not implement its tangent derivation, 2 points a<br />
-			small delta apart will be used to find its gradient which seems to give a reasonable approximation<br />
-			getTangent(t: number, optionalTarget?: T): T;<br />
-			[method:T getTangentAt](  [param:number u],  [param:T optionalTarget]? ) - Returns tangent at equidistance point u on the curve<br />
-			getTangentAt(u: number, optionalTarget?: T): T;<br />
-			[method:number getUtoTmapping](  [param:number u],  [param:number distance] ) - Given u ( 0 .. 1 ), get a t to find p. This gives you points which are equi distance<br />
-			[method:object toJSON](  ) <br />
-			[method:void updateArcLengths](  ) - Update the cumlative segment distance cache
-		</p>
-
-		<p class="desc">
-			An extensible curve object which contains methods for interpolation<br />
-			class Curve&lt;T extends Vector&gt;
-		</p>
-
-		<hr class="interface-line"/>
-		<h3 id="IEuler">IEuler <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line"/>
-		<h4>Constructor</h4>
-		<p>
-			[constructor:IEuler IEuler](  [param:number x]?,  [param:number y]?,  [param:number z]?,  [param:string order]? ) 
-		</p>
-		<h4>Properties</h4>
-		<p>
-			[property:any isEuler] -  The is euler.<br />
-			[property:string order] -  The order.<br />
-			[property:number x] -  The x.<br />
-			[property:number y] -  The y.<br />
-			[property:number z] -  The z.
-		</p>
-		<h4>Methods</h4>
-		<p>
-			[method:IEuler _onChange](  [param:any callback] ) <br />
-			[method:void _onChangeCallback](  ) <br />
-			[method:IEuler clone](  ) <br />
-			[method:IEuler copy](  [param:IEuler|Euler euler] ) <br />
-			[method:boolean equals](  [param:IEuler|Euler euler] ) <br />
-			[method:IEuler|Euler fromArray](  [param:any[] xyzo] ) <br />
-			[method:IEuler|Euler reorder](  [param:string newOrder] ) <br />
-			[method:IEuler|Euler set](  [param:number x],  [param:number y],  [param:number z],  [param:string order]? ) <br />
-			[method:IEuler|Euler setFromQuaternion](  [param:IQuaternion|Quaternion q],  [param:string order]?,  [param:boolean update]? ) <br />
-			[method:IEuler|Euler setFromRotationMatrix](  [param:IMatrix4|Matrix4 m],  [param:string order]?,  [param:boolean update]? ) <br />
-			[method:IEuler|Euler setFromVector3](  [param:IVector3|Vector3 v],  [param:string order]? ) <br />
-			[method:number[] toArray](  [param:number[] array]?,  [param:number offset]? ) <br />
-			[method:IVector3 toVector3](  [param:IVector3|Vector3 optionalResult]? ) 
-		</p>
-
-		<p class="desc">
-			
-		</p>
-
-		<hr class="interface-line"/>
-		[page:IVector] &rarr;
-
-		<h3 id="IVector2">IVector2 <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line"/>
-		<h4>Constructor</h4>
-		<p>
-			[constructor:IVector2 IVector2](  [param:number x]?,  [param:number y]? ) 
-		</p>
-		<h4>Properties</h4>
-		<p>
-			[property:number height] -  The height.<br />
-			[property:any isVector2] -  The is vector2.<br />
-			[property:number width] -  The width.<br />
-			[property:number x] -  The x.<br />
-			[property:number y] -  The y.
-		</p>
-		<h4>Methods</h4>
-		<p>
-			[method:IVector2 add](  [param:IVector2|Vector2 v],  [param:IVector2|Vector2 w]? ) - Adds v to this vector.<br />
-			[method:IVector2 addScalar](  [param:number s] ) - Adds the scalar value s to this vector's x and y values.<br />
-			[method:IVector2 addScaledVector](  [param:IVector2|Vector2 v],  [param:number s] ) - Adds the multiple of v and s to this vector.<br />
-			[method:IVector2 addVectors](  [param:IVector2|Vector2 a],  [param:IVector2|Vector2 b] ) - Sets this vector to a + b.<br />
-			[method:number angle](  ) - computes the angle in radians with respect to the positive x-axis<br />
-			[method:IVector2 applyMatrix3](  [param:IMatrix3|Matrix3 m] ) - Multiplies this vector (with an implicit 1 as the 3rd component) by m.<br />
-			[method:IVector2 ceil](  ) - The x and y components of the vector are rounded up to the nearest integer value.<br />
-			[method:IVector2 clamp](  [param:IVector2|Vector2 min],  [param:IVector2|Vector2 max] ) - If this vector's x or y value is greater than the max vector's x or y value, it is replaced by the corresponding value.<br />
-			If this vector's x or y value is less than the min vector's x or y value, it is replaced by the corresponding value.<br />
-			[method:IVector2 clampLength](  [param:number min],  [param:number max] ) - If this vector's length is greater than the max value, it is replaced by the max value.<br />
-			If this vector's length is less than the min value, it is replaced by the min value.<br />
-			[method:IVector2 clampScalar](  [param:number min],  [param:number max] ) - If this vector's x or y values are greater than the max value, they are replaced by the max value.<br />
-			If this vector's x or y values are less than the min value, they are replaced by the min value.<br />
-			[method:IVector2 clone](  ) - Returns a new Vector2 instance with the same `x` and `y` values.<br />
-			[method:IVector2 copy](  [param:IVector2|Vector2 v] ) - Copies value of v to this vector.<br />
-			[method:number cross](  [param:IVector2|Vector2 v] ) - Computes cross product of this vector and v.<br />
-			[method:number distanceTo](  [param:IVector2|Vector2 v] ) - Computes distance of this vector to v.<br />
-			[method:number distanceToManhattan](  [param:IVector2|Vector2 v] ) <br />
-			[method:number distanceToSquared](  [param:IVector2|Vector2 v] ) - Computes squared distance of this vector to v.<br />
-			[method:IVector2 divide](  [param:IVector2|Vector2 v] ) - Divides this vector by v.<br />
-			[method:IVector2 divideScalar](  [param:number s] ) - Divides this vector by scalar s.<br />
-			Set vector to ( 0, 0 ) if s == 0.<br />
-			[method:number dot](  [param:IVector2|Vector2 v] ) - Computes dot product of this vector and v.<br />
-			[method:boolean equals](  [param:IVector2|Vector2 v] ) - Checks for strict equality of this vector and v.<br />
-			[method:IVector2 floor](  ) - The components of the vector are rounded down to the nearest integer value.<br />
-			[method:IVector2 fromArray](  [param:number[]|ArrayLike array],  [param:number offset]? ) - Sets this vector's x and y value from the provided array or array-like.<br />
-			[method:IVector2 fromBufferAttribute](  [param:IBufferAttribute attribute],  [param:number index] ) - Sets this vector's x and y values from the attribute.<br />
-			[method:number getComponent](  [param:number index] ) - Gets a component of this vector.<br />
-			[method:number length](  ) - Computes length of this vector.<br />
-			[method:number lengthManhattan](  ) <br />
-			[method:number lengthSq](  ) - Computes squared length of this vector.<br />
-			[method:IVector2 lerp](  [param:IVector2|Vector2 v],  [param:number alpha] ) - Linearly interpolates between this vector and v, where alpha is the distance along the line - alpha = 0 will be this vector, and alpha = 1 will be v.<br />
-			[method:IVector2 lerpVectors](  [param:IVector2|Vector2 v1],  [param:IVector2|Vector2 v2],  [param:number alpha] ) - Sets this vector to be the vector linearly interpolated between v1 and v2 where alpha is the distance along the line connecting the two vectors - alpha = 0 will be v1, and alpha = 1 will be v2.<br />
-			[method:number manhattanDistanceTo](  [param:IVector2|Vector2 v] ) - Computes the Manhattan length (distance) from this vector to the given vector v<br />
-			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}<br />
-			[method:number manhattanLength](  ) - Computes the Manhattan length of this vector.<br />
-			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}<br />
-			[method:IVector2 max](  [param:IVector2|Vector2 v] ) - If this vector's x or y value is less than v's x or y value, replace that value with the corresponding max value.<br />
-			[method:IVector2 min](  [param:IVector2|Vector2 v] ) - If this vector's x or y value is greater than v's x or y value, replace that value with the corresponding min value.<br />
-			[method:IVector2 multiply](  [param:IVector2|Vector2 v] ) - Multiplies this vector by v.<br />
-			[method:IVector2 multiplyScalar](  [param:number scalar] ) - Multiplies this vector by scalar s.<br />
-			[method:IVector2 negate](  ) - Inverts this vector.<br />
-			[method:IVector2 normalize](  ) - Normalizes this vector.<br />
-			[method:IVector2 random](  ) - Sets this vector's x and y from Math.random<br />
-			[method:IVector2 rotateAround](  [param:IVector2|Vector2 center],  [param:number angle] ) - Rotates the vector around center by angle radians.<br />
-			[method:IVector2 round](  ) - The components of the vector are rounded to the nearest integer value.<br />
-			[method:IVector2 roundToZero](  ) - The components of the vector are rounded towards zero (up if negative, down if positive) to an integer value.<br />
-			[method:IVector2 set](  [param:number x],  [param:number y] ) - Sets value of this vector.<br />
-			[method:IVector2 setComponent](  [param:number index],  [param:number value] ) - Sets a component of this vector.<br />
-			[method:IVector2 setLength](  [param:number length] ) - Normalizes this vector and multiplies it by l.<br />
-			[method:IVector2 setScalar](  [param:number scalar] ) - Sets the x and y values of this vector both equal to scalar.<br />
-			[method:IVector2 setX](  [param:number x] ) - Sets X component of this vector.<br />
-			[method:IVector2 setY](  [param:number y] ) - Sets Y component of this vector.<br />
-			[method:IVector2 sub](  [param:IVector2|Vector2 v] ) - Subtracts v from this vector.<br />
-			[method:IVector2 subScalar](  [param:number s] ) - Subtracts s from this vector's x and y components.<br />
-			[method:IVector2 subVectors](  [param:IVector2|Vector2 a],  [param:IVector2|Vector2 b] ) - Sets this vector to a - b.<br />
-			[method:number[] toArray](  [param:number[] array]?,  [param:number offset]? ) - Returns an array [x, y], or copies x and y into the provided array.<br />
-			<br />
-			Returns : The created or provided array.<br />
-			[method:TVector2Tuple toArray](  [param:number[] array]?,  [param:number offset]?,  [param:TVector2Tuple array]?,  [param:any offset]? ) <br />
-			[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:TVector2Tuple array]?,  [param:any offset]?,  [param:ArrayLike array],  [param:number offset]? ) - Copies x and y into the provided array-like.<br />
-			<br />
-			Returns : The provided array-like.
-		</p>
-
-		<p class="desc">
-			2D vector.<br />
-			( class Vector2 implements Vector&lt;Vector2&gt; )
-		</p>
-
-		<hr class="interface-line"/>
-		[page:IVector] &rarr;
-
-		<h3 id="IVector3">IVector3 <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line"/>
-		<h4>Constructor</h4>
-		<p>
-			[constructor:IVector3 IVector3](  [param:number x]?,  [param:number y]?,  [param:number z]? ) 
-		</p>
-		<h4>Properties</h4>
-		<p>
-			[property:any isVector3] -  The is vector3.<br />
-			[property:number x] -  The x.<br />
-			[property:number y] -  The y.<br />
-			[property:number z] -  The z.
-		</p>
-		<h4>Methods</h4>
-		<p>
-			[method:IVector3 add](  [param:IVector3|Vector3 v] ) - Adds v to this vector.<br />
-			[method:IVector3 addScalar](  [param:number s] ) - Adds the scalar value s to this vector's values.<br />
-			[method:IVector3 addScaledVector](  [param:IVector3|Vector3 v],  [param:number s] ) <br />
-			[method:IVector3 addVectors](  [param:IVector3|Vector3 a],  [param:IVector3|Vector3 b] ) - Sets this vector to a + b.<br />
-			[method:number angleTo](  [param:IVector3|Vector3 v] ) <br />
-			[method:IVector3 applyAxisAngle](  [param:IVector3|Vector3 axis],  [param:number angle] ) <br />
-			[method:IVector3 applyEuler](  [param:IEuler|Euler euler] ) <br />
-			[method:IVector3 applyMatrix3](  [param:IMatrix3|Matrix3 m] ) <br />
-			[method:IVector3 applyMatrix4](  [param:IMatrix4|Matrix4 m] ) <br />
-			[method:IVector3 applyNormalMatrix](  [param:IMatrix3|Matrix3 m] ) <br />
-			[method:IVector3 applyQuaternion](  [param:IQuaternion|Quaternion q] ) <br />
-			[method:IVector3 ceil](  ) <br />
-			[method:IVector3 clamp](  [param:IVector3|Vector3 min],  [param:IVector3|Vector3 max] ) <br />
-			[method:IVector3 clampLength](  [param:number min],  [param:number max] ) <br />
-			[method:IVector3 clampScalar](  [param:number min],  [param:number max] ) <br />
-			[method:IVector3 clone](  ) - Clones this vector.<br />
-			[method:IVector3 copy](  [param:IVector3|Vector3 v] ) - Copies value of v to this vector.<br />
-			[method:IVector3 cross](  [param:IVector3|Vector3 a] ) - Sets this vector to cross product of itself and v.<br />
-			[method:IVector3 crossVectors](  [param:IVector3|Vector3 a],  [param:IVector3|Vector3 b] ) - Sets this vector to cross product of a and b.<br />
-			[method:number distanceTo](  [param:IVector3|Vector3 v] ) - Computes distance of this vector to v.<br />
-			[method:number distanceToManhattan](  [param:IVector3|Vector3 v] ) <br />
-			[method:number distanceToSquared](  [param:IVector3|Vector3 v] ) - Computes squared distance of this vector to v.<br />
-			[method:IVector3 divide](  [param:IVector3|Vector3 v] ) <br />
-			[method:IVector3 divideScalar](  [param:number s] ) - Divides this vector by scalar s.<br />
-			Set vector to ( 0, 0, 0 ) if s == 0.<br />
-			[method:number dot](  [param:IVector3|Vector3 v] ) - Computes dot product of this vector and v.<br />
-			[method:boolean equals](  [param:IVector3|Vector3 v] ) - Checks for strict equality of this vector and v.<br />
-			[method:IVector3 floor](  ) <br />
-			[method:IVector3 fromArray](  [param:number[]|ArrayLike array],  [param:number offset]? ) - Sets this vector's x, y and z value from the provided array or array-like.<br />
-			[method:IVector3 fromBufferAttribute](  [param:IBufferAttribute|IInterleavedBufferAttribute attribute],  [param:number index] ) <br />
-			[method:number getComponent](  [param:number index] ) <br />
-			[method:number length](  ) - Computes length of this vector.<br />
-			[method:number lengthManhattan](  ) - Computes Manhattan length of this vector.<br />
-			http://en.wikipedia.org/wiki/Taxicab_geometry<br />
-			[method:number lengthSq](  ) - Computes squared length of this vector.<br />
-			[method:IVector3 lerp](  [param:IVector3|Vector3 v],  [param:number alpha] ) - lerp(v:T, alpha:number):T;<br />
-			[method:IVector3 lerpVectors](  [param:IVector3|Vector3 v1],  [param:IVector3|Vector3 v2],  [param:number alpha] ) <br />
-			[method:number manhattanDistanceTo](  [param:IVector3|Vector3 v] ) - Computes the Manhattan length (distance) from this vector to the given vector v<br />
-			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}<br />
-			[method:number manhattanLength](  ) - Computes the Manhattan length of this vector.<br />
-			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}<br />
-			[method:IVector3 max](  [param:IVector3|Vector3 v] ) <br />
-			[method:IVector3 min](  [param:IVector3|Vector3 v] ) <br />
-			[method:IVector3 multiply](  [param:IVector3|Vector3 v] ) <br />
-			[method:IVector3 multiplyScalar](  [param:number s] ) - Multiplies this vector by scalar s.<br />
-			[method:IVector3 multiplyVectors](  [param:IVector3|Vector3 a],  [param:IVector3|Vector3 b] ) <br />
-			[method:IVector3 negate](  ) - Inverts this vector.<br />
-			[method:IVector3 normalize](  ) - Normalizes this vector.<br />
-			[method:IVector3 project](  [param:ICamera camera] ) <br />
-			[method:IVector3 projectOnPlane](  [param:IVector3|Vector3 planeNormal] ) <br />
-			[method:IVector3 projectOnVector](  [param:IVector3|Vector3 v] ) <br />
-			[method:IVector3 random](  ) - Sets this vector's x, y and z from Math.random<br />
-			[method:IVector3 randomDirection](  ) <br />
-			[method:IVector3 reflect](  [param:IVector3|Vector3 vector] ) <br />
-			[method:IVector3 round](  ) <br />
-			[method:IVector3 roundToZero](  ) <br />
-			[method:IVector3 set](  [param:number x],  [param:number y],  [param:number z] ) - Sets value of this vector.<br />
-			[method:IVector3 setComponent](  [param:number index],  [param:number value] ) <br />
-			[method:IVector3 setFromCylindrical](  [param:ICylindrical s] ) <br />
-			[method:IVector3 setFromCylindricalCoords](  [param:number radius],  [param:number theta],  [param:number y] ) <br />
-			[method:IVector3 setFromMatrix3Column](  [param:IMatrix3|Matrix3 matrix],  [param:number index] ) <br />
-			[method:IVector3 setFromMatrixColumn](  [param:IMatrix4 matrix],  [param:number index] ) <br />
-			[method:IVector3 setFromMatrixPosition](  [param:IMatrix4|Matrix4 m] ) <br />
-			[method:IVector3 setFromMatrixScale](  [param:IMatrix4|Matrix4 m] ) <br />
-			[method:IVector3 setFromSpherical](  [param:ISpherical s] ) <br />
-			[method:IVector3 setFromSphericalCoords](  [param:number r],  [param:number phi],  [param:number theta] ) <br />
-			[method:IVector3 setLength](  [param:number l] ) - Normalizes this vector and multiplies it by l.<br />
-			[method:IVector3 setScalar](  [param:number scalar] ) - Sets all values of this vector.<br />
-			[method:IVector3 setX](  [param:number x] ) - Sets x value of this vector.<br />
-			[method:IVector3 setY](  [param:number y] ) - Sets y value of this vector.<br />
-			[method:IVector3 setZ](  [param:number z] ) - Sets z value of this vector.<br />
-			[method:IVector3 sub](  [param:IVector3|Vector3 a] ) - Subtracts v from this vector.<br />
-			[method:IVector3 subScalar](  [param:number s] ) <br />
-			[method:IVector3 subVectors](  [param:IVector3|Vector3 a],  [param:IVector3|Vector3 b] ) - Sets this vector to a - b.<br />
-			[method:number[] toArray](  [param:number[] array]?,  [param:number offset]? ) - Returns an array [x, y, z], or copies x, y and z into the provided array.<br />
-			<br />
-			Returns : The created or provided array.<br />
-			[method:TVector3Tuple toArray](  [param:number[] array]?,  [param:number offset]?,  [param:TVector3Tuple array]?,  [param:any offset]? ) <br />
-			[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:TVector3Tuple array]?,  [param:any offset]?,  [param:ArrayLike array],  [param:number offset]? ) - Copies x, y and z into the provided array-like.<br />
-			<br />
-			Returns : The provided array-like.<br />
-			[method:IVector3 transformDirection](  [param:IMatrix4|Matrix4 m] ) <br />
-			[method:IVector3 unproject](  [param:ICamera camera] ) 
-		</p>
-
-		<p class="desc">
-			
-		</p>
-
-		<hr class="interface-line"/>
-		<h3 id="RendererTimer">RendererTimer <i class="modifier modifier-interface">Interface</i></h3>
+		<h3 id="IRendererTimer">IRendererTimer <i class="modifier modifier-interface">Interface</i></h3>
 		<hr class="interface-line"/>
 		<h4>Properties</h4>
 		<p>
 			[property:number delta] -  The delta.<br />
 			[property:number elapsedTime] -  The elapsed time.<br />
-			[property:RendererEvent event]? -  The event.<br />
-			[property:IRenderer renderer]? -  The renderer.
+			[property:IRendererEvent event]? -  The event.<br />
+			[property:Renderer renderer]? -  The renderer.
 		</p>
 
 		<p class="desc">
 			Renderer timer
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
 		</p>
 
 		<br /><br />

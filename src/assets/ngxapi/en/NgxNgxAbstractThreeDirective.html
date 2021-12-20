@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>NgxNgxAbstractThreeDirective</h1>
+
+		<p class="desc">
+			NgxAbstractObject3dDirective Abstract
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:NgxNgxAbstractThreeDirective NgxNgxAbstractThreeDirective](  [param:any objectCom] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any objectCom] - The object com.
+		</p>
+		<p>
+			Creates an instance of NgxAbstractObject3dDirective.
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:number elapsedTime] &nbsp; = 0 <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Elapsed time of abstract object3d directive
+		</p>
+
+		<h3>[property:boolean enabled] &nbsp; = false <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Enabled  of abstract directive
+		</p>
+
+		<h3>[property:any objectCom]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:TObjectFunction objectFunction]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Object3d function of abstract object3d directive
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:void consoleLogTime](  [param:string key],  [param:any object],  [param:number repeat] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:number repeat] - The repeat.
+		</p>
+		<p>
+			Consoles log time
+		</p>
+
+		<h3>[method:IEaseFunction getEasing](  [param:string type],  [param:number speed],  [param:string repeat],  [param:number start],  [param:number end] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string type] - The type.<br />
+			[parameter:number speed] - The speed.<br />
+			[parameter:string repeat] - The repeat.<br />
+			[parameter:number start] - The start.<br />
+			[parameter:number end] - The end.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void pause](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Pauses abstract directive
+		</p>
+
+		<h3>[method:void play](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Plays abstract directive
+		</p>
+
+		<h3>[method:void subscribeRefer](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer
+		</p>
+
+		<h3>[method:void unSubscribeRefer](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer
+		</p>
+
+		<h3>[method:Subscription[] unSubscription](  [param:Subscription[] subscriptions] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Subscription[] subscriptions] - The subscriptions.
+		</p>
+		<p>
+			subscription<br />
+			<br />
+			Returns : subscription
+		</p>
+
+		<h3>[method:void update](  [param:IRendererTimer timer] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:IRendererTimer timer] - The timer.
+		</p>
+		<p>
+			Updates abstract directive
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="IRendererTimer">IRendererTimer <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:number delta] -  The delta.<br />
+			[property:number elapsedTime] -  The elapsed time.<br />
+			[property:IRendererEvent event]? -  The event.<br />
+			[property:Renderer renderer]? -  The renderer.
+		</p>
+
+		<p class="desc">
+			Renderer timer
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="TObjectFunction">TObjectFunction <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>[method:void function](  [param:any object],  [param:number elapsedTime]?,  [param:IRendererTimer timer]? )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:any object] -  The object.<br />
+			[property:number elapsedTime]? -  The elapsed time.<br />
+			[property:IRendererTimer timer]? -  The timer.
+		</p>
+		<p>
+			TObjectFunction
+		</p>
+
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/directive.abstract.ts /directive.abstract.ts]</p>
+	</body>
+</html>

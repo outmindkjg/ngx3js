@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>GPUComputationRenderer</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:GPUComputationRenderer GPUComputationRenderer](  [param:number sizeX],  [param:number sizeY],  [param:WebGLRenderer renderer] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number sizeX] - The size x.<br />
+			[parameter:number sizeY] - The size y.<br />
+			[parameter:WebGLRenderer renderer] - The renderer.
+		</p>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			None
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:void addResolutionDefine](  [param:ShaderMaterial materialShader] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ShaderMaterial materialShader] - The material shader.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Variable addVariable](  [param:string variableName],  [param:string computeFragmentShader],  [param:Texture initialValueTexture] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string variableName] - The variable name.<br />
+			[parameter:string computeFragmentShader] - The compute fragment shader.<br />
+			[parameter:Texture initialValueTexture] - The initial value texture.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void compute](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:WebGLRenderTarget createRenderTarget](  [param:number sizeXTexture],  [param:number sizeYTexture],  [param:Wrapping wrapS],  [param:number wrapT],  [param:TextureFilter minFilter],  [param:TextureFilter magFilter] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number sizeXTexture] - The size x texture.<br />
+			[parameter:number sizeYTexture] - The size y texture.<br />
+			[parameter:Wrapping wrapS] - The wrap s.<br />
+			[parameter:number wrapT] - The wrap t.<br />
+			[parameter:TextureFilter minFilter] - The min filter.<br />
+			[parameter:TextureFilter magFilter] - The mag filter.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ShaderMaterial createShaderMaterial](  [param:string computeFragmentShader],  [param:any uniforms]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string computeFragmentShader] - The compute fragment shader.<br />
+			[parameter:any uniforms] - (optional) The uniforms.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:DataTexture createTexture](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:void doRenderTarget](  [param:Material material],  [param:WebGLRenderTarget output] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Material material] - The material.<br />
+			[parameter:WebGLRenderTarget output] - The output.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:WebGLRenderTarget getAlternateRenderTarget](  [param:Variable variable] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Variable variable] - The variable.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:WebGLRenderTarget getCurrentRenderTarget](  [param:Variable variable] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Variable variable] - The variable.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:string init](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:void renderTexture](  [param:Texture input],  [param:Texture output] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Texture input] - The input.<br />
+			[parameter:Texture output] - The output.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void setDataType](  [param:TextureDataType type] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:TextureDataType type] - The type.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void setVariableDependencies](  [param:Variable variable],  [param:Variable[] dependencies] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Variable variable] - The variable.<br />
+			[parameter:Variable[] dependencies] - The dependencies.
+		</p>
+		<p>
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/misc.ts /threejs-library/types/three/examples/misc.ts]</p>
+	</body>
+</html>

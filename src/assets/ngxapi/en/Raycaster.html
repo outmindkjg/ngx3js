@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>Raycaster</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:Raycaster Raycaster](  [param:Vector3 origin]?,  [param:Vector3 direction]?,  [param:number near]?,  [param:number far]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 origin] - (optional) The origin vector where the ray casts from.<br />
+			[parameter:Vector3 direction] - (optional) The direction vector that gives direction to the ray. Should be normalized.<br />
+			[parameter:number near] - (optional) All results returned are further away than near. Near can't be negative. Default value is 0.<br />
+			[parameter:number far] - (optional) All results returned are closer then far. Far can't be lower then near . Default value is Infinity.
+		</p>
+		<p>
+			This creates a new raycaster object.
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:Camera camera]</h3>
+		<p>
+			The camera to use when raycasting against view-dependent objects such as billboarded objects like Sprites. This field<br />
+			can be set manually or is set when calling "setFromCamera".
+		</p>
+
+		<h3>[property:number far]</h3>
+		<p>
+			The far factor of the raycaster. This value indicates which objects can be discarded based on the<br />
+			distance. This value shouldn't be negative and should be larger than the near property.
+		</p>
+
+		<h3>[property:Layers layers]</h3>
+		<p>
+			Used by Raycaster to selectively ignore 3D objects when performing intersection tests.
+		</p>
+
+		<h3>[property:number near]</h3>
+		<p>
+			The near factor of the raycaster. This value indicates which objects can be discarded based on the<br />
+			distance. This value shouldn't be negative and should be smaller than the far property.
+		</p>
+
+		<h3>[property:RaycasterParameters params]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Ray ray]</h3>
+		<p>
+			The Ray used for the raycasting.
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:Intersection[] intersectObject](  [param:Object3D object],  [param:boolean recursive]?,  [param:Intersection[] optionalTarget]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D object] - The object to check for intersection with the ray.<br />
+			[parameter:boolean recursive] - (optional) If true, it also checks all descendants. Otherwise it only checks intersecton with the object. Default is false.<br />
+			[parameter:Intersection[] optionalTarget] - (optional) (optional) target to set the result. Otherwise a new Array is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).
+		</p>
+		<p>
+			Checks all intersection between the ray and the object with or without the descendants. Intersections are returned sorted by distance, closest first.
+		</p>
+
+		<h3>[method:Intersection[] intersectObjects](  [param:Object3D[] objects],  [param:boolean recursive]?,  [param:Intersection[] optionalTarget]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D[] objects] - The objects to check for intersection with the ray.<br />
+			[parameter:boolean recursive] - (optional) If true, it also checks all descendants of the objects. Otherwise it only checks intersecton with the objects. Default is false.<br />
+			[parameter:Intersection[] optionalTarget] - (optional) (optional) target to set the result. Otherwise a new Array is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).
+		</p>
+		<p>
+			Checks all intersection between the ray and the objects with or without the descendants.<br />
+			Intersections are returned sorted by distance, closest first.<br />
+			Intersections are of the same form as those returned by .intersectObject.
+		</p>
+
+		<h3>[method:void set](  [param:Vector3 origin],  [param:Vector3 direction] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 origin] - The origin vector where the ray casts from.<br />
+			[parameter:Vector3 direction] - The normalized direction vector that gives direction to the ray.
+		</p>
+		<p>
+			Updates the ray with a new origin and direction.
+		</p>
+
+		<h3>[method:void setFromCamera](  [param:any coords],  [param:Camera camera] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any coords] - 2D coordinates of the mouse, in normalized device coordinates (NDC)---X and Y components should be between -1 and 1.<br />
+			[parameter:Camera camera] - camera from which the ray should originate
+		</p>
+		<p>
+			Updates the ray with a new origin and direction.
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/core.ts /threejs-library/types/three/core.ts]</p>
+	</body>
+</html>

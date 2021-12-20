@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:NgxAbstractSubscribeComponent] &rarr; [page:NgxAbstractGeometryComponent] &rarr;
+
+		<h1>NgxGeometryComponent</h1>
+
+		<p class="desc">
+			The Geometry component.<br />
+			<br />
+			<h3>Preview - ngx geometey</h3><br />
+			<iframe src="#/viewer/ngx_geometry"></iframe><br />
+			<br />
+			See the [page:GeometryComponent ngx3js docs] page for details.<br />
+			See the [example:ngx_geometry ngx geometey] page for a live demo.<br />
+			See the [example:ngx_font ngx font] page for a live font demo.<br />
+			See the [example:ngx_curve ngx curve] page for a live curve demo.<br />
+			<br />
+			A representation of mesh, line, or point geometry. Includes vertex positions, face indices, normals, colors, UVs, and custom attributes within buffers, reducing the cost of passing all this data to the GPU.<br />
+			To read and edit data in BufferGeometry attributes, see [page:BufferAttribute BufferAttribute] documentation.<br />
+			<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-geometry<br />
+				[type]="'BoxGeometry'" [width]="16" [height]="16" [depth]="16 "<br />
+				[widthSegments]="3" [heightSegments]="3" [depthSegments]="3"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'IcosahedronGeometry'" [radius]="8" [detail]="1"&gt;<br />
+			&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'PlaneGeometry'" [width]="16" [height]="16 "<br />
+				[widthSegments]="3" [heightSegments]="3"&gt;<br />
+			&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'SphereGeometry'" [radius]="0.4 "<br />
+				[widthSegments]="14" [heightSegments]="10"&gt;<br />
+			&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'TextGeometry'" [font]="'helvetiker'" [align]="'center bottom'"<br />
+				[text]="'test contents'" [size]="10"&gt;<br />
+			&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'TorusKnotGeometry'" [radius]="0.4" [tube]="0.08 "<br />
+				[radialSegments]="95" [tubularSegments]="20"<br />
+			&gt;<br />
+			&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'TeapotGeometry'" [size]="400" [segments]="30"<br />
+				[bottom]="true" [lid]="true" [body]="true" [fitLid]="true" [blinn]="true"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+			[type]="'perlin'"<br />
+				[perlinType]="'minecraft'"<br />
+				[width]="100" [height]="100" [depth]="100"<br />
+				[widthSegments]="128" [depthSegments]="128" [quality]="2"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'RopeGeometry'" [width]="4" [widthSegments]="10"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'RoundedBox'"<br />
+				[width]="1" [height]="1" [depth]="1"<br />
+				[segments]="7" [radius]="0.2"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'BoxLineGeometry'"<br />
+				[width]="6" [height]="6" [depth]="6"<br />
+				[widthSegments]="10" [heightSegments]="10" [depthSegments]="10"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'CircleGeometry'"<br />
+				[radius]="50" [radialSegments]="20" [thetaStart]="0" [thetaLength]="360"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'star'"<br />
+				[outerRadius]="1" [innerRadius]="0.5" [depth]="0.5" [depthRate]="0.5"<br />
+				[thetaStart]="0" [thetaLength]="220"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'ConeGeometry'"<br />
+				[radius]="0.2" [height]="0.2"<br />
+				[radiusSegments]="64"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				#dodecahedron<br />
+				[type]="'Dodecahedron'"<br />
+				[radius]="10"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'mergebuffergeometry'"<br />
+				[autoCustomColor]="true" [autoCustomColorKey]="'ca'" [autoCustomColorSize]="3"<br />
+				[autoSize]="true" [autoSizeSize]="1"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'shape'"<br />
+				[text]="'   Three.js\nSimple text.'" [font]="'helvetiker'"<br />
+				[align]="'center'"<br />
+				[weight]="'regular'" [size]="100"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'Extrude'"<br />
+				[shapes]="shapes1" [steps]="100"<br />
+				[bevelEnabled]="false" [extrudePath]="extrudePath" [closed]="true"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'Icosahedron'"<br />
+				[radius]="75" [detail]="1"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'LatheGeometry'"<br />
+				[points]="lathePoints" [segments]="20"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			&lt;ngx3js-geometry<br />
+				[type]="'Octahedron'"<br />
+				[radius]="75" [detail]="2"<br />
+			&gt;&lt;/ngx3js-geometry&gt;<br />
+			</code><br />
+			<br />
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:NgxGeometryComponent NgxGeometryComponent](  [param:NgxLocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:NgxLocalStorageService localStorageService] - The local storage service.
+		</p>
+		<p>
+			Creates an instance of geometry component.
+		</p>
+
+		<h3>Angular Html Template [ Input ] ( Output )</h3>
+		<code data-type="html">&lt;ngx3js-geometry
+			[ addGroup ]="... boolean -- The addGroup of geometry compo... "
+			[ align ]="... string -- The align of geometry "
+			[ arc ]="... number -- Central angle. Default is Math... "
+			[ attrColor ]="... TAttrBufferAttribute -- The attrColor of abstract geom... "
+			[ attrColorKey ]="... string -- The attrColorKey of abstract g... "
+			[ attrColorNormalized ]="... boolean -- The attrColorNormalized of abs... "
+			[ attrColorSize ]="... number -- The attrColorSize of abstract ... "
+			[ attrColorUsage ]="... string -- The attrColorUsage of abstract... "
+			[ attrCustomColor ]="... TAttrBufferAttribute -- The attrCustomColor of abstrac... "
+			[ attrCustomColorUsage ]="... string -- The attrCustomColorUsage of ab... "
+			[ attrIndex ]="... TAttrBufferAttribute -- The attrIndex of abstract geom... "
+			[ attrIndexUsage ]="... string -- The attrIndexUsage of abstract... "
+			[ attrNormal ]="... TAttrBufferAttribute -- The attrNormal of abstract geo... "
+			[ attrNormalNormalized ]="... boolean -- The attrNormalNormalized of ab... "
+			[ attrNormalUsage ]="... string -- The attrNormalUsage of abstrac... "
+			[ attrOffset ]="... TAttrBufferAttribute -- The attrOffset of abstract geo... "
+			[ attrOffsetUsage ]="... string -- The attrOffsetUsage of abstrac... "
+			[ attrOrientationEnd ]="... TAttrBufferAttribute -- The attrOrientationEnd of abst... "
+			[ attrOrientationEndUsage ]="... string -- The attrOrientationEndUsage of... "
+			[ attrOrientationStart ]="... TAttrBufferAttribute -- The attrOrientationStart of ab... "
+			[ attrOrientationStartUsage ]="... string -- The attrOrientationStartUsage ... "
+			[ attrPosition ]="... TAttrBufferAttribute -- The attrPosition of abstract g... "
+			[ attrPositionUsage ]="... string -- The attrPositionUsage of abstr... "
+			[ attrScale ]="... TAttrBufferAttribute -- The attrScale of abstract geom... "
+			[ attrScaleUsage ]="... string -- The attrScaleUsage of abstract... "
+			[ attrSize ]="... TAttrBufferAttribute -- The attrSize of abstract geome... "
+			[ attrSizeUsage ]="... string -- Defines the intended usage pat... "
+			[ attrTextureIndex ]="... TAttrBufferAttribute -- The attrTextureIndex of abstra... "
+			[ attrTextureIndexUsage ]="... string -- The attrTextureIndexUsage of a... "
+			[ attrTranslate ]="... TAttrBufferAttribute -- The attrTranslate of abstract ... "
+			[ attrTranslateUsage ]="... string -- The attrTranslateUsage of abst... "
+			[ attrUv ]="... TAttrBufferAttribute -- The attrUv of abstract geometr... "
+			[ attrUvUsage ]="... string -- The attrUvUsage of abstract ge... "
+			[ attrVertColor ]="... TAttrBufferAttribute -- The attrVertColor of abstract ... "
+			[ attrVisible ]="... TAttrBufferAttribute -- The attrVisible of abstract ge... "
+			[ attributes ]="... any -- This hashmap has as id the nam... "
+			[ autoCustomColor ]="... boolean -- The autoCustomColor of abstrac... "
+			[ autoCustomColorKey ]="... string -- The autoCustomColorKey of abst... "
+			[ autoCustomColorSize ]="... number -- The autoCustomColorSize of abs... "
+			[ autoDisplacement ]="... boolean -- The autoDisplacement of abstra... "
+			[ autoDisplacementSize ]="... number -- The autoDisplacementSize of ab... "
+			[ autoSize ]="... boolean -- The autoSize of abstract geome... "
+			[ autoSizeSize ]="... number -- The autoSizeSize of abstract g... "
+			[ bevelEnabled ]="... boolean -- The bevelEnabled of geometry c... "
+			[ bevelOffset ]="... number -- The bevelOffset of geometry co... "
+			[ bevelSegments ]="... number -- The bevelSegments of geometry ... "
+			[ bevelSize ]="... number -- The bevelSize of geometry comp... "
+			[ bevelThickness ]="... number -- The bevelThickness of geometry... "
+			[ blinn ]="... boolean -- The blinn of geometry componen... "
+			[ body ]="... boolean -- The body of geometry component "
+			[ bottom ]="... boolean -- The bottom of geometry compone... "
+			[ center ]="... boolean -- Center the geometry based on t... "
+			[ closed ]="... boolean -- The closed of geometry compone... "
+			[ color1 ]="... INgxColor -- Grid Color axis X "
+			[ color2 ]="... INgxColor -- Grid Color axis Y "
+			[ compressNormals ]="... string -- Make the input mesh.geometry's... "
+			[ compressPositions ]="... boolean -- The compressPositions "
+			[ compressUvs ]="... boolean -- The compressUvs "
+			[ computeBoundingBox ]="... boolean -- Computes bounding box of the g... "
+			[ computeBoundingSphere ]="... boolean -- Computes bounding sphere of th... "
+			[ computeTangents ]="... boolean -- Calculates and adds a tangent ... "
+			[ computeVertexNormals ]="... boolean -- Computes vertex normals by ave... "
+			[ count ]="... number -- The count of abstract geometry... "
+			[ curve ]="... string|Curve -- The curve of geometry componen... "
+			[ curveNormal ]="... boolean -- The curveNormal of geometry co... "
+			[ curveNormalOption ]="... string -- The curveNormalOption of geome... "
+			[ curveOption ]="... any -- The curveOption of geometry co... "
+			[ curvePath ]="... INgxVector[] -- The curvePath of geometry comp... "
+			[ curvePathType ]="... string -- The Input of geometry componen... "
+			[ curveSegments ]="... number -- The curveSegments of geometry ... "
+			[ curveType ]="... string -- The Input of geometry componen... "
+			[ cutOffAngle ]="... number -- The cutoff angle in radians. I... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ depth ]="... number -- Depth; that is, the length of ... "
+			[ depthRate ]="... number -- The Sharpen Rate of Depth "
+			[ depthSegments ]="... number -- Number of segmented rectangula... "
+			[ detail ]="... number -- Default is 0. Setting this to ... "
+			[ drawRangeCount ]="... number -- drawRangeCount of abstract geo... "
+			[ drawRangeStart ]="... number -- drawRangeStart of abstract geo... "
+			[ edgeSplit ]="... boolean -- The geometry to modify by spli... "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ extrudePath ]="... INgxVector[] -- The extrudePath of geometry co... "
+			[ extrudePathType ]="... string -- The Input of geometry componen... "
+			[ fitLid ]="... boolean -- The fitLid of geometry compone... "
+			[ flipY ]="... boolean -- The flipY of abstract geometry... "
+			[ font ]="... string -- The font of geometry component "
+			[ height ]="... number -- Height; that is, the length of... "
+			[ heightSegments ]="... number -- Number of segmented rectangula... "
+			[ innerRadius ]="... number -- Default is 0.5. "
+			[ instanceCount ]="... number -- The instanceCount of geometry ... "
+			[ lid ]="... boolean -- The lid of geometry component "
+			[ light ]="... string|number -- The light of geometry componen... "
+			[ maxEdgeLength ]="... number -- The maxEdgeLength of abstract ... "
+			[ maxIterations ]="... number -- The maxIterations of abstract ... "
+			[ mergeVertices ]="... boolean -- geometry -- Instance of [Buffe... "
+			[ mesh ]="... any -- The mesh of geometry component "
+			[ meshType ]="... string -- The meshType of abstract geome... "
+			[ morphAttributes ]="... any -- Hashmap of [BufferAttribute](h... "
+			[ name ]="... string -- The name of the object (doesn'... "
+			( onDestory )="...($event : NgxGeometryComponent -- Will be called when before des... )"
+			[ onInit ]="... any"
+			( onLoad )="...($event : NgxGeometryComponent -- Will be called when load compl... )"
+			[ openEnded ]="... boolean -- A Boolean indicating whether t... "
+			[ orientationX ]="... number -- The orientationX of geometry c... "
+			[ orientationY ]="... number -- The orientationY of geometry c... "
+			[ orientationZ ]="... number -- The orientationZ of geometry c... "
+			[ outerRadius ]="... number -- Default is 1. "
+			[ overrideParams ]="... any -- The override params "
+			[ p ]="... number -- This value determines, how man... "
+			[ parametric ]="... any -- The Input of geometry componen... "
+			[ perlinType ]="... string -- The Input of geometry componen... "
+			[ phiLength ]="... number -- the radian (0 to 2PI : 0 to 36... "
+			[ phiSegments ]="... number -- Minimum is 1. Default is 1. "
+			[ phiStart ]="... number -- the starting angle in radians.... "
+			[ points ]="... INgxVector[] -- The points of geometry compone... "
+			[ pointsGeometry ]="... NgxGeometryComponent -- The pointsGeometry of geometry... "
+			[ polyIndices ]="... number[] -- The polyIndices of geometry co... "
+			[ polyVertices ]="... number[] -- The polyVertices of geometry c... "
+			[ positionX ]="... number -- The positionX of geometry comp... "
+			[ positionY ]="... number -- The positionY of geometry comp... "
+			[ positionZ ]="... number -- The positionZ of geometry comp... "
+			[ program ]="... string -- The program of abstract geomet... "
+			[ programParam ]="... any -- The programParam of abstract g... "
+			[ q ]="... number -- This value determines, how man... "
+			[ quality ]="... number -- The quality of geometry compon... "
+			[ radialSegments ]="... number -- Number of segmented faces arou... "
+			[ radius ]="... number -- Radius of the circle/cone/dode... "
+			[ radiusBottom ]="... number -- Radius of the cylinder at the ... "
+			[ radiusSegments ]="... number -- Number of segmented faces arou... "
+			[ radiusTop ]="... number -- Radius of the cylinder at the ... "
+			[ rayParams ]="... RayParameters -- The rayParams of geometry comp... "
+			[ refGeometry ]="... any -- The refGeometry of geometry co... "
+			[ refName ]="... string|string[] -- refer mesh name of geometry co... "
+			[ refType ]="... string -- The Input of geometry componen... "
+			[ refer ]="... any -- The refer of geometry componen... "
+			[ scale ]="... number -- Scale the geometry data. This ... "
+			[ segments ]="... number -- the number of circumference se... "
+			[ shadow ]="... string|number -- The shadow of geometry compone... "
+			[ shapes ]="... Shape|INgxVector[] -- The shapes of geometry compone... "
+			[ simplify ]="... boolean -- The simplify of abstract geome... "
+			[ size ]="... number -- The size of geometry component "
+			[ sizeX ]="... number -- The sizeX of geometry componen... "
+			[ sizeY ]="... number -- The sizeY of geometry componen... "
+			[ sizeZ ]="... number -- The sizeZ of geometry componen... "
+			[ slices ]="... number -- The slices of geometry compone... "
+			[ sphereScale ]="... number -- Scale the geometry data. This ... "
+			[ stacks ]="... number -- The stacks of geometry compone... "
+			[ steps ]="... number -- The steps of geometry componen... "
+			[ storage2Buffer ]="... boolean -- The storage2Buffer of geometry... "
+			[ storageName ]="... string -- The storageName of geometry co... "
+			[ tension ]="... number -- The tension of geometry compon... "
+			[ tessellate ]="... boolean -- The tessellate of abstract geo... "
+			[ text ]="... string -- The text of geometry component "
+			[ thetaLength ]="... number -- The central angle, often calle... "
+			[ thetaSegments ]="... number -- Number of segments. A higher n... "
+			[ thetaStart ]="... number -- Start angle for first segment,... "
+			[ thresholdAngle ]="... number -- The thresholdAngle of geometry... "
+			[ toNonIndexed ]="... boolean -- Return a non-index version of ... "
+			[ tryKeepNormals ]="... boolean -- Set to true to keep the normal... "
+			[ tube ]="... number -- The tube of geometry component "
+			[ tubularSegments ]="... number -- Radius of the tube. Default is... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The type of geometry "
+			[ uVGenerator ]="... string -- The Input of geometry componen... "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ vertexBuffer ]="... Float32Array|InterleavedBuffer|number[] -- The vertexBuffer of abstract g... "
+			[ vertexBufferStride ]="... number -- The vertexBufferStride of abst... "
+			[ weight ]="... string -- The weight of geometry compone... "
+			[ width ]="... number -- Width; that is, the length of ... "
+			[ widthSegments ]="... number -- Number of segmented rectangula... "
+			[ windowExport ]="... string -- Export this Object to window g... "
+		&gt;&lt;/ngx3js-geometry&gt;
+		</code>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common properties.
+		</p>
+		<p>
+			See the base [page:NgxAbstractGeometryComponent NgxAbstractGeometryComponent] class for common properties.
+		</p>
+
+		<h3>[property:string[] GEOMETRY_ATTR] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Geometry attr of abstract geometry component
+		</p>
+
+		<h3>[property:string[] OBJECT_ATTR] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Object attr of abstract subscribe component
+		</p>
+
+		<h3>[property:string[] _changeList]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Change list of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean _needUpdate] &nbsp; = true <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Need update of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean addGroup]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The addGroup of geometry component
+		</p>
+
+		<h3>[property:string align]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The align of geometry<br />
+			left, center, right, top, bottom, front, back, double<br />
+			<br />
+			Notice - case insensitive. mixed
+		</p>
+
+		<h3>[property:number arc]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Central angle.  Default is Math.PI * 2.
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrColor of abstract geometry component
+		</p>
+
+		<h3>[property:string attrColorKey]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrColorKey of abstract geometry component
+		</p>
+
+		<h3>[property:boolean attrColorNormalized] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrColorNormalized of abstract geometry component
+		</p>
+
+		<h3>[property:number attrColorSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrColorSize of abstract geometry component
+		</p>
+
+		<h3>[property:string attrColorUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrColorUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrCustomColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrCustomColor of abstract geometry component
+		</p>
+
+		<h3>[property:string attrCustomColorUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrCustomColorUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrIndex]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrIndex of abstract geometry component
+		</p>
+
+		<h3>[property:string attrIndexUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrIndexUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrNormal]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrNormal of abstract geometry component
+		</p>
+
+		<h3>[property:boolean attrNormalNormalized] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrNormalNormalized of abstract geometry component
+		</p>
+
+		<h3>[property:string attrNormalUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrNormalUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrOffset]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrOffset of abstract geometry component
+		</p>
+
+		<h3>[property:string attrOffsetUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrOffsetUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrOrientationEnd]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrOrientationEnd of abstract geometry component
+		</p>
+
+		<h3>[property:string attrOrientationEndUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrOrientationEndUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrOrientationStart]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrOrientationStart of abstract geometry component
+		</p>
+
+		<h3>[property:string attrOrientationStartUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrOrientationStartUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrPosition]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrPosition of abstract geometry component
+		</p>
+
+		<h3>[property:string attrPositionUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrPositionUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrScale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrScale of abstract geometry component
+		</p>
+
+		<h3>[property:string attrScaleUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrScaleUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrSize of abstract geometry component
+		</p>
+
+		<h3>[property:string attrSizeUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the *usage* parameter of<br />
+			[link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrTextureIndex]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrTextureIndex of abstract geometry component
+		</p>
+
+		<h3>[property:string attrTextureIndexUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrTextureIndexUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrTranslate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrTranslate of abstract geometry component
+		</p>
+
+		<h3>[property:string attrTranslateUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrTranslateUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrUv]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrUv of abstract geometry component
+		</p>
+
+		<h3>[property:string attrUvUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrUvUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrVertColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrVertColor of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrVisible]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The attrVisible of abstract geometry component
+		</p>
+
+		<h3>[property:any attributes]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			This hashmap has as id the name of the attribute to be set and as value the [page:BufferAttribute buffer] to set it to.<br />
+			Rather than accessing this property directly, use [page:BufferGeometry.setAttribute BufferGeometry.setAttribute] and [page:BufferGeometry.getAttribute BufferGeometry.getAttribute] to access attributes of this geometry.
+		</p>
+
+		<h3>[property:boolean autoCustomColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The autoCustomColor of abstract geometry component
+		</p>
+
+		<h3>[property:string autoCustomColorKey]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The autoCustomColorKey of abstract geometry component
+		</p>
+
+		<h3>[property:number autoCustomColorSize] &nbsp; = 3 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The autoCustomColorSize of abstract geometry component
+		</p>
+
+		<h3>[property:boolean autoDisplacement]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The autoDisplacement of abstract geometry component
+		</p>
+
+		<h3>[property:number autoDisplacementSize] &nbsp; = 3 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The autoDisplacementSize of abstract geometry component
+		</p>
+
+		<h3>[property:boolean autoSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The autoSize of abstract geometry component
+		</p>
+
+		<h3>[property:number autoSizeSize] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The autoSizeSize of abstract geometry component
+		</p>
+
+		<h3>[property:boolean bevelEnabled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bevelEnabled of geometry component
+		</p>
+
+		<h3>[property:number bevelOffset]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bevelOffset of geometry component
+		</p>
+
+		<h3>[property:number bevelSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bevelSegments of geometry component
+		</p>
+
+		<h3>[property:number bevelSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bevelSize of geometry component
+		</p>
+
+		<h3>[property:number bevelThickness]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bevelThickness of geometry component
+		</p>
+
+		<h3>[property:boolean blinn]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The blinn of geometry component
+		</p>
+
+		<h3>[property:boolean body]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The body of geometry component
+		</p>
+
+		<h3>[property:boolean bottom]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bottom of geometry component
+		</p>
+
+		<h3>[property:boolean center] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Center the geometry based on the bounding box.
+		</p>
+
+		<h3>[property:boolean closed]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The closed of geometry component
+		</p>
+
+		<h3>[property:INgxColor color1]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Grid Color axis X
+		</p>
+
+		<h3>[property:INgxColor color2]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Grid Color axis Y
+		</p>
+
+		<h3>[property:string compressNormals]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Make the input mesh.geometry's normal attribute encoded and compressed by 3 different methods.<br />
+			Also will change the mesh.material to `PackedPhongMaterial` which let the vertex shader program decode the normal data.<br />
+			"DEFAULT" || "OCT1Byte" || "OCT2Byte" || "ANGLES"<br />
+			<br />
+			"OCT1Byte"<br />
+			It is not recommended to use 1-byte octahedron normals encoding unless you want to extremely reduce the memory usage<br />
+			As it makes vertex data not aligned to a 4 byte boundary which may harm some WebGL implementations and sometimes the normal distortion is visible<br />
+			Please refer to @zeux 's comments in https://github.com/mrdoob/three.js/pull/18208<br />
+			<br />
+			"OCT2Byte"<br />
+			"ANGLES"
+		</p>
+
+		<h3>[property:boolean compressPositions]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The compressPositions
+		</p>
+
+		<h3>[property:boolean compressUvs]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The compressUvs
+		</p>
+
+		<h3>[property:boolean computeBoundingBox] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Computes bounding box of the geometry, updating [page:BufferGeometry.boundingBox BufferGeometry.boundingBox] attribute. Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
+		</p>
+
+		<h3>[property:boolean computeBoundingSphere] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Computes bounding sphere of the geometry, updating [page:BufferGeometry.boundingSphere BufferGeometry.boundingSphere] attribute. Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
+		</p>
+
+		<h3>[property:boolean computeTangents] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Calculates and adds a tangent attribute to this geometry.<br />
+			The computation is only supported for indexed geometries and if position, normal, and uv attributes are defined.
+		</p>
+
+		<h3>[property:boolean computeVertexNormals] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Computes vertex normals by averaging face normals.
+		</p>
+
+		<h3>[property:number count]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The count of abstract geometry component
+		</p>
+
+		<h3>[property:string|Curve curve]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The curve of geometry component
+		</p>
+
+		<h3>[property:boolean curveNormal]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The curveNormal of geometry component
+		</p>
+
+		<h3>[property:string curveNormalOption]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The curveNormalOption of geometry component
+		</p>
+
+		<h3>[property:any curveOption]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The curveOption of geometry component
+		</p>
+
+		<h3>[property:INgxVector[] curvePath]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The curvePath of geometry component
+		</p>
+
+		<h3>[property:string curvePathType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Input of geometry component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:number curveSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The curveSegments of geometry component
+		</p>
+
+		<h3>[property:string curveType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Input of geometry component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:number cutOffAngle]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The cutoff angle in radians. If the angle between two face normals is higher than this value, a split will be made.
+		</p>
+
+		<h3>[property:boolean debug] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Debug this Object
+		</p>
+
+		<h3>[property:number depth]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Depth; that is, the length of the edges parallel to the Z axis. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:number depthRate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Sharpen Rate of Depth
+		</p>
+
+		<h3>[property:number depthSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Number of segmented rectangular faces along the depth of the sides. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:number detail]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Default is 0.  Setting this to a value greater than 0 adds more vertices making it no longer an icosahedron.  When detail is greater than 1, it's effectively a sphere
+		</p>
+
+		<h3>[property:number drawRangeCount]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			drawRangeCount of abstract geometry component<br />
+			<br />
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry setDrawRange
+		</p>
+
+		<h3>[property:number drawRangeStart]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			drawRangeStart of abstract geometry component<br />
+			<br />
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry setDrawRange
+		</p>
+
+		<h3>[property:boolean edgeSplit]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The geometry to modify by splitting edges. This geometry can be any of any type: Geometry or BufferGeometry, indexed or not
+		</p>
+
+		<h3>[property:boolean enabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Enabled or Not
+		</p>
+
+		<h3>[property:INgxVector[] extrudePath]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The extrudePath of geometry component
+		</p>
+
+		<h3>[property:string extrudePathType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Input of geometry component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:boolean fitLid]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The fitLid of geometry component
+		</p>
+
+		<h3>[property:boolean flipY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The flipY of abstract geometry component
+		</p>
+
+		<h3>[property:string font]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The font of geometry component
+		</p>
+
+		<h3>[property:BufferGeometry geometry]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Geometry of abstract geometry component
+		</p>
+
+		<h3>[property:number height]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Height; that is, the length of the edges parallel to the Y axis. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:number heightSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Number of segmented rectangular faces along the height of the sides. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:string id] &nbsp; = '' <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Id of abstract subscribe component
+		</p>
+
+		<h3>[property:number innerRadius]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Default is 0.5.
+		</p>
+
+		<h3>[property:number instanceCount]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The instanceCount of geometry component
+		</p>
+
+		<h3>[property:boolean lid]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The lid of geometry component
+		</p>
+
+		<h3>[property:string|number light]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The light of geometry component
+		</p>
+
+		<h3>[property:number maxEdgeLength]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The maxEdgeLength of abstract geometry component
+		</p>
+
+		<h3>[property:number maxIterations]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The maxIterations of abstract geometry component
+		</p>
+
+		<h3>[property:boolean mergeVertices]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			geometry -- Instance of [page:BufferGeometry BufferGeometry] to merge the vertices of.<br />
+			tolerance -- The maximum allowable difference between vertex attributes to merge. Defaults to 1e-4.<br />
+			Returns a new [page:BufferGeometry BufferGeometry] with vertices for which all similar vertex attributes (within tolerance) are merged.
+		</p>
+
+		<h3>[property:any mesh]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The mesh of geometry component
+		</p>
+
+		<h3>[property:string meshType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The meshType of abstract geometry component<br />
+			<br />
+			[page:EdgesGeometry EdgesGeometry] - THREE.EdgesGeometry - EdgesGeometry, Edges<br />
+			[page:WireframeGeometry WireframeGeometry] - THREE.WireframeGeometry - WireframeGeometry, Wireframe
+		</p>
+
+		<h3>[property:any morphAttributes]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Hashmap of [page:BufferAttribute BufferAttribute]s holding details of the geometry's morph targets.
+		</p>
+
+		<h3>[property:string name]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The name of the object (doesn't need to be unique). Default is an empty string.<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:EventEmitter onDestory] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when before destory. The argument will be the loaded self
+		</p>
+
+		<h3>[property:any onInit]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:EventEmitter onLoad] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Will be called when load completes. The argument will be the loaded self
+		</p>
+
+		<h3>[property:boolean openEnded]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			A Boolean indicating whether the base of the cone is open or capped. Default is false, meaning capped.
+		</p>
+
+		<h3>[property:number orientationX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The orientationX of geometry component
+		</p>
+
+		<h3>[property:number orientationY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The orientationY of geometry component
+		</p>
+
+		<h3>[property:number orientationZ]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The orientationZ of geometry component
+		</p>
+
+		<h3>[property:number outerRadius]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Default is 1.
+		</p>
+
+		<h3>[property:any overrideParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The override params
+		</p>
+
+		<h3>[property:number p]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			This value determines, how many times the geometry winds around its axis of rotational symmetry. Default is 2.
+		</p>
+
+		<h3>[property:any parametric]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Input of geometry component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:any parent]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			The Parent of abstract subscribe component
+		</p>
+
+		<h3>[property:string perlinType] &nbsp; = 'minecraft' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Input of geometry component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:number phiLength]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			the radian (0 to 2PI : 0 to 360) range of the lathed section 2PI(360) is a closed lathe, less than 2PI is a portion. Default is 2PI.
+		</p>
+
+		<h3>[property:number phiSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Minimum is 1.  Default is 1.
+		</p>
+
+		<h3>[property:number phiStart]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			the starting angle in radians. Default is 0.
+		</p>
+
+		<h3>[property:INgxVector[] points]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The points of geometry component
+		</p>
+
+		<h3>[property:NgxGeometryComponent pointsGeometry]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The pointsGeometry of geometry component
+		</p>
+
+		<h3>[property:number[] polyIndices]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The polyIndices of geometry component
+		</p>
+
+		<h3>[property:number[] polyVertices]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The polyVertices of geometry component
+		</p>
+
+		<h3>[property:number positionX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The positionX of geometry component
+		</p>
+
+		<h3>[property:number positionY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The positionY of geometry component
+		</p>
+
+		<h3>[property:number positionZ]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The positionZ of geometry component
+		</p>
+
+		<h3>[property:string program]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The program of abstract geometry component
+		</p>
+
+		<h3>[property:any programParam]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The programParam of abstract geometry component
+		</p>
+
+		<h3>[property:number q]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			This value determines, how many times the geometry winds around a circle in the interior of the torus. Default is 3.
+		</p>
+
+		<h3>[property:number quality]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The quality of geometry component
+		</p>
+
+		<h3>[property:number radialSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Number of segmented faces around the circumference of the cone/cylinder/torus/tube. Default is 8
+		</p>
+
+		<h3>[property:number radius]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Radius of the circle/cone/dodecahedron/sphere..., default = 1.
+		</p>
+
+		<h3>[property:number radiusBottom]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Radius of the cylinder at the bottom. Default is 1.
+		</p>
+
+		<h3>[property:number radiusSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Number of segmented faces around the circumference of the cone/cylinder/torus/tube. Default is 8
+		</p>
+
+		<h3>[property:number radiusTop]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Radius of the cylinder at the top. Default is 1.
+		</p>
+
+		<h3>[property:RayParameters rayParams] &nbsp; = {} <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The rayParams of geometry component
+		</p>
+
+		<h3>[property:any refGeometry]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The refGeometry of geometry component
+		</p>
+
+		<h3>[property:string|string[] refName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			refer mesh name  of geometry component
+		</p>
+
+		<h3>[property:string refType] &nbsp; = 'targetMesh' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Input of geometry component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:any refer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The refer of geometry component
+		</p>
+
+		<h3>[property:number scale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Scale the geometry data. This is typically done as a one time operation, and not during a loop. Use [page:Object3D.scale Object3D.scale] for typical real-time mesh scaling.
+		</p>
+
+		<h3>[property:number segments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			the number of circumference segments to generate. Default is 12.
+		</p>
+
+		<h3>[property:any selfAny] &nbsp; = ... <i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string|number shadow]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The shadow of geometry component
+		</p>
+
+		<h3>[property:Shape|INgxVector[] shapes]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The shapes of geometry component
+		</p>
+
+		<h3>[property:boolean simplify]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The simplify of abstract geometry component
+		</p>
+
+		<h3>[property:number size]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The size of geometry component
+		</p>
+
+		<h3>[property:number sizeX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The sizeX of geometry component
+		</p>
+
+		<h3>[property:number sizeY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The sizeY of geometry component
+		</p>
+
+		<h3>[property:number sizeZ]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The sizeZ of geometry component
+		</p>
+
+		<h3>[property:number slices]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The slices of geometry component
+		</p>
+
+		<h3>[property:number sphereScale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Scale the geometry data. This is typically done as a one time operation, and not during a loop. Use [page:Object3D.scale Object3D.scale] for typical real-time mesh scaling.
+		</p>
+
+		<h3>[property:number stacks]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The stacks of geometry component
+		</p>
+
+		<h3>[property:number steps]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The steps of geometry component
+		</p>
+
+		<h3>[property:boolean storage2Buffer] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The storage2Buffer of geometry component
+		</p>
+
+		<h3>[property:string storageName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The storageName of geometry component
+		</p>
+
+		<h3>[property:string subscribeType]<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Subscribe type of abstract subscribe component
+		</p>
+
+		<h3>[property:number tension]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The tension of geometry component
+		</p>
+
+		<h3>[property:boolean tessellate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The tessellate of abstract geometry component
+		</p>
+
+		<h3>[property:string text]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The text of geometry component
+		</p>
+
+		<h3>[property:number thetaLength]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The central angle, often called theta, of the circular sector. The default is 360, which makes for a complete circle.
+		</p>
+
+		<h3>[property:number thetaSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Number of segments.  A higher number means the ring will be more round.  Minimum is 3.  Default is 8.
+		</p>
+
+		<h3>[property:number thetaStart]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Start angle for first segment, default = 0 (three o'clock position).
+		</p>
+
+		<h3>[property:number thresholdAngle]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The thresholdAngle of geometry component
+		</p>
+
+		<h3>[property:boolean toNonIndexed]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Return a non-index version of an indexed BufferGeometry.
+		</p>
+
+		<h3>[property:boolean tryKeepNormals]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Set to true to keep the normal values for vertices that won't be split.<br />
+			To use this feature, you also need to pass an indexed geometry with a 'normal' BufferAttribute
+		</p>
+
+		<h3>[property:number tube]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The tube of geometry component
+		</p>
+
+		<h3>[property:number tubularSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Radius of the tube.  Default is 0.4.
+		</p>
+
+		<h3>[property:any tween]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Tween animation params
+		</p>
+
+		<h3>[property:string type] &nbsp; = 'sphere' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The type  of geometry<br />
+			Notice - case insensitive.<br />
+			<br />
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry<br />
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry - BufferGeometry, CustomGeometry,  Custom, Buffer<br />
+			[page:InstancedBufferGeometry InstancedBufferGeometry] - THREE.InstancedBufferGeometry - InstancedBufferGeometry, InstancedBuffer, Instanced<br />
+			[page:BoxGeometry BoxGeometry] - THREE.BoxGeometry - BoxGeometry, Box<br />
+			[page:CircleGeometry CircleGeometry] - THREE.CircleGeometry - CircleGeometry, Circle<br />
+			[page:ConeGeometry ConeGeometry] - THREE.ConeGeometry - ConeGeometry, Cone<br />
+			[page:CylinderGeometry CylinderGeometry] - THREE.CylinderGeometry - CylinderGeometry, Cylinder<br />
+			[page:DodecahedronGeometry DodecahedronGeometry] - THREE.DodecahedronGeometry - DodecahedronGeometry, Dodecahedron<br />
+			[page:ShapeGeometry ShapeGeometry] - THREE.ShapeGeometry - ShapeGeometry, Shape<br />
+			[page:IcosahedronGeometry IcosahedronGeometry] - THREE.IcosahedronGeometry - IcosahedronGeometry, Icosahedron<br />
+			[page:LatheGeometry LatheGeometry] - THREE.LatheGeometry - LatheGeometry, Lathe<br />
+			[page:OctahedronGeometry OctahedronGeometry] - THREE.OctahedronGeometry - OctahedronGeometry, Octahedron<br />
+			[page:ParametricBufferGeometry ParametricBufferGeometry] - THREE.ParametricBufferGeometry - ParametricBufferGeometry, ParametricBuffer, ParametricBuffer<br />
+			[page:ParametricGeometry ParametricGeometry] - THREE.ParametricGeometry - ParametricGeometry , Parametric<br />
+			[page:PlaneGeometry PlaneGeometry] - THREE.PlaneGeometry - PlaneGeometry, Plane<br />
+			[page:RingGeometry RingGeometry] - THREE.RingGeometry - RingGeometry, Ring<br />
+			[page:SphereGeometry SphereGeometry] - THREE.SphereGeometry - SphereGeometry, Sphere<br />
+			[page:TetrahedronGeometry TetrahedronGeometry] - THREE.TetrahedronGeometry - TetrahedronGeometry, Tetrahedron<br />
+			[page:TextBufferGeometry TextBufferGeometry] - THREE.TextBufferGeometry - TextBufferGeometry, TextGeometry, TextBuffer, Text<br />
+			[page:TorusGeometry TorusGeometry] - THREE.TorusGeometry - TorusGeometry, Torus<br />
+			[page:TorusKnotGeometry TorusKnotGeometry] - THREE.TorusKnotGeometry - TorusKnotGeometry, TorusKnot<br />
+			[page:TubeGeometry TubeGeometry] - THREE.TubeGeometry - TubeGeometry, Tube
+		</p>
+
+		<h3>[property:string uVGenerator]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The Input of geometry component<br />
+			Notice - case insensitive.
+		</p>
+
+		<h3>[property:any userData]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			An object that can be used to store custom data about the Object3D. It should not hold references to functions as these will not be cloned.
+		</p>
+
+		<h3>[property:Float32Array|InterleavedBuffer|number[] vertexBuffer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The vertexBuffer of abstract geometry component
+		</p>
+
+		<h3>[property:number vertexBufferStride]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The vertexBufferStride of abstract geometry component
+		</p>
+
+		<h3>[property:string weight]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The weight of geometry component
+		</p>
+
+		<h3>[property:number width]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Width; that is, the length of the edges parallel to the X axis. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:number widthSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Number of segmented rectangular faces along the width of the sides. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:string windowExport]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Export this Object to window global variables
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common methods.
+		</p>
+		<p>
+			See the base [page:NgxAbstractGeometryComponent NgxAbstractGeometryComponent] class for common methods.
+		</p>
+
+		<h3>[method:void addChanges](  [param:string|string[]|SimpleChanges key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[]|SimpleChanges key] - The key.
+		</p>
+		<p>
+			Adds changes
+		</p>
+
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string[] changes] - The changes.
+		</p>
+		<p>
+			Applys changes
+		</p>
+
+		<h3>[method:void callOnLoad](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Calls on load
+		</p>
+
+		<h3>[method:SimpleChanges checkChanges](  [param:SimpleChanges changes] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:SimpleChanges changes] - The changes.
+		</p>
+		<p>
+			Checks changes<br />
+			<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:void clearChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Clears changes
+		</p>
+
+		<h3>[method:void consoleLog](  [param:string key],  [param:any object],  [param:string level] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:string level] - The level.
+		</p>
+		<p>
+			Consoles log
+		</p>
+
+		<h3>[method:void consoleLogTime](  [param:string key],  [param:any object],  [param:number repeat] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:number repeat] - The repeat.
+		</p>
+		<p>
+			Consoles log time
+		</p>
+
+		<h3>[method:void destroyLocalComponent](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			Destroys local component
+		</p>
+
+		<h3>[method:void dispose](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Disposes abstract subscribe component
+		</p>
+
+		<h3>[method:BufferAttribute getAttribute](  [param:TAttrBufferAttribute value],  [param:number itemSize],  [param:string usage]?,  [param:string bufferType]?,  [param:boolean normalized]? )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:TAttrBufferAttribute value] - The value.<br />
+			[parameter:number itemSize] - The item size.<br />
+			[parameter:string usage] - (optional) The usage.<br />
+			[parameter:string bufferType] - (optional) The buffer type.<br />
+			[parameter:boolean normalized] - (optional) The normalized.
+		</p>
+		<p>
+			Gets attribute<br />
+			<br />
+			Returns : attribute
+		</p>
+
+		<h3>[method:void getAttributes](  [param:string colorType] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string colorType] - The color type.
+		</p>
+		<p>
+			Gets attributes<br />
+			<br />
+			Returns : attributes
+		</p>
+
+		<h3>[method:string[] getChanges](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Gets changes<br />
+			<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:T getGeometry](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Gets geometry<br />
+			<br />
+			Returns : geometry
+		</p>
+
+		<h3>[method:string getId](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets id<br />
+			<br />
+			Returns : id
+		</p>
+
+		<h3>[method:void getMorphAttributes](  )<i class="modifier modifier-protected">Protected</i></h3>
+		<p>
+			Gets morph attributes<br />
+			<br />
+			Returns : morph attributes
+		</p>
+
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets object<br />
+			<br />
+			Returns : object
+		</p>
+
+		<h3>[method:Observable getSubscribe](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets subscribe<br />
+			<br />
+			Returns : subscribe
+		</p>
+
+		<h3>[method:Promise getTimeout](  [param:number timeDelay] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number timeDelay] - The time delay.
+		</p>
+		<p>
+			Gets timeout<br />
+			특정 시간후에 이벤트 발생시키기<br />
+			<br />
+			Returns : timeout
+		</p>
+
+		<h3>[method:void getUserData](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Gets user data
+		</p>
+
+		<h3>[method:T initLocalComponent](  [param:string key],  [param:T component] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:T component] - The component.
+		</p>
+		<p>
+			Inits local component<br />
+			<br />
+			Returns : local component
+		</p>
+
+		<h3>[method:boolean isGeometryType](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Determines whether Geometry type is<br />
+			<br />
+			Returns : true if Geometry type
+		</p>
+
+		<h3>[method:boolean isIdEuals](  [param:string id] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string id] - The id.
+		</p>
+		<p>
+			Determines whether id euals is<br />
+			<br />
+			Returns : true if id euals
+		</p>
+
+		<h3>[method:void runSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Runs subscribe next
+		</p>
+
+		<h3>[method:void setGeometry](  [param:BufferGeometry geometry] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:BufferGeometry geometry] - The geometry.
+		</p>
+		<p>
+			Sets geometry
+		</p>
+
+		<h3>[method:void setObject](  [param:any obj] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any obj] - The obj.
+		</p>
+		<p>
+			Sets object
+		</p>
+
+		<h3>[method:void setObject3d](  [param:NgxAbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:NgxAbstractSubscribeComponent object3d] - The object3d.
+		</p>
+		<p>
+			Sets object3d
+		</p>
+
+		<h3>[method:boolean setParent](  [param:any parent] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any parent] - The parent.
+		</p>
+		<p>
+			Sets parent<br />
+			<br />
+			Returns : true if parent
+		</p>
+
+		<h3>[method:void setSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Sets subscribe next
+		</p>
+
+		<h3>[method:void setSubscribeType](  [param:string subscribeType] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string subscribeType] - The subscribe type.
+		</p>
+		<p>
+			Sets subscribe type
+		</p>
+
+		<h3>[method:void setTween](  [param:any tweenData] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any tweenData] - The tween data.
+		</p>
+		<p>
+			Sets tween
+		</p>
+
+		<h3>[method:void setUserData](  [param:string key],  [param:any value] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any value] - The value.
+		</p>
+		<p>
+			Sets user data
+		</p>
+
+		<h3>[method:void subscribeListQuery](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query
+		</p>
+
+		<h3>[method:void subscribeListQueryChange](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query change
+		</p>
+
+		<h3>[method:void subscribeRefer](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer
+		</p>
+
+		<h3>[method:void subscribeReferList](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer list
+		</p>
+
+		<h3>[method:void unSubscribeRefer](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer
+		</p>
+
+		<h3>[method:void unSubscribeReferList](  [param:string key] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer list
+		</p>
+
+		<h3>[method:Subscription[] unSubscription](  [param:Subscription[] subscriptions] )<i class="modifier modifier-protected">Protected</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Subscription[] subscriptions] - The subscriptions.
+		</p>
+		<p>
+			subscription<br />
+			<br />
+			Returns : subscription
+		</p>
+
+		<h3>[method:void unsetObject3d](  [param:NgxAbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:NgxAbstractSubscribeComponent object3d] - The object3d.
+		</p>
+		<p>
+			unSets object3d
+		</p>
+
+		<h3>[method:void updateInputParams](  [param:any params],  [param:boolean firstChange],  [param:SimpleChanges changes],  [param:string type] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any params] - The params.<br />
+			[parameter:boolean firstChange] - The first change.<br />
+			[parameter:SimpleChanges changes] - The changes.<br />
+			[parameter:string type] - The type.
+		</p>
+		<p>
+			Updates input params
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="INgxVector">INgxVector <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:number w]? -  The w.<br />
+			[property:number x] -  The x.<br />
+			[property:number y] -  The y.<br />
+			[property:number z]? -  The z.
+		</p>
+
+		<p class="desc">
+			Three Vector
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="INgxColor">INgxColor <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h3>[property:string|number|Color INgxColor]</h3>
+
+
+		<p class="desc">
+			Three Color<br />
+			string hexcode - #ffffff<br />
+			string hsl(0,1,1)<br />
+			string rgb(255,255,255)<br />
+			string color name - red,blue...  'aliceblue': 0xF0F8FF, 'antiquewhite': 0xFAEBD7, 'aqua': 0x00FFFF ...<br />
+			string random<br />
+			number 0xffffff<br />
+			THREE.Color
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="TAttrBufferAttribute">TAttrBufferAttribute <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h3>[property:number[]|Int8Array|Int16Array|Int32Array|Uint8Array|Uint16Array|Uint32Array|Float32Array|Float64Array|BufferAttribute TAttrBufferAttribute]</h3>
+
+
+		<p class="desc">
+			Attr Buffer Attribute
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/geometry/geometry.component.ts /geometry/geometry.component.ts]</p>
+	</body>
+</html>

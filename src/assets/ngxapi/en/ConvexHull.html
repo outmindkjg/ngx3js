@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>ConvexHull</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:ConvexHull ConvexHull](  )</h3>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:VertexList assigned]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:FaceEx[] faces]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:FaceEx[] newFaces]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number tolerance]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:VertexList unassigned]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:VertexNode[] vertices]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:HalfEdge addAdjoiningFace](  [param:VertexNode eyeVertex],  [param:HalfEdge horizonEdge] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:VertexNode eyeVertex] - The eye vertex.<br />
+			[parameter:HalfEdge horizonEdge] - The horizon edge.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ConvexHull addNewFaces](  [param:VertexNode eyeVertex],  [param:HalfEdge[] horizon] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:VertexNode eyeVertex] - The eye vertex.<br />
+			[parameter:HalfEdge[] horizon] - The horizon.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ConvexHull addVertexToFace](  [param:VertexNode vertex],  [param:FaceEx face] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:VertexNode vertex] - The vertex.<br />
+			[parameter:FaceEx face] - The face.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ConvexHull addVertexToHull](  [param:VertexNode eyeVertex] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:VertexNode eyeVertex] - The eye vertex.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ConvexHull cleanup](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:ConvexHull compute](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:object computeExtremes](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:ConvexHull computeHorizon](  [param:Vector3 eyePoint],  [param:HalfEdge crossEdge],  [param:FaceEx face],  [param:HalfEdge[] horizon] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 eyePoint] - The eye point.<br />
+			[parameter:HalfEdge crossEdge] - The cross edge.<br />
+			[parameter:FaceEx face] - The face.<br />
+			[parameter:HalfEdge[] horizon] - The horizon.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ConvexHull computeInitialHull](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean containsPoint](  [param:Vector3 point] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 point] - The point.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ConvexHull deleteFaceVertices](  [param:FaceEx face],  [param:FaceEx absorbingFace] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:FaceEx face] - The face.<br />
+			[parameter:FaceEx absorbingFace] - The absorbing face.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector3 intersectRay](  [param:Ray ray],  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Ray ray] - The ray.<br />
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean intersectsRay](  [param:Ray ray] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Ray ray] - The ray.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ConvexHull makeEmpty](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:VertexNode nextVertexToAdd](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:ConvexHull reindexFaces](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:VertexNode removeAllVerticesFromFace](  [param:FaceEx face] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:FaceEx face] - The face.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ConvexHull removeVertexFromFace](  [param:VertexNode vertex],  [param:FaceEx face] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:VertexNode vertex] - The vertex.<br />
+			[parameter:FaceEx face] - The face.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ConvexHull resolveUnassignedPoints](  [param:FaceEx[] newFaces] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:FaceEx[] newFaces] - The new faces.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ConvexHull setFromObject](  [param:Object3D object] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D object] - The object.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ConvexHull setFromPoints](  [param:Vector3[] points] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3[] points] - The points.
+		</p>
+		<p>
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/math.ts /threejs-library/types/three/examples/math.ts]</p>
+	</body>
+</html>

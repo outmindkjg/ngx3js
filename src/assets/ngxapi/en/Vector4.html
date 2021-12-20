@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:Vector] &rarr;
+
+		<h1>Vector4</h1>
+
+		<p class="desc">
+			4D vector.<br />
+			( class Vector4 extends Vector&lt;Vector4&gt; )
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:Vector4 Vector4](  [param:number x]?,  [param:number y]?,  [param:number z]?,  [param:number w]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - (optional) The x.<br />
+			[parameter:number y] - (optional) The y.<br />
+			[parameter:number z] - (optional) The z.<br />
+			[parameter:number w] - (optional) The w.
+		</p>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:Vector Vector] class for common properties.
+		</p>
+
+		<h3>[property:number height]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any isVector4]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number w]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number width]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number x]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number y]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number z]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:Vector Vector] class for common methods.
+		</p>
+
+		<h3>[method:Vector4 add](  [param:Vector4 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector4 v] - The v.
+		</p>
+		<p>
+			Adds v to this vector.
+		</p>
+
+		<h3>[method:Vector4 addScalar](  [param:number scalar] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number scalar] - The scalar.
+		</p>
+		<p>
+			Adds the scalar value s to this vector's values.
+		</p>
+
+		<h3>[method:Vector4 addScaledVector](  [param:Vector4 v],  [param:number s] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector4 v] - The v.<br />
+			[parameter:number s] - The s.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector4 addVectors](  [param:Vector4 a],  [param:Vector4 b] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector4 a] - The a.<br />
+			[parameter:Vector4 b] - The b.
+		</p>
+		<p>
+			Sets this vector to a + b.
+		</p>
+
+		<h3>[method:Vector4 applyMatrix4](  [param:Matrix4 m] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 m] - The m.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector4 ceil](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector4 clamp](  [param:Vector4 min],  [param:Vector4 max] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector4 min] - The min.<br />
+			[parameter:Vector4 max] - The max.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector4 clampScalar](  [param:number min],  [param:number max] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number min] - The min.<br />
+			[parameter:number max] - The max.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector4 clone](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Clones this vector.
+		</p>
+
+		<h3>[method:Vector4 copy](  [param:Vector4 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector4 v] - The v.
+		</p>
+		<p>
+			Copies value of v to this vector.
+		</p>
+
+		<h3>[method:number distanceTo](  [param:Vector v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector v] - The v.
+		</p>
+		<p>
+			NOTE: Vector4 doesn't have the property.<br />
+			distanceTo(v:T):number;
+		</p>
+
+		<h3>[method:number distanceToSquared](  [param:Vector v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector v] - The v.
+		</p>
+		<p>
+			NOTE: Vector4 doesn't have the property.<br />
+			distanceToSquared(v:T):number;
+		</p>
+
+		<h3>[method:Vector4 divideScalar](  [param:number s] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number s] - The s.
+		</p>
+		<p>
+			Divides this vector by scalar s.<br />
+			Set vector to ( 0, 0, 0 ) if s == 0.
+		</p>
+
+		<h3>[method:number dot](  [param:Vector4 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector4 v] - The v.
+		</p>
+		<p>
+			Computes dot product of this vector and v.
+		</p>
+
+		<h3>[method:boolean equals](  [param:Vector4 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector4 v] - The v.
+		</p>
+		<p>
+			Checks for strict equality of this vector and v.
+		</p>
+
+		<h3>[method:Vector4 floor](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector4 fromArray](  [param:ArrayLike|number[] array],  [param:number offset]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ArrayLike|number[] array] - the source array or array-like.<br />
+			[parameter:number offset] - (optional) (optional) offset into the array. Default is 0.
+		</p>
+		<p>
+			Sets this vector's x, y, z and w value from the provided array or array-like.
+		</p>
+
+		<h3>[method:Vector4 fromBufferAttribute](  [param:BufferAttribute attribute],  [param:number index] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:BufferAttribute attribute] - The attribute.<br />
+			[parameter:number index] - The index.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number getComponent](  [param:number index] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number index] - The index.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number length](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Computes length of this vector.
+		</p>
+
+		<h3>[method:number lengthSq](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Computes squared length of this vector.
+		</p>
+
+		<h3>[method:Vector4 lerp](  [param:Vector4 v],  [param:number alpha] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector4 v] - The v.<br />
+			[parameter:number alpha] - The alpha.
+		</p>
+		<p>
+			Linearly interpolate between this vector and v with alpha factor.
+		</p>
+
+		<h3>[method:Vector4 lerpVectors](  [param:Vector4 v1],  [param:Vector4 v2],  [param:number alpha] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector4 v1] - The v1.<br />
+			[parameter:Vector4 v2] - The v2.<br />
+			[parameter:number alpha] - The alpha.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number manhattanLength](  )</h3>
+		<p>
+			Computes the Manhattan length of this vector.<br />
+			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
+		</p>
+
+		<h3>[method:Vector4 max](  [param:Vector4 v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector4 v] - The v.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector4 min](  [param:Vector4 v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector4 v] - The v.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector4 multiply](  [param:Vector4 v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector4 v] - The v.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector4 multiplyScalar](  [param:number s] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number s] - The s.
+		</p>
+		<p>
+			Multiplies this vector by scalar s.
+		</p>
+
+		<h3>[method:Vector4 negate](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Inverts this vector.
+		</p>
+
+		<h3>[method:Vector4 normalize](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Normalizes this vector.
+		</p>
+
+		<h3>[method:Vector4 random](  )</h3>
+		<p>
+			Sets this vector's x, y, z and w from Math.random
+		</p>
+
+		<h3>[method:Vector4 round](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector4 roundToZero](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector4 set](  [param:number x],  [param:number y],  [param:number z],  [param:number w] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:number w] - The w.
+		</p>
+		<p>
+			Sets value of this vector.
+		</p>
+
+		<h3>[method:Vector4 setAxisAngleFromQuaternion](  [param:Quaternion q] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion q] - is assumed to be normalized
+		</p>
+		<p>
+			http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle/index.htm
+		</p>
+
+		<h3>[method:Vector4 setAxisAngleFromRotationMatrix](  [param:Matrix4 m] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 m] - assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
+		</p>
+		<p>
+			http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
+		</p>
+
+		<h3>[method:Vector4 setComponent](  [param:number index],  [param:number value] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number index] - The index.<br />
+			[parameter:number value] - The value.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector4 setLength](  [param:number length] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number length] - The length.
+		</p>
+		<p>
+			Normalizes this vector and multiplies it by l.
+		</p>
+
+		<h3>[method:Vector4 setScalar](  [param:number scalar] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number scalar] - The scalar.
+		</p>
+		<p>
+			Sets all values of this vector.
+		</p>
+
+		<h3>[method:Vector4 setW](  [param:number w] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number w] - The w.
+		</p>
+		<p>
+			Sets w component of this vector.
+		</p>
+
+		<h3>[method:Vector4 setX](  [param:number x] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.
+		</p>
+		<p>
+			Sets X component of this vector.
+		</p>
+
+		<h3>[method:Vector4 setY](  [param:number y] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number y] - The y.
+		</p>
+		<p>
+			Sets Y component of this vector.
+		</p>
+
+		<h3>[method:Vector4 setZ](  [param:number z] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number z] - The z.
+		</p>
+		<p>
+			Sets Z component of this vector.
+		</p>
+
+		<h3>[method:Vector4 sub](  [param:Vector4 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector4 v] - The v.
+		</p>
+		<p>
+			Subtracts v from this vector.
+		</p>
+
+		<h3>[method:Vector4 subScalar](  [param:number s] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number s] - The s.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector4 subVectors](  [param:Vector4 a],  [param:Vector4 b] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector4 a] - The a.<br />
+			[parameter:Vector4 b] - The b.
+		</p>
+		<p>
+			Sets this vector to a - b.
+		</p>
+
+		<h3>[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:Vector4Tuple array]?,  [param:any offset]?,  [param:ArrayLike array],  [param:number offset]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number[] array] - (optional) (optional) array to store the vector to. If this is not provided, a new array will be created.<br />
+			[parameter:number offset] - (optional) (optional) optional offset into the array.<br />
+			[parameter:Vector4Tuple array] - (optional) The array.<br />
+			[parameter:any offset] - (optional) The offset.<br />
+			[parameter:ArrayLike array] - array-like to store the vector to.<br />
+			[parameter:number offset] - (optional) (optional) optional offset into the array-like.
+		</p>
+		<p>
+			Copies x, y, z and w into the provided array-like.<br />
+			<br />
+			Returns : The provided array-like.
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/math.ts /threejs-library/types/three/math.ts]</p>
+	</body>
+</html>

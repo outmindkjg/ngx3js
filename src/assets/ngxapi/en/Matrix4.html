@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:Matrix] &rarr;
+
+		<h1>Matrix4</h1>
+
+		<p class="desc">
+			A 4x4 Matrix.
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:Matrix4 Matrix4](  )</h3>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:Matrix Matrix] class for common properties.
+		</p>
+
+		<h3>[property:number[] elements]</h3>
+		<p>
+			Array with matrix values.
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:Matrix Matrix] class for common methods.
+		</p>
+
+		<h3>[method:Matrix4 clone](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			clone():T;
+		</p>
+
+		<h3>[method:Matrix4 compose](  [param:Vector3 translation],  [param:Quaternion rotation],  [param:Vector3 scale] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 translation] - The translation.<br />
+			[parameter:Quaternion rotation] - The rotation.<br />
+			[parameter:Vector3 scale] - The scale.
+		</p>
+		<p>
+			Sets this matrix to the transformation composed of translation, rotation and scale.
+		</p>
+
+		<h3>[method:Matrix4 copy](  [param:Matrix4 m] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 m] - The m.
+		</p>
+		<p>
+			copy(m:T):T;
+		</p>
+
+		<h3>[method:Matrix4 copyPosition](  [param:Matrix4 m] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 m] - The m.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void crossVector](  [param:any v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any v] - The v.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix4 decompose](  [param:Vector3 translation],  [param:Quaternion rotation],  [param:Vector3 scale] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 translation] - The translation.<br />
+			[parameter:Quaternion rotation] - The rotation.<br />
+			[parameter:Vector3 scale] - The scale.
+		</p>
+		<p>
+			Decomposes this matrix into it's position, quaternion and scale components.
+		</p>
+
+		<h3>[method:number determinant](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Computes determinant of this matrix.<br />
+			Based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
+		</p>
+
+		<h3>[method:boolean equals](  [param:Matrix4 matrix] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 matrix] - The matrix.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix4 extractBasis](  [param:Vector3 xAxis],  [param:Vector3 yAxis],  [param:Vector3 zAxis] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 xAxis] - The x axis.<br />
+			[parameter:Vector3 yAxis] - The y axis.<br />
+			[parameter:Vector3 zAxis] - The z axis.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix4 extractPosition](  [param:Matrix4 m] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 m] - The m.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix4 extractRotation](  [param:Matrix4 m] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 m] - The m.
+		</p>
+		<p>
+			Copies the rotation component of the supplied matrix m into this matrix rotation component.
+		</p>
+
+		<h3>[method:number[] flattenToArrayOffset](  [param:number[] array],  [param:number offset] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number[] array] - The array.<br />
+			[parameter:number offset] - The offset.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix4 fromArray](  [param:ArrayLike|number[] array],  [param:number offset]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ArrayLike|number[] array] - the source array or array-like.<br />
+			[parameter:number offset] - (optional) (optional) offset into the array-like. Default is 0.
+		</p>
+		<p>
+			Sets the values of this matrix from the provided array or array-like.
+		</p>
+
+		<h3>[method:Matrix getInverse](  [param:Matrix matrix] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix matrix] - The matrix.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number getMaxScaleOnAxis](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix4 identity](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Resets this matrix to identity.
+		</p>
+
+		<h3>[method:Matrix4 invert](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Inverts this matrix.
+		</p>
+
+		<h3>[method:Matrix4 lookAt](  [param:Vector3 eye],  [param:Vector3 target],  [param:Vector3 up] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 eye] - The eye.<br />
+			[parameter:Vector3 target] - The target.<br />
+			[parameter:Vector3 up] - The up.
+		</p>
+		<p>
+			Constructs a rotation matrix, looking from eye towards center with defined up vector.
+		</p>
+
+		<h3>[method:Matrix4 makeBasis](  [param:Vector3 xAxis],  [param:Vector3 yAxis],  [param:Vector3 zAxis] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 xAxis] - The x axis.<br />
+			[parameter:Vector3 yAxis] - The y axis.<br />
+			[parameter:Vector3 zAxis] - The z axis.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix4 makeOrthographic](  [param:number left],  [param:number right],  [param:number top],  [param:number bottom],  [param:number near],  [param:number far] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number left] - The left.<br />
+			[parameter:number right] - The right.<br />
+			[parameter:number top] - The top.<br />
+			[parameter:number bottom] - The bottom.<br />
+			[parameter:number near] - The near.<br />
+			[parameter:number far] - The far.
+		</p>
+		<p>
+			Creates an orthographic projection matrix.
+		</p>
+
+		<h3>[method:Matrix4 makePerspective](  [param:number left],  [param:number right],  [param:number bottom],  [param:number top],  [param:number near],  [param:number far],  [param:number fov],  [param:number aspect],  [param:number near],  [param:number far] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number left] - The left.<br />
+			[parameter:number right] - The right.<br />
+			[parameter:number bottom] - The bottom.<br />
+			[parameter:number top] - The top.<br />
+			[parameter:number near] - The near.<br />
+			[parameter:number far] - The far.<br />
+			[parameter:number fov] - The fov.<br />
+			[parameter:number aspect] - The aspect.<br />
+			[parameter:number near] - The near.<br />
+			[parameter:number far] - The far.
+		</p>
+		<p>
+			Creates a perspective projection matrix.
+		</p>
+
+		<h3>[method:Matrix4 makeRotationAxis](  [param:Vector3 axis],  [param:number angle] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 axis] - Rotation axis.<br />
+			[parameter:number angle] - The angle.
+		</p>
+		<p>
+			Sets this matrix as rotation transform around axis by angle radians.<br />
+			Based on http://www.gamedev.net/reference/articles/article1199.asp.
+		</p>
+
+		<h3>[method:Matrix4 makeRotationFromEuler](  [param:Euler euler] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Euler euler] - The euler.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix4 makeRotationFromQuaternion](  [param:Quaternion q] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion q] - The q.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix4 makeRotationX](  [param:number theta] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number theta] - Rotation angle in radians.
+		</p>
+		<p>
+			Sets this matrix as rotation transform around x axis by theta radians.
+		</p>
+
+		<h3>[method:Matrix4 makeRotationY](  [param:number theta] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number theta] - Rotation angle in radians.
+		</p>
+		<p>
+			Sets this matrix as rotation transform around y axis by theta radians.
+		</p>
+
+		<h3>[method:Matrix4 makeRotationZ](  [param:number theta] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number theta] - Rotation angle in radians.
+		</p>
+		<p>
+			Sets this matrix as rotation transform around z axis by theta radians.
+		</p>
+
+		<h3>[method:Matrix4 makeScale](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.
+		</p>
+		<p>
+			Sets this matrix as scale transform.
+		</p>
+
+		<h3>[method:Matrix4 makeShear](  [param:number xy],  [param:number xz],  [param:number yx],  [param:number yz],  [param:number zx],  [param:number zy] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number xy] - The xy.<br />
+			[parameter:number xz] - The xz.<br />
+			[parameter:number yx] - The yx.<br />
+			[parameter:number yz] - The yz.<br />
+			[parameter:number zx] - The zx.<br />
+			[parameter:number zy] - The zy.
+		</p>
+		<p>
+			Sets this matrix as shear transform.
+		</p>
+
+		<h3>[method:Matrix4 makeTranslation](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.
+		</p>
+		<p>
+			Sets this matrix as translation transform.
+		</p>
+
+		<h3>[method:Matrix4 multiply](  [param:Matrix4 m] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 m] - The m.
+		</p>
+		<p>
+			Multiplies this matrix by m.
+		</p>
+
+		<h3>[method:Matrix4 multiplyMatrices](  [param:Matrix4 a],  [param:Matrix4 b] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 a] - The a.<br />
+			[parameter:Matrix4 b] - The b.
+		</p>
+		<p>
+			Sets this matrix to a x b.
+		</p>
+
+		<h3>[method:Matrix4 multiplyScalar](  [param:number s] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number s] - The s.
+		</p>
+		<p>
+			Multiplies this matrix by s.
+		</p>
+
+		<h3>[method:Matrix4 multiplyToArray](  [param:Matrix4 a],  [param:Matrix4 b],  [param:number[] r] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 a] - The a.<br />
+			[parameter:Matrix4 b] - The b.<br />
+			[parameter:number[] r] - The r.
+		</p>
+		<p>
+			Sets this matrix to a x b and stores the result into the flat array r.<br />
+			r can be either a regular Array or a TypedArray.
+		</p>
+
+		<h3>[method:any multiplyVector3](  [param:any v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any v] - The v.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number[] multiplyVector3Array](  [param:number[] array] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number[] array] - The array.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:any multiplyVector4](  [param:any v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any v] - The v.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix4 premultiply](  [param:Matrix4 m] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 m] - The m.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void rotateAxis](  [param:any v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any v] - The v.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Matrix4 scale](  [param:Vector3 v] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 v] - The v.
+		</p>
+		<p>
+			Multiplies the columns of this matrix by vector v.
+		</p>
+
+		<h3>[method:Matrix4 set](  [param:number n11],  [param:number n12],  [param:number n13],  [param:number n14],  [param:number n21],  [param:number n22],  [param:number n23],  [param:number n24],  [param:number n31],  [param:number n32],  [param:number n33],  [param:number n34],  [param:number n41],  [param:number n42],  [param:number n43],  [param:number n44] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number n11] - The n11.<br />
+			[parameter:number n12] - The n12.<br />
+			[parameter:number n13] - The n13.<br />
+			[parameter:number n14] - The n14.<br />
+			[parameter:number n21] - The n21.<br />
+			[parameter:number n22] - The n22.<br />
+			[parameter:number n23] - The n23.<br />
+			[parameter:number n24] - The n24.<br />
+			[parameter:number n31] - The n31.<br />
+			[parameter:number n32] - The n32.<br />
+			[parameter:number n33] - The n33.<br />
+			[parameter:number n34] - The n34.<br />
+			[parameter:number n41] - The n41.<br />
+			[parameter:number n42] - The n42.<br />
+			[parameter:number n43] - The n43.<br />
+			[parameter:number n44] - The n44.
+		</p>
+		<p>
+			Sets all fields of this matrix.
+		</p>
+
+		<h3>[method:Matrix4 setFromMatrix3](  [param:Matrix3 m] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix3 m] - The m.
+		</p>
+		<p>
+			Set the upper 3x3 elements of this matrix to the values of the Matrix3 m.
+		</p>
+
+		<h3>[method:Matrix4 setPosition](  [param:number|Vector3 v],  [param:number y]?,  [param:number z]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number|Vector3 v] - The v.<br />
+			[parameter:number y] - (optional) The y.<br />
+			[parameter:number z] - (optional) The z.
+		</p>
+		<p>
+			Sets the position component for this matrix from vector v.
+		</p>
+
+		<h3>[method:Matrix4 setRotationFromQuaternion](  [param:Quaternion q] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion q] - The q.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:Matrix4Tuple array]?,  [param:any offset]?,  [param:ArrayLike array]?,  [param:number offset]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number[] array] - (optional) (optional) array to store the matrix to. If this is not provided, a new array will be created.<br />
+			[parameter:number offset] - (optional) (optional) optional offset into the array.<br />
+			[parameter:Matrix4Tuple array] - (optional) The array.<br />
+			[parameter:any offset] - (optional) The offset.<br />
+			[parameter:ArrayLike array] - (optional) array-like to store the matrix to.<br />
+			[parameter:number offset] - (optional) (optional) optional offset into the array-like.
+		</p>
+		<p>
+			Copies he values of this matrix into the provided array-like.<br />
+			<br />
+			Returns : The provided array-like.
+		</p>
+
+		<h3>[method:Matrix4 transpose](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Transposes this matrix.
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/math.ts /threejs-library/types/three/math.ts]</p>
+	</body>
+</html>

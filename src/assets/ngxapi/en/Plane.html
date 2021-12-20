@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>Plane</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:Plane Plane](  [param:Vector3 normal]?,  [param:number constant]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 normal] - (optional) The normal.<br />
+			[parameter:number constant] - (optional) The constant.
+		</p>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:number constant]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any isPlane]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Vector3 normal]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:Plane applyMatrix4](  [param:Matrix4 matrix],  [param:Matrix3 optionalNormalMatrix]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 matrix] - The matrix.<br />
+			[parameter:Matrix3 optionalNormalMatrix] - (optional) The optional normal matrix.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Plane clone](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector3 coplanarPoint](  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Plane copy](  [param:Plane plane] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Plane plane] - The plane.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number distanceToPoint](  [param:Vector3 point] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 point] - The point.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:number distanceToSphere](  [param:Sphere sphere] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Sphere sphere] - The sphere.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean equals](  [param:Plane plane] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Plane plane] - The plane.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector3 intersectLine](  [param:Line3 line],  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Line3 line] - The line.<br />
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean intersectsBox](  [param:Box3 box] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Box3 box] - The box.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean intersectsLine](  [param:Line3 line] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Line3 line] - The line.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:boolean intersectsSphere](  [param:Sphere sphere] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Sphere sphere] - The sphere.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:any isIntersectionLine](  [param:any l] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any l] - The l.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Plane negate](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:Plane normalize](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector3 orthoPoint](  [param:Vector3 point],  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 point] - The point.<br />
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Vector3 projectPoint](  [param:Vector3 point],  [param:Vector3 target] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 point] - The point.<br />
+			[parameter:Vector3 target] - The target.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Plane set](  [param:Vector3 normal],  [param:number constant] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 normal] - The normal.<br />
+			[parameter:number constant] - The constant.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Plane setComponents](  [param:number x],  [param:number y],  [param:number z],  [param:number w] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number x] - The x.<br />
+			[parameter:number y] - The y.<br />
+			[parameter:number z] - The z.<br />
+			[parameter:number w] - The w.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Plane setFromCoplanarPoints](  [param:Vector3 a],  [param:Vector3 b],  [param:Vector3 c] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 a] - The a.<br />
+			[parameter:Vector3 b] - The b.<br />
+			[parameter:Vector3 c] - The c.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Plane setFromNormalAndCoplanarPoint](  [param:Vector3 normal],  [param:Vector3 point] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 normal] - The normal.<br />
+			[parameter:Vector3 point] - The point.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:Plane translate](  [param:Vector3 offset] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 offset] - The offset.
+		</p>
+		<p>
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/math.ts /threejs-library/types/three/math.ts]</p>
+	</body>
+</html>
