@@ -228,6 +228,7 @@ import { WebglLoaderTextureExrComponent } from './webgl-loader-texture-exr/webgl
 import { WebglLoaderTextureHdrComponent } from './webgl-loader-texture-hdr/webgl-loader-texture-hdr.component';
 import { WebglLoaderTextureKtxComponent } from './webgl-loader-texture-ktx/webgl-loader-texture-ktx.component';
 import { WebglLoaderTextureKtx2Component } from './webgl-loader-texture-ktx2/webgl-loader-texture-ktx2.component';
+import { WebglLoaderTextureLogluvComponent } from './webgl-loader-texture-logluv/webgl-loader-texture-logluv.component';
 import { WebglLoaderTextureLottieComponent } from './webgl-loader-texture-lottie/webgl-loader-texture-lottie.component';
 import { WebglLoaderTexturePvrtcComponent } from './webgl-loader-texture-pvrtc/webgl-loader-texture-pvrtc.component';
 import { WebglLoaderTextureRgbmComponent } from './webgl-loader-texture-rgbm/webgl-loader-texture-rgbm.component';
@@ -539,6 +540,7 @@ import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component
 		WebglLoaderTextureExrComponent,
 		WebglLoaderTextureDdsComponent,
 		WebglLoaderTextureBasisComponent,
+		WebglLoaderTextureLogluvComponent,
 		WebglLoaderTiltComponent,
 		WebglLoaderSvgComponent,
 		WebglLoaderStlComponent,
@@ -875,11 +877,8 @@ import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component
 	],
 	imports: [
 		CommonModule,
-		HttpClientModule,
-		FormsModule,
-		ReactiveFormsModule,
 		ExamplesRoutingModule,
-		Ngx3JsModule,
+		Ngx3JsModule
 	],
 	providers: [],
 	bootstrap: [],

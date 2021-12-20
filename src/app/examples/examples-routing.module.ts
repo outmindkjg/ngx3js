@@ -433,6 +433,7 @@ import { WebxrVrSculptComponent } from './webxr-vr-sculpt/webxr-vr-sculpt.compon
 import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component';
 import { HelloWorldComponent } from './hello-world/hello-world.component';
 import { NgxMeshComponent } from './ngx-mesh/ngx-mesh.component';
+import { WebglLoaderTextureLogluvComponent } from './webgl-loader-texture-logluv/webgl-loader-texture-logluv.component';
 
 const routes: Routes = [
 	{ path: '', pathMatch: 'full', redirectTo: 'ngx_scene' },
@@ -874,6 +875,7 @@ const routes: Routes = [
 	{ path: 'webgl_loader_vrm', component: WebglLoaderVrmComponent },
 	{ path: 'webgl_loader_vox', component: WebglLoaderVoxComponent },
 	{ path: 'webgl_loader_ttf', component: WebglLoaderTtfComponent },
+	{ path: 'webgl_loader_texture_logluv', component: WebglLoaderTextureLogluvComponent },
 	{ path: 'webgl_math_obb', component: WebglMathObbComponent },
 	{
 		path: 'webgl_math_orientation_transform',

@@ -1,0 +1,36 @@
+<div class="info">
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl LogLuv texture loader example
+</div>
+<ngx3js-renderer
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[toneMappingExposure]="controls.exposure"
+	[statsMode]="0"
+	[antialias]="true"
+	[toneMapping]="'ReinhardToneMapping'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'OrthographicCamera'" [left]="-1" [right]="1" [top]="1" [bottom]="-1" [near]="0" [far]="500">
+		<ngx3js-position [x]="0" [y]="0" [z]="100"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-scale [x]="200" [y]="200" [z]="200"></ngx3js-scale>
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-geometry
+				[type]="'PlaneGeometry'"
+				[width]="1"
+				[height]="1.5"
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshBasicMaterial'"
+			>
+				<ngx3js-texture [storageName]="'textures/memorial.tif'"></ngx3js-texture>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>
