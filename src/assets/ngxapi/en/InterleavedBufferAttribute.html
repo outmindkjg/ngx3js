@@ -23,13 +23,13 @@
 			[parameter:boolean normalized] - (optional) The normalized.
 		</p>
 		<p>
-			
+			Returns : aaa
 		</p>
 
 		<h2>Properties</h2>
 		<h3>[property:InterleavedBuffer data]</h3>
 		<p>
-			
+			The [page:InterleavedBuffer InterleavedBuffer] instance passed in the constructor.
 		</p>
 
 		<h3>[property:any isInterleavedBufferAttribute]</h3>
@@ -39,22 +39,22 @@
 
 		<h3>[property:number itemSize]</h3>
 		<p>
-			
+			How many values make up each item.
 		</p>
 
 		<h3>[property:string name]</h3>
 		<p>
-			
+			Optional name for this attribute instance. Default is an empty string.
 		</p>
 
 		<h3>[property:boolean normalized]</h3>
 		<p>
-			
+			Default is *false*.
 		</p>
 
 		<h3>[property:number offset]</h3>
 		<p>
-			
+			The offset in the underlying array buffer where an item starts.
 		</p>
 
 		<h2>Methods</h2>
@@ -64,7 +64,7 @@
 			[parameter:Matrix4 m] - The m.
 		</p>
 		<p>
-			
+			Applies matrix [page:Matrix4 m] to every Vector3 element of this InterleavedBufferAttribute.
 		</p>
 
 		<h3>[method:InterleavedBufferAttribute applyNormalMatrix](  [param:Matrix matrix] )</h3>
@@ -73,7 +73,7 @@
 			[parameter:Matrix matrix] - The matrix.
 		</p>
 		<p>
-			
+			Applies normal matrix [page:Matrix3 m] to every Vector3 element of this InterleavedBufferAttribute.
 		</p>
 
 		<h3>[method:BufferAttribute clone](  [param:object data]? )</h3>
@@ -91,7 +91,7 @@
 			[parameter:number index] - The index.
 		</p>
 		<p>
-			
+			Returns : Returns the w component of the item at the given index.
 		</p>
 
 		<h3>[method:number getX](  [param:number index] )</h3>
@@ -100,7 +100,7 @@
 			[parameter:number index] - The index.
 		</p>
 		<p>
-			
+			Returns : Returns the x component of the item at the given index.
 		</p>
 
 		<h3>[method:number getY](  [param:number index] )</h3>
@@ -109,7 +109,7 @@
 			[parameter:number index] - The index.
 		</p>
 		<p>
-			
+			Returns : Returns the y component of the item at the given index.
 		</p>
 
 		<h3>[method:number getZ](  [param:number index] )</h3>
@@ -118,7 +118,7 @@
 			[parameter:number index] - The index.
 		</p>
 		<p>
-			
+			Returns : Returns the z component of the item at the given index.
 		</p>
 
 		<h3>[method:InterleavedBufferAttribute setW](  [param:number index],  [param:number z] )</h3>
@@ -128,7 +128,7 @@
 			[parameter:number z] - The z.
 		</p>
 		<p>
-			
+			Sets the w component of the item at the given index.
 		</p>
 
 		<h3>[method:InterleavedBufferAttribute setX](  [param:number index],  [param:number x] )</h3>
@@ -138,7 +138,7 @@
 			[parameter:number x] - The x.
 		</p>
 		<p>
-			
+			Sets the x component of the item at the given index.
 		</p>
 
 		<h3>[method:InterleavedBufferAttribute setXY](  [param:number index],  [param:number x],  [param:number y] )</h3>
@@ -149,7 +149,7 @@
 			[parameter:number y] - The y.
 		</p>
 		<p>
-			
+			Sets the x and y components of the item at the given index.
 		</p>
 
 		<h3>[method:InterleavedBufferAttribute setXYZ](  [param:number index],  [param:number x],  [param:number y],  [param:number z] )</h3>
@@ -161,7 +161,7 @@
 			[parameter:number z] - The z.
 		</p>
 		<p>
-			
+			Sets the x, y and z components of the item at the given index.
 		</p>
 
 		<h3>[method:InterleavedBufferAttribute setXYZW](  [param:number index],  [param:number x],  [param:number y],  [param:number z],  [param:number w] )</h3>
@@ -174,7 +174,7 @@
 			[parameter:number w] - The w.
 		</p>
 		<p>
-			
+			Sets the x, y, z and w components of the item at the given index.
 		</p>
 
 		<h3>[method:InterleavedBufferAttribute setY](  [param:number index],  [param:number y] )</h3>
@@ -184,7 +184,7 @@
 			[parameter:number y] - The y.
 		</p>
 		<p>
-			
+			Sets the y component of the item at the given index.
 		</p>
 
 		<h3>[method:InterleavedBufferAttribute setZ](  [param:number index],  [param:number z] )</h3>
@@ -194,7 +194,7 @@
 			[parameter:number z] - The z.
 		</p>
 		<p>
-			
+			Sets the z component of the item at the given index.
 		</p>
 
 		<h3>[method:void toJSON](  [param:object data]? )</h3>
@@ -212,7 +212,7 @@
 			[parameter:Matrix matrix] - The matrix.
 		</p>
 		<p>
-			
+			Applies matrix [page:Matrix4 m] to every Vector3 element of this InterleavedBufferAttribute, interpreting the elements as a direction vectors.
 		</p>
 
 

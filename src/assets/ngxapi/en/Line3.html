@@ -10,29 +10,29 @@
 		<h1>Line3</h1>
 
 		<p class="desc">
-			
+			A geometric line segment represented by a start and end point.
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:Line3 Line3](  [param:Vector3 start]?,  [param:Vector3 end]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 start] - (optional) The start.<br />
-			[parameter:Vector3 end] - (optional) The end.
+			[parameter:Vector3 start] - (optional) Start of the line segment. Default is (0, 0, 0).<br />
+			[parameter:Vector3 end] - (optional) End of the line segment. Default is (0, 0, 0).
 		</p>
 		<p>
-			
+			Creates a new Line3.
 		</p>
 
 		<h2>Properties</h2>
 		<h3>[property:Vector3 end]</h3>
 		<p>
-			
+			[page:Vector3 Vector3] representing the end point of the line.
 		</p>
 
 		<h3>[property:Vector3 start]</h3>
 		<p>
-			
+			[page:Vector3 Vector3] representing the start point of the line.
 		</p>
 
 		<h2>Methods</h2>
@@ -42,43 +42,45 @@
 			[parameter:Matrix4 matrix] - The matrix.
 		</p>
 		<p>
-			
+			Applies a matrix transform to the line segment.
 		</p>
 
 		<h3>[method:Vector3 at](  [param:number t],  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number t] - The t.<br />
-			[parameter:Vector3 target] - The target.
+			[parameter:number t] - Use values 0-1 to return a position along the line segment.<br />
+			[parameter:Vector3 target] - the result will be copied into this Vector3.
 		</p>
 		<p>
-			
+			Returns : Returns a vector at a certain position along the line. When [page:Float t] = 0, it returns the start vector, and when [page:Float t] = 1 it returns the end vector.
 		</p>
 
 		<h3>[method:Line3 clone](  )</h3>
 		<p>
-			
+			Returns : Returns a new [page:Line3 Line3] with the same *.start* and *.end* vectors as this one.
 		</p>
 
 		<h3>[method:Vector3 closestPointToPoint](  [param:Vector3 point],  [param:boolean clampToLine],  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 point] - The point.<br />
-			[parameter:boolean clampToLine] - The clamp to line.<br />
-			[parameter:Vector3 target] - The target.
+			[parameter:Vector3 point] - return the closest point on the line to this point.<br />
+			[parameter:boolean clampToLine] - whether to clamp the returned value to the line segment.<br />
+			[parameter:Vector3 target] - the result will be copied into this Vector3.
 		</p>
 		<p>
-			
+			Returns : Returns the closets point on the line. If [page:Boolean clampToLine] is true, then the returned value will be clamped to the line segment.
 		</p>
 
 		<h3>[method:number closestPointToPointParameter](  [param:Vector3 point],  [param:boolean clampToLine]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 point] - The point.<br />
-			[parameter:boolean clampToLine] - (optional) The clamp to line.
+			[parameter:Vector3 point] - the point for which to return a point parameter.<br />
+			[parameter:boolean clampToLine] - (optional) Whether to clamp the result to the range [0, 1].
 		</p>
 		<p>
-			
+			If [clampToLine](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Boolean) is true, then the returned value will be between 0 and 1.<br />
+			<br />
+			Returns : Returns a point parameter based on the closest point as projected on the line segement.
 		</p>
 
 		<h3>[method:Line3 copy](  [param:Line3 line] )</h3>
@@ -87,54 +89,56 @@
 			[parameter:Line3 line] - The line.
 		</p>
 		<p>
-			
+			Copies the passed line's *.start* and *.end* vectors to this line.
 		</p>
 
 		<h3>[method:Vector3 delta](  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - The target.
+			[parameter:Vector3 target] - the result will be copied into this Vector3.
 		</p>
 		<p>
-			
+			Returns : Returns the delta vector of the line segment ( *.end* vector minus the *.start* vector).
 		</p>
 
 		<h3>[method:number distance](  )</h3>
 		<p>
-			
+			(straight-line distance) between the line's *.start* and *.end* points.<br />
+			<br />
+			Returns : Returns the [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean distance]
 		</p>
 
 		<h3>[method:number distanceSq](  )</h3>
 		<p>
-			
+			Returns : Returns the square of the [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean distance] (straight-line distance) between the line's *.start* and *.end* vectors.
 		</p>
 
 		<h3>[method:boolean equals](  [param:Line3 line] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Line3 line] - The line.
+			[parameter:Line3 line] - [Line3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Line3) to compare with this one.
 		</p>
 		<p>
-			
+			Returns : Returns true if both line's *.start* and *.end* points are equal.
 		</p>
 
 		<h3>[method:Vector3 getCenter](  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - The target.
+			[parameter:Vector3 target] - the result will be copied into this Vector3.
 		</p>
 		<p>
-			
+			Returns : Returns the center of the line segment.
 		</p>
 
 		<h3>[method:Line3 set](  [param:Vector3 start]?,  [param:Vector3 end]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 start] - (optional) The start.<br />
-			[parameter:Vector3 end] - (optional) The end.
+			[parameter:Vector3 start] - (optional) set the *.start* of the line.<br />
+			[parameter:Vector3 end] - (optional) set the *.end* of the line.
 		</p>
 		<p>
-			
+			Sets the start and end values by copying the provided vectors.
 		</p>
 
 

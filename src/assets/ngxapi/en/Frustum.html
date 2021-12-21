@@ -10,49 +10,50 @@
 		<h1>Frustum</h1>
 
 		<p class="desc">
-			Frustums are used to determine what is inside the camera's field of view. They help speed up the rendering process.
+			[link:http://en.wikipedia.org/wiki/Frustum Frustums] are used to determine what is inside the camera's field of view. They help speed up the rendering process - objects which lie outside a camera's frustum can safely be excluded from rendering.<br />
+			This class is mainly intended for use internally by a renderer for calculating a [page:Camera camera] or [page:LightShadow.camera shadowCamera]'s frustum.
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:Frustum Frustum](  [param:Plane p0]?,  [param:Plane p1]?,  [param:Plane p2]?,  [param:Plane p3]?,  [param:Plane p4]?,  [param:Plane p5]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Plane p0] - (optional) The p0.<br />
-			[parameter:Plane p1] - (optional) The p1.<br />
-			[parameter:Plane p2] - (optional) The p2.<br />
-			[parameter:Plane p3] - (optional) The p3.<br />
-			[parameter:Plane p4] - (optional) The p4.<br />
-			[parameter:Plane p5] - (optional) The p5.
+			[parameter:Plane p0] - (optional) defaults to a new [Plane](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Plane).<br />
+			[parameter:Plane p1] - (optional) defaults to a new [Plane](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Plane).<br />
+			[parameter:Plane p2] - (optional) defaults to a new [Plane](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Plane).<br />
+			[parameter:Plane p3] - (optional) defaults to a new [Plane](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Plane).<br />
+			[parameter:Plane p4] - (optional) defaults to a new [Plane](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Plane).<br />
+			[parameter:Plane p5] - (optional) defaults to a new [Plane](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Plane).
 		</p>
 		<p>
-			
+			Creates a new Frustum.
 		</p>
 
 		<h2>Properties</h2>
 		<h3>[property:Plane[] planes]</h3>
 		<p>
-			Array of 6 vectors.
+			Array of 6 [page:Plane planes].
 		</p>
 
 		<h2>Methods</h2>
 		<h3>[method:Frustum clone](  )</h3>
 		<p>
-			
+			Returns : Return a new Frustum with the same parameters as this one.
 		</p>
 
 		<h3>[method:boolean containsPoint](  [param:Vector3 point] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 point] - The point.
+			[parameter:Vector3 point] - [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) to test.
 		</p>
 		<p>
-			
+			Checks to see if the frustum contains the [page:Vector3 point].
 		</p>
 
 		<h3>[method:Frustum copy](  [param:Frustum frustum] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Frustum frustum] - The frustum.
+			[parameter:Frustum frustum] - The frustum to copy Copies the properties of the passed [frustum](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Frustum) into this one.
 		</p>
 		<p>
 			
@@ -61,10 +62,10 @@
 		<h3>[method:boolean intersectsBox](  [param:Box3 box] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Box3 box] - The box.
+			[parameter:Box3 box] - [Box3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Box3) to check for intersection.
 		</p>
 		<p>
-			
+			Returns : Return true if [page:Box3 box] intersects with this frustum.
 		</p>
 
 		<h3>[method:boolean intersectsObject](  [param:Object3D object] )</h3>
@@ -73,16 +74,17 @@
 			[parameter:Object3D object] - The object.
 		</p>
 		<p>
-			
+			Checks whether the [page:Object3D object]'s [page:BufferGeometry.boundingSphere bounding sphere] is intersecting the Frustum.<br />
+			Note that the object must have a [page:BufferGeometry geometry] so that the bounding sphere can be calculated.
 		</p>
 
 		<h3>[method:boolean intersectsSphere](  [param:Sphere sphere] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Sphere sphere] - The sphere.
+			[parameter:Sphere sphere] - [Sphere](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Sphere) to check for intersection.
 		</p>
 		<p>
-			
+			Returns : Return true if [page:Sphere sphere] intersects with this frustum.
 		</p>
 
 		<h3>[method:boolean intersectsSprite](  [param:Sprite sprite] )</h3>
@@ -91,21 +93,24 @@
 			[parameter:Sprite sprite] - The sprite.
 		</p>
 		<p>
-			
+			Checks whether the [sprite](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Sprite) is intersecting the Frustum.<br />
+			<br />
+			Returns : true if sprite
 		</p>
 
 		<h3>[method:Frustum set](  [param:Plane p0],  [param:Plane p1],  [param:Plane p2],  [param:Plane p3],  [param:Plane p4],  [param:Plane p5] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Plane p0] - The p0.<br />
-			[parameter:Plane p1] - The p1.<br />
-			[parameter:Plane p2] - The p2.<br />
-			[parameter:Plane p3] - The p3.<br />
-			[parameter:Plane p4] - The p4.<br />
-			[parameter:Plane p5] - The p5.
+			[parameter:Plane p0] - defaults to a new [Plane](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Plane).<br />
+			[parameter:Plane p1] - defaults to a new [Plane](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Plane).<br />
+			[parameter:Plane p2] - defaults to a new [Plane](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Plane).<br />
+			[parameter:Plane p3] - defaults to a new [Plane](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Plane).<br />
+			[parameter:Plane p4] - defaults to a new [Plane](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Plane).<br />
+			[parameter:Plane p5] - defaults to a new [Plane](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Plane).
 		</p>
 		<p>
-			
+			Sets the frustum from the passed planes. No plane order is implied.<br />
+			Note that this method only copies the values from the given objects.
 		</p>
 
 		<h3>[method:Frustum setFromProjectionMatrix](  [param:Matrix4 m] )</h3>
@@ -114,7 +119,7 @@
 			[parameter:Matrix4 m] - The m.
 		</p>
 		<p>
-			
+			Sets the frustum planes from the projection matrix.
 		</p>
 
 

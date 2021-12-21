@@ -12,20 +12,32 @@
 		<h1>Vector3</h1>
 
 		<p class="desc">
-			3D vector. ( class Vector3 extends Vector&lt;Vector3&gt; )<br />
-			see {@link https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js}
+			Class representing a 3D [vector](https://en.wikipedia.org/wiki/Vector_space).<br />
+			A 3D vector is an ordered triplet of numbers (labeled x, y, and z), which can be used to represent a number of things, such as:<br />
+			A point in 3D space.<br />
+			A direction and length in 3D space. In three.js the length will always be the [Euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance)e (straight-line distance) from (0, 0, 0) to (x, y, z) and the direction is also measured from (0, 0, 0) towards (x, y, z).<br />
+			Any arbitrary ordered triplet of numbers.<br />
+			There are other things a 3D vector can be used to represent, such as momentum vectors and so on, however these are the most common uses in three.js.<br />
+			Iterating through a Vector3 instance will yield its components (x, y, z) in the corresponding order.<br />
+			<code data-type="javascript"><br />
+			const a = new THREE.Vector3( 0, 1, 0 );<br />
+			// no arguments; will be initialised to (0, 0, 0)<br />
+			const b = new THREE.Vector3( );<br />
+			const d = a.distanceTo( b );<br />
+			</code>
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:Vector3 Vector3](  [param:number x]?,  [param:number y]?,  [param:number z]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number x] - (optional) The x.<br />
-			[parameter:number y] - (optional) The y.<br />
-			[parameter:number z] - (optional) The z.
+			[parameter:number x] - (optional) the x value of this vector. Default is *0*.<br />
+			[parameter:number y] - (optional) the y value of this vector. Default is *0*.<br />
+			[parameter:number z] - (optional) the z value of this vector. Default is *0*.
+Creates a new Vector3.
 		</p>
 		<p>
-			
+			Returns : aaa
 		</p>
 
 		<h2>Properties</h2>
@@ -40,17 +52,17 @@
 
 		<h3>[property:number x]</h3>
 		<p>
-			
+			the x value of this vector. Default is *0*.
 		</p>
 
 		<h3>[property:number y]</h3>
 		<p>
-			
+			the y value of this vector. Default is *0*.
 		</p>
 
 		<h3>[property:number z]</h3>
 		<p>
-			
+			the z value of this vector. Default is *0*.
 		</p>
 
 		<h2>Methods</h2>
@@ -64,7 +76,7 @@
 			[parameter:Vector3 v] - The v.
 		</p>
 		<p>
-			Adds v to this vector.
+			Adds [page:Vector3 v] to this vector.
 		</p>
 
 		<h3>[method:Vector3 addScalar](  [param:number s] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -73,7 +85,7 @@
 			[parameter:number s] - The s.
 		</p>
 		<p>
-			Adds the scalar value s to this vector's values.
+			Adds the scalar value s to this vector's *.x*, *.y* and *.z* values.
 		</p>
 
 		<h3>[method:Vector3 addScaledVector](  [param:Vector3 v],  [param:number s] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -83,7 +95,7 @@
 			[parameter:number s] - The s.
 		</p>
 		<p>
-			
+			Adds the multiple of [page:Vector3 v] and [page:Float s] to this vector.
 		</p>
 
 		<h3>[method:Vector3 addVectors](  [param:Vector3 a],  [param:Vector3 b] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -93,7 +105,7 @@
 			[parameter:Vector3 b] - The b.
 		</p>
 		<p>
-			Sets this vector to a + b.
+			Sets this vector to [page:Vector3 a] + [page:Vector3 b].
 		</p>
 
 		<h3>[method:number angleTo](  [param:Vector3 v] )</h3>
@@ -102,17 +114,17 @@
 			[parameter:Vector3 v] - The v.
 		</p>
 		<p>
-			
+			Returns : Returns the angle between this vector and vector [page:Vector3 v] in radians.
 		</p>
 
 		<h3>[method:Vector3 applyAxisAngle](  [param:Vector3 axis],  [param:number angle] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 axis] - The axis.<br />
-			[parameter:number angle] - The angle.
+			[parameter:Vector3 axis] - A normalized [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3).<br />
+			[parameter:number angle] - An angle in radians.
 		</p>
 		<p>
-			
+			Applies a rotation specified by an axis and an angle to this vector.
 		</p>
 
 		<h3>[method:Vector3 applyEuler](  [param:Euler euler] )</h3>
@@ -121,7 +133,7 @@
 			[parameter:Euler euler] - The euler.
 		</p>
 		<p>
-			
+			Applies euler transform to this vector by converting the [page:Euler Euler] object to a [page:Quaternion Quaternion] and applying.
 		</p>
 
 		<h3>[method:Vector3 applyMatrix3](  [param:Matrix3 m] )</h3>
@@ -130,7 +142,7 @@
 			[parameter:Matrix3 m] - The m.
 		</p>
 		<p>
-			
+			Multiplies this vector by [page:Matrix3 m]
 		</p>
 
 		<h3>[method:Vector3 applyMatrix4](  [param:Matrix4 m] )</h3>
@@ -139,7 +151,7 @@
 			[parameter:Matrix4 m] - The m.
 		</p>
 		<p>
-			
+			Multiplies this vector (with an implicit 1 in the 4th dimension) and m, and divides by perspective.
 		</p>
 
 		<h3>[method:Vector3 applyNormalMatrix](  [param:Matrix3 m] )</h3>
@@ -148,7 +160,7 @@
 			[parameter:Matrix3 m] - The m.
 		</p>
 		<p>
-			
+			Multiplies this vector by normal matrix [page:Matrix3 m] and normalizes the result.
 		</p>
 
 		<h3>[method:Vector3 applyQuaternion](  [param:Quaternion q] )</h3>
@@ -157,47 +169,47 @@
 			[parameter:Quaternion q] - The q.
 		</p>
 		<p>
-			
+			Applies a [page:Quaternion Quaternion] transform to this vector.
 		</p>
 
 		<h3>[method:Vector3 ceil](  )</h3>
 		<p>
-			
+			The *.x*, *.y* and *.z* components of this vector are rounded up to the nearest integer value.
 		</p>
 
 		<h3>[method:Vector3 clamp](  [param:Vector3 min],  [param:Vector3 max] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 min] - The min.<br />
-			[parameter:Vector3 max] - The max.
+			[parameter:Vector3 min] - the minimum *.x*, *.y* and *.z* values.<br />
+			[parameter:Vector3 max] - the maximum *.x*, *.y* and *.z* values in the desired range If this vector's x, y or z value is greater than the max vector's x, y or z value, it is replaced by the corresponding value.
 		</p>
 		<p>
-			
+			If this vector's x, y or z value is less than the min vector's x, y or z value, it is replaced by the corresponding value.
 		</p>
 
 		<h3>[method:Vector3 clampLength](  [param:number min],  [param:number max] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number min] - The min.<br />
-			[parameter:number max] - The max.
+			[parameter:number min] - the minimum value the length will be clamped to<br />
+			[parameter:number max] - the maximum value the length will be clamped to If this vector's length is greater than the max value, the vector will be scaled down so its length is the max value.
 		</p>
 		<p>
-			
+			If this vector's length is less than the min value, the vector will be scaled up so its length is the min value.
 		</p>
 
 		<h3>[method:Vector3 clampScalar](  [param:number min],  [param:number max] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number min] - The min.<br />
-			[parameter:number max] - The max.
+			[parameter:number min] - the minimum value the components will be clamped to<br />
+			[parameter:number max] - the maximum value the components will be clamped to If this vector's x, y or z values are greater than the max value, they are replaced by the max value.
 		</p>
 		<p>
-			
+			If this vector's x, y or z values are less than the min value, they are replaced by the min value.
 		</p>
 
 		<h3>[method:Vector3 clone](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Clones this vector.
+			Returns : Returns a new vector3 with the same *.x*, *.y* and *.z* values as this one.
 		</p>
 
 		<h3>[method:Vector3 copy](  [param:Vector3 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -206,7 +218,7 @@
 			[parameter:Vector3 v] - The v.
 		</p>
 		<p>
-			Copies value of v to this vector.
+			Copies the values of the passed vector3's *.x*, *.y* and *.z* properties to this vector3.
 		</p>
 
 		<h3>[method:Vector3 cross](  [param:Vector3 a] )</h3>
@@ -215,7 +227,7 @@
 			[parameter:Vector3 a] - The a.
 		</p>
 		<p>
-			Sets this vector to cross product of itself and v.
+			Sets this vector to [link:https://en.wikipedia.org/wiki/Cross_product cross product] of itself and [page:Vector3 v].
 		</p>
 
 		<h3>[method:Vector3 crossVectors](  [param:Vector3 a],  [param:Vector3 b] )</h3>
@@ -225,7 +237,7 @@
 			[parameter:Vector3 b] - The b.
 		</p>
 		<p>
-			Sets this vector to cross product of a and b.
+			Sets this vector to [link:https://en.wikipedia.org/wiki/Cross_product cross product] of [page:Vector3 a] and [page:Vector3 b].
 		</p>
 
 		<h3>[method:number distanceTo](  [param:Vector3 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -234,7 +246,7 @@
 			[parameter:Vector3 v] - The v.
 		</p>
 		<p>
-			Computes distance of this vector to v.
+			Computes the distance from this vector to [page:Vector3 v].
 		</p>
 
 		<h3>[method:number distanceToManhattan](  [param:Vector3 v] )</h3>
@@ -252,7 +264,7 @@
 			[parameter:Vector3 v] - The v.
 		</p>
 		<p>
-			Computes squared distance of this vector to v.
+			Computes the squared distance from this vector to [page:Vector3 v]. If you are just comparing the distance with another distance, you should compare the distance squared instead as it is slightly more efficient to calculate.
 		</p>
 
 		<h3>[method:Vector3 divide](  [param:Vector3 v] )</h3>
@@ -261,7 +273,7 @@
 			[parameter:Vector3 v] - The v.
 		</p>
 		<p>
-			
+			Divides this vector by [page:Vector3 v].
 		</p>
 
 		<h3>[method:Vector3 divideScalar](  [param:number s] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -270,8 +282,8 @@
 			[parameter:number s] - The s.
 		</p>
 		<p>
-			Divides this vector by scalar s.<br />
-			Set vector to ( 0, 0, 0 ) if s == 0.
+			Divides this vector by scalar [page:Float s].<br />
+			Sets vector to *( 0, 0, 0 )* if *[page:Float s] = 0*.
 		</p>
 
 		<h3>[method:number dot](  [param:Vector3 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -280,7 +292,7 @@
 			[parameter:Vector3 v] - The v.
 		</p>
 		<p>
-			Computes dot product of this vector and v.
+			Calculate the [link:https://en.wikipedia.org/wiki/Dot_product dot product] of this vector and [page:Vector3 v].
 		</p>
 
 		<h3>[method:boolean equals](  [param:Vector3 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -289,46 +301,48 @@
 			[parameter:Vector3 v] - The v.
 		</p>
 		<p>
-			Checks for strict equality of this vector and v.
+			Returns : Returns *true* if the components of this vector and [page:Vector3 v] are strictly equal; *false* otherwise.
 		</p>
 
 		<h3>[method:Vector3 floor](  )</h3>
 		<p>
-			
+			The components of this vector are rounded down to the nearest integer value.
 		</p>
 
 		<h3>[method:Vector3 fromArray](  [param:ArrayLike|number[] array],  [param:number offset]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:ArrayLike|number[] array] - the source array or array-like.<br />
-			[parameter:number offset] - (optional) (optional) offset into the array. Default is 0.
+			[parameter:ArrayLike|number[] array] - the source array.<br />
+			[parameter:number offset] - (optional) ( optional) offset into the array. Default is 0.
 		</p>
 		<p>
-			Sets this vector's x, y and z value from the provided array or array-like.
+			Sets this vector's *.x* value to be array[ offset + 0 ], *.y* value to be array[ offset + 1 ] and *.z* value to be array[ offset + 2 ].
 		</p>
 
 		<h3>[method:Vector3 fromBufferAttribute](  [param:BufferAttribute|InterleavedBufferAttribute attribute],  [param:number index] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:BufferAttribute|InterleavedBufferAttribute attribute] - The attribute.<br />
-			[parameter:number index] - The index.
+			[parameter:BufferAttribute|InterleavedBufferAttribute attribute] - the source attribute.<br />
+			[parameter:number index] - index in the attribute.
 		</p>
 		<p>
-			
+			Sets this vector's *.x*, *.y* and *.z* values from the [page:BufferAttribute attribute].
 		</p>
 
 		<h3>[method:number getComponent](  [param:number index] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number index] - The index.
+			[parameter:number index] - 0, 1 or 2.
 		</p>
 		<p>
-			
+			If index equals 0 returns the *.x* value.<br />
+			If index equals 1 returns the *.y* value.<br />
+			If index equals 2 returns the *.z* value.
 		</p>
 
 		<h3>[method:number length](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Computes length of this vector.
+			Computes the [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean length] (straight-line length) from (0, 0, 0) to (x, y, z).
 		</p>
 
 		<h3>[method:number lengthManhattan](  )</h3>
@@ -341,28 +355,29 @@
 
 		<h3>[method:number lengthSq](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Computes squared length of this vector.
+			Computes the square of the [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean length]<br />
+			(straight-line length) from (0, 0, 0) to (x, y, z). If you are 	comparing the lengths of vectors, you should compare the length squared instead as it is slightly more efficient to calculate.
 		</p>
 
 		<h3>[method:Vector3 lerp](  [param:Vector3 v],  [param:number alpha] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 v] - The v.<br />
-			[parameter:number alpha] - The alpha.
+			[parameter:Vector3 v] - [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) to interpolate towards.<br />
+			[parameter:number alpha] - interpolation factor, typically in the closed interval [0, 1].
 		</p>
 		<p>
-			lerp(v:T, alpha:number):T;
+			Linearly interpolate between this vector and [page:Vector3 v], where alpha is the percent distance along the line - alpha = 0 will be this vector, and alpha = 1 will be [page:Vector3 v].
 		</p>
 
 		<h3>[method:Vector3 lerpVectors](  [param:Vector3 v1],  [param:Vector3 v2],  [param:number alpha] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 v1] - The v1.<br />
-			[parameter:Vector3 v2] - The v2.<br />
-			[parameter:number alpha] - The alpha.
+			[parameter:Vector3 v1] - the starting [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3).<br />
+			[parameter:Vector3 v2] - [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) to interpolate towards.<br />
+			[parameter:number alpha] - interpolation factor, typically in the closed interval [0, 1].
 		</p>
 		<p>
-			
+			Sets this vector to be the vector linearly interpolated between [page:Vector3 v1] and [page:Vector3 v2] where alpha is the percent distance along the line connecting the two vectors - alpha = 0 will be [page:Vector3 v1], and alpha = 1 will be [page:Vector3 v2].
 		</p>
 
 		<h3>[method:number manhattanDistanceTo](  [param:Vector3 v] )</h3>
@@ -371,14 +386,12 @@
 			[parameter:Vector3 v] - The v.
 		</p>
 		<p>
-			Computes the Manhattan length (distance) from this vector to the given vector v<br />
-			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
+			Computes the [link:https://en.wikipedia.org/wiki/Taxicab_geometry Manhattan distance] from this vector to [page:Vector3 v].
 		</p>
 
 		<h3>[method:number manhattanLength](  )</h3>
 		<p>
-			Computes the Manhattan length of this vector.<br />
-			see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
+			Computes the [link:http://en.wikipedia.org/wiki/Taxicab_geometry Manhattan length] of this vector.
 		</p>
 
 		<h3>[method:Vector3 max](  [param:Vector3 v] )</h3>
@@ -387,7 +400,7 @@
 			[parameter:Vector3 v] - The v.
 		</p>
 		<p>
-			
+			If this vector's x, y or z value is less than [page:Vector3 v]'s x, y or z value, replace that value with the corresponding max value.
 		</p>
 
 		<h3>[method:Vector3 min](  [param:Vector3 v] )</h3>
@@ -396,7 +409,7 @@
 			[parameter:Vector3 v] - The v.
 		</p>
 		<p>
-			
+			If this vector's x, y or z value is greater than [page:Vector3 v]'s x, y or z value, replace that value with the corresponding min value.
 		</p>
 
 		<h3>[method:Vector3 multiply](  [param:Vector3 v] )</h3>
@@ -405,7 +418,7 @@
 			[parameter:Vector3 v] - The v.
 		</p>
 		<p>
-			
+			Multiplies this vector by [page:Vector3 v].
 		</p>
 
 		<h3>[method:Vector3 multiplyScalar](  [param:number s] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -414,7 +427,7 @@
 			[parameter:number s] - The s.
 		</p>
 		<p>
-			Multiplies this vector by scalar s.
+			Multiplies this vector by scalar [page:Float s].
 		</p>
 
 		<h3>[method:Vector3 multiplyVectors](  [param:Vector3 a],  [param:Vector3 b] )</h3>
@@ -424,35 +437,35 @@
 			[parameter:Vector3 b] - The b.
 		</p>
 		<p>
-			
+			Sets this vector equal to [page:Vector3 a] * [page:Vector3 b], component-wise.
 		</p>
 
 		<h3>[method:Vector3 negate](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Inverts this vector.
+			Inverts this vector - i.e. sets x = -x, y = -y and z = -z.
 		</p>
 
 		<h3>[method:Vector3 normalize](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Normalizes this vector.
+			Convert this vector to a [link:https://en.wikipedia.org/wiki/Unit_vector unit vector] - that is, sets it equal to a vector with the same direction as this one, but *.length* 1.
 		</p>
 
 		<h3>[method:Vector3 project](  [param:Camera camera] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Camera camera] - The camera.
+			[parameter:Camera camera] - camera to use in the projection.
 		</p>
 		<p>
-			
+			Projects this vector from world space into the camera's normalized device coordinate (NDC) space.
 		</p>
 
 		<h3>[method:Vector3 projectOnPlane](  [param:Vector3 planeNormal] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 planeNormal] - The plane normal.
+			[parameter:Vector3 planeNormal] - A vector representing a plane normal.
 		</p>
 		<p>
-			
+			[link:https://en.wikipedia.org/wiki/Vector_projection Projects] this vector onto a plane by subtracting this vector projected onto the plane's normal from this vector.
 		</p>
 
 		<h3>[method:Vector3 projectOnVector](  [param:Vector3 v] )</h3>
@@ -461,17 +474,17 @@
 			[parameter:Vector3 v] - The v.
 		</p>
 		<p>
-			
+			[link:https://en.wikipedia.org/wiki/Vector_projection Projects] this vector onto [page:Vector3 v].
 		</p>
 
 		<h3>[method:Vector3 random](  )</h3>
 		<p>
-			Sets this vector's x, y and z from Math.random
+			Sets each component of this vector to a pseudo-random value between 0 and 1, excluding 1.
 		</p>
 
 		<h3>[method:Vector3 randomDirection](  )</h3>
 		<p>
-			
+			Sets this vector to a uniformly random point on a unit sphere.
 		</p>
 
 		<h3>[method:Vector3 reflect](  [param:Vector3 vector] )</h3>
@@ -485,12 +498,12 @@
 
 		<h3>[method:Vector3 round](  )</h3>
 		<p>
-			
+			The components of this vector are rounded to the nearest integer value.
 		</p>
 
 		<h3>[method:Vector3 roundToZero](  )</h3>
 		<p>
-			
+			The components of this vector are rounded towards zero (up if negative, down if positive) to an integer value.
 		</p>
 
 		<h3>[method:Vector3 set](  [param:number x],  [param:number y],  [param:number z] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -501,17 +514,19 @@
 			[parameter:number z] - The z.
 		</p>
 		<p>
-			Sets value of this vector.
+			Sets the *.x*, *.y* and *.z* components of this vector.
 		</p>
 
 		<h3>[method:Vector3 setComponent](  [param:number index],  [param:number value] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number index] - The index.<br />
-			[parameter:number value] - The value.
+			[parameter:number index] - 0, 1 or 2.<br />
+			[parameter:number value] - [Float](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float)
 		</p>
 		<p>
-			
+			If index equals 0 set *.x* to [page:Float value].<br />
+			If index equals 1 set *.y* to [page:Float value].<br />
+			If index equals 2 set *.z* to [page:Float value]
 		</p>
 
 		<h3>[method:Vector3 setFromCylindrical](  [param:Cylindrical s] )</h3>
@@ -520,7 +535,7 @@
 			[parameter:Cylindrical s] - The s.
 		</p>
 		<p>
-			
+			Sets this vector from the cylindrical coordinates [page:Cylindrical c].
 		</p>
 
 		<h3>[method:Vector3 setFromCylindricalCoords](  [param:number radius],  [param:number theta],  [param:number y] )</h3>
@@ -531,7 +546,7 @@
 			[parameter:number y] - The y.
 		</p>
 		<p>
-			
+			Sets this vector from the cylindrical coordinates [page:Cylindrical radius], [page:Cylindrical theta] and [page:Cylindrical y].
 		</p>
 
 		<h3>[method:Vector3 setFromMatrix3Column](  [param:Matrix3 matrix],  [param:number index] )</h3>
@@ -541,7 +556,7 @@
 			[parameter:number index] - The index.
 		</p>
 		<p>
-			
+			Sets this vector's *.x*, *.y* and *.z* components from [page:Integer index] column of [page:Matrix3 matrix].
 		</p>
 
 		<h3>[method:Vector3 setFromMatrixColumn](  [param:Matrix4 matrix],  [param:number index] )</h3>
@@ -551,7 +566,7 @@
 			[parameter:number index] - The index.
 		</p>
 		<p>
-			
+			Sets this vector's *.x*, *.y* and *.z* components from [page:Integer index] column of [page:Matrix4 matrix].
 		</p>
 
 		<h3>[method:Vector3 setFromMatrixPosition](  [param:Matrix4 m] )</h3>
@@ -560,7 +575,7 @@
 			[parameter:Matrix4 m] - The m.
 		</p>
 		<p>
-			
+			Sets this vector to the position elements of the [link:https://en.wikipedia.org/wiki/Transformation_matrix transformation matrix] [page:Matrix4 m].
 		</p>
 
 		<h3>[method:Vector3 setFromMatrixScale](  [param:Matrix4 m] )</h3>
@@ -569,7 +584,7 @@
 			[parameter:Matrix4 m] - The m.
 		</p>
 		<p>
-			
+			Sets this vector to the scale elements of the [link:https://en.wikipedia.org/wiki/Transformation_matrix transformation matrix] [page:Matrix4 m].
 		</p>
 
 		<h3>[method:Vector3 setFromSpherical](  [param:Spherical s] )</h3>
@@ -578,7 +593,7 @@
 			[parameter:Spherical s] - The s.
 		</p>
 		<p>
-			
+			Sets this vector from the spherical coordinates [page:Spherical s].
 		</p>
 
 		<h3>[method:Vector3 setFromSphericalCoords](  [param:number r],  [param:number phi],  [param:number theta] )</h3>
@@ -589,7 +604,7 @@
 			[parameter:number theta] - The theta.
 		</p>
 		<p>
-			
+			Sets this vector from the spherical coordinates [page:Spherical radius], [page:Spherical phi] and [page:Spherical theta].
 		</p>
 
 		<h3>[method:Vector3 setLength](  [param:number l] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -598,7 +613,8 @@
 			[parameter:number l] - The l.
 		</p>
 		<p>
-			Normalizes this vector and multiplies it by l.
+			Set this vector to a vector with the same direction as this one, but *.length*<br />
+			[page:Float l].
 		</p>
 
 		<h3>[method:Vector3 setScalar](  [param:number scalar] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -607,7 +623,7 @@
 			[parameter:number scalar] - The scalar.
 		</p>
 		<p>
-			Sets all values of this vector.
+			Set the *.x*, *.y* and *.z* values of this vector both equal to [page:Float scalar].
 		</p>
 
 		<h3>[method:Vector3 setX](  [param:number x] )</h3>
@@ -616,7 +632,7 @@
 			[parameter:number x] - The x.
 		</p>
 		<p>
-			Sets x value of this vector.
+			Replace this vector's *.y* value with [page:Float y].
 		</p>
 
 		<h3>[method:Vector3 setY](  [param:number y] )</h3>
@@ -625,7 +641,7 @@
 			[parameter:number y] - The y.
 		</p>
 		<p>
-			Sets y value of this vector.
+			Replace this vector's *.y* value with [page:Float y].
 		</p>
 
 		<h3>[method:Vector3 setZ](  [param:number z] )</h3>
@@ -634,7 +650,7 @@
 			[parameter:number z] - The z.
 		</p>
 		<p>
-			Sets z value of this vector.
+			Replace this vector's *.z* value with [page:Float z].
 		</p>
 
 		<h3>[method:Vector3 sub](  [param:Vector3 a] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -643,7 +659,7 @@
 			[parameter:Vector3 a] - The a.
 		</p>
 		<p>
-			Subtracts v from this vector.
+			Subtracts [page:Vector3 v] from this vector.
 		</p>
 
 		<h3>[method:Vector3 subScalar](  [param:number s] )</h3>
@@ -652,7 +668,7 @@
 			[parameter:number s] - The s.
 		</p>
 		<p>
-			
+			Subtracts [page:Float s]  from this vector's *.x*, *.y* and *.z* compnents.
 		</p>
 
 		<h3>[method:Vector3 subVectors](  [param:Vector3 a],  [param:Vector3 b] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -662,23 +678,17 @@
 			[parameter:Vector3 b] - The b.
 		</p>
 		<p>
-			Sets this vector to a - b.
+			Sets this vector to [page:Vector3 a] - [page:Vector3 b].
 		</p>
 
-		<h3>[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:Vector3Tuple array]?,  [param:any offset]?,  [param:ArrayLike array],  [param:number offset]? )</h3>
+		<h3>[method:number[] toArray](  [param:number[] array]?,  [param:number offset]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number[] array] - (optional) (optional) array to store the vector to. If this is not provided, a new array will be created.<br />
-			[parameter:number offset] - (optional) (optional) optional offset into the array.<br />
-			[parameter:Vector3Tuple array] - (optional) The array.<br />
-			[parameter:any offset] - (optional) The offset.<br />
-			[parameter:ArrayLike array] - array-like to store the vector to.<br />
-			[parameter:number offset] - (optional) (optional) optional offset into the array-like.
+			[parameter:number[] array] - (optional) array to store this vector to. If this is not provided a new array will be created.<br />
+			[parameter:number offset] - (optional) optional offset into the array.
 		</p>
 		<p>
-			Copies x, y and z into the provided array-like.<br />
-			<br />
-			Returns : The provided array-like.
+			Returns : Returns an array [x, y, z], or copies x, y and z into the provided [page:Array array].
 		</p>
 
 		<h3>[method:Vector3 transformDirection](  [param:Matrix4 m] )</h3>
@@ -687,21 +697,16 @@
 			[parameter:Matrix4 m] - The m.
 		</p>
 		<p>
-			
+			Transforms the direction of this vector by a matrix (the upper left 3 x 3 subset of a [page:Matrix4 m]) and then *.normalize* the result.
 		</p>
 
 		<h3>[method:Vector3 unproject](  [param:Camera camera] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Camera camera] - The camera.
+			[parameter:Camera camera] - camera to use in the projection.
 		</p>
 		<p>
-			
-		</p>
-
-
-		<p class="desc">
-			
+			Projects this vector from the camera's normalized device coordinate (NDC) space into world space.
 		</p>
 
 

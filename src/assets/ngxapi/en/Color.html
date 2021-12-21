@@ -10,36 +10,43 @@
 		<h1>Color</h1>
 
 		<p class="desc">
-			Represents a color. See also {@link ColorUtils}.<br />
+			Class representing a color.<br />
+			A Color can be initialised in any of the following ways:<br />
 			<code data-type="javascript"><br />
-			//empty constructor - will default white<br />
+			// empty constructor - will default white<br />
 			const color1 = new THREE.Color();<br />
-			//Hexadecimal color (recommended)<br />
+			// Hexadecimal color (recommended)<br />
 			const color2 = new THREE.Color( 0xff0000 );<br />
-			//RGB string<br />
+			// RGB string<br />
 			const color3 = new THREE.Color("rgb(255, 0, 0)");<br />
 			const color4 = new THREE.Color("rgb(100%, 0%, 0%)");<br />
-			//X11 color name - all 140 color names are supported.<br />
-			//Note the lack of CamelCase in the name<br />
+			// X11 color name - all 140 color names are supported.<br />
+			// Note the lack of CamelCase in the name<br />
 			const color5 = new THREE.Color( 'skyblue' );<br />
-			//HSL string<br />
+			// HSL string<br />
 			const color6 = new THREE.Color("hsl(0, 100%, 50%)");<br />
-			//Separate RGB values between 0 and 1<br />
+			// Separate RGB values between 0 and 1<br />
 			const color7 = new THREE.Color( 1, 0, 0 );<br />
-			</code><br />
-			see {@link https://github.com/mrdoob/three.js/blob/master/src/math/Color.js|src/math/Color.js}
+			</code>
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:Color Color](  [param:number r],  [param:number g],  [param:number b] )</h3>
+		<h3>[constructor:Color Color](  [param:ColorRepresentation r]?,  [param:number g]?,  [param:number b]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number r] - The r.<br />
-			[parameter:number g] - The g.<br />
-			[parameter:number b] - The b.
+			[parameter:ColorRepresentation r] - (optional) If arguments [g](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) and [b](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) are defined, the red component of the color. If they are not defined, it can be a [hexadecimal triplet](https://en.wikipedia.org/wiki/Web_colors#Hex_triplet) (recommended), a CSS-style string, or another Color instance.<br />
+			[parameter:number g] - (optional) If it is defined, the green component of the color.<br />
+			[parameter:number b] - (optional) If it is defined, the blue component of the color.
 		</p>
 		<p>
-			
+			Note that standard method of specifying color in three.js is with a [hexadecimal triplet](https://en.wikipedia.org/wiki/Web_colors#Hex_triplet), and that method is used throughout the rest of the documentation.<br />
+			When all arguments are defined then [r](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Color_Hex_or_String) is the red component, [g](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) is the green component and [b](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) is the blue component of the color.<br />
+			When only [r](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Color_Hex_or_String) is defined:<br />
+			It can be a [link:https://en.wikipedia.org/wiki/Web_colors#Hex_triplet hexadecimal triplet] representing the color (recommended).<br />
+			It can be an another Color instance.<br />
+			It can be a CSS-style string. For example:<br />
+			<br />
+			'rgb(250, 0,0)', 'rgb(100%,0%,0%)', 'hsl(0, 100%, 50%)', '#ff0000', '#f00', 'red'
 		</p>
 
 		<h2>Properties</h2>
@@ -75,7 +82,7 @@
 			[parameter:Color color] - The color.
 		</p>
 		<p>
-			Returns : add
+			Adds the RGB values of [page:Color color] to the RGB values of this color.
 		</p>
 
 		<h3>[method:Color addColors](  [param:Color color1],  [param:Color color2] )</h3>
@@ -85,7 +92,7 @@
 			[parameter:Color color2] - The color2.
 		</p>
 		<p>
-			Returns : colors
+			Sets this color's RGB values to the sum of the RGB values of [page:Color color1] and [page:Color color2].
 		</p>
 
 		<h3>[method:Color addScalar](  [param:number s] )</h3>
@@ -94,30 +101,30 @@
 			[parameter:number s] - The s.
 		</p>
 		<p>
-			Returns : scalar
+			Adds [page:Number s] to the RGB values of this color.
 		</p>
 
 		<h3>[method:Color clone](  )</h3>
 		<p>
-			Clones this color.
+			Returns : Returns a new Color with the same *.r*, *.g* and *.b* values as this one.
 		</p>
 
 		<h3>[method:Color convertGammaToLinear](  [param:number gammaFactor]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number gammaFactor] - (optional) The gamma factor.
+			[parameter:number gammaFactor] - (optional) Default is *2.0*.
 		</p>
 		<p>
-			Converts this color from gamma to linear space.
+			Converts this color from gamma space to linear space by taking *.r*, *.g* and *.b* to the power of [page:Float gammaFactor].
 		</p>
 
 		<h3>[method:Color convertLinearToGamma](  [param:number gammaFactor]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number gammaFactor] - (optional) The gamma factor.
+			[parameter:number gammaFactor] - (optional) Default is *2.0*.
 		</p>
 		<p>
-			Converts this color from linear to gamma space.
+			Converts this color from linear space to gamma space by taking *.r*, *.g* and *.b* to the power of 1 / [page:Float gammaFactor].
 		</p>
 
 		<h3>[method:Color convertLinearToSRGB](  )</h3>
@@ -127,36 +134,36 @@
 
 		<h3>[method:Color convertSRGBToLinear](  )</h3>
 		<p>
-			Converts this color from sRGB to linear space.
+			Copies the given color into this color, and then converts this color from sRGB space to linear space.
 		</p>
 
 		<h3>[method:Color copy](  [param:Color color] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Color color] - Color to copy.
+			[parameter:Color color] - The color.
 		</p>
 		<p>
-			Copies given color.
+			Copies the *.r*, *.g* and *.b* parameters from [page:Color color] in to this color.
 		</p>
 
 		<h3>[method:Color copyGammaToLinear](  [param:Color color],  [param:number gammaFactor]? )</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Color color] - Color to copy.<br />
-			[parameter:number gammaFactor] - (optional) The gamma factor.
+			[parameter:number gammaFactor] - (optional) Default is *2.0*.
 		</p>
 		<p>
-			Copies given color making conversion from gamma to linear space.
+			Copies the given color into this color, and then converts this color from gamma space to linear space by taking *.r*, *.g* and *.b* to the power of [page:Float gammaFactor].
 		</p>
 
 		<h3>[method:Color copyLinearToGamma](  [param:Color color],  [param:number gammaFactor]? )</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Color color] - Color to copy.<br />
-			[parameter:number gammaFactor] - (optional) The gamma factor.
+			[parameter:number gammaFactor] - (optional) Default is *2.0*.
 		</p>
 		<p>
-			Copies given color making conversion from linear to gamma space.
+			Copies the given color into this color, and then converts this color from linear space to gamma space by taking *.r*, *.g* and *.b* to the power of 1 / [page:Float gammaFactor].
 		</p>
 
 		<h3>[method:Color copyLinearToSRGB](  [param:Color color] )</h3>
@@ -165,101 +172,103 @@
 			[parameter:Color color] - Color to copy.
 		</p>
 		<p>
-			Copies given color making conversion from linear to sRGB space.
+			Copies the given color into this color, and then converts this color from linear space to sRGB space.
 		</p>
 
 		<h3>[method:Color copySRGBToLinear](  [param:Color color] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Color color] - Color to copy.
+			[parameter:Color color] - The color.
 		</p>
 		<p>
-			Copies given color making conversion from sRGB to linear space.
+			Converts this color from sRGB space to linear space.
 		</p>
 
 		<h3>[method:boolean equals](  [param:Color color] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Color color] - asadsa
+			[parameter:Color color] - The color.
 		</p>
 		<p>
-			Returns : true if equals
+			Compares the RGB values of [page:Color color] with those of this object. Returns true if they are the same, false otherwise.
 		</p>
 
 		<h3>[method:Color fromArray](  [param:ArrayLike|number[] array],  [param:number offset]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:ArrayLike|number[] array] - the source array or array-like.<br />
-			[parameter:number offset] - (optional) (optional) offset into the array-like. Default is 0.
+			[parameter:ArrayLike|number[] array] - [Array](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Array) of floats in the form [ [r](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), [g](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), [b](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) ].<br />
+			[parameter:number offset] - (optional) An optional offset into the array.
 		</p>
 		<p>
-			Sets this color's red, green and blue value from the provided array or array-like.
+			Sets this color's components based on an array formatted like [page:Float  [r], [page:Float g], [page:Float b] ].
 		</p>
 
 		<h3>[method:Color fromBufferAttribute](  [param:BufferAttribute attribute],  [param:number index] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:BufferAttribute attribute] - The attribute.<br />
-			[parameter:number index] - The index.
+			[parameter:BufferAttribute attribute] - the source attribute.<br />
+			[parameter:number index] - index in the attribute.
 		</p>
 		<p>
-			Returns : buffer attribute
+			Sets this color's components from the [page:BufferAttribute attribute].
 		</p>
 
 		<h3>[method:HSL getHSL](  [param:HSL target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:HSL target] - The target.
+			[parameter:HSL target] - the result will be copied into this Object. Adds h, s and l keys to the object (if not already present).
 		</p>
 		<p>
-			Returns : hsl
+			Convert this Color's *.r*, *.g* and *.b* values to [link:https://en.wikipedia.org/wiki/HSL_and_HSV HSL] format and returns an object of the form: { h: 0, s: 0, l: 0 }
 		</p>
 
 		<h3>[method:number getHex](  )</h3>
 		<p>
-			Returns the hexadecimal value of this color.
+			Returns : Returns the hexadecimal value of this color.
 		</p>
 
 		<h3>[method:string getHexString](  )</h3>
 		<p>
-			Returns the string formated hexadecimal value of this color.
+			Returns : Returns the hexadecimal value of this color as a string (for example, 'FFFFFF').
 		</p>
 
 		<h3>[method:string getStyle](  )</h3>
 		<p>
-			Returns the value of this color in CSS context style.<br />
-			Example: rgb(r, g, b)
+			Returns : Returns the value of this color as a CSS style string. Example: 'rgb(255,0,0)'.
 		</p>
 
 		<h3>[method:Color lerp](  [param:Color color],  [param:number alpha] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Color color] - The color.<br />
-			[parameter:number alpha] - The alpha.
+			[parameter:Color color] - color to converge on.<br />
+			[parameter:number alpha] - interpolation factor in the closed interval [0, 1].
 		</p>
 		<p>
-			Returns : lerp
+			Linearly interpolates this color's RGB values toward the RGB values of the passed argument.<br />
+			The alpha argument can be thought of as the ratio between the two colors, where 0.0 is this color and 1.0 is the first argument.
 		</p>
 
 		<h3>[method:Color lerpColors](  [param:Color color1],  [param:Color color2],  [param:number alpha] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Color color1] - The color1.<br />
-			[parameter:Color color2] - The color2.<br />
-			[parameter:number alpha] - The alpha.
+			[parameter:Color color1] - the starting [Color](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Color).<br />
+			[parameter:Color color2] - [Color](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Color) to interpolate towards.<br />
+			[parameter:number alpha] - interpolation factor, typically in the closed interval [0, 1].
 		</p>
 		<p>
-			Returns : colors
+			Sets this color to be the color linearly interpolated between [page:Color color1] and [page:Color color2] where alpha is the percent distance along the line connecting the two colors - alpha = 0 will be [page:Color color1], and alpha = 1 will be [page:Color color2].
 		</p>
 
 		<h3>[method:Color lerpHSL](  [param:Color color],  [param:number alpha] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Color color] - The color.<br />
-			[parameter:number alpha] - The alpha.
+			[parameter:Color color] - color to converge on.<br />
+			[parameter:number alpha] - interpolation factor in the closed interval [0, 1].
 		</p>
 		<p>
-			Returns : hsl
+			Linearly interpolates this color's HSL values toward the HSL values of the passed argument.<br />
+			It differs from the classic *.lerp* by not interpolating straight from one color to the other, but instead going through all the hues in between those two colors.<br />
+			The alpha argument can be thought of as the ratio between the two colors, where 0.0 is this color and 1.0 is the first argument.
 		</p>
 
 		<h3>[method:Color multiply](  [param:Color color] )</h3>
@@ -268,7 +277,7 @@
 			[parameter:Color color] - The color.
 		</p>
 		<p>
-			Returns : multiply
+			Multiplies this color's RGB values by the given [page:Color color]'s RGB values.
 		</p>
 
 		<h3>[method:Color multiplyScalar](  [param:number s] )</h3>
@@ -277,7 +286,7 @@
 			[parameter:number s] - The s.
 		</p>
 		<p>
-			Returns : scalar
+			Multiplies this color's RGB values by [page:Number s].
 		</p>
 
 		<h3>[method:Color offsetHSL](  [param:number h],  [param:number s],  [param:number l] )</h3>
@@ -288,55 +297,57 @@
 			[parameter:number l] - The l.
 		</p>
 		<p>
-			Returns : hsl
+			Adds the given [page:Float h], [page:Float s], and [page:Float l] to this color's values.<br />
+			Internally, this converts the color's *.r*, *.g* and *.b* values to HSL, adds [page:Float h], [page:Float s], and [page:Float l], and then converts the color back to RGB.
 		</p>
 
 		<h3>[method:Color set](  [param:ColorRepresentation color] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:ColorRepresentation color] - The color.
+			[parameter:ColorRepresentation color] - Value to set this color to.
 		</p>
 		<p>
-			Returns : set
+			See the Constructor above for full details of what [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Color_Hex_or_String value] can be.<br />
+			Delegates to *.copy*, *.setStyle*, or *.setHex* depending on input type.
 		</p>
 
 		<h3>[method:Color setColorName](  [param:string style] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string style] - Color name in X11 format.
+			[parameter:string style] - color name ( from [X11 color names](https://en.wikipedia.org/wiki/X11_color_names#Color_name_chart) ).
 		</p>
 		<p>
-			Sets this color from a color name.<br />
-			Faster than {@link Color#setStyle .setStyle()} method if you don't need the other CSS-style formats.
+			Sets this color from a color name. Faster than *.setStyle* method if you don't need the other CSS-style formats.<br />
+			For convenience, the list of names is exposed in Color.NAMES as a hash:<br />
+			Color.NAMES.aliceblue // returns 0xF0F8FF
 		</p>
 
 		<h3>[method:Color setHSL](  [param:number h],  [param:number s],  [param:number l] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number h] - Hue channel value between 0 and 1.<br />
-			[parameter:number s] - Saturation value channel between 0 and 1.<br />
-			[parameter:number l] - Value channel value between 0 and 1.
+			[parameter:number h] - hue value between 0.0 and 1.0<br />
+			[parameter:number s] - saturation value between 0.0 and 1.0<br />
+			[parameter:number l] - lightness value between 0.0 and 1.0
 		</p>
 		<p>
-			Sets this color from HSL values.<br />
-			Based on MochiKit implementation by Bob Ippolito.
+			Sets color from HSL values.
 		</p>
 
 		<h3>[method:Color setHex](  [param:number hex] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number hex] - The hex.
+			[parameter:number hex] - [hexadecimal triplet](https://en.wikipedia.org/wiki/Web_colors#Hex_triplet) format.
 		</p>
 		<p>
-			Returns : hex
+			Sets this color from a hexadecimal value.
 		</p>
 
 		<h3>[method:Color setRGB](  [param:number r],  [param:number g],  [param:number b] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number r] - Red channel value between 0 and 1.<br />
-			[parameter:number g] - Green channel value between 0 and 1.<br />
-			[parameter:number b] - Blue channel value between 0 and 1.
+			[parameter:number r] - Red channel value between 0.0 and 1.0.<br />
+			[parameter:number g] - Green channel value between 0.0 and 1.0.<br />
+			[parameter:number b] - Blue channel value between 0.0 and 1.0.
 		</p>
 		<p>
 			Sets this color from RGB values.
@@ -345,19 +356,21 @@
 		<h3>[method:Color setScalar](  [param:number scalar] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number scalar] - The scalar.
+			[parameter:number scalar] - a value between 0.0 and 1.0.
 		</p>
 		<p>
-			Returns : scalar
+			Sets all three color components to the value [page:Float scalar].
 		</p>
 
 		<h3>[method:Color setStyle](  [param:string style] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string style] - The style.
+			[parameter:string style] - color as a CSS-style string.
 		</p>
 		<p>
-			Sets this color from a CSS context style string.
+			Sets this color from a CSS-style string. For example,  "rgb(250, 0,0)", "rgb(100%, 0%, 0%)", "hsl(0, 100%, 50%)", "#ff0000", "#f00", or "red" ( or any [link:https://en.wikipedia.org/wiki/X11_color_names#Color_name_chart X11 color name] - all 140 color names are supported ).<br />
+			Translucent colors such as "rgba(255, 0, 0, 0.5)" and "hsla(0, 100%, 50%, 0.5)" are also accepted, but the alpha-channel coordinate will be discarded.<br />
+			Note that for X11 color names, multiple words such as Dark Orange become the string 'darkorange'.
 		</p>
 
 		<h3>[method:Color sub](  [param:Color color] )</h3>
@@ -366,21 +379,20 @@
 			[parameter:Color color] - The color.
 		</p>
 		<p>
-			Returns : sub
+			Subtracts the RGB components of the given color from the RGB components of this color.<br />
+			If this results in a negative component, that component is set to zero.
 		</p>
 
-		<h3>[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:ArrayLike xyz],  [param:number offset]? )</h3>
+		<h3>[method:number[] toArray](  [param:number[] array]?,  [param:number offset]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number[] array] - (optional) (optional) array to store the color to. If this is not provided, a new array will be created.<br />
-			[parameter:number offset] - (optional) (optional) optional offset into the array.<br />
-			[parameter:ArrayLike xyz] - The xyz.<br />
-			[parameter:number offset] - (optional) (optional) optional offset into the array-like.
+			[parameter:number[] array] - (optional) An optional array to store the color to.<br />
+			[parameter:number offset] - (optional) An optional offset into the array.
 		</p>
 		<p>
-			Copies red, green and blue into the provided array-like.<br />
+			Returns an array [red, green, blue], or copies red, green and blue into the provided array.<br />
 			<br />
-			Returns : The provided array-like.
+			Returns : Returns an array of the form [ r, g, b ].
 		</p>
 
 

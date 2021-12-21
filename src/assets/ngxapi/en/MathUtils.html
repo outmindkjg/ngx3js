@@ -10,6 +10,8 @@
 		<h1>MathUtils</h1>
 
 		<p class="desc">
+			An object with several math utility functions.<br />
+			<br />
 			[link:https://github.com/mrdoob/three.js/blob/master/src/math/MathUtils.js src/math/MathUtils.js]
 		</p>
 
@@ -29,18 +31,18 @@
 			[parameter:number value] - The value.
 		</p>
 		<p>
-			
+			Returns : Returns the smallest power of 2 that is greater than or equal to [page:Number n].
 		</p>
 
 		<h3>[method:number clamp](  [param:number value],  [param:number min],  [param:number max] )</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number value] - Value to be clamped.<br />
-			[parameter:number min] - Minimum value<br />
+			[parameter:number min] - Minimum value.<br />
 			[parameter:number max] - Maximum value.
 		</p>
 		<p>
-			Clamps the x to be between a and b.
+			Clamps the [page:Float value] to be between [page:Float min] and [page:Float max].
 		</p>
 
 		<h3>[method:number damp](  [param:number x],  [param:number y],  [param:number lambda],  [param:number dt] )</h3>
@@ -52,8 +54,8 @@
 			[parameter:number dt] - Delta time in seconds.
 		</p>
 		<p>
-			Smoothly interpolate a number from x toward y in a spring-like<br />
-			manner using the dt to maintain frame rate independent movement.
+			Smoothly interpolate a number from [page:Float x] toward [page:Float y] in a spring-like manner using the [page:Float dt] to maintain frame rate independent movement.<br />
+			For details, see [link:http://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/ Frame rate independent damping using lerp].
 		</p>
 
 		<h3>[method:number degToRad](  [param:number degrees] )</h3>
@@ -62,13 +64,13 @@
 			[parameter:number degrees] - The degrees.
 		</p>
 		<p>
-			
+			Converts degrees to radians.
 		</p>
 
 		<h3>[method:number euclideanModulo](  [param:number n],  [param:number m] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number n] - The n.<br />
+			[parameter:number n] - Integers Computes the Euclidean modulo of [m](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) % [n](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer), that is: ( ( n % m ) + m ) % m<br />
 			[parameter:number m] - The m.
 		</p>
 		<p>
@@ -81,23 +83,23 @@
 			[parameter:number value] - The value.
 		</p>
 		<p>
-			
+			Returns : Returns the largest power of 2 that is less than or equal to [page:Number n].
 		</p>
 
 		<h3>[method:string generateUUID](  )</h3>
 		<p>
-			
+			Generate a [link:https://en.wikipedia.org/wiki/Universally_unique_identifier UUID] (universally unique identifier).
 		</p>
 
 		<h3>[method:number inverseLerp](  [param:number x],  [param:number y],  [param:number t] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number x] - The x.<br />
-			[parameter:number y] - The y.<br />
-			[parameter:number t] - The t.
+			[parameter:number x] - Start point.<br />
+			[parameter:number y] - End point.<br />
+			[parameter:number t] - A value between start and end.
 		</p>
 		<p>
-			
+			Returns : Returns the percentage in the closed interval [0, 1] of the given value between the start and end point.
 		</p>
 
 		<h3>[method:boolean isPowerOfTwo](  [param:number value] )</h3>
@@ -106,7 +108,7 @@
 			[parameter:number value] - The value.
 		</p>
 		<p>
-			
+			Returns : Return *true* if [page:Number n] is a power of 2.
 		</p>
 
 		<h3>[method:number lerp](  [param:number x],  [param:number y],  [param:number t] )</h3>
@@ -114,11 +116,10 @@
 		<p>
 			[parameter:number x] - Start point.<br />
 			[parameter:number y] - End point.<br />
-			[parameter:number t] - interpolation factor in the closed interval [0, 1]
+			[parameter:number t] - interpolation factor in the closed interval [0, 1].
 		</p>
 		<p>
-			Returns a value linearly interpolated from two known points based<br />
-			on the given interval - t = 0 will return x and t = 1 will return y.
+			Returns : Returns a value [link:https://en.wikipedia.org/wiki/Linear_interpolation linearly interpolated] from two known points based on the given interval - [page:Float t] = 0 will return [page:Float x] and [page:Float t] = 1 will return [page:Float y].
 		</p>
 
 		<h3>[method:number mapLinear](  [param:number x],  [param:number a1],  [param:number a2],  [param:number b1],  [param:number b2] )</h3>
@@ -131,7 +132,7 @@
 			[parameter:number b2] - Maximum value for range B.
 		</p>
 		<p>
-			Linear mapping of x from range [a1, a2] to range [b1, b2].
+			Linear mapping of [page:Float x] from range [page:Float [a1], [page:Float a2]] to range [page:Float [b1], [page:Float b2]].
 		</p>
 
 		<h3>[method:number nearestPowerOfTwo](  [param:number value] )</h3>
@@ -156,10 +157,10 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number x] - The value to pingpong.<br />
-			[parameter:number length] - (optional) The positive value the export will pingpong to. Default is 1.
+			[parameter:number length] - (optional) The positive value the function will pingpong to. Default is 1.
 		</p>
 		<p>
-			Returns a value that alternates between 0 and length.
+			Returns : Returns a value that alternates between 0 and [param:Float length].
 		</p>
 
 		<h3>[method:number radToDeg](  [param:number radians] )</h3>
@@ -168,7 +169,7 @@
 			[parameter:number radians] - The radians.
 		</p>
 		<p>
-			
+			Converts radians to degrees.
 		</p>
 
 		<h3>[method:number randFloat](  [param:number low],  [param:number high] )</h3>
@@ -178,7 +179,7 @@
 			[parameter:number high] - The high.
 		</p>
 		<p>
-			Random float from low to high interval.
+			Random float in the interval
 		</p>
 
 		<h3>[method:number randFloatSpread](  [param:number range] )</h3>
@@ -214,42 +215,45 @@
 			[parameter:number seed] - (optional) The seed.
 		</p>
 		<p>
-			Deterministic pseudo-random float in the interval [ 0, 1 ].
+			Deterministic pseudo-random float in the interval [0, 1].<br />
+			The integer *seed* is optional.
 		</p>
 
 		<h3>[method:void setQuaternionFromProperEuler](  [param:Quaternion q],  [param:number a],  [param:number b],  [param:number c],  [param:string order] )</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Quaternion q] - The q.<br />
-			[parameter:number a] - The a.<br />
-			[parameter:number b] - The b.<br />
-			[parameter:number c] - The c.<br />
-			[parameter:string order] - The order.
+			[parameter:number a] - the rotation applied to the first axis, in radians<br />
+			[parameter:number b] - the rotation applied to the second axis, in radians<br />
+			[parameter:number c] - the rotation applied to the third axis, in radians<br />
+			[parameter:string order] - a string specifying the axes order: 'XYX', 'XZX', 'YXY', 'YZY', 'ZXZ', or 'ZYZ' Sets quaternion [q](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Quaternion) from the [intrinsic Proper Euler Angles](http://en.wikipedia.org/wiki/Euler_angles) defined by angles [a](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), [b](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), and [c](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), and order [order](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/String).
 		</p>
 		<p>
-			
+			Rotations are applied to the axes in the order specified by [page:String order]: rotation by angle [page:Float a] is applied first, then by angle [page:Float b], then by angle [page:Float c]. Angles are in radians.
 		</p>
 
 		<h3>[method:number smootherstep](  [param:number x],  [param:number min],  [param:number max] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number x] - The x.<br />
-			[parameter:number min] - The min.<br />
-			[parameter:number max] - The max.
+			[parameter:number x] - The value to evaluate based on its position between min and max.<br />
+			[parameter:number min] - Any x value below min will be 0.<br />
+			[parameter:number max] - Any x value above max will be 1.
 		</p>
 		<p>
-			
+			Returns : Returns a value between 0-1. A [link:https://en.wikipedia.org/wiki/Smoothstep#Variations variation on smoothstep] that has zero 1st and 2nd order derivatives at x=0 and x=1.
 		</p>
 
 		<h3>[method:number smoothstep](  [param:number x],  [param:number min],  [param:number max] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number x] - The x.<br />
-			[parameter:number min] - The min.<br />
-			[parameter:number max] - The max.
+			[parameter:number x] - The value to evaluate based on its position between min and max.<br />
+			[parameter:number min] - Any x value below min will be 0.<br />
+			[parameter:number max] - Any x value above max will be 1.
 		</p>
 		<p>
-			
+			See [Smoothstep](http://en.wikipedia.org/wiki/Smoothstep) for details.<br />
+			<br />
+			Returns : Returns a value between 0-1 that represents the percentage that x has moved between min and max, but smoothed or slowed down the closer X is to the min and max.
 		</p>
 
 

@@ -10,71 +10,67 @@
 		<h1>Box2</h1>
 
 		<p class="desc">
-			Box2Represents an axis-aligned bounding box (AABB) in 2D space.
+			Represents an axis-aligned bounding box (AABB) in 2D space.
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:Box2 Box2](  [param:Vector2 min]?,  [param:Vector2 max]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2 min] - (optional) The min.<br />
-			[parameter:Vector2 max] - (optional) The max.
+			[parameter:Vector2 min] - (optional) [Vector2](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector2) representing the lower (x, y) boundary of the box. Default is ( + Infinity, + Infinity ).<br />
+			[parameter:Vector2 max] - (optional) [Vector2](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector2) representing the upper (x, y) boundary of the box. Default is ( - Infinity, - Infinity ).
 		</p>
 		<p>
-			
+			Creates a Box2 bounded by min and max.
 		</p>
 
 		<h2>Properties</h2>
 		<h3>[property:Vector2 max]</h3>
 		<p>
-			Vector2 representing the lower upper (x, y) boundary of the box. Default is ( - Infinity, - Infinity ).
+			[page:Vector2 Vector2] representing the lower upper (x, y) boundary of the box.<br />
+			Default is ( - Infinity, - Infinity ).
 		</p>
 
 		<h3>[property:Vector2 min]</h3>
 		<p>
-			Vector2 representing the lower (x, y) boundary of the box. Default is ( + Infinity, + Infinity ).
+			[page:Vector2 Vector2] representing the lower (x, y) boundary of the box.<br />
+			Default is ( + Infinity, + Infinity ).
 		</p>
 
 		<h2>Methods</h2>
 		<h3>[method:Vector2 clampPoint](  [param:Vector2 point],  [param:Vector2 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2 point] - The point.<br />
+			[parameter:Vector2 point] - [Vector2](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector2) to clamp.<br />
 			[parameter:Vector2 target] - the result will be copied into this Vector2.
 		</p>
 		<p>
-			Clamps the point within the bounds of this box.<br />
-			<br />
-			Returns : point
+			[link:https://en.wikipedia.org/wiki/Clamping_(graphics Clamps]) the [page:Vector2 point] within the bounds of this box.
 		</p>
 
 		<h3>[method:Box2 clone](  )</h3>
 		<p>
-			Returns a new Box2 with the same min and max as this one.<br />
-			<br />
-			Returns : clone
+			Returns : Returns a new [page:Box2 Box2] with the same *.min* and *.max* as this one.
 		</p>
 
 		<h3>[method:boolean containsBox](  [param:Box2 box] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Box2 box] - The box.
+			[parameter:Box2 box] - [Box2](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Box2) to test for inclusion.
 		</p>
 		<p>
-			Returns true if this box includes the entirety of box. If this and box are identical, this function also returns true.<br />
-			<br />
-			Returns : true if box
+			Returns : Returns true if this box includes the entirety of [page:Box2 box]. If this and [page:Box2 box] are identical,  this function also returns true.
 		</p>
 
 		<h3>[method:boolean containsPoint](  [param:Vector2 point] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2 point] - The point.
+			[parameter:Vector2 point] - [Vector2](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector2) to check for inclusion.
 		</p>
 		<p>
 			Returns true if the specified point lies within or on the boundaries of this box.<br />
 			<br />
-			Returns : true if point
+			Returns : Returns true if the specified [page:Vector2 point] lies within or on the boundaries of this box.
 		</p>
 
 		<h3>[method:Box2 copy](  [param:Box2 box] )</h3>
@@ -83,20 +79,18 @@
 			[parameter:Box2 box] - The box.
 		</p>
 		<p>
-			Copies the min and max from box to this box.<br />
-			<br />
-			Returns : copy
+			Copies the *.min* and *.max* from [page:Box2 box] to this box.
 		</p>
 
 		<h3>[method:number distanceToPoint](  [param:Vector2 point] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2 point] - The point.
+			[parameter:Vector2 point] - [Vector2](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector2) to measure distance to.
 		</p>
 		<p>
-			Returns the distance from any edge of this box to the specified point. If the point lies inside of this box, the distance will be 0.<br />
+			If the [point](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector2) lies inside of this box, the distance will be 0.<br />
 			<br />
-			Returns : to point
+			Returns : Returns the distance from any edge of this box to the specified point.
 		</p>
 
 		<h3>[method:any empty](  )</h3>
@@ -107,86 +101,74 @@
 		<h3>[method:boolean equals](  [param:Box2 box] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Box2 box] - The box.
+			[parameter:Box2 box] - Box to compare with this one.
 		</p>
 		<p>
-			Returns true if this box and box share the same lower and upper bounds.<br />
-			<br />
-			Returns : true if equals
+			Returns : Returns true if this box and [page:Box2 box] share the same lower and upper bounds.
 		</p>
 
 		<h3>[method:Box2 expandByPoint](  [param:Vector2 point] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2 point] - The point.
+			[parameter:Vector2 point] - [Vector2](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector2) that should be included in the box.
 		</p>
 		<p>
-			Expands the boundaries of this box to include point.<br />
-			<br />
-			Returns : by point
+			Expands the boundaries of this box to include [page:Vector2 point].
 		</p>
 
 		<h3>[method:Box2 expandByScalar](  [param:number scalar] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number scalar] - The scalar.
+			[parameter:number scalar] - Distance to expand the box by.
 		</p>
 		<p>
-			Expands each dimension of the box by scalar. If negative, the dimensions of the box will be contracted.<br />
-			<br />
-			Returns : by scalar
+			Expands each dimension of the box by [page:Float scalar]. If negative, the dimensions of the box will be contracted.
 		</p>
 
 		<h3>[method:Box2 expandByVector](  [param:Vector2 vector] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2 vector] - The vector.
+			[parameter:Vector2 vector] - [Vector2](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector2) to expand the box by.
 		</p>
 		<p>
-			Expands this box equilaterally by vector. The width of this box will be expanded by the x component of vector in both directions. The height of this box will be expanded by the y component of vector in both directions.<br />
-			<br />
-			Returns : by vector
+			Expands this box equilaterally by [page:Vector2 vector]. The width of this box will be expanded by the x component of [page:Vector2 vector] in both directions. The height of this box will be expanded by the y component of [page:Vector2 vector] in both directions.
 		</p>
 
 		<h3>[method:Vector2 getCenter](  [param:Vector2 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2 target] - The target.
+			[parameter:Vector2 target] - the result will be copied into this Vector2.
 		</p>
 		<p>
-			
+			Returns : Returns the center point of the box as a [page:Vector2 Vector2].
 		</p>
 
 		<h3>[method:Vector2 getParameter](  [param:Vector2 point],  [param:Vector2 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2 point] - The point.<br />
+			[parameter:Vector2 point] - [Vector2](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector2).<br />
 			[parameter:Vector2 target] - the result will be copied into this Vector2.
 		</p>
 		<p>
-			Returns a point as a proportion of this box's width and height.<br />
-			<br />
-			Returns : parameter
+			Returns : Returns a point as a proportion of this box's width and height.
 		</p>
 
 		<h3>[method:Vector2 getSize](  [param:Vector2 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2 target] - The target.
+			[parameter:Vector2 target] - the result will be copied into this Vector2.
 		</p>
 		<p>
-			
+			Returns : Returns the width and height of this box.
 		</p>
 
 		<h3>[method:Box2 intersect](  [param:Box2 box] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Box2 box] - The box.
+			[parameter:Box2 box] - Box to intersect with.
 		</p>
 		<p>
-			Returns the intersection of this and box, setting the upper bound of this box to the lesser of the two boxes' upper bounds and the lower bound of this box to the greater of the two boxes' lower bounds.<br />
-			<br />
-			Returns : intersect
+			Returns : Returns the intersection of this and [page:Box2 box], setting the upper bound of this box to the lesser of the two boxes' upper bounds and the lower bound of this box to the greater of the two boxes' lower bounds.
 		</p>
 
 		<h3>[method:boolean intersectsBox](  [param:Box2 box] )</h3>
@@ -195,14 +177,13 @@
 			[parameter:Box2 box] - Box to check for intersection against.
 		</p>
 		<p>
-			Determines whether or not this box intersects box.<br />
-			<br />
-			Returns : true if box
+			Determines whether or not this box intersects [page:Box2 box].
 		</p>
 
 		<h3>[method:boolean isEmpty](  )</h3>
 		<p>
-			
+			Returns : Returns true if this box includes zero points within its bounds.<br />
+			Note that a box with equal lower and upper bounds still includes one point, the one both bounds share.
 		</p>
 
 		<h3>[method:any isIntersectionBox](  [param:any b] )</h3>
@@ -216,64 +197,55 @@
 
 		<h3>[method:Box2 makeEmpty](  )</h3>
 		<p>
-			
+			Makes this box empty.
 		</p>
 
 		<h3>[method:Box2 set](  [param:Vector2 min],  [param:Vector2 max] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2 min] - (required ) Vector2 representing the lower (x, y) boundary of the box.<br />
-			[parameter:Vector2 max] - (required) Vector2 representing the upper (x, y) boundary of the box.
+			[parameter:Vector2 min] - (required ) [Vector2](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector2) representing the lower (x, y) boundary of the box.<br />
+			[parameter:Vector2 max] - [Vector2](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector2) representing the upper (x, y) boundary of the box.
 		</p>
 		<p>
-			Sets the lower and upper (x, y) boundaries of this box. Please note that this method only copies the values from the given objects.<br />
-			<br />
-			Returns : set
+			Sets the lower and upper (x, y) boundaries of this box.<br />
+			Please note that this method only copies the values from the given objects.
 		</p>
 
 		<h3>[method:Box2 setFromCenterAndSize](  [param:Vector2 center],  [param:Vector2 size] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2 center] - Desired center position of the box (Vector2).<br />
-			[parameter:Vector2 size] - -Desired x and y dimensions of the box (Vector2).
+			[parameter:Vector2 center] - Desired center position of the box ([Vector2](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector2)).<br />
+			[parameter:Vector2 size] - Desired x and y dimensions of the box ([Vector2](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector2)).
 		</p>
 		<p>
-			Centers this box on center and sets this box's width and height to the values specified in size.<br />
-			<br />
-			Returns : from center and size
+			Centers this box on [page:Vector2 center] and sets this box's width and height to the values specified in [page:Vector2 size].
 		</p>
 
 		<h3>[method:Box2 setFromPoints](  [param:Vector2[] points] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2[] points] - Array of Vector2s that the resulting box will contain.
+			[parameter:Vector2[] points] - Array of [Vector2s](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector2) that the resulting box will contain.
 		</p>
 		<p>
-			Sets the upper and lower bounds of this box to include all of the points in points.<br />
-			<br />
-			Returns : from points
+			Sets the upper and lower bounds of this box to include all of the points in [page:Array points].
 		</p>
 
 		<h3>[method:Box2 translate](  [param:Vector2 offset] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector2 offset] - The offset.
+			[parameter:Vector2 offset] - Direction and distance of offset.
 		</p>
 		<p>
-			Adds offset to both the upper and lower bounds of this box, effectively moving this box offset units in 2D space.<br />
-			<br />
-			Returns : translate
+			Adds [page:Vector2 offset] to both the upper and lower bounds of this box, effectively moving this box [page:Vector2 offset] units in 2D space.
 		</p>
 
 		<h3>[method:Box2 union](  [param:Box2 box] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Box2 box] - The box.
+			[parameter:Box2 box] - Box that will be unioned with this box.
 		</p>
 		<p>
-			Unions this box with box, setting the upper bound of this box to the greater of the two boxes' upper bounds and the lower bound of this box to the lesser of the two boxes' lower bounds.<br />
-			<br />
-			Returns : union
+			Unions this box with [page:Box2 box], setting the upper bound of this box to the greater of the two boxes' upper bounds and the lower bound of this box to the lesser of the two boxes' lower bounds.
 		</p>
 
 

@@ -12,7 +12,8 @@
 		<h1>Object3D</h1>
 
 		<p class="desc">
-			Base class for scene graph objects
+			This is the base class for most objects in three.js and provides a set of properties and methods for manipulating objects in 3D space.<br />
+			Note that this can be used for grouping objects via the *.add*( object ) method which adds the object as a child, however it is better to use [page:Group Group] for this.
 		</p>
 
 		<h2>Constructor</h2>
@@ -28,51 +29,55 @@
 
 		<h3>[property:boolean DefaultMatrixAutoUpdate]</h3>
 		<p>
-			
+			The default setting for *.matrixAutoUpdate* for newly created Object3Ds.
 		</p>
 
 		<h3>[property:Vector3 DefaultUp]</h3>
 		<p>
-			
+			The default *.up* direction for objects, also used as the default position for [page:DirectionalLight DirectionalLight],<br />
+			[page:HemisphereLight HemisphereLight] and [page:Spotlight Spotlight] (which creates lights shining from the top down).<br />
+			Set to ( 0, 1, 0 ) by default.
 		</p>
 
 		<h3>[property:AnimationClip[] animations]</h3>
 		<p>
-			Array with animation clips.
+			Array with object's animation clips.
 		</p>
 
 		<h3>[property:boolean castShadow]</h3>
 		<p>
-			Gets rendered into shadow map.
+			Whether the object gets rendered into shadow map. Default is *false*.
 		</p>
 
 		<h3>[property:Object3D[] children]</h3>
 		<p>
-			Array with object's children.
+			Array with object's children. See [page:Group Group] for info on manually grouping objects.
 		</p>
 
 		<h3>[property:Material customDepthMaterial]</h3>
 		<p>
 			Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br />
-			When shadow-casting with a DirectionalLight or SpotLight, if you are (a) modifying vertex positions in<br />
-			the vertex shader, (b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a<br />
-			transparent texture with alphaTest, you must specify a customDepthMaterial for proper shadows.
+			When shadow-casting with a [page:DirectionalLight DirectionalLight] or [page:SpotLight SpotLight], if you are modifying vertex positions in the vertex shader you must specify a customDepthMaterial for proper shadows. Default is *undefined*.
 		</p>
 
 		<h3>[property:Material customDistanceMaterial]</h3>
 		<p>
-			Same as customDepthMaterial, but used with PointLight.
+			Same as *.customDepthMaterial*, but used with [page:PointLight PointLight]. Default is *undefined*.
 		</p>
 
 		<h3>[property:boolean frustumCulled]</h3>
 		<p>
-			When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object.<br />
-			If set to false the object gets rendered every frame even if it is not in the frustum of the camera.
+			When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object. If set to `false` the object gets rendered every frame even if it is not in the frustum of the camera. Default is `true`.
+		</p>
+
+		<h3>[property:BufferGeometry geometry]?<i class="modifier modifier-optional">Optional</i></h3>
+		<p>
+			The BufferGeometry
 		</p>
 
 		<h3>[property:number id]</h3>
 		<p>
-			Unique number of this object instance.
+			readonly – Unique number for this object instance.
 		</p>
 
 		<h3>[property:any isObject3D]</h3>
@@ -83,80 +88,86 @@
 
 		<h3>[property:Layers layers]</h3>
 		<p>
-			
+			The layer membership of the object. The object is only visible if it has at least one layer in common with the [page:Camera Camera] in use. This property can also be used to filter out unwanted objects in ray-intersection tests when using [page:Raycaster Raycaster].
+		</p>
+
+		<h3>[property:Material|Material[] material]?<i class="modifier modifier-optional">Optional</i></h3>
+		<p>
+			The Material
 		</p>
 
 		<h3>[property:Matrix4 matrix]</h3>
 		<p>
-			Local transform.
+			The local transform matrix.
 		</p>
 
 		<h3>[property:boolean matrixAutoUpdate]</h3>
 		<p>
-			When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also<br />
-			recalculates the matrixWorld property.
+			When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate Object3D.DefaultMatrixAutoUpdate] (true).
 		</p>
 
 		<h3>[property:Matrix4 matrixWorld]</h3>
 		<p>
-			The global transform of the object. If the Object3d has no parent, then it's identical to the local transform.
+			The global transform of the object. If the Object3D has no parent, then it's identical to the local transform *.matrix*.
 		</p>
 
 		<h3>[property:boolean matrixWorldNeedsUpdate]</h3>
 		<p>
-			When this is set, it calculates the matrixWorld in that frame and resets this property to false.
+			When this is set, it calculates the matrixWorld in that frame and resets this property  to false. Default is *false*.
 		</p>
 
 		<h3>[property:Matrix4 modelViewMatrix]</h3>
 		<p>
-			
+			This is passed to the shader and used to calculate the position of the object.
 		</p>
 
 		<h3>[property:string name]</h3>
 		<p>
-			Optional name of the object (doesn't need to be unique).
+			Optional name of the object (doesn't need to be unique). Default is an empty string.
 		</p>
 
 		<h3>[property:Matrix3 normalMatrix]</h3>
 		<p>
-			
+			This is passed to the shader and used to calculate lighting for the object. It is the transpose of the inverse of the upper left 3x3 sub-matrix of this object's modelViewMatrix.<br />
+			The reason for this special matrix is that simply using the modelViewMatrix could result in a non-unit length of normals (on scaling) or in a non-perpendicular direction (on non-uniform scaling).<br />
+			On the other hand the translation part of the modelViewMatrix is not relevant for the calculation of normals. Thus a Matrix3 is sufficient.
 		</p>
 
 		<h3>[property:Object3D parent]</h3>
 		<p>
-			Object's parent in the scene graph.
+			Object's parent in the [link:https://en.wikipedia.org/wiki/Scene_graph scene graph]. An object can have at most one parent.
 		</p>
 
 		<h3>[property:Vector3 position]</h3>
 		<p>
-			Object's local position.
+			A [page:Vector3 Vector3] representing the object's local position. Default is (0, 0, 0).
 		</p>
 
 		<h3>[property:Quaternion quaternion]</h3>
 		<p>
-			Object's local rotation as a Quaternion.
+			Object's local rotation as a [page:Quaternion Quaternion].
 		</p>
 
 		<h3>[property:boolean receiveShadow]</h3>
 		<p>
-			Material gets baked in shadow receiving.
+			Whether the material receives shadows. Default is *false*.
 		</p>
 
 		<h3>[property:number renderOrder]</h3>
 		<p>
-			Overrides the default rendering order of scene graph objects, from lowest to highest renderOrder.<br />
-			Opaque and transparent objects remain sorted independently though.<br />
-			When this property is set for an instance of Group, all descendants objects will be sorted and rendered together.
+			This value allows the default rendering order of [link:https://en.wikipedia.org/wiki/Scene_graph scene graph]<br />
+			objects to be overridden although opaque and transparent objects remain sorted independently. When this property is set for an instance of [page:Group Group], all descendants objects will be sorted and rendered together.<br />
+			Sorting is from lowest to highest renderOrder. Default value is *0*.
 		</p>
 
 		<h3>[property:Euler rotation]</h3>
 		<p>
-			Object's local rotation (Euler angles), in radians.
+			Object's local rotation (see [link:https://en.wikipedia.org/wiki/Euler_angles Euler angles]), in radians.
 		</p>
 
 		<h3>[property:Vector3 scale]</h3>
 		<p>
-			Object's local scale.
+			The object's local scale. Default is [page:Vector3 Vector3]( 1, 1, 1 ).
 		</p>
 
 		<h3>[property:string type]</h3>
@@ -166,22 +177,24 @@
 
 		<h3>[property:Vector3 up]</h3>
 		<p>
-			Up direction.
+			This is used by the *.lookAt* method, for example, to determine the orientation of the result.<br />
+			Default is [page:Object3D.DefaultUp Object3D.DefaultUp] - that is, ( 0, 1, 0 ).
 		</p>
 
 		<h3>[property:any userData]</h3>
 		<p>
-			An object that can be used to store custom data about the Object3d. It should not hold references to functions as these will not be cloned.
+			An object that can be used to store custom data about the Object3D. It should not hold references to functions as these will not be cloned.
 		</p>
 
 		<h3>[property:string uuid]</h3>
 		<p>
-			
+			[link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this object instance.<br />
+			This gets automatically assigned, so this shouldn't be edited.
 		</p>
 
 		<h3>[property:boolean visible]</h3>
 		<p>
-			Object gets rendered if true.
+			Object gets rendered if *true*. Default is *true*.
 		</p>
 
 		<h2>Methods</h2>
@@ -195,7 +208,8 @@
 			[parameter:Object3D[] object] - The object.
 		</p>
 		<p>
-			Adds object as child of this object.
+			Adds *object* as child of this object. An arbitrary number of objects may be added. Any current parent on an object passed in here will be removed, since an object can have at most one parent.<br />
+			See [page:Group Group] for info on manually grouping objects.
 		</p>
 
 		<h3>[method:void addEventListener](  [param:T type],  [param:EventListener listener] )</h3>
@@ -232,7 +246,8 @@
 			[parameter:Object3D object] - The object.
 		</p>
 		<p>
-			Adds object as a child of this, while maintaining the object's world transform.
+			Adds *object* as a child of this, while maintaining the object's world transform.<br />
+			Note: This method does not support scene graphs having non-uniformly-scaled nodes(s).
 		</p>
 
 		<h3>[method:Object3D clear](  )</h3>
@@ -246,7 +261,9 @@
 			[parameter:boolean recursive] - (optional) The recursive.
 		</p>
 		<p>
-			
+			recursive -- if true, descendants of the object are also cloned. Default is true.<br />
+			<br />
+			Returns : Returns a clone of this object and optionally all descendants.
 		</p>
 
 		<h3>[method:Object3D copy](  [param:Object3D source],  [param:boolean recursive]? )</h3>
@@ -256,7 +273,9 @@
 			[parameter:boolean recursive] - (optional) The recursive.
 		</p>
 		<p>
-			
+			recursive -- if true, descendants of the object are also copied. Default is true.<br />
+			Copy the given object into this object.<br />
+			Note: event listeners and user-defined callbacks (*.onAfterRender* and *.onBeforeRender*) are not copied.
 		</p>
 
 		<h3>[method:void dispatchEvent](  [param:E event] )</h3>
@@ -274,7 +293,8 @@
 			[parameter:number id] - Unique number of the object instance
 		</p>
 		<p>
-			Searches through the object's children and returns the first with a matching id.
+			id -- Unique number of the object instance Searches through an object and its children, starting with the object itself, and returns the first with a matching id.<br />
+			Note that ids are assigned in chronological order: 1, 2, 3, ..., incrementing by one for each new object.
 		</p>
 
 		<h3>[method:Object3D getObjectByName](  [param:string name] )</h3>
@@ -283,7 +303,9 @@
 			[parameter:string name] - String to match to the children's Object3d.name property.
 		</p>
 		<p>
-			Searches through the object's children and returns the first with a matching name.
+			name -- String to match to the children's Object3D.name property.<br />
+			Searches through an object and its children, starting with the object itself, and returns the first with a matching name.<br />
+			Note that for most objects the name is an empty string by default. You will have to set it manually to make use of this method.
 		</p>
 
 		<h3>[method:Object3D getObjectByProperty](  [param:string name],  [param:string value] )</h3>
@@ -293,43 +315,45 @@
 			[parameter:string value] - The value.
 		</p>
 		<p>
-			
+			name -- the property name to search for.<br />
+			value -- value of the given property.<br />
+			Searches through an object and its children, starting with the object itself, and returns the first with a property that matches the value given.
 		</p>
 
 		<h3>[method:Vector3 getWorldDirection](  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - The target.
+			[parameter:Vector3 target] - the result will be copied into this Vector3.
 		</p>
 		<p>
-			
+			Returns : Returns a vector representing the direction of object's positive z-axis in world space.
 		</p>
 
 		<h3>[method:Vector3 getWorldPosition](  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - The target.
+			[parameter:Vector3 target] - the result will be copied into this Vector3.
 		</p>
 		<p>
-			
+			Returns : Returns a vector representing the position of the object in world space.
 		</p>
 
 		<h3>[method:Quaternion getWorldQuaternion](  [param:Quaternion target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Quaternion target] - The target.
+			[parameter:Quaternion target] - the result will be copied into this Quaternion.
 		</p>
 		<p>
-			
+			Returns : Returns a quaternion representing the rotation of the object in world space.
 		</p>
 
 		<h3>[method:Vector3 getWorldScale](  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - The target.
+			[parameter:Vector3 target] - the result will be copied into this Vector3.
 		</p>
 		<p>
-			
+			Returns : Returns a vector of the scaling factors applied to the object for each axis in world space.
 		</p>
 
 		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )</h3>
@@ -348,18 +372,19 @@
 			[parameter:Vector3 vector] - A local vector.
 		</p>
 		<p>
-			Updates the vector from local space to world space.
+			vector - A vector representing a position in this object's local space.<br />
+			Converts the vector from this object's local space to world space.
 		</p>
 
 		<h3>[method:void lookAt](  [param:number|Vector3 vector],  [param:number y]?,  [param:number z]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number|Vector3 vector] - A world vector to look at.<br />
+			[parameter:number|Vector3 vector] - A vector representing a position in world space.<br />
 			[parameter:number y] - (optional) The y.<br />
 			[parameter:number z] - (optional) The z.
 		</p>
 		<p>
-			Optionally, the x, y and z components of the world space position.<br />
+			Optionally, the *.x*, *.y* and *.z* components of the world space position.<br />
 			Rotates the object to face a point in world space.<br />
 			This method does not support objects having non-uniformly-scaled parent(s).
 		</p>
@@ -375,7 +400,10 @@
 			[parameter:Group group] - The group.
 		</p>
 		<p>
-			Calls after rendering object
+			An optional callback that is executed immediately after a 3D object is rendered.<br />
+			This function is called with the following parameters: renderer, scene, camera, geometry, material, group.<br />
+			Please notice that this callback is only executed for *renderable* 3D objects. Meaning 3D objects which define their visual appearance with geometries and materials like instances of [page:Mesh Mesh], [page:Line Line], [page:Points Points] or [page:Sprite Sprite].<br />
+			Instances of [page:Object3D Object3D], [page:Group Group] or [page:Bone Bone] are not renderable and thus this callback is not executed for such objects.
 		</p>
 
 		<h3>[method:void onBeforeRender](  [param:WebGLRenderer renderer],  [param:Scene scene],  [param:Camera camera],  [param:BufferGeometry geometry],  [param:Material material],  [param:Group group] )</h3>
@@ -389,7 +417,10 @@
 			[parameter:Group group] - The group.
 		</p>
 		<p>
-			Calls before rendering object
+			An optional callback that is executed immediately before a 3D object is rendered.<br />
+			This function is called with the following parameters: renderer, scene, camera, geometry, material, group.<br />
+			Please notice that this callback is only executed for *renderable* 3D objects. Meaning 3D objects which define their visual appearance with geometries and materials like instances of [page:Mesh Mesh], [page:Line Line], [page:Points Points] or [page:Sprite Sprite].<br />
+			Instances of [page:Object3D Object3D], [page:Group Group] or [page:Bone Bone] are not renderable and thus this callback is not executed for such objects.
 		</p>
 
 		<h3>[method:void raycast](  [param:Raycaster raycaster],  [param:Intersection[] intersects] )</h3>
@@ -399,7 +430,8 @@
 			[parameter:Intersection[] intersects] - The intersects.
 		</p>
 		<p>
-			
+			Abstract (empty) method to get intersections between a casted ray and this object.<br />
+			Subclasses such as [page:Mesh Mesh], [page:Line Line], and [page:Points Points] implement this method in order to use raycasting.
 		</p>
 
 		<h3>[method:Object3D remove](  [param:Object3D[] object] )</h3>
@@ -408,7 +440,7 @@
 			[parameter:Object3D[] object] - The object.
 		</p>
 		<p>
-			Removes object as child of this object.
+			Removes *object* as child of this object. An arbitrary number of objects may be removed.
 		</p>
 
 		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )</h3>
@@ -443,7 +475,8 @@
 			[parameter:number angle] - The angle in radians.
 		</p>
 		<p>
-			Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.
+			Rotate an object along an axis in world space. The axis is assumed to be normalized.<br />
+			Method Assumes no rotated parent.
 		</p>
 
 		<h3>[method:Object3D rotateX](  [param:number angle] )</h3>
@@ -480,8 +513,7 @@
 			[parameter:number angle] - angle in radians
 		</p>
 		<p>
-			axis -- A normalized vector in object space.<br />
-			angle -- angle in radians
+			Calls [page:Quaternion.setFromAxisAngle setFromAxisAngle]( [page:Float axis], [page:Float angle] ) on the *.quaternion*.
 		</p>
 
 		<h3>[method:void setRotationFromEuler](  [param:Euler euler] )</h3>
@@ -490,7 +522,7 @@
 			[parameter:Euler euler] - Euler angle specifying rotation amount.
 		</p>
 		<p>
-			Calls setRotationFromEuler(euler) on the .quaternion.
+			Calls [page:Quaternion.setRotationFromEuler setRotationFromEuler]( [page:Euler euler]) on the *.quaternion*.
 		</p>
 
 		<h3>[method:void setRotationFromMatrix](  [param:Matrix4 m] )</h3>
@@ -499,7 +531,7 @@
 			[parameter:Matrix4 m] - rotate the quaternion by the rotation component of the matrix.
 		</p>
 		<p>
-			Calls setFromRotationMatrix(m) on the .quaternion.<br />
+			Calls [page:Quaternion.setFromRotationMatrix setFromRotationMatrix]( [page:Matrix4 m]) on the *.quaternion*.<br />
 			Note that this assumes that the upper 3x3 of m is a pure rotation matrix (i.e, unscaled).
 		</p>
 
@@ -509,7 +541,7 @@
 			[parameter:Quaternion q] - normalized Quaternion
 		</p>
 		<p>
-			Copy the given quaternion into .quaternion.
+			Copy the given quaternion into *.quaternion*.
 		</p>
 
 		<h3>[method:any toJSON](  [param:any meta]? )</h3>
@@ -537,7 +569,7 @@
 			[parameter:number distance] - Distance.
 		</p>
 		<p>
-			Translates object along x axis by distance.
+			Translates object along x axis in object space by *distance* units.
 		</p>
 
 		<h3>[method:Object3D translateY](  [param:number distance] )</h3>
@@ -546,7 +578,7 @@
 			[parameter:number distance] - Distance.
 		</p>
 		<p>
-			Translates object along y axis by distance.
+			Translates object along y axis in object space by *distance* units.
 		</p>
 
 		<h3>[method:Object3D translateZ](  [param:number distance] )</h3>
@@ -555,39 +587,43 @@
 			[parameter:number distance] - Distance.
 		</p>
 		<p>
-			Translates object along z axis by distance.
+			Translates object along z axis in object space by *distance* units.
 		</p>
 
 		<h3>[method:void traverse](  [param:any callback] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:any callback] - The callback.
+			[parameter:any callback] - A function with as first argument an object3D object.
 		</p>
 		<p>
-			
+			Executes the callback on this object and all descendants.<br />
+			Note: Modifying the scene graph inside the callback is discouraged.
 		</p>
 
 		<h3>[method:void traverseAncestors](  [param:any callback] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:any callback] - The callback.
+			[parameter:any callback] - A function with as first argument an object3D object.
 		</p>
 		<p>
-			
+			Executes the callback on all ancestors.<br />
+			Note: Modifying the scene graph inside the callback is discouraged.
 		</p>
 
 		<h3>[method:void traverseVisible](  [param:any callback] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:any callback] - The callback.
+			[parameter:any callback] - A function with as first argument an object3D object.
 		</p>
 		<p>
-			
+			Like traverse, but the callback will only be executed for visible objects.<br />
+			Descendants of invisible objects are not traversed.<br />
+			Note: Modifying the scene graph inside the callback is discouraged.
 		</p>
 
 		<h3>[method:void updateMatrix](  )</h3>
 		<p>
-			Updates local transform.
+			Updates the local transform.
 		</p>
 
 		<h3>[method:void updateMatrixWorld](  [param:boolean force]? )</h3>
@@ -596,7 +632,7 @@
 			[parameter:boolean force] - (optional) The force.
 		</p>
 		<p>
-			Updates global transform of the object and its children.
+			Updates the global transform of the object and its descendants.
 		</p>
 
 		<h3>[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] )</h3>
@@ -612,10 +648,10 @@
 		<h3>[method:Vector3 worldToLocal](  [param:Vector3 vector] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 vector] - A world vector.
+			[parameter:Vector3 vector] - A vector representing a position in world space.
 		</p>
 		<p>
-			Updates the vector from world space to local space.
+			Converts the vector from world space to this object's local space.
 		</p>
 
 

@@ -10,7 +10,14 @@
 		<h1>Quaternion</h1>
 
 		<p class="desc">
-			Implementation of a quaternion. This is used for rotating things without incurring in the dreaded gimbal lock issue, amongst other advantages.
+			Implementation of a [quaternion](http://en.wikipedia.org/wiki/Quaternion).<br />
+			Quaternions are used in three.js to represent [rotations](https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation).<br />
+			<code data-type="javascript"><br />
+			const quaternion = new THREE.Quaternion();<br />
+			quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), Math.PI / 2 );<br />
+			const vector = new THREE.Vector3( 1, 0, 0 );<br />
+			vector.applyQuaternion( quaternion );<br />
+			</code>
 		</p>
 
 		<h2>Constructor</h2>
@@ -34,22 +41,22 @@
 
 		<h3>[property:number w]</h3>
 		<p>
-			
+			w coordinate
 		</p>
 
 		<h3>[property:number x]</h3>
 		<p>
-			
+			x coordinate
 		</p>
 
 		<h3>[property:number y]</h3>
 		<p>
-			
+			y coordinate
 		</p>
 
 		<h3>[property:number z]</h3>
 		<p>
-			
+			z coordinate
 		</p>
 
 		<h2>Methods</h2>
@@ -73,17 +80,17 @@
 			[parameter:Quaternion q] - The q.
 		</p>
 		<p>
-			
+			Returns : Returns the angle between this quaternion and quaternion [page:Quaternion q] in radians.
 		</p>
 
 		<h3>[method:Quaternion clone](  )</h3>
 		<p>
-			Clones this quaternion.
+			Creates a new Quaternion with identical *.x*, *.y*, *.z* and *.w* properties to this one.
 		</p>
 
 		<h3>[method:Quaternion conjugate](  )</h3>
 		<p>
-			
+			Returns : Returns the rotational conjugate of this quaternion. The conjugate of a quaternion represents the same rotation in the opposite direction about the rotational axis.
 		</p>
 
 		<h3>[method:Quaternion copy](  [param:Quaternion q] )</h3>
@@ -92,7 +99,7 @@
 			[parameter:Quaternion q] - The q.
 		</p>
 		<p>
-			Copies values of q to this quaternion.
+			Copies the *.x*, *.y*,	*.z* and *.w* properties of [page:Quaternion q] into this quaternion.
 		</p>
 
 		<h3>[method:number dot](  [param:Quaternion v] )</h3>
@@ -101,31 +108,31 @@
 			[parameter:Quaternion v] - The v.
 		</p>
 		<p>
-			
+			Calculates the [link:https://en.wikipedia.org/wiki/Dot_product dot product] of quaternions [page:Quaternion v] and this one.
 		</p>
 
 		<h3>[method:boolean equals](  [param:Quaternion v] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Quaternion v] - The v.
+			[parameter:Quaternion v] - Quaternion that this quaternion will be compared to.
 		</p>
 		<p>
-			
+			Compares the *.x*, *.y*,	*.z* and *.w* properties of [page:Quaternion v] to the equivalent properties of this quaternion to determine if they represent the same rotation.
 		</p>
 
-		<h3>[method:Quaternion fromArray](  [param:ArrayLike|number[] array],  [param:number offset]? )</h3>
+		<h3>[method:Quaternion fromBufferAttribute](  [param:BufferAttribute attribute],  [param:number index]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:ArrayLike|number[] array] - the source array or array-like.<br />
-			[parameter:number offset] - (optional) (optional) offset into the array. Default is 0.
+			[parameter:BufferAttribute attribute] - the source attribute.<br />
+			[parameter:number index] - (optional) index in the attribute.
 		</p>
 		<p>
-			Sets this quaternion's x, y, z and w value from the provided array or array-like.
+			Sets *.x*, *.y*, *.z*, *.w* properties of this quaternion from the [page:BufferAttribute attribute].
 		</p>
 
 		<h3>[method:Quaternion identity](  )</h3>
 		<p>
-			
+			Sets this quaternion to the identity quaternion; that is, to the quaternion that represents "no rotation".
 		</p>
 
 		<h3>[method:Quaternion inverse](  )</h3>
@@ -135,17 +142,17 @@
 
 		<h3>[method:Quaternion invert](  )</h3>
 		<p>
-			Inverts this quaternion.
+			Inverts this quaternion - calculates the *.conjugate*. The quaternion is assumed to have unit length.
 		</p>
 
 		<h3>[method:number length](  )</h3>
 		<p>
-			Computes length of this quaternion.
+			Computes the [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean length] (straight-line length) of this quaternion, considered as a 4 dimensional vector.
 		</p>
 
 		<h3>[method:number lengthSq](  )</h3>
 		<p>
-			
+			Computes the squared [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean length] (straight-line length) of this quaternion, considered as a 4 dimensional vector. This can be useful if you are comparing the lengths of two quaternions, as this is a slightly more efficient calculation than *.length*().
 		</p>
 
 		<h3>[method:Quaternion multiply](  [param:Quaternion q] )</h3>
@@ -154,7 +161,7 @@
 			[parameter:Quaternion q] - The q.
 		</p>
 		<p>
-			Multiplies this quaternion by b.
+			Multiplies this quaternion by [page:Quaternion q].
 		</p>
 
 		<h3>[method:Quaternion multiplyQuaternions](  [param:Quaternion a],  [param:Quaternion b] )</h3>
@@ -164,8 +171,8 @@
 			[parameter:Quaternion b] - The b.
 		</p>
 		<p>
-			Sets this quaternion to a x b<br />
-			Adapted from http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm.
+			Sets this quaternion to [page:Quaternion a] x [page:Quaternion b].<br />
+			Adapted from the method outlined [link:http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm here].
 		</p>
 
 		<h3>[method:number[] multiplyQuaternionsFlat](  [param:number[] dst],  [param:number dstOffset],  [param:number[] src0],  [param:number srcOffset],  [param:number[] src1],  [param:number stcOffset1] )</h3>
@@ -193,7 +200,7 @@
 
 		<h3>[method:Quaternion normalize](  )</h3>
 		<p>
-			Normalizes this quaternion.
+			[link:https://en.wikipedia.org/wiki/Normalized_vector Normalizes] this quaternion - that is, calculated the quaternion that performs the same rotation as this one, but has  *.length* equal to *1*.
 		</p>
 
 		<h3>[method:Quaternion premultiply](  [param:Quaternion q] )</h3>
@@ -202,19 +209,21 @@
 			[parameter:Quaternion q] - The q.
 		</p>
 		<p>
-			
+			Pre-multiplies this quaternion by [page:Quaternion q].
 		</p>
 
 		<h3>[method:Quaternion random](  )</h3>
 		<p>
-			
+			Sets this quaternion to a uniformly random, normalized quaternion.
 		</p>
 
 		<h3>[method:Quaternion rotateTowards](  [param:Quaternion q],  [param:number step] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Quaternion q] - The q.<br />
-			[parameter:number step] - The step.
+			[parameter:Quaternion q] - The target quaternion.<br />
+			[parameter:number step] - The angular step in radians.
+Rotates this quaternion by a given angular step to the defined quaternion *q*.
+The method ensures that the final quaternion will not overshoot *q*.
 		</p>
 		<p>
 			
@@ -229,7 +238,7 @@
 			[parameter:number w] - The w.
 		</p>
 		<p>
-			Sets values of this quaternion.
+			Sets *.x*, *.y*, *.z*, *.w* properties of this quaternion.
 		</p>
 
 		<h3>[method:Quaternion setFromAxisAngle](  [param:Vector3 axis],  [param:number angle] )</h3>
@@ -239,9 +248,9 @@
 			[parameter:number angle] - The angle.
 		</p>
 		<p>
-			Sets this quaternion from rotation specified by axis and angle.<br />
-			Adapted from http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm.<br />
-			Axis have to be normalized, angle is in radians.
+			Sets this quaternion from rotation specified by [page:Vector3 axis] and [page:Float angle].<br />
+			Adapted from the method [link:http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm here].<br />
+			*Axis* is assumed to be normalized, *angle* is in radians.
 		</p>
 
 		<h3>[method:Quaternion setFromEuler](  [param:Euler euler],  [param:boolean update]? )</h3>
@@ -251,16 +260,17 @@
 			[parameter:boolean update] - (optional) The update.
 		</p>
 		<p>
-			Sets this quaternion from rotation specified by Euler angles.
+			Sets this quaternion from the rotation specified by [page:Euler Euler] angle.
 		</p>
 
 		<h3>[method:Quaternion setFromRotationMatrix](  [param:Matrix4 m] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Matrix4 m] - The m.
+			[parameter:Matrix4 m] - a [Matrix4](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Matrix4) of which the upper 3x3 of matrix is a pure [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix) (i.e. unscaled).
 		</p>
 		<p>
-			Sets this quaternion from rotation component of m. Adapted from http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm.
+			Sets this quaternion from rotation component of [page:Matrix4 m].<br />
+			Adapted from the method [link:http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm here].
 		</p>
 
 		<h3>[method:Quaternion setFromUnitVectors](  [param:Vector3 vFrom],  [param:Vector3 vTo] )</h3>
@@ -270,13 +280,18 @@
 			[parameter:Vector3 vTo] - The v to.
 		</p>
 		<p>
-			
+			Sets this quaternion to the rotation required to rotate direction vector [page:Vector3 vFrom] to direction vector [page:Vector3 vTo].<br />
+			Adapted from the method [link:http://lolengine.net/blog/2013/09/18/beautiful-maths-quaternion-from-vectors here].<br />
+			[page:Vector3 vFrom] and [page:Vector3 vTo] are assumed to be normalized.
 		</p>
 
 		<h3>[method:number slerp](  [param:Quaternion qb],  [param:number t],  [param:Quaternion qa],  [param:Quaternion qb],  [param:Quaternion qm],  [param:number t] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Quaternion qb] - The qb.<br />
+			[parameter:Quaternion qb] - interpolation factor in the closed interval [0, 1].
+Handles the spherical linear interpolation between quaternions. [t](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) represents the amount of rotation between this quaternion (where [t](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) is 0) and [qb](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Quaternion) (where [t](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) is 1). This quaternion is set to the result. Also see the static version of the *slerp* below.
+// rotate a mesh towards a target quaternion
+mesh.quaternion.slerp( endQuaternion, 0.01 );<br />
 			[parameter:number t] - The t.<br />
 			[parameter:Quaternion qa] - The qa.<br />
 			[parameter:Quaternion qb] - The qb.<br />
@@ -290,13 +305,14 @@
 		<h3>[method:Quaternion slerpFlat](  [param:number[] dst],  [param:number dstOffset],  [param:number[] src0],  [param:number srcOffset],  [param:number[] src1],  [param:number stcOffset1],  [param:number t] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number[] dst] - The dst.<br />
-			[parameter:number dstOffset] - The dst offset.<br />
-			[parameter:number[] src0] - The src0.<br />
+			[parameter:number[] dst] - The output array.<br />
+			[parameter:number dstOffset] - An offset into the output array.<br />
+			[parameter:number[] src0] - The source array of the starting quaternion.<br />
 			[parameter:number srcOffset] - The src offset.<br />
-			[parameter:number[] src1] - The src1.<br />
+			[parameter:number[] src1] - The source array of the target quatnerion.<br />
 			[parameter:number stcOffset1] - The stc offset1.<br />
-			[parameter:number t] - The t.
+			[parameter:number t] - Normalized interpolation factor (between 0 and 1).
+Like the static *slerp* method above, but operates directly on flat arrays of numbers.
 		</p>
 		<p>
 			
@@ -310,14 +326,14 @@
 			[parameter:number t] - The t.
 		</p>
 		<p>
-			
+			Performs a spherical linear interpolation between the given quaternions and stores the result in this quaternion.
 		</p>
 
 		<h3>[method:ArrayLike toArray](  [param:number[] array]?,  [param:number offset]?,  [param:ArrayLike array],  [param:number offset]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number[] array] - (optional) (optional) array to store the quaternion to. If this is not provided, a new array will be created.<br />
-			[parameter:number offset] - (optional) (optional) optional offset into the array.<br />
+			[parameter:number[] array] - (optional) array of format (x, y, z, w) used to construct the quaternion.<br />
+			[parameter:number offset] - (optional) an offset into the array.<br />
 			[parameter:ArrayLike array] - array-like to store the quaternion to.<br />
 			[parameter:number offset] - (optional) (optional) optional offset into the array.
 		</p>
@@ -325,6 +341,16 @@
 			Copies x, y, z and w into the provided array-like.<br />
 			<br />
 			Returns : The provided array-like.
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
 		</p>
 
 

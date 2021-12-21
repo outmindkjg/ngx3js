@@ -10,15 +10,16 @@
 		<h1>Plane</h1>
 
 		<p class="desc">
-			
+			A two dimensional surface that extends infinitely in 3d space, represented in [link:http://mathworld.wolfram.com/HessianNormalForm.html Hessian normal form]<br />
+			by a unit length normal vector and a constant.
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:Plane Plane](  [param:Vector3 normal]?,  [param:number constant]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 normal] - (optional) The normal.<br />
-			[parameter:number constant] - (optional) The constant.
+			[parameter:Vector3 normal] - (optional) a unit length [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) defining the normal of the plane. Default is *(1, 0, 0)*.<br />
+			[parameter:number constant] - (optional) the signed distance from the origin to the plane. Default is *0*.
 		</p>
 		<p>
 			
@@ -27,7 +28,7 @@
 		<h2>Properties</h2>
 		<h3>[property:number constant]</h3>
 		<p>
-			
+			the signed distance from the origin to the plane. Default is *0*.
 		</p>
 
 		<h3>[property:any isPlane]</h3>
@@ -37,15 +38,18 @@
 
 		<h3>[property:Vector3 normal]</h3>
 		<p>
-			
+			a unit length [page:Vector3 Vector3] defining the normal of the plane. Default is *(1, 0, 0)*.
 		</p>
 
 		<h2>Methods</h2>
 		<h3>[method:Plane applyMatrix4](  [param:Matrix4 matrix],  [param:Matrix3 optionalNormalMatrix]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Matrix4 matrix] - The matrix.<br />
-			[parameter:Matrix3 optionalNormalMatrix] - (optional) The optional normal matrix.
+			[parameter:Matrix4 matrix] - the [Page:Matrix4] to apply.<br />
+			[parameter:Matrix3 optionalNormalMatrix] - (optional) pre-computed normal [Page:Matrix3] of the Matrix4 being applied.
+Apply a Matrix4 to the plane. The matrix must be an affine, homogeneous transform.
+If supplying an [optionalNormalMatrix](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Matrix3), it can be created like so:
+const optionalNormalMatrix = new THREE.Matrix3().getNormalMatrix( matrix );
 		</p>
 		<p>
 			
@@ -53,16 +57,16 @@
 
 		<h3>[method:Plane clone](  )</h3>
 		<p>
-			
+			Returns : Returns a new plane with the same *.normal* and *.constant* as this one.
 		</p>
 
 		<h3>[method:Vector3 coplanarPoint](  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - The target.
+			[parameter:Vector3 target] - the result will be copied into this Vector3.
 		</p>
 		<p>
-			
+			Returns : Returns a [page:Vector3 Vector3] coplanar to the plane, by calculating the projection of the normal vector at the origin onto the plane.
 		</p>
 
 		<h3>[method:Plane copy](  [param:Plane plane] )</h3>
@@ -71,7 +75,8 @@
 			[parameter:Plane plane] - The plane.
 		</p>
 		<p>
-			
+			Copies the values of the passed plane's *.normal* and *.constant*<br />
+			properties to this plane.
 		</p>
 
 		<h3>[method:number distanceToPoint](  [param:Vector3 point] )</h3>
@@ -80,7 +85,7 @@
 			[parameter:Vector3 point] - The point.
 		</p>
 		<p>
-			
+			Returns : Returns the signed distance from the [page:Vector3 point] to the plane.
 		</p>
 
 		<h3>[method:number distanceToSphere](  [param:Sphere sphere] )</h3>
@@ -89,7 +94,7 @@
 			[parameter:Sphere sphere] - The sphere.
 		</p>
 		<p>
-			
+			Returns : Returns the signed distance from the [page:Sphere sphere] to the plane.
 		</p>
 
 		<h3>[method:boolean equals](  [param:Plane plane] )</h3>
@@ -98,23 +103,24 @@
 			[parameter:Plane plane] - The plane.
 		</p>
 		<p>
-			
+			Checks to see if two planes are equal (their *.normal* and *.constant* properties match).
 		</p>
 
 		<h3>[method:Vector3 intersectLine](  [param:Line3 line],  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Line3 line] - The line.<br />
-			[parameter:Vector3 target] - The target.
+			[parameter:Line3 line] - the [Line3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Line3) to check for intersection.<br />
+			[parameter:Vector3 target] - the result will be copied into this Vector3.
 		</p>
 		<p>
-			
+			Returns : Returns the intersection point of the passed line and the plane. Returns null  if the line does not intersect. Returns the line's starting point if the line is  coplanar with the plane.
 		</p>
 
 		<h3>[method:boolean intersectsBox](  [param:Box3 box] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Box3 box] - The box.
+			[parameter:Box3 box] - the [Box3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Box3) to check for intersection.
+Determines whether or not this plane intersects [box](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Box3).
 		</p>
 		<p>
 			
@@ -123,7 +129,8 @@
 		<h3>[method:boolean intersectsLine](  [param:Line3 line] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Line3 line] - The line.
+			[parameter:Line3 line] - the [Line3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Line3) to check for intersection.
+Tests whether a line segment intersects with (passes through) the plane.
 		</p>
 		<p>
 			
@@ -132,7 +139,8 @@
 		<h3>[method:boolean intersectsSphere](  [param:Sphere sphere] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Sphere sphere] - The sphere.
+			[parameter:Sphere sphere] - the [Sphere](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Sphere) to check for intersection.
+Determines whether or not this plane intersects [sphere](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Sphere).
 		</p>
 		<p>
 			
@@ -149,12 +157,13 @@
 
 		<h3>[method:Plane negate](  )</h3>
 		<p>
-			
+			Negates both the normal vector and the constant.
 		</p>
 
 		<h3>[method:Plane normalize](  )</h3>
 		<p>
-			
+			Normalizes the *.normal* vector, and adjusts the *.constant*<br />
+			value accordingly.
 		</p>
 
 		<h3>[method:Vector3 orthoPoint](  [param:Vector3 point],  [param:Vector3 target] )</h3>
@@ -164,69 +173,70 @@
 			[parameter:Vector3 target] - The target.
 		</p>
 		<p>
-			
+			Returns : point
 		</p>
 
 		<h3>[method:Vector3 projectPoint](  [param:Vector3 point],  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 point] - The point.<br />
-			[parameter:Vector3 target] - The target.
+			[parameter:Vector3 point] - the [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) to project onto the plane.<br />
+			[parameter:Vector3 target] - the result will be copied into this Vector3.
 		</p>
 		<p>
-			
+			Projects a [page:Vector3 point] onto the plane.
 		</p>
 
 		<h3>[method:Plane set](  [param:Vector3 normal],  [param:number constant] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 normal] - The normal.<br />
-			[parameter:number constant] - The constant.
+			[parameter:Vector3 normal] - a unit length [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) defining the normal of the plane.<br />
+			[parameter:number constant] - the signed distance from the origin to the plane. Default is *0*.
 		</p>
 		<p>
-			
+			Sets this plane's *.normal* and *.constant* properties by copying the values from the given normal.
 		</p>
 
 		<h3>[method:Plane setComponents](  [param:number x],  [param:number y],  [param:number z],  [param:number w] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number x] - The x.<br />
-			[parameter:number y] - The y.<br />
-			[parameter:number z] - The z.<br />
-			[parameter:number w] - The w.
+			[parameter:number x] - x value of the unit length normal vector.<br />
+			[parameter:number y] - y value of the unit length normal vector.<br />
+			[parameter:number z] - z value of the unit length normal vector.<br />
+			[parameter:number w] - the value of the plane's *.constant* property.
 		</p>
 		<p>
-			
+			Set the individual components that define the plane.
 		</p>
 
 		<h3>[method:Plane setFromCoplanarPoints](  [param:Vector3 a],  [param:Vector3 b],  [param:Vector3 c] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 a] - The a.<br />
-			[parameter:Vector3 b] - The b.<br />
-			[parameter:Vector3 c] - The c.
+			[parameter:Vector3 a] - first point on the plane.<br />
+			[parameter:Vector3 b] - second point on the plane.<br />
+			[parameter:Vector3 c] - third point on the plane.
 		</p>
 		<p>
-			
+			Defines the plane based on the 3 provided points. The winding order is assumed to be counter-clockwise, and determines the direction of the *.normal*.
 		</p>
 
 		<h3>[method:Plane setFromNormalAndCoplanarPoint](  [param:Vector3 normal],  [param:Vector3 point] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 normal] - The normal.<br />
-			[parameter:Vector3 point] - The point.
+			[parameter:Vector3 normal] - a unit length [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) defining the normal of the plane.<br />
+			[parameter:Vector3 point] - [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3)
 		</p>
 		<p>
-			
+			Sets the plane's properties as defined by a [page:Vector3 normal] and an arbitrary coplanar [page:Vector3 point].
 		</p>
 
 		<h3>[method:Plane translate](  [param:Vector3 offset] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 offset] - The offset.
+			[parameter:Vector3 offset] - the amount to move the plane by.
 		</p>
 		<p>
-			
+			Translates the plane by the distance defined by the [page:Vector3 offset] vector.<br />
+			Note that this only affects the plane constant and will not affect the normal vector.
 		</p>
 
 

@@ -10,64 +10,64 @@
 		<h1>Triangle</h1>
 
 		<p class="desc">
-			
+			A geometric triangle as defined by three [page:Vector3 Vector3s] representing its three corners.
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:Triangle Triangle](  [param:Vector3 a]?,  [param:Vector3 b]?,  [param:Vector3 c]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 a] - (optional) The a.<br />
-			[parameter:Vector3 b] - (optional) The b.<br />
-			[parameter:Vector3 c] - (optional) The c.
+			[parameter:Vector3 a] - (optional) the first corner of the triangle. Default is a [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) at (0, 0, 0).<br />
+			[parameter:Vector3 b] - (optional) the second corner of the triangle. Default is a [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) at (0, 0, 0).<br />
+			[parameter:Vector3 c] - (optional) the final corner of the triangle. Default is a [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) at (0, 0, 0).
 		</p>
 		<p>
-			
+			Creates a new Triangle.
 		</p>
 
 		<h2>Properties</h2>
 		<h3>[property:Vector3 a]</h3>
 		<p>
-			
+			The first corner of the triangle. Default is a [page:Vector3 Vector3] at (0, 0, 0).
 		</p>
 
 		<h3>[property:Vector3 b]</h3>
 		<p>
-			
+			The second corner of the triangle. Default is a [page:Vector3 Vector3] at (0, 0, 0).
 		</p>
 
 		<h3>[property:Vector3 c]</h3>
 		<p>
-			
+			the final corner of the triangle. Default is a [page:Vector3 Vector3] at (0, 0, 0)
 		</p>
 
 		<h2>Methods</h2>
 		<h3>[method:Triangle clone](  )</h3>
 		<p>
-			
+			Returns : Returns a new triangle with the same *.a*, *.b* and  *.c* properties as this one.
 		</p>
 
 		<h3>[method:Vector3 closestPointToPoint](  [param:Vector3 point],  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 point] - The point.<br />
-			[parameter:Vector3 target] - The target.
+			[parameter:Vector3 point] - [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3)<br />
+			[parameter:Vector3 target] - the result will be copied into this Vector3.
 		</p>
 		<p>
-			
+			Returns : Returns the closest point on the triangle to [page:Vector3 point].
 		</p>
 
 		<h3>[method:boolean containsPoint](  [param:Vector3 point],  [param:Vector3 point],  [param:Vector3 a],  [param:Vector3 b],  [param:Vector3 c] )</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 point] - The point.<br />
-			[parameter:Vector3 point] - The point.<br />
+			[parameter:Vector3 point] - [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) to check.<br />
 			[parameter:Vector3 a] - The a.<br />
 			[parameter:Vector3 b] - The b.<br />
 			[parameter:Vector3 c] - The c.
 		</p>
 		<p>
-			
+			Returns : Returns true if the passed point, when projected onto the plane of the triangle, lies within the triangle.
 		</p>
 
 		<h3>[method:Triangle copy](  [param:Triangle triangle] )</h3>
@@ -76,7 +76,7 @@
 			[parameter:Triangle triangle] - The triangle.
 		</p>
 		<p>
-			
+			Copies the values of the passed triangles's *.a*, *.b* and *.c* properties to this triangle.
 		</p>
 
 		<h3>[method:boolean equals](  [param:Triangle triangle] )</h3>
@@ -85,19 +85,19 @@
 			[parameter:Triangle triangle] - The triangle.
 		</p>
 		<p>
-			
+			Returns : Returns true if the two triangles have identical *.a*, *.b* and *.c* properties.
 		</p>
 
 		<h3>[method:number getArea](  )</h3>
 		<p>
-			
+			Returns : Return the area of the triangle.
 		</p>
 
 		<h3>[method:Vector3 getBarycoord](  [param:Vector3 point],  [param:Vector3 target],  [param:Vector3 point],  [param:Vector3 a],  [param:Vector3 b],  [param:Vector3 c],  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 point] - The point.<br />
-			[parameter:Vector3 target] - The target.<br />
+			[parameter:Vector3 point] - [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3)<br />
+			[parameter:Vector3 target] - the result will be copied into this Vector3.<br />
 			[parameter:Vector3 point] - The point.<br />
 			[parameter:Vector3 a] - The a.<br />
 			[parameter:Vector3 b] - The b.<br />
@@ -105,38 +105,38 @@
 			[parameter:Vector3 target] - The target.
 		</p>
 		<p>
-			
+			Returns : barycoord
 		</p>
 
 		<h3>[method:Vector3 getMidpoint](  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - The target.
+			[parameter:Vector3 target] - the result will be copied into this Vector3.
 		</p>
 		<p>
-			
+			Calculate the midpoint of the triangle.
 		</p>
 
 		<h3>[method:Vector3 getNormal](  [param:Vector3 target],  [param:Vector3 a],  [param:Vector3 b],  [param:Vector3 c],  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - The target.<br />
+			[parameter:Vector3 target] - the result will be copied into this Vector3.<br />
 			[parameter:Vector3 a] - The a.<br />
 			[parameter:Vector3 b] - The b.<br />
 			[parameter:Vector3 c] - The c.<br />
 			[parameter:Vector3 target] - The target.
 		</p>
 		<p>
-			
+			Returns : normal
 		</p>
 
 		<h3>[method:Plane getPlane](  [param:Plane target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Plane target] - The target.
+			[parameter:Plane target] - the result will be copied into this Plane.
 		</p>
 		<p>
-			
+			Calculate a [page:Plane plane] based on the triangle. .
 		</p>
 
 		<h3>[method:Vector2 getUV](  [param:Vector3 point],  [param:Vector2 uv1],  [param:Vector2 uv2],  [param:Vector2 uv3],  [param:Vector2 target],  [param:Vector3 point],  [param:Vector3 p1],  [param:Vector3 p2],  [param:Vector3 p3],  [param:Vector2 uv1],  [param:Vector2 uv2],  [param:Vector2 uv3],  [param:Vector2 target] )</h3>
@@ -157,16 +157,16 @@
 			[parameter:Vector2 target] - The target.
 		</p>
 		<p>
-			
+			Returns : uv
 		</p>
 
 		<h3>[method:boolean intersectsBox](  [param:Box3 box] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Box3 box] - The box.
+			[parameter:Box3 box] - Box to check for intersection against.
 		</p>
 		<p>
-			
+			Determines whether or not this triangle intersects [page:Box3 box].
 		</p>
 
 		<h3>[method:boolean isFrontFacing](  [param:Vector3 direction],  [param:Vector3 a],  [param:Vector3 b],  [param:Vector3 c],  [param:Vector3 direction] )</h3>
@@ -179,7 +179,7 @@
 			[parameter:Vector3 direction] - The direction.
 		</p>
 		<p>
-			
+			Returns : true if front facing
 		</p>
 
 		<h3>[method:Triangle set](  [param:Vector3 a],  [param:Vector3 b],  [param:Vector3 c] )</h3>
@@ -190,7 +190,8 @@
 			[parameter:Vector3 c] - The c.
 		</p>
 		<p>
-			
+			Sets the triangle's *.a*, *.b* and *.c* properties to the passed [page:Vector3 vector3s].<br />
+			Please note that this method only copies the values from the given objects.
 		</p>
 
 		<h3>[method:Triangle setFromAttributeAndIndices](  [param:BufferAttribute|InterleavedBufferAttribute attribute],  [param:number i0],  [param:number i1],  [param:number i2] )</h3>
@@ -202,7 +203,10 @@
 			[parameter:number i2] - The i2.
 		</p>
 		<p>
-			
+			attribute - [page:BufferAttribute BufferAttribute] of vertex data<br />
+			i0 - [page:Integer Integer] index<br />
+			i1 - [page:Integer Integer] index<br />
+			i2 - [page:Integer Integer] index Sets the triangle's vertices from the buffer attribute vertex data.
 		</p>
 
 		<h3>[method:Triangle setFromPointsAndIndices](  [param:Vector3[] points],  [param:number i0],  [param:number i1],  [param:number i2] )</h3>
@@ -214,7 +218,10 @@
 			[parameter:number i2] - The i2.
 		</p>
 		<p>
-			
+			points - [page:Array Array] of [page:Vector3 Vector3]s<br />
+			i0 - [page:Integer Integer] index<br />
+			i1 - [page:Integer Integer] index<br />
+			i2 - [page:Integer Integer] index Sets the triangle's vectors to the vectors in the array.
 		</p>
 
 

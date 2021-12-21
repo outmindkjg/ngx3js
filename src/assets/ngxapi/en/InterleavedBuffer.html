@@ -10,15 +10,21 @@
 		<h1>InterleavedBuffer</h1>
 
 		<p class="desc">
-			see {@link https://github.com/mrdoob/three.js/blob/master/src/core/InterleavedBuffer.js|src/core/InterleavedBuffer.js}
+			"Interleaved" means that multiple attributes, possibly of different types, (e.g., position, normal, uv, color) are packed into a single array buffer.<br />
+			An introduction into interleaved arrays can be found here: [Interleaved array basics](https://blog.tojicode.com/2011/05/interleaved-array-basics.html)<br />
+			<br />
+			<h3>Preview - webgl / buffergeometry / points / interleaved</h3><br />
+			<iframe src="#/viewer/webgl_buffergeometry_points_interleaved"></iframe><br />
+			<br />
+			[example:webgl_buffergeometry_points_interleaved webgl / buffergeometry / points / interleaved]
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:InterleavedBuffer InterleavedBuffer](  [param:ArrayLike array],  [param:number stride] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:ArrayLike array] - The array.<br />
-			[parameter:number stride] - The stride.
+			[parameter:ArrayLike array] - A typed array with a shared buffer. Stores the geometry data.<br />
+			[parameter:number stride] - The number of typed-array elements per vertex.
 		</p>
 		<p>
 			
@@ -27,12 +33,12 @@
 		<h2>Properties</h2>
 		<h3>[property:ArrayLike array]</h3>
 		<p>
-			
+			A typed array with a shared buffer. Stores the geometry data.
 		</p>
 
 		<h3>[property:number count]</h3>
 		<p>
-			
+			Gives the total number of elements in the array.
 		</p>
 
 		<h3>[property:number length]</h3>
@@ -42,32 +48,32 @@
 
 		<h3>[property:boolean needsUpdate]</h3>
 		<p>
-			
+			Default is *false*. Setting this to true increments [page:InterleavedBuffer.version version].
 		</p>
 
 		<h3>[property:number stride]</h3>
 		<p>
-			
+			The number of typed-array elements per vertex.
 		</p>
 
 		<h3>[property:any updateRange]</h3>
 		<p>
-			
+			Object containing offset and count.
 		</p>
 
 		<h3>[property:Usage usage]</h3>
 		<p>
-			
+			Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the *usage* parameter of [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().
 		</p>
 
 		<h3>[property:string uuid]</h3>
 		<p>
-			
+			[link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this instance. This gets automatically assigned, so this shouldn't be edited.
 		</p>
 
 		<h3>[property:number version]</h3>
 		<p>
-			
+			A version number, incremented every time the needsUpdate property is set to true.
 		</p>
 
 		<h2>Methods</h2>
@@ -77,7 +83,8 @@
 			[parameter:object data] - The data.
 		</p>
 		<p>
-			
+			data - This object holds shared array buffers required for properly cloning geometries with interleaved attributes.<br />
+			Creates a clone of this [name].
 		</p>
 
 		<h3>[method:InterleavedBuffer copy](  [param:InterleavedBuffer source] )</h3>
@@ -86,7 +93,7 @@
 			[parameter:InterleavedBuffer source] - The source.
 		</p>
 		<p>
-			
+			Copies another [name] to this [name].
 		</p>
 
 		<h3>[method:InterleavedBuffer copyAt](  [param:number index1],  [param:InterleavedBufferAttribute attribute],  [param:number index2] )</h3>
@@ -97,7 +104,7 @@
 			[parameter:number index2] - The index2.
 		</p>
 		<p>
-			
+			Copies data from attribute[index2] to [page:InterleavedBuffer.array array][index1].
 		</p>
 
 		<h3>[method:InterleavedBuffer set](  [param:ArrayLike value],  [param:number index] )</h3>
@@ -107,7 +114,9 @@
 			[parameter:number index] - The index.
 		</p>
 		<p>
-			
+			value - The source (typed) array.<br />
+			offset - The offset into the target array at which to begin writing values from the source array. Default is *0*.<br />
+			Stores multiple values in the buffer, reading input values from a specified array.
 		</p>
 
 		<h3>[method:InterleavedBuffer setUsage](  [param:Usage usage] )</h3>
@@ -116,7 +125,7 @@
 			[parameter:Usage usage] - The usage.
 		</p>
 		<p>
-			
+			Set [page:InterleavedBuffer.usage usage] to value.
 		</p>
 
 		<h3>[method:void toJSON](  [param:object data] )</h3>
@@ -125,7 +134,8 @@
 			[parameter:object data] - The data.
 		</p>
 		<p>
-			
+			data - This object holds shared array buffers required for properly serializing geometries with interleaved attributes.<br />
+			Serializes this [name].
 		</p>
 
 

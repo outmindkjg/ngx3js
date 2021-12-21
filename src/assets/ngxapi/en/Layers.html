@@ -10,72 +10,79 @@
 		<h1>Layers</h1>
 
 		<p class="desc">
-			
+			A [Layers](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Layers) object assigns an [Object3D](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Object3D) to 1 or more of 32 layers numbered 0 to 31 - internally the layers are stored as a [bit mask](https://en.wikipedia.org/wiki/Mask_(computing)), and by default all Object3Ds are a member of layer 0.<br />
+			This can be used to control visibility - an object must share a layer with a [camera](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Camera) to be visible when that camera's view is rendered.<br />
+			All classes that inherit from [Object3D](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Object3D) have an [Object3D.layers](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Object3D.layers) property which is an instance of this class.<br />
+			<br />
+			<h3>Preview - WebGL / layers</h3><br />
+			<iframe src="#/viewer/webgl_layers"></iframe><br />
+			<br />
+			[example:webgl_layers WebGL / layers]
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:Layers Layers](  )</h3>
 		<p>
-			
+			Create a new Layers object, with membership initially set to layer 0.
 		</p>
 
 		<h2>Properties</h2>
 		<h3>[property:number mask]</h3>
 		<p>
-			
+			A bit mask storing which of the 32 layers this layers object is currently a member of.
 		</p>
 
 		<h2>Methods</h2>
 		<h3>[method:void disable](  [param:number channel] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number channel] - The channel.
+			[parameter:number channel] - an integer from 0 to 31.
 		</p>
 		<p>
-			
+			Remove membership of this *layer*.
 		</p>
 
 		<h3>[method:void disableAll](  )</h3>
 		<p>
-			
+			Remove membership from all layers.
 		</p>
 
 		<h3>[method:void enable](  [param:number channel] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number channel] - The channel.
+			[parameter:number channel] - an integer from 0 to 31.
 		</p>
 		<p>
-			
+			Add membership of this *layer*.
 		</p>
 
 		<h3>[method:void enableAll](  )</h3>
 		<p>
-			
+			Add membership to all layers.
 		</p>
 
 		<h3>[method:boolean isEnabled](  [param:number channel] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number channel] - The channel.
+			[parameter:number channel] - an integer from 0 to 31.
 		</p>
 		<p>
-			
+			Returns : Returns true if the given layer is enabled.
 		</p>
 
 		<h3>[method:void set](  [param:number channel] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number channel] - The channel.
+			[parameter:number channel] - an integer from 0 to 31.
 		</p>
 		<p>
-			
+			Set membership to *layer*, and remove membership all other layers.
 		</p>
 
 		<h3>[method:boolean test](  [param:Layers layers] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Layers layers] - The layers.
+			[parameter:Layers layers] - a Layers object Returns true if this and the passed *layers* object have at least one layer in common.
 		</p>
 		<p>
 			
@@ -84,10 +91,10 @@
 		<h3>[method:void toggle](  [param:number channel] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number channel] - The channel.
+			[parameter:number channel] - an integer from 0 to 31.
 		</p>
 		<p>
-			
+			Toggle membership of *layer*.
 		</p>
 
 
