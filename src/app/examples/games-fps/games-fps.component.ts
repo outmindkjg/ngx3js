@@ -100,8 +100,8 @@ export class GamesFpsComponent extends NgxBaseComponent<{}> {
 				if (child['isMesh']) {
 					child.castShadow = true;
 					child.receiveShadow = true;
-					if (child['material'].map) {
-						child['material'].map.anisotropy = 8;
+					if ((child['material'] as any).map) {
+						(child['material'] as any).map.anisotropy = 8;
 					}
 				}
 			});

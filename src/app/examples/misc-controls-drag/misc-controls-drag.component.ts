@@ -65,7 +65,7 @@ export class MiscControlsDragComponent extends NgxBaseComponent<{}> {
 							...this.group.children,
 						]);
 						if (intersection !== null && intersection.object !== null) {
-							const object = intersection.object;
+							const object = intersection.object as any;
 							const group = this.group;
 							if (group.children.includes(object) === true) {
 								object['material'].emissive.set(0x000000);

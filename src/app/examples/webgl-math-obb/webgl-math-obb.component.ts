@@ -90,13 +90,13 @@ export class WebglMathObbComponent extends NgxBaseComponent<{}> {
 				const obb = child.userData.obb as I3JS.OBB;
 				obb.copy(this.geometryObb);
 				obb.applyMatrix4(child.matrixWorld as any);
-				const material = child['material'] ;
+				const material = child['material'] as any;
 				material.color.setHex(0x00ff00);
 			});
 			for (let i = 0, il = this.meshChildren.length; i < il; i++) {
 				const object = this.meshChildren[i];
 				const obb = object.userData.obb as any;
-				const objectMaterial = object['material'] ;
+				const objectMaterial = object['material'] as any;
 				for (let j = i + 1, jl = this.meshChildren.length; j < jl; j++) {
 					const objectToTest = this.meshChildren[j];
 					const obbToTest = objectToTest.userData.obb;
@@ -104,7 +104,7 @@ export class WebglMathObbComponent extends NgxBaseComponent<{}> {
 						objectMaterial.color.setHex(0xff0000);
 						const objectTestMaterial = objectToTest[
 							'material'
-						] ;
+						] as any;
 						objectTestMaterial.color.setHex(0xff0000);
 					}
 				}

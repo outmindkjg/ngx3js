@@ -49,7 +49,7 @@ export class WebglMathOrientationTransformComponent extends NgxBaseComponent<{}>
 	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.corn !== null && this.target !== null) {
-			const targetMaterial = this.target['material'] ;
+			const targetMaterial = this.target['material'] as any ;
 			if (!this.corn.quaternion.equals(this.targetQuaternion)) {
 				const delta = timer.delta;
 				const step = 2 * delta;
