@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
+import { I3JS, IRendererTimer, NgxBaseComponent, NgxMeshComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-css2d-label',

@@ -13,7 +13,19 @@
 
 		<p class="desc">
 			2D vector.<br />
-			( class Vector2 extends Vector&lt;Vector2&gt; )
+			( class Vector2 extends Vector&lt;Vector2&gt; )<br />
+			<br />
+			Class representing a 2D vector. A 2D vector is an ordered pair of numbers (labeled x and y), which can be used to represent a number of things, such as: A point in 2D space (i.e. a position on a plane).<br />
+			A direction and length across a plane. In three.js the length will always be the Euclidean distance (straight-line distance) from (0, 0) to (x, y) and the direction is also measured from (0, 0) towards (x, y). Any arbitrary ordered pair of numbers.<br />
+			There are other things a 2D vector can be used to represent, such as momentum vectors, complex numbers and so on, however these are the most common uses in three.js.<br />
+			Iterating through a Vector2 instance will yield its components (x, y) in the corresponding order.<br />
+			<br />
+			<code data-type="javascript"><br />
+			const a = new THREE.Vector2( 0, 1 );<br />
+			//no arguments; will be initialised to (0, 0)<br />
+			const b = new THREE.Vector2( );<br />
+			const d = a.distanceTo( b );<br />
+			</code>
 		</p>
 
 		<h2>Constructor</h2>
@@ -34,7 +46,7 @@
 
 		<h3>[property:number height]</h3>
 		<p>
-			
+			Alias for y
 		</p>
 
 		<h3>[property:any isVector2]</h3>
@@ -44,17 +56,17 @@
 
 		<h3>[property:number width]</h3>
 		<p>
-			
+			Alias for x
 		</p>
 
 		<h3>[property:number x]</h3>
 		<p>
-			
+			the x value of this vector. Default is *0*
 		</p>
 
 		<h3>[property:number y]</h3>
 		<p>
-			
+			the y value of this vector. Default is *0*.
 		</p>
 
 		<h2>Methods</h2>
@@ -191,7 +203,7 @@
 			[parameter:Vector2 v] - The v.
 		</p>
 		<p>
-			
+			deprecated - Use {@link Vector2#manhattanDistanceTo .manhattanDistanceTo()} instead.
 		</p>
 
 		<h3>[method:number distanceToSquared](  [param:Vector2 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -281,7 +293,7 @@
 
 		<h3>[method:number lengthManhattan](  )</h3>
 		<p>
-			
+			deprecated - Use {@link Vector2#manhattanLength .manhattanLength()} instead.
 		</p>
 
 		<h3>[method:number lengthSq](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -404,7 +416,9 @@
 			[parameter:number y] - The y.
 		</p>
 		<p>
-			Sets value of this vector.
+			Sets value of this vector.<br />
+			<br />
+			Returns : set
 		</p>
 
 		<h3>[method:Vector2 setComponent](  [param:number index],  [param:number value] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -432,7 +446,9 @@
 			[parameter:number scalar] - The scalar.
 		</p>
 		<p>
-			Sets the x and y values of this vector both equal to scalar.
+			Sets the x and y values of this vector both equal to scalar.<br />
+			<br />
+			Returns : scalar
 		</p>
 
 		<h3>[method:Vector2 setX](  [param:number x] )</h3>
@@ -441,7 +457,9 @@
 			[parameter:number x] - The x.
 		</p>
 		<p>
-			Sets X component of this vector.
+			Sets X component of this vector.<br />
+			<br />
+			Returns : x
 		</p>
 
 		<h3>[method:Vector2 setY](  [param:number y] )</h3>

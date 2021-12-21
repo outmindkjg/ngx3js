@@ -161,8 +161,9 @@ export class DocsComponent implements OnInit {
 	];
 
 	loadedPageInfo: { [key: string]: string } = {};
+	ngxLoadedPageInfo: { [key: string]: string } = {};
 
-	changePage(url: string) {
+	changePage(url: string, pageUrl : string = '') {
 		let pageName = '';
 		let hashTag = '';
 		if (url.indexOf('.') > 0) {
@@ -173,51 +174,19 @@ export class DocsComponent implements OnInit {
 		} else {
 			pageName = url;
 		}
-		switch (pageName) {
-			case 'TODO':
-				break;
-			default:
-				break;
-		}
-		if (this.loadedPageInfo[pageName] !== undefined) {
+		if (pageUrl.startsWith('ngxapi/') && this.ngxLoadedPageInfo[pageName] !== undefined) {
+			let viewUrl = this.ngxLoadedPageInfo[pageName];
+			this.router.navigateByUrl(viewUrl + (hashTag != '' ? '.' + hashTag : ''));
+			this.checkSearch('');
+		} else  if (this.loadedPageInfo[pageName] !== undefined) {
 			let viewUrl = this.loadedPageInfo[pageName];
 			this.router.navigateByUrl(viewUrl + (hashTag != '' ? '.' + hashTag : ''));
 			this.checkSearch('');
 		} else {
 			switch (pageName) {
-				case 'ApplyMatrix4':
-				case 'CssStyle':
-				case 'CurvesParameters':
-				case 'GuiBaseControl':
-				case 'GuiControlParam':
-				case 'LoadedNameMap':
-				case 'LoadedObject':
-				case 'RendererEvent':
-				case 'RendererInfo':
-				case 'RendererTimer':
-				case 'StorageExportOption':
-				case 'StorageOption':
-				case 'TagAttributes':
-				case 'TextureOption':
-				case 'ThreeGuiController':
-				case 'ThreeColor':
-				case 'ThreeTexture':
-				case 'ThreeUniform':
-				case 'ThreeUniforms':
-					try {
-						this.router.navigateByUrl('/docs/ngxapi/en/NgxThreeUtil.' + pageName);
-					} catch (ex: any) {}
-					break;
 				default:
-					const char2 = pageName[1];
-					if ((pageName.startsWith('I') ||  pageName.startsWith('E') || pageName.startsWith('T')) && char2 == char2.toUpperCase() ) {
-						try {
-							this.router.navigateByUrl('/docs/ngxapi/en/I3JS.' + pageName);
-						} catch (ex: any) {}
-					} else if (pageName.startsWith('examples/')) {
+					if (pageName.startsWith('examples/')) {
 						this.router.navigateByUrl(pageName);
-					} else {
-						console.log(this.loadedPageInfo, pageName);
 					}
 					break;
 			}
@@ -484,7 +453,11 @@ export class DocsComponent implements OnInit {
 				saveUrl = '/' + url;
 			}
 			const urlInfos = url.split('/');
-			this.loadedPageInfo[urlInfos[urlInfos.length - 1]] = saveUrl;
+			if (url.startsWith('ngxapi/')) {
+				this.ngxLoadedPageInfo[urlInfos[urlInfos.length - 1]] = saveUrl;
+			}  else {
+				this.loadedPageInfo[urlInfos[urlInfos.length - 1]] = saveUrl;
+			}
 			const itemTags = [];
 			name.split(' ').forEach((key) => {
 				if (parentId !== key && tags.indexOf(key) === -1) {

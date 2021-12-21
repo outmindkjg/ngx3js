@@ -6,14 +6,15 @@
 				"Installation": "ngxmanual/en/introduction/Installation",
 				"FAQ": "ngxmanual/en/introduction/FAQ",
 				"Useful links": "ngxmanual/en/introduction/Useful-links"
+			},
+			"NameSpace & Module": {
+				"I3JS": "ngxapi/en/I3JS",
+				"THREE": "ngxapi/en/THREE",
+				"AMMO": "ngxapi/en/AMMO",
+				"Ngx3JsModule": "ngxapi/en/Ngx3JsModule"
 			}
 		},
 		"ngx - Reference": {
-			"NameSpace": {
-				"I3JS": "ngxapi/en/I3JS",
-				"THREE": "ngxapi/en/THREE",
-				"AMMO": "ngxapi/en/AMMO"
-			},
 			"Abstract": {
 				"AbstractGeometryComponent": "ngxapi/en/AbstractGeometryComponent",
 				"AbstractMaterialComponent": "ngxapi/en/AbstractMaterialComponent",
@@ -28,9 +29,17 @@
 				"NgxAbstractObject3dComponent": "ngxapi/en/NgxAbstractObject3dComponent",
 				"NgxAbstractSubscribeComponent": "ngxapi/en/NgxAbstractSubscribeComponent",
 				"NgxAbstractTextureComponent": "ngxapi/en/NgxAbstractTextureComponent",
-				"NgxAbstractTweenComponent": "ngxapi/en/NgxAbstractTweenComponent"
+				"NgxAbstractTweenComponent": "ngxapi/en/NgxAbstractTweenComponent",
+				"NgxAbstractObject3dDirective": "ngxapi/en/NgxAbstractObject3dDirective",
+				"NgxAbstractThreeDirective": "ngxapi/en/NgxAbstractThreeDirective",
+				"NgxAbstractThreeController": "ngxapi/en/NgxAbstractThreeController",
+				"NgxAutoMaterialController": "ngxapi/en/NgxAutoMaterialController",
+				"NgxAutoPositionController": "ngxapi/en/NgxAutoPositionController",
+				"NgxAutoRotationController": "ngxapi/en/NgxAutoRotationController",
+				"NgxAutoScaleController": "ngxapi/en/NgxAutoScaleController",
+				"NgxAutoUniformsController": "ngxapi/en/NgxAutoUniformsController"
 			},
-			"curves": {
+			"Curves": {
 				"NgxCurveComponent": "ngxapi/en/NgxCurveComponent",
 				"CurvesCinquefoilKnot": "ngxapi/en/CurvesCinquefoilKnot",
 				"CurvesDecoratedTorusKnot4a": "ngxapi/en/CurvesDecoratedTorusKnot4a",
@@ -119,15 +128,12 @@
 				"CurvesRegularPolygonUndecagon": "ngxapi/en/CurvesRegularPolygonUndecagon",
 				"CurvesRollerCoaster": "ngxapi/en/CurvesRollerCoaster"
 			},
-			"directive": {
+			"Directive": {
 				"DrawingCanvasDirective": "ngxapi/en/DrawingCanvasDirective",
 				"NumberDirective": "ngxapi/en/NumberDirective",
 				"PositionDirective": "ngxapi/en/PositionDirective",
 				"RotateDirective": "ngxapi/en/RotateDirective",
 				"ScaleDirective": "ngxapi/en/ScaleDirective"
-			},
-			"ngx3js.module": {
-				"Ngx3JsModule": "ngxapi/en/Ngx3JsModule"
 			},
 			"Chart": {
 				"NgxAbstractChartComponent": "ngxapi/en/NgxAbstractChartComponent",
@@ -145,22 +151,12 @@
 				"NgxChartScatterComponent": "ngxapi/en/NgxChartScatterComponent",
 				"NgxChartTitleComponent": "ngxapi/en/NgxChartTitleComponent"
 			},
-			"abstract controller": {
-				"NgxAbstractObject3dDirective": "ngxapi/en/NgxAbstractObject3dDirective",
-				"NgxAbstractThreeDirective": "ngxapi/en/NgxAbstractThreeDirective",
-				"NgxAbstractThreeController": "ngxapi/en/NgxAbstractThreeController",
-				"NgxAutoMaterialController": "ngxapi/en/NgxAutoMaterialController",
-				"NgxAutoPositionController": "ngxapi/en/NgxAutoPositionController",
-				"NgxAutoRotationController": "ngxapi/en/NgxAutoRotationController",
-				"NgxAutoScaleController": "ngxapi/en/NgxAutoScaleController",
-				"NgxAutoUniformsController": "ngxapi/en/NgxAutoUniformsController"
-			},
-			"pipe": {
+			"Pipe": {
 				"NgxAnglePipe": "ngxapi/en/NgxAnglePipe",
 				"NgxColorPipe": "ngxapi/en/NgxColorPipe",
 				"NgxAssetsPipe": "ngxapi/en/NgxAssetsPipe"
 			},
-			"component": {
+			"Component": {
 				"NgxAudioComponent": "ngxapi/en/NgxAudioComponent",
 				"NgxBackgroundComponent": "ngxapi/en/NgxBackgroundComponent",
 				"NgxBaseComponent": "ngxapi/en/NgxBaseComponent",
@@ -168,7 +164,6 @@
 				"NgxCapsuleGeometry": "ngxapi/en/NgxCapsuleGeometry",
 				"NgxClipComponent": "ngxapi/en/NgxClipComponent",
 				"NgxControllerComponent": "ngxapi/en/NgxControllerComponent",
-				"NgxControlComponent": "ngxapi/en/NgxControlComponent",
 				"NgxControllerItemComponent": "ngxapi/en/NgxControllerItemComponent",
 				"NgxToolsComponent": "ngxapi/en/NgxToolsComponent",
 				"NgxTransformComponent": "ngxapi/en/NgxTransformComponent",
@@ -184,7 +179,6 @@
 				"NgxMeshComponent": "ngxapi/en/NgxMeshComponent",
 				"NgxMixerComponent": "ngxapi/en/NgxMixerComponent",
 				"NgxPlaneComponent": "ngxapi/en/NgxPlaneComponent",
-				"NgxPlaneControls": "ngxapi/en/NgxPlaneControls",
 				"NgxPositionComponent": "ngxapi/en/NgxPositionComponent",
 				"NgxRotationComponent": "ngxapi/en/NgxRotationComponent",
 				"NgxScaleComponent": "ngxapi/en/NgxScaleComponent",
@@ -198,7 +192,7 @@
 				"NgxThreeUtil": "ngxapi/en/NgxThreeUtil",
 				"ViewerCanvas": "ngxapi/en/ViewerCanvas"
 			},
-			"loaders": {
+			"Loaders": {
 				"NgxLocalStorageService": "ngxapi/en/NgxLocalStorageService",
 				"AMFLoader": "ngxapi/en/AMFLoader",
 				"AnimationLoader": "ngxapi/en/AnimationLoader",
@@ -267,8 +261,7 @@
 				"VTKLoader": "ngxapi/en/VTKLoader",
 				"XYZLoader": "ngxapi/en/XYZLoader"
 			},
-
-			"webxr": {
+			"Webxr": {
 				"NgxAVRControls": "ngxapi/en/NgxAVRControls",
 				"VirtualSession": "ngxapi/en/VirtualSession",
 				"ARButton": "ngxapi/en/ARButton",
@@ -281,8 +274,7 @@
 				"XRHandModelFactory": "ngxapi/en/XRHandModelFactory",
 				"XRHandPrimitiveModel": "ngxapi/en/XRHandPrimitiveModel"
 			},
-
-			"postprocessing": {
+			"Postprocessing": {
 				"NgxPassComponent": "ngxapi/en/NgxPassComponent",
 				"AdaptiveToneMappingPass": "ngxapi/en/AdaptiveToneMappingPass",
 				"AfterimagePass": "ngxapi/en/AfterimagePass",
@@ -314,8 +306,7 @@
 				"TexturePass": "ngxapi/en/TexturePass",
 				"UnrealBloomPass": "ngxapi/en/UnrealBloomPass"
 			},
-
-			"shaders": {
+			"Shaders": {
 				"NgxShaderComponent": "ngxapi/en/NgxShaderComponent",
 				"ShaderUtils": "ngxapi/en/ShaderUtils",
 				"AfterimageShader": "ngxapi/en/AfterimageShader",
@@ -384,7 +375,7 @@
 				"WaterRefractionShader": "ngxapi/en/WaterRefractionShader"
 			},
 
-			"lights": {
+			"Lights": {
 				"NgxLightComponent": "ngxapi/en/NgxLightComponent",
 				"AmbientLight": "ngxapi/en/AmbientLight",
 				"AmbientLightProbe": "ngxapi/en/AmbientLightProbe",
@@ -399,7 +390,7 @@
 				"SpotLight": "ngxapi/en/SpotLight"
 			},
 
-			"physics": {
+			"Physics": {
 				"NgxPhysicsComponent": "ngxapi/en/NgxPhysicsComponent",
 				"NgxPhysicsConstraintComponent": "ngxapi/en/NgxPhysicsConstraintComponent",
 				"NgxRigidbodyComponent": "ngxapi/en/NgxRigidbodyComponent",
@@ -408,7 +399,7 @@
 				"OimoPhysics" : "ngxapi/en/OimoPhysics"
 			},
 
-			"effects": {
+			"Effects": {
 				"AnaglyphEffect": "ngxapi/en/AnaglyphEffect",
 				"AsciiEffect": "ngxapi/en/AsciiEffect",
 				"OutlineEffect": "ngxapi/en/OutlineEffect",
@@ -417,7 +408,7 @@
 				"StereoEffect": "ngxapi/en/StereoEffect"
 			},
 
-			"animation": {
+			"Animation": {
 				"NgxKeyframeComponent": "ngxapi/en/NgxKeyframeComponent",
 				"NgxAnimationGroupComponent": "ngxapi/en/NgxAnimationGroupComponent",
 				"AnimationClip": "ngxapi/en/AnimationClip",
@@ -439,7 +430,7 @@
 				"VectorKeyframeTrack": "ngxapi/en/VectorKeyframeTrack"
 			},
 
-			"extras": {
+			"Extras": {
 				"ArcCurve": "ngxapi/en/ArcCurve",
 				"CatmullRomCurve3": "ngxapi/en/CatmullRomCurve3",
 				"CubicBezierCurve": "ngxapi/en/CubicBezierCurve",
@@ -464,9 +455,10 @@
 				"ShapeUtils": "ngxapi/en/ShapeUtils",
 				"SplineCurve": "ngxapi/en/SplineCurve"
 			},
-
-			"controls": {
+			"Controls": {
+				"NgxControlComponent": "ngxapi/en/NgxControlComponent",
 				"NgxSelectBoxControls": "ngxapi/en/NgxSelectBoxControls",
+				"NgxPlaneControls": "ngxapi/en/NgxPlaneControls",
 				"ArcballControls": "ngxapi/en/ArcballControls",
 				"DragControls": "ngxapi/en/DragControls",
 				"FirstPersonControls": "ngxapi/en/FirstPersonControls",
@@ -477,8 +469,7 @@
 				"TrackballControls": "ngxapi/en/TrackballControls",
 				"TransformControls": "ngxapi/en/TransformControls"
 			},
-
-			"cameras": {
+			"Cameras": {
 				"ArrayCamera": "ngxapi/en/ArrayCamera",
 				"Camera": "ngxapi/en/Camera",
 				"CinematicCamera": "ngxapi/en/CinematicCamera",
@@ -494,7 +485,7 @@
 				"NgxPerspectiveCamera": "ngxapi/en/NgxPerspectiveCamera",
 				"NgxStereoCamera": "ngxapi/en/NgxStereoCamera"
 			},
-			"helpers": {
+			"Helpers": {
 				"NgxHelperComponent": "ngxapi/en/NgxHelperComponent",
 				"ArrowHelper": "ngxapi/en/ArrowHelper",
 				"AxesHelper": "ngxapi/en/AxesHelper",
@@ -515,8 +506,7 @@
 				"VertexNormalsHelper": "ngxapi/en/VertexNormalsHelper",
 				"VertexTangentsHelper": "ngxapi/en/VertexTangentsHelper"
 			},
-
-			"libs": {
+			"Libs": {
 				"AsyncDecompress": "ngxapi/en/AsyncDecompress",
 				"AsyncDeflate": "ngxapi/en/AsyncDeflate",
 				"AsyncGunzip": "ngxapi/en/AsyncGunzip",
@@ -547,7 +537,7 @@
 				"unzip": "ngxapi/en/unzip",
 				"unzipSync": "ngxapi/en/unzipSync"
 			},
-			"nodes": {
+			"Nodes": {
 				"AttributeNode": "ngxapi/en/AttributeNode",
 				"BasicNode": "ngxapi/en/BasicNode",
 				"BasicNodeMaterial": "ngxapi/en/BasicNodeMaterial",
@@ -621,14 +611,13 @@
 				"Vector4Node": "ngxapi/en/Vector4Node",
 				"VelocityNode": "ngxapi/en/VelocityNode"
 			},
-
-			"audio": {
+			"Audio": {
 				"NgxListenerComponent": "ngxapi/en/NgxListenerComponent",
 				"Audio": "ngxapi/en/Audio",
-				"AudioAnalyser": "ngxapi/en/AudioAnalyser",
-				"AudioContext": "ngxapi/en/AudioContext",
+				"PositionalAudio": "ngxapi/en/PositionalAudio",
 				"AudioListener": "ngxapi/en/AudioListener",
-				"PositionalAudio": "ngxapi/en/PositionalAudio"
+				"AudioAnalyser": "ngxapi/en/AudioAnalyser",
+				"AudioContext": "ngxapi/en/AudioContext"
 			},
 			"objects": {
 				"NgxHTMLMesh": "ngxapi/en/NgxHTMLMesh",
@@ -658,14 +647,12 @@
 				"Water": "ngxapi/en/Water",
 				"Water2": "ngxapi/en/Water2"
 			},
-
 			"math": {
 				"Box2": "ngxapi/en/Box2",
 				"Box3": "ngxapi/en/Box3",
 				"Capsule": "ngxapi/en/Capsule",
 				"Color": "ngxapi/en/Color",
 				"ColorConverter": "ngxapi/en/ColorConverter",
-				"ColorRepresentation": "ngxapi/en/ColorRepresentation",
 				"ConvexHull": "ngxapi/en/ConvexHull",
 				"CubicInterpolant": "ngxapi/en/CubicInterpolant",
 				"Cylindrical": "ngxapi/en/Cylindrical",
@@ -693,11 +680,8 @@
 				"SphericalHarmonics3": "ngxapi/en/SphericalHarmonics3",
 				"Triangle": "ngxapi/en/Triangle",
 				"Vector2": "ngxapi/en/Vector2",
-				"Vector2Tuple": "ngxapi/en/Vector2Tuple",
 				"Vector3": "ngxapi/en/Vector3",
-				"Vector3Tuple": "ngxapi/en/Vector3Tuple",
-				"Vector4": "ngxapi/en/Vector4",
-				"Vector4Tuple": "ngxapi/en/Vector4Tuple"
+				"Vector4": "ngxapi/en/Vector4"
 			},
 
 			"geometries": {
