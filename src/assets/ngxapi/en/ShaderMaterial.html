@@ -12,22 +12,22 @@
 		<h1>ShaderMaterial</h1>
 
 		<p class="desc">
-			A material rendered with custom shaders. A shader is a small program written in [GLSL](https://www.khronos.org/files/opengles_shading_language.pdf) that runs on the GPU.<br />
+			A material rendered with custom shaders. A shader is a small program written in [link:https://www.khronos.org/files/opengles_shading_language.pdf GLSL] that runs on the GPU.<br />
 			You may want to use a custom shader if you need to:<br />
-			implement an effect not included with any of the built-in [materials](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Material)<br />
-			combine many objects into a single [BufferGeometry](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BufferGeometry) in order to improve performance<br />
+			implement an effect not included with any of the built-in [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Material materials]<br />
+			combine many objects into a single [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BufferGeometry BufferGeometry] in order to improve performance<br />
 			There are the following notes to bear in mind when using a <i>ShaderMaterial</i>:<br />
-			A <i>ShaderMaterial</i> will only be rendered properly by [WebGLRenderer](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/WebGLRenderer),<br />
-			since the GLSL code in the [vertexShader](https://en.wikipedia.org/wiki/Shader#Vertex_shaders)<br />
-			and [fragmentShader](https://en.wikipedia.org/wiki/Shader#Pixel_shaders) properties must be compiled and run on the GPU using WebGL.<br />
+			A <i>ShaderMaterial</i> will only be rendered properly by [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/WebGLRenderer WebGLRenderer],<br />
+			since the GLSL code in the [link:https://en.wikipedia.org/wiki/Shader#Vertex_shaders vertexShader]<br />
+			and [link:https://en.wikipedia.org/wiki/Shader#Pixel_shaders fragmentShader] properties must be compiled and run on the GPU using WebGL.<br />
 			As of THREE r72, directly assigning attributes in a ShaderMaterial is no longer supported.<br />
-			A [BufferGeometry](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BufferGeometry) instance  must be used instead, using [BufferAttribute](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BufferAttribute) instances to define custom attributes.<br />
-			As of THREE r77, [WebGLRenderTarget](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/WebGLRenderTarget) or [WebGLCubeRenderTarget](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/WebGLCubeRenderTarget) instances are no longer supposed to be used as uniforms. Their [texture](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Texture) property must be used instead.<br />
+			A [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BufferGeometry BufferGeometry] instance  must be used instead, using [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BufferAttribute BufferAttribute] instances to define custom attributes.<br />
+			As of THREE r77, [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/WebGLRenderTarget WebGLRenderTarget] or [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/WebGLCubeRenderTarget WebGLCubeRenderTarget] instances are no longer supposed to be used as uniforms. Their [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Texture texture] property must be used instead.<br />
 			Built in attributes and uniforms are passed to the shaders along with your code.<br />
-			If you don't want the [WebGLProgram](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/WebGLProgram) to add anything to your shader code, you can use [RawShaderMaterial](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/RawShaderMaterial) instead of this class.<br />
+			If you don't want the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/WebGLProgram WebGLProgram] to add anything to your shader code, you can use [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/RawShaderMaterial RawShaderMaterial] instead of this class.<br />
 			You can use the directive #pragma unroll_loop_start and #pragma unroll_loop_end in order to unroll a <i>for</i> loop in GLSL by the shader preprocessor.<br />
 			The directive has to be placed right above the loop. The loop formatting has to correspond to a defined standard.<br />
-			The loop has to be [normalized](https://en.wikipedia.org/wiki/Normalized_loop).<br />
+			The loop has to be [link:https://en.wikipedia.org/wiki/Normalized_loop normalized].<br />
 			The loop variable has to be <i>i</i>.<br />
 			The value <i>UNROLLED_LOOP_INDEX</i> will be replaced with the explicitly value of <i>i</i> for the given iteration and can be used in preprocessor statements.<br />
 			<br />

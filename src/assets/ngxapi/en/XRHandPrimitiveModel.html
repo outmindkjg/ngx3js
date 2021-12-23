@@ -121,7 +121,7 @@
 			[property:number renderOrder] - This value allows the default rendering order of [link:https://en.wikipedia.org/wiki/Scene_graph scene graph] objects to be overridden although opaque and transparent objects remain sorted independently. When this property is set for an instance of [page:Group Group], all descendants objects will be sorted and rendered together.<br />
 			Sorting is from lowest to highest renderOrder. Default value is <i>0</i>.<br />
 			[property:Euler rotation] - Object's local rotation (see [link:https://en.wikipedia.org/wiki/Euler_angles Euler angles]), in radians.<br />
-			[property:Vector3 scale] - The object's local scale. Default is [page:Vector3 Vector3]( 1, 1, 1 ).<br />
+			[property:Vector3 scale] - The object's local scale. Default is [link: 1, 1, 1  page:Vector3 Vector3].<br />
 			[property:string type] -  The type.<br />
 			[property:Vector3 up] - This is used by the <i>.lookAt</i> method, for example, to determine the orientation of the result.<br />
 			Default is [page:Object3D.DefaultUp Object3D.DefaultUp] - that is, ( 0, 1, 0 ).<br />
@@ -176,9 +176,9 @@
 			[method:XRHandModel rotateX](  [param:number angle] ) - Rotates the object around x axis in local space.<br />
 			[method:XRHandModel rotateY](  [param:number angle] ) - Rotates the object around y axis in local space.<br />
 			[method:XRHandModel rotateZ](  [param:number angle] ) - Rotates the object around z axis in local space.<br />
-			[method:void setRotationFromAxisAngle](  [param:Vector3 axis],  [param:number angle] ) - Calls [page:Quaternion.setFromAxisAngle setFromAxisAngle]( [page:Float axis], [page:Float angle] ) on the <i>.quaternion</i>.<br />
-			[method:void setRotationFromEuler](  [param:Euler euler] ) - Calls [page:Quaternion.setRotationFromEuler setRotationFromEuler]( [page:Euler euler]) on the <i>.quaternion</i>.<br />
-			[method:void setRotationFromMatrix](  [param:Matrix4 m] ) - Calls [page:Quaternion.setFromRotationMatrix setFromRotationMatrix]( [page:Matrix4 m]) on the <i>.quaternion</i>.<br />
+			[method:void setRotationFromAxisAngle](  [param:Vector3 axis],  [param:number angle] ) - Calls [link: [page:Float axis], [page:Float angle]  page:Quaternion.setFromAxisAngle setFromAxisAngle] on the <i>.quaternion</i>.<br />
+			[method:void setRotationFromEuler](  [param:Euler euler] ) - Calls [link: [page:Euler euler] page:Quaternion.setRotationFromEuler setRotationFromEuler] on the <i>.quaternion</i>.<br />
+			[method:void setRotationFromMatrix](  [param:Matrix4 m] ) - Calls [link: [page:Matrix4 m] page:Quaternion.setFromRotationMatrix setFromRotationMatrix] on the <i>.quaternion</i>.<br />
 			Note that this assumes that the upper 3x3 of m is a pure rotation matrix (i.e, unscaled).<br />
 			[method:void setRotationFromQuaternion](  [param:Quaternion q] ) - Copy the given quaternion into <i>.quaternion</i>.<br />
 			[method:any toJSON](  [param:any meta]? ) <br />

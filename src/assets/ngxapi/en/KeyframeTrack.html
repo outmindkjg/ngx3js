@@ -10,9 +10,9 @@
 		<h1>KeyframeTrack</h1>
 
 		<p class="desc">
-			A KeyframeTrack is a timed sequence of [keyframes](https://en.wikipedia.org/wiki/Key_frame), which are composed of lists of times and related values, and which are used to animate a specific property of an object.<br />
+			A KeyframeTrack is a timed sequence of [link:https://en.wikipedia.org/wiki/Key_frame keyframes], which are composed of lists of times and related values, and which are used to animate a specific property of an object.<br />
 			For an overview of the different elements of the three.js animation system see the "Animation System" article in the "Next Steps" section of the manual.<br />
-			In contrast to the animation hierarchy of the [JSON model format](https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3) a <i>KeyframeTrack</i> doesn't store its single keyframes as objects in a "keys" array (holding the times and the values for each frame together in one place).<br />
+			In contrast to the animation hierarchy of the [link:https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3 JSON model format] a <i>KeyframeTrack</i> doesn't store its single keyframes as objects in a "keys" array (holding the times and the values for each frame together in one place).<br />
 			Instead of this there are always two arrays in a <i>KeyframeTrack</i>: the <i>.times</i> array stores the time values for all keyframes of this track in sequential order, and the <i>.values</i> array contains the corresponding changing values of the animated property.<br />
 			A single value, belonging to a certain point of time, can not only be a simple number, but (for example) a vector (if a position is animated) or a quaternion (if a rotation is animated). For this reason the values array (which is a flat array, too) might be three or four times as long as the times array.<br />
 			Corresponding to the different possible types of animated values there are several subclasses of <i>KeyframeTrack</i>, inheriting the most properties and methods:<br />
