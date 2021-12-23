@@ -32,10 +32,10 @@
 		<h3>[constructor:Vector4 Vector4](  [param:number x]?,  [param:number y]?,  [param:number z]?,  [param:number w]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number x] - (optional) The x value of this vector. Default is *0*.<br />
-			[parameter:number y] - (optional) The y value of this vector. Default is *0*.<br />
-			[parameter:number z] - (optional) The z value of this vector. Default is *0*.<br />
-			[parameter:number w] - (optional) The w value of this vector. Default is *1*.
+			[parameter:number x] - (optional) The x value of this vector. Default is <i>0</i>.<br />
+			[parameter:number y] - (optional) The y value of this vector. Default is <i>0</i>.<br />
+			[parameter:number z] - (optional) The z value of this vector. Default is <i>0</i>.<br />
+			[parameter:number w] - (optional) The w value of this vector. Default is <i>1</i>.
 		</p>
 		<p>
 			
@@ -141,8 +141,8 @@
 		<h3>[method:Vector4 clamp](  [param:Vector4 min],  [param:Vector4 max] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector4 min] - The minimum *.x*, *.y*, *.z* and *.w* values.<br />
-			[parameter:Vector4 max] - The maximum *.x*, *.y*, *.z* and *.w* values in the desired range If this vector's x, y, z or w value is greater than the max vector's x, y, z or w value, it is replaced by the corresponding value.
+			[parameter:Vector4 min] - The minimum <i>.x</i>, <i>.y</i>, <i>.z</i> and <i>.w</i> values.<br />
+			[parameter:Vector4 max] - The maximum <i>.x</i>, <i>.y</i>, <i>.z</i> and <i>.w</i> values in the desired range If this vector's x, y, z or w value is greater than the max vector's x, y, z or w value, it is replaced by the corresponding value.
 		</p>
 		<p>
 			If this vector's x, y, z or w value is less than the min vector's x, y, z or w value, it is replaced by the corresponding value.
@@ -207,7 +207,7 @@
 		</p>
 		<p>
 			Divides this vector by scalar [page:Float s].<br />
-			Sets vector to <i>( 0, 0, 0, 0 )</i> if <i>[page:Float s] = 0</i>.
+			Sets vector to *( 0, 0, 0, 0 )* if *[page:Float s] = 0*.
 		</p>
 
 		<h3>[method:number dot](  [param:Vector4 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -289,7 +289,7 @@
 		<h3>[method:Vector4 lerpVectors](  [param:Vector4 v1],  [param:Vector4 v2],  [param:number alpha] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector4 v1] - The starting [Vector4](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector4).<br />
+			[parameter:Vector4 v1] - The starting [page:Vector4 Vector4].<br />
 			[parameter:Vector4 v2] - Vector4 to interpolate towards.<br />
 			[parameter:number alpha] - The alpha.
 		</p>
@@ -378,7 +378,7 @@
 		<h3>[method:Vector4 setAxisAngleFromQuaternion](  [param:Quaternion q] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Quaternion q] - A normalized [Quaterion](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Quaterion)
+			[parameter:Quaternion q] - A normalized [page:Quaterion Quaterion]
 		</p>
 		<p>
 			Sets the <i>.x</i>, <i>.y</i> and <i>.z</i> components of this vector to the quaternion's axis and <i>.w</i> to the angle.
@@ -387,7 +387,7 @@
 		<h3>[method:Vector4 setAxisAngleFromRotationMatrix](  [param:Matrix4 m] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Matrix4 m] - (https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Matrix4) - a [Matrix4](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Matrix4) of which the upper left 3x3 matrix is a pure rotation matrix.
+			[parameter:Matrix4 m] - (https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Matrix4) - a [page:Matrix4 Matrix4] of which the upper left 3x3 matrix is a pure rotation matrix.
 		</p>
 		<p>
 			Sets the <i>.x</i>, <i>.y</i> and <i>.z</i> to the axis of rotation and <i>.w</i> to the angle.
@@ -556,7 +556,7 @@
 			[method:number distanceTo](  [param:Vector v] ) - Computes the distance from this vector to [page:Vector v].<br />
 			[method:number distanceToSquared](  [param:Vector v] ) - Computes the squared distance from this vector to [page:Vector v]. If you are just comparing the distance with another distance, you should compare the distance squared instead as it is slightly more efficient to calculate.<br />
 			[method:Vector divideScalar](  [param:number s] ) - Divides this vector by scalar [page:Float s].<br />
-			Sets vector to <i>( 0, 0 )</i> if [page:Float s] = 0.<br />
+			Sets vector to *( 0, 0 )* if [page:Float s] = 0.<br />
 			[method:number dot](  [param:Vector v] ) - Calculates the [link:https://en.wikipedia.org/wiki/Dot_product dot product] of this   vector and [page:Vector v].<br />
 			[method:boolean equals](  [param:Vector v] ) - equals(v:T):boolean;<br />
 			[method:number getComponent](  [param:number index] ) <br />

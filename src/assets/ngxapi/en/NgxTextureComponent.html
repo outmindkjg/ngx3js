@@ -73,7 +73,7 @@
 			&gt;&lt;/ngx3js-texture&gt;<br />
 			&lt;ngx3js-texture<br />
 				[image]="'textures/grid.png'"<br />
-				[wrap]="'RepeatWrapping'" [repeatX]="4 <i> 5" [repeatY]="3 </i> 5"<br />
+				[wrap]="'RepeatWrapping'" [repeatX]="4 * 5" [repeatY]="3 * 5"<br />
 			&gt;&lt;/ngx3js-texture&gt;<br />
 			&lt;ngx3js-texture<br />
 				[image]="'textures/patterns/circuit_pattern.png'"<br />
@@ -246,8 +246,8 @@
 
 		<h3>[property:string dataType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			This must correspond to the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/Texture.format .format]. The default is [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.UnsignedByteType], which will be used for most texture formats.<br />
-			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures texture constants] page for details of other formats.<br />
+			This must correspond to the [page:Texture.format .format]. The default is [page:Textures THREE.UnsignedByteType], which will be used for most texture formats.<br />
+			See the [page:Textures texture constants] page for details of other formats.<br />
 			Notice - case insensitive.<br />
 			<br />
 			[page:TextureDataType TextureDataType] - THREE.TextureDataType <br />
@@ -282,8 +282,8 @@
 
 		<h3>[property:string encoding]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			[link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.LinearEncoding] is the default.<br />
-			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures texture constants] page for details of other formats.<br />
+			[page:Textures THREE.LinearEncoding] is the default.<br />
+			See the [page:Textures texture constants] page for details of other formats.<br />
 			Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br />
 			Notice - case insensitive.<br />
 			<br />
@@ -321,8 +321,8 @@
 
 		<h3>[property:string format]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The default is [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.RGBAFormat], although the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/TextureLoader TextureLoader] will automatically set this to [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.RGBFormat] for JPG images.<br />
-			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures texture constants] page for details of other formats.<br />
+			The default is [page:Textures THREE.RGBAFormat], although the [page:TextureLoader TextureLoader] will automatically set this to [page:Textures THREE.RGBFormat] for JPG images.<br />
+			See the [page:Textures texture constants] page for details of other formats.<br />
 			Notice - case insensitive.<br />
 			<br />
 			[page:PixelFormat PixelFormat] - THREE.PixelFormat<br />
@@ -379,9 +379,9 @@
 		<h3>[property:string magFilter]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How the texture is sampled when a texel covers more than one pixel. The default is<br />
-			[link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.LinearFilter], which takes the four closest texels and bilinearly interpolates among them.<br />
-			The other option is [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.NearestFilter], which uses the value of the closest texel.<br />
-			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures texture constants] page for details.<br />
+			[page:Textures THREE.LinearFilter], which takes the four closest texels and bilinearly interpolates among them.<br />
+			The other option is [page:Textures THREE.NearestFilter], which uses the value of the closest texel.<br />
+			See the [page:Textures texture constants] page for details.<br />
 			Notice - case insensitive.<br />
 			<br />
 			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br />
@@ -395,8 +395,8 @@
 
 		<h3>[property:string mapping]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How the image is applied to the object. An object type of [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.UVMapping] is the default, where the U,V coordinates are used to apply the map.<br />
-			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures texture constants] page for other mapping types.<br />
+			How the image is applied to the object. An object type of [page:Textures THREE.UVMapping] is the default, where the U,V coordinates are used to apply the map.<br />
+			See the [page:Textures texture constants] page for other mapping types.<br />
 			Notice - case insensitive.<br />
 			<br />
 			[page:UVMapping UVMapping] - THREE.UVMapping               - UVMapping, uv<br />
@@ -412,8 +412,8 @@
 		<h3>[property:string minFilter]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How the texture is sampled when a texel covers less than one pixel. The default is<br />
-			[link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.LinearMipmapLinearFilter], which uses mipmapping and a trilinear filter.<br />
-			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures texture constants] page for all possible choices.<br />
+			[page:Textures THREE.LinearMipmapLinearFilter], which uses mipmapping and a trilinear filter.<br />
+			See the [page:Textures texture constants] page for all possible choices.<br />
 			Notice - case insensitive.<br />
 			<br />
 			[page:TextureFilter TextureFilter] - THREE.TextureFilter<br />
@@ -511,21 +511,21 @@
 		<h3>[property:number repeat]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to<br />
-			[link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.RepeatWrapping] or [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.MirroredRepeatWrapping] to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/Texture.offset Texture.offset].<br />
+			[page:Textures THREE.RepeatWrapping] or [page:Textures THREE.MirroredRepeatWrapping] to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [page:Texture.offset Texture.offset].<br />
 			The default value of repeatX , repeatY
 		</p>
 
 		<h3>[property:number repeatX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to<br />
-			[link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.RepeatWrapping] or [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.MirroredRepeatWrapping] to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/Texture.offset Texture.offset].<br />
+			[page:Textures THREE.RepeatWrapping] or [page:Textures THREE.MirroredRepeatWrapping] to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [page:Texture.offset Texture.offset].<br />
 			The value of repeat.x
 		</p>
 
 		<h3>[property:number repeatY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to<br />
-			[link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.RepeatWrapping] or [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.MirroredRepeatWrapping] to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/textures/Texture.offset Texture.offset].<br />
+			[page:Textures THREE.RepeatWrapping] or [page:Textures THREE.MirroredRepeatWrapping] to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like [page:Texture.offset Texture.offset].<br />
 			The value of repeat.y
 		</p>
 
@@ -624,9 +624,9 @@
 		<h3>[property:string wrap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			This defines how the texture is wrapped horizontally and corresponds to <i>U</i> in UV mapping.<br />
-			The default is [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.<br />
-			The other two choices are [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.RepeatWrapping] and [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.MirroredRepeatWrapping].<br />
-			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures texture constants] page for details.<br />
+			The default is [page:Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.<br />
+			The other two choices are [page:Textures THREE.RepeatWrapping] and [page:Textures THREE.MirroredRepeatWrapping].<br />
+			See the [page:Textures texture constants] page for details.<br />
 			The Default Value of wrapS, wrapT.<br />
 			<br />
 			Notice - case insensitive.<br />
@@ -639,9 +639,9 @@
 		<h3>[property:string wrapS]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			This defines how the texture is wrapped horizontally and corresponds to <i>U</i> in UV mapping.<br />
-			The default is [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.<br />
-			The other two choices are [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.RepeatWrapping] and [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures THREE.MirroredRepeatWrapping].<br />
-			See the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures texture constants] page for details.<br />
+			The default is [page:Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.<br />
+			The other two choices are [page:Textures THREE.RepeatWrapping] and [page:Textures THREE.MirroredRepeatWrapping].<br />
+			See the [page:Textures texture constants] page for details.<br />
 			Notice - case insensitive.<br />
 			<br />
 			[page:RepeatWrapping RepeatWrapping] - THREE.RepeatWrapping         - RepeatWrapping, wraprepeat, repeat<br />

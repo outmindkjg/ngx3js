@@ -934,7 +934,7 @@
 			[property:WebGLRenderTarget mapPass] - The distribution map generated using the internal camera; an occlusion is calculated based on the distribution of depths. Computed internally during rendering.<br />
 			[property:Vector2 mapSize] - A [page:Vector2 Vector2] defining the width and height of the shadow map.<br />
 			Higher values give better quality shadows at the cost of computation time. Values must be powers of 2, up to the [page:WebGLRenderer.capabilities WebGLRenderer.capabilities].maxTextureSize for a given device, although the width and height don't have to be the same (so, for example, (512, 1024) is valid).<br />
-			The default is <i>( 512, 512 )</i>.<br />
+			The default is *( 512, 512 )*.<br />
 			[property:Matrix4 matrix] - Model to shadow camera space, to compute location and depth in shadow map. Stored in a [page:Matrix4 Matrix4]. This is computed internally during rendering.<br />
 			[property:boolean needsUpdate] - When set to <i>true</i>, shadow maps will be updated in the next <i>render</i> call. Default is <i>false</i>.<br />
 			If you have set <i>.autoUpdate</i> to <i>false</i>, you will need to set this property to <i>true</i> and then make a render call to update the light's shadow.<br />

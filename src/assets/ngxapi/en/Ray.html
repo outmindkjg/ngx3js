@@ -17,8 +17,8 @@
 		<h3>[constructor:Ray Ray](  [param:Vector3 origin]?,  [param:Vector3 direction]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 origin] - (optional) The origin of the [Ray](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Ray). Default is a [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) at (0, 0, 0).<br />
-			[parameter:Vector3 direction] - (optional) Vector3 The direction of the [Ray](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Ray). This must be normalized  (with [Vector3.normalize](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3.normalize)) for the methods to operate properly.  Default is a [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) at (0, 0, -1).
+			[parameter:Vector3 origin] - (optional) The origin of the [page:Ray Ray]. Default is a [page:Vector3 Vector3] at (0, 0, 0).<br />
+			[parameter:Vector3 direction] - (optional) Vector3 The direction of the [page:Ray Ray]. This must be normalized  (with [page:Vector3.normalize Vector3.normalize]) for the methods to operate properly.  Default is a [page:Vector3 Vector3] at (0, 0, -1).
 		</p>
 		<p>
 			Creates a new Ray.
@@ -39,7 +39,7 @@
 		<h3>[method:Ray applyMatrix4](  [param:Matrix4 matrix4] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Matrix4 matrix4] - The [Matrix4](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Matrix4) to apply to this [Ray](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Ray).
+			[parameter:Matrix4 matrix4] - The [page:Matrix4 Matrix4] to apply to this [page:Ray Ray].
 		</p>
 		<p>
 			Transform this [page:Ray Ray] by the [page:Matrix4 Matrix4].
@@ -48,7 +48,7 @@
 		<h3>[method:Vector3 at](  [param:number t],  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number t] - The distance along the [Ray](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Ray) to retrieve a position for.<br />
+			[parameter:number t] - The distance along the [page:Ray Ray] to retrieve a position for.<br />
 			[parameter:Vector3 target] - The result will be copied into this Vector3.
 		</p>
 		<p>
@@ -82,7 +82,7 @@
 		<h3>[method:number distanceSqToPoint](  [param:Vector3 point] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 point] - The [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) to compute a distance to.
+			[parameter:Vector3 point] - The [page:Vector3 Vector3] to compute a distance to.
 		</p>
 		<p>
 			Get the squared distance of the closest approach between the [page:Ray Ray] and the [page:Vector3 Vector3].
@@ -93,8 +93,8 @@
 		<p>
 			[parameter:Vector3 v0] - The start of the line segment.<br />
 			[parameter:Vector3 v1] - The end of the line segment.<br />
-			[parameter:Vector3 optionalPointOnRay] - (optional) if this is provided, it receives the point on this [Ray](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Ray) that is closest to the segment.<br />
-			[parameter:Vector3 optionalPointOnSegment] - (optional) if this is provided, it receives the point on the line segment that is closest to this [Ray](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Ray).
+			[parameter:Vector3 optionalPointOnRay] - (optional) if this is provided, it receives the point on this [page:Ray Ray] that is closest to the segment.<br />
+			[parameter:Vector3 optionalPointOnSegment] - (optional) if this is provided, it receives the point on the line segment that is closest to this [page:Ray Ray].
 		</p>
 		<p>
 			Get the squared distance between this [page:Ray Ray] and a line segment.
@@ -103,7 +103,7 @@
 		<h3>[method:number distanceToPlane](  [param:Plane plane] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Plane plane] - The [Plane](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Plane) to get the distance to.
+			[parameter:Plane plane] - The [page:Plane Plane] to get the distance to.
 		</p>
 		<p>
 			Get the distance from <i>.origin</i> to the [page:Plane Plane], or <i>null</i> if the [page:Ray Ray] doesn't intersect the [page:Plane Plane].
@@ -112,7 +112,7 @@
 		<h3>[method:number distanceToPoint](  [param:Vector3 point] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 point] - Vector3 The [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) to compute a distance to.
+			[parameter:Vector3 point] - Vector3 The [page:Vector3 Vector3] to compute a distance to.
 		</p>
 		<p>
 			Get the distance of the closest approach between the [page:Ray Ray] and the [page:Vector3 point].
@@ -121,7 +121,7 @@
 		<h3>[method:boolean equals](  [param:Ray ray] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Ray ray] - The [Ray](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Ray) to compare to.
+			[parameter:Ray ray] - The [page:Ray Ray] to compare to.
 		</p>
 		<p>
 			Returns : Returns true if this and the other [page:Ray ray] have equal <i>.origin</i>
@@ -130,7 +130,7 @@
 		<h3>[method:Vector3 intersectBox](  [param:Box3 box],  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Box3 box] - The [Box3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Box3) to intersect with.<br />
+			[parameter:Box3 box] - The [page:Box3 Box3] to intersect with.<br />
 			[parameter:Vector3 target] - The result will be copied into this Vector3.
 		</p>
 		<p>
@@ -140,7 +140,7 @@
 		<h3>[method:Vector3 intersectPlane](  [param:Plane plane],  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Plane plane] - The [Plane](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Plane) to intersect with.<br />
+			[parameter:Plane plane] - The [page:Plane Plane] to intersect with.<br />
 			[parameter:Vector3 target] - The result will be copied into this Vector3.
 		</p>
 		<p>
@@ -150,7 +150,7 @@
 		<h3>[method:Vector3 intersectSphere](  [param:Sphere sphere],  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Sphere sphere] - The [Sphere](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Sphere) to intersect with.<br />
+			[parameter:Sphere sphere] - The [page:Sphere Sphere] to intersect with.<br />
 			[parameter:Vector3 target] - The result will be copied into this Vector3.
 		</p>
 		<p>
@@ -160,7 +160,7 @@
 		<h3>[method:Vector3 intersectTriangle](  [param:Vector3 a],  [param:Vector3 b],  [param:Vector3 c],  [param:boolean backfaceCulling],  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 a] - The [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) points making up the triangle.<br />
+			[parameter:Vector3 a] - The [page:Vector3 Vector3] points making up the triangle.<br />
 			[parameter:Vector3 b] - The b.<br />
 			[parameter:Vector3 c] - The c.<br />
 			[parameter:boolean backfaceCulling] - whether to use backface culling.<br />
@@ -173,7 +173,7 @@
 		<h3>[method:boolean intersectsBox](  [param:Box3 box] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Box3 box] - The [Box3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Box3) to intersect with.
+			[parameter:Box3 box] - The [page:Box3 Box3] to intersect with.
 		</p>
 		<p>
 			Returns : Return true if this [page:Ray Ray] intersects with the [page:Box3 Box3].
@@ -182,7 +182,7 @@
 		<h3>[method:boolean intersectsPlane](  [param:Plane plane] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Plane plane] - The [Plane](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Plane) to intersect with.
+			[parameter:Plane plane] - The [page:Plane Plane] to intersect with.
 		</p>
 		<p>
 			Returns : Return true if this [page:Ray Ray] intersects with the [page:Plane Plane].
@@ -191,7 +191,7 @@
 		<h3>[method:boolean intersectsSphere](  [param:Sphere sphere] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Sphere sphere] - The [Sphere](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Sphere) to intersect with.
+			[parameter:Sphere sphere] - The [page:Sphere Sphere] to intersect with.
 		</p>
 		<p>
 			Returns : Return true if this [page:Ray Ray] intersects with the [page:Sphere Sphere].
@@ -200,7 +200,7 @@
 		<h3>[method:Ray lookAt](  [param:Vector3 v] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 v] - The [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) to look at.
+			[parameter:Vector3 v] - The [page:Vector3 Vector3] to look at.
 		</p>
 		<p>
 			Adjusts the direction of the ray to point at the vector in world coordinates.
@@ -209,8 +209,8 @@
 		<h3>[method:Ray recast](  [param:number t] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number t] - The distance along the [Ray](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Ray) to interpolate.
-Shift the origin of this [Ray](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Ray) along its direction by the distance given.
+			[parameter:number t] - The distance along the [page:Ray Ray] to interpolate.
+Shift the origin of this [page:Ray Ray] along its direction by the distance given.
 		</p>
 		<p>
 			
@@ -219,7 +219,7 @@ Shift the origin of this [Ray](https://outmindkjg.github.io/ngx3js-doc/#/docs/ng
 		<h3>[method:Ray set](  [param:Vector3 origin],  [param:Vector3 direction] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 origin] - The *.origin* of the [Ray](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Ray).<br />
+			[parameter:Vector3 origin] - The <i>.origin</i> of the [page:Ray Ray].<br />
 			[parameter:Vector3 direction] - The direction.
 		</p>
 		<p>

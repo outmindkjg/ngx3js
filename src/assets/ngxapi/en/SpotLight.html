@@ -13,13 +13,13 @@
 
 		<p class="desc">
 			This light gets emitted from a single point in one direction, along a cone that increases in size the further from the light it gets.<br />
-			This light can cast shadows - see the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/SpotLightShadow SpotLightShadow] page for details.<br />
+			This light can cast shadows - see the [page:SpotLightShadow SpotLightShadow] page for details.<br />
 			<br />
 			<h3>Preview - lights / spotlight</h3><br />
 			<iframe src="#/viewer/webgl_lights_spotlight"></iframe><br />
 			<br />
 			<h2>Examples</h2><br />
-			[example:webgl_lights_spotlight lights / spotlight]<br />
+			[example:webgl_lights_spotlight lights / spotlight] |<br />
 			[example:webgl_lights_spotlights lights / spotlights]<br />
 			<br />
 			<h2>Code Example</h2><br />
@@ -260,10 +260,10 @@
 
 		<h3>[property:Object3D target]</h3>
 		<p>
-			The Spotlight points from its <i>.position</i> to target.position. The default position of the target is <i>(0, 0, 0)</i>.<br />
-			<i>Note</i>: For the target's position to be changed to anything other than the default, it must be added to the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Scene scene] using scene.add( light.target );<br />
-			This is so that the target's [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Object3D.matrixWorld matrixWorld] gets automatically updated each frame.<br />
-			It is also possible to set the target to be another object in the scene (anything with a [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Object3D.position position] property), like so:<br />
+			The Spotlight points from its <i>.position</i> to target.position. The default position of the target is *(0, 0, 0)<i>.<br />
+			*Note</i>: For the target's position to be changed to anything other than the default, it must be added to the [page:Scene scene] using scene.add( light.target );<br />
+			This is so that the target's [page:Object3D.matrixWorld matrixWorld] gets automatically updated each frame.<br />
+			It is also possible to set the target to be another object in the scene (anything with a [page:Object3D.position position] property), like so:<br />
 			<h2>Code Example</h2><br />
 			<code data-type="javascript"><br />
 			const targetObject = new THREE.Object3D();<br />
@@ -996,7 +996,7 @@
 			[property:WebGLRenderTarget mapPass] - The distribution map generated using the internal camera; an occlusion is calculated based on the distribution of depths. Computed internally during rendering.<br />
 			[property:Vector2 mapSize] - A [page:Vector2 Vector2] defining the width and height of the shadow map.<br />
 			Higher values give better quality shadows at the cost of computation time. Values must be powers of 2, up to the [page:WebGLRenderer.capabilities WebGLRenderer.capabilities].maxTextureSize for a given device, although the width and height don't have to be the same (so, for example, (512, 1024) is valid).<br />
-			The default is <i>( 512, 512 )</i>.<br />
+			The default is *( 512, 512 )*.<br />
 			[property:Matrix4 matrix] - Model to shadow camera space, to compute location and depth in shadow map. Stored in a [page:Matrix4 Matrix4]. This is computed internally during rendering.<br />
 			[property:boolean needsUpdate] - When set to <i>true</i>, shadow maps will be updated in the next <i>render</i> call. Default is <i>false</i>.<br />
 			If you have set <i>.autoUpdate</i> to <i>false</i>, you will need to set this property to <i>true</i> and then make a render call to update the light's shadow.<br />
@@ -1022,7 +1022,7 @@
 		</p>
 
 		<p class="desc">
-			This is used internally by [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/SpotLight SpotLights] for calculating shadows.<br />
+			This is used internally by [page:SpotLight SpotLights] for calculating shadows.<br />
 			<h2>Code Example</h2><br />
 			<code data-type="javascript"><br />
 			// Create a WebGLRenderer and turn on shadows in the renderer<br />

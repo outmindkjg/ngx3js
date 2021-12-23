@@ -100,7 +100,7 @@
 			[parameter:Quaternion q] - The q.
 		</p>
 		<p>
-			Copies the <i>.x</i>, <i>.y</i>,	<i>.z</i> and <i>.w</i> properties of [page:Quaternion q] into this quaternion.
+			Copies the <i>.x</i>, <i>.y<i>,	</i>.z</i> and <i>.w</i> properties of [page:Quaternion q] into this quaternion.
 		</p>
 
 		<h3>[method:number dot](  [param:Quaternion v] )</h3>
@@ -118,7 +118,7 @@
 			[parameter:Quaternion v] - Quaternion that this quaternion will be compared to.
 		</p>
 		<p>
-			Compares the <i>.x</i>, <i>.y</i>,	<i>.z</i> and <i>.w</i> properties of [page:Quaternion v] to the equivalent properties of this quaternion to determine if they represent the same rotation.
+			Compares the <i>.x</i>, <i>.y<i>,	</i>.z</i> and <i>.w</i> properties of [page:Quaternion v] to the equivalent properties of this quaternion to determine if they represent the same rotation.
 		</p>
 
 		<h3>[method:Quaternion fromBufferAttribute](  [param:BufferAttribute attribute],  [param:number index]? )</h3>
@@ -209,8 +209,8 @@
 		<p>
 			[parameter:Quaternion q] - The target quaternion.<br />
 			[parameter:number step] - The angular step in radians.
-Rotates this quaternion by a given angular step to the defined quaternion *q*.
-The method ensures that the final quaternion will not overshoot *q*.
+Rotates this quaternion by a given angular step to the defined quaternion <i>q</i>.
+The method ensures that the final quaternion will not overshoot <i>q</i>.
 		</p>
 		<p>
 			
@@ -253,7 +253,7 @@ The method ensures that the final quaternion will not overshoot *q*.
 		<h3>[method:Quaternion setFromRotationMatrix](  [param:Matrix4 m] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Matrix4 m] - A [Matrix4](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Matrix4) of which the upper 3x3 of matrix is a pure [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix) (i.e. unscaled).
+			[parameter:Matrix4 m] - A [page:Matrix4 Matrix4] of which the upper 3x3 of matrix is a pure [link:https://en.wikipedia.org/wiki/Rotation_matrix rotation matrix] (i.e. unscaled).
 		</p>
 		<p>
 			Sets this quaternion from rotation component of [page:Matrix4 m].<br />
@@ -276,7 +276,7 @@ The method ensures that the final quaternion will not overshoot *q*.
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Quaternion qb] - interpolation factor in the closed interval [0, 1].
-Handles the spherical linear interpolation between quaternions. [t](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) represents the amount of rotation between this quaternion (where [t](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) is 0) and [qb](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Quaternion) (where [t](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) is 1). This quaternion is set to the result. Also see the static version of the *slerp* below.
+Handles the spherical linear interpolation between quaternions. [page:Float t] represents the amount of rotation between this quaternion (where [page:Float t] is 0) and [page:Quaternion qb] (where [page:Float t] is 1). This quaternion is set to the result. Also see the static version of the <i>slerp</i> below.
 // rotate a mesh towards a target quaternion
 mesh.quaternion.slerp( endQuaternion, 0.01 );<br />
 			[parameter:number t] - The t.
@@ -295,7 +295,7 @@ mesh.quaternion.slerp( endQuaternion, 0.01 );<br />
 			[parameter:number[] src1] - The source array of the target quatnerion.<br />
 			[parameter:number stcOffset1] - The stc offset1.<br />
 			[parameter:number t] - Normalized interpolation factor (between 0 and 1).
-Like the static *slerp* method above, but operates directly on flat arrays of numbers.
+Like the static <i>slerp</i> method above, but operates directly on flat arrays of numbers.
 		</p>
 		<p>
 			

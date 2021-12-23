@@ -21,8 +21,8 @@
 					this.scale = scale;<br />
 				}<br />
 				getPoint( t, optionalTarget = new THREE.Vector3() ) {<br />
-					const tx = t  <i> 3 -1.5;<br />
-					const ty = Math.sin( 2 </i> Math.PI * t );<br />
+					const tx = t  * 3 -1.5;<br />
+					const ty = Math.sin( 2 * Math.PI * t );<br />
 					const tz = 0;<br />
 					return optionalTarget.set( tx, ty, tz ).multiplyScalar( this.scale );<br />
 				}<br />
@@ -39,11 +39,11 @@
 		<h3>[constructor:TubeGeometry TubeGeometry](  [param:Curve path]?,  [param:number tubularSegments]?,  [param:number radius]?,  [param:number radiusSegments]?,  [param:boolean closed]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Curve path] - (optional) A 3D path that inherits from the [Curve](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Curve) base class. Default is a quadratic bezier curve.<br />
-			[parameter:number tubularSegments] - (optional) The number of segments that make up the tube. Default is *64*.<br />
-			[parameter:number radius] - (optional) The radius of the tube. Default is *1*.<br />
+			[parameter:Curve path] - (optional) A 3D path that inherits from the [page:Curve Curve] base class. Default is a quadratic bezier curve.<br />
+			[parameter:number tubularSegments] - (optional) The number of segments that make up the tube. Default is <i>64</i>.<br />
+			[parameter:number radius] - (optional) The radius of the tube. Default is <i>1</i>.<br />
 			[parameter:number radiusSegments] - (optional) The radius segments.<br />
-			[parameter:boolean closed] - (optional) Is the tube open or closed. Default is *false*.
+			[parameter:boolean closed] - (optional) Is the tube open or closed. Default is <i>false</i>.
 		</p>
 		<p>
 			Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.

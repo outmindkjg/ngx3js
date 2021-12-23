@@ -19,9 +19,9 @@
 		<h3>[constructor:Uint16BufferAttribute Uint16BufferAttribute](  [param:number|ArrayLike|Iterable array],  [param:number itemSize],  [param:boolean normalized]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number|ArrayLike|Iterable array] - Must be a [TypedArray](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/TypedArray). Used to instantiate the buffer. This array should have itemSize * numVertices<br />
+			[parameter:number|ArrayLike|Iterable array] - Must be a [link:https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/TypedArray TypedArray]. Used to instantiate the buffer. This array should have itemSize * numVertices<br />
 			[parameter:number itemSize] - The number of values of the array that should be associated with a particular vertex. For instance, if this attribute is storing a 3-component vector (such as a position, normal, or color), then itemSize should be 3.<br />
-			[parameter:boolean normalized] - (optional) Applies to integer data only. Indicates how the underlying data in the buffer maps to the values in the GLSL code. For instance, if [array](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/TypedArray) is an instance of UInt16Array, and [normalized](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Boolean) is true, the values 0 - +65535 in the array  data will be mapped to 0.0f - +1.0f in the GLSL attribute. An Int16Array (signed) would map  from -32767 - +32767  to -1.0f - +1.0f. If [normalized](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Boolean) is false, the values  will be converted to floats unmodified, i.e. 32767 becomes 32767.0f.
+			[parameter:boolean normalized] - (optional) Applies to integer data only. Indicates how the underlying data in the buffer maps to the values in the GLSL code. For instance, if [page:TypedArray array] is an instance of UInt16Array, and [page:Boolean normalized] is true, the values 0 - +65535 in the array  data will be mapped to 0.0f - +1.0f in the GLSL attribute. An Int16Array (signed) would map  from -32767 - +32767  to -1.0f - +1.0f. If [page:Boolean normalized] is false, the values  will be converted to floats unmodified, i.e. 32767 becomes 32767.0f.
 		</p>
 		<p>
 			
@@ -237,8 +237,8 @@
 		<h3>[method:Uint16BufferAttribute set](  [param:ArrayLike|ArrayBufferView value],  [param:number offset]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:ArrayLike|ArrayBufferView value] - An [Array](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Array) or [TypedArray](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/TypedArray) from which to copy values.<br />
-			[parameter:number offset] - (optional) index of the [array](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BufferAttribute.array) at which to start copying.
+			[parameter:ArrayLike|ArrayBufferView value] - An [page:Array Array] or [page:TypedArray TypedArray] from which to copy values.<br />
+			[parameter:number offset] - (optional) index of the [page:BufferAttribute.array array] at which to start copying.
 		</p>
 		<p>
 			Calls [link: [page:Array value], [page:Integer offset]  link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set TypedArray.set] on the [page:BufferAttribute.array array].<br />

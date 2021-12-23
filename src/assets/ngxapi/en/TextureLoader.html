@@ -12,8 +12,8 @@
 		<h1>TextureLoader</h1>
 
 		<p class="desc">
-			Class for loading a [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Texture texture].<br />
-			This uses the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/ImageLoader ImageLoader] internally for loading files.<br />
+			Class for loading a [page:Texture texture].<br />
+			This uses the [page:ImageLoader ImageLoader] internally for loading files.<br />
 			<br />
 			<h3>Preview - geometry / cube</h3><br />
 			<iframe src="#/viewer/webgl_geometry_cube"></iframe><br />
@@ -52,7 +52,7 @@
 		<h3>[constructor:TextureLoader TextureLoader](  [param:LoadingManager manager]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:LoadingManager manager] - (optional) The [loadingManager](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/LoadingManager) for the loader to use. Default is [THREE.DefaultLoadingManager](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/LoadingManager).
+			[parameter:LoadingManager manager] - (optional) The [page:LoadingManager loadingManager] for the loader to use. Default is [page:LoadingManager THREE.DefaultLoadingManager].
 		</p>
 		<p>
 			Creates a new Loader.
@@ -105,9 +105,9 @@
 		<h3>[method:Texture load](  [param:string url],  [param:any onLoad]?,  [param:any onProgress]?,  [param:any onError]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The path or URL to the file. This can also be a [Data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).<br />
-			[parameter:any onLoad] - (optional) Will be called when load completes. The argument will be the loaded [texture](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Texture).<br />
-			[parameter:any onProgress] - (optional) Will be called while load progresses. The argument will be the XMLHttpRequest instance, which contains .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) and .[loaded](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) bytes. If the server does not set the Content-Length header; .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) will be 0.<br />
+			[parameter:string url] - The path or URL to the file. This can also be a [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URI].<br />
+			[parameter:any onLoad] - (optional) Will be called when load completes. The argument will be the loaded [page:Texture texture].<br />
+			[parameter:any onProgress] - (optional) Will be called while load progresses. The argument will be the XMLHttpRequest instance, which contains .[page:Integer total] and .[page:Integer loaded] bytes. If the server does not set the Content-Length header; .[page:Integer total] will be 0.<br />
 			[parameter:any onError] - (optional) Will be called when load errors.
 		</p>
 		<p>
@@ -118,8 +118,8 @@
 		<h3>[method:Promise loadAsync](  [param:string url],  [param:any onProgress]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The path or URL to the file. This can also be a [Data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).<br />
-			[parameter:any onProgress] - (optional) Will be called while load progresses. The argument will be the XMLHttpRequest instance, which contains .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) and .[loaded](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) bytes. If the server does not set the Content-Length header; .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) will be 0.
+			[parameter:string url] - The path or URL to the file. This can also be a [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URI].<br />
+			[parameter:any onProgress] - (optional) Will be called while load progresses. The argument will be the XMLHttpRequest instance, which contains .[page:Integer total] and .[page:Integer loaded] bytes. If the server does not set the Content-Length header; .[page:Integer total] will be 0.
 		</p>
 		<p>
 			Begin loading from the given URL and pass the fully loaded [page:Texture texture] to onLoad. The method also returns a new texture object which can directly be used for material creation.<br />
@@ -148,7 +148,7 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any requestHeader] - key: The name of the header whose value is to be set. value: The value to set as the body of the header.
-Set the [request header](https://developer.mozilla.org/en-US/docs/Glossary/Request_header) used in HTTP request.
+Set the [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header request header] used in HTTP request.
 		</p>
 		<p>
 			

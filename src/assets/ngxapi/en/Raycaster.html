@@ -17,14 +17,14 @@
 			<iframe src="#/viewer/webgl_interactive_cubes"></iframe><br />
 			<br />
 			<h2>Examples</h2><br />
-			[example:webgl_interactive_cubes Raycasting to a Mesh]<br />
-			[example:webgl_interactive_cubes_ortho Raycasting to a Mesh in using an OrthographicCamera]<br />
-			[example:webgl_interactive_buffergeometry Raycasting to a Mesh with BufferGeometry]<br />
-			[example:webgl_instancing_raycast Raycasting to a InstancedMesh]<br />
-			[example:webgl_interactive_lines Raycasting to a Line]<br />
-			[example:webgl_interactive_raycasting_points Raycasting to Points]<br />
-			[example:webgl_geometry_terrain_raycast Terrain raycasting]<br />
-			[example:webgl_interactive_voxelpainter Raycasting to paint voxels]<br />
+			[example:webgl_interactive_cubes Raycasting to a Mesh] |<br />
+			[example:webgl_interactive_cubes_ortho Raycasting to a Mesh in using an OrthographicCamera] |<br />
+			[example:webgl_interactive_buffergeometry Raycasting to a Mesh with BufferGeometry] |<br />
+			[example:webgl_instancing_raycast Raycasting to a InstancedMesh] |<br />
+			[example:webgl_interactive_lines Raycasting to a Line] |<br />
+			[example:webgl_interactive_raycasting_points Raycasting to Points] |<br />
+			[example:webgl_geometry_terrain_raycast Terrain raycasting] |<br />
+			[example:webgl_interactive_voxelpainter Raycasting to paint voxels] |<br />
 			[example:webgl_raycast_texture Raycast to a Texture]<br />
 			<br />
 			<h2>Code Example</h2><br />
@@ -33,8 +33,8 @@
 			const mouse = new THREE.Vector2();<br />
 			function onMouseMove( event ) {<br />
 			 //  calculate mouse position in normalized device coordinates // (-1 to +1) for both components<br />
-			 mouse.x = ( event.clientX / window.innerWidth ) <i> 2 - 1;<br />
-			 mouse.y = - ( event.clientY / window.innerHeight ) </i> 2 + 1;<br />
+			 mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;<br />
+			 mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;<br />
 			}<br />
 			function render() {<br />
 			 //  update the picking ray with the camera and mouse position raycaster.setFromCamera( mouse, camera );<br />
@@ -106,7 +106,7 @@
 		<p>
 			[parameter:Object3D object] - The object to check for intersection with the ray.<br />
 			[parameter:boolean recursive] - (optional) If true, it also checks all descendants. Otherwise it only checks intersection with the object. Default is true.<br />
-			[parameter:Intersection[] optionalTarget] - (optional) target to set the result. Otherwise a new [Array](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Array) is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).
+			[parameter:Intersection[] optionalTarget] - (optional) target to set the result. Otherwise a new [page:Array Array] is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).
 		</p>
 		<p>
 			Checks all intersection between the ray and the object with or without the descendants. Intersections are returned sorted by distance, closest first.<br />
@@ -119,7 +119,7 @@
 		<p>
 			[parameter:Object3D[] objects] - The objects to check for intersection with the ray.<br />
 			[parameter:boolean recursive] - (optional) If true, it also checks all descendants of the objects. Otherwise it only checks intersection with the objects. Default is true.<br />
-			[parameter:Intersection[] optionalTarget] - (optional) target to set the result. Otherwise a new [Array](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Array) is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).
+			[parameter:Intersection[] optionalTarget] - (optional) target to set the result. Otherwise a new [page:Array Array] is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).
 		</p>
 		<p>
 			Checks all intersection between the ray and the objects with or without the descendants. Intersections are returned sorted by distance, closest first. Intersections are of the same form as those returned by <i>.intersectObject</i>.

@@ -13,14 +13,14 @@
 
 		<p class="desc">
 			Light probes are an alternative way of adding light to a 3D scene. Unlike classical light sources (e.g. directional, point or spot lights), light probes do not emit light. Instead they store information about light passing through 3D space. During rendering, the light that hits a 3D object is approximated by using the data from the light probe.<br />
-			Light probes are usually created from (radiance) environment maps. The class [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/LightProbeGenerator LightProbeGenerator] can be used to create light probes from instances of [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/CubeTexture CubeTexture] or [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/WebGLCubeRenderTarget WebGLCubeRenderTarget].n However, light estimation data could also be provided in other forms e.g. by WebXR. This enables the rendering of augmented reality content that reacts to real world lighting.<br />
+			Light probes are usually created from (radiance) environment maps. The class [page:LightProbeGenerator LightProbeGenerator] can be used to create light probes from instances of [page:CubeTexture CubeTexture] or [page:WebGLCubeRenderTarget WebGLCubeRenderTarget].n However, light estimation data could also be provided in other forms e.g. by WebXR. This enables the rendering of augmented reality content that reacts to real world lighting.<br />
 			The current probe implementation in three.js supports so-called diffuse light probes. This type of light probe is functionally equivalent to an irradiance environment map.<br />
 			<br />
 			<h3>Preview - WebGL / light probe</h3><br />
 			<iframe src="#/viewer/webgl_lightprobe"></iframe><br />
 			<br />
 			<h2>Examples</h2><br />
-			[example:webgl_lightprobe WebGL / light probe]<br />
+			[example:webgl_lightprobe WebGL / light probe] |<br />
 			[example:webgl_lightprobe_cubecamera WebGL / light probe / cube camera]
 		</p>
 
@@ -950,7 +950,7 @@
 			[property:WebGLRenderTarget mapPass] - The distribution map generated using the internal camera; an occlusion is calculated based on the distribution of depths. Computed internally during rendering.<br />
 			[property:Vector2 mapSize] - A [page:Vector2 Vector2] defining the width and height of the shadow map.<br />
 			Higher values give better quality shadows at the cost of computation time. Values must be powers of 2, up to the [page:WebGLRenderer.capabilities WebGLRenderer.capabilities].maxTextureSize for a given device, although the width and height don't have to be the same (so, for example, (512, 1024) is valid).<br />
-			The default is <i>( 512, 512 )</i>.<br />
+			The default is *( 512, 512 )*.<br />
 			[property:Matrix4 matrix] - Model to shadow camera space, to compute location and depth in shadow map. Stored in a [page:Matrix4 Matrix4]. This is computed internally during rendering.<br />
 			[property:boolean needsUpdate] - When set to <i>true</i>, shadow maps will be updated in the next <i>render</i> call. Default is <i>false</i>.<br />
 			If you have set <i>.autoUpdate</i> to <i>false</i>, you will need to set this property to <i>true</i> and then make a render call to update the light's shadow.<br />

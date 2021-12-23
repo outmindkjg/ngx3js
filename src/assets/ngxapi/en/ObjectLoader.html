@@ -13,7 +13,7 @@
 
 		<p class="desc">
 			A loader for loading a JSON resource in the [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].<br />
-			This uses the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/FileLoader FileLoader] internally for loading files.<br />
+			This uses the [page:FileLoader FileLoader] internally for loading files.<br />
 			<br />
 			<h3>Preview - WebGL / materials / lightmap</h3><br />
 			<iframe src="#/viewer/webgl_materials_lightmap"></iframe><br />
@@ -48,7 +48,7 @@
 		<h3>[constructor:ObjectLoader ObjectLoader](  [param:LoadingManager manager]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:LoadingManager manager] - (optional) The [loadingManager](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/LoadingManager) for the loader to use. Default is [THREE.DefaultLoadingManager](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/LoadingManager).
+			[parameter:LoadingManager manager] - (optional) The [page:LoadingManager loadingManager] for the loader to use. Default is [page:LoadingManager THREE.DefaultLoadingManager].
 		</p>
 		<p>
 			Creates a new Loader.
@@ -101,9 +101,9 @@
 		<h3>[method:void load](  [param:string url],  [param:any onLoad]?,  [param:any onProgress]?,  [param:any onError]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The path or URL to the file. This can also be a [Data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).<br />
-			[parameter:any onLoad] - (optional) Will be called when load completes. The argument will be the loaded [object](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Object3D).<br />
-			[parameter:any onProgress] - (optional) Will be called while load progresses. The argument will be the XMLHttpRequest instance, which contains .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) and .[loaded](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) bytes. If the server does not set the Content-Length header; .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) will be 0.<br />
+			[parameter:string url] - The path or URL to the file. This can also be a [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URI].<br />
+			[parameter:any onLoad] - (optional) Will be called when load completes. The argument will be the loaded [page:Object3D object].<br />
+			[parameter:any onProgress] - (optional) Will be called while load progresses. The argument will be the XMLHttpRequest instance, which contains .[page:Integer total] and .[page:Integer loaded] bytes. If the server does not set the Content-Length header; .[page:Integer total] will be 0.<br />
 			[parameter:any onError] - (optional) Will be called when load errors.
 		</p>
 		<p>
@@ -113,8 +113,8 @@
 		<h3>[method:Promise loadAsync](  [param:string url],  [param:any onProgress]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The path or URL to the file. This can also be a [Data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).<br />
-			[parameter:any onProgress] - (optional) Will be called while load progresses. The argument will be the XMLHttpRequest instance, which contains .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) and .[loaded](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) bytes. If the server does not set the Content-Length header; .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) will be 0.
+			[parameter:string url] - The path or URL to the file. This can also be a [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URI].<br />
+			[parameter:any onProgress] - (optional) Will be called while load progresses. The argument will be the XMLHttpRequest instance, which contains .[page:Integer total] and .[page:Integer loaded] bytes. If the server does not set the Content-Length header; .[page:Integer total] will be 0.
 		</p>
 		<p>
 			Begin loading from url and call onLoad with the parsed response content.
@@ -124,7 +124,7 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any json] - required. The JSON source to parse.<br />
-			[parameter:any onLoad] - (optional) Will be called when parsed completes. The argument will be the parsed [object](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Object3D).
+			[parameter:any onLoad] - (optional) Will be called when parsed completes. The argument will be the parsed [page:Object3D object].
 		</p>
 		<p>
 			Parse a &lt;em&gt;JSON&lt;/em&gt; structure and return a threejs object.<br />
@@ -232,7 +232,7 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any requestHeader] - key: The name of the header whose value is to be set. value: The value to set as the body of the header.
-Set the [request header](https://developer.mozilla.org/en-US/docs/Glossary/Request_header) used in HTTP request.
+Set the [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header request header] used in HTTP request.
 		</p>
 		<p>
 			

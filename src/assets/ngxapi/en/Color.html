@@ -36,13 +36,13 @@
 		<h3>[constructor:Color Color](  [param:ColorRepresentation r]?,  [param:number g]?,  [param:number b]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:ColorRepresentation r] - (optional) If arguments [g](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) and [b](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) are defined, the red component of the color. If they are not defined, it can be a [hexadecimal triplet](https://en.wikipedia.org/wiki/Web_colors#Hex_triplet) (recommended), a CSS-style string, or another Color instance.<br />
+			[parameter:ColorRepresentation r] - (optional) If arguments [page:Float g] and [page:Float b] are defined, the red component of the color. If they are not defined, it can be a [link:https://en.wikipedia.org/wiki/Web_colors#Hex_triplet hexadecimal triplet] (recommended), a CSS-style string, or another Color instance.<br />
 			[parameter:number g] - (optional) If it is defined, the green component of the color.<br />
 			[parameter:number b] - (optional) If it is defined, the blue component of the color.
 		</p>
 		<p>
 			Note that standard method of specifying color in three.js is with a [link:https://en.wikipedia.org/wiki/Web_colors#Hex_triplet hexadecimal triplet], and that method is used throughout the rest of the documentation.<br />
-			When all arguments are defined then [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Color_Hex_or_String r] is the red component, [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float g] is the green component and [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float b] is the blue component of the color.<br />
+			When all arguments are defined then [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Color_Hex_or_String r] is the red component, [page:Float g] is the green component and [page:Float b] is the blue component of the color.<br />
 			When only [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Color_Hex_or_String r] is defined:<br />
 			It can be a [link:https://en.wikipedia.org/wiki/Web_colors#Hex_triplet hexadecimal triplet] representing the color (recommended).<br />
 			It can be an another Color instance.<br />
@@ -114,7 +114,7 @@
 		<h3>[method:Color convertGammaToLinear](  [param:number gammaFactor]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number gammaFactor] - (optional) Default is *2.0*.
+			[parameter:number gammaFactor] - (optional) Default is <i>2.0</i>.
 		</p>
 		<p>
 			Converts this color from gamma space to linear space by taking <i>.r</i>, <i>.g</i> and <i>.b</i> to the power of [page:Float gammaFactor].
@@ -123,7 +123,7 @@
 		<h3>[method:Color convertLinearToGamma](  [param:number gammaFactor]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number gammaFactor] - (optional) Default is *2.0*.
+			[parameter:number gammaFactor] - (optional) Default is <i>2.0</i>.
 		</p>
 		<p>
 			Converts this color from linear space to gamma space by taking <i>.r</i>, <i>.g</i> and <i>.b</i> to the power of 1 / [page:Float gammaFactor].
@@ -152,7 +152,7 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Color color] - Color to copy.<br />
-			[parameter:number gammaFactor] - (optional) Default is *2.0*.
+			[parameter:number gammaFactor] - (optional) Default is <i>2.0</i>.
 		</p>
 		<p>
 			Copies the given color into this color, and then converts this color from gamma space to linear space by taking <i>.r</i>, <i>.g</i> and <i>.b</i> to the power of [page:Float gammaFactor].
@@ -162,7 +162,7 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Color color] - Color to copy.<br />
-			[parameter:number gammaFactor] - (optional) Default is *2.0*.
+			[parameter:number gammaFactor] - (optional) Default is <i>2.0</i>.
 		</p>
 		<p>
 			Copies the given color into this color, and then converts this color from linear space to gamma space by taking <i>.r</i>, <i>.g</i> and <i>.b</i> to the power of 1 / [page:Float gammaFactor].
@@ -198,7 +198,7 @@
 		<h3>[method:Color fromArray](  [param:ArrayLike|number[] array],  [param:number offset]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:ArrayLike|number[] array] - Array of floats in the form [ [r](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), [g](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), [b](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) ].<br />
+			[parameter:ArrayLike|number[] array] - Array of floats in the form [page:Float  [r], [page:Float g], [page:Float b] ].<br />
 			[parameter:number offset] - (optional) An optional offset into the array.
 		</p>
 		<p>
@@ -253,7 +253,7 @@
 		<h3>[method:Color lerpColors](  [param:Color color1],  [param:Color color2],  [param:number alpha] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Color color1] - The starting [Color](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Color).<br />
+			[parameter:Color color1] - The starting [page:Color Color].<br />
 			[parameter:Color color2] - Color to interpolate towards.<br />
 			[parameter:number alpha] - The alpha.
 		</p>
@@ -316,7 +316,7 @@
 		<h3>[method:Color setColorName](  [param:string style] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string style] - color name ( from [X11 color names](https://en.wikipedia.org/wiki/X11_color_names#Color_name_chart) ).
+			[parameter:string style] - color name ( from [link:https://en.wikipedia.org/wiki/X11_color_names#Color_name_chart X11 color names] ).
 		</p>
 		<p>
 			Sets this color from a color name. Faster than <i>.setStyle</i> method if you don't need the other CSS-style formats.<br />

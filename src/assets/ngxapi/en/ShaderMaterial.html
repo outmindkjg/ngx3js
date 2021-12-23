@@ -14,17 +14,17 @@
 		<p class="desc">
 			A material rendered with custom shaders. A shader is a small program written in [link:https://www.khronos.org/files/opengles_shading_language.pdf GLSL] that runs on the GPU.<br />
 			You may want to use a custom shader if you need to:<br />
-			implement an effect not included with any of the built-in [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Material materials]<br />
-			combine many objects into a single [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BufferGeometry BufferGeometry] in order to improve performance<br />
+			implement an effect not included with any of the built-in [page:Material materials]<br />
+			combine many objects into a single [page:BufferGeometry BufferGeometry] in order to improve performance<br />
 			There are the following notes to bear in mind when using a <i>ShaderMaterial</i>:<br />
-			A <i>ShaderMaterial</i> will only be rendered properly by [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/WebGLRenderer WebGLRenderer],<br />
+			A <i>ShaderMaterial</i> will only be rendered properly by [page:WebGLRenderer WebGLRenderer],<br />
 			since the GLSL code in the [link:https://en.wikipedia.org/wiki/Shader#Vertex_shaders vertexShader]<br />
 			and [link:https://en.wikipedia.org/wiki/Shader#Pixel_shaders fragmentShader] properties must be compiled and run on the GPU using WebGL.<br />
 			As of THREE r72, directly assigning attributes in a ShaderMaterial is no longer supported.<br />
-			A [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BufferGeometry BufferGeometry] instance  must be used instead, using [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BufferAttribute BufferAttribute] instances to define custom attributes.<br />
-			As of THREE r77, [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/WebGLRenderTarget WebGLRenderTarget] or [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/WebGLCubeRenderTarget WebGLCubeRenderTarget] instances are no longer supposed to be used as uniforms. Their [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Texture texture] property must be used instead.<br />
+			A [page:BufferGeometry BufferGeometry] instance  must be used instead, using [page:BufferAttribute BufferAttribute] instances to define custom attributes.<br />
+			As of THREE r77, [page:WebGLRenderTarget WebGLRenderTarget] or [page:WebGLCubeRenderTarget WebGLCubeRenderTarget] instances are no longer supposed to be used as uniforms. Their [page:Texture texture] property must be used instead.<br />
 			Built in attributes and uniforms are passed to the shaders along with your code.<br />
-			If you don't want the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/WebGLProgram WebGLProgram] to add anything to your shader code, you can use [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/RawShaderMaterial RawShaderMaterial] instead of this class.<br />
+			If you don't want the [page:WebGLProgram WebGLProgram] to add anything to your shader code, you can use [page:RawShaderMaterial RawShaderMaterial] instead of this class.<br />
 			You can use the directive #pragma unroll_loop_start and #pragma unroll_loop_end in order to unroll a <i>for</i> loop in GLSL by the shader preprocessor.<br />
 			The directive has to be placed right above the loop. The loop formatting has to correspond to a defined standard.<br />
 			The loop has to be [link:https://en.wikipedia.org/wiki/Normalized_loop normalized].<br />
@@ -35,26 +35,26 @@
 			<iframe src="#/viewer/webgl_buffergeometry_custom_attributes_particles"></iframe><br />
 			<br />
 			<h2>Examples</h2><br />
-			[example:webgl_buffergeometry_custom_attributes_particles webgl / buffergeometry / custom / attributes / particles]<br />
-			[example:webgl_buffergeometry_selective_draw webgl / buffergeometry / selective / draw]<br />
-			[example:webgl_custom_attributes webgl / custom / attributes]<br />
-			[example:webgl_custom_attributes_lines webgl / custom / attributes / lines]<br />
-			[example:webgl_custom_attributes_points webgl / custom / attributes / points]<br />
-			[example:webgl_custom_attributes_points2 webgl / custom / attributes / points2]<br />
-			[example:webgl_custom_attributes_points3 webgl / custom / attributes / points3]<br />
-			[example:webgl_depth_texture webgl / depth / texture]<br />
-			[example:webgl_gpgpu_birds webgl / gpgpu / birds]<br />
-			[example:webgl_gpgpu_protoplanet webgl / gpgpu / protoplanet]<br />
-			[example:webgl_gpgpu_water webgl / gpgpu / water]<br />
-			[example:webgl_interactive_points webgl / interactive / points]<br />
-			[example:webgl_video_kinect webgl / video / kinect]<br />
-			[example:webgl_lights_hemisphere webgl / lights / hemisphere]<br />
-			[example:webgl_marchingcubes webgl / marchingcubes]<br />
-			[example:webgl_materials_envmaps webgl / materials / envmaps]<br />
-			[example:webgl_materials_lightmap webgl / materials / lightmap]<br />
-			[example:webgl_materials_wireframe webgl / materials / wireframe]<br />
-			[example:webgl_modifier_tessellation webgl / modifier / tessellation]<br />
-			[example:webgl_postprocessing_dof2 webgl / postprocessing / dof2]<br />
+			[example:webgl_buffergeometry_custom_attributes_particles webgl / buffergeometry / custom / attributes / particles] |<br />
+			[example:webgl_buffergeometry_selective_draw webgl / buffergeometry / selective / draw] |<br />
+			[example:webgl_custom_attributes webgl / custom / attributes] |<br />
+			[example:webgl_custom_attributes_lines webgl / custom / attributes / lines] |<br />
+			[example:webgl_custom_attributes_points webgl / custom / attributes / points] |<br />
+			[example:webgl_custom_attributes_points2 webgl / custom / attributes / points2] |<br />
+			[example:webgl_custom_attributes_points3 webgl / custom / attributes / points3] |<br />
+			[example:webgl_depth_texture webgl / depth / texture] |<br />
+			[example:webgl_gpgpu_birds webgl / gpgpu / birds] |<br />
+			[example:webgl_gpgpu_protoplanet webgl / gpgpu / protoplanet] |<br />
+			[example:webgl_gpgpu_water webgl / gpgpu / water] |<br />
+			[example:webgl_interactive_points webgl / interactive / points] |<br />
+			[example:webgl_video_kinect webgl / video / kinect] |<br />
+			[example:webgl_lights_hemisphere webgl / lights / hemisphere] |<br />
+			[example:webgl_marchingcubes webgl / marchingcubes] |<br />
+			[example:webgl_materials_envmaps webgl / materials / envmaps] |<br />
+			[example:webgl_materials_lightmap webgl / materials / lightmap] |<br />
+			[example:webgl_materials_wireframe webgl / materials / wireframe] |<br />
+			[example:webgl_modifier_tessellation webgl / modifier / tessellation] |<br />
+			[example:webgl_postprocessing_dof2 webgl / postprocessing / dof2] |<br />
 			[example:webgl_postprocessing_godrays webgl / postprocessing / godrays]
 		</p>
 
@@ -795,7 +795,7 @@
 			Default is <i>null</i>.<br />
 			[property:boolean colorWrite]? - Whether to render the material's color.<br />
 			This can be used in conjunction with a mesh's [page:Integer renderOrder] property to create invisible objects that occlude other objects. Default is <i>true</i>.<br />
-			[property:any defines]? - Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI <i> 2 }. The pairs are defined in both vertex and fragment shaders.  Default is </i>undefined*.<br />
+			[property:any defines]? - Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI * 2 }. The pairs are defined in both vertex and fragment shaders.  Default is <i>undefined</i>.<br />
 			[property:DepthModes depthFunc]? - Which depth function to use. Default is [page:Materials LessEqualDepth]. See the depth mode [page:Materials constants] for all possible values.<br />
 			[property:boolean depthTest]? - Whether to have depth test enabled when rendering this material. Default is <i>true</i>.<br />
 			[property:boolean depthWrite]? - Whether rendering this material has any effect on the depth buffer. Default is <i>true</i>.<br />

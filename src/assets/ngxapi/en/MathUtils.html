@@ -68,7 +68,7 @@
 		<h3>[method:number euclideanModulo](  [param:number n],  [param:number m] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number n] - Integers Computes the Euclidean modulo of [m](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) % [n](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer), that is: ( ( n % m ) + m ) % m<br />
+			[parameter:number n] - Integers Computes the Euclidean modulo of [page:Integer m] % [page:Integer n], that is: ( ( n % m ) + m ) % m<br />
 			[parameter:number m] - The m.
 		</p>
 		<p>
@@ -198,7 +198,7 @@
 			[parameter:number a] - The rotation applied to the first axis, in radians<br />
 			[parameter:number b] - The rotation applied to the second axis, in radians<br />
 			[parameter:number c] - The rotation applied to the third axis, in radians<br />
-			[parameter:string order] - A string specifying the axes order: 'XYX', 'XZX', 'YXY', 'YZY', 'ZXZ', or 'ZYZ' Sets quaternion [q](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Quaternion) from the [intrinsic Proper Euler Angles](http://en.wikipedia.org/wiki/Euler_angles) defined by angles [a](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), [b](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), and [c](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), and order [order](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/String).
+			[parameter:string order] - A string specifying the axes order: 'XYX', 'XZX', 'YXY', 'YZY', 'ZXZ', or 'ZYZ' Sets quaternion [page:Quaternion q] from the [link:http://en.wikipedia.org/wiki/Euler_angles intrinsic Proper Euler Angles] defined by angles [page:Float a], [page:Float b], and [page:Float c], and order [page:String order].
 		</p>
 		<p>
 			Rotations are applied to the axes in the order specified by [page:String order]: rotation by angle [page:Float a] is applied first, then by angle [page:Float b], then by angle [page:Float c]. Angles are in radians.

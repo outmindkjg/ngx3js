@@ -17,7 +17,7 @@
 			<code data-type="javascript"><br />
 			const points = [];<br />
 			for ( let i = 0; i &lt; 10; i ++ ) {<br />
-				points.push( new THREE.Vector2( Math.sin( i <i> 0.2 ) </i> 10 + 5, ( i - 5 ) * 2 ) );<br />
+				points.push( new THREE.Vector2( Math.sin( i * 0.2 ) * 10 + 5, ( i - 5 ) * 2 ) );<br />
 			}<br />
 			const geometry = new THREE.LatheGeometry( points );<br />
 			const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );<br />

@@ -20,7 +20,7 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:MeshDepthMaterialParameters parameters] - (optional) an object with one or more properties defining the material's appearance.
-Any property of the material (including any property inherited from [Material](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Material)) can be passed in here.
+Any property of the material (including any property inherited from [page:Material Material]) can be passed in here.
 		</p>
 		<p>
 			Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
@@ -131,7 +131,7 @@ Any property of the material (including any property inherited from [Material](h
 
 		<h3>[property:any defines]</h3>
 		<p>
-			Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI <i> 2 }. The pairs are defined in both vertex and fragment shaders.  Default is </i>undefined*.
+			Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI * 2 }. The pairs are defined in both vertex and fragment shaders.  Default is <i>undefined</i>.
 		</p>
 
 		<h3>[property:DepthModes depthFunc]</h3>
@@ -723,7 +723,7 @@ Any property of the material (including any property inherited from [Material](h
 			Default is <i>null</i>.<br />
 			[property:boolean colorWrite]? - Whether to render the material's color.<br />
 			This can be used in conjunction with a mesh's [page:Integer renderOrder] property to create invisible objects that occlude other objects. Default is <i>true</i>.<br />
-			[property:any defines]? - Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI <i> 2 }. The pairs are defined in both vertex and fragment shaders.  Default is </i>undefined*.<br />
+			[property:any defines]? - Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI * 2 }. The pairs are defined in both vertex and fragment shaders.  Default is <i>undefined</i>.<br />
 			[property:DepthModes depthFunc]? - Which depth function to use. Default is [page:Materials LessEqualDepth]. See the depth mode [page:Materials constants] for all possible values.<br />
 			[property:DepthPackingStrategies depthPacking]? - Encoding for depth packing. Default is [page:Textures BasicDepthPacking].<br />
 			[property:boolean depthTest]? - Whether to have depth test enabled when rendering this material. Default is <i>true</i>.<br />

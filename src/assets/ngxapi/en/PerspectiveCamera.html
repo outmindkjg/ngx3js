@@ -19,11 +19,11 @@
 			<iframe src="#/viewer/webgl_animation_skinning_blending"></iframe><br />
 			<br />
 			<h2>Examples</h2><br />
-			[example:webgl_animation_skinning_blending animation / skinning / blending]<br />
-			[example:webgl_animation_skinning_morph animation / skinning / morph]<br />
-			[example:webgl_effects_stereo effects / stereo]<br />
-			[example:webgl_interactive_cubes interactive / cubes]<br />
-			[example:webgl_loader_collada_skinning loader / collada / skinning]<br />
+			[example:webgl_animation_skinning_blending animation / skinning / blending] |<br />
+			[example:webgl_animation_skinning_morph animation / skinning / morph] |<br />
+			[example:webgl_effects_stereo effects / stereo] |<br />
+			[example:webgl_interactive_cubes interactive / cubes] |<br />
+			[example:webgl_loader_collada_skinning loader / collada / skinning] |<br />
 			<br />
 			<h2>Code Example</h2><br />
 			<code data-type="javascript"><br />
@@ -711,21 +711,21 @@
 			<br />
 			const w = 1920;<br />
 			const h = 1080;<br />
-			const fullWidth = w <i> 3;<br />
-			const fullHeight = h </i> 2;<br />
+			const fullWidth = w * 3;<br />
+			const fullHeight = h * 2;<br />
 			<br />
 			// A<br />
-			camera.setViewOffset( fullWidth, fullHeight, w <i> 0, h </i> 0, w, h ) : this;<br />
+			camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 0, w, h ) : this;<br />
 			// B<br />
-			camera.setViewOffset( fullWidth, fullHeight, w <i> 1, h </i> 0, w, h ) : this;<br />
+			camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 0, w, h ) : this;<br />
 			// C<br />
-			camera.setViewOffset( fullWidth, fullHeight, w <i> 2, h </i> 0, w, h ) : this;<br />
+			camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 0, w, h ) : this;<br />
 			// D<br />
-			camera.setViewOffset( fullWidth, fullHeight, w <i> 0, h </i> 1, w, h ) : this;<br />
+			camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 1, w, h ) : this;<br />
 			// E<br />
-			camera.setViewOffset( fullWidth, fullHeight, w <i> 1, h </i> 1, w, h ) : this;<br />
+			camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 1, w, h ) : this;<br />
 			// F<br />
-			camera.setViewOffset( fullWidth, fullHeight, w <i> 2, h </i> 1, w, h ) : this;<br />
+			camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 1, w, h ) : this;<br />
 			Note there is no reason monitors have to be the same size or in a grid.
 		</p>
 

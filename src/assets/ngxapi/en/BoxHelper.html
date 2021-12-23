@@ -12,16 +12,16 @@
 		<h1>BoxHelper</h1>
 
 		<p class="desc">
-			Helper object to graphically show the world-axis-aligned bounding box around an object. The actual bounding box is handled with [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Box3 Box3], this is just a visual helper for debugging.<br />
-			It can be automatically resized with the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BoxHelper.update BoxHelper.update] method when the object it's created from is transformed.<br />
-			Note that the object must have a [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BufferGeometry BufferGeometry] for this to work, so it won't work with [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Sprite Sprites].<br />
+			Helper object to graphically show the world-axis-aligned bounding box around an object. The actual bounding box is handled with [page:Box3 Box3], this is just a visual helper for debugging.<br />
+			It can be automatically resized with the [page:BoxHelper.update BoxHelper.update] method when the object it's created from is transformed.<br />
+			Note that the object must have a [page:BufferGeometry BufferGeometry] for this to work, so it won't work with [page:Sprite Sprites].<br />
 			<br />
 			<h3>Preview - WebGL / helpers</h3><br />
 			<iframe src="#/viewer/webgl_helpers"></iframe><br />
 			<br />
 			<h2>Examples</h2><br />
-			[example:webgl_helpers WebGL / helpers]<br />
-			[example:webgl_loader_nrrd WebGL / loader / nrrd]<br />
+			[example:webgl_helpers WebGL / helpers] |<br />
+			[example:webgl_loader_nrrd WebGL / loader / nrrd] |<br />
 			[example:webgl_buffergeometry_drawrange WebGL / buffergeometry / drawrange]<br />
 			<br />
 			<h2>Code Example</h2><br />
@@ -37,8 +37,8 @@
 		<h3>[constructor:BoxHelper BoxHelper](  [param:BufferGeometry geometry]?,  [param:Material|Material[] material]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:BufferGeometry geometry] - (optional) vertices representing the line segment(s). Default is a new [BufferGeometry](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BufferGeometry).<br />
-			[parameter:Material|Material[] material] - (optional) material for the line. Default is a new [LineBasicMaterial](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/LineBasicMaterial).
+			[parameter:BufferGeometry geometry] - (optional) vertices representing the line segment(s). Default is a new [page:BufferGeometry BufferGeometry].<br />
+			[parameter:Material|Material[] material] - (optional) material for the line. Default is a new [page:LineBasicMaterial LineBasicMaterial].
 		</p>
 		<p>
 			Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.

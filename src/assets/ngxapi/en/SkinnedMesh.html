@@ -12,7 +12,7 @@
 		<h1>SkinnedMesh</h1>
 
 		<p class="desc">
-			A mesh that has a [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Skeleton Skeleton] with [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Bone bones] that can then be used to animate the vertices of the geometry.<br />
+			A mesh that has a [page:Skeleton Skeleton] with [page:Bone bones] that can then be used to animate the vertices of the geometry.<br />
 			<h2>Code Example</h2><br />
 			<code data-type="javascript"><br />
 			const geometry = new THREE.CylinderGeometry( 5, 5, 5, 5, 15, 5, 30 );<br />
@@ -49,8 +49,8 @@
 		<h3>[constructor:SkinnedMesh SkinnedMesh](  [param:TGeometry geometry]?,  [param:TMaterial material]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:TGeometry geometry] - (optional) an instance of [BufferGeometry](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BufferGeometry). Default is a new [BufferGeometry](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BufferGeometry).<br />
-			[parameter:TMaterial material] - (optional) A single or an array of [Material](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Material). Default is a new [MeshBasicMaterial](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/MeshBasicMaterial)
+			[parameter:TGeometry geometry] - (optional) an instance of [page:BufferGeometry BufferGeometry]. Default is a new [page:BufferGeometry BufferGeometry].<br />
+			[parameter:TMaterial material] - (optional) A single or an array of [page:Material Material]. Default is a new [page:MeshBasicMaterial MeshBasicMaterial]
 		</p>
 		<p>
 			Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
@@ -340,7 +340,7 @@
 		<h3>[method:void bind](  [param:Skeleton skeleton],  [param:Matrix4 bindMatrix]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Skeleton skeleton] - Skeleton created from a [Bones](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Bone) tree.<br />
+			[parameter:Skeleton skeleton] - Skeleton created from a [page:Bone Bones] tree.<br />
 			[parameter:Matrix4 bindMatrix] - (optional) Matrix4 that represents the base transform of the skeleton.
 		</p>
 		<p>

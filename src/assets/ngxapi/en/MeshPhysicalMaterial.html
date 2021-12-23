@@ -12,9 +12,9 @@
 		<h1>MeshPhysicalMaterial</h1>
 
 		<p class="desc">
-			An extension of the [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/MeshStandardMaterial MeshStandardMaterial], providing more advanced physically-based rendering properties:<br />
+			An extension of the [page:MeshStandardMaterial MeshStandardMaterial], providing more advanced physically-based rendering properties:<br />
 				Clearcoat: Some materials - like car paints, carbon fiber, and wet surfaces - require a clear, reflective layer on top of another layer that may be irregular or rough. Clearcoat approximates this effect, without the need for a separate transparent surface.<br />
-			Physically-based transparency: One limitation of [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Material.opacity .opacity] is that highly transparent materials are less reflective. Physically-based <i>.transmission</i><br />
+			Physically-based transparency: One limitation of [page:Material.opacity .opacity] is that highly transparent materials are less reflective. Physically-based <i>.transmission</i><br />
 			provides a more realistic option for thin, transparent surfaces like glass.<br />
 			Advanced reflectivity: More flexible reflectivity for non-metallic materials.<br />
 			As a result of these complex shading features, MeshPhysicalMaterial has a higher performance cost, per pixel, than other three.js materials. Most effects are disabled by default, and add cost as they are enabled. For best results, always specify an <i>.envMap</i><br />
@@ -24,9 +24,9 @@
 			<iframe src="#/viewer/webgl_materials_variations_physical"></iframe><br />
 			<br />
 			<h2>Examples</h2><br />
-			[example:webgl_materials_variations_physical materials / variations / physical]<br />
-			[example:webgl_materials_physical_clearcoat materials / physical / clearcoat]<br />
-			[example:webgl_materials_physical_reflectivity materials / physical / reflectivity]<br />
+			[example:webgl_materials_variations_physical materials / variations / physical] |<br />
+			[example:webgl_materials_physical_clearcoat materials / physical / clearcoat] |<br />
+			[example:webgl_materials_physical_reflectivity materials / physical / reflectivity] |<br />
 			[example:webgl_materials_physical_transmission materials / physical / transmission]
 		</p>
 
@@ -1017,7 +1017,7 @@
 			[property:ColorRepresentation color]? - Color of the material, by default set to white (0xffffff).<br />
 			[property:boolean colorWrite]? - Whether to render the material's color.<br />
 			This can be used in conjunction with a mesh's [page:Integer renderOrder] property to create invisible objects that occlude other objects. Default is <i>true</i>.<br />
-			[property:any defines]? - Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI <i> 2 }. The pairs are defined in both vertex and fragment shaders.  Default is </i>undefined*.<br />
+			[property:any defines]? - Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI * 2 }. The pairs are defined in both vertex and fragment shaders.  Default is <i>undefined</i>.<br />
 			[property:DepthModes depthFunc]? - Which depth function to use. Default is [page:Materials LessEqualDepth]. See the depth mode [page:Materials constants] for all possible values.<br />
 			[property:boolean depthTest]? - Whether to have depth test enabled when rendering this material. Default is <i>true</i>.<br />
 			[property:boolean depthWrite]? - Whether rendering this material has any effect on the depth buffer. Default is <i>true</i>.<br />
@@ -1158,7 +1158,7 @@
 			[property:ColorRepresentation color]? - Color of the material, by default set to white (0xffffff).<br />
 			[property:boolean colorWrite]? - Whether to render the material's color.<br />
 			This can be used in conjunction with a mesh's [page:Integer renderOrder] property to create invisible objects that occlude other objects. Default is <i>true</i>.<br />
-			[property:any defines]? - Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI <i> 2 }. The pairs are defined in both vertex and fragment shaders.  Default is </i>undefined*.<br />
+			[property:any defines]? - Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI * 2 }. The pairs are defined in both vertex and fragment shaders.  Default is <i>undefined</i>.<br />
 			[property:DepthModes depthFunc]? - Which depth function to use. Default is [page:Materials LessEqualDepth]. See the depth mode [page:Materials constants] for all possible values.<br />
 			[property:boolean depthTest]? - Whether to have depth test enabled when rendering this material. Default is <i>true</i>.<br />
 			[property:boolean depthWrite]? - Whether rendering this material has any effect on the depth buffer. Default is <i>true</i>.<br />

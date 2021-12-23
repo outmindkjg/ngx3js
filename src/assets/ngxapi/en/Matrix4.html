@@ -14,11 +14,11 @@
 		<p class="desc">
 			A class representing a 4x4 [link:https://en.wikipedia.org/wiki/Matrix_(mathematics matrix]).<br />
 			The most common use of a 4x4 matrix in 3D computer graphics is as a [link:https://en.wikipedia.org/wiki/Transformation_matrix Transformation Matrix].a For an introduction to transformation matrices as used in WebGL, check out [link:http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices this tutorial].<br />
-			This allows a [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3 Vector3] representing a point in 3D space to undergo transformations such as translation, rotation, shear, scale, reflection, orthogonal or perspective projection and so on, by being multiplied by the matrix. This is known as	&lt;em&gt;applying&lt;/em&gt; the matrix to the vector.<br />
-			Every [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Object3D Object3D] has three associated Matrix4s:<br />
-			[link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Object3D.matrix Object3D.matrix]: This stores the local transform of the object. This is the object's transformation relative to its parent.<br />
-			[link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Object3D.matrixWorld Object3D.matrixWorld]: The global or world transform of the object. If the object has no parent, then this is identical to the local transform stored in [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Object3D.matrix matrix].<br />
-			[link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Object3D.modelViewMatrix Object3D.modelViewMatrix]: This represents the object's transformation relative to the camera's coordinate system.<br />
+			This allows a [page:Vector3 Vector3] representing a point in 3D space to undergo transformations such as translation, rotation, shear, scale, reflection, orthogonal or perspective projection and so on, by being multiplied by the matrix. This is known as	&lt;em&gt;applying&lt;/em&gt; the matrix to the vector.<br />
+			Every [page:Object3D Object3D] has three associated Matrix4s:<br />
+			[page:Object3D.matrix Object3D.matrix]: This stores the local transform of the object. This is the object's transformation relative to its parent.<br />
+			[page:Object3D.matrixWorld Object3D.matrixWorld]: The global or world transform of the object. If the object has no parent, then this is identical to the local transform stored in [page:Object3D.matrix matrix].<br />
+			[page:Object3D.modelViewMatrix Object3D.modelViewMatrix]: This represents the object's transformation relative to the camera's coordinate system.<br />
 			An object's modelViewMatrix is the object's matrixWorld pre-multiplied by the camera's matrixWorldInverse.<br />
 			[page:Camera Cameras] have three additional Matrix4s:<br />
 			[page:Camera.matrixWorldInverse Camera.matrixWorldInverse]: The view matrix - the inverse of the Camera's [page:Object3D.matrixWorld matrixWorld].<br />
@@ -268,8 +268,8 @@
 			[parameter:Quaternion q] - The q.
 		</p>
 		<p>
-			Sets the rotation component of this matrix to the rotation specified by [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Quaternion q], as outlined [link:https://en.wikipedia.org/wiki/Rotation_matrix#Quaternion here].<br />
-			The rest of the matrix is set to the identity. So, given [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Quaternion q] = w + xi + yj + zk, the resulting matrix will be:<br />
+			Sets the rotation component of this matrix to the rotation specified by [page:Quaternion q], as outlined [link:https://en.wikipedia.org/wiki/Rotation_matrix#Quaternion here].<br />
+			The rest of the matrix is set to the identity. So, given [page:Quaternion q] = w + xi + yj + zk, the resulting matrix will be:<br />
 			1-2y²-2z²    2xy-2zw    2xz+2yw    0<br />
 			2xy+2zw      1-2x²-2z²  2yz-2xw    0<br />
 			2xz-2yw      2yz+2xw    1-2x²-2y²  0<br />
@@ -282,7 +282,7 @@
 			[parameter:number theta] - The theta.
 		</p>
 		<p>
-			Sets this matrix as a rotational transformation around the X axis by [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float theta] (&theta;) radians.<br />
+			Sets this matrix as a rotational transformation around the X axis by [page:Float theta] (&theta;) radians.<br />
 			The resulting matrix will be:<br />
 			1 0      0        0<br />
 			0 cos(&theta;) -sin(&theta;)  0<br />
@@ -296,7 +296,7 @@
 			[parameter:number theta] - The theta.
 		</p>
 		<p>
-			Sets this matrix as a rotational transformation around the Y axis by [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float theta] (&theta;) radians.<br />
+			Sets this matrix as a rotational transformation around the Y axis by [page:Float theta] (&theta;) radians.<br />
 			The resulting matrix will be:<br />
 			cos(&theta;)  0 sin(&theta;) 0<br />
 			0       1 0      0<br />
@@ -464,7 +464,7 @@ x, 0, 0, 0,
 		<p>
 			[parameter:number[] array] - (optional) array to store the resulting vector in.<br />
 			[parameter:number offset] - (optional) offset in the array at which to put the result.
-Writes the elements of this matrix to an array in [column-major](https://en.wikipedia.org/wiki/Row-_and_column-major_order#Column-major_order) format.
+Writes the elements of this matrix to an array in [link:https://en.wikipedia.org/wiki/Row-_and_column-major_order#Column-major_order column-major] format.
 		</p>
 		<p>
 			
