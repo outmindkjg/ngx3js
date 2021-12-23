@@ -298,7 +298,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 						hrefId = hrefId.substr(this.pageName.length + 1);
 					} 
 					if (this.setElementById(hrefId) !== null) {
-						this.setFocus(hrefId);
+						this.router.navigateByUrl('/docs/' + this.menuId + '.' + hrefId);
 					} else {
 						this.docsComponent.changePage(hrefId, this.menuId);
 					}

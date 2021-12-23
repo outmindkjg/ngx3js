@@ -310,6 +310,13 @@ div#docs {
 	hr.interface-line {
 		margin: 1rem 0;
 		border: 2px solid var(--secondary-text-color);
+		&.top {
+			border-width: 1px;
+			margin-bottom: 1em;
+		}
+		&.bottom {
+			margin-top: 1.5em;
+		}
 	}
 	i.modifier {
 		display: inline-block;
