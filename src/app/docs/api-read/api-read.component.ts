@@ -53,18 +53,30 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 	public menuId: string = '';
 	public pageName: string = '';
 	public tagName: string = '';
-
+	public errorPage : string = null;
 	changeRouter(url: string) {
-		this.menuId = url.substr(6).split('.')[0];
-		this.pageName = /[\-A-z0-9]+$/.exec(this.menuId).toString();
-		this.tagName = url.indexOf('.') > 0 ? url.split('.')[1] : null;
-		this.http
-			.get('assets/' + this.menuId + '.html', {
-				responseType: 'text',
-			})
-			.subscribe((response) => {
-				this.setBody(response, this.menuId);
-			});
+		const menuId = url.substr(6).split('.')[0];
+		if (this.menuId !== menuId) {
+			this.menuId = url.substr(6).split('.')[0];
+			this.pageName = /[\-A-z0-9]+$/.exec(this.menuId).toString();
+			this.tagName = url.indexOf('.') > 0 ? url.split('.')[1] : null;
+			this.http
+				.get('assets/' + this.menuId + '.html', {
+					responseType: 'text',
+				})
+				.subscribe((response) => {
+					this.errorPage = null;
+					this.setBody(response, this.menuId);
+				}, () => {
+					this.errorPage = this.menuId;
+					this.docEle.nativeElement.innerHTML = '';
+				});
+		} else {
+			this.tagName = url.indexOf('.') > 0 ? url.split('.')[1] : null;
+			if (this.tagName !== null && this.tagName !== '') {
+				this.setFocus(this.tagName, 500);
+			}
+		}
 	}
 
 	setBody(body: string, pageId: string) {
