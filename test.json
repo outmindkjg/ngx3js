@@ -1,31 +1,143 @@
 {
-	"id": 80624,
-	"name": "change",
-	"kind": 2048,
-	"kindString": "Method",
-	"flags": { "isOptional": true },
-	"sources": [{ "fileName": "lib/interface.ts", "line": 559, "character": 1 }],
-	"signatures": [
+	"id": 65867,
+	"name": "StencilFunc",
+	"kind": 8,
+	"kindString": "Enumeration",
+	"flags": {},
+	"children": [
 		{
-			"id": 80625,
-			"name": "change",
-			"kind": 4096,
-			"kindString": "Call signature",
+			"id": 65875,
+			"name": "AlwaysStencilFunc",
+			"kind": 16,
+			"kindString": "Enumeration member",
 			"flags": {},
-			"comment": {
-				"shortText": "The change event is fired for <input>, <select>, and <textarea> elements when an alteration to the elements value."
-			},
-			"parameters": [
+			"sources": [
 				{
-					"id": 80626,
-					"name": "e",
-					"kind": 32768,
-					"kindString": "Parameter",
-					"flags": { "isOptional": true },
-					"type": { "type": "intrinsic", "name": "any" }
+					"fileName": "lib/threejs-library/types/three/constants.ts",
+					"line": 371,
+					"character": 1
 				}
 			],
-			"type": { "type": "intrinsic", "name": "void" }
+			"defaultValue": "519"
+		},
+		{
+			"id": 65870,
+			"name": "EqualStencilFunc",
+			"kind": 16,
+			"kindString": "Enumeration member",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "lib/threejs-library/types/three/constants.ts",
+					"line": 366,
+					"character": 1
+				}
+			],
+			"defaultValue": "514"
+		},
+		{
+			"id": 65874,
+			"name": "GreaterEqualStencilFunc",
+			"kind": 16,
+			"kindString": "Enumeration member",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "lib/threejs-library/types/three/constants.ts",
+					"line": 370,
+					"character": 1
+				}
+			],
+			"defaultValue": "518"
+		},
+		{
+			"id": 65872,
+			"name": "GreaterStencilFunc",
+			"kind": 16,
+			"kindString": "Enumeration member",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "lib/threejs-library/types/three/constants.ts",
+					"line": 368,
+					"character": 1
+				}
+			],
+			"defaultValue": "516"
+		},
+		{
+			"id": 65871,
+			"name": "LessEqualStencilFunc",
+			"kind": 16,
+			"kindString": "Enumeration member",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "lib/threejs-library/types/three/constants.ts",
+					"line": 367,
+					"character": 1
+				}
+			],
+			"defaultValue": "515"
+		},
+		{
+			"id": 65869,
+			"name": "LessStencilFunc",
+			"kind": 16,
+			"kindString": "Enumeration member",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "lib/threejs-library/types/three/constants.ts",
+					"line": 365,
+					"character": 1
+				}
+			],
+			"defaultValue": "513"
+		},
+		{
+			"id": 65868,
+			"name": "NeverStencilFunc",
+			"kind": 16,
+			"kindString": "Enumeration member",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "lib/threejs-library/types/three/constants.ts",
+					"line": 364,
+					"character": 1
+				}
+			],
+			"defaultValue": "512"
+		},
+		{
+			"id": 65873,
+			"name": "NotEqualStencilFunc",
+			"kind": 16,
+			"kindString": "Enumeration member",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "lib/threejs-library/types/three/constants.ts",
+					"line": 369,
+					"character": 1
+				}
+			],
+			"defaultValue": "517"
+		}
+	],
+	"groups": [
+		{
+			"title": "Enumeration members",
+			"kind": 16,
+			"children": [65875, 65870, 65874, 65872, 65871, 65869, 65868, 65873]
+		}
+	],
+	"sources": [
+		{
+			"fileName": "lib/threejs-library/types/three/constants.ts",
+			"line": 363,
+			"character": 12
 		}
 	]
 }

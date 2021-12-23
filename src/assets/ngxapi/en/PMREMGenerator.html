@@ -10,7 +10,8 @@
 		<h1>PMREMGenerator</h1>
 
 		<p class="desc">
-			
+			This class generates a Prefiltered, Mipmapped Radiance Environment Map (PMREM) from a cubeMap environment texture.<br />
+			This allows different levels of blur to be quickly accessed based on material roughness. It is packed into a special CubeUV format that allows us to perform custom interpolation so that we can support nonlinear formats such as RGBE.l Unlike a traditional mipmap chain, it only goes down to the LOD_MIN level (above), and then creates extra even e filtered 'mips' at the same LOD_MIN resolution, associated with higher roughness levels. In this way we maintain resolution to smoothly interpolate diffuse lighting while limiting sampling computation.
 		</p>
 
 		<h2>Constructor</h2>
@@ -20,7 +21,7 @@
 			[parameter:WebGLRenderer renderer] - The renderer.
 		</p>
 		<p>
-			
+			This constructor creates a new PMREMGenerator.
 		</p>
 
 		<h2>Properties</h2>
@@ -31,47 +32,50 @@
 		<h2>Methods</h2>
 		<h3>[method:void compileCubemapShader](  )</h3>
 		<p>
-			
+			Pre-compiles the cubemap shader. You can get faster start-up by invoking this method during your texture's network fetch for increased concurrency.
 		</p>
 
 		<h3>[method:void compileEquirectangularShader](  )</h3>
 		<p>
-			
+			Pre-compiles the equirectangular shader. You can get faster start-up by invoking this method during your texture's network fetch for increased concurrency.
 		</p>
 
 		<h3>[method:void dispose](  )</h3>
 		<p>
-			
+			Disposes of the PMREMGenerator's internal memory. Note that PMREMGenerator is a static class, so you should not need more than one PMREMGenerator object. If you do, calling dispose() on one of them will cause any others to also become unusable.
 		</p>
 
 		<h3>[method:WebGLRenderTarget fromCubemap](  [param:CubeTexture cubemap] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:CubeTexture cubemap] - The cubemap.
+			[parameter:CubeTexture cubemap] - The cubemap texture.
 		</p>
 		<p>
-			
+			Generates a PMREM from an cubemap texture, which can be either LDR (RGBFormat) or HDR (RGBEFormat).<br />
+			The ideal input cube size is 256 x 256, as this matches best with the 256 x 256 cubemap output.
 		</p>
 
 		<h3>[method:WebGLRenderTarget fromEquirectangular](  [param:Texture equirectangular] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Texture equirectangular] - The equirectangular.
+			[parameter:Texture equirectangular] - The equirectangular texture.
 		</p>
 		<p>
-			
+			Generates a PMREM from an equirectangular texture, which can be either LDR (RGBFormat) or HDR (RGBEFormat).<br />
+			The ideal input image size is 1k (1024 x 512), as this matches best with the 256 x 256 cubemap output.
 		</p>
 
 		<h3>[method:WebGLRenderTarget fromScene](  [param:Scene scene],  [param:number sigma]?,  [param:number near]?,  [param:number far]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Scene scene] - The scene.<br />
+			[parameter:Scene scene] - The given scene.<br />
 			[parameter:number sigma] - (optional) The sigma.<br />
-			[parameter:number near] - (optional) The near.<br />
-			[parameter:number far] - (optional) The far.
+			[parameter:number near] - (optional) The near plane value. Default is *0.1*.<br />
+			[parameter:number far] - (optional) The far plane value. Default is *100*.
 		</p>
 		<p>
-			
+			Generates a PMREM from a supplied Scene, which can be faster than using an image if networking bandwidth is low.<br />
+			Optional near and far planes ensure the scene is rendered in its entirety (the cubeCamera is placed at the origin).
 		</p>
 
 

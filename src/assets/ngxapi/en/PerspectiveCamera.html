@@ -12,17 +12,39 @@
 		<h1>PerspectiveCamera</h1>
 
 		<p class="desc">
-			Camera with perspective projection.
+			Camera that uses [perspective projection](https://en.wikipedia.org/wiki/Perspective_(graphical)).<br />
+			This projection mode is designed to mimic the way the human eye sees. It is the most common projection mode used for rendering a 3D scene.<br />
+			<br />
+			<h3>Preview - animation / skinning / blending</h3><br />
+			<iframe src="#/viewer/webgl_animation_skinning_blending"></iframe><br />
+			<br />
+			<h2>Examples</h2><br />
+			[example:webgl_animation_skinning_blending animation / skinning / blending]<br />
+			[example:webgl_animation_skinning_morph animation / skinning / morph]<br />
+			[example:webgl_effects_stereo effects / stereo]<br />
+			[example:webgl_interactive_cubes interactive / cubes]<br />
+			[example:webgl_loader_collada_skinning loader / collada / skinning]<br />
+			<br />
+			<h2>Code Example</h2><br />
+			<code data-type="javascript"><br />
+			const camera = new THREE.PerspectiveCamera( <br />
+				45, <br />
+				width / height, <br />
+				1, <br />
+				1000 <br />
+			);<br />
+			scene.add( camera );<br />
+			</code>
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:PerspectiveCamera PerspectiveCamera](  [param:number fov]?,  [param:number aspect]?,  [param:number near]?,  [param:number far]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number fov] - (optional) The fov.<br />
-			[parameter:number aspect] - (optional) The aspect.<br />
-			[parameter:number near] - (optional) The near.<br />
-			[parameter:number far] - (optional) The far.
+			[parameter:number fov] - (optional) Camera frustum vertical field of view.<br />
+			[parameter:number aspect] - (optional) Camera frustum aspect ratio.<br />
+			[parameter:number near] - (optional) Camera frustum near plane.<br />
+			[parameter:number far] - (optional) Camera frustum far plane.
 		</p>
 		<p>
 			Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
@@ -41,12 +63,12 @@
 
 		<h3>[property:boolean DefaultMatrixAutoUpdate]</h3>
 		<p>
-			The default setting for *.matrixAutoUpdate* for newly created Object3Ds.
+			The default setting for <i>.matrixAutoUpdate</i> for newly created Object3Ds.
 		</p>
 
 		<h3>[property:Vector3 DefaultUp]</h3>
 		<p>
-			The default *.up* direction for objects, also used as the default position for [page:DirectionalLight DirectionalLight],<br />
+			The default <i>.up</i> direction for objects, also used as the default position for [page:DirectionalLight DirectionalLight],<br />
 			[page:HemisphereLight HemisphereLight] and [page:Spotlight Spotlight] (which creates lights shining from the top down).<br />
 			Set to ( 0, 1, 0 ) by default.
 		</p>
@@ -58,12 +80,12 @@
 
 		<h3>[property:number aspect]</h3>
 		<p>
-			Camera frustum aspect ratio, window width divided by window height.
+			Camera frustum aspect ratio, usually the canvas width / canvas height. Default is <i>1</i> (square canvas).
 		</p>
 
 		<h3>[property:boolean castShadow]</h3>
 		<p>
-			Whether the object gets rendered into shadow map. Default is *false*.
+			Whether the object gets rendered into shadow map. Default is <i>false</i>.
 		</p>
 
 		<h3>[property:Object3D[] children]</h3>
@@ -74,37 +96,39 @@
 		<h3>[property:Material customDepthMaterial]</h3>
 		<p>
 			Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br />
-			When shadow-casting with a [page:DirectionalLight DirectionalLight] or [page:SpotLight SpotLight], if you are modifying vertex positions in the vertex shader you must specify a customDepthMaterial for proper shadows. Default is *undefined*.
+			When shadow-casting with a [page:DirectionalLight DirectionalLight] or [page:SpotLight SpotLight], if you are modifying vertex positions in the vertex shader you must specify a customDepthMaterial for proper shadows. Default is <i>undefined</i>.
 		</p>
 
 		<h3>[property:Material customDistanceMaterial]</h3>
 		<p>
-			Same as *.customDepthMaterial*, but used with [page:PointLight PointLight]. Default is *undefined*.
+			Same as <i>.customDepthMaterial</i>, but used with [page:PointLight PointLight]. Default is <i>undefined</i>.
 		</p>
 
 		<h3>[property:number far]</h3>
 		<p>
-			Camera frustum far plane.
+			Camera frustum far plane. Default is <i>2000</i>.<br />
+			Must be greater than the current value of <i>.near</i> plane.
 		</p>
 
 		<h3>[property:number filmGauge]</h3>
 		<p>
-			
+			Film size used for the larger axis. Default is 35 (millimeters). This parameter does not influence the projection matrix unless .filmOffset is set to a nonzero value.
 		</p>
 
 		<h3>[property:number filmOffset]</h3>
 		<p>
-			
+			Horizontal off-center offset in the same unit as .filmGauge. Default is <i>0</i>.
 		</p>
 
 		<h3>[property:number focus]</h3>
 		<p>
-			
+			Object distance used for stereoscopy and depth-of-field effects.<br />
+			This parameter does not influence the projection matrix unless a [page:StereoCamera StereoCamera] is being used.
 		</p>
 
 		<h3>[property:number fov]</h3>
 		<p>
-			Camera frustum vertical field of view, from bottom to top of view, in degrees.
+			Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is <i>50</i>.
 		</p>
 
 		<h3>[property:boolean frustumCulled]</h3>
@@ -119,7 +143,7 @@
 
 		<h3>[property:number id]</h3>
 		<p>
-			readonly – Unique number for this object instance.
+			Unique number for this object instance.
 		</p>
 
 		<h3>[property:any isCamera]</h3>
@@ -140,7 +164,8 @@
 
 		<h3>[property:Layers layers]</h3>
 		<p>
-			The layer membership of the object. The object is only visible if it has at least one layer in common with the [page:Camera Camera] in use. This property can also be used to filter out unwanted objects in ray-intersection tests when using [page:Raycaster Raycaster].
+			The [page:Layers layers] that the camera is a member of. This is an inherited property from [page:Object3D Object3D].<br />
+			Objects must share at least one layer with the camera to be seen when the camera's viewpoint is rendered.
 		</p>
 
 		<h3>[property:Material|Material[] material]?<i class="modifier modifier-optional">Optional</i></h3>
@@ -160,7 +185,7 @@
 
 		<h3>[property:Matrix4 matrixWorld]</h3>
 		<p>
-			The global transform of the object. If the Object3D has no parent, then it's identical to the local transform *.matrix*.
+			The global transform of the object. If the Object3D has no parent, then it's identical to the local transform <i>.matrix</i>.
 		</p>
 
 		<h3>[property:Matrix4 matrixWorldInverse]</h3>
@@ -170,7 +195,7 @@
 
 		<h3>[property:boolean matrixWorldNeedsUpdate]</h3>
 		<p>
-			When this is set, it calculates the matrixWorld in that frame and resets this property  to false. Default is *false*.
+			When this is set, it calculates the matrixWorld in that frame and resets this property  to false. Default is <i>false</i>.
 		</p>
 
 		<h3>[property:Matrix4 modelViewMatrix]</h3>
@@ -185,7 +210,9 @@
 
 		<h3>[property:number near]</h3>
 		<p>
-			Camera frustum near plane.
+			Camera frustum near plane. Default is <i>0.1</i>.<br />
+			The valid range is greater than 0 and less than the current value of the <i>.far</i> plane.<br />
+			Note that, unlike for the [page:OrthographicCamera OrthographicCamera], <i>0</i> is &lt;em&gt;not&lt;/em&gt; a valid value for a PerspectiveCamera's near plane.
 		</p>
 
 		<h3>[property:Matrix3 normalMatrix]</h3>
@@ -212,7 +239,7 @@
 
 		<h3>[property:Matrix4 projectionMatrixInverse]</h3>
 		<p>
-			This is the inverse of projectionMatrix.
+			The inverse of projectionMatrix.
 		</p>
 
 		<h3>[property:Quaternion quaternion]</h3>
@@ -222,14 +249,13 @@
 
 		<h3>[property:boolean receiveShadow]</h3>
 		<p>
-			Whether the material receives shadows. Default is *false*.
+			Whether the material receives shadows. Default is <i>false</i>.
 		</p>
 
 		<h3>[property:number renderOrder]</h3>
 		<p>
-			This value allows the default rendering order of [link:https://en.wikipedia.org/wiki/Scene_graph scene graph]<br />
-			objects to be overridden although opaque and transparent objects remain sorted independently. When this property is set for an instance of [page:Group Group], all descendants objects will be sorted and rendered together.<br />
-			Sorting is from lowest to highest renderOrder. Default value is *0*.
+			This value allows the default rendering order of [link:https://en.wikipedia.org/wiki/Scene_graph scene graph] objects to be overridden although opaque and transparent objects remain sorted independently. When this property is set for an instance of [page:Group Group], all descendants objects will be sorted and rendered together.<br />
+			Sorting is from lowest to highest renderOrder. Default value is <i>0</i>.
 		</p>
 
 		<h3>[property:Euler rotation]</h3>
@@ -249,7 +275,7 @@
 
 		<h3>[property:Vector3 up]</h3>
 		<p>
-			This is used by the *.lookAt* method, for example, to determine the orientation of the result.<br />
+			This is used by the <i>.lookAt</i> method, for example, to determine the orientation of the result.<br />
 			Default is [page:Object3D.DefaultUp Object3D.DefaultUp] - that is, ( 0, 1, 0 ).
 		</p>
 
@@ -266,17 +292,18 @@
 
 		<h3>[property:any view]</h3>
 		<p>
-			
+			Frustum window specification or null.<br />
+			This is set using the [page:PerspectiveCamera.setViewOffset .setViewOffset] method and cleared using [page:PerspectiveCamera.clearViewOffset .clearViewOffset].
 		</p>
 
 		<h3>[property:boolean visible]</h3>
 		<p>
-			Object gets rendered if *true*. Default is *true*.
+			Object gets rendered if <i>true</i>. Default is <i>true</i>.
 		</p>
 
 		<h3>[property:number zoom]</h3>
 		<p>
-			
+			Gets or sets the zoom factor of the camera. Default is <i>1</i>.
 		</p>
 
 		<h2>Methods</h2>
@@ -296,7 +323,7 @@
 			[parameter:Object3D[] object] - The object.
 		</p>
 		<p>
-			Adds *object* as child of this object. An arbitrary number of objects may be added. Any current parent on an object passed in here will be removed, since an object can have at most one parent.<br />
+			Adds <i>object</i> as child of this object. An arbitrary number of objects may be added. Any current parent on an object passed in here will be removed, since an object can have at most one parent.<br />
 			See [page:Group Group] for info on manually grouping objects.
 		</p>
 
@@ -334,7 +361,7 @@
 			[parameter:Object3D object] - The object.
 		</p>
 		<p>
-			Adds *object* as a child of this, while maintaining the object's world transform.<br />
+			Adds <i>object</i> as a child of this, while maintaining the object's world transform.<br />
 			Note: This method does not support scene graphs having non-uniformly-scaled nodes(s).
 		</p>
 
@@ -345,17 +372,15 @@
 
 		<h3>[method:void clearViewOffset](  )</h3>
 		<p>
-			
+			Removes any offset set by the [page:PerspectiveCamera.setViewOffset .setViewOffset] method.
 		</p>
 
 		<h3>[method:PerspectiveCamera clone](  [param:boolean recursive]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:boolean recursive] - (optional) The recursive.
+			[parameter:boolean recursive] - (optional) if true, descendants of the object are also cloned. Default is true.
 		</p>
 		<p>
-			recursive -- if true, descendants of the object are also cloned. Default is true.<br />
-			<br />
 			Returns : Returns a clone of this object and optionally all descendants.
 		</p>
 
@@ -363,12 +388,11 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:PerspectiveCamera source] - The source.<br />
-			[parameter:boolean recursive] - (optional) The recursive.
+			[parameter:boolean recursive] - (optional) if true, descendants of the object are also copied. Default is true.
 		</p>
 		<p>
-			recursive -- if true, descendants of the object are also copied. Default is true.<br />
 			Copy the given object into this object.<br />
-			Note: event listeners and user-defined callbacks (*.onAfterRender* and *.onBeforeRender*) are not copied.
+			Note: event listeners and user-defined callbacks (<i>.onAfterRender</i> and <i>.onBeforeRender</i>) are not copied.
 		</p>
 
 		<h3>[method:void dispatchEvent](  [param:Event event] )</h3>
@@ -382,41 +406,39 @@
 
 		<h3>[method:number getEffectiveFOV](  )</h3>
 		<p>
-			
+			Returns : Returns the current vertical field of view angle in degrees considering .zoom.
 		</p>
 
 		<h3>[method:number getFilmHeight](  )</h3>
 		<p>
-			
+			Returns : Returns the height of the image on the film. If .aspect is less than or equal to one (portrait format), the result equals .filmGauge.
 		</p>
 
 		<h3>[method:number getFilmWidth](  )</h3>
 		<p>
-			
+			Returns : Returns the width of the image on the film. If .aspect is greater than or equal to one (landscape format), the result equals .filmGauge.
 		</p>
 
 		<h3>[method:number getFocalLength](  )</h3>
 		<p>
-			
+			Returns : Returns the focal length of the current .fov in respect to .filmGauge.
 		</p>
 
 		<h3>[method:Object3D getObjectById](  [param:number id] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number id] - Unique number of the object instance
+			[parameter:number id] - Unique number of the object instance Searches through an object and its children, starting with the object itself, and returns the first with a matching id.
 		</p>
 		<p>
-			id -- Unique number of the object instance Searches through an object and its children, starting with the object itself, and returns the first with a matching id.<br />
 			Note that ids are assigned in chronological order: 1, 2, 3, ..., incrementing by one for each new object.
 		</p>
 
 		<h3>[method:Object3D getObjectByName](  [param:string name] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string name] - String to match to the children's Object3d.name property.
+			[parameter:string name] - String to match to the children's Object3D.name property.
 		</p>
 		<p>
-			name -- String to match to the children's Object3D.name property.<br />
 			Searches through an object and its children, starting with the object itself, and returns the first with a matching name.<br />
 			Note that for most objects the name is an empty string by default. You will have to set it manually to make use of this method.
 		</p>
@@ -424,28 +446,28 @@
 		<h3>[method:Object3D getObjectByProperty](  [param:string name],  [param:string value] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string name] - The name.<br />
-			[parameter:string value] - The value.
+			[parameter:string name] - The property name to search for.<br />
+			[parameter:string value] - Value of the given property.
 		</p>
 		<p>
-			name -- the property name to search for.<br />
-			value -- value of the given property.<br />
 			Searches through an object and its children, starting with the object itself, and returns the first with a property that matches the value given.
 		</p>
 
 		<h3>[method:Vector3 getWorldDirection](  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - The target.
+			[parameter:Vector3 target] - The result will be copied into this Vector3.
 		</p>
 		<p>
-			
+			(Note: A camera looks down its local, negative z-axis).<br />
+			<br />
+			Returns : Returns a [page:Vector3 Vector3] representing the world space direction in which the camera is looking.
 		</p>
 
 		<h3>[method:Vector3 getWorldPosition](  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - the result will be copied into this Vector3.
+			[parameter:Vector3 target] - The result will be copied into this Vector3.
 		</p>
 		<p>
 			Returns : Returns a vector representing the position of the object in world space.
@@ -454,7 +476,7 @@
 		<h3>[method:Quaternion getWorldQuaternion](  [param:Quaternion target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Quaternion target] - the result will be copied into this Quaternion.
+			[parameter:Quaternion target] - The result will be copied into this Quaternion.
 		</p>
 		<p>
 			Returns : Returns a quaternion representing the rotation of the object in world space.
@@ -463,7 +485,7 @@
 		<h3>[method:Vector3 getWorldScale](  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - the result will be copied into this Vector3.
+			[parameter:Vector3 target] - The result will be copied into this Vector3.
 		</p>
 		<p>
 			Returns : Returns a vector of the scaling factors applied to the object for each axis in world space.
@@ -482,10 +504,9 @@
 		<h3>[method:Vector3 localToWorld](  [param:Vector3 vector] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 vector] - A local vector.
+			[parameter:Vector3 vector] - A vector representing a position in this object's local space.
 		</p>
 		<p>
-			vector - A vector representing a position in this object's local space.<br />
 			Converts the vector from this object's local space to world space.
 		</p>
 
@@ -497,7 +518,7 @@
 			[parameter:number z] - (optional) The z.
 		</p>
 		<p>
-			Optionally, the *.x*, *.y* and *.z* components of the world space position.<br />
+			Optionally, the <i>.x</i>, <i>.y</i> and <i>.z</i> components of the world space position.<br />
 			Rotates the object to face a point in world space.<br />
 			This method does not support objects having non-uniformly-scaled parent(s).
 		</p>
@@ -515,7 +536,7 @@
 		<p>
 			An optional callback that is executed immediately after a 3D object is rendered.<br />
 			This function is called with the following parameters: renderer, scene, camera, geometry, material, group.<br />
-			Please notice that this callback is only executed for *renderable* 3D objects. Meaning 3D objects which define their visual appearance with geometries and materials like instances of [page:Mesh Mesh], [page:Line Line], [page:Points Points] or [page:Sprite Sprite].<br />
+			Please notice that this callback is only executed for <i>renderable</i> 3D objects. Meaning 3D objects which define their visual appearance with geometries and materials like instances of [page:Mesh Mesh], [page:Line Line], [page:Points Points] or [page:Sprite Sprite].<br />
 			Instances of [page:Object3D Object3D], [page:Group Group] or [page:Bone Bone] are not renderable and thus this callback is not executed for such objects.
 		</p>
 
@@ -532,7 +553,7 @@
 		<p>
 			An optional callback that is executed immediately before a 3D object is rendered.<br />
 			This function is called with the following parameters: renderer, scene, camera, geometry, material, group.<br />
-			Please notice that this callback is only executed for *renderable* 3D objects. Meaning 3D objects which define their visual appearance with geometries and materials like instances of [page:Mesh Mesh], [page:Line Line], [page:Points Points] or [page:Sprite Sprite].<br />
+			Please notice that this callback is only executed for <i>renderable</i> 3D objects. Meaning 3D objects which define their visual appearance with geometries and materials like instances of [page:Mesh Mesh], [page:Line Line], [page:Points Points] or [page:Sprite Sprite].<br />
 			Instances of [page:Object3D Object3D], [page:Group Group] or [page:Bone Bone] are not renderable and thus this callback is not executed for such objects.
 		</p>
 
@@ -553,7 +574,7 @@
 			[parameter:Object3D[] object] - The object.
 		</p>
 		<p>
-			Removes *object* as child of this object. An arbitrary number of objects may be removed.
+			Removes <i>object</i> as child of this object. An arbitrary number of objects may be removed.
 		</p>
 
 		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )</h3>
@@ -595,7 +616,7 @@
 		<h3>[method:PerspectiveCamera rotateX](  [param:number angle] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number angle] - the angle to rotate in radians.
+			[parameter:number angle] - The angle to rotate in radians.
 		</p>
 		<p>
 			Rotates the object around x axis in local space.
@@ -604,7 +625,7 @@
 		<h3>[method:PerspectiveCamera rotateY](  [param:number angle] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number angle] - the angle to rotate in radians.
+			[parameter:number angle] - The angle to rotate in radians.
 		</p>
 		<p>
 			Rotates the object around y axis in local space.
@@ -613,7 +634,7 @@
 		<h3>[method:PerspectiveCamera rotateZ](  [param:number angle] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number angle] - the angle to rotate in radians.
+			[parameter:number angle] - The angle to rotate in radians.
 		</p>
 		<p>
 			Rotates the object around z axis in local space.
@@ -625,17 +646,8 @@
 			[parameter:number focalLength] - The focal length.
 		</p>
 		<p>
-			
-		</p>
-
-		<h3>[method:void setLens](  [param:number focalLength],  [param:number frameHeight]? )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:number focalLength] - The focal length.<br />
-			[parameter:number frameHeight] - (optional) The frame height.
-		</p>
-		<p>
-			deprecated - Use {@link PerspectiveCamera#setFocalLength .setFocalLength()} and {@link PerspectiveCamera#filmGauge .filmGauge} instead.
+			Sets the FOV by focal length in respect to the current [page:PerspectiveCamera.filmGauge .filmGauge].<br />
+			By default, the focal length is specified for a 35mm (full frame) camera.
 		</p>
 
 		<h3>[method:void setRotationFromAxisAngle](  [param:Vector3 axis],  [param:number angle] )</h3>
@@ -645,7 +657,7 @@
 			[parameter:number angle] - angle in radians
 		</p>
 		<p>
-			Calls [page:Quaternion.setFromAxisAngle setFromAxisAngle]( [page:Float axis], [page:Float angle] ) on the *.quaternion*.
+			Calls [page:Quaternion.setFromAxisAngle setFromAxisAngle]( [page:Float axis], [page:Float angle] ) on the <i>.quaternion</i>.
 		</p>
 
 		<h3>[method:void setRotationFromEuler](  [param:Euler euler] )</h3>
@@ -654,7 +666,7 @@
 			[parameter:Euler euler] - Euler angle specifying rotation amount.
 		</p>
 		<p>
-			Calls [page:Quaternion.setRotationFromEuler setRotationFromEuler]( [page:Euler euler]) on the *.quaternion*.
+			Calls [page:Quaternion.setRotationFromEuler setRotationFromEuler]( [page:Euler euler]) on the <i>.quaternion</i>.
 		</p>
 
 		<h3>[method:void setRotationFromMatrix](  [param:Matrix4 m] )</h3>
@@ -663,7 +675,7 @@
 			[parameter:Matrix4 m] - rotate the quaternion by the rotation component of the matrix.
 		</p>
 		<p>
-			Calls [page:Quaternion.setFromRotationMatrix setFromRotationMatrix]( [page:Matrix4 m]) on the *.quaternion*.<br />
+			Calls [page:Quaternion.setFromRotationMatrix setFromRotationMatrix]( [page:Matrix4 m]) on the <i>.quaternion</i>.<br />
 			Note that this assumes that the upper 3x3 of m is a pure rotation matrix (i.e, unscaled).
 		</p>
 
@@ -673,7 +685,7 @@
 			[parameter:Quaternion q] - normalized Quaternion
 		</p>
 		<p>
-			Copy the given quaternion into *.quaternion*.
+			Copy the given quaternion into <i>.quaternion</i>.
 		</p>
 
 		<h3>[method:void setViewOffset](  [param:number fullWidth],  [param:number fullHeight],  [param:number x],  [param:number y],  [param:number width],  [param:number height] )</h3>
@@ -699,21 +711,22 @@
 			<br />
 			const w = 1920;<br />
 			const h = 1080;<br />
-			const fullWidth = w * 3;<br />
-			const fullHeight = h * 2;<br />
+			const fullWidth = w <i> 3;<br />
+			const fullHeight = h </i> 2;<br />
 			<br />
 			// A<br />
-			camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 0, w, h ) : this;<br />
+			camera.setViewOffset( fullWidth, fullHeight, w <i> 0, h </i> 0, w, h ) : this;<br />
 			// B<br />
-			camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 0, w, h ) : this;<br />
+			camera.setViewOffset( fullWidth, fullHeight, w <i> 1, h </i> 0, w, h ) : this;<br />
 			// C<br />
-			camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 0, w, h ) : this;<br />
+			camera.setViewOffset( fullWidth, fullHeight, w <i> 2, h </i> 0, w, h ) : this;<br />
 			// D<br />
-			camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 1, w, h ) : this;<br />
+			camera.setViewOffset( fullWidth, fullHeight, w <i> 0, h </i> 1, w, h ) : this;<br />
 			// E<br />
-			camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 1, w, h ) : this;<br />
+			camera.setViewOffset( fullWidth, fullHeight, w <i> 1, h </i> 1, w, h ) : this;<br />
 			// F<br />
-			camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 1, w, h ) : this; Note there is no reason monitors have to be the same size or in a grid.
+			camera.setViewOffset( fullWidth, fullHeight, w <i> 2, h </i> 1, w, h ) : this;<br />
+			Note there is no reason monitors have to be the same size or in a grid.
 		</p>
 
 		<h3>[method:any toJSON](  [param:any meta]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -722,7 +735,7 @@
 			[parameter:any meta] - (optional) The meta.
 		</p>
 		<p>
-			
+			Convert the camera to three.js [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].
 		</p>
 
 		<h3>[method:PerspectiveCamera translateOnAxis](  [param:Vector3 axis],  [param:number distance] )</h3>
@@ -741,7 +754,7 @@
 			[parameter:number distance] - Distance.
 		</p>
 		<p>
-			Translates object along x axis in object space by *distance* units.
+			Translates object along x axis in object space by <i>distance</i> units.
 		</p>
 
 		<h3>[method:PerspectiveCamera translateY](  [param:number distance] )</h3>
@@ -750,7 +763,7 @@
 			[parameter:number distance] - Distance.
 		</p>
 		<p>
-			Translates object along y axis in object space by *distance* units.
+			Translates object along y axis in object space by <i>distance</i> units.
 		</p>
 
 		<h3>[method:PerspectiveCamera translateZ](  [param:number distance] )</h3>
@@ -759,7 +772,7 @@
 			[parameter:number distance] - Distance.
 		</p>
 		<p>
-			Translates object along z axis in object space by *distance* units.
+			Translates object along z axis in object space by <i>distance</i> units.
 		</p>
 
 		<h3>[method:void traverse](  [param:any callback] )</h3>
@@ -809,7 +822,7 @@
 
 		<h3>[method:void updateProjectionMatrix](  )</h3>
 		<p>
-			Updates the camera projection matrix. Must be called after change of parameters.
+			Updates the camera projection matrix. Must be called after any change of parameters.
 		</p>
 
 		<h3>[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] )</h3>
@@ -985,6 +998,59 @@
 		<p class="desc">
 			
 		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:BaseEvent] &rarr;
+
+		<h3 id="Event">Event <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:any target]? -  The target.<br />
+			[property:string type] -  The type.
+		</p>
+
+		<p class="desc">
+			Event object.
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="Intersection">Intersection <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:number distance] -  The distance.<br />
+			[property:number distanceToRay]? -  The distance to ray.<br />
+			[property:Face face]? -  The face.<br />
+			[property:number faceIndex]? -  The face index.<br />
+			[property:number index]? -  The index.<br />
+			[property:number instanceId]? -  The instance id.<br />
+			[property:TIntersected object] -  The object.<br />
+			[property:Vector3 point] -  The point.<br />
+			[property:Vector2 uv]? -  The uv.
+		</p>
+
+		<p class="desc">
+			Intersection
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="EventListener">EventListener <i class="modifier modifier-interface">Type alias</i></h3>
+		<hr class="interface-line"/>
+		<h4>[method:void function](  [param:any event] )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:any event] -  The event.
+		</p>
+		<p>
+			
+		</p>
+
 
 
 		<p class="desc">

@@ -12,6 +12,7 @@
 		<p class="desc">
 			Implementation of a [quaternion](http://en.wikipedia.org/wiki/Quaternion).<br />
 			Quaternions are used in three.js to represent [rotations](https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation).<br />
+			<h2>Code Example</h2><br />
 			<code data-type="javascript"><br />
 			const quaternion = new THREE.Quaternion();<br />
 			quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), Math.PI / 2 );<br />
@@ -85,7 +86,7 @@
 
 		<h3>[method:Quaternion clone](  )</h3>
 		<p>
-			Creates a new Quaternion with identical *.x*, *.y*, *.z* and *.w* properties to this one.
+			Creates a new Quaternion with identical <i>.x</i>, <i>.y</i>, <i>.z</i> and <i>.w</i> properties to this one.
 		</p>
 
 		<h3>[method:Quaternion conjugate](  )</h3>
@@ -99,7 +100,7 @@
 			[parameter:Quaternion q] - The q.
 		</p>
 		<p>
-			Copies the *.x*, *.y*,	*.z* and *.w* properties of [page:Quaternion q] into this quaternion.
+			Copies the <i>.x</i>, <i>.y</i>,	<i>.z</i> and <i>.w</i> properties of [page:Quaternion q] into this quaternion.
 		</p>
 
 		<h3>[method:number dot](  [param:Quaternion v] )</h3>
@@ -117,17 +118,17 @@
 			[parameter:Quaternion v] - Quaternion that this quaternion will be compared to.
 		</p>
 		<p>
-			Compares the *.x*, *.y*,	*.z* and *.w* properties of [page:Quaternion v] to the equivalent properties of this quaternion to determine if they represent the same rotation.
+			Compares the <i>.x</i>, <i>.y</i>,	<i>.z</i> and <i>.w</i> properties of [page:Quaternion v] to the equivalent properties of this quaternion to determine if they represent the same rotation.
 		</p>
 
 		<h3>[method:Quaternion fromBufferAttribute](  [param:BufferAttribute attribute],  [param:number index]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:BufferAttribute attribute] - the source attribute.<br />
+			[parameter:BufferAttribute attribute] - The source attribute.<br />
 			[parameter:number index] - (optional) index in the attribute.
 		</p>
 		<p>
-			Sets *.x*, *.y*, *.z*, *.w* properties of this quaternion from the [page:BufferAttribute attribute].
+			Sets <i>.x</i>, <i>.y</i>, <i>.z</i>, <i>.w</i> properties of this quaternion from the [page:BufferAttribute attribute].
 		</p>
 
 		<h3>[method:Quaternion identity](  )</h3>
@@ -135,14 +136,9 @@
 			Sets this quaternion to the identity quaternion; that is, to the quaternion that represents "no rotation".
 		</p>
 
-		<h3>[method:Quaternion inverse](  )</h3>
-		<p>
-			deprecated - Use {@link Quaternion#invert .invert()} instead.
-		</p>
-
 		<h3>[method:Quaternion invert](  )</h3>
 		<p>
-			Inverts this quaternion - calculates the *.conjugate*. The quaternion is assumed to have unit length.
+			Inverts this quaternion - calculates the <i>.conjugate</i>. The quaternion is assumed to have unit length.
 		</p>
 
 		<h3>[method:number length](  )</h3>
@@ -152,7 +148,7 @@
 
 		<h3>[method:number lengthSq](  )</h3>
 		<p>
-			Computes the squared [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean length] (straight-line length) of this quaternion, considered as a 4 dimensional vector. This can be useful if you are comparing the lengths of two quaternions, as this is a slightly more efficient calculation than *.length*().
+			Computes the squared [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean length] (straight-line length) of this quaternion, considered as a 4 dimensional vector. This can be useful if you are comparing the lengths of two quaternions, as this is a slightly more efficient calculation than <i>.length</i>().
 		</p>
 
 		<h3>[method:Quaternion multiply](  [param:Quaternion q] )</h3>
@@ -189,18 +185,9 @@
 			
 		</p>
 
-		<h3>[method:any multiplyVector3](  [param:any v] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:any v] - The v.
-		</p>
-		<p>
-			deprecated - Use {@link Vector#applyQuaternion vector.applyQuaternion( quaternion )} instead.
-		</p>
-
 		<h3>[method:Quaternion normalize](  )</h3>
 		<p>
-			[link:https://en.wikipedia.org/wiki/Normalized_vector Normalizes] this quaternion - that is, calculated the quaternion that performs the same rotation as this one, but has  *.length* equal to *1*.
+			[link:https://en.wikipedia.org/wiki/Normalized_vector Normalizes] this quaternion - that is, calculated the quaternion that performs the same rotation as this one, but has  <i>.length</i> equal to <i>1</i>.
 		</p>
 
 		<h3>[method:Quaternion premultiply](  [param:Quaternion q] )</h3>
@@ -238,7 +225,7 @@ The method ensures that the final quaternion will not overshoot *q*.
 			[parameter:number w] - The w.
 		</p>
 		<p>
-			Sets *.x*, *.y*, *.z*, *.w* properties of this quaternion.
+			Sets <i>.x</i>, <i>.y</i>, <i>.z</i>, <i>.w</i> properties of this quaternion.
 		</p>
 
 		<h3>[method:Quaternion setFromAxisAngle](  [param:Vector3 axis],  [param:number angle] )</h3>
@@ -250,7 +237,7 @@ The method ensures that the final quaternion will not overshoot *q*.
 		<p>
 			Sets this quaternion from rotation specified by [page:Vector3 axis] and [page:Float angle].<br />
 			Adapted from the method [link:http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm here].<br />
-			*Axis* is assumed to be normalized, *angle* is in radians.
+			<i>Axis</i> is assumed to be normalized, <i>angle</i> is in radians.
 		</p>
 
 		<h3>[method:Quaternion setFromEuler](  [param:Euler euler],  [param:boolean update]? )</h3>
@@ -266,7 +253,7 @@ The method ensures that the final quaternion will not overshoot *q*.
 		<h3>[method:Quaternion setFromRotationMatrix](  [param:Matrix4 m] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Matrix4 m] - a [Matrix4](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Matrix4) of which the upper 3x3 of matrix is a pure [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix) (i.e. unscaled).
+			[parameter:Matrix4 m] - A [Matrix4](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Matrix4) of which the upper 3x3 of matrix is a pure [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix) (i.e. unscaled).
 		</p>
 		<p>
 			Sets this quaternion from rotation component of [page:Matrix4 m].<br />
@@ -285,21 +272,17 @@ The method ensures that the final quaternion will not overshoot *q*.
 			[page:Vector3 vFrom] and [page:Vector3 vTo] are assumed to be normalized.
 		</p>
 
-		<h3>[method:number slerp](  [param:Quaternion qb],  [param:number t],  [param:Quaternion qa],  [param:Quaternion qb],  [param:Quaternion qm],  [param:number t] )</h3>
+		<h3>[method:Quaternion slerp](  [param:Quaternion qb],  [param:number t] )</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Quaternion qb] - interpolation factor in the closed interval [0, 1].
 Handles the spherical linear interpolation between quaternions. [t](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) represents the amount of rotation between this quaternion (where [t](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) is 0) and [qb](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Quaternion) (where [t](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) is 1). This quaternion is set to the result. Also see the static version of the *slerp* below.
 // rotate a mesh towards a target quaternion
 mesh.quaternion.slerp( endQuaternion, 0.01 );<br />
-			[parameter:number t] - The t.<br />
-			[parameter:Quaternion qa] - The qa.<br />
-			[parameter:Quaternion qb] - The qb.<br />
-			[parameter:Quaternion qm] - The qm.<br />
 			[parameter:number t] - The t.
 		</p>
 		<p>
-			deprecated - Use qm.slerpQuaternions( qa, qb, t ) instead..
+			
 		</p>
 
 		<h3>[method:Quaternion slerpFlat](  [param:number[] dst],  [param:number dstOffset],  [param:number[] src0],  [param:number srcOffset],  [param:number[] src1],  [param:number stcOffset1],  [param:number t] )</h3>

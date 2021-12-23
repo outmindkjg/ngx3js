@@ -12,16 +12,17 @@
 		<h1>WebGLCubeRenderTarget</h1>
 
 		<p class="desc">
-			
+			Used by the [page:CubeCamera CubeCamera] as its [page:WebGLRenderTarget WebGLRenderTarget].<br />
+			See [page:CubeCamera CubeCamera] for examples.
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:WebGLCubeRenderTarget WebGLCubeRenderTarget](  [param:number width],  [param:number height],  [param:WebGLRenderTargetOptions options]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number width] - The width.<br />
-			[parameter:number height] - The height.<br />
-			[parameter:WebGLRenderTargetOptions options] - (optional) The options.
+			[parameter:number width] - The width of the renderTarget.<br />
+			[parameter:number height] - The height of the renderTarget.<br />
+			[parameter:WebGLRenderTargetOptions options] - (optional) (optional object that holds texture parameters for an auto-generated target texture and depthBuffer/stencilBuffer booleans.
 		</p>
 		<p>
 			Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
@@ -35,11 +36,6 @@
 			See the base [page:WebGLRenderTarget WebGLRenderTarget] class for common properties.
 		</p>
 
-		<h3>[property:any anisotropy]</h3>
-		<p>
-			deprecated - Use {@link Texture#anisotropy texture.anisotropy} instead.
-		</p>
-
 		<h3>[property:number depth]</h3>
 		<p>
 			
@@ -47,27 +43,17 @@
 
 		<h3>[property:boolean depthBuffer]</h3>
 		<p>
-			
+			Renders to the depth buffer. Default is true.
 		</p>
 
 		<h3>[property:DepthTexture depthTexture]</h3>
 		<p>
-			
-		</p>
-
-		<h3>[property:any format]</h3>
-		<p>
-			deprecated - Use {@link Texture#format texture.format} instead.
-		</p>
-
-		<h3>[property:any generateMipmaps]</h3>
-		<p>
-			deprecated - Use {@link Texture#generateMipmaps texture.generateMipmaps} instead.
+			If set, the scene depth will be rendered to this texture. Default is null.
 		</p>
 
 		<h3>[property:number height]</h3>
 		<p>
-			
+			The height of the render target.
 		</p>
 
 		<h3>[property:any isWebGLRenderTarget]</h3>
@@ -75,49 +61,24 @@
 			
 		</p>
 
-		<h3>[property:any magFilter]</h3>
-		<p>
-			deprecated - Use {@link Texture#magFilter texture.magFilter} instead.
-		</p>
-
-		<h3>[property:any minFilter]</h3>
-		<p>
-			deprecated - Use {@link Texture#minFilter texture.minFilter} instead.
-		</p>
-
-		<h3>[property:any offset]</h3>
-		<p>
-			deprecated - Use {@link Texture#offset texture.offset} instead.
-		</p>
-
-		<h3>[property:any repeat]</h3>
-		<p>
-			deprecated - Use {@link Texture#repeat texture.repeat} instead.
-		</p>
-
 		<h3>[property:Vector4 scissor]</h3>
 		<p>
-			
+			A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.
 		</p>
 
 		<h3>[property:boolean scissorTest]</h3>
 		<p>
-			
+			Indicates whether the scissor test is active or not.
 		</p>
 
 		<h3>[property:boolean stencilBuffer]</h3>
 		<p>
-			
+			Renders to the stencil buffer. Default is false.
 		</p>
 
 		<h3>[property:CubeTexture texture]</h3>
 		<p>
 			
-		</p>
-
-		<h3>[property:any type]</h3>
-		<p>
-			deprecated - Use {@link Texture#type texture.type} instead.
 		</p>
 
 		<h3>[property:string uuid]</h3>
@@ -127,22 +88,12 @@
 
 		<h3>[property:Vector4 viewport]</h3>
 		<p>
-			
+			The viewport of this render target.
 		</p>
 
 		<h3>[property:number width]</h3>
 		<p>
-			
-		</p>
-
-		<h3>[property:any wrapS]</h3>
-		<p>
-			deprecated - Use {@link Texture#wrapS texture.wrapS} instead.
-		</p>
-
-		<h3>[property:any wrapT]</h3>
-		<p>
-			deprecated - Use {@link Texture#wrapT texture.wrapT} instead.
+			The width of the render target.
 		</p>
 
 		<h2>Methods</h2>
@@ -172,12 +123,13 @@
 			[parameter:boolean stencil] - The stencil.
 		</p>
 		<p>
-			
+			Call this to clear the renderTarget's color, depth, and/or stencil buffers.<br />
+			The color buffer is set to the renderer's current clear color. Arguments default to <i>true</i>.
 		</p>
 
 		<h3>[method:WebGLCubeRenderTarget clone](  )</h3>
 		<p>
-			
+			Creates a copy of this render target.
 		</p>
 
 		<h3>[method:WebGLCubeRenderTarget copy](  [param:WebGLRenderTarget source] )</h3>
@@ -186,7 +138,7 @@
 			[parameter:WebGLRenderTarget source] - The source.
 		</p>
 		<p>
-			
+			Adopts the settings of the given render target.
 		</p>
 
 		<h3>[method:void dispatchEvent](  [param:Event event] )</h3>
@@ -200,17 +152,17 @@
 
 		<h3>[method:void dispose](  )</h3>
 		<p>
-			
+			Dispatches a dispose event.
 		</p>
 
 		<h3>[method:WebGLCubeRenderTarget fromEquirectangularTexture](  [param:WebGLRenderer renderer],  [param:Texture texture] )</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:WebGLRenderer renderer] - The renderer.<br />
-			[parameter:Texture texture] - The texture.
+			[parameter:Texture texture] - The equirectangular texture.
 		</p>
 		<p>
-			
+			Use this method if you want to convert an equirectangular panorama to the cubemap format.
 		</p>
 
 		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )</h3>
@@ -241,7 +193,7 @@
 			[parameter:number depth] - (optional) The depth.
 		</p>
 		<p>
-			
+			Sets the size of the render target.
 		</p>
 
 		<h3>[method:void setTexture](  [param:Texture texture] )</h3>
@@ -307,6 +259,62 @@
 		<p class="desc">
 			
 		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:BaseEvent] &rarr;
+
+		<h3 id="Event">Event <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:any target]? -  The target.<br />
+			[property:string type] -  The type.
+		</p>
+
+		<p class="desc">
+			Event object.
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="WebGLRenderTargetOptions">WebGLRenderTargetOptions <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:number anisotropy]? - default is <i>1</i>. See [page:Texture.anistropy Texture.anistropy]<br />
+			[property:boolean depthBuffer]? - default is <i>true</i>.<br />
+			[property:DepthTexture depthTexture]? -  The depth texture.<br />
+			[property:TextureEncoding encoding]? - default is [page:Textures LinearEncoding].<br />
+			[property:number format]? - default is [page:Textures RGBAFormat].<br />
+			[property:boolean generateMipmaps]? - default is <i>false</i>.<br />
+			[property:TextureFilter magFilter]? - default is [page:Textures .LinearFilter].<br />
+			[property:TextureFilter minFilter]? - default is [page:Textures LinearFilter].<br />
+			[property:boolean stencilBuffer]? - default is <i>false</i>.<br />
+			[property:TextureDataType type]? - default is [page:Textures UnsignedByteType].<br />
+			[property:Wrapping wrapS]? - default is [page:Textures ClampToEdgeWrapping].<br />
+			[property:Wrapping wrapT]? - default is [page:Textures ClampToEdgeWrapping].
+		</p>
+
+		<p class="desc">
+			Web glrender target options
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="EventListener">EventListener <i class="modifier modifier-interface">Type alias</i></h3>
+		<hr class="interface-line"/>
+		<h4>[method:void function](  [param:any event] )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:any event] -  The event.
+		</p>
+		<p>
+			
+		</p>
+
 
 
 		<p class="desc">

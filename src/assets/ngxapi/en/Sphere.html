@@ -39,7 +39,7 @@
 		<h3>[method:Sphere applyMatrix4](  [param:Matrix4 matrix] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Matrix4 matrix] - the [Page:Matrix4] to apply
+			[parameter:Matrix4 matrix] - The [Page:Matrix4] to apply
 Transforms this sphere with the provided [Matrix4](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Matrix4).
 		</p>
 		<p>
@@ -49,8 +49,8 @@ Transforms this sphere with the provided [Matrix4](https://outmindkjg.github.io/
 		<h3>[method:Vector3 clampPoint](  [param:Vector3 point],  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 point] - [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) The point to clamp.<br />
-			[parameter:Vector3 target] - the result will be copied into this Vector3.
+			[parameter:Vector3 point] - Vector3 The point to clamp.<br />
+			[parameter:Vector3 target] - The result will be copied into this Vector3.
 		</p>
 		<p>
 			Clamps a point within the sphere. If the point is outside the sphere, it will clamp it to the closest point on the edge of the sphere. Points already inside the sphere will not be affected.
@@ -58,13 +58,13 @@ Transforms this sphere with the provided [Matrix4](https://outmindkjg.github.io/
 
 		<h3>[method:Sphere clone](  )</h3>
 		<p>
-			Returns : Returns a new sphere with the same *.center* and *.radius* as this one.
+			Returns : Returns a new sphere with the same <i>.center</i> and <i>.radius</i> as this one.
 		</p>
 
 		<h3>[method:boolean containsPoint](  [param:Vector3 point] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 point] - the [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) to be checked Checks to see if the sphere contains the provided [point](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) inclusive of the surface of the sphere.
+			[parameter:Vector3 point] - The [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) to be checked Checks to see if the sphere contains the provided [point](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) inclusive of the surface of the sphere.
 		</p>
 		<p>
 			
@@ -76,8 +76,7 @@ Transforms this sphere with the provided [Matrix4](https://outmindkjg.github.io/
 			[parameter:Sphere sphere] - The sphere.
 		</p>
 		<p>
-			Copies the values of the passed sphere's *.center* and *.radius*<br />
-			properties to this sphere.
+			Copies the values of the passed sphere's <i>.center</i> and <i>.radius</i> properties to this sphere.
 		</p>
 
 		<h3>[method:number distanceToPoint](  [param:Vector3 point] )</h3>
@@ -87,11 +86,6 @@ Transforms this sphere with the provided [Matrix4](https://outmindkjg.github.io/
 		</p>
 		<p>
 			Returns : Returns the closest distance from the boundary of the sphere to the [page:Vector3 point]. If the sphere contains the point, the distance will be negative.
-		</p>
-
-		<h3>[method:any empty](  )</h3>
-		<p>
-			deprecated - Use {@link Sphere#isEmpty .isEmpty()} instead.
 		</p>
 
 		<h3>[method:boolean equals](  [param:Sphere sphere] )</h3>
@@ -106,7 +100,7 @@ Transforms this sphere with the provided [Matrix4](https://outmindkjg.github.io/
 		<h3>[method:Sphere expandByPoint](  [param:Vector3 point] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 point] - [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3) that should be included in the sphere.
+			[parameter:Vector3 point] - Vector3 that should be included in the sphere.
 		</p>
 		<p>
 			Expands the boundaries of this sphere to include [page:Vector3 point].
@@ -115,7 +109,7 @@ Transforms this sphere with the provided [Matrix4](https://outmindkjg.github.io/
 		<h3>[method:Box3 getBoundingBox](  [param:Box3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Box3 target] - the result will be copied into this Box3.
+			[parameter:Box3 target] - The result will be copied into this Box3.
 		</p>
 		<p>
 			Returns : Returns a[link:https://en.wikipedia.org/wiki/Minimum_bounding_box Minimum Bounding Box] for the sphere.
@@ -124,7 +118,7 @@ Transforms this sphere with the provided [Matrix4](https://outmindkjg.github.io/
 		<h3>[method:boolean intersectsBox](  [param:Box3 box] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Box3 box] - [Box3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Box3) to check for intersection against.
+			[parameter:Box3 box] - Box3 to check for intersection against.
 		</p>
 		<p>
 			Determines whether or not this sphere intersects a given [page:Box3 box].
@@ -157,7 +151,7 @@ Determines whether or not this sphere intersects a given [plane](https://outmind
 
 		<h3>[method:Sphere makeEmpty](  )</h3>
 		<p>
-			Makes the sphere empty by setting *.center* to (0, 0, 0) and *.radius* to -1.
+			Makes the sphere empty by setting <i>.center</i> to (0, 0, 0) and <i>.radius</i> to -1.
 		</p>
 
 		<h3>[method:Sphere set](  [param:Vector3 center],  [param:number radius] )</h3>
@@ -167,7 +161,7 @@ Determines whether or not this sphere intersects a given [plane](https://outmind
 			[parameter:number radius] - radius of the sphere.
 		</p>
 		<p>
-			Sets the *.center* and *.radius* properties of this sphere.<br />
+			Sets the <i>.center</i> and <i>.radius</i> properties of this sphere.<br />
 			Please note that this method only copies the values from the given center.
 		</p>
 

@@ -10,7 +10,7 @@
 		<h1>PropertyMixer</h1>
 
 		<p class="desc">
-			
+			Buffered scene graph property that allows weighted accumulation; used internally.
 		</p>
 
 		<h2>Constructor</h2>
@@ -33,12 +33,15 @@
 
 		<h3>[property:any buffer]</h3>
 		<p>
-			
+			Buffer with size [page:PropertyMixer valueSize] * 4.<br />
+			This has the layout: [ incoming | accu0 | accu1 | orig ]<br />
+			Interpolators can use .buffer as their .result and the data then goes to 'incoming'.<br />
+			'accu0' and 'accu1' are used frame-interleaved for the cumulative result and are compared to detect changes. 'orig' stores the original state of the property.
 		</p>
 
 		<h3>[property:number cumulativeWeight]</h3>
 		<p>
-			
+			Default is <i>0</i>.
 		</p>
 
 		<h3>[property:number cumulativeWeightAdditive]</h3>
@@ -48,12 +51,12 @@
 
 		<h3>[property:number referenceCount]</h3>
 		<p>
-			
+			Default is <i>0</i>.
 		</p>
 
 		<h3>[property:number useCount]</h3>
 		<p>
-			
+			Default is <i>0</i>.
 		</p>
 
 		<h3>[property:number valueSize]</h3>
@@ -69,7 +72,8 @@
 			[parameter:number weight] - The weight.
 		</p>
 		<p>
-			
+			Accumulate data in [page:PropertyMixer.buffer buffer][accuIndex] 'incoming' region into 'accu[i]'.<br />
+			If weight is <i>0</i> this does nothing.
 		</p>
 
 		<h3>[method:void accumulateAdditive](  [param:number weight] )</h3>
@@ -87,17 +91,17 @@
 			[parameter:number accuIndex] - The accu index.
 		</p>
 		<p>
-			
+			Apply the state of [page:PropertyMixer.buffer buffer] 'accu[i]' to the binding when accus differ.
 		</p>
 
 		<h3>[method:void restoreOriginalState](  )</h3>
 		<p>
-			
+			Apply the state previously taken via 'saveOriginalState' to the binding.
 		</p>
 
 		<h3>[method:void saveOriginalState](  )</h3>
 		<p>
-			
+			Remember the state of the bound property and copy it to both accus.
 		</p>
 
 		<br /><br />

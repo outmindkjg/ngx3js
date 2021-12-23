@@ -19,10 +19,10 @@
 		<h3>[constructor:LogLuvLoader LogLuvLoader](  [param:LoadingManager manager]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:LoadingManager manager] - (optional) The manager.
+			[parameter:LoadingManager manager] - (optional) The [loadingManager](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/LoadingManager) for the loader to use. Default is [THREE.DefaultLoadingManager](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/LoadingManager).
 		</p>
 		<p>
-			
+			Creates a new Loader.
 		</p>
 
 		<h2>Properties</h2>
@@ -35,27 +35,30 @@
 
 		<h3>[property:string crossOrigin]</h3>
 		<p>
-			
+			The crossOrigin string to implement CORS for loading the url from a different domain that allows CORS.<br />
+			Default is <i>anonymous</i>.
 		</p>
 
 		<h3>[property:LoadingManager manager]</h3>
 		<p>
-			
+			The [page:LoadingManager loadingManager]  the loader is using. Default is [page:DefaultLoadingManager DefaultLoadingManager].
 		</p>
 
 		<h3>[property:string path]</h3>
 		<p>
-			
+			The base path from which the asset will be loaded.<br />
+			Default is the empty string.
 		</p>
 
 		<h3>[property:any requestHeader]</h3>
 		<p>
-			
+			The [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header request header] used in HTTP request. See <i>.setRequestHeader</i>. Default is empty object.
 		</p>
 
 		<h3>[property:string resourcePath]</h3>
 		<p>
-			
+			The base path from which additional resources like textures will be loaded.<br />
+			Default is the empty string.
 		</p>
 
 		<h3>[property:TextureDataType type]</h3>
@@ -65,7 +68,8 @@
 
 		<h3>[property:boolean withCredentials]</h3>
 		<p>
-			
+			Whether the XMLHttpRequest uses credentials. See <i>.setWithCredentials</i>.<br />
+			Default is <i>false</i>.
 		</p>
 
 		<h2>Methods</h2>
@@ -79,23 +83,23 @@
 		<h3>[method:DataTexture load](  [param:string url],  [param:any onLoad],  [param:any onProgress]?,  [param:any onError]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The url.<br />
-			[parameter:any onLoad] - The on load.<br />
-			[parameter:any onProgress] - (optional) The on progress.<br />
-			[parameter:any onError] - (optional) The on error.
+			[parameter:string url] - The path or URL to the file. This can also be a [Data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).<br />
+			[parameter:any onLoad] - Will be called when load completes. The argument will be the loaded texture.<br />
+			[parameter:any onProgress] - (optional) Will be called while load progresses. The argument will be the XMLHttpRequest instance, which contains .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) and .[loaded](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) bytes. If the server does not set the Content-Length header; .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) will be 0.<br />
+			[parameter:any onError] - (optional) Will be called when load errors.
 		</p>
 		<p>
-			
+			Begin loading from url and pass the loaded texture to onLoad.
 		</p>
 
 		<h3>[method:Promise loadAsync](  [param:string url],  [param:any onProgress]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The url.<br />
-			[parameter:any onProgress] - (optional) The on progress.
+			[parameter:string url] - The path or URL to the file. This can also be a [Data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).<br />
+			[parameter:any onProgress] - (optional) Will be called while load progresses. The argument will be the XMLHttpRequest instance, which contains .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) and .[loaded](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) bytes. If the server does not set the Content-Length header; .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) will be 0.
 		</p>
 		<p>
-			
+			Begin loading from url and pass the loaded texture to onLoad.
 		</p>
 
 		<h3>[method:LogLuv parse](  [param:Iterable buffer] )</h3>
@@ -110,7 +114,7 @@
 		<h3>[method:LogLuvLoader setCrossOrigin](  [param:string crossOrigin] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string crossOrigin] - The cross origin.
+			[parameter:string crossOrigin] - The crossOrigin string to implement CORS for loading the url from a different domain that allows CORS.
 		</p>
 		<p>
 			
@@ -128,7 +132,7 @@
 		<h3>[method:LogLuvLoader setPath](  [param:string path] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string path] - The path.
+			[parameter:string path] - Set the base path for the asset.
 		</p>
 		<p>
 			
@@ -137,7 +141,8 @@
 		<h3>[method:LogLuvLoader setRequestHeader](  [param:any requestHeader] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:any requestHeader] - The request header.
+			[parameter:any requestHeader] - key: The name of the header whose value is to be set. value: The value to set as the body of the header.
+Set the [request header](https://developer.mozilla.org/en-US/docs/Glossary/Request_header) used in HTTP request.
 		</p>
 		<p>
 			
@@ -146,7 +151,7 @@
 		<h3>[method:LogLuvLoader setResourcePath](  [param:string resourcePath] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string resourcePath] - The resource path.
+			[parameter:string resourcePath] - Set the base path for dependent resources like textures.
 		</p>
 		<p>
 			
@@ -158,6 +163,12 @@
 			[parameter:boolean value] - The value.
 		</p>
 		<p>
+			Whether the XMLHttpRequest uses credentials such as cookies, authorization headers or TLS client certificates. See [link:https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials XMLHttpRequest.withCredentials].<br />
+			Note that this has no effect if you are loading files locally or from the same domain.
+		</p>
+
+
+		<p class="desc">
 			
 		</p>
 
@@ -166,6 +177,24 @@
 			
 		</p>
 
+		<hr class="interface-line"/>
+		<h3 id="TextureDataType">TextureDataType <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:TextureDataType ByteType] = 1010 -  The byte type.<br />
+			[property:TextureDataType FloatType] = 1015 -  The float type.<br />
+			[property:TextureDataType HalfFloatType] = 1016 -  The half float type.<br />
+			[property:TextureDataType IntType] = 1013 -  The int type.<br />
+			[property:TextureDataType ShortType] = 1011 -  The short type.<br />
+			[property:TextureDataType UnsignedByteType] = 1009 -  The unsigned byte type.<br />
+			[property:TextureDataType UnsignedInt248Type] = 1020 -  The unsigned int248 type.<br />
+			[property:TextureDataType UnsignedIntType] = 1014 -  The unsigned int type.<br />
+			[property:TextureDataType UnsignedShort4444Type] = 1017 -  The unsigned short4444 type.<br />
+			[property:TextureDataType UnsignedShort5551Type] = 1018 -  The unsigned short5551 type.<br />
+			[property:TextureDataType UnsignedShort565Type] = 1019 -  The unsigned short565 type.<br />
+			[property:TextureDataType UnsignedShortType] = 1012 -  The unsigned short type.
+		</p>
 
 		<p class="desc">
 			

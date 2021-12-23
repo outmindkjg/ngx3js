@@ -34,12 +34,13 @@
 
 		<h3>[property:Color color]</h3>
 		<p>
-			Fog color.
+			Fog color.  Example: If set to black, far away objects will be rendered black.
 		</p>
 
 		<h3>[property:number far]</h3>
 		<p>
-			The maximum distance at which fog stops being calculated and applied. Objects that are more than 'far' units away from the active camera won't be affected by fog.
+			The maximum distance at which fog stops being calculated and applied. Objects that are more than 'far' units away from the active camera won't be affected by fog.<br />
+			Default is 1000.
 		</p>
 
 		<h3>[property:any isFog]</h3>
@@ -49,12 +50,13 @@
 
 		<h3>[property:string name]</h3>
 		<p>
-			
+			Optional name of the object (doesn't need to be unique). Default is an empty string.
 		</p>
 
 		<h3>[property:number near]</h3>
 		<p>
-			The minimum distance to start applying fog. Objects that are less than 'near' units from the active camera won't be affected by fog.
+			The minimum distance to start applying fog. Objects that are less than 'near' units from the active camera won't be affected by fog.<br />
+			Default is 1.
 		</p>
 
 		<h2>Methods</h2>
@@ -64,12 +66,12 @@
 
 		<h3>[method:Fog clone](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			
+			Returns : Returns a new fog instance with the same parameters as this one.
 		</p>
 
 		<h3>[method:any toJSON](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			
+			Returns : Return fog data in JSON format.
 		</p>
 
 

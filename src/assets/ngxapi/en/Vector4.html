@@ -19,6 +19,7 @@
 			Any arbitrary ordered quadruplet of numbers.<br />
 			There are other things a 4D vector can be used to represent, however these are the most common uses in three.js.<br />
 			Iterating through a Vector4 instance will yield its components (x, y, z, w) in the corresponding order.<br />
+			<h2>Code Example</h2><br />
 			<code data-type="javascript"><br />
 			const a = new THREE.Vector4( 0, 1, 0, 0 );<br />
 			// no arguments; will be initialised to (0, 0, 0, 1)<br />
@@ -31,13 +32,13 @@
 		<h3>[constructor:Vector4 Vector4](  [param:number x]?,  [param:number y]?,  [param:number z]?,  [param:number w]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number x] - (optional) the x value of this vector. Default is *0*.<br />
-			[parameter:number y] - (optional) the y value of this vector. Default is *0*.<br />
-			[parameter:number z] - (optional) the z value of this vector. Default is *0*.<br />
-			[parameter:number w] - (optional) the w value of this vector. Default is *1*.
+			[parameter:number x] - (optional) The x value of this vector. Default is *0*.<br />
+			[parameter:number y] - (optional) The y value of this vector. Default is *0*.<br />
+			[parameter:number z] - (optional) The z value of this vector. Default is *0*.<br />
+			[parameter:number w] - (optional) The w value of this vector. Default is *1*.
 		</p>
 		<p>
-			Returns : aaa
+			
 		</p>
 
 		<h2>Properties</h2>
@@ -47,7 +48,7 @@
 
 		<h3>[property:number height]</h3>
 		<p>
-			Alias for *.w*.
+			Alias for <i>.w</i>.
 		</p>
 
 		<h3>[property:any isVector4]</h3>
@@ -57,27 +58,27 @@
 
 		<h3>[property:number w]</h3>
 		<p>
-			the w value of this vector. Default is *0*.
+			the w value of this vector. Default is <i>0</i>.
 		</p>
 
 		<h3>[property:number width]</h3>
 		<p>
-			Alias for *.z*.
+			Alias for <i>.z</i>.
 		</p>
 
 		<h3>[property:number x]</h3>
 		<p>
-			the x value of this vector. Default is *0*.
+			the x value of this vector. Default is <i>0</i>.
 		</p>
 
 		<h3>[property:number y]</h3>
 		<p>
-			the y value of this vector. Default is *0*.
+			the y value of this vector. Default is <i>0</i>.
 		</p>
 
 		<h3>[property:number z]</h3>
 		<p>
-			the z value of this vector. Default is *0*.
+			the z value of this vector. Default is <i>0</i>.
 		</p>
 
 		<h2>Methods</h2>
@@ -91,7 +92,7 @@
 			[parameter:Vector4 v] - The v.
 		</p>
 		<p>
-			Adds the scalar value s to this vector's *.x*, *.y*, *.z* and *.w* values.
+			Adds the scalar value s to this vector's <i>.x</i>, <i>.y</i>, <i>.z</i> and <i>.w</i> values.
 		</p>
 
 		<h3>[method:Vector4 addScalar](  [param:number scalar] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -100,7 +101,7 @@
 			[parameter:number scalar] - The scalar.
 		</p>
 		<p>
-			Adds the scalar value s to this vector's *.x*, *.y*, *.z* and *.w* values.
+			Adds the scalar value s to this vector's <i>.x</i>, <i>.y</i>, <i>.z</i> and <i>.w</i> values.
 		</p>
 
 		<h3>[method:Vector4 addScaledVector](  [param:Vector4 v],  [param:number s] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -134,14 +135,14 @@
 
 		<h3>[method:Vector4 ceil](  )</h3>
 		<p>
-			The *.x*, *.y*, *.z* and *.w* components of this vector are rounded up to the nearest integer value.
+			The <i>.x</i>, <i>.y</i>, <i>.z</i> and <i>.w</i> components of this vector are rounded up to the nearest integer value.
 		</p>
 
 		<h3>[method:Vector4 clamp](  [param:Vector4 min],  [param:Vector4 max] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector4 min] - the minimum *.x*, *.y*, *.z* and *.w* values.<br />
-			[parameter:Vector4 max] - the maximum *.x*, *.y*, *.z* and *.w* values in the desired range If this vector's x, y, z or w value is greater than the max vector's x, y, z or w value, it is replaced by the corresponding value.
+			[parameter:Vector4 min] - The minimum *.x*, *.y*, *.z* and *.w* values.<br />
+			[parameter:Vector4 max] - The maximum *.x*, *.y*, *.z* and *.w* values in the desired range If this vector's x, y, z or w value is greater than the max vector's x, y, z or w value, it is replaced by the corresponding value.
 		</p>
 		<p>
 			If this vector's x, y, z or w value is less than the min vector's x, y, z or w value, it is replaced by the corresponding value.
@@ -150,8 +151,8 @@
 		<h3>[method:Vector4 clampLength](  [param:number min],  [param:number max] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number min] - the minimum value the length will be clamped to<br />
-			[parameter:number max] - the maximum value the length will be clamped to If this vector's length is greater than the max value, it is replaced by the max value.
+			[parameter:number min] - The minimum value the length will be clamped to<br />
+			[parameter:number max] - The maximum value the length will be clamped to If this vector's length is greater than the max value, it is replaced by the max value.
 		</p>
 		<p>
 			If this vector's length is less than the min value, it is replaced by the min value.
@@ -160,8 +161,8 @@
 		<h3>[method:Vector4 clampScalar](  [param:number min],  [param:number max] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number min] - the minimum value the components will be clamped to<br />
-			[parameter:number max] - the maximum value the components will be clamped to If this vector's x, y, z or w values are greater than the max value, they are replaced by the max value.
+			[parameter:number min] - The minimum value the components will be clamped to<br />
+			[parameter:number max] - The maximum value the components will be clamped to If this vector's x, y, z or w values are greater than the max value, they are replaced by the max value.
 		</p>
 		<p>
 			If this vector's x, y, z or w values are less than the min value, they are replaced by the min value.
@@ -169,7 +170,7 @@
 
 		<h3>[method:Vector4 clone](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Returns : Returns a new Vector4 with the same *.x*, *.y*, *.z* and *.w* values as this one.
+			Returns : Returns a new Vector4 with the same <i>.x</i>, <i>.y</i>, <i>.z</i> and <i>.w</i> values as this one.
 		</p>
 
 		<h3>[method:Vector4 copy](  [param:Vector4 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -178,7 +179,7 @@
 			[parameter:Vector4 v] - The v.
 		</p>
 		<p>
-			Copies the values of the passed Vector4's *.x*, *.y*, *.z* and *.w* properties to this Vector4.
+			Copies the values of the passed Vector4's <i>.x</i>, <i>.y</i>, <i>.z</i> and <i>.w</i> properties to this Vector4.
 		</p>
 
 		<h3>[method:number distanceTo](  [param:Vector v] )</h3>
@@ -206,7 +207,7 @@
 		</p>
 		<p>
 			Divides this vector by scalar [page:Float s].<br />
-			Sets vector to *( 0, 0, 0, 0 )* if *[page:Float s] = 0*.
+			Sets vector to <i>( 0, 0, 0, 0 )</i> if <i>[page:Float s] = 0</i>.
 		</p>
 
 		<h3>[method:number dot](  [param:Vector4 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -224,7 +225,7 @@
 			[parameter:Vector4 v] - The v.
 		</p>
 		<p>
-			Returns : Returns *true* if the components of this vector and [page:Vector4 v] are strictly equal; *false* otherwise.
+			Returns : Returns <i>true</i> if the components of this vector and [page:Vector4 v] are strictly equal; <i>false</i> otherwise.
 		</p>
 
 		<h3>[method:Vector4 floor](  )</h3>
@@ -235,21 +236,21 @@
 		<h3>[method:Vector4 fromArray](  [param:number[] array],  [param:number offset]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number[] array] - the source array.<br />
+			[parameter:number[] array] - The source array.<br />
 			[parameter:number offset] - (optional) offset into the array. Default is 0.
 		</p>
 		<p>
-			Sets this vector's *.x* value to be array[ offset + 0 ], *.y* value to be array[ offset + 1 ] *.z* value to be array[ offset + 2 ] and *.w* value to be array[ offset + 3 ].
+			Sets this vector's <i>.x</i> value to be array[ offset + 0 ], <i>.y</i> value to be array[ offset + 1 ] <i>.z</i> value to be array[ offset + 2 ] and <i>.w</i> value to be array[ offset + 3 ].
 		</p>
 
 		<h3>[method:Vector4 fromBufferAttribute](  [param:BufferAttribute attribute],  [param:number index] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:BufferAttribute attribute] - the source attribute.<br />
+			[parameter:BufferAttribute attribute] - The source attribute.<br />
 			[parameter:number index] - index in the attribute.
 		</p>
 		<p>
-			Sets this vector's *.x*, *.y*, *.z* and *.w* values from the [page:BufferAttribute attribute].
+			Sets this vector's <i>.x</i>, <i>.y</i>, <i>.z</i> and <i>.w</i> values from the [page:BufferAttribute attribute].
 		</p>
 
 		<h3>[method:number getComponent](  [param:number index] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -258,10 +259,10 @@
 			[parameter:number index] - 0, 1, 2 or 3.
 		</p>
 		<p>
-			If index equals 0 returns the *.x* value.<br />
-			If index equals 1 returns the *.y* value.<br />
-			If index equals 2 returns the *.z* value.<br />
-			If index equals 3 returns the *.w* value.
+			If index equals 0 returns the <i>.x</i> value.<br />
+			If index equals 1 returns the <i>.y</i> value.<br />
+			If index equals 2 returns the <i>.z</i> value.<br />
+			If index equals 3 returns the <i>.w</i> value.
 		</p>
 
 		<h3>[method:number length](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -278,8 +279,8 @@
 		<h3>[method:Vector4 lerp](  [param:Vector4 v],  [param:number alpha] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector4 v] - [Vector4](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector4) to interpolate towards.<br />
-			[parameter:number alpha] - interpolation factor, typically in the closed interval [0, 1].
+			[parameter:Vector4 v] - Vector4 to interpolate towards.<br />
+			[parameter:number alpha] - The alpha.
 		</p>
 		<p>
 			Linearly interpolates between this vector and [page:Vector4 v], where alpha is the percent distance along the line - alpha = 0 will be this vector, and alpha = 1 will be [page:Vector4 v].
@@ -288,9 +289,9 @@
 		<h3>[method:Vector4 lerpVectors](  [param:Vector4 v1],  [param:Vector4 v2],  [param:number alpha] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector4 v1] - the starting [Vector4](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector4).<br />
-			[parameter:Vector4 v2] - [Vector4](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector4) to interpolate towards.<br />
-			[parameter:number alpha] - interpolation factor, typically in the closed interval [0, 1].
+			[parameter:Vector4 v1] - The starting [Vector4](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector4).<br />
+			[parameter:Vector4 v2] - Vector4 to interpolate towards.<br />
+			[parameter:number alpha] - The alpha.
 		</p>
 		<p>
 			Sets this vector to be the vector linearly interpolated between [page:Vector4 v1] and [page:Vector4 v2] where alpha is the percent distance along the line connecting the two vectors - alpha = 0 will be [page:Vector4 v1], and alpha = 1 will be [page:Vector4 v2].
@@ -344,7 +345,7 @@
 
 		<h3>[method:Vector4 normalize](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Converts this vector to a [link:https://en.wikipedia.org/wiki/Unit_vector unit vector] - that is, sets it equal to a vector with the same direction as this one, but *.length* 1.
+			Converts this vector to a [link:https://en.wikipedia.org/wiki/Unit_vector unit vector] - that is, sets it equal to a vector with the same direction as this one, but <i>.length</i> 1.
 		</p>
 
 		<h3>[method:Vector4 random](  )</h3>
@@ -371,16 +372,16 @@
 			[parameter:number w] - The w.
 		</p>
 		<p>
-			Sets the *.x*, *.y*, *.z* and *.w* components of this vector.
+			Sets the <i>.x</i>, <i>.y</i>, <i>.z</i> and <i>.w</i> components of this vector.
 		</p>
 
 		<h3>[method:Vector4 setAxisAngleFromQuaternion](  [param:Quaternion q] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Quaternion q] - a normalized [Quaterion](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Quaterion)
+			[parameter:Quaternion q] - A normalized [Quaterion](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Quaterion)
 		</p>
 		<p>
-			Sets the *.x*, *.y* and *.z* components of this vector to the quaternion's axis and *.w* to the angle.
+			Sets the <i>.x</i>, <i>.y</i> and <i>.z</i> components of this vector to the quaternion's axis and <i>.w</i> to the angle.
 		</p>
 
 		<h3>[method:Vector4 setAxisAngleFromRotationMatrix](  [param:Matrix4 m] )</h3>
@@ -389,20 +390,20 @@
 			[parameter:Matrix4 m] - (https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Matrix4) - a [Matrix4](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Matrix4) of which the upper left 3x3 matrix is a pure rotation matrix.
 		</p>
 		<p>
-			Sets the *.x*, *.y* and *.z* to the axis of rotation and *.w* to the angle.
+			Sets the <i>.x</i>, <i>.y</i> and <i>.z</i> to the axis of rotation and <i>.w</i> to the angle.
 		</p>
 
 		<h3>[method:Vector4 setComponent](  [param:number index],  [param:number value] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number index] - 0, 1 or 2, 3.<br />
-			[parameter:number value] - [Float](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float)
+			[parameter:number value] - Float
 		</p>
 		<p>
-			If index equals 0 set *.x* to [page:Float value].<br />
-			If index equals 1 set *.y* to [page:Float value].<br />
-			If index equals 2 set *.z* to [page:Float value].<br />
-			If index equals 3 set *.w* to [page:Float value].
+			If index equals 0 set <i>.x</i> to [page:Float value].<br />
+			If index equals 1 set <i>.y</i> to [page:Float value].<br />
+			If index equals 2 set <i>.z</i> to [page:Float value].<br />
+			If index equals 3 set <i>.w</i> to [page:Float value].
 		</p>
 
 		<h3>[method:Vector4 setLength](  [param:number length] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -411,7 +412,7 @@
 			[parameter:number length] - The length.
 		</p>
 		<p>
-			Sets this vector to a vector with the same direction as this one, but *.length*
+			Sets this vector to a vector with the same direction as this one, but <i>.length</i>
 		</p>
 
 		<h3>[method:Vector4 setScalar](  [param:number scalar] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -420,7 +421,7 @@
 			[parameter:number scalar] - The scalar.
 		</p>
 		<p>
-			Sets the *.x*, *.y*, *.z* and *.w* values of this vector both equal to [page:Float scalar].
+			Sets the <i>.x</i>, <i>.y</i>, <i>.z</i> and <i>.w</i> values of this vector both equal to [page:Float scalar].
 		</p>
 
 		<h3>[method:Vector4 setW](  [param:number w] )</h3>
@@ -429,7 +430,7 @@
 			[parameter:number w] - The w.
 		</p>
 		<p>
-			Replaces this vector's *.w* value with [page:Float w].
+			Replaces this vector's <i>.w</i> value with [page:Float w].
 		</p>
 
 		<h3>[method:Vector4 setX](  [param:number x] )</h3>
@@ -438,7 +439,7 @@
 			[parameter:number x] - The x.
 		</p>
 		<p>
-			Replaces this vector's *.x* value with [page:Float x].
+			Replaces this vector's <i>.x</i> value with [page:Float x].
 		</p>
 
 		<h3>[method:Vector4 setY](  [param:number y] )</h3>
@@ -447,7 +448,7 @@
 			[parameter:number y] - The y.
 		</p>
 		<p>
-			Replaces this vector's *.y* value with [page:Float y].
+			Replaces this vector's <i>.y</i> value with [page:Float y].
 		</p>
 
 		<h3>[method:Vector4 setZ](  [param:number z] )</h3>
@@ -456,7 +457,7 @@
 			[parameter:number z] - The z.
 		</p>
 		<p>
-			Replaces this vector's *.z* value with [page:Float z].
+			Replaces this vector's <i>.z</i> value with [page:Float z].
 		</p>
 
 		<h3>[method:Vector4 sub](  [param:Vector4 v] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -474,7 +475,7 @@
 			[parameter:number s] - The s.
 		</p>
 		<p>
-			Subtracts [page:Float s]  from this vector's *.x*, *.y*, *.z* and *.w* compnents.
+			Subtracts [page:Float s]  from this vector's <i>.x</i>, <i>.y</i>, <i>.z</i> and <i>.w</i> compnents.
 		</p>
 
 		<h3>[method:Vector4 subVectors](  [param:Vector4 a],  [param:Vector4 b] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -535,6 +536,55 @@
 
 		<p class="desc">
 			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="Vector">Vector <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:Vector Vector](  ) 
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:Vector add](  [param:Vector v] ) - Adds [page:Vector v] to this vector.<br />
+			[method:Vector addScalar](  [param:number scalar] ) - Adds the scalar value s to this vector's values.<br />
+			[method:Vector addScaledVector](  [param:Vector vector],  [param:number scale] ) - Adds the multiple of [page:Vector v] and [page:Float s] to this vector.<br />
+			[method:Vector addVectors](  [param:Vector a],  [param:Vector b] ) - Sets this vector to [page:Vector a] + [page:Vector b].<br />
+			[method:Vector clone](  ) - Returns : Returns a new Vector with the same <i>.x</i> and <i>.y</i> values as this one.<br />
+			[method:Vector copy](  [param:Vector v] ) - Copies the values of the passed Vector2's <i>.x</i> and <i>.y</i> properties to this Vector2.<br />
+			[method:number distanceTo](  [param:Vector v] ) - Computes the distance from this vector to [page:Vector v].<br />
+			[method:number distanceToSquared](  [param:Vector v] ) - Computes the squared distance from this vector to [page:Vector v]. If you are just comparing the distance with another distance, you should compare the distance squared instead as it is slightly more efficient to calculate.<br />
+			[method:Vector divideScalar](  [param:number s] ) - Divides this vector by scalar [page:Float s].<br />
+			Sets vector to <i>( 0, 0 )</i> if [page:Float s] = 0.<br />
+			[method:number dot](  [param:Vector v] ) - Calculates the [link:https://en.wikipedia.org/wiki/Dot_product dot product] of this   vector and [page:Vector v].<br />
+			[method:boolean equals](  [param:Vector v] ) - equals(v:T):boolean;<br />
+			[method:number getComponent](  [param:number index] ) <br />
+			[method:number length](  ) - Computes the [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean length]<br />
+			(straight-line length) from (0, 0) to (x, y).<br />
+			[method:number lengthSq](  ) - Computes the square of the [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean length]<br />
+			(straight-line length) from (0, 0) to (x, y). If you are 	comparing the lengths of vectors, you should compare the length squared instead as it is slightly more efficient to calculate.<br />
+			[method:Vector lerp](  [param:Vector v],  [param:number alpha] ) - Linearly interpolates between this vector and [page:Vector v], where alpha is the percent distance along the line - alpha = 0 will be this vector, and alpha = 1 will be [page:Vector v].<br />
+			[method:Vector multiplyScalar](  [param:number s] ) - Multiplies this vector by scalar [page:Float s].<br />
+			[method:Vector negate](  ) - Inverts this vector - i.e. sets x = -x and y = -y.<br />
+			[method:Vector normalize](  ) - Converts this vector to a [link:https://en.wikipedia.org/wiki/Unit_vector unit vector] - that is, sets it equal to a vector with the same direction as this one, but <i>.length</i> 1.<br />
+			[method:Vector set](  [param:number[] args] ) - Sets the <i>.x</i> and <i>.y</i> components of this vector.<br />
+			[method:Vector setComponent](  [param:number index],  [param:number value] ) <br />
+			[method:Vector setLength](  [param:number l] ) - Sets this vector to a vector with the same direction as this one, but <i>.length</i><br />
+			[method:Vector setScalar](  [param:number scalar] ) - Sets the <i>.x</i> and <i>.y</i> values of this vector both equal to [page:Float scalar].<br />
+			[method:Vector sub](  [param:Vector v] ) - Subtracts [page:Vector v] from this vector.<br />
+			[method:Vector subVectors](  [param:Vector a],  [param:Vector b] ) - Sets this vector to [page:Vector a] - [page:Vector b].
+		</p>
+
+		<p class="desc">
+			( interface Vector&lt;T&gt; )<br />
+			Abstract interface of [link:https://github.com/mrdoob/three.js/blob/master/src/math/Vector2.js Vector2],<br />
+			[link:https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js Vector3]<br />
+			and [link:https://github.com/mrdoob/three.js/blob/master/src/math/Vector4.js Vector4].<br />
+			<br />
+			Currently the members of Vector is NOT type safe because it accepts different typed vectors.<br />
+			<br />
+			Those definitions will be changed when TypeScript innovates Generics to be type safe.
 		</p>
 
 		<br /><br />

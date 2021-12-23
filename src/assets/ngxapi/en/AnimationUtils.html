@@ -10,7 +10,7 @@
 		<h1>AnimationUtils</h1>
 
 		<p class="desc">
-			
+			An object with various functions to assist with animations, used internally.
 		</p>
 
 		<p>
@@ -31,7 +31,7 @@
 			[parameter:number to] - The to.
 		</p>
 		<p>
-			
+			This is the same as  Array.prototype.slice, but also works on typed arrays.
 		</p>
 
 		<h3>[method:any convertArray](  [param:any array],  [param:any type],  [param:boolean forceClone] )</h3>
@@ -42,7 +42,7 @@
 			[parameter:boolean forceClone] - The force clone.
 		</p>
 		<p>
-			
+			Converts an array to a specific type.
 		</p>
 
 		<h3>[method:void flattenJSON](  [param:string[] jsonKeys],  [param:any[] times],  [param:any[] values],  [param:string valuePropertyName] )</h3>
@@ -54,7 +54,7 @@
 			[parameter:string valuePropertyName] - The value property name.
 		</p>
 		<p>
-			
+			Used for parsing AOS keyframe formats.
 		</p>
 
 		<h3>[method:number[] getKeyFrameOrder](  [param:number[] times] )</h3>
@@ -63,7 +63,7 @@
 			[parameter:number[] times] - The times.
 		</p>
 		<p>
-			
+			Returns : Returns an array by which times and values can be sorted.
 		</p>
 
 		<h3>[method:boolean isTypedArray](  [param:any object] )</h3>
@@ -72,7 +72,7 @@
 			[parameter:any object] - The object.
 		</p>
 		<p>
-			
+			Returns : Returns <i>true</i> if the object is a typed array.
 		</p>
 
 		<h3>[method:AnimationClip makeClipAdditive](  [param:AnimationClip targetClip],  [param:number referenceFrame]?,  [param:AnimationClip referenceClip]?,  [param:number fps]? )</h3>
@@ -84,7 +84,7 @@
 			[parameter:number fps] - (optional) The fps.
 		</p>
 		<p>
-			
+			Converts the keyframes of the given animation clip to an additive format.
 		</p>
 
 		<h3>[method:any[] sortedArray](  [param:any[] values],  [param:number stride],  [param:number[] order] )</h3>
@@ -95,7 +95,7 @@
 			[parameter:number[] order] - The order.
 		</p>
 		<p>
-			
+			Sorts the array previously returned by [page:AnimationUtils.getKeyframeOrder getKeyframeOrder].
 		</p>
 
 		<h3>[method:AnimationClip subclip](  [param:AnimationClip sourceClip],  [param:string name],  [param:number startFrame],  [param:number endFrame],  [param:number fps]? )</h3>
@@ -108,7 +108,7 @@
 			[parameter:number fps] - (optional) The fps.
 		</p>
 		<p>
-			
+			Creates a new clip, containing only the segment of the original clip between the given frames.
 		</p>
 
 

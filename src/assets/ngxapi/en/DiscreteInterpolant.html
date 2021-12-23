@@ -13,6 +13,7 @@
 
 		<p class="desc">
 			Discrete Interpolant<br />
+			<h2>Code Example</h2><br />
 			<code data-type="javascript"><br />
 			const interpolant = new THREE.DiscreteInterpolant(<br />
 			new Float32Array( 2 ), new Float32Array( 2 ),, n, new Float32Array( 1 ) );<br />
@@ -24,10 +25,10 @@
 		<h3>[constructor:DiscreteInterpolant DiscreteInterpolant](  [param:any parameterPositions],  [param:any sampleValues],  [param:number sampleSize],  [param:any resultBuffer]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:any parameterPositions] - -- array of positions<br />
-			[parameter:any sampleValues] - -- array of samples<br />
-			[parameter:number sampleSize] - -- number of samples<br />
-			[parameter:any resultBuffer] - (optional) -- buffer to store the interpolation results.
+			[parameter:any parameterPositions] - array of positions<br />
+			[parameter:any sampleValues] - array of samples<br />
+			[parameter:number sampleSize] - number of samples<br />
+			[parameter:any resultBuffer] - (optional) buffer to store the interpolation results.
 		</p>
 		<p>
 			Note: This is not designed to be called directly.
@@ -40,22 +41,22 @@
 
 		<h3>[property:any parameterPositions]</h3>
 		<p>
-			array of positions
+			Array of positions
 		</p>
 
 		<h3>[property:any resultBuffer]</h3>
 		<p>
-			buffer to store the interpolation results.
+			Buffer to store the interpolation results.
 		</p>
 
 		<h3>[property:any sampleValues]</h3>
 		<p>
-			array of samples
+			Array of samples
 		</p>
 
 		<h3>[property:number valueSize]</h3>
 		<p>
-			number of samples
+			Number of samples
 		</p>
 
 		<h2>Methods</h2>
@@ -69,7 +70,7 @@
 			[parameter:number t] - The t.
 		</p>
 		<p>
-			Evaluate the interpolant at position *t*.
+			Evaluate the interpolant at position <i>t</i>.
 		</p>
 
 		<h3>[method:any interpolate_](  [param:number i1],  [param:number t0],  [param:number t],  [param:number t1] )</h3>

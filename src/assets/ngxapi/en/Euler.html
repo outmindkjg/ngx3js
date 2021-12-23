@@ -10,8 +10,9 @@
 		<h1>Euler</h1>
 
 		<p class="desc">
-			A class representing [link:http://en.wikipedia.org/wiki/Euler_angles Euler Angles].<br />
+			A class representing [Euler Angles](http://en.wikipedia.org/wiki/Euler_angles).<br />
 			Euler angles describe a rotational transformation by rotating an object on its various axes in specified amounts per axis, and a specified axis order.<br />
+			<h2>Code Example</h2><br />
 			<code data-type="javascript"><br />
 			const a = new THREE.Euler( 0, 1, 1.57, 'XYZ' );<br />
 			const b = new THREE.Vector3( 1, 0, 1 );<br />
@@ -23,10 +24,10 @@
 		<h3>[constructor:Euler Euler](  [param:number x]?,  [param:number y]?,  [param:number z]?,  [param:string order]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number x] - (optional) the angle of the x axis in radians. Default is *0*.<br />
-			[parameter:number y] - (optional) the angle of the y axis in radians. Default is *0*.<br />
-			[parameter:number z] - (optional) the angle of the z axis in radians. Default is *0*.<br />
-			[parameter:string order] - (optional) a string representing the order that the rotations are applied, defaults to 'XYZ' (must be upper case).
+			[parameter:number x] - (optional) The angle of the x axis in radians. Default is *0*.<br />
+			[parameter:number y] - (optional) The angle of the y axis in radians. Default is *0*.<br />
+			[parameter:number z] - (optional) The angle of the z axis in radians. Default is *0*.<br />
+			[parameter:string order] - (optional) A string representing the order that the rotations are applied, defaults to 'XYZ' (must be upper case).
 		</p>
 		<p>
 			
@@ -57,17 +58,17 @@
 
 		<h3>[property:number x]</h3>
 		<p>
-			the angle of the x axis in radians. Default is *0*.
+			The angle of the x axis in radians. Default is <i>0</i>.
 		</p>
 
 		<h3>[property:number y]</h3>
 		<p>
-			the angle of the y axis in radians. Default is *0*.
+			The angle of the y axis in radians. Default is <i>0</i>.
 		</p>
 
 		<h3>[property:number z]</h3>
 		<p>
-			the angle of the z axis in radians. Default is *0*.
+			The angle of the z axis in radians. Default is <i>0</i>.
 		</p>
 
 		<h2>Methods</h2>
@@ -114,10 +115,10 @@
 			[parameter:any[] xyzo] - The xyzo.
 		</p>
 		<p>
-			Assigns this euler's *.x* angle to array[0].<br />
-			Assigns this euler's *.y* angle to array[1].<br />
-			Assigns this euler's *.z* angle to array[2].<br />
-			Optionally assigns this euler's *.order* to array[3].
+			Assigns this euler's <i>.x</i> angle to array[0].<br />
+			Assigns this euler's <i>.y</i> angle to array[1].<br />
+			Assigns this euler's <i>.z</i> angle to array[2].<br />
+			Optionally assigns this euler's <i>.order</i> to array[3].
 		</p>
 
 		<h3>[method:Euler reorder](  [param:string newOrder] )</h3>
@@ -133,31 +134,31 @@
 		<h3>[method:Euler set](  [param:number x],  [param:number y],  [param:number z],  [param:string order]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number x] - the angle of the x axis in radians.<br />
-			[parameter:number y] - the angle of the y axis in radians.<br />
-			[parameter:number z] - the angle of the z axis in radians.<br />
-			[parameter:string order] - (optional) The order.
+			[parameter:number x] - The angle of the x axis in radians.<br />
+			[parameter:number y] - The angle of the y axis in radians.<br />
+			[parameter:number z] - The angle of the z axis in radians.<br />
+			[parameter:string order] - (optional) A string representing the order that the rotations are applied.
 		</p>
 		<p>
-			Sets the angles of this euler transform and optionally the *.order*.
+			Sets the angles of this euler transform and optionally the <i>.order</i>.
 		</p>
 
 		<h3>[method:Euler setFromQuaternion](  [param:Quaternion q],  [param:string order]?,  [param:boolean update]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Quaternion q] - a normalized quaternion.<br />
-			[parameter:string order] - (optional) The order.<br />
+			[parameter:Quaternion q] - A normalized quaternion.<br />
+			[parameter:string order] - (optional) A string representing the order that the rotations are applied.<br />
 			[parameter:boolean update] - (optional) The update.
 		</p>
 		<p>
-			Sets the angles of this euler transform from a normalized quaternion based on the orientation specified by *.order*.
+			Sets the angles of this euler transform from a normalized quaternion based on the orientation specified by <i>.order</i>.
 		</p>
 
 		<h3>[method:Euler setFromRotationMatrix](  [param:Matrix4 m],  [param:string order]?,  [param:boolean update]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Matrix4 m] - a [Matrix4](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Matrix4) of which the upper 3x3 of matrix is a pure [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix) (i.e. unscaled).<br />
-			[parameter:string order] - (optional) The order.<br />
+			[parameter:Matrix4 m] - A [Matrix4](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Matrix4) of which the upper 3x3 of matrix is a pure [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix) (i.e. unscaled).<br />
+			[parameter:string order] - (optional) A string representing the order that the rotations are applied.<br />
 			[parameter:boolean update] - (optional) The update.
 		</p>
 		<p>
@@ -167,21 +168,21 @@
 		<h3>[method:Euler setFromVector3](  [param:Vector3 v],  [param:string order]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 v] - [Vector3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Vector3).<br />
-			[parameter:string order] - (optional) The order.
+			[parameter:Vector3 v] - Vector3.<br />
+			[parameter:string order] - (optional) A string representing the order that the rotations are applied.
 		</p>
 		<p>
-			Set the *.x*, *.y* and *.z*, and optionally update the *.order*.
+			Set the <i>.x</i>, <i>.y</i> and <i>.z</i>, and optionally update the <i>.order</i>.
 		</p>
 
 		<h3>[method:number[] toArray](  [param:number[] array]?,  [param:number offset]? )</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number[] array] - (optional) array to store the euler in.<br />
-			[parameter:number offset] - (optional) The offset.
+			[parameter:number offset] - (optional) offset in the array.
 		</p>
 		<p>
-			Returns : Returns an array of the form [*.x*, *.y*, *.z*, *.order*].
+			Returns : Returns an array of the form [<i>.x</i>, <i>.y</i>, <i>.z</i>, <i>.order</i>].
 		</p>
 
 		<h3>[method:Vector3 toVector3](  [param:Vector3 optionalResult]? )</h3>
@@ -190,7 +191,7 @@
 			[parameter:Vector3 optionalResult] - (optional) If specified, the result will be copied into this Vector, otherwise a new one will be created.
 		</p>
 		<p>
-			Returns : Returns the Euler's *.x*, *.y* and *.z* properties as a [page:Vector3 Vector3].
+			Returns : Returns the Euler's <i>.x</i>, <i>.y</i> and <i>.z</i> properties as a [page:Vector3 Vector3].
 		</p>
 
 

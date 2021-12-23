@@ -28,10 +28,11 @@
 			<br />
 			A Note on Row-Major and Column-Major Ordering<br />
 			The [page:set set]() method takes arguments in [link:https://en.wikipedia.org/wiki/Row-_and_column-major_order#Column-major_order row-major]<br />
-			order, while internally they are stored in the *.elements* array in column-major order.<br />
-			This means that calling const m = new THREE.Matrix4();<br />
+			order, while internally they are stored in the <i>.elements</i> array in column-major order.<br />
+			This means that calling<br />
+			const m = new THREE.Matrix4();<br />
 			m.set( 11, 12, 13, 14, 21, 22, 23, 24, 31, 32, 33, 34, 41, 42, 43, 44 );<br />
-			will result in the *.elements* array containing:<br />
+			will result in the <i>.elements</i> array containing:<br />
 			m.elements = [ 11, 21, 31, 41, 12, 22, 32, 42, 13, 23, 33, 43, 14, 24, 34, 44 ];<br />
 			and internally all calculations are performed using column-major ordering. However, as the actual ordering makes no difference mathematically and most people are used to thinking about matrices in row-major order,g the three.js documentation shows matrices in row-major order. Just bear in mind that if you are reading the source code, you'll have to take the [link:https://en.wikipedia.org/wiki/Transpose transpose] of any matrices outlined here to make sense of the calculations.<br />
 			<br />
@@ -39,14 +40,14 @@
 			There are several options available for extracting position, rotation and scale from a Matrix4.<br />
 			[page:Vector3.setFromMatrixPosition Vector3.setFromMatrixPosition]: can be used to extract the translation component.<br />
 			[page:Vector3.setFromMatrixScale Vector3.setFromMatrixScale]: can be used to extract the scale component.<br />
-			[page:Quaternion.setFromRotationMatrix Quaternion.setFromRotationMatrix], [page:Euler.setFromRotationMatrix Euler.setFromRotationMatrix] or *.extractRotation* can be used to extract the rotation component from a pure (unscaled) matrix.<br />
-			*.decompose* can be used to extract position, rotation and scale all at once.
+			[page:Quaternion.setFromRotationMatrix Quaternion.setFromRotationMatrix], [page:Euler.setFromRotationMatrix Euler.setFromRotationMatrix] or <i>.extractRotation</i> can be used to extract the rotation component from a pure (unscaled) matrix.<br />
+			<i>.decompose</i> can be used to extract position, rotation and scale all at once.
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:Matrix4 Matrix4](  )</h3>
 		<p>
-			Creates and initializes the [name] to the 4x4<br />
+			Creates and initializes the Matrix4 to the 4x4<br />
 			[link:https://en.wikipedia.org/wiki/Identity_matrix identity matrix].
 		</p>
 
@@ -67,7 +68,7 @@
 
 		<h3>[method:Matrix4 clone](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Creates a new Matrix4 with identical *.elements* to this one.
+			Creates a new Matrix4 with identical <i>.elements</i> to this one.
 		</p>
 
 		<h3>[method:Matrix4 compose](  [param:Vector3 translation],  [param:Quaternion rotation],  [param:Vector3 scale] )</h3>
@@ -88,7 +89,7 @@
 			[parameter:Matrix4 m] - The m.
 		</p>
 		<p>
-			Copies the *.elements* of matrix [page:Matrix4 m] into this matrix.
+			Copies the <i>.elements</i> of matrix [page:Matrix4 m] into this matrix.
 		</p>
 
 		<h3>[method:Matrix4 copyPosition](  [param:Matrix4 m] )</h3>
@@ -98,15 +99,6 @@
 		</p>
 		<p>
 			Copies the translation component of the supplied matrix [page:Matrix4 m] into this matrix's translation component.
-		</p>
-
-		<h3>[method:void crossVector](  [param:any v] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:any v] - The v.
-		</p>
-		<p>
-			deprecated - Use {@link Vector3#applyMatrix4 vector.applyMatrix4( matrix )} instead.
 		</p>
 
 		<h3>[method:Matrix4 decompose](  [param:Vector3 translation],  [param:Quaternion rotation],  [param:Vector3 scale] )</h3>
@@ -155,15 +147,6 @@
 			Returns : basis
 		</p>
 
-		<h3>[method:Matrix4 extractPosition](  [param:Matrix4 m] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:Matrix4 m] - The m.
-		</p>
-		<p>
-			deprecated - Use {@link Matrix4#copyPosition .copyPosition()} instead.
-		</p>
-
 		<h3>[method:Matrix4 extractRotation](  [param:Matrix4 m] )</h3>
 		<h4>Parameters</h4>
 		<p>
@@ -173,33 +156,14 @@
 			Extracts the rotation component of the supplied matrix [page:Matrix4 m] into this matrix's rotation component.
 		</p>
 
-		<h3>[method:number[] flattenToArrayOffset](  [param:number[] array],  [param:number offset] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:number[] array] - The array.<br />
-			[parameter:number offset] - The offset.
-		</p>
-		<p>
-			deprecated - Use {@link Matrix4#toArray .toArray()} instead.
-		</p>
-
 		<h3>[method:Matrix4 fromArray](  [param:ArrayLike|number[] array],  [param:number offset]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:ArrayLike|number[] array] - the array to read the elements from.<br />
+			[parameter:ArrayLike|number[] array] - The array to read the elements from.<br />
 			[parameter:number offset] - (optional) ( optional ) offset into the array. Default is 0.
 		</p>
 		<p>
 			Sets the elements of this matrix based on an [page:Array array] in [link:https://en.wikipedia.org/wiki/Row-_and_column-major_order#Column-major_order column-major] format.
-		</p>
-
-		<h3>[method:Matrix getInverse](  [param:Matrix matrix] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:Matrix matrix] - The matrix.
-		</p>
-		<p>
-			deprecated - Use {@link Matrix4#invert .invert()} instead.
 		</p>
 
 		<h3>[method:number getMaxScaleOnAxis](  )</h3>
@@ -315,7 +279,7 @@
 		<h3>[method:Matrix4 makeRotationX](  [param:number theta] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number theta] - Rotation angle in radians.
+			[parameter:number theta] - The theta.
 		</p>
 		<p>
 			Sets this matrix as a rotational transformation around the X axis by [theta](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) (&theta;) radians.<br />
@@ -329,7 +293,7 @@
 		<h3>[method:Matrix4 makeRotationY](  [param:number theta] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number theta] - Rotation angle in radians.
+			[parameter:number theta] - The theta.
 		</p>
 		<p>
 			Sets this matrix as a rotational transformation around the Y axis by [theta](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) (&theta;) radians.<br />
@@ -343,7 +307,7 @@
 		<h3>[method:Matrix4 makeRotationZ](  [param:number theta] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number theta] - Rotation angle in radians.
+			[parameter:number theta] - The theta.
 		</p>
 		<p>
 			Sets this matrix as a rotational transformation around the Z axis by [page:Float theta] (&theta;) radians.<br />
@@ -357,9 +321,9 @@
 		<h3>[method:Matrix4 makeScale](  [param:number x],  [param:number y],  [param:number z] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number x] - the amount to scale in the X axis.<br />
-			[parameter:number y] - the amount to scale in the Y axis.<br />
-			[parameter:number z] - the amount to scale in the Z axis.
+			[parameter:number x] - The amount to scale in the X axis.<br />
+			[parameter:number y] - The amount to scale in the Y axis.<br />
+			[parameter:number z] - The amount to scale in the Z axis.
 Sets this matrix as scale transform:
 x, 0, 0, 0,
 0, y, 0, 0,
@@ -373,12 +337,12 @@ x, 0, 0, 0,
 		<h3>[method:Matrix4 makeShear](  [param:number xy],  [param:number xz],  [param:number yx],  [param:number yz],  [param:number zx],  [param:number zy] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number xy] - the amount to shear X by Y.<br />
-			[parameter:number xz] - the amount to shear X by Z.<br />
-			[parameter:number yx] - the amount to shear Y by X.<br />
-			[parameter:number yz] - the amount to shear Y by Z.<br />
-			[parameter:number zx] - the amount to shear Z by X.<br />
-			[parameter:number zy] - the amount to shear Z by Y.
+			[parameter:number xy] - The amount to shear X by Y.<br />
+			[parameter:number xz] - The amount to shear X by Z.<br />
+			[parameter:number yx] - The amount to shear Y by X.<br />
+			[parameter:number yz] - The amount to shear Y by Z.<br />
+			[parameter:number zx] - The amount to shear Z by X.<br />
+			[parameter:number zy] - The amount to shear Z by Y.
 		</p>
 		<p>
 			Sets this matrix as a shear transform:<br />
@@ -389,9 +353,9 @@ x, 0, 0, 0,
 		<h3>[method:Matrix4 makeTranslation](  [param:number x],  [param:number y],  [param:number z] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number x] - the amount to translate in the X axis.<br />
-			[parameter:number y] - the amount to translate in the Y axis.<br />
-			[parameter:number z] - the amount to translate in the Z axis.
+			[parameter:number x] - The amount to translate in the X axis.<br />
+			[parameter:number y] - The amount to translate in the Y axis.<br />
+			[parameter:number z] - The amount to translate in the Z axis.
 		</p>
 		<p>
 			Sets this matrix as a translation transform:<br />
@@ -429,47 +393,6 @@ x, 0, 0, 0,
 			Multiplies every component of the matrix by a scalar value [page:Float s].
 		</p>
 
-		<h3>[method:Matrix4 multiplyToArray](  [param:Matrix4 a],  [param:Matrix4 b],  [param:number[] r] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:Matrix4 a] - The a.<br />
-			[parameter:Matrix4 b] - The b.<br />
-			[parameter:number[] r] - The r.
-		</p>
-		<p>
-			Sets this matrix to a x b and stores the result into the flat array r.<br />
-			r can be either a regular Array or a TypedArray.<br />
-			<br />
-			deprecated - This method has been removed completely.
-		</p>
-
-		<h3>[method:any multiplyVector3](  [param:any v] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:any v] - The v.
-		</p>
-		<p>
-			deprecated - Use {@link Vector3#applyMatrix4 vector.applyMatrix4( matrix )} instead.
-		</p>
-
-		<h3>[method:number[] multiplyVector3Array](  [param:number[] array] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:number[] array] - The array.
-		</p>
-		<p>
-			deprecated - This method has been removed completely.
-		</p>
-
-		<h3>[method:any multiplyVector4](  [param:any v] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:any v] - The v.
-		</p>
-		<p>
-			deprecated - Use {@link Vector4#applyMatrix4 vector.applyMatrix4( matrix )} instead.
-		</p>
-
 		<h3>[method:Matrix4 premultiply](  [param:Matrix4 m] )</h3>
 		<h4>Parameters</h4>
 		<p>
@@ -477,15 +400,6 @@ x, 0, 0, 0,
 		</p>
 		<p>
 			Pre-multiplies this matrix by [page:Matrix4 m].
-		</p>
-
-		<h3>[method:void rotateAxis](  [param:any v] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:any v] - The v.
-		</p>
-		<p>
-			deprecated - Use {@link Vector3#transformDirection Vector3.transformDirection( matrix )} instead.
 		</p>
 
 		<h3>[method:Matrix4 scale](  [param:Vector3 v] )</h3>
@@ -518,7 +432,7 @@ x, 0, 0, 0,
 			[parameter:number n44] - The n44.
 		</p>
 		<p>
-			Set the *.elements* of this matrix to the supplied row-major values [page:Float n11],<br />
+			Set the <i>.elements</i> of this matrix to the supplied row-major values [page:Float n11],<br />
 			[page:Float n12], ... [page:Float n44].
 		</p>
 
@@ -543,15 +457,6 @@ x, 0, 0, 0,
 			a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p<br />
 			This becomes:<br />
 			a, b, c, v.x, e, f, g, v.y, i, j, k, v.z, m, n, o, p
-		</p>
-
-		<h3>[method:Matrix4 setRotationFromQuaternion](  [param:Quaternion q] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:Quaternion q] - The q.
-		</p>
-		<p>
-			deprecated - Use {@link Matrix4#makeRotationFromQuaternion .makeRotationFromQuaternion()} instead.
 		</p>
 
 		<h3>[method:number[] toArray](  [param:number[] array]?,  [param:number offset]? )</h3>

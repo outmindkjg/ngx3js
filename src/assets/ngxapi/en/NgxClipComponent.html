@@ -105,10 +105,10 @@
 
 		<h3>[property:boolean clampWhenFinished] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			If *clampWhenFinished* is set to true the animation will automatically be [page:AnimationClip.paused AnimationClip.paused] on its last frame.<br />
-			If *clampWhenFinished* is set to false, [page:AnimationClip.enabled AnimationClip.enabled] will automatically be switched to false when the last loop of the action has finished, so that this action has no further impact.<br />
+			If <i>clampWhenFinished</i> is set to true the animation will automatically be [page:AnimationClip.paused AnimationClip.paused] on its last frame.<br />
+			If <i>clampWhenFinished</i> is set to false, [page:AnimationClip.enabled AnimationClip.enabled] will automatically be switched to false when the last loop of the action has finished, so that this action has no further impact.<br />
 			Default is false.<br />
-			Note: *clampWhenFinished* has no impact if the action is interrupted (it has only an effect if its last loop has really finished).
+			Note: <i>clampWhenFinished</i> has no impact if the action is interrupted (it has only an effect if its last loop has really finished).
 		</p>
 
 		<h3>[property:boolean debug] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -223,7 +223,7 @@
 		<p>
 			The degree of influence of this action (in the interval [0, 1]). Values between 0 (no impact)<br />
 			and 1 (full impact) can be used to blend between several actions. Default is 1.<br />
-			Properties/methods concerning  *weight* are:
+			Properties/methods concerning  <i>weight</i> are:
 		</p>
 
 		<h3>[property:string windowExport]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -619,6 +619,102 @@
 
 		<p class="desc">
 			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="AnimationAction">AnimationAction <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:AnimationAction AnimationAction](  [param:AnimationMixer mixer],  [param:AnimationClip clip],  [param:Object3D localRoot]?,  [param:AnimationBlendMode blendMode]? ) - Note: Instead of calling this constructor directly you should instantiate an AnimationAction with [page:AnimationMixer.clipAction AnimationMixer.clipAction] since this method provides caching for better performance.
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:AnimationBlendMode blendMode] -  The blend mode.<br />
+			[property:boolean clampWhenFinished] - If <i>clampWhenFinished</i> is set to true the animation will automatically be <i>.paused</i> on its last frame.<br />
+			If <i>clampWhenFinished</i> is set to false, <i>.enabled</i> will automatically be switched to false when the last loop of the action has finished, so that this action has no further impact.<br />
+			Default is false.<br />
+			Note: <i>clampWhenFinished</i> has no impact if the action is interrupted (it has only an effect if its last loop has really finished).<br />
+			[property:boolean enabled] - Setting <i>enabled</i> to <i>false</i> disables this action, so that it has no impact. Default is <i>true</i>.<br />
+			When the action is re-enabled, the animation continues from its current <i>.time</i><br />
+			(setting <i>enabled</i> to <i>false</i> doesn't reset the action).<br />
+			Note: Setting <i>enabled</i> to <i>true</i> doesn’t automatically restart the animation. Setting <i>enabled</i> to <i>true</i> will only restart the animation immediately if the following condition is fulfilled: <i>.paused</i> is <i>false</i>, this action has not been deactivated in the meantime (by executing a <i>.stop</i> or <i>.reset</i> command), and neither <i>.weight</i> nor <i>.timeScale</i> is 0.<br />
+			[property:AnimationActionLoopStyles loop] - The looping mode (can be changed with <i>.setLoop</i>). Default is [page:Animation THREE.LoopRepeat] (with an infinite number of <i>.repetitions</i>)<br />
+			Must be one of these constants:<br />
+			THREE.LoopOnce - playing the clip once,<br />
+			THREE.LoopRepeat - playing the clip with the chosen number of <i>repetitions</i>, each time jumping from the end of the clip directly to its beginning,<br />
+			THREE.LoopPingPong - playing the clip with the chosen number of <i>repetitions</i>, alternately playing forward and backward.<br />
+			[property:boolean paused] - Setting <i>paused</i> to <i>true</i> pauses the execution of the action by setting the effective time scale to 0. Default is <i>false</i>.<br />
+			[property:number repetitions] - The number of repetitions of the performed [page:AnimationClip AnimationClip] over the course of this action.<br />
+			Can be set via <i>.setLoop</i>. Default is <i>Infinity</i>.<br />
+			Setting this number has no effect, if the <i>.loop</i> is set to [page:Animation THREE.LoopOnce].<br />
+			[property:number time] - The local time of this action (in seconds, starting with 0).<br />
+			The value gets clamped or wrapped to 0...clip.duration (according to the loop state). It can be scaled relatively to the global mixer time by changing <i>.timeScale</i> (using <i>.setEffectiveTimeScale</i> or <i>.setDuration</i>).<br />
+			[property:number timeScale] - Scaling factor for the <i>.time</i>. A value of 0 causes the animation to pause. Negative values cause the animation to play backwards. Default is 1.<br />
+			Properties/methods concerning <i>timeScale</i> (respectively <i>time</i>) are: <i>.getEffectiveTimeScale</i>, <i>.halt</i>, <i>.paused</i>, <i>.setDuration</i>, <i>.setEffectiveTimeScale</i>, <i>.stopWarping</i>, <i>.syncWith</i>, <i>.warp</i>.<br />
+			[property:number weight] - The degree of influence of this action (in the interval [0, 1]). Values between 0 (no impact) and 1 (full impact) can be used to blend between several actions. Default is 1.<br />
+			Properties/methods concerning  <i>weight</i> are: <i>.crossFadeFrom</i>, <i>.crossFadeTo</i>, <i>.enabled</i>, <i>.fadeIn</i>, <i>.fadeOut</i>, <i>.getEffectiveWeight</i>, <i>.setEffectiveWeight</i>, <i>.stopFading</i>.<br />
+			[property:boolean zeroSlopeAtEnd] - Enables smooth interpolation without separate clips for start, loop and end. Default is <i>true</i>.<br />
+			[property:boolean zeroSlopeAtStart] - Enables smooth interpolation without separate clips for start, loop and end. Default is <i>true</i>.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:AnimationAction crossFadeFrom](  [param:AnimationAction fadeOutAction],  [param:number duration],  [param:boolean warp] ) - Causes this action to <i>.fadeIn</i>, fading out another action simultaneously, within the passed time interval. This method can be chained.<br />
+			If warpBoolean is true, additional <i>.warp</i> (gradually changes of the time scales) will be applied.<br />
+			Note: Like with <i>fadeIn</i> / <i>fadeOut</i>, the fading starts/ends with a weight of 1.<br />
+			[method:AnimationAction crossFadeTo](  [param:AnimationAction fadeInAction],  [param:number duration],  [param:boolean warp] ) - Causes this action to <i>.fadeOut</i>, fading in another action simultaneously, within the passed time interval. This method can be chained.<br />
+			If warpBoolean is true, additional <i>.warp</i> (gradually changes of the time scales) will be applied.<br />
+			Note: Like with <i>fadeIn</i> / <i>fadeOut</i>, the fading starts/ends with a weight of 1.<br />
+			[method:AnimationAction fadeIn](  [param:number duration] ) - Increases the <i>.weight</i> of this action gradually from 0 to 1, within the passed time interval. This method can be chained.<br />
+			[method:AnimationAction fadeOut](  [param:number duration] ) - Decreases the <i>.weight</i> of this action gradually from 1 to 0, within the passed time interval. This method can be chained.<br />
+			[method:AnimationClip getClip](  ) - Returns : Returns the clip which holds the animation data for this action.<br />
+			[method:number getEffectiveTimeScale](  ) - Returns : Returns the effective time scale (considering the current states of warping and <i>.paused</i>).<br />
+			[method:number getEffectiveWeight](  ) - Returns : Returns the effective weight (considering the current states of fading and <i>.enabled</i>).<br />
+			[method:AnimationMixer getMixer](  ) - Returns : Returns the mixer which is responsible for playing this action.<br />
+			[method:Object3D getRoot](  ) - Returns : Returns the root object on which this action is performed.<br />
+			[method:AnimationAction halt](  [param:number duration] ) - Decelerates this animation's speed to 0 by decreasing <i>.timeScale</i> gradually (starting from its current value), within the passed time interval. This method can be chained.<br />
+			[method:boolean isRunning](  ) - In addition to being activated in the mixer (see <i>.isScheduled</i>) the following conditions must be fulfilled: <i>.paused</i> is equal to false, <i>.enabled</i> is equal to true, <i>.timeScale</i> is different from 0, and there is no scheduling for a delayed start (<i>.startAt</i>).<br />
+			Note: <i>isRunning</i> being true doesn’t necessarily mean that the animation can actually be seen.<br />
+			This is only the case, if <i>.weight</i> is additionally set to a non-zero value.<br />
+			<br />
+			Returns : Returns true if the action’s <i>.time</i> is currently running.<br />
+			[method:boolean isScheduled](  ) - Note: This doesn’t necessarily mean that the animation is actually running (compare the additional conditions for <i>.isRunning</i>).<br />
+			<br />
+			Returns : Returns true, if this action is activated in the mixer.<br />
+			[method:AnimationAction play](  ) - Tells the mixer to activate the action. This method can be chained.<br />
+			Note: Activating this action doesn’t necessarily mean that the animation starts immediately:<br />
+			If the action had already finished before (by reaching the end of its last loop), or if a time for a delayed start has been set (via <i>.startAt</i>), a <i>.reset</i> must be executed first. Some other settings (<i>.paused</i>=true, <i>.enabled</i>=false, <i>.weight</i>=0, <i>.timeScale</i>=0) can prevent the animation from playing, too.<br />
+			[method:AnimationAction reset](  ) - Resets the action. This method can be chained.<br />
+			This method sets <i>.paused</i> to false, <i>.enabled</i> to true, <i>.time</i> to 0, interrupts any scheduled fading and warping, and removes the internal loop count and scheduling for delayed starting.<br />
+			Note: .<i>reset</i> is always called by <i>.stop</i>, but .<i>reset</i> doesn’t call .<i>stop</i> itself.<br />
+			This means: If you want both, resetting and stopping, don’t call .<i>reset</i>; call .<i>stop</i> instead.<br />
+			[method:AnimationAction setDuration](  [param:number duration] ) - Sets the duration for a single loop of this action (by adjusting <i>.timeScale</i> and stopping any scheduled warping). This method can be chained.<br />
+			[method:AnimationAction setEffectiveTimeScale](  [param:number timeScale] ) - Sets the <i>.timeScale</i> and stops any scheduled warping. This method can be chained.<br />
+			If <i>.paused</i> is false, the effective time scale (an internal property) will also be set to this value; otherwise the effective time scale (directly affecting the animation at this moment) will be set to 0.<br />
+			Note: .<i>paused</i> will not be switched to <i>true</i> automatically, if .<i>timeScale</i> is set to 0 by this method.<br />
+			[method:AnimationAction setEffectiveWeight](  [param:number weight] ) - Sets the <i>.weight</i> and stops any scheduled fading. This method can be chained.<br />
+			If <i>.enabled</i> is true, the effective weight (an internal property) will also be set to this value; otherwise the effective weight (directly affecting the animation at this moment) will be set to 0.<br />
+			Note: .<i>enabled</i> will not be switched to <i>false</i> automatically, if .<i>weight</i> is set to 0 by this method.<br />
+			[method:AnimationAction setLoop](  [param:AnimationActionLoopStyles mode],  [param:number repetitions] ) - Sets the <i>.loop</i> and the number of <i>.repetitions</i>. This method can be chained.<br />
+			[method:AnimationAction startAt](  [param:number time] ) - Defines the time for a delayed start (usually passed as [page:AnimationMixer.time AnimationMixer.time] + deltaTimeInSeconds). This method can be chained.<br />
+			Note: The animation will only start at the given time, if .<i>startAt</i> is chained with <i>.play</i>, or if the action has already been activated in the mixer (by a previous call of .<i>play</i>, without stopping or resetting it in the meantime).<br />
+			[method:AnimationAction stop](  ) - Tells the mixer to deactivate this action. This method can be chained.<br />
+			The action will be immediately stopped and completely <i>.reset</i>.<br />
+			Note: You can stop all active actions on the same mixer in one go via [page:AnimationMixer.stopAllAction mixer.stopAllAction].<br />
+			[method:AnimationAction stopFading](  ) - Stops any scheduled <i>.fadeIn</i> which is applied to this action. This method can be chained.<br />
+			[method:AnimationAction stopWarping](  ) - Stops any scheduled <i>.warp</i> which is applied to this action. This method can be chained.<br />
+			[method:AnimationAction syncWith](  [param:AnimationAction action] ) - Synchronizes this action with the passed other action. This method can be chained.<br />
+			Synchronizing is done by setting this action’s <i>.time</i> and <i>.timeScale</i> values to the corresponding values of the other action (stopping any scheduled warping).<br />
+			Note: Future changes of the other action's <i>time</i> and <i>timeScale</i> will not be detected.<br />
+			[method:AnimationAction warp](  [param:number statTimeScale],  [param:number endTimeScale],  [param:number duration] ) - Changes the playback speed, within the passed time interval, by modifying <i>.timeScale</i> gradually from <i>startTimeScale</i> to <i>endTimeScale</i>. This method can be chained.
+		</p>
+
+		<p class="desc">
+			AnimationActions schedule the performance of the animations which are stored in [AnimationClips](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/AnimationClip).<br />
+			Note: Most of AnimationAction's methods can be chained.<br />
+			For an overview of the different elements of the three.js animation system see the "Animation System" article in the "Next Steps" section of the manual.<br />
+			There are two events indicating when a single loop of the action respectively the entire action has finished. You can react to them with:<br />
+			mixer.addEventListener( 'loop', function( e ) { …} ); // properties of e: type, action and loopDelta mixer.addEventListener( 'finished', function( e ) { …} ); // properties of e: type, action and direction
 		</p>
 
 		<br /><br />

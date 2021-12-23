@@ -105,7 +105,7 @@ export class DocsComponent implements OnInit {
 				}
 			}
 			if (selected !== null) {
-				selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+				selected.scrollIntoView({ block: 'start', inline : 'start', behavior: 'smooth' });
 				setTimeout(() => {
 					this.menu.closeMenu(false);
 				}, 2000);

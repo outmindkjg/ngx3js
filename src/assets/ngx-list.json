@@ -16,12 +16,6 @@
 		},
 		"ngx - Reference": {
 			"Abstract": {
-				"AbstractGeometryComponent": "ngxapi/en/AbstractGeometryComponent",
-				"AbstractMaterialComponent": "ngxapi/en/AbstractMaterialComponent",
-				"AbstractObject3dComponent": "ngxapi/en/AbstractObject3dComponent",
-				"AbstractSubscribeComponent": "ngxapi/en/AbstractSubscribeComponent",
-				"AbstractTextureComponent": "ngxapi/en/AbstractTextureComponent",
-				"AbstractTweenComponent": "ngxapi/en/AbstractTweenComponent",
 				"BaseComponent": "ngxapi/en/BaseComponent",
 				"NgxAbstractControllerComponent": "ngxapi/en/NgxAbstractControllerComponent",
 				"NgxAbstractGeometryComponent": "ngxapi/en/NgxAbstractGeometryComponent",
@@ -29,15 +23,7 @@
 				"NgxAbstractObject3dComponent": "ngxapi/en/NgxAbstractObject3dComponent",
 				"NgxAbstractSubscribeComponent": "ngxapi/en/NgxAbstractSubscribeComponent",
 				"NgxAbstractTextureComponent": "ngxapi/en/NgxAbstractTextureComponent",
-				"NgxAbstractTweenComponent": "ngxapi/en/NgxAbstractTweenComponent",
-				"NgxAbstractObject3dDirective": "ngxapi/en/NgxAbstractObject3dDirective",
-				"NgxAbstractThreeDirective": "ngxapi/en/NgxAbstractThreeDirective",
-				"NgxAbstractThreeController": "ngxapi/en/NgxAbstractThreeController",
-				"NgxAutoMaterialController": "ngxapi/en/NgxAutoMaterialController",
-				"NgxAutoPositionController": "ngxapi/en/NgxAutoPositionController",
-				"NgxAutoRotationController": "ngxapi/en/NgxAutoRotationController",
-				"NgxAutoScaleController": "ngxapi/en/NgxAutoScaleController",
-				"NgxAutoUniformsController": "ngxapi/en/NgxAutoUniformsController"
+				"NgxAbstractTweenComponent": "ngxapi/en/NgxAbstractTweenComponent"
 			},
 			"Curves": {
 				"NgxCurveComponent": "ngxapi/en/NgxCurveComponent",
@@ -128,28 +114,22 @@
 				"CurvesRegularPolygonUndecagon": "ngxapi/en/CurvesRegularPolygonUndecagon",
 				"CurvesRollerCoaster": "ngxapi/en/CurvesRollerCoaster"
 			},
+			"Controller" : {
+				"NgxAbstractThreeController": "ngxapi/en/NgxAbstractThreeController",
+				"NgxAutoMaterialController": "ngxapi/en/NgxAutoMaterialController",
+				"NgxAutoPositionController": "ngxapi/en/NgxAutoPositionController",
+				"NgxAutoRotationController": "ngxapi/en/NgxAutoRotationController",
+				"NgxAutoScaleController": "ngxapi/en/NgxAutoScaleController",
+				"NgxAutoUniformsController": "ngxapi/en/NgxAutoUniformsController"
+			},
 			"Directive": {
+				"NgxAbstractThreeDirective": "ngxapi/en/NgxAbstractThreeDirective",
 				"DrawingCanvasDirective": "ngxapi/en/DrawingCanvasDirective",
-				"NumberDirective": "ngxapi/en/NumberDirective",
+				"NgxAbstractObject3dDirective": "ngxapi/en/NgxAbstractObject3dDirective",
 				"PositionDirective": "ngxapi/en/PositionDirective",
 				"RotateDirective": "ngxapi/en/RotateDirective",
-				"ScaleDirective": "ngxapi/en/ScaleDirective"
-			},
-			"Chart": {
-				"NgxAbstractChartComponent": "ngxapi/en/NgxAbstractChartComponent",
-				"NgxChartControllerComponent": "ngxapi/en/NgxChartControllerComponent",
-				"NgxChartAxesComponent": "ngxapi/en/NgxChartAxesComponent",
-				"NgxChartBarComponent": "ngxapi/en/NgxChartBarComponent",
-				"NgxChartBubbleComponent": "ngxapi/en/NgxChartBubbleComponent",
-				"NgxChartComponent": "ngxapi/en/NgxChartComponent",
-				"NgxChartDoughnutComponent": "ngxapi/en/NgxChartDoughnutComponent",
-				"NgxChartLegendComponent": "ngxapi/en/NgxChartLegendComponent",
-				"NgxChartLineComponent": "ngxapi/en/NgxChartLineComponent",
-				"NgxChartPieComponent": "ngxapi/en/NgxChartPieComponent",
-				"NgxChartPolarAreaComponent": "ngxapi/en/NgxChartPolarAreaComponent",
-				"NgxChartRadarComponent": "ngxapi/en/NgxChartRadarComponent",
-				"NgxChartScatterComponent": "ngxapi/en/NgxChartScatterComponent",
-				"NgxChartTitleComponent": "ngxapi/en/NgxChartTitleComponent"
+				"ScaleDirective": "ngxapi/en/ScaleDirective",
+				"NumberDirective": "ngxapi/en/NumberDirective"
 			},
 			"Pipe": {
 				"NgxAnglePipe": "ngxapi/en/NgxAnglePipe",
@@ -374,7 +354,6 @@
 				"VolumeRenderShader1": "ngxapi/en/VolumeRenderShader1",
 				"WaterRefractionShader": "ngxapi/en/WaterRefractionShader"
 			},
-
 			"Lights": {
 				"NgxLightComponent": "ngxapi/en/NgxLightComponent",
 				"AmbientLight": "ngxapi/en/AmbientLight",
@@ -389,7 +368,6 @@
 				"RectAreaLight": "ngxapi/en/RectAreaLight",
 				"SpotLight": "ngxapi/en/SpotLight"
 			},
-
 			"Physics": {
 				"NgxPhysicsComponent": "ngxapi/en/NgxPhysicsComponent",
 				"NgxPhysicsConstraintComponent": "ngxapi/en/NgxPhysicsConstraintComponent",
@@ -398,7 +376,6 @@
 				"AmmoPhysics" : "ngxapi/en/AmmoPhysics",
 				"OimoPhysics" : "ngxapi/en/OimoPhysics"
 			},
-
 			"Effects": {
 				"AnaglyphEffect": "ngxapi/en/AnaglyphEffect",
 				"AsciiEffect": "ngxapi/en/AsciiEffect",
@@ -407,7 +384,6 @@
 				"PeppersGhostEffect": "ngxapi/en/PeppersGhostEffect",
 				"StereoEffect": "ngxapi/en/StereoEffect"
 			},
-
 			"Animation": {
 				"NgxKeyframeComponent": "ngxapi/en/NgxKeyframeComponent",
 				"NgxAnimationGroupComponent": "ngxapi/en/NgxAnimationGroupComponent",
@@ -429,7 +405,6 @@
 				"StringKeyframeTrack": "ngxapi/en/StringKeyframeTrack",
 				"VectorKeyframeTrack": "ngxapi/en/VectorKeyframeTrack"
 			},
-
 			"Extras": {
 				"ArcCurve": "ngxapi/en/ArcCurve",
 				"CatmullRomCurve3": "ngxapi/en/CatmullRomCurve3",
@@ -808,7 +783,6 @@
 			"textures": {
 				"NgxTextureComponent": "ngxapi/en/NgxTextureComponent",
 				"TextureUtils": "ngxapi/en/TextureUtils",
-				
 				"CanvasTexture": "ngxapi/en/CanvasTexture",
 				"CompressedTexture": "ngxapi/en/CompressedTexture",
 				"CubeTexture": "ngxapi/en/CubeTexture",
@@ -948,7 +922,24 @@
 			},
 			"index": {
 				"WEBGL": "ngxapi/en/WEBGL"
+			},
+			"Chart": {
+				"NgxAbstractChartComponent": "ngxapi/en/NgxAbstractChartComponent",
+				"NgxChartControllerComponent": "ngxapi/en/NgxChartControllerComponent",
+				"NgxChartAxesComponent": "ngxapi/en/NgxChartAxesComponent",
+				"NgxChartBarComponent": "ngxapi/en/NgxChartBarComponent",
+				"NgxChartBubbleComponent": "ngxapi/en/NgxChartBubbleComponent",
+				"NgxChartComponent": "ngxapi/en/NgxChartComponent",
+				"NgxChartDoughnutComponent": "ngxapi/en/NgxChartDoughnutComponent",
+				"NgxChartLegendComponent": "ngxapi/en/NgxChartLegendComponent",
+				"NgxChartLineComponent": "ngxapi/en/NgxChartLineComponent",
+				"NgxChartPieComponent": "ngxapi/en/NgxChartPieComponent",
+				"NgxChartPolarAreaComponent": "ngxapi/en/NgxChartPolarAreaComponent",
+				"NgxChartRadarComponent": "ngxapi/en/NgxChartRadarComponent",
+				"NgxChartScatterComponent": "ngxapi/en/NgxChartScatterComponent",
+				"NgxChartTitleComponent": "ngxapi/en/NgxChartTitleComponent"
 			}
+
 		}
 	}
 }

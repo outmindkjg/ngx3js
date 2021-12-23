@@ -82,10 +82,7 @@
 			[parameter:boolean final] - Whether this is the last chunk
 		</p>
 		<p>
-			Processes a chunk and pushes to the output stream. You can override this<br />
-			method in a subclass for custom behavior, but by default this passes<br />
-			the data through. You must call this.ondata(err, chunk, final) at some<br />
-			point in this method.
+			Processes a chunk and pushes to the output stream. You can override this method in a subclass for custom behavior, but by default this passes the data through. You must call this.ondata(err, chunk, final) at some point in this method.
 		</p>
 
 		<h3>[method:void push](  [param:Uint8Array chunk],  [param:boolean final]? )</h3>
@@ -95,9 +92,27 @@
 			[parameter:boolean final] - (optional) Whether this is the last chunk
 		</p>
 		<p>
-			Pushes a chunk to be added. If you are subclassing this with a custom<br />
-			compression algorithm, note that you must push data from the source<br />
-			file only, pre-compression.
+			Pushes a chunk to be added. If you are subclassing this with a custom compression algorithm, note that you must push data from the source file only, pre-compression.
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="AsyncFlateStreamHandler">AsyncFlateStreamHandler <i class="modifier modifier-interface">Type alias</i></h3>
+		<hr class="interface-line"/>
+		<h4>[method:void function](  [param:Error err],  [param:Uint8Array data],  [param:boolean final] )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:Error err] - Any error that occurred<br />
+			[property:Uint8Array data] -  The data.<br />
+			[property:boolean final] - Whether this is the final block
+		</p>
+		<p>
+			Handler for asynchronous data (de)compression streams
+		</p>
+
+
+
+		<p class="desc">
+			
 		</p>
 
 		<br /><br />

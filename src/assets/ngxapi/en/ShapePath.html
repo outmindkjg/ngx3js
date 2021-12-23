@@ -10,13 +10,19 @@
 		<h1>ShapePath</h1>
 
 		<p class="desc">
-			
+			This class is used to convert a series of shapes to an array of [Path](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Path)s, for example an SVG shape to a path (see the example below).<br />
+			<br />
+			<h3>Preview - geometry / extrude / shapes2</h3><br />
+			<iframe src="#/viewer/webgl_geometry_extrude_shapes2"></iframe><br />
+			<br />
+			<h2>Examples</h2><br />
+			[example:webgl_geometry_extrude_shapes2 geometry / extrude / shapes2]
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:ShapePath ShapePath](  )</h3>
 		<p>
-			
+			Creates a new ShapePath. Unlike a [page:Path Path], no points are passed in as the ShapePath is designed to be generated after creation.
 		</p>
 
 		<h2>Properties</h2>
@@ -27,12 +33,12 @@
 
 		<h3>[property:any currentPath]</h3>
 		<p>
-			
+			The current [page:Path Path] that is being generated.
 		</p>
 
 		<h3>[property:any[] subPaths]</h3>
 		<p>
-			
+			Array of [page:Path Path]s.
 		</p>
 
 		<h3>[property:string type]</h3>
@@ -52,7 +58,7 @@
 			[parameter:number aY] - The a y.
 		</p>
 		<p>
-			
+			This creates a bezier curve from <i>.currentPoint</i> with (cp1X, cp1Y) and (cp2X, cp2Y) as control points and updates <i>.currentPoint</i> to x and y.
 		</p>
 
 		<h3>[method:ShapePath lineTo](  [param:number x],  [param:number y] )</h3>
@@ -62,7 +68,7 @@
 			[parameter:number y] - The y.
 		</p>
 		<p>
-			
+			Connects a [page:LineCurve LineCurve] from <i>.currentPoint</i> to x, y onto the path.
 		</p>
 
 		<h3>[method:ShapePath moveTo](  [param:number x],  [param:number y] )</h3>
@@ -72,7 +78,7 @@
 			[parameter:number y] - The y.
 		</p>
 		<p>
-			
+			Move the <i>.currentPoint</i> to x, y.
 		</p>
 
 		<h3>[method:ShapePath quadraticCurveTo](  [param:number aCPx],  [param:number aCPy],  [param:number aX],  [param:number aY] )</h3>
@@ -84,7 +90,7 @@
 			[parameter:number aY] - The a y.
 		</p>
 		<p>
-			
+			Creates a quadratic curve from <i>.currentPoint</i> with cpX and cpY as control point and updates <i>.currentPoint</i> to x and y.
 		</p>
 
 		<h3>[method:ShapePath splineThru](  [param:Vector2[] pts] )</h3>
@@ -93,7 +99,7 @@
 			[parameter:Vector2[] pts] - The pts.
 		</p>
 		<p>
-			
+			Connects a new [page:SplineCurve SplineCurve] onto the path.
 		</p>
 
 		<h3>[method:Shape[] toShapes](  [param:boolean isCCW],  [param:boolean noHoles]? )</h3>

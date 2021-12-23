@@ -12,17 +12,22 @@
 		<h1>CompressedTextureLoader</h1>
 
 		<p class="desc">
-			
+			Abstract base class for block based textures loader (dds, pvr, ...).<br />
+			This uses the [FileLoader](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/FileLoader) internally for loading files.<br />
+			<h2>Examples</h2><br />
+			See the [link:https://github.com/mrdoob/three.js/blob/master/examples/jsm/loaders/DDSLoader.js DDSLoader] |<br />
+			and [link:https://github.com/mrdoob/three.js/blob/master/examples/jsm/loaders/PVRLoader.js PVRLoader] |<br />
+			for examples of derived classes.
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:CompressedTextureLoader CompressedTextureLoader](  [param:LoadingManager manager]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:LoadingManager manager] - (optional) The manager.
+			[parameter:LoadingManager manager] - (optional) The [loadingManager](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/LoadingManager) for the loader to use. Default is [THREE.DefaultLoadingManager](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/LoadingManager).
 		</p>
 		<p>
-			
+			Creates a new Loader.
 		</p>
 
 		<h2>Properties</h2>
@@ -32,32 +37,36 @@
 
 		<h3>[property:string crossOrigin]</h3>
 		<p>
-			
+			The crossOrigin string to implement CORS for loading the url from a different domain that allows CORS.<br />
+			Default is <i>anonymous</i>.
 		</p>
 
 		<h3>[property:LoadingManager manager]</h3>
 		<p>
-			
+			The [page:LoadingManager loadingManager]  the loader is using. Default is [page:DefaultLoadingManager DefaultLoadingManager].
 		</p>
 
 		<h3>[property:string path]</h3>
 		<p>
-			
+			The base path from which the asset will be loaded.<br />
+			Default is the empty string.
 		</p>
 
 		<h3>[property:any requestHeader]</h3>
 		<p>
-			
+			The [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header request header] used in HTTP request. See <i>.setRequestHeader</i>. Default is empty object.
 		</p>
 
 		<h3>[property:string resourcePath]</h3>
 		<p>
-			
+			The base path from which additional resources like textures will be loaded.<br />
+			Default is the empty string.
 		</p>
 
 		<h3>[property:boolean withCredentials]</h3>
 		<p>
-			
+			Whether the XMLHttpRequest uses credentials. See <i>.setWithCredentials</i>.<br />
+			Default is <i>false</i>.
 		</p>
 
 		<h2>Methods</h2>
@@ -68,29 +77,29 @@
 		<h3>[method:CompressedTexture load](  [param:string url],  [param:any onLoad],  [param:any onProgress]?,  [param:any onError]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The url.<br />
-			[parameter:any onLoad] - The on load.<br />
-			[parameter:any onProgress] - (optional) The on progress.<br />
-			[parameter:any onError] - (optional) The on error.
+			[parameter:string url] - The path or URL to the file. This can also be a [Data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).<br />
+			[parameter:any onLoad] - Will be called when load completes. The argument will be the loaded texture.<br />
+			[parameter:any onProgress] - (optional) Will be called while load progresses. The argument will be the XMLHttpRequest instance, which contains .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) and .[loaded](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) bytes. If the server does not set the Content-Length header; .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) will be 0.<br />
+			[parameter:any onError] - (optional) Will be called when load errors.
 		</p>
 		<p>
-			
+			Begin loading from url and pass the loaded texture to onLoad.
 		</p>
 
 		<h3>[method:Promise loadAsync](  [param:string url],  [param:any onProgress]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The url.<br />
-			[parameter:any onProgress] - (optional) The on progress.
+			[parameter:string url] - The path or URL to the file. This can also be a [Data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).<br />
+			[parameter:any onProgress] - (optional) Will be called while load progresses. The argument will be the XMLHttpRequest instance, which contains .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) and .[loaded](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) bytes. If the server does not set the Content-Length header; .[total](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Integer) will be 0.
 		</p>
 		<p>
-			
+			Begin loading from url and pass the loaded texture to onLoad.
 		</p>
 
 		<h3>[method:CompressedTextureLoader setCrossOrigin](  [param:string crossOrigin] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string crossOrigin] - The cross origin.
+			[parameter:string crossOrigin] - The crossOrigin string to implement CORS for loading the url from a different domain that allows CORS.
 		</p>
 		<p>
 			
@@ -99,7 +108,7 @@
 		<h3>[method:CompressedTextureLoader setPath](  [param:string path] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string path] - The path.
+			[parameter:string path] - Set the base path for the asset.
 		</p>
 		<p>
 			
@@ -108,7 +117,8 @@
 		<h3>[method:CompressedTextureLoader setRequestHeader](  [param:any requestHeader] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:any requestHeader] - The request header.
+			[parameter:any requestHeader] - key: The name of the header whose value is to be set. value: The value to set as the body of the header.
+Set the [request header](https://developer.mozilla.org/en-US/docs/Glossary/Request_header) used in HTTP request.
 		</p>
 		<p>
 			
@@ -117,7 +127,7 @@
 		<h3>[method:CompressedTextureLoader setResourcePath](  [param:string resourcePath] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string resourcePath] - The resource path.
+			[parameter:string resourcePath] - Set the base path for dependent resources like textures.
 		</p>
 		<p>
 			
@@ -129,7 +139,8 @@
 			[parameter:boolean value] - The value.
 		</p>
 		<p>
-			
+			Whether the XMLHttpRequest uses credentials such as cookies, authorization headers or TLS client certificates. See [link:https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials XMLHttpRequest.withCredentials].<br />
+			Note that this has no effect if you are loading files locally or from the same domain.
 		</p>
 
 

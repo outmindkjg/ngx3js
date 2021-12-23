@@ -10,7 +10,7 @@
 		<h1>GLBufferAttribute</h1>
 
 		<p class="desc">
-			This buffer attribute class does not construct a VBO. Instead, it uses whatever VBO is passed in constructor and can later be altered via the *buffer* property.<br />
+			This buffer attribute class does not construct a VBO. Instead, it uses whatever VBO is passed in constructor and can later be altered via the <i>buffer</i> property.<br />
 			It is required to pass additional params alongside the VBO. Those are:<br />
 			the GL context, the GL data type, the number of components per vertex, the number of bytes per component, and the number of vertices.<br />
 			The most common use case for this class is when some kind of GPGPU<br />
@@ -21,7 +21,7 @@
 		<h3>[constructor:GLBufferAttribute GLBufferAttribute](  [param:WebGLBuffer buffer],  [param:number type],  [param:number itemSize],  [param:'1'|'2'|'4' elementSize],  [param:number count] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:WebGLBuffer buffer] - Must be a <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLBuffer" target="_blank">WebGLBuffer</a>.<br />
+			[parameter:WebGLBuffer buffer] - Must be a [WebGLBuffer](https://developer.mozilla.org/en-US/docs/Web/API/WebGLBuffer).<br />
 			[parameter:number type] - The type.<br />
 			[parameter:number itemSize] - The number of values of the array that should be associated with a particular vertex. For instance, if this attribute is storing a 3-component vector (such as a position, normal, or color), then itemSize should be 3.<br />
 			[parameter:'1'|'2'|'4' elementSize] - 1, 2 or 4. The corresponding size (in bytes) for the given "type" param.<br />
@@ -40,7 +40,7 @@
 		<h2>Properties</h2>
 		<h3>[property:WebGLBuffer buffer]</h3>
 		<p>
-			The current &lt;a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLBuffer" target="_blank"&gt;WebGLBuffer&lt;/a&gt; instance.
+			The current [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLBuffer WebGLBuffer] instance.
 		</p>
 
 		<h3>[property:number count]</h3>
@@ -50,13 +50,13 @@
 
 		<h3>[property:'1'|'2'|'4' elementSize]</h3>
 		<p>
-			Stores the corresponding size in bytes for the current *type* property value.<br />
+			Stores the corresponding size in bytes for the current <i>type</i> property value.<br />
 			See above (constructor) for a list of known type sizes.
 		</p>
 
 		<h3>[property:any isGLBufferAttribute]</h3>
 		<p>
-			Read-only. Always *true*.
+			Read-only. Always <i>true</i>.
 		</p>
 
 		<h3>[property:number itemSize]</h3>
@@ -66,9 +66,8 @@
 
 		<h3>[property:number type]</h3>
 		<p>
-			A &lt;a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants#Data_types" target="_blank"&gt;WebGL Data Type&lt;/a&gt;<br />
-			describing the underlying VBO contents.<br />
-			Set this property together with *elementSize*. The recommended way is using the *setType* method.
+			A [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants#Data_types WebGL Data Type] describing the underlying VBO contents.<br />
+			Set this property together with <i>elementSize</i>. The recommended way is using the <i>setType</i> method.
 		</p>
 
 		<h3>[property:number version]</h3>
@@ -83,7 +82,7 @@
 			[parameter:WebGLBuffer buffer] - The buffer.
 		</p>
 		<p>
-			Sets the *buffer* property.
+			Sets the <i>buffer</i> property.
 		</p>
 
 		<h3>[method:GLBufferAttribute setCount](  [param:number count] )</h3>
@@ -92,7 +91,7 @@
 			[parameter:number count] - The count.
 		</p>
 		<p>
-			Sets the *count* property.
+			Sets the <i>count</i> property.
 		</p>
 
 		<h3>[method:GLBufferAttribute setItemSize](  [param:number itemSize] )</h3>
@@ -101,7 +100,7 @@
 			[parameter:number itemSize] - The item size.
 		</p>
 		<p>
-			Sets the *itemSize* property.
+			Sets the <i>itemSize</i> property.
 		</p>
 
 		<h3>[method:GLBufferAttribute setType](  [param:number type],  [param:'1'|'2'|'4' elementSize] )</h3>
@@ -111,7 +110,7 @@
 			[parameter:'1'|'2'|'4' elementSize] - The element size.
 		</p>
 		<p>
-			Sets the both *type* and *elementSize* properties.
+			Sets the both <i>type</i> and <i>elementSize</i> properties.
 		</p>
 
 		<br /><br />

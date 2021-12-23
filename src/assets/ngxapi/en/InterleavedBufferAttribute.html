@@ -10,7 +10,7 @@
 		<h1>InterleavedBufferAttribute</h1>
 
 		<p class="desc">
-			see {@link https://github.com/mrdoob/three.js/blob/master/src/core/InterleavedBufferAttribute.js|src/core/InterleavedBufferAttribute.js}
+			see [link:https://github.com/mrdoob/three.js/blob/master/src/core/InterleavedBufferAttribute.js src/core/InterleavedBufferAttribute.js]
 		</p>
 
 		<h2>Constructor</h2>
@@ -23,7 +23,7 @@
 			[parameter:boolean normalized] - (optional) The normalized.
 		</p>
 		<p>
-			Returns : aaa
+			
 		</p>
 
 		<h2>Properties</h2>
@@ -49,7 +49,7 @@
 
 		<h3>[property:boolean normalized]</h3>
 		<p>
-			Default is *false*.
+			Default is <i>false</i>.
 		</p>
 
 		<h3>[property:number offset]</h3>
@@ -233,6 +233,29 @@
 
 		<p class="desc">
 			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="Matrix">Matrix <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:number[] elements] - Array with matrix values.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:Matrix clone](  ) - Creates a new Matrix4 with identical <i>.elements</i> to this one.<br />
+			[method:Matrix copy](  [param:Matrix m] ) - Copies the <i>.elements</i> of matrix [page:Matrix m] into this matrix.<br />
+			[method:number determinant](  ) - Computes and returns the [link:https://en.wikipedia.org/wiki/Determinant determinant] of this matrix.<br />
+			[method:Matrix identity](  ) - Resets this matrix to the [link:https://en.wikipedia.org/wiki/Identity_matrix identity matrix].<br />
+			[method:Matrix invert](  ) - Inverts this matrix, using the [link:https://en.wikipedia.org/wiki/Invertible_matrix#Analytic_solution analytic method].<br />
+			You can not invert with a determinant of zero. If you attempt this, the method produces a zero matrix instead.<br />
+			[method:Matrix multiplyScalar](  [param:number s] ) - Multiplies every component of the matrix by a scalar value [page:Float s].<br />
+			[method:Matrix transpose](  ) - [link:https://en.wikipedia.org/wiki/Transpose Transposes] this matrix.
+		</p>
+
+		<p class="desc">
+			A class representing a [link:https://en.wikipedia.org/wiki/Matrix_(mathematics matrix]).
 		</p>
 
 		<br /><br />

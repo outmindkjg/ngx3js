@@ -474,7 +474,7 @@
 
 		<h3>[property:string attrSizeUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the *usage* parameter of<br />
+			Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the <i>usage</i> parameter of<br />
 			[link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().
 		</p>
 
@@ -646,12 +646,12 @@
 
 		<h3>[property:boolean computeBoundingBox] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Computes bounding box of the geometry, updating [page:BufferGeometry.boundingBox BufferGeometry.boundingBox] attribute. Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
+			Computes bounding box of the geometry, updating [page:BufferGeometry.boundingBox BufferGeometry.boundingBox] attribute. Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.
 		</p>
 
 		<h3>[property:boolean computeBoundingSphere] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Computes bounding sphere of the geometry, updating [page:BufferGeometry.boundingSphere BufferGeometry.boundingSphere] attribute. Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
+			Computes bounding sphere of the geometry, updating [page:BufferGeometry.boundingSphere BufferGeometry.boundingSphere] attribute. Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.
 		</p>
 
 		<h3>[property:boolean computeTangents] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -1677,7 +1677,7 @@
 		</p>
 
 		<hr class="interface-line"/>
-		<h3 id="INgxColor">INgxColor <i class="modifier modifier-interface">Interface</i></h3>
+		<h3 id="INgxColor">INgxColor <i class="modifier modifier-interface">Type alias</i></h3>
 		<hr class="interface-line"/>
 		<h3>[property:string|number|Color INgxColor]</h3>
 
@@ -1704,7 +1704,7 @@
 		</p>
 
 		<hr class="interface-line"/>
-		<h3 id="TAttrBufferAttribute">TAttrBufferAttribute <i class="modifier modifier-interface">Interface</i></h3>
+		<h3 id="TAttrBufferAttribute">TAttrBufferAttribute <i class="modifier modifier-interface">Type alias</i></h3>
 		<hr class="interface-line"/>
 		<h3>[property:number[]|Int8Array|Int16Array|Int32Array|Uint8Array|Uint16Array|Uint32Array|Float32Array|Float64Array|BufferAttribute TAttrBufferAttribute]</h3>
 
@@ -1728,6 +1728,49 @@
 			
 		</p>
 
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="RayParameters">RayParameters <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:number birthTime]? -  The birth time.<br />
+			[property:number deathTime]? -  The death time.<br />
+			[property:Vector3 destOffset]? -  The dest offset.<br />
+			[property:boolean generateUVs]? -  The generate u vs.<br />
+			[property:boolean isEternal]? -  The is eternal.<br />
+			[property:boolean isStatic]? -  The is static.<br />
+			[property:number maxIterations]? -  The max iterations.<br />
+			[property:number maxSubrayRecursion]? -  The max subray recursion.<br />
+			[property:number minRadius]? -  The min radius.<br />
+			[property:number noiseSeed]? -  The noise seed.<br />
+			[property:number propagationTimeFactor]? -  The propagation time factor.<br />
+			[property:number radius0]? -  The radius0.<br />
+			[property:number radius0Factor]? -  The radius0 factor.<br />
+			[property:number radius1]? -  The radius1.<br />
+			[property:number radius1Factor]? -  The radius1 factor.<br />
+			[property:number ramification]? -  The ramification.<br />
+			[property:RandomGenerator randomGenerator]? -  The random generator.<br />
+			[property:number recursionProbability]? -  The recursion probability.<br />
+			[property:number roughness]? -  The roughness.<br />
+			[property:Vector3 sourceOffset]? -  The source offset.<br />
+			[property:number straightness]? -  The straightness.<br />
+			[property:number subrayDutyCycle]? -  The subray duty cycle.<br />
+			[property:number subrayPeriod]? -  The subray period.<br />
+			[property:number timeScale]? -  The time scale.<br />
+			[property:Vector3 up0]? -  The up0.<br />
+			[property:Vector3 up1]? -  The up1.<br />
+			[property:number vanishingTimeFactor]? -  The vanishing time factor.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void onDecideSubrayCreation](  [param:LightningSegment segment],  [param:LightningStrike lightningStrike] ) <br />
+			[method:void onSubrayCreation](  [param:LightningSegment segment],  [param:LightningSubray parentSubray],  [param:LightningSubray childSubray],  [param:LightningStrike lightningStrike] ) 
+		</p>
 
 		<p class="desc">
 			

@@ -10,20 +10,21 @@
 		<h1>AnimationClip</h1>
 
 		<p class="desc">
-			
+			An AnimationClip is a reusable set of keyframe tracks which represent an animation.<br />
+			For an overview of the different elements of the three.js animation system see the "Animation System" article in the "Next Steps" section of the manual.
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:AnimationClip AnimationClip](  [param:string name]?,  [param:number duration]?,  [param:KeyframeTrack[] tracks]?,  [param:AnimationBlendMode blendMode]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string name] - (optional) The name.<br />
-			[parameter:number duration] - (optional) The duration.<br />
-			[parameter:KeyframeTrack[] tracks] - (optional) The tracks.<br />
+			[parameter:string name] - (optional) A name for this clip.<br />
+			[parameter:number duration] - (optional) The duration of this clip (in seconds). If a negative value is passed, the duration will be calculated from the passed *tracks* array.<br />
+			[parameter:KeyframeTrack[] tracks] - (optional) an array of [KeyframeTracks](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/KeyframeTrack).<br />
 			[parameter:AnimationBlendMode blendMode] - (optional) The blend mode.
 		</p>
 		<p>
-			
+			Note: Instead of instantiating an AnimationClip directly with the constructor, you can use one of its static methods to create AnimationClips: from JSON (<i>.parse</i>), from morph target sequences (<i>.CreateFromMorphTargetSequence</i>,e <i>.CreateClipsFromMorphTargetSequences</i>) or frome animation hierarchies (<i>.parseAnimation</i>) - if your model doesn't already hold AnimationClips in its geometry's animations array.
 		</p>
 
 		<h2>Properties</h2>
@@ -34,12 +35,12 @@
 
 		<h3>[property:number duration]</h3>
 		<p>
-			
+			The duration of this clip (in seconds). This can be calculated from the <i>.tracks</i> array via <i>.resetDuration</i>.
 		</p>
 
 		<h3>[property:string name]</h3>
 		<p>
-			
+			A name for this clip. A certain clip can be searched via <i>.findByName</i>.
 		</p>
 
 		<h3>[property:any[] results]</h3>
@@ -49,12 +50,13 @@
 
 		<h3>[property:KeyframeTrack[] tracks]</h3>
 		<p>
-			
+			An array containing a [page:KeyframeTrack KeyframeTrack] for each property that are animated by this clip.
 		</p>
 
 		<h3>[property:string uuid]</h3>
 		<p>
-			
+			The [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this clip instance.<br />
+			It gets automatically assigned and shouldn't be edited.
 		</p>
 
 		<h2>Methods</h2>
@@ -78,12 +80,14 @@
 			[parameter:boolean noLoop] - The no loop.
 		</p>
 		<p>
-			
+			Note: The fps parameter is required, but the animation speed can be overridden in an <i>AnimationAction</i> via [animationAction.setDuration](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/AnimationAction.setDuration).<br />
+			<br />
+			Returns : Returns a new AnimationClip from the passed morph targets array of a geometry, taking a name and the number of frames per second.
 		</p>
 
 		<h3>[method:AnimationClip clone](  )</h3>
 		<p>
-			
+			Returns : Returns a copy of this clip.
 		</p>
 
 		<h3>[method:AnimationClip findByName](  [param:AnimationClip[] clipArray],  [param:string name] )</h3>
@@ -93,12 +97,12 @@
 			[parameter:string name] - The name.
 		</p>
 		<p>
-			
+			Searches for an AnimationClip by name, taking as its first parameter either an array of AnimationClips, or a mesh or geometry that contains an array named "animations".
 		</p>
 
 		<h3>[method:AnimationClip optimize](  )</h3>
 		<p>
-			
+			Optimizes each track by removing equivalent sequential keys (which are common in morph target sequences).
 		</p>
 
 		<h3>[method:AnimationClip parse](  [param:any json] )</h3>
@@ -107,7 +111,7 @@
 			[parameter:any json] - The json.
 		</p>
 		<p>
-			
+			Parses a JSON representation of a clip and returns an AnimationClip.
 		</p>
 
 		<h3>[method:AnimationClip parseAnimation](  [param:any animation],  [param:Bone[] bones] )</h3>
@@ -117,12 +121,12 @@
 			[parameter:Bone[] bones] - The bones.
 		</p>
 		<p>
-			
+			Parses the animation.hierarchy format and returns an AnimationClip.
 		</p>
 
 		<h3>[method:AnimationClip resetDuration](  )</h3>
 		<p>
-			
+			Sets the <i>.duration</i> of the clip to the duration of its longest [page:KeyframeTrack KeyframeTrack].
 		</p>
 
 		<h3>[method:any toJSON](  [param:AnimationClip clip],  [param:AnimationClip clip] )</h3>
@@ -132,17 +136,17 @@
 			[parameter:AnimationClip clip] - The clip.
 		</p>
 		<p>
-			
+			Takes an AnimationClip and returns a JSON object.
 		</p>
 
 		<h3>[method:AnimationClip trim](  )</h3>
 		<p>
-			
+			Trims all tracks to the clip's duration.
 		</p>
 
 		<h3>[method:boolean validate](  )</h3>
 		<p>
-			
+			Performs minimal validation on each track in the clip. Returns true if all tracks are valid.
 		</p>
 
 
@@ -170,6 +174,32 @@
 			
 		</p>
 
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="AnimationBlendMode">AnimationBlendMode <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:AnimationBlendMode AdditiveAnimationBlendMode] = 2501 -  The additive animation blend mode.<br />
+			[property:AnimationBlendMode NormalAnimationBlendMode] = 2500 -  The normal animation blend mode.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="MorphTarget">MorphTarget <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:string name] -  The name.<br />
+			[property:Vector3[] vertices] -  The vertices.
+		</p>
 
 		<p class="desc">
 			

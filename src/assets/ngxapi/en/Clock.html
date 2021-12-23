@@ -18,10 +18,10 @@
 		<h3>[constructor:Clock Clock](  [param:boolean autoStart]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:boolean autoStart] - (optional) The auto start.
+			[parameter:boolean autoStart] - (optional) whether to automatically start the clock. Default is true.
 		</p>
 		<p>
-			autoStart - whether to automatically start the clock. Default is true.
+			
 		</p>
 
 		<h2>Properties</h2>
@@ -54,19 +54,18 @@
 		<h3>[method:number getDelta](  )</h3>
 		<p>
 			Get the seconds passed since the time [page:Clock.oldTime oldTime] was set and sets [page:Clock.oldTime oldTime] to the current time.<br />
-			If [page:Clock.autoStart autoStart] is *true* and the clock is not running, also starts the clock.
+			If [page:Clock.autoStart autoStart] is <i>true</i> and the clock is not running, also starts the clock.
 		</p>
 
 		<h3>[method:number getElapsedTime](  )</h3>
 		<p>
 			Get the seconds passed since the clock started and sets [page:Clock.oldTime oldTime] to the current time.<br />
-			If [page:Clock.autoStart autoStart] is *true* and the clock is not running, also starts the clock.
+			If [page:Clock.autoStart autoStart] is <i>true</i> and the clock is not running, also starts the clock.
 		</p>
 
 		<h3>[method:void start](  )</h3>
 		<p>
-			Starts clock. Also sets the [page:Clock.startTime startTime] and [page:Clock.oldTime oldTime]<br />
-			to the current time, sets [page:Clock.elapsedTime elapsedTime] to *0* and [page:Clock.running running] to *true*.
+			Starts clock. Also sets the [page:Clock.startTime startTime] and [page:Clock.oldTime oldTime] to the current time, sets [page:Clock.elapsedTime elapsedTime] to <i>0</i> and [page:Clock.running running] to <i>true</i>.
 		</p>
 
 		<h3>[method:void stop](  )</h3>

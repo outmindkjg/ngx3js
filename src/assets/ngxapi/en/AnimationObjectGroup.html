@@ -10,14 +10,23 @@
 		<h1>AnimationObjectGroup</h1>
 
 		<p class="desc">
-			
+			A group of objects that receives a shared animation state.<br />
+			For an overview of the different elements of the three.js animation system see the "Animation System" article in the "Next Steps" section of the manual.<br />
+			Usage :<br />
+			Add objects you would otherwise pass as 'root' to the constructor or the [page:AnimationMixer.clipAction clipAction]<br />
+			method of [page:AnimationMixer AnimationMixer] and instead pass this object as 'root'.<br />
+			Note that objects of this class appear as one object to the mixer, so cache control of the individual objects must be done	on the group.<br />
+			<br />
+			Limitations :<br />
+			The animated properties must be compatible among all objects in the group.<br />
+			A single property can either be controlled through a target group or directly, but not both.
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:AnimationObjectGroup AnimationObjectGroup](  [param:any[] args] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:any[] args] - The args.
+			[parameter:any[] args] - an abitrary number of meshes that share the same animation state.
 		</p>
 		<p>
 			
@@ -31,12 +40,12 @@
 
 		<h3>[property:any stats]</h3>
 		<p>
-			
+			An object that contains some informations of this <i>AnimationObjectGroup</i> (total number, number in use, number of bindings per object)
 		</p>
 
 		<h3>[property:string uuid]</h3>
 		<p>
-			
+			The [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this <i>AnimationObjectGroup</i>. It gets automatically assigned and shouldn't be edited.
 		</p>
 
 		<h2>Methods</h2>
@@ -46,7 +55,7 @@
 			[parameter:any[] args] - The args.
 		</p>
 		<p>
-			
+			Adds an arbitrary number of objects to this <i>AnimationObjectGroup</i>.
 		</p>
 
 		<h3>[method:void remove](  [param:any[] args] )</h3>
@@ -55,7 +64,7 @@
 			[parameter:any[] args] - The args.
 		</p>
 		<p>
-			
+			Removes an arbitrary number of objects from this <i>AnimationObjectGroup</i>.
 		</p>
 
 		<h3>[method:void uncache](  [param:any[] args] )</h3>
@@ -64,7 +73,7 @@
 			[parameter:any[] args] - The args.
 		</p>
 		<p>
-			
+			Deallocates all memory resources for the passed objects of this <i>AnimationObjectGroup</i>.
 		</p>
 
 		<br /><br />

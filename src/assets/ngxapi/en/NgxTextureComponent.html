@@ -73,7 +73,7 @@
 			&gt;&lt;/ngx3js-texture&gt;<br />
 			&lt;ngx3js-texture<br />
 				[image]="'textures/grid.png'"<br />
-				[wrap]="'RepeatWrapping'" [repeatX]="4 * 5" [repeatY]="3 * 5"<br />
+				[wrap]="'RepeatWrapping'" [repeatX]="4 <i> 5" [repeatY]="3 </i> 5"<br />
 			&gt;&lt;/ngx3js-texture&gt;<br />
 			&lt;ngx3js-texture<br />
 				[image]="'textures/patterns/circuit_pattern.png'"<br />
@@ -314,7 +314,7 @@
 
 		<h3>[property:boolean flipY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			If set to *true*, the texture is flipped along the vertical axis when uploaded to the GPU. Default is *true*.<br />
+			If set to <i>true</i>, the texture is flipped along the vertical axis when uploaded to the GPU. Default is <i>true</i>.<br />
 			Note that this property has no effect for [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap].<br />
 			You need to configure on bitmap creation instead. See [page:ImageBitmapLoader ImageBitmapLoader].
 		</p>
@@ -433,21 +433,21 @@
 		<h3>[property:number offset]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br />
-			Typical range is *0.0* to *1.0*.<br />
+			Typical range is <i>0.0</i> to <i>1.0</i>.<br />
 			The default value of offsetX, offsetY
 		</p>
 
 		<h3>[property:number offsetX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br />
-			Typical range is *0.0* to *1.0*.<br />
+			Typical range is <i>0.0</i> to <i>1.0</i>.<br />
 			The value of offset.x
 		</p>
 
 		<h3>[property:number offsetY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br />
-			Typical range is *0.0* to *1.0*.<br />
+			Typical range is <i>0.0</i> to <i>1.0</i>.<br />
 			The value of offset.y
 		</p>
 
@@ -478,7 +478,7 @@
 
 		<h3>[property:boolean premultiplyAlpha]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			If set to *true*, the alpha channel, if present, is multiplied into the color channels when the texture is uploaded to the GPU. Default is *false*.<br />
+			If set to <i>true</i>, the alpha channel, if present, is multiplied into the color channels when the texture is uploaded to the GPU. Default is <i>false</i>.<br />
 			Note that this property has no effect for [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap].<br />
 			You need to configure on bitmap creation instead. See [page:ImageBitmapLoader ImageBitmapLoader].
 		</p>
@@ -531,7 +531,7 @@
 
 		<h3>[property:number rotation]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			How much the texture is rotated around the center point, in radians. Positive values are counter-clockwise. Default is *0*.
+			How much the texture is rotated around the center point, in radians. Positive values are counter-clockwise. Default is <i>0</i>.
 		</p>
 
 		<h3>[property:number scale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -623,7 +623,7 @@
 
 		<h3>[property:string wrap]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br />
+			This defines how the texture is wrapped horizontally and corresponds to <i>U</i> in UV mapping.<br />
 			The default is [THREE.ClampToEdgeWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), where the edge is clamped to the outer edge texels.<br />
 			The other two choices are [THREE.RepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) and [THREE.MirroredRepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures).<br />
 			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details.<br />
@@ -638,7 +638,7 @@
 
 		<h3>[property:string wrapS]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br />
+			This defines how the texture is wrapped horizontally and corresponds to <i>U</i> in UV mapping.<br />
 			The default is [THREE.ClampToEdgeWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures), where the edge is clamped to the outer edge texels.<br />
 			The other two choices are [THREE.RepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) and [THREE.MirroredRepeatWrapping](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures).<br />
 			See the [texture constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/api/en/constants/Textures) page for details.<br />
@@ -651,7 +651,7 @@
 
 		<h3>[property:string wrapT]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			This defines how the texture is wrapped vertically and corresponds to *V* in UV mapping.<br />
+			This defines how the texture is wrapped vertically and corresponds to <i>V</i> in UV mapping.<br />
 			The same choices are available as for [property:number wrapS].<br />
 			NOTE: tiling of images in textures only functions if image dimensions are powers of two<br />
 			(2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...) in terms of pixels.<br />
@@ -1201,7 +1201,7 @@
 		</p>
 
 		<hr class="interface-line"/>
-		<h3 id="TCanvasFunctionType">TCanvasFunctionType <i class="modifier modifier-interface">Interface</i></h3>
+		<h3 id="TCanvasFunctionType">TCanvasFunctionType <i class="modifier modifier-interface">Type alias</i></h3>
 		<hr class="interface-line"/>
 		<h4>[method:void function](  [param:CanvasRenderingContext2D ctx]?,  [param:string text]?,  [param:number width]?,  [param:number height]?,  [param:any options]? )</h4>
 		<h4>Parameters</h4>

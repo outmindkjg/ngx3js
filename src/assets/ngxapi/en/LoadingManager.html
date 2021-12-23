@@ -10,19 +10,71 @@
 		<h1>LoadingManager</h1>
 
 		<p class="desc">
-			Handles and keeps track of loaded and pending data.
+			Handles and keeps track of loaded and pending data. A default global instance of this class is created and used by loaders if not supplied manually - see [DefaultLoadingManager](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/DefaultLoadingManager).<br />
+			In general that should be sufficient, however there are times when it can be useful to have separate loaders -<br />
+			for example if you want to show separate loading bars for objects and textures.<br />
+			<br />
+			<h3>Preview - WebGL / loader / fbx</h3><br />
+			<iframe src="#/viewer/webgl_loader_fbx"></iframe><br />
+			<br />
+			<h2>Code Example</h2><br />
+			This example shows how to use LoadingManager to track the progress of [page:OBJLoader OBJLoader].<br />
+			<code data-type="javascript"><br />
+			const manager = new THREE.LoadingManager();<br />
+			manager.onStart = function ( url, itemsLoaded, itemsTotal ) {<br />
+				console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );<br />
+			};<br />
+			manager.onLoad = function ( ) {<br />
+				console.log( 'Loading complete!');<br />
+			};<br />
+			manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {<br />
+				console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );<br />
+			};<br />
+			manager.onError = function ( url ) {<br />
+				console.log( 'There was an error loading ' + url );<br />
+			};<br />
+			const loader = new THREE.OBJLoader( manager );<br />
+			loader.load( 'file.obj', function ( object ) {<br />
+					console.log( object);<br />
+			});<br />
+			</code><br />
+			In addition to observing progress, a LoadingManager can be used to override resource URLs during loading. This may be helpful for assets coming from drag-and-drop events, WebSockets, WebRTC, or other APIs. An example showing how to load an in-memory model using Blob URLs is below.<br />
+			<code data-type="javascript"><br />
+			// Blob or File objects created when dragging files into the webpage.<br />
+			const blobs = {'fish.gltf': blob1, 'diffuse.png': blob2, 'normal.png': blob3};<br />
+			const manager = new THREE.LoadingManager();<br />
+			// Initialize loading manager with URL callback.<br />
+			const objectURLs = [];<br />
+			manager.setURLModifier( ( url ) =&gt; {<br />
+				url = URL.createObjectURL( blobs[ url ] );<br />
+				objectURLs.push( url );<br />
+				return url;<br />
+			});<br />
+			// Load as usual, then revoke the blob URLs.<br />
+			const loader = new THREE.GLTFLoader( manager );<br />
+			loader.load( 'fish.gltf', (gltf) =&gt; {<br />
+				scene.add( gltf.scene );<br />
+				objectURLs.forEach( ( url ) =&gt; URL.revokeObjectURL( url ) );<br />
+			});<br />
+			</code><br />
+			<br />
+			<h2>Examples</h2><br />
+			[example:webgl_loader_fbx WebGL / loader / fbx]<br />
+			[example:webgl_loader_obj WebGL / loader / obj]<br />
+			[example:webgl_materials_physical_reflectivity WebGL / materials / physical / reflectivity]<br />
+			[example:webgl_postprocessing_outline WebGL / postprocesing / outline]
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:LoadingManager LoadingManager](  [param:any onLoad]?,  [param:any onProgress]?,  [param:any onError]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:any onLoad] - (optional) The on load.<br />
-			[parameter:any onProgress] - (optional) The on progress.<br />
-			[parameter:any onError] - (optional) The on error.
+			[parameter:any onLoad] - (optional) this function will be called when all loaders are done.<br />
+			[parameter:any onProgress] - (optional) this function will be called when an item is complete.<br />
+			[parameter:any onError] - (optional) this function will be called a loader encounters errors.
 		</p>
 		<p>
-			
+			Creates a new LoadingManager.
 		</p>
 
 		<h2>Properties</h2>
@@ -35,26 +87,26 @@
 		<h3>[method:LoadingManager addHandler](  [param:RegExp regex],  [param:Loader loader] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:RegExp regex] - The regex.<br />
+			[parameter:RegExp regex] - A regular expression.<br />
 			[parameter:Loader loader] - The loader.
 		</p>
 		<p>
-			
+			Registers a loader with the given regular expression. Can be used to define what loader should be used in order to load specific files. A typical use case is to overwrite the default loader for textures. add handler for TGA textures manager.addHandler( /\.tga$/i, new TGALoader() );
 		</p>
 
 		<h3>[method:Loader getHandler](  [param:string file] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string file] - The file.
+			[parameter:string file] - The file path.
 		</p>
 		<p>
-			
+			Can be used to retrieve the registered loader for the given file path.
 		</p>
 
 		<h3>[method:void itemEnd](  [param:string url] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The url.
+			[parameter:string url] - The loaded url This should be called by any loader using the manager when the loader ended loading an url.
 		</p>
 		<p>
 			
@@ -63,7 +115,7 @@
 		<h3>[method:void itemError](  [param:string url] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The url.
+			[parameter:string url] - The loaded url This should be called by any loader using the manager when the loader errors loading an url.
 		</p>
 		<p>
 			
@@ -72,7 +124,7 @@
 		<h3>[method:void itemStart](  [param:string url] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The url.
+			[parameter:string url] - The url to load This should be called by any loader using the manager when the loader starts loading an url.
 		</p>
 		<p>
 			
@@ -97,28 +149,31 @@
 		<h3>[method:void onProgress](  [param:string url],  [param:number loaded],  [param:number total] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The url of the item just loaded.<br />
-			[parameter:number loaded] - The number of items already loaded so far.<br />
-			[parameter:number total] - The total amount of items to be loaded.
+			[parameter:string url] - The url.<br />
+			[parameter:number loaded] - The loaded.<br />
+			[parameter:number total] - The total.
 		</p>
 		<p>
 			Will be called for each loaded item.<br />
-			The default is a with empty body.
+			The default is a with empty body.<br />
+			- url The url of the item just loaded.<br />
+			- loaded The number of items already loaded so far.<br />
+			- total The total amount of items to be loaded.
 		</p>
 
 		<h3>[method:LoadingManager removeHandler](  [param:RegExp regex] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:RegExp regex] - The regex.
+			[parameter:RegExp regex] - A regular expression.
 		</p>
 		<p>
-			
+			Removes the loader for the given regular expression.
 		</p>
 
 		<h3>[method:string resolveURL](  [param:string url] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - the url to load
+			[parameter:string url] - The url to load
 		</p>
 		<p>
 			Given a URL, uses the URL modifier callback (if any) and returns a resolved URL.<br />

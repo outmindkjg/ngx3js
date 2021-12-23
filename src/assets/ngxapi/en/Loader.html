@@ -17,41 +17,45 @@
 		<h3>[constructor:Loader Loader](  [param:LoadingManager manager]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:LoadingManager manager] - (optional) The manager.
+			[parameter:LoadingManager manager] - (optional) The [loadingManager](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/LoadingManager) for the loader to use. Default is [THREE.DefaultLoadingManager](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/LoadingManager).
 		</p>
 		<p>
-			
+			Creates a new Loader.
 		</p>
 
 		<h2>Properties</h2>
 		<h3>[property:string crossOrigin]</h3>
 		<p>
-			
+			The crossOrigin string to implement CORS for loading the url from a different domain that allows CORS.<br />
+			Default is <i>anonymous</i>.
 		</p>
 
 		<h3>[property:LoadingManager manager]</h3>
 		<p>
-			
+			The [page:LoadingManager loadingManager]  the loader is using. Default is [page:DefaultLoadingManager DefaultLoadingManager].
 		</p>
 
 		<h3>[property:string path]</h3>
 		<p>
-			
+			The base path from which the asset will be loaded.<br />
+			Default is the empty string.
 		</p>
 
 		<h3>[property:any requestHeader]</h3>
 		<p>
-			
+			The [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header request header] used in HTTP request. See <i>.setRequestHeader</i>. Default is empty object.
 		</p>
 
 		<h3>[property:string resourcePath]</h3>
 		<p>
-			
+			The base path from which additional resources like textures will be loaded.<br />
+			Default is the empty string.
 		</p>
 
 		<h3>[property:boolean withCredentials]</h3>
 		<p>
-			
+			Whether the XMLHttpRequest uses credentials. See <i>.setWithCredentials</i>.<br />
+			Default is <i>false</i>.
 		</p>
 
 		<h2>Methods</h2>
@@ -68,7 +72,7 @@
 		<h3>[method:Loader setCrossOrigin](  [param:string crossOrigin] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string crossOrigin] - The cross origin.
+			[parameter:string crossOrigin] - The crossOrigin string to implement CORS for loading the url from a different domain that allows CORS.
 		</p>
 		<p>
 			
@@ -77,7 +81,7 @@
 		<h3>[method:Loader setPath](  [param:string path] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string path] - The path.
+			[parameter:string path] - Set the base path for the asset.
 		</p>
 		<p>
 			
@@ -86,7 +90,8 @@
 		<h3>[method:Loader setRequestHeader](  [param:any requestHeader] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:any requestHeader] - The request header.
+			[parameter:any requestHeader] - key: The name of the header whose value is to be set. value: The value to set as the body of the header.
+Set the [request header](https://developer.mozilla.org/en-US/docs/Glossary/Request_header) used in HTTP request.
 		</p>
 		<p>
 			
@@ -95,7 +100,7 @@
 		<h3>[method:Loader setResourcePath](  [param:string resourcePath] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string resourcePath] - The resource path.
+			[parameter:string resourcePath] - Set the base path for dependent resources like textures.
 		</p>
 		<p>
 			
@@ -107,7 +112,8 @@
 			[parameter:boolean value] - The value.
 		</p>
 		<p>
-			
+			Whether the XMLHttpRequest uses credentials such as cookies, authorization headers or TLS client certificates. See [link:https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials XMLHttpRequest.withCredentials].<br />
+			Note that this has no effect if you are loading files locally or from the same domain.
 		</p>
 
 

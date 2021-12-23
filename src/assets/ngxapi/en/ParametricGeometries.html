@@ -92,6 +92,395 @@
 			
 		</p>
 
+		<hr class="interface-line"/>
+		[page:EventDispatcher] &rarr; [page:BufferGeometry] &rarr; [page:ParametricGeometry] &rarr;
+
+		<h3 id="ParametricPlaneGeometry">ParametricPlaneGeometry <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:ParametricPlaneGeometry ParametricPlaneGeometry](  [param:number width],  [param:number depth],  [param:number segmentsWidth],  [param:number segmentsDepth] ) - This creates a new BufferGeometry. It also sets several properties to an default value.<br />
+			[constructor:ParametricPlaneGeometry ParametricPlaneGeometry](  [param:number width],  [param:number depth],  [param:number segmentsWidth],  [param:number segmentsDepth],  [param:any func]?,  [param:number slices]?,  [param:number stacks]? ) - This creates a new BufferGeometry. It also sets several properties to an default value.<br />
+			[constructor:ParametricPlaneGeometry ParametricPlaneGeometry](  [param:number width],  [param:number depth],  [param:number segmentsWidth],  [param:number segmentsDepth],  [param:any func]?,  [param:number slices]?,  [param:number stacks]? ) - This creates a new BufferGeometry. It also sets several properties to an default value.<br />
+			[constructor:ParametricPlaneGeometry ParametricPlaneGeometry](  [param:number width],  [param:number depth],  [param:number segmentsWidth],  [param:number segmentsDepth],  [param:any func]?,  [param:number slices]?,  [param:number stacks]? ) - Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:number MaxIndex] -  The max index.<br />
+			[property:any attributes] - This hashmap has as id the name of the attribute to be set and as value the [page:BufferAttribute buffer] to set it to.<br />
+			Rather than accessing this property directly, use <i>.setAttribute</i> and <i>.getAttribute</i> to access attributes of this geometry.<br />
+			[property:Box3 boundingBox] - Bounding box for the bufferGeometry, which can be calculated with <i>.computeBoundingBox</i>(). Default is <i>null</i>.<br />
+			[property:Sphere boundingSphere] - Bounding sphere for the bufferGeometry, which can be calculated with <i>.computeBoundingSphere</i>(). Default is <i>null</i>.<br />
+			[property:any drawRange] - Determines the part of the geometry to render. This should not be set directly, instead use <i>.setDrawRange</i>. Default is { start: 0, count: Infinity }<br />
+			For non-indexed BufferGeometry, count is the number of vertices to render.<br />
+			For indexed BufferGeometry, count is the number of indices to render.<br />
+			[property:any groups] - Split the geometry into groups, each of which will be rendered in a separate WebGL draw call.<br />
+			This allows an array of materials to be used with the bufferGeometry.<br />
+			Each group is an object of the form: { start: Integer, count: Integer, materialIndex: Integer } where start specifies the first element in this draw call – the first vertex for non-indexed geometry, otherwise the first triangle index. Count specifies how many vertices (or indices) are included, and materialIndex specifies the material array index to use.<br />
+			Use <i>.addGroup</i> to add groups, rather than modifying this array directly.<br />
+			[property:number id] - Unique number for this bufferGeometry instance.<br />
+			[property:BufferAttribute index] - Allows for vertices to be re-used across multiple triangles; this is called using "indexed triangles".<br />
+			Each triangle is associated with the indices of three vertices. This attribute therefore stores the index of each vertex for each triangular face.<br />
+			If this attribute is not set, the [page:WebGLRenderer renderer] assumes that each three contiguous positions represent a single triangle.<br />
+			Default is <i>null</i>.<br />
+			[property:any isBufferGeometry] -  The is buffer geometry.<br />
+			[property:any morphAttributes] - Hashmap of [page:BufferAttribute BufferAttribute]s holding details of the geometry's morph targets.<br />
+			[property:boolean morphTargetsRelative] - Used to control the morph target behavior; when set to true, the morph target data is treated as relative offsets, rather than as absolute positions/normals.<br />
+			Default is <i>false</i>.<br />
+			[property:string name] - Optional name for this bufferGeometry instance. Default is an empty string.<br />
+			[property:any parameters] - An object with a property for each of the constructor parameters. Any modification after instantiation does not change the geometry.<br />
+			[property:string type] -  The type.<br />
+			[property:any userData] - An object that can be used to store custom data about the BufferGeometry. It should not hold references to functions as these will not be cloned.<br />
+			[property:string uuid] - [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this object instance.<br />
+			This gets automatically assigned and shouldn't be edited.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:any addAttribute](  [param:any name],  [param:any array],  [param:any itemSize] ) - Returns : attribute<br />
+			[method:void addEventListener](  [param:T type],  [param:EventListener listener] ) - Adds a listener to an event type.<br />
+			[method:void addGroup](  [param:number start],  [param:number count],  [param:number materialIndex]? ) - Adds a group to this geometry; see the [page:BufferGeometry.groups groups] property for details.<br />
+			[method:BufferGeometry applyMatrix4](  [param:Matrix4 matrix] ) - Applies the matrix transform to the geometry.<br />
+			[method:BufferGeometry applyQuaternion](  [param:Quaternion q] ) - Applies the rotation represented by the quaternion to the geometry.<br />
+			[method:BufferGeometry center](  ) - Center the geometry based on the bounding box.<br />
+			[method:void clearGroups](  ) - Clears all groups.<br />
+			[method:BufferGeometry clone](  ) - Creates a clone of this BufferGeometry.<br />
+			[method:void computeBoundingBox](  ) - Computes bounding box of the geometry, updating <i>.boundingBox</i> attribute.<br />
+			Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.<br />
+			[method:void computeBoundingSphere](  ) - Computes bounding sphere of the geometry, updating <i>.boundingSphere</i> attribute.<br />
+			Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.<br />
+			[method:void computeTangents](  ) - Calculates and adds a tangent attribute to this geometry.<br />
+			The computation is only supported for indexed geometries and if position, normal, and uv attributes are defined.<br />
+			[method:void computeVertexNormals](  ) - Computes vertex normals by averaging face normals.<br />
+			[method:ParametricPlaneGeometry copy](  [param:BufferGeometry source] ) - Copies another BufferGeometry to this BufferGeometry.<br />
+			[method:BufferGeometry deleteAttribute](  [param:BuiltinShaderAttributeName name] ) - Deletes the [page:BufferAttribute attribute] with the specified name.<br />
+			[method:void dispatchEvent](  [param:Event event] ) - Fire an event type.<br />
+			[method:void dispose](  ) - Disposes the object from memory.<br />
+			You need to call this when you want the BufferGeometry removed while the application is running.<br />
+			[method:BufferAttribute|InterleavedBufferAttribute getAttribute](  [param:BuiltinShaderAttributeName name] ) - Returns : Returns the [page:BufferAttribute attribute] with the specified name.<br />
+			[method:BufferAttribute getIndex](  ) - Returns : Return the <i>.index</i> buffer.<br />
+			[method:boolean hasAttribute](  [param:BuiltinShaderAttributeName name] ) - Returns : Returns <i>true</i> if the attribute with the specified name exists.<br />
+			[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:void lookAt](  [param:Vector3 v] ) - Rotates the geometry to face a point in space. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.lookAt Object3D.lookAt] for typical real-time mesh usage.<br />
+			[method:BufferGeometry merge](  [param:BufferGeometry geometry],  [param:number offset]? ) - Merge in another BufferGeometry with an optional offset of where to start merging in.<br />
+			[method:void normalizeNormals](  ) - Every normal vector in a geometry will have a magnitude of 1.<br />
+			This will correct lighting on the geometry surfaces.<br />
+			[method:void removeEventListener](  [param:T type],  [param:EventListener listener] ) - Removes a listener from an event type.<br />
+			[method:BufferGeometry rotateX](  [param:number angle] ) - Rotate the geometry about the X axis. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.rotation Object3D.rotation] for typical real-time mesh rotation.<br />
+			[method:BufferGeometry rotateY](  [param:number angle] ) - Rotate the geometry about the Y axis. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.rotation Object3D.rotation] for typical real-time mesh rotation.<br />
+			[method:BufferGeometry rotateZ](  [param:number angle] ) - Rotate the geometry about the Z axis. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.rotation Object3D.rotation] for typical real-time mesh rotation.<br />
+			[method:BufferGeometry scale](  [param:number x],  [param:number y],  [param:number z] ) - Scale the geometry data. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.scale Object3D.scale] for typical real-time mesh scaling.<br />
+			[method:BufferGeometry setAttribute](  [param:BuiltinShaderAttributeName name],  [param:BufferAttribute|InterleavedBufferAttribute attribute] ) - Sets an attribute to this geometry. Use this rather than the attributes property, because an internal hashmap of <i>.attributes</i> is maintained to speed up iterating over attributes.<br />
+			[method:void setDrawRange](  [param:number start],  [param:number count] ) - Set the <i>.drawRange</i> property. For non-indexed BufferGeometry, count is the number of vertices to render.<br />
+			For indexed BufferGeometry, count is the number of indices to render.<br />
+			[method:BufferGeometry setFromPoints](  [param:Vector3[]|Vector2[] points] ) - Sets the attributes for this BufferGeometry from an array of points.<br />
+			[method:BufferGeometry setIndex](  [param:BufferAttribute|number[] index] ) - Set the <i>.index</i> buffer.<br />
+			[method:any toJSON](  ) - Convert the buffer geometry to three.js [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].<br />
+			[method:BufferGeometry toNonIndexed](  ) - Returns : Return a non-index version of an indexed BufferGeometry.<br />
+			[method:BufferGeometry translate](  [param:number x],  [param:number y],  [param:number z] ) - Translate the geometry. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.position Object3D.position] for typical real-time mesh translation.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:EventDispatcher] &rarr; [page:BufferGeometry] &rarr; [page:ParametricGeometry] &rarr;
+
+		<h3 id="ParametricSphereGeometry">ParametricSphereGeometry <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:ParametricSphereGeometry ParametricSphereGeometry](  [param:number size],  [param:number u],  [param:number v] ) - This creates a new BufferGeometry. It also sets several properties to an default value.<br />
+			[constructor:ParametricSphereGeometry ParametricSphereGeometry](  [param:number size],  [param:number u],  [param:number v],  [param:any func]?,  [param:number slices]?,  [param:number stacks]? ) - This creates a new BufferGeometry. It also sets several properties to an default value.<br />
+			[constructor:ParametricSphereGeometry ParametricSphereGeometry](  [param:number size],  [param:number u],  [param:number v],  [param:any func]?,  [param:number slices]?,  [param:number stacks]? ) - This creates a new BufferGeometry. It also sets several properties to an default value.<br />
+			[constructor:ParametricSphereGeometry ParametricSphereGeometry](  [param:number size],  [param:number u],  [param:number v],  [param:any func]?,  [param:number slices]?,  [param:number stacks]? ) - Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:number MaxIndex] -  The max index.<br />
+			[property:any attributes] - This hashmap has as id the name of the attribute to be set and as value the [page:BufferAttribute buffer] to set it to.<br />
+			Rather than accessing this property directly, use <i>.setAttribute</i> and <i>.getAttribute</i> to access attributes of this geometry.<br />
+			[property:Box3 boundingBox] - Bounding box for the bufferGeometry, which can be calculated with <i>.computeBoundingBox</i>(). Default is <i>null</i>.<br />
+			[property:Sphere boundingSphere] - Bounding sphere for the bufferGeometry, which can be calculated with <i>.computeBoundingSphere</i>(). Default is <i>null</i>.<br />
+			[property:any drawRange] - Determines the part of the geometry to render. This should not be set directly, instead use <i>.setDrawRange</i>. Default is { start: 0, count: Infinity }<br />
+			For non-indexed BufferGeometry, count is the number of vertices to render.<br />
+			For indexed BufferGeometry, count is the number of indices to render.<br />
+			[property:any groups] - Split the geometry into groups, each of which will be rendered in a separate WebGL draw call.<br />
+			This allows an array of materials to be used with the bufferGeometry.<br />
+			Each group is an object of the form: { start: Integer, count: Integer, materialIndex: Integer } where start specifies the first element in this draw call – the first vertex for non-indexed geometry, otherwise the first triangle index. Count specifies how many vertices (or indices) are included, and materialIndex specifies the material array index to use.<br />
+			Use <i>.addGroup</i> to add groups, rather than modifying this array directly.<br />
+			[property:number id] - Unique number for this bufferGeometry instance.<br />
+			[property:BufferAttribute index] - Allows for vertices to be re-used across multiple triangles; this is called using "indexed triangles".<br />
+			Each triangle is associated with the indices of three vertices. This attribute therefore stores the index of each vertex for each triangular face.<br />
+			If this attribute is not set, the [page:WebGLRenderer renderer] assumes that each three contiguous positions represent a single triangle.<br />
+			Default is <i>null</i>.<br />
+			[property:any isBufferGeometry] -  The is buffer geometry.<br />
+			[property:any morphAttributes] - Hashmap of [page:BufferAttribute BufferAttribute]s holding details of the geometry's morph targets.<br />
+			[property:boolean morphTargetsRelative] - Used to control the morph target behavior; when set to true, the morph target data is treated as relative offsets, rather than as absolute positions/normals.<br />
+			Default is <i>false</i>.<br />
+			[property:string name] - Optional name for this bufferGeometry instance. Default is an empty string.<br />
+			[property:any parameters] - An object with a property for each of the constructor parameters. Any modification after instantiation does not change the geometry.<br />
+			[property:string type] -  The type.<br />
+			[property:any userData] - An object that can be used to store custom data about the BufferGeometry. It should not hold references to functions as these will not be cloned.<br />
+			[property:string uuid] - [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this object instance.<br />
+			This gets automatically assigned and shouldn't be edited.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:any addAttribute](  [param:any name],  [param:any array],  [param:any itemSize] ) - Returns : attribute<br />
+			[method:void addEventListener](  [param:T type],  [param:EventListener listener] ) - Adds a listener to an event type.<br />
+			[method:void addGroup](  [param:number start],  [param:number count],  [param:number materialIndex]? ) - Adds a group to this geometry; see the [page:BufferGeometry.groups groups] property for details.<br />
+			[method:BufferGeometry applyMatrix4](  [param:Matrix4 matrix] ) - Applies the matrix transform to the geometry.<br />
+			[method:BufferGeometry applyQuaternion](  [param:Quaternion q] ) - Applies the rotation represented by the quaternion to the geometry.<br />
+			[method:BufferGeometry center](  ) - Center the geometry based on the bounding box.<br />
+			[method:void clearGroups](  ) - Clears all groups.<br />
+			[method:BufferGeometry clone](  ) - Creates a clone of this BufferGeometry.<br />
+			[method:void computeBoundingBox](  ) - Computes bounding box of the geometry, updating <i>.boundingBox</i> attribute.<br />
+			Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.<br />
+			[method:void computeBoundingSphere](  ) - Computes bounding sphere of the geometry, updating <i>.boundingSphere</i> attribute.<br />
+			Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.<br />
+			[method:void computeTangents](  ) - Calculates and adds a tangent attribute to this geometry.<br />
+			The computation is only supported for indexed geometries and if position, normal, and uv attributes are defined.<br />
+			[method:void computeVertexNormals](  ) - Computes vertex normals by averaging face normals.<br />
+			[method:ParametricSphereGeometry copy](  [param:BufferGeometry source] ) - Copies another BufferGeometry to this BufferGeometry.<br />
+			[method:BufferGeometry deleteAttribute](  [param:BuiltinShaderAttributeName name] ) - Deletes the [page:BufferAttribute attribute] with the specified name.<br />
+			[method:void dispatchEvent](  [param:Event event] ) - Fire an event type.<br />
+			[method:void dispose](  ) - Disposes the object from memory.<br />
+			You need to call this when you want the BufferGeometry removed while the application is running.<br />
+			[method:BufferAttribute|InterleavedBufferAttribute getAttribute](  [param:BuiltinShaderAttributeName name] ) - Returns : Returns the [page:BufferAttribute attribute] with the specified name.<br />
+			[method:BufferAttribute getIndex](  ) - Returns : Return the <i>.index</i> buffer.<br />
+			[method:boolean hasAttribute](  [param:BuiltinShaderAttributeName name] ) - Returns : Returns <i>true</i> if the attribute with the specified name exists.<br />
+			[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:void lookAt](  [param:Vector3 v] ) - Rotates the geometry to face a point in space. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.lookAt Object3D.lookAt] for typical real-time mesh usage.<br />
+			[method:BufferGeometry merge](  [param:BufferGeometry geometry],  [param:number offset]? ) - Merge in another BufferGeometry with an optional offset of where to start merging in.<br />
+			[method:void normalizeNormals](  ) - Every normal vector in a geometry will have a magnitude of 1.<br />
+			This will correct lighting on the geometry surfaces.<br />
+			[method:void removeEventListener](  [param:T type],  [param:EventListener listener] ) - Removes a listener from an event type.<br />
+			[method:BufferGeometry rotateX](  [param:number angle] ) - Rotate the geometry about the X axis. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.rotation Object3D.rotation] for typical real-time mesh rotation.<br />
+			[method:BufferGeometry rotateY](  [param:number angle] ) - Rotate the geometry about the Y axis. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.rotation Object3D.rotation] for typical real-time mesh rotation.<br />
+			[method:BufferGeometry rotateZ](  [param:number angle] ) - Rotate the geometry about the Z axis. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.rotation Object3D.rotation] for typical real-time mesh rotation.<br />
+			[method:BufferGeometry scale](  [param:number x],  [param:number y],  [param:number z] ) - Scale the geometry data. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.scale Object3D.scale] for typical real-time mesh scaling.<br />
+			[method:BufferGeometry setAttribute](  [param:BuiltinShaderAttributeName name],  [param:BufferAttribute|InterleavedBufferAttribute attribute] ) - Sets an attribute to this geometry. Use this rather than the attributes property, because an internal hashmap of <i>.attributes</i> is maintained to speed up iterating over attributes.<br />
+			[method:void setDrawRange](  [param:number start],  [param:number count] ) - Set the <i>.drawRange</i> property. For non-indexed BufferGeometry, count is the number of vertices to render.<br />
+			For indexed BufferGeometry, count is the number of indices to render.<br />
+			[method:BufferGeometry setFromPoints](  [param:Vector3[]|Vector2[] points] ) - Sets the attributes for this BufferGeometry from an array of points.<br />
+			[method:BufferGeometry setIndex](  [param:BufferAttribute|number[] index] ) - Set the <i>.index</i> buffer.<br />
+			[method:any toJSON](  ) - Convert the buffer geometry to three.js [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].<br />
+			[method:BufferGeometry toNonIndexed](  ) - Returns : Return a non-index version of an indexed BufferGeometry.<br />
+			[method:BufferGeometry translate](  [param:number x],  [param:number y],  [param:number z] ) - Translate the geometry. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.position Object3D.position] for typical real-time mesh translation.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:EventDispatcher] &rarr; [page:BufferGeometry] &rarr; [page:ParametricGeometry] &rarr; [page:ParametricTubeGeometry] &rarr;
+
+		<h3 id="ParametricTorusKnotGeometry">ParametricTorusKnotGeometry <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:ParametricTorusKnotGeometry ParametricTorusKnotGeometry](  [param:number radius]?,  [param:number tube]?,  [param:number segmentsT]?,  [param:number segmentsR]?,  [param:number p]?,  [param:number q]? ) - This creates a new BufferGeometry. It also sets several properties to an default value.<br />
+			[constructor:ParametricTorusKnotGeometry ParametricTorusKnotGeometry](  [param:number radius]?,  [param:number tube]?,  [param:number segmentsT]?,  [param:number segmentsR]?,  [param:number p]?,  [param:number q]?,  [param:Curve path],  [param:number segments]?,  [param:number radius]?,  [param:number segmentsRadius]?,  [param:boolean closed]? ) - This creates a new BufferGeometry. It also sets several properties to an default value.<br />
+			[constructor:ParametricTorusKnotGeometry ParametricTorusKnotGeometry](  [param:number radius]?,  [param:number tube]?,  [param:number segmentsT]?,  [param:number segmentsR]?,  [param:number p]?,  [param:number q]?,  [param:Curve path],  [param:number segments]?,  [param:number radius]?,  [param:number segmentsRadius]?,  [param:boolean closed]?,  [param:any func]?,  [param:number slices]?,  [param:number stacks]? ) - This creates a new BufferGeometry. It also sets several properties to an default value.<br />
+			[constructor:ParametricTorusKnotGeometry ParametricTorusKnotGeometry](  [param:number radius]?,  [param:number tube]?,  [param:number segmentsT]?,  [param:number segmentsR]?,  [param:number p]?,  [param:number q]?,  [param:Curve path],  [param:number segments]?,  [param:number radius]?,  [param:number segmentsRadius]?,  [param:boolean closed]?,  [param:any func]?,  [param:number slices]?,  [param:number stacks]? ) - This creates a new BufferGeometry. It also sets several properties to an default value.<br />
+			[constructor:ParametricTorusKnotGeometry ParametricTorusKnotGeometry](  [param:number radius]?,  [param:number tube]?,  [param:number segmentsT]?,  [param:number segmentsR]?,  [param:number p]?,  [param:number q]?,  [param:Curve path],  [param:number segments]?,  [param:number radius]?,  [param:number segmentsRadius]?,  [param:boolean closed]?,  [param:any func]?,  [param:number slices]?,  [param:number stacks]? ) - Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:number MaxIndex] -  The max index.<br />
+			[property:any attributes] - This hashmap has as id the name of the attribute to be set and as value the [page:BufferAttribute buffer] to set it to.<br />
+			Rather than accessing this property directly, use <i>.setAttribute</i> and <i>.getAttribute</i> to access attributes of this geometry.<br />
+			[property:Box3 boundingBox] - Bounding box for the bufferGeometry, which can be calculated with <i>.computeBoundingBox</i>(). Default is <i>null</i>.<br />
+			[property:Sphere boundingSphere] - Bounding sphere for the bufferGeometry, which can be calculated with <i>.computeBoundingSphere</i>(). Default is <i>null</i>.<br />
+			[property:any drawRange] - Determines the part of the geometry to render. This should not be set directly, instead use <i>.setDrawRange</i>. Default is { start: 0, count: Infinity }<br />
+			For non-indexed BufferGeometry, count is the number of vertices to render.<br />
+			For indexed BufferGeometry, count is the number of indices to render.<br />
+			[property:any groups] - Split the geometry into groups, each of which will be rendered in a separate WebGL draw call.<br />
+			This allows an array of materials to be used with the bufferGeometry.<br />
+			Each group is an object of the form: { start: Integer, count: Integer, materialIndex: Integer } where start specifies the first element in this draw call – the first vertex for non-indexed geometry, otherwise the first triangle index. Count specifies how many vertices (or indices) are included, and materialIndex specifies the material array index to use.<br />
+			Use <i>.addGroup</i> to add groups, rather than modifying this array directly.<br />
+			[property:number id] - Unique number for this bufferGeometry instance.<br />
+			[property:BufferAttribute index] - Allows for vertices to be re-used across multiple triangles; this is called using "indexed triangles".<br />
+			Each triangle is associated with the indices of three vertices. This attribute therefore stores the index of each vertex for each triangular face.<br />
+			If this attribute is not set, the [page:WebGLRenderer renderer] assumes that each three contiguous positions represent a single triangle.<br />
+			Default is <i>null</i>.<br />
+			[property:any isBufferGeometry] -  The is buffer geometry.<br />
+			[property:any morphAttributes] - Hashmap of [page:BufferAttribute BufferAttribute]s holding details of the geometry's morph targets.<br />
+			[property:boolean morphTargetsRelative] - Used to control the morph target behavior; when set to true, the morph target data is treated as relative offsets, rather than as absolute positions/normals.<br />
+			Default is <i>false</i>.<br />
+			[property:string name] - Optional name for this bufferGeometry instance. Default is an empty string.<br />
+			[property:any parameters] - An object with a property for each of the constructor parameters. Any modification after instantiation does not change the geometry.<br />
+			[property:string type] -  The type.<br />
+			[property:any userData] - An object that can be used to store custom data about the BufferGeometry. It should not hold references to functions as these will not be cloned.<br />
+			[property:string uuid] - [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this object instance.<br />
+			This gets automatically assigned and shouldn't be edited.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:any addAttribute](  [param:any name],  [param:any array],  [param:any itemSize] ) - Returns : attribute<br />
+			[method:void addEventListener](  [param:T type],  [param:EventListener listener] ) - Adds a listener to an event type.<br />
+			[method:void addGroup](  [param:number start],  [param:number count],  [param:number materialIndex]? ) - Adds a group to this geometry; see the [page:BufferGeometry.groups groups] property for details.<br />
+			[method:BufferGeometry applyMatrix4](  [param:Matrix4 matrix] ) - Applies the matrix transform to the geometry.<br />
+			[method:BufferGeometry applyQuaternion](  [param:Quaternion q] ) - Applies the rotation represented by the quaternion to the geometry.<br />
+			[method:BufferGeometry center](  ) - Center the geometry based on the bounding box.<br />
+			[method:void clearGroups](  ) - Clears all groups.<br />
+			[method:BufferGeometry clone](  ) - Creates a clone of this BufferGeometry.<br />
+			[method:void computeBoundingBox](  ) - Computes bounding box of the geometry, updating <i>.boundingBox</i> attribute.<br />
+			Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.<br />
+			[method:void computeBoundingSphere](  ) - Computes bounding sphere of the geometry, updating <i>.boundingSphere</i> attribute.<br />
+			Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.<br />
+			[method:void computeTangents](  ) - Calculates and adds a tangent attribute to this geometry.<br />
+			The computation is only supported for indexed geometries and if position, normal, and uv attributes are defined.<br />
+			[method:void computeVertexNormals](  ) - Computes vertex normals by averaging face normals.<br />
+			[method:ParametricTorusKnotGeometry copy](  [param:BufferGeometry source] ) - Copies another BufferGeometry to this BufferGeometry.<br />
+			[method:BufferGeometry deleteAttribute](  [param:BuiltinShaderAttributeName name] ) - Deletes the [page:BufferAttribute attribute] with the specified name.<br />
+			[method:void dispatchEvent](  [param:Event event] ) - Fire an event type.<br />
+			[method:void dispose](  ) - Disposes the object from memory.<br />
+			You need to call this when you want the BufferGeometry removed while the application is running.<br />
+			[method:BufferAttribute|InterleavedBufferAttribute getAttribute](  [param:BuiltinShaderAttributeName name] ) - Returns : Returns the [page:BufferAttribute attribute] with the specified name.<br />
+			[method:BufferAttribute getIndex](  ) - Returns : Return the <i>.index</i> buffer.<br />
+			[method:boolean hasAttribute](  [param:BuiltinShaderAttributeName name] ) - Returns : Returns <i>true</i> if the attribute with the specified name exists.<br />
+			[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:void lookAt](  [param:Vector3 v] ) - Rotates the geometry to face a point in space. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.lookAt Object3D.lookAt] for typical real-time mesh usage.<br />
+			[method:BufferGeometry merge](  [param:BufferGeometry geometry],  [param:number offset]? ) - Merge in another BufferGeometry with an optional offset of where to start merging in.<br />
+			[method:void normalizeNormals](  ) - Every normal vector in a geometry will have a magnitude of 1.<br />
+			This will correct lighting on the geometry surfaces.<br />
+			[method:void removeEventListener](  [param:T type],  [param:EventListener listener] ) - Removes a listener from an event type.<br />
+			[method:BufferGeometry rotateX](  [param:number angle] ) - Rotate the geometry about the X axis. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.rotation Object3D.rotation] for typical real-time mesh rotation.<br />
+			[method:BufferGeometry rotateY](  [param:number angle] ) - Rotate the geometry about the Y axis. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.rotation Object3D.rotation] for typical real-time mesh rotation.<br />
+			[method:BufferGeometry rotateZ](  [param:number angle] ) - Rotate the geometry about the Z axis. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.rotation Object3D.rotation] for typical real-time mesh rotation.<br />
+			[method:BufferGeometry scale](  [param:number x],  [param:number y],  [param:number z] ) - Scale the geometry data. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.scale Object3D.scale] for typical real-time mesh scaling.<br />
+			[method:BufferGeometry setAttribute](  [param:BuiltinShaderAttributeName name],  [param:BufferAttribute|InterleavedBufferAttribute attribute] ) - Sets an attribute to this geometry. Use this rather than the attributes property, because an internal hashmap of <i>.attributes</i> is maintained to speed up iterating over attributes.<br />
+			[method:void setDrawRange](  [param:number start],  [param:number count] ) - Set the <i>.drawRange</i> property. For non-indexed BufferGeometry, count is the number of vertices to render.<br />
+			For indexed BufferGeometry, count is the number of indices to render.<br />
+			[method:BufferGeometry setFromPoints](  [param:Vector3[]|Vector2[] points] ) - Sets the attributes for this BufferGeometry from an array of points.<br />
+			[method:BufferGeometry setIndex](  [param:BufferAttribute|number[] index] ) - Set the <i>.index</i> buffer.<br />
+			[method:any toJSON](  ) - Convert the buffer geometry to three.js [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].<br />
+			[method:BufferGeometry toNonIndexed](  ) - Returns : Return a non-index version of an indexed BufferGeometry.<br />
+			[method:BufferGeometry translate](  [param:number x],  [param:number y],  [param:number z] ) - Translate the geometry. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.position Object3D.position] for typical real-time mesh translation.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:EventDispatcher] &rarr; [page:BufferGeometry] &rarr; [page:ParametricGeometry] &rarr;
+
+		<h3 id="ParametricTubeGeometry">ParametricTubeGeometry <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:ParametricTubeGeometry ParametricTubeGeometry](  [param:Curve path],  [param:number segments]?,  [param:number radius]?,  [param:number segmentsRadius]?,  [param:boolean closed]? ) - This creates a new BufferGeometry. It also sets several properties to an default value.<br />
+			[constructor:ParametricTubeGeometry ParametricTubeGeometry](  [param:Curve path],  [param:number segments]?,  [param:number radius]?,  [param:number segmentsRadius]?,  [param:boolean closed]?,  [param:any func]?,  [param:number slices]?,  [param:number stacks]? ) - This creates a new BufferGeometry. It also sets several properties to an default value.<br />
+			[constructor:ParametricTubeGeometry ParametricTubeGeometry](  [param:Curve path],  [param:number segments]?,  [param:number radius]?,  [param:number segmentsRadius]?,  [param:boolean closed]?,  [param:any func]?,  [param:number slices]?,  [param:number stacks]? ) - This creates a new BufferGeometry. It also sets several properties to an default value.<br />
+			[constructor:ParametricTubeGeometry ParametricTubeGeometry](  [param:Curve path],  [param:number segments]?,  [param:number radius]?,  [param:number segmentsRadius]?,  [param:boolean closed]?,  [param:any func]?,  [param:number slices]?,  [param:number stacks]? ) - Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:number MaxIndex] -  The max index.<br />
+			[property:any attributes] - This hashmap has as id the name of the attribute to be set and as value the [page:BufferAttribute buffer] to set it to.<br />
+			Rather than accessing this property directly, use <i>.setAttribute</i> and <i>.getAttribute</i> to access attributes of this geometry.<br />
+			[property:Box3 boundingBox] - Bounding box for the bufferGeometry, which can be calculated with <i>.computeBoundingBox</i>(). Default is <i>null</i>.<br />
+			[property:Sphere boundingSphere] - Bounding sphere for the bufferGeometry, which can be calculated with <i>.computeBoundingSphere</i>(). Default is <i>null</i>.<br />
+			[property:any drawRange] - Determines the part of the geometry to render. This should not be set directly, instead use <i>.setDrawRange</i>. Default is { start: 0, count: Infinity }<br />
+			For non-indexed BufferGeometry, count is the number of vertices to render.<br />
+			For indexed BufferGeometry, count is the number of indices to render.<br />
+			[property:any groups] - Split the geometry into groups, each of which will be rendered in a separate WebGL draw call.<br />
+			This allows an array of materials to be used with the bufferGeometry.<br />
+			Each group is an object of the form: { start: Integer, count: Integer, materialIndex: Integer } where start specifies the first element in this draw call – the first vertex for non-indexed geometry, otherwise the first triangle index. Count specifies how many vertices (or indices) are included, and materialIndex specifies the material array index to use.<br />
+			Use <i>.addGroup</i> to add groups, rather than modifying this array directly.<br />
+			[property:number id] - Unique number for this bufferGeometry instance.<br />
+			[property:BufferAttribute index] - Allows for vertices to be re-used across multiple triangles; this is called using "indexed triangles".<br />
+			Each triangle is associated with the indices of three vertices. This attribute therefore stores the index of each vertex for each triangular face.<br />
+			If this attribute is not set, the [page:WebGLRenderer renderer] assumes that each three contiguous positions represent a single triangle.<br />
+			Default is <i>null</i>.<br />
+			[property:any isBufferGeometry] -  The is buffer geometry.<br />
+			[property:any morphAttributes] - Hashmap of [page:BufferAttribute BufferAttribute]s holding details of the geometry's morph targets.<br />
+			[property:boolean morphTargetsRelative] - Used to control the morph target behavior; when set to true, the morph target data is treated as relative offsets, rather than as absolute positions/normals.<br />
+			Default is <i>false</i>.<br />
+			[property:string name] - Optional name for this bufferGeometry instance. Default is an empty string.<br />
+			[property:any parameters] - An object with a property for each of the constructor parameters. Any modification after instantiation does not change the geometry.<br />
+			[property:string type] -  The type.<br />
+			[property:any userData] - An object that can be used to store custom data about the BufferGeometry. It should not hold references to functions as these will not be cloned.<br />
+			[property:string uuid] - [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this object instance.<br />
+			This gets automatically assigned and shouldn't be edited.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:any addAttribute](  [param:any name],  [param:any array],  [param:any itemSize] ) - Returns : attribute<br />
+			[method:void addEventListener](  [param:T type],  [param:EventListener listener] ) - Adds a listener to an event type.<br />
+			[method:void addGroup](  [param:number start],  [param:number count],  [param:number materialIndex]? ) - Adds a group to this geometry; see the [page:BufferGeometry.groups groups] property for details.<br />
+			[method:BufferGeometry applyMatrix4](  [param:Matrix4 matrix] ) - Applies the matrix transform to the geometry.<br />
+			[method:BufferGeometry applyQuaternion](  [param:Quaternion q] ) - Applies the rotation represented by the quaternion to the geometry.<br />
+			[method:BufferGeometry center](  ) - Center the geometry based on the bounding box.<br />
+			[method:void clearGroups](  ) - Clears all groups.<br />
+			[method:BufferGeometry clone](  ) - Creates a clone of this BufferGeometry.<br />
+			[method:void computeBoundingBox](  ) - Computes bounding box of the geometry, updating <i>.boundingBox</i> attribute.<br />
+			Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.<br />
+			[method:void computeBoundingSphere](  ) - Computes bounding sphere of the geometry, updating <i>.boundingSphere</i> attribute.<br />
+			Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.<br />
+			[method:void computeTangents](  ) - Calculates and adds a tangent attribute to this geometry.<br />
+			The computation is only supported for indexed geometries and if position, normal, and uv attributes are defined.<br />
+			[method:void computeVertexNormals](  ) - Computes vertex normals by averaging face normals.<br />
+			[method:ParametricTubeGeometry copy](  [param:BufferGeometry source] ) - Copies another BufferGeometry to this BufferGeometry.<br />
+			[method:BufferGeometry deleteAttribute](  [param:BuiltinShaderAttributeName name] ) - Deletes the [page:BufferAttribute attribute] with the specified name.<br />
+			[method:void dispatchEvent](  [param:Event event] ) - Fire an event type.<br />
+			[method:void dispose](  ) - Disposes the object from memory.<br />
+			You need to call this when you want the BufferGeometry removed while the application is running.<br />
+			[method:BufferAttribute|InterleavedBufferAttribute getAttribute](  [param:BuiltinShaderAttributeName name] ) - Returns : Returns the [page:BufferAttribute attribute] with the specified name.<br />
+			[method:BufferAttribute getIndex](  ) - Returns : Return the <i>.index</i> buffer.<br />
+			[method:boolean hasAttribute](  [param:BuiltinShaderAttributeName name] ) - Returns : Returns <i>true</i> if the attribute with the specified name exists.<br />
+			[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:void lookAt](  [param:Vector3 v] ) - Rotates the geometry to face a point in space. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.lookAt Object3D.lookAt] for typical real-time mesh usage.<br />
+			[method:BufferGeometry merge](  [param:BufferGeometry geometry],  [param:number offset]? ) - Merge in another BufferGeometry with an optional offset of where to start merging in.<br />
+			[method:void normalizeNormals](  ) - Every normal vector in a geometry will have a magnitude of 1.<br />
+			This will correct lighting on the geometry surfaces.<br />
+			[method:void removeEventListener](  [param:T type],  [param:EventListener listener] ) - Removes a listener from an event type.<br />
+			[method:BufferGeometry rotateX](  [param:number angle] ) - Rotate the geometry about the X axis. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.rotation Object3D.rotation] for typical real-time mesh rotation.<br />
+			[method:BufferGeometry rotateY](  [param:number angle] ) - Rotate the geometry about the Y axis. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.rotation Object3D.rotation] for typical real-time mesh rotation.<br />
+			[method:BufferGeometry rotateZ](  [param:number angle] ) - Rotate the geometry about the Z axis. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.rotation Object3D.rotation] for typical real-time mesh rotation.<br />
+			[method:BufferGeometry scale](  [param:number x],  [param:number y],  [param:number z] ) - Scale the geometry data. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.scale Object3D.scale] for typical real-time mesh scaling.<br />
+			[method:BufferGeometry setAttribute](  [param:BuiltinShaderAttributeName name],  [param:BufferAttribute|InterleavedBufferAttribute attribute] ) - Sets an attribute to this geometry. Use this rather than the attributes property, because an internal hashmap of <i>.attributes</i> is maintained to speed up iterating over attributes.<br />
+			[method:void setDrawRange](  [param:number start],  [param:number count] ) - Set the <i>.drawRange</i> property. For non-indexed BufferGeometry, count is the number of vertices to render.<br />
+			For indexed BufferGeometry, count is the number of indices to render.<br />
+			[method:BufferGeometry setFromPoints](  [param:Vector3[]|Vector2[] points] ) - Sets the attributes for this BufferGeometry from an array of points.<br />
+			[method:BufferGeometry setIndex](  [param:BufferAttribute|number[] index] ) - Set the <i>.index</i> buffer.<br />
+			[method:any toJSON](  ) - Convert the buffer geometry to three.js [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].<br />
+			[method:BufferGeometry toNonIndexed](  ) - Returns : Return a non-index version of an indexed BufferGeometry.<br />
+			[method:BufferGeometry translate](  [param:number x],  [param:number y],  [param:number z] ) - Translate the geometry. This is typically done as a one time operation, and not during a loop.<br />
+			Use [page:Object3D.position Object3D.position] for typical real-time mesh translation.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
 		<br /><br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/geometries.ts /threejs-library/types/three/examples/geometries.ts]</p>

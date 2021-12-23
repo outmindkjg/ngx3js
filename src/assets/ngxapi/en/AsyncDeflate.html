@@ -31,8 +31,7 @@
 
 		<h3>[property:AsyncTerminable terminate]</h3>
 		<p>
-			A method to terminate the stream's internal worker. Subsequent calls to<br />
-			push() will silently fail.
+			A method to terminate the stream's internal worker. Subsequent calls to push() will silently fail.
 		</p>
 
 		<h2>Methods</h2>
@@ -44,6 +43,60 @@
 		</p>
 		<p>
 			Pushes a chunk to be deflated
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="DeflateOptions">DeflateOptions <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:'0'|'1'|'2'|'3'|'4'|'5'|'6'|'7'|'8'|'9' level]? - The level of compression to use, ranging from 0-9.<br />
+			0 will store the data without compression.<br />
+			1 is fastest but compresses the worst, 9 is slowest but compresses the best.<br />
+			The default level is 6.<br />
+			<br />
+			Typically, binary data benefits much more from higher values than text data.<br />
+			In both cases, higher values usually take disproportionately longer than the reduction in final size that results.<br />
+			<br />
+			For example, a 1 MB text file could:<br />
+			- become 1.01 MB with level 0 in 1ms<br />
+			- become 400 kB with level 1 in 10ms<br />
+			- become 320 kB with level 9 in 100ms<br />
+			[property:'0'|'1'|'2'|'3'|'4'|'10'|'5'|'6'|'7'|'8'|'9'|'11'|'12' mem]? - The memory level to use, ranging from 0-12. Increasing this increases speed and compression ratio at the cost of memory.<br />
+			Note that this is exponential: while level 0 uses 4 kB, level 4 uses 64 kB, level 8 uses 1 MB, and level 12 uses 16 MB.<br />
+			It is recommended not to lower the value below 4, since that tends to hurt performance.<br />
+			In addition, values above 8 tend to help very little on most data and can even hurt performance.<br />
+			<br />
+			The default value is automatically determined based on the size of the input data.
+		</p>
+
+		<p class="desc">
+			Options for compressing data into a DEFLATE format
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="AsyncFlateStreamHandler">AsyncFlateStreamHandler <i class="modifier modifier-interface">Type alias</i></h3>
+		<hr class="interface-line"/>
+		<h4>[method:void function](  [param:Error err],  [param:Uint8Array data],  [param:boolean final] )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:Error err] - Any error that occurred<br />
+			[property:Uint8Array data] -  The data.<br />
+			[property:boolean final] - Whether this is the final block
+		</p>
+		<p>
+			Handler for asynchronous data (de)compression streams
+		</p>
+
+
+
+		<p class="desc">
+			
 		</p>
 
 		<br /><br />

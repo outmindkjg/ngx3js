@@ -61,7 +61,6 @@
 			[ cssType ]="... string -- The type of css renderer "
 			[ debug ]="... boolean -- Debug this Object "
 			[ enabled ]="... boolean -- Enabled or Not "
-			[ gammaFactor ]="... number -- Converts this color from gamma... "
 			[ globalClippingEnabled ]="... boolean -- User-defined clipping planes s... "
 			[ guiControl ]="... any -- The guiControl of GUI "
 			[ guiOpen ]="... boolean -- The guiOpen of GUI "
@@ -140,12 +139,12 @@
 
 		<h3>[property:boolean alpha] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			whether to perform alpha. Default is *false*.
+			whether to perform alpha. Default is <i>false</i>.
 		</p>
 
 		<h3>[property:boolean antialias] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			whether to perform antialiasing. Default is *false*.
+			whether to perform antialiasing. Default is <i>false</i>.
 		</p>
 
 		<h3>[property:boolean autoClear] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -156,7 +155,7 @@
 		<h3>[property:boolean autoClearColor] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			If [page:WebGLRenderer.autoClear WebGLRenderer.autoClear] is true, defines whether the renderer should clear the color buffer.<br />
-				Default is *true*.
+				Default is <i>true</i>.
 		</p>
 
 		<h3>[property:any beforeRender]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -216,11 +215,6 @@
 			Enabled or Not
 		</p>
 
-		<h3>[property:number gammaFactor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Converts this color from gamma space to linear space by taking [page:Color.r Color.r], [page:Color.g Color.g] and [page:Color.b Color.b] to the power of gammaFactor.
-		</p>
-
 		<h3>[property:boolean globalClippingEnabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			User-defined clipping planes specified as THREE.Plane objects in world space.
@@ -263,13 +257,13 @@
 
 		<h3>[property:boolean localClippingEnabled] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Defines whether the renderer respects object-level clipping planes. Default is *false*.
+			Defines whether the renderer respects object-level clipping planes. Default is <i>false</i>.
 		</p>
 
 		<h3>[property:boolean logarithmicDepthBuffer] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			whether to use a logarithmic depth buffer. It may be neccesary to use this if dealing with huge differences in scale in a single scene. Note that this setting uses gl_FragDepth if available which disables the [link:https://www.khronos.org/opengl/wiki/Early_Fragment_Test Early Fragment Test] optimization and can cause a decrease in performance.<br />
-			Default is *false*. See the [example:webgl_camera_logarithmicdepthbuffer camera / logarithmicdepthbuffer] example.
+			Default is <i>false</i>. See the [example:webgl_camera_logarithmicdepthbuffer camera / logarithmicdepthbuffer] example.
 		</p>
 
 		<h3>[property:EventEmitter onDestory] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
@@ -312,13 +306,13 @@
 
 		<h3>[property:boolean physicallyCorrectLights]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Whether to use physically correct lighting mode. Default is *false*.<br />
+			Whether to use physically correct lighting mode. Default is <i>false</i>.<br />
 			See the [example:webgl_lights_physical lights / physical] example.
 		</p>
 
 		<h3>[property:boolean preserveDrawingBuffer] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			whether to preserve the buffers until manually cleared or overwritten. Default is *false*.
+			whether to preserve the buffers until manually cleared or overwritten. Default is <i>false</i>.
 		</p>
 
 		<h3>[property:string quality]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -362,7 +356,7 @@
 
 		<h3>[property:boolean shadowMapEnabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			If set, use shadow maps in the scene. Default is *true*.
+			If set, use shadow maps in the scene. Default is <i>true</i>.
 		</p>
 
 		<h3>[property:string shadowMapType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -411,7 +405,7 @@
 
 		<h3>[property:number toneMappingExposure]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			Exposure level of tone mapping. Default is *1*.
+			Exposure level of tone mapping. Default is <i>1</i>.
 		</p>
 
 		<h3>[property:any tween]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -967,6 +961,27 @@
 
 		<p class="desc">
 			Gui control param
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="Renderer">Renderer <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:Renderer Renderer](  ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:HTMLCanvasElement domElement] -  The dom element.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void render](  [param:Object3D scene],  [param:Camera camera] ) <br />
+			[method:void setSize](  [param:number width],  [param:number height],  [param:boolean updateStyle]? ) 
+		</p>
+
+		<p class="desc">
+			
 		</p>
 
 		<br /><br />

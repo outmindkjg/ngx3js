@@ -12,7 +12,7 @@
 		<h1>FogExp2</h1>
 
 		<p class="desc">
-			This class contains the parameters that define linear fog, i.e., that grows exponentially denser with the distance.
+			This class contains the parameters that define exponential squared fog, which gives a clear view near the camera and a faster than exponentially densening fog farther from the camera.
 		</p>
 
 		<h2>Constructor</h2>
@@ -33,12 +33,13 @@
 
 		<h3>[property:Color color]</h3>
 		<p>
-			
+			Fog color. Example: If set to black, far away objects will be rendered black.
 		</p>
 
 		<h3>[property:number density]</h3>
 		<p>
-			Defines how fast the fog will grow dense.
+			Defines how fast the fog will grow dense.<br />
+			Default is 0.00025.
 		</p>
 
 		<h3>[property:any isFogExp2]</h3>
@@ -48,7 +49,7 @@
 
 		<h3>[property:string name]</h3>
 		<p>
-			
+			Optional name of the object (doesn't need to be unique). Default is an empty string.
 		</p>
 
 		<h2>Methods</h2>
@@ -58,12 +59,12 @@
 
 		<h3>[method:FogExp2 clone](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			
+			Returns : Returns a new FogExp2 instance with the same parameters as this one.
 		</p>
 
 		<h3>[method:any toJSON](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			
+			Returns : Return FogExp2 data in JSON format.
 		</p>
 
 

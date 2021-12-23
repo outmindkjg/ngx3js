@@ -12,7 +12,38 @@
 		<h1>Shape</h1>
 
 		<p class="desc">
-			Defines a 2d shape plane using paths.
+			Defines an arbitrary 2d shape plane using paths with optional holes. It can be used with [ExtrudeGeometry](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/ExtrudeGeometry),<br />
+			[ShapeGeometry](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/ShapeGeometry), to get points, or to get triangulated faces.<br />
+			<br />
+			<h3>Preview - geometry / shapes</h3><br />
+			<iframe src="#/viewer/webgl_geometry_shapes"></iframe><br />
+			<br />
+			<h2>Code Example</h2><br />
+			<code data-type="javascript"><br />
+			const heartShape = new THREE.Shape();<br />
+			heartShape.moveTo( 25, 25 );<br />
+			heartShape.bezierCurveTo( 25, 25, 20, 0, 0, 0 );<br />
+			heartShape.bezierCurveTo( - 30, 0, - 30, 35, - 30, 35 );<br />
+			heartShape.bezierCurveTo( - 30, 55, - 10, 77, 25, 95 );<br />
+			heartShape.bezierCurveTo( 60, 77, 80, 55, 80, 35 );<br />
+			heartShape.bezierCurveTo( 80, 35, 80, 0, 50, 0 );<br />
+			heartShape.bezierCurveTo( 35, 0, 25, 25, 25, 25 );<br />
+			const extrudeSettings = { <br />
+				depth: 8, <br />
+				bevelEnabled: true, <br />
+				bevelSegments: 2, <br />
+				steps: 2, <br />
+				bevelSize: 1, <br />
+				bevelThickness: 1 <br />
+			};<br />
+			const geometry = new THREE.ExtrudeGeometry( heartShape, extrudeSettings );<br />
+			const mesh = new THREE.Mesh( geometry, new THREE.MeshPhongMaterial() );<br />
+			</code><br />
+			<br />
+			<h2>Examples</h2><br />
+			[example:webgl_geometry_shapes geometry / shapes]<br />
+			[example:webgl_geometry_extrude_shapes geometry / extrude / shapes]<br />
+			[example:webgl_geometry_extrude_shapes2 geometry / extrude / shapes2]
 		</p>
 
 		<h2>Constructor</h2>
@@ -22,7 +53,7 @@
 			[parameter:Vector2[] points] - (optional) The points.
 		</p>
 		<p>
-			
+			This constructor creates a new Curve.
 		</p>
 
 		<h2>Properties</h2>
@@ -38,28 +69,28 @@
 
 		<h3>[property:number arcLengthDivisions]</h3>
 		<p>
-			This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via .getLengths.<br />
-			To ensure precision when using methods like .getSpacedPoints, it is recommended to increase .arcLengthDivisions if the curve is very large.
+			This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via <i>.getLengths</i>.<br />
+			To ensure precision when using methods like <i>.getSpacedPoints</i>, it is recommended to increase <i>.arcLengthDivisions</i> if the curve is very large. Default is 200.
 		</p>
 
 		<h3>[property:boolean autoClose]</h3>
 		<p>
-			
+			Whether or not to automatically close the path.
 		</p>
 
 		<h3>[property:Vector2 currentPoint]</h3>
 		<p>
-			
+			The current offset of the path. Any new [page:Curve Curve] added will start here.
 		</p>
 
 		<h3>[property:Curve[] curves]</h3>
 		<p>
-			
+			The array of [page:Curve Curves].
 		</p>
 
 		<h3>[property:Path[] holes]</h3>
 		<p>
-			
+			An array of [page:Path paths] that define the holes in the shape.
 		</p>
 
 		<h3>[property:string type]</h3>
@@ -69,7 +100,7 @@
 
 		<h3>[property:string uuid]</h3>
 		<p>
-			
+			[link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this instance. This gets automatically assigned, so this shouldn't be edited.
 		</p>
 
 		<h2>Methods</h2>
@@ -86,15 +117,15 @@
 		<h3>[method:Shape absarc](  [param:number aX],  [param:number aY],  [param:number aRadius],  [param:number aStartAngle],  [param:number aEndAngle],  [param:boolean aClockwise] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number aX] - The a x.<br />
-			[parameter:number aY] - The a y.<br />
+			[parameter:number aX] - The absolute center of the arc.<br />
+			[parameter:number aY] - The absolute center of the arc.<br />
 			[parameter:number aRadius] - The a radius.<br />
-			[parameter:number aStartAngle] - The a start angle.<br />
-			[parameter:number aEndAngle] - The a end angle.<br />
-			[parameter:boolean aClockwise] - The a clockwise.
+			[parameter:number aStartAngle] - The start angle in radians.<br />
+			[parameter:number aEndAngle] - The end angle in radians.<br />
+			[parameter:boolean aClockwise] - Sweep the arc clockwise. Defaults to *false*.
 		</p>
 		<p>
-			
+			Adds an absolutely positioned [page:EllipseCurve EllipseCurve] to the path.
 		</p>
 
 		<h3>[method:Shape absellipse](  [param:number aX],  [param:number aY],  [param:number xRadius],  [param:number yRadius],  [param:number aStartAngle],  [param:number aEndAngle],  [param:boolean aClockwise],  [param:number aRotation] )</h3>
@@ -119,7 +150,7 @@
 			[parameter:Curve curve] - The curve.
 		</p>
 		<p>
-			
+			Add a curve to the <i>.curves</i> array.
 		</p>
 
 		<h3>[method:Shape arc](  [param:number aX],  [param:number aY],  [param:number aRadius],  [param:number aStartAngle],  [param:number aEndAngle],  [param:boolean aClockwise] )</h3>
@@ -147,17 +178,17 @@
 			[parameter:number aY] - The a y.
 		</p>
 		<p>
-			
+			This creates a bezier curve from <i>.currentPoint</i> with (cp1X, cp1Y) and (cp2X, cp2Y) as control points and updates <i>.currentPoint</i> to x and y.
 		</p>
 
 		<h3>[method:Shape clone](  )</h3>
 		<p>
-			
+			Creates a clone of this instance.
 		</p>
 
 		<h3>[method:void closePath](  )</h3>
 		<p>
-			
+			Adds a [page:LineCurve lineCurve] to close the path.
 		</p>
 
 		<h3>[method:void computeFrenetFrames](  [param:number segments],  [param:boolean closed]? )</h3>
@@ -167,7 +198,7 @@
 			[parameter:boolean closed] - (optional) The closed.
 		</p>
 		<p>
-			Generate Frenet frames of the curve
+			Generates the Frenet Frames. Requires a curve definition in 3D space. Used in geometries like [page:TubeGeometry TubeGeometry] or [page:ExtrudeGeometry ExtrudeGeometry].
 		</p>
 
 		<h3>[method:Shape copy](  [param:Curve source] )</h3>
@@ -176,17 +207,7 @@
 			[parameter:Curve source] - The source.
 		</p>
 		<p>
-			
-		</p>
-
-		<h3>[method:void create](  [param:any constructorFunc],  [param:any getPointFunc] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:any constructorFunc] - The constructor func.<br />
-			[parameter:any getPointFunc] - The get point func.
-		</p>
-		<p>
-			deprecated - since r84.
+			Copies another Curve object to this instance.
 		</p>
 
 		<h3>[method:Shape ellipse](  [param:number aX],  [param:number aY],  [param:number xRadius],  [param:number yRadius],  [param:number aStartAngle],  [param:number aEndAngle],  [param:boolean aClockwise],  [param:number aRotation] )</h3>
@@ -211,7 +232,7 @@
 			[parameter:number divisions] - The divisions.
 		</p>
 		<p>
-			
+			Call [page:Curve.getPoints getPoints] on the shape and the <i>.holes</i> array, and return an object of the form:  { shape holes } where shape and holes are arrays of [page:Vector2 Vector2s].
 		</p>
 
 		<h3>[method:Shape fromJSON](  [param:object json] )</h3>
@@ -220,26 +241,17 @@
 			[parameter:object json] - The json.
 		</p>
 		<p>
-			
-		</p>
-
-		<h3>[method:Shape fromPoints](  [param:Vector2[] vectors] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:Vector2[] vectors] - The vectors.
-		</p>
-		<p>
-			deprecated - Use {@link Path#setFromPoints .setFromPoints()} instead.
+			Copies the data from the given JSON object to this instance.
 		</p>
 
 		<h3>[method:number[] getCurveLengths](  )</h3>
 		<p>
-			
+			Get list of cumulative curve lengths of the curves in the <i>.curves</i> array.
 		</p>
 
 		<h3>[method:number getLength](  )</h3>
 		<p>
-			Get total curve arc length
+			Get total curve arc length.
 		</p>
 
 		<h3>[method:number[] getLengths](  [param:number divisions]? )</h3>
@@ -248,7 +260,7 @@
 			[parameter:number divisions] - (optional) The divisions.
 		</p>
 		<p>
-			Get list of cumulative segment lengths
+			Get list of cumulative segment lengths.
 		</p>
 
 		<h3>[method:Vector2 getPoint](  [param:number t],  [param:Vector2 optionalTarget]? )</h3>
@@ -258,19 +270,17 @@
 			[parameter:Vector2 optionalTarget] - (optional) The optional target.
 		</p>
 		<p>
-			Returns a vector for point t of the curve where t is between 0 and 1<br />
-			getPoint(t: number, optionalTarget?: T): T;
+			Returns : Returns an array of points representing a sequence of curves. The <i>division</i> parameter defines the number of pieces each curve is divided into. However, for optimization and quality purposes, the actual sampling resolution for each curve depends on its type. For example, for a [page:LineCurve LineCurve], the returned number of points is always just 2.
 		</p>
 
 		<h3>[method:Vector2 getPointAt](  [param:number u],  [param:Vector2 optionalTarget]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number u] - The u.<br />
-			[parameter:Vector2 optionalTarget] - (optional) The optional target.
+			[parameter:number u] - A position on the curve according to the arc length. Must be in the range [ 0, 1 ].<br />
+			[parameter:Vector2 optionalTarget] - (optional) If specified, the result will be copied into this Vector, otherwise a new Vector will be created.
 		</p>
 		<p>
-			Returns a vector for point at relative position in curve according to arc length<br />
-			getPointAt(u: number, optionalTarget?: T): T;
+			Returns : Returns a vector for a given position on the curve according to the arc length.
 		</p>
 
 		<h3>[method:Vector2[] getPoints](  [param:number divisions]? )</h3>
@@ -279,8 +289,7 @@
 			[parameter:number divisions] - (optional) The divisions.
 		</p>
 		<p>
-			Get sequence of points using getPoint( t )<br />
-			getPoints(divisions?: number): T[];
+			Returns : Returns a set of divisions + 1 points using getPoint( t ).
 		</p>
 
 		<h3>[method:void getPointsHoles](  [param:number divisions] )</h3>
@@ -289,7 +298,7 @@
 			[parameter:number divisions] - The divisions.
 		</p>
 		<p>
-			
+			Get an array of [page:Vector2 Vector2s] that represent the holes in the shape.
 		</p>
 
 		<h3>[method:Vector2[] getSpacedPoints](  [param:number divisions]? )</h3>
@@ -298,31 +307,27 @@
 			[parameter:number divisions] - (optional) The divisions.
 		</p>
 		<p>
-			Get sequence of equi-spaced points using getPointAt( u )<br />
-			getSpacedPoints(divisions?: number): T[];
+			Returns : Returns a set of divisions + 1 equi-spaced points using getPointAt( u ).
 		</p>
 
 		<h3>[method:Vector2 getTangent](  [param:number t],  [param:Vector2 optionalTarget]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number t] - The t.<br />
-			[parameter:Vector2 optionalTarget] - (optional) The optional target.
+			[parameter:number t] - A position on the curve. Must be in the range [ 0, 1 ].<br />
+			[parameter:Vector2 optionalTarget] - (optional) If specified, the result will be copied into this Vector, otherwise a new Vector will be created.
 		</p>
 		<p>
-			Returns a unit vector tangent at t. If the subclassed curve do not implement its tangent derivation, 2 points a<br />
-			small delta apart will be used to find its gradient which seems to give a reasonable approximation<br />
-			getTangent(t: number, optionalTarget?: T): T;
+			Returns : Returns a unit vector tangent at t. If the derived curve does not implement its tangent derivation, two points a small delta apart will be used to find its gradient which seems to give a reasonable approximation.
 		</p>
 
 		<h3>[method:Vector2 getTangentAt](  [param:number u],  [param:Vector2 optionalTarget]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number u] - The u.<br />
-			[parameter:Vector2 optionalTarget] - (optional) The optional target.
+			[parameter:number u] - A position on the curve according to the arc length. Must be in the range [ 0, 1 ].<br />
+			[parameter:Vector2 optionalTarget] - (optional) If specified, the result will be copied into this Vector, otherwise a new Vector will be created.
 		</p>
 		<p>
-			Returns tangent at equidistance point u on the curve<br />
-			getTangentAt(u: number, optionalTarget?: T): T;
+			Returns : Returns tangent at a point which is equidistant to the ends of the curve from the point given in <i>.getTangent</i>.
 		</p>
 
 		<h3>[method:number getUtoTmapping](  [param:number u],  [param:number distance] )</h3>
@@ -332,7 +337,7 @@
 			[parameter:number distance] - The distance.
 		</p>
 		<p>
-			Given u ( 0 .. 1 ), get a t to find p. This gives you points which are equi distance
+			Given u in the range ( 0 .. 1 ), returns [page:Float t] also in the range ( 0 .. 1 ). u and t can then be used to give you points which are equidistant from the ends of the curve, using <i>.getPoint</i>.
 		</p>
 
 		<h3>[method:Shape lineTo](  [param:number x],  [param:number y] )</h3>
@@ -342,7 +347,7 @@
 			[parameter:number y] - The y.
 		</p>
 		<p>
-			
+			Connects a [page:LineCurve LineCurve] from <i>.currentPoint</i> to x, y onto the path.
 		</p>
 
 		<h3>[method:Shape moveTo](  [param:number x],  [param:number y] )</h3>
@@ -352,7 +357,7 @@
 			[parameter:number y] - The y.
 		</p>
 		<p>
-			
+			Move the <i>.currentPoint</i> to x, y.
 		</p>
 
 		<h3>[method:Shape quadraticCurveTo](  [param:number aCPx],  [param:number aCPy],  [param:number aX],  [param:number aY] )</h3>
@@ -364,7 +369,7 @@
 			[parameter:number aY] - The a y.
 		</p>
 		<p>
-			
+			Creates a quadratic curve from <i>.currentPoint</i> with cpX and cpY as control point and updates <i>.currentPoint</i> to x and y.
 		</p>
 
 		<h3>[method:Shape setFromPoints](  [param:Vector2[] vectors] )</h3>
@@ -373,7 +378,7 @@
 			[parameter:Vector2[] vectors] - The vectors.
 		</p>
 		<p>
-			
+			Points are added to the [page:CurvePath.curves curves] array as [page:LineCurve LineCurves].
 		</p>
 
 		<h3>[method:Shape splineThru](  [param:Vector2[] pts] )</h3>
@@ -382,17 +387,18 @@
 			[parameter:Vector2[] pts] - The pts.
 		</p>
 		<p>
-			
+			Connects a new [page:SplineCurve SplineCurve] onto the path.
 		</p>
 
 		<h3>[method:object toJSON](  )</h3>
 		<p>
-			
+			Returns : Returns a JSON object representation of this instance.
 		</p>
 
 		<h3>[method:void updateArcLengths](  )</h3>
 		<p>
-			Update the cumlative segment distance cache
+			Update the cumlative segment distance cache. The method must be called every time curve parameters are changed.<br />
+			If an updated curve is part of a composed curve like [page:CurvePath CurvePath], <i>.updateArcLengths</i>() must be called on the composed curve, too.
 		</p>
 
 

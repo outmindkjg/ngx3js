@@ -11,40 +11,41 @@
 
 		<p class="desc">
 			Uniforms are global GLSL variables. They are passed to shader programs.<br />
+			<h2>Code Example</h2><br />
 			<code data-type="javascript"><br />
 			uniforms: {<br />
 			 time: { value: 1.0 }, resolution: new Uniform( new Vector2() )<br />
 			};<br />
 			</code><br />
-			Each uniform must have a *value* property. The type of the value must correspond to the type of the uniform variable in the GLSL code as specified for the primitive GLSL types in the table below. Uniform structures and arrays are also supported. GLSL arrays of primitive type must either be specified as an array of the corresponding THREE objects or as a flat array containing the data of all the objects. In other words; GLSL primitives in arrays must not be represented by arrays. This rule does not apply transitively.<br />
-			An array of *vec2* arrays, each with a length of five vectors, must be an array of arrays, of either five [page:Vector2 Vector2] objects or ten *number*s.<br />
+			Each uniform must have a <i>value</i> property. The type of the value must correspond to the type of the uniform variable in the GLSL code as specified for the primitive GLSL types in the table below. Uniform structures and arrays are also supported. GLSL arrays of primitive type must either be specified as an array of the corresponding THREE objects or as a flat array containing the data of all the objects. In other words; GLSL primitives in arrays must not be represented by arrays. This rule does not apply transitively.<br />
+			An array of <i>vec2</i> arrays, each with a length of five vectors, must be an array of arrays, of either five [page:Vector2 Vector2] objects or ten <i>number</i>s.<br />
 			<br />
 			|    GLSL type   |      JavaScript type      |<br />
-			|:--------------:|--------------------------:|<br />
-			| int            | [page:Number Number] |<br />
-			| uint (WebGL 2) | [page:Number Number]|<br />
-			| float          | [page:Number Number] |<br />
-			| bool           | [page:Boolean Boolean] |<br />
-			| bool           | [page:Number Number] |<br />
-			| vec2           | [page:Vector2 THREE.Vector2] |<br />
-			| vec2           | [page:Float32Array Float32Array] (*) |<br />
-			| vec2           | [page:Array Array] (*) |<br />
-			| vec3           | [page:Vector3 THREE.Vector3] |<br />
-			| vec3           | [page:Color THREE.Color] |<br />
-			| vec3           | [page:Float32Array Float32Array] (*) |<br />
-			| vec3           | [page:Array Array] (*) |<br />
-			| vec4           | [page:Vector4 THREE.Vector4] |<br />
-			| vec4           | [page:Quaternion THREE.Quaternion] |<br />
-			| vec4           | [page:Float32Array Float32Array] (*) |<br />
-			| vec4           | [page:Array Array] (*) |<br />
-			| mat2           | [page:Float32Array Float32Array] (*) |<br />
-			| mat2           | [page:Array Array] (*) |<br />
-			| mat3           | [page:Matrix3 THREE.Matrix3] |<br />
-			| mat3           | [page:Float32Array Float32Array] (*) |<br />
-			| mat3           | [page:Array Array] (*) |<br />
-			| mat4           | [page:Matrix4 THREE.Matrix4] |<br />
-			| mat4           | [page:Float32Array Float32Array] (*) |<br />
-			| mat4           | [page:Array Array] (*) |
+			|:----------------:|---------------------------:|<br />
+			| int                  | [page:Number Number]                       |<br />
+			| uint (WebGL 2) | [page:Number Number]                   |<br />
+			| float               | [page:Number Number]                       |<br />
+			| bool               | [page:Boolean Boolean]                       |<br />
+			| bool               | [page:Number Number]                       |<br />
+			| vec2               | [page:Vector2 THREE.Vector2]            |<br />
+			| vec2               | [page:Float32Array Float32Array] (<i>) |<br />
+			| vec2               | [page:Array Array] (</i>)                          |<br />
+			| vec3               | [page:Vector3 THREE.Vector3]            |<br />
+			| vec3               | [page:Color THREE.Color]                    |<br />
+			| vec3               | [page:Float32Array Float32Array] (<i>) |<br />
+			| vec3               | [page:Array Array] (</i>)                          |<br />
+			| vec4               | [page:Vector4 THREE.Vector4]            |<br />
+			| vec4               | [page:Quaternion THREE.Quaternion]|<br />
+			| vec4               | [page:Float32Array Float32Array] (<i>) |<br />
+			| vec4               | [page:Array Array] (</i>)                          |<br />
+			| mat2              | [page:Float32Array Float32Array] (<i>) |<br />
+			| mat2              | [page:Array Array] (</i>)                          |<br />
+			| mat3              | [page:Matrix3 THREE.Matrix3]            |<br />
+			| mat3              | [page:Float32Array Float32Array] (<i>) |<br />
+			| mat3              | [page:Array Array] (</i>)                          |<br />
+			| mat4              | [page:Matrix4 THREE.Matrix4]            |<br />
+			| mat4              | [page:Float32Array Float32Array] (<i>) |<br />
+			| mat4              | [page:Array Array] (</i>)                          |
 		</p>
 
 		<h2>Constructor</h2>
@@ -55,35 +56,16 @@
 			[parameter:any value] - The value.
 		</p>
 		<p>
-			deprecated -
+			
 		</p>
 
 		<h2>Properties</h2>
-		<h3>[property:boolean dynamic]</h3>
-		<p>
-			deprecated - Use {@link Object3D#onBeforeRender object.onBeforeRender()} instead.
-		</p>
-
-		<h3>[property:string type]</h3>
-		<p>
-			deprecated -
-		</p>
-
 		<h3>[property:any value]</h3>
 		<p>
 			
 		</p>
 
 		<h2>Methods</h2>
-		<h3>[method:Uniform onUpdate](  [param:any callback] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:any callback] - The callback.
-		</p>
-		<p>
-			deprecated - Use {@link Object3D#onBeforeRender object.onBeforeRender()} instead.
-		</p>
-
 		<h3>[method:void onUpdateCallback](  )</h3>
 		<p>
 			

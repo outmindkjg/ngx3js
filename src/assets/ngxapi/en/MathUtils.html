@@ -10,9 +10,7 @@
 		<h1>MathUtils</h1>
 
 		<p class="desc">
-			An object with several math utility functions.<br />
-			<br />
-			[link:https://github.com/mrdoob/three.js/blob/master/src/math/MathUtils.js src/math/MathUtils.js]
+			An object with several math utility functions.
 		</p>
 
 		<p>
@@ -108,7 +106,7 @@
 			[parameter:number value] - The value.
 		</p>
 		<p>
-			Returns : Return *true* if [page:Number n] is a power of 2.
+			Returns : Return <i>true</i> if [page:Number n] is a power of 2.
 		</p>
 
 		<h3>[method:number lerp](  [param:number x],  [param:number y],  [param:number t] )</h3>
@@ -133,24 +131,6 @@
 		</p>
 		<p>
 			Linear mapping of [page:Float x] from range [page:Float [a1], [page:Float a2]] to range [page:Float [b1], [page:Float b2]].
-		</p>
-
-		<h3>[method:number nearestPowerOfTwo](  [param:number value] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:number value] - The value.
-		</p>
-		<p>
-			deprecated - Use {@link Math#floorPowerOfTwo .floorPowerOfTwo()}
-		</p>
-
-		<h3>[method:number nextPowerOfTwo](  [param:number value] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:number value] - The value.
-		</p>
-		<p>
-			deprecated - Use {@link Math#ceilPowerOfTwo .ceilPowerOfTwo()}
 		</p>
 
 		<h3>[method:number pingpong](  [param:number x],  [param:number length]? )</h3>
@@ -201,14 +181,6 @@
 			Random integer from low to high interval.
 		</p>
 
-		<h3>[method:number random16](  )</h3>
-		<p>
-			Random float from 0 to 1 with 16 bits of randomness.<br />
-			Standard Math.random() creates repetitive patterns when applied over larger space.<br />
-			<br />
-			deprecated - Use {@link Math#random Math.random()}
-		</p>
-
 		<h3>[method:number seededRandom](  [param:number seed]? )</h3>
 		<h4>Parameters</h4>
 		<p>
@@ -216,17 +188,17 @@
 		</p>
 		<p>
 			Deterministic pseudo-random float in the interval [0, 1].<br />
-			The integer *seed* is optional.
+			The integer <i>seed</i> is optional.
 		</p>
 
 		<h3>[method:void setQuaternionFromProperEuler](  [param:Quaternion q],  [param:number a],  [param:number b],  [param:number c],  [param:string order] )</h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Quaternion q] - The q.<br />
-			[parameter:number a] - the rotation applied to the first axis, in radians<br />
-			[parameter:number b] - the rotation applied to the second axis, in radians<br />
-			[parameter:number c] - the rotation applied to the third axis, in radians<br />
-			[parameter:string order] - a string specifying the axes order: 'XYX', 'XZX', 'YXY', 'YZY', 'ZXZ', or 'ZYZ' Sets quaternion [q](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Quaternion) from the [intrinsic Proper Euler Angles](http://en.wikipedia.org/wiki/Euler_angles) defined by angles [a](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), [b](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), and [c](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), and order [order](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/String).
+			[parameter:number a] - The rotation applied to the first axis, in radians<br />
+			[parameter:number b] - The rotation applied to the second axis, in radians<br />
+			[parameter:number c] - The rotation applied to the third axis, in radians<br />
+			[parameter:string order] - A string specifying the axes order: 'XYX', 'XZX', 'YXY', 'YZY', 'ZXZ', or 'ZYZ' Sets quaternion [q](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Quaternion) from the [intrinsic Proper Euler Angles](http://en.wikipedia.org/wiki/Euler_angles) defined by angles [a](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), [b](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), and [c](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), and order [order](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/String).
 		</p>
 		<p>
 			Rotations are applied to the axes in the order specified by [page:String order]: rotation by angle [page:Float a] is applied first, then by angle [page:Float b], then by angle [page:Float c]. Angles are in radians.

@@ -125,6 +125,133 @@
 			
 		</p>
 
+		<hr class="interface-line"/>
+		<h3 id="Constraint">Constraint <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:Constraint Constraint](  [param:SkinnedMesh mesh],  [param:object world],  [param:RigidBody bodyA],  [param:RigidBody bodyB],  [param:object params],  [param:ResourceManager manager] ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:RigidBody bodyA] -  The body a.<br />
+			[property:RigidBody bodyB] -  The body b.<br />
+			[property:ResourceManager manager] -  The manager.<br />
+			[property:SkinnedMesh mesh] -  The mesh.<br />
+			[property:object params] -  The params.<br />
+			[property:object world] -  The world.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="MMDPhysicsParameter">MMDPhysicsParameter <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:Vector3 gravity]? -  The gravity.<br />
+			[property:number maxStepNum]? -  The max step num.<br />
+			[property:number unitStep]? -  The unit step.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="ResourceManager">ResourceManager <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:ResourceManager ResourceManager](  ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:object[] quaternions] -  The quaternions.<br />
+			[property:Euler[] threeEulers] -  The three eulers.<br />
+			[property:Matrix4[] threeMatrix4s] -  The three matrix4s.<br />
+			[property:Quaternion[] threeQuaternions] -  The three quaternions.<br />
+			[property:Vector3[] threeVector3s] -  The three vector3s.<br />
+			[property:object[] transforms] -  The transforms.<br />
+			[property:object[] vector3s] -  The vector3s.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:object addVector3](  [param:object v1],  [param:object v2] ) <br />
+			[method:void allocQuaternion](  ) <br />
+			[method:void allocThreeEuler](  ) <br />
+			[method:void allocThreeMatrix4](  ) <br />
+			[method:void allocThreeQuaternion](  ) <br />
+			[method:void allocThreeVector3](  ) <br />
+			[method:void allocTransform](  ) <br />
+			[method:void allocVector3](  ) <br />
+			[method:object columnOfMatrix3](  [param:object m],  [param:number i] ) <br />
+			[method:void copyOrigin](  [param:object t1],  [param:object t2] ) <br />
+			[method:number dotVectors3](  [param:object v1],  [param:object v2] ) <br />
+			[method:void freeQuaternion](  [param:object q] ) <br />
+			[method:void freeThreeEuler](  [param:Euler e] ) <br />
+			[method:void freeThreeMatrix4](  [param:Matrix4 m] ) <br />
+			[method:void freeThreeQuaternion](  [param:Quaternion q] ) <br />
+			[method:void freeThreeVector3](  [param:Vector3 v] ) <br />
+			[method:void freeTransform](  [param:object t] ) <br />
+			[method:void freeVector3](  [param:object v] ) <br />
+			[method:object getBasis](  [param:object t] ) <br />
+			[method:object getBasisAsMatrix3](  [param:object t] ) <br />
+			[method:object getOrigin](  [param:object t] ) <br />
+			[method:object inverseTransform](  [param:object t] ) <br />
+			[method:object matrix3ToQuaternion](  [param:object m] ) <br />
+			[method:object multiplyMatrices3](  [param:object m1],  [param:object m2] ) <br />
+			[method:object multiplyMatrix3ByVector3](  [param:object m],  [param:object v] ) <br />
+			[method:object multiplyTransforms](  [param:object t1],  [param:object t2] ) <br />
+			[method:object negativeVector3](  [param:object v] ) <br />
+			[method:object quaternionToMatrix3](  [param:object q] ) <br />
+			[method:object rowOfMatrix3](  [param:object m],  [param:number i] ) <br />
+			[method:void setBasis](  [param:object t],  [param:object q] ) <br />
+			[method:void setBasisFromArray3](  [param:object t],  [param:number[] a] ) <br />
+			[method:void setBasisFromMatrix3](  [param:object t],  [param:object m] ) <br />
+			[method:void setBasisFromThreeQuaternion](  [param:object t],  [param:Quaternion a] ) <br />
+			[method:void setIdentity](  ) <br />
+			[method:void setOrigin](  [param:object t],  [param:object v] ) <br />
+			[method:void setOriginFromArray3](  [param:object t],  [param:number[] a] ) <br />
+			[method:void setOriginFromThreeVector3](  [param:object t],  [param:Vector3 v] ) <br />
+			[method:object transposeMatrix3](  [param:object m] ) 
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="RigidBody">RigidBody <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:RigidBody RigidBody](  [param:SkinnedMesh mesh],  [param:object world],  [param:object params],  [param:ResourceManager manager] ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:object body] -  The body.<br />
+			[property:Bone bone] -  The bone.<br />
+			[property:object boneOffsetForm] -  The bone offset form.<br />
+			[property:object boneOffsetFormInverse] -  The bone offset form inverse.<br />
+			[property:ResourceManager manager] -  The manager.<br />
+			[property:SkinnedMesh mesh] -  The mesh.<br />
+			[property:object params] -  The params.<br />
+			[property:object world] -  The world.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:RigidBody reset](  ) <br />
+			[method:RigidBody updateBone](  ) <br />
+			[method:RigidBody updateFromBone](  ) 
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
 		<br /><br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/animation.ts /threejs-library/types/three/examples/animation.ts]</p>

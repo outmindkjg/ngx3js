@@ -49,7 +49,7 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number t] - Use values 0-1 to return a position along the line segment.<br />
-			[parameter:Vector3 target] - the result will be copied into this Vector3.
+			[parameter:Vector3 target] - The result will be copied into this Vector3.
 		</p>
 		<p>
 			Returns : Returns a vector at a certain position along the line. When [page:Float t] = 0, it returns the start vector, and when [page:Float t] = 1 it returns the end vector.
@@ -57,7 +57,7 @@
 
 		<h3>[method:Line3 clone](  )</h3>
 		<p>
-			Returns : Returns a new [page:Line3 Line3] with the same *.start* and *.end* vectors as this one.
+			Returns : Returns a new [page:Line3 Line3] with the same <i>.start</i> and <i>.end</i> vectors as this one.
 		</p>
 
 		<h3>[method:Vector3 closestPointToPoint](  [param:Vector3 point],  [param:boolean clampToLine],  [param:Vector3 target] )</h3>
@@ -65,7 +65,7 @@
 		<p>
 			[parameter:Vector3 point] - return the closest point on the line to this point.<br />
 			[parameter:boolean clampToLine] - whether to clamp the returned value to the line segment.<br />
-			[parameter:Vector3 target] - the result will be copied into this Vector3.
+			[parameter:Vector3 target] - The result will be copied into this Vector3.
 		</p>
 		<p>
 			Returns : Returns the closets point on the line. If [page:Boolean clampToLine] is true, then the returned value will be clamped to the line segment.
@@ -74,7 +74,7 @@
 		<h3>[method:number closestPointToPointParameter](  [param:Vector3 point],  [param:boolean clampToLine]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 point] - the point for which to return a point parameter.<br />
+			[parameter:Vector3 point] - The point for which to return a point parameter.<br />
 			[parameter:boolean clampToLine] - (optional) Whether to clamp the result to the range [0, 1].
 		</p>
 		<p>
@@ -89,43 +89,43 @@
 			[parameter:Line3 line] - The line.
 		</p>
 		<p>
-			Copies the passed line's *.start* and *.end* vectors to this line.
+			Copies the passed line's <i>.start</i> and <i>.end</i> vectors to this line.
 		</p>
 
 		<h3>[method:Vector3 delta](  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - the result will be copied into this Vector3.
+			[parameter:Vector3 target] - The result will be copied into this Vector3.
 		</p>
 		<p>
-			Returns : Returns the delta vector of the line segment ( *.end* vector minus the *.start* vector).
+			Returns : Returns the delta vector of the line segment ( <i>.end</i> vector minus the <i>.start</i> vector).
 		</p>
 
 		<h3>[method:number distance](  )</h3>
 		<p>
-			(straight-line distance) between the line's *.start* and *.end* points.<br />
+			(straight-line distance) between the line's <i>.start</i> and <i>.end</i> points.<br />
 			<br />
 			Returns : Returns the [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean distance]
 		</p>
 
 		<h3>[method:number distanceSq](  )</h3>
 		<p>
-			Returns : Returns the square of the [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean distance] (straight-line distance) between the line's *.start* and *.end* vectors.
+			Returns : Returns the square of the [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean distance] (straight-line distance) between the line's <i>.start</i> and <i>.end</i> vectors.
 		</p>
 
 		<h3>[method:boolean equals](  [param:Line3 line] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Line3 line] - [Line3](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Line3) to compare with this one.
+			[parameter:Line3 line] - Line3 to compare with this one.
 		</p>
 		<p>
-			Returns : Returns true if both line's *.start* and *.end* points are equal.
+			Returns : Returns true if both line's <i>.start</i> and <i>.end</i> points are equal.
 		</p>
 
 		<h3>[method:Vector3 getCenter](  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - the result will be copied into this Vector3.
+			[parameter:Vector3 target] - The result will be copied into this Vector3.
 		</p>
 		<p>
 			Returns : Returns the center of the line segment.

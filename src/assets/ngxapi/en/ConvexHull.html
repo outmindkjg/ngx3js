@@ -241,6 +241,111 @@
 			
 		</p>
 
+		<hr class="interface-line"/>
+		<h3 id="FaceEx">FaceEx <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:FaceEx FaceEx](  ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:number area] -  The area.<br />
+			[property:number constant] -  The constant.<br />
+			[property:HalfEdge edge] -  The edge.<br />
+			[property:number mark] -  The mark.<br />
+			[property:Vector3 midpoint] -  The midpoint.<br />
+			[property:Vector3 normal] -  The normal.<br />
+			[property:VertexNode outside] -  The outside.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:FaceEx compute](  ) <br />
+			[method:FaceEx create](  [param:VertexNode a],  [param:VertexNode b],  [param:VertexNode c] ) <br />
+			[method:HalfEdge getEdge](  [param:number i] ) 
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="HalfEdge">HalfEdge <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:HalfEdge HalfEdge](  [param:VertexNode vertex],  [param:FaceEx face] ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:FaceEx face] -  The face.<br />
+			[property:HalfEdge next] -  The next.<br />
+			[property:HalfEdge prev] -  The prev.<br />
+			[property:HalfEdge twin] -  The twin.<br />
+			[property:VertexNode vertex] -  The vertex.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:VertexNode head](  ) <br />
+			[method:number length](  ) <br />
+			[method:number lengthSquared](  ) <br />
+			[method:HalfEdge setTwin](  [param:HalfEdge edge] ) <br />
+			[method:VertexNode tail](  ) 
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="VertexList">VertexList <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:VertexList VertexList](  ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:VertexNode head] -  The head.<br />
+			[property:VertexNode tail] -  The tail.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:VertexList append](  [param:VertexNode vertex] ) <br />
+			[method:VertexList appendChain](  [param:VertexNode vertex] ) <br />
+			[method:VertexList clear](  ) <br />
+			[method:VertexNode first](  ) <br />
+			[method:VertexList insertAfter](  [param:VertexNode target],  [param:VertexNode vertex] ) <br />
+			[method:VertexList insertBefore](  [param:VertexNode target],  [param:VertexNode vertex] ) <br />
+			[method:boolean isEmpty](  ) <br />
+			[method:VertexNode last](  ) <br />
+			[method:VertexList remove](  [param:VertexNode vertex] ) <br />
+			[method:VertexList removeSubList](  [param:VertexNode a],  [param:VertexNode b] ) 
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="VertexNode">VertexNode <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:VertexNode VertexNode](  [param:Vector3 point] ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:FaceEx face] -  The face.<br />
+			[property:VertexNode next] -  The next.<br />
+			[property:Vector3 point] -  The point.<br />
+			[property:VertexNode prev] -  The prev.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
 		<br /><br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/math.ts /threejs-library/types/three/examples/math.ts]</p>

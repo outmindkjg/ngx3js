@@ -17,9 +17,9 @@
 		<h3>[constructor:Spherical Spherical](  [param:number radius]?,  [param:number phi]?,  [param:number theta]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number radius] - (optional) the radius, or the [Euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance) (straight-line distance) from the point to the origin. Default is *1.0*.<br />
+			[parameter:number radius] - (optional) The radius, or the [Euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance) (straight-line distance) from the point to the origin. Default is *1.0*.<br />
 			[parameter:number phi] - (optional) polar angle in radians from the y (up) axis. Default is *0*.<br />
-			[parameter:number theta] - (optional) equator angle in radians around the y (up) axis. Default is *0*.
+			[parameter:number theta] - (optional) The theta.
 		</p>
 		<p>
 			The poles (phi) are at the positive and negative y axis. The equator (theta) starts at positive z.
@@ -28,23 +28,23 @@
 		<h2>Properties</h2>
 		<h3>[property:number phi]</h3>
 		<p>
-			polar angle in radians from the y (up) axis. Default is *0*.
+			Polar angle in radians from the y (up) axis. Default is <i>0</i>.
 		</p>
 
 		<h3>[property:number radius]</h3>
 		<p>
-			the radius, or the [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean distance] (straight-line distance) from the point to the origin. Default is *1.0*.
+			The radius, or the [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean distance] (straight-line distance) from the point to the origin. Default is <i>1.0</i>.
 		</p>
 
 		<h3>[property:number theta]</h3>
 		<p>
-			equator angle in radians around the y (up) axis. Default is *0*.
+			Equator angle in radians around the y (up) axis. Default is <i>0</i>.
 		</p>
 
 		<h2>Methods</h2>
 		<h3>[method:Spherical clone](  )</h3>
 		<p>
-			Returns : Returns a new spherical with the same *.radius*, *.phi* and *.theta* properties as this one.
+			Returns : Returns a new spherical with the same <i>.radius</i>, <i>.phi</i> and <i>.theta</i> properties as this one.
 		</p>
 
 		<h3>[method:Spherical copy](  [param:Spherical other] )</h3>
@@ -53,12 +53,12 @@
 			[parameter:Spherical other] - The other.
 		</p>
 		<p>
-			Copies the values of the passed Spherical's *.radius*, *.phi* and *.theta* properties to this spherical.
+			Copies the values of the passed Spherical's <i>.radius</i>, <i>.phi</i> and <i>.theta</i> properties to this spherical.
 		</p>
 
 		<h3>[method:Spherical makeSafe](  )</h3>
 		<p>
-			Restricts the polar angle *.phi* to be between 0.000001 and pi - 0.000001.
+			Restricts the polar angle <i>.phi</i> to be between 0.000001 and pi - 0.000001.
 		</p>
 
 		<h3>[method:Spherical set](  [param:number radius],  [param:number phi],  [param:number theta] )</h3>
@@ -69,7 +69,7 @@
 			[parameter:number theta] - The theta.
 		</p>
 		<p>
-			Sets values of this spherical's *.radius*, *.phi* and *.theta* properties.
+			Sets values of this spherical's <i>.radius</i>, <i>.phi</i> and <i>.theta</i> properties.
 		</p>
 
 		<h3>[method:Spherical setFromCartesianCoords](  [param:number x],  [param:number y],  [param:number z] )</h3>
@@ -80,7 +80,7 @@
 			[parameter:number z] - The z.
 		</p>
 		<p>
-			Sets values of this spherical's *.radius*, *.phi* and *.theta* properties from Cartesian coordinates.
+			Sets values of this spherical's <i>.radius</i>, <i>.phi</i> and <i>.theta</i> properties from Cartesian coordinates.
 		</p>
 
 		<h3>[method:Spherical setFromVector3](  [param:Vector3 v] )</h3>
@@ -89,7 +89,7 @@
 			[parameter:Vector3 v] - The v.
 		</p>
 		<p>
-			Sets values of this spherical's *.radius*, *.phi* and *.theta* properties from the [page:Vector3 Vector3].
+			Sets values of this spherical's <i>.radius</i>, <i>.phi</i> and <i>.theta</i> properties from the [page:Vector3 Vector3].
 		</p>
 
 

@@ -12,18 +12,18 @@
 		<h1>LineCurve3</h1>
 
 		<p class="desc">
-			
+			A curve representing a 3d line segment.
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:LineCurve3 LineCurve3](  [param:Vector3 v1],  [param:Vector3 v2] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 v1] - The v1.<br />
-			[parameter:Vector3 v2] - The v2.
+			[parameter:Vector3 v1] - – The start point.<br />
+			[parameter:Vector3 v2] - The end point.
 		</p>
 		<p>
-			
+			This constructor creates a new Curve.
 		</p>
 
 		<h2>Properties</h2>
@@ -33,8 +33,8 @@
 
 		<h3>[property:number arcLengthDivisions]</h3>
 		<p>
-			This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via .getLengths.<br />
-			To ensure precision when using methods like .getSpacedPoints, it is recommended to increase .arcLengthDivisions if the curve is very large.
+			This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via <i>.getLengths</i>.<br />
+			To ensure precision when using methods like <i>.getSpacedPoints</i>, it is recommended to increase <i>.arcLengthDivisions</i> if the curve is very large. Default is 200.
 		</p>
 
 		<h3>[property:string type]</h3>
@@ -44,12 +44,12 @@
 
 		<h3>[property:Vector3 v1]</h3>
 		<p>
-			
+			The start point.
 		</p>
 
 		<h3>[property:Vector3 v2]</h3>
 		<p>
-			
+			The end point.
 		</p>
 
 		<h2>Methods</h2>
@@ -59,7 +59,7 @@
 
 		<h3>[method:LineCurve3 clone](  )</h3>
 		<p>
-			
+			Creates a clone of this instance.
 		</p>
 
 		<h3>[method:void computeFrenetFrames](  [param:number segments],  [param:boolean closed]? )</h3>
@@ -69,7 +69,7 @@
 			[parameter:boolean closed] - (optional) The closed.
 		</p>
 		<p>
-			Generate Frenet frames of the curve
+			Generates the Frenet Frames. Requires a curve definition in 3D space. Used in geometries like [page:TubeGeometry TubeGeometry] or [page:ExtrudeGeometry ExtrudeGeometry].
 		</p>
 
 		<h3>[method:LineCurve3 copy](  [param:Curve source] )</h3>
@@ -78,17 +78,7 @@
 			[parameter:Curve source] - The source.
 		</p>
 		<p>
-			
-		</p>
-
-		<h3>[method:void create](  [param:any constructorFunc],  [param:any getPointFunc] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:any constructorFunc] - The constructor func.<br />
-			[parameter:any getPointFunc] - The get point func.
-		</p>
-		<p>
-			deprecated - since r84.
+			Copies another Curve object to this instance.
 		</p>
 
 		<h3>[method:LineCurve3 fromJSON](  [param:object json] )</h3>
@@ -97,12 +87,12 @@
 			[parameter:object json] - The json.
 		</p>
 		<p>
-			
+			Copies the data from the given JSON object to this instance.
 		</p>
 
 		<h3>[method:number getLength](  )</h3>
 		<p>
-			Get total curve arc length
+			Get total curve arc length.
 		</p>
 
 		<h3>[method:number[] getLengths](  [param:number divisions]? )</h3>
@@ -111,29 +101,27 @@
 			[parameter:number divisions] - (optional) The divisions.
 		</p>
 		<p>
-			Get list of cumulative segment lengths
+			Get list of cumulative segment lengths.
 		</p>
 
 		<h3>[method:Vector3 getPoint](  [param:number t],  [param:Vector3 optionalTarget]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number t] - The t.<br />
-			[parameter:Vector3 optionalTarget] - (optional) The optional target.
+			[parameter:number t] - A position on the curve. Must be in the range [ 0, 1 ].<br />
+			[parameter:Vector3 optionalTarget] - (optional) If specified, the result will be copied into this Vector, otherwise a new Vector will be created.
 		</p>
 		<p>
-			Returns a vector for point t of the curve where t is between 0 and 1<br />
-			getPoint(t: number, optionalTarget?: T): T;
+			Returns : Returns a vector for a given position on the curve.
 		</p>
 
 		<h3>[method:Vector3 getPointAt](  [param:number u],  [param:Vector3 optionalTarget]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number u] - The u.<br />
-			[parameter:Vector3 optionalTarget] - (optional) The optional target.
+			[parameter:number u] - A position on the curve according to the arc length. Must be in the range [ 0, 1 ].<br />
+			[parameter:Vector3 optionalTarget] - (optional) If specified, the result will be copied into this Vector, otherwise a new Vector will be created.
 		</p>
 		<p>
-			Returns a vector for point at relative position in curve according to arc length<br />
-			getPointAt(u: number, optionalTarget?: T): T;
+			Returns : Returns a vector for a given position on the curve according to the arc length.
 		</p>
 
 		<h3>[method:Vector3[] getPoints](  [param:number divisions]? )</h3>
@@ -142,8 +130,7 @@
 			[parameter:number divisions] - (optional) The divisions.
 		</p>
 		<p>
-			Get sequence of points using getPoint( t )<br />
-			getPoints(divisions?: number): T[];
+			Returns : Returns a set of divisions + 1 points using getPoint( t ).
 		</p>
 
 		<h3>[method:Vector3[] getSpacedPoints](  [param:number divisions]? )</h3>
@@ -152,31 +139,27 @@
 			[parameter:number divisions] - (optional) The divisions.
 		</p>
 		<p>
-			Get sequence of equi-spaced points using getPointAt( u )<br />
-			getSpacedPoints(divisions?: number): T[];
+			Returns : Returns a set of divisions + 1 equi-spaced points using getPointAt( u ).
 		</p>
 
 		<h3>[method:Vector3 getTangent](  [param:number t],  [param:Vector3 optionalTarget]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number t] - The t.<br />
-			[parameter:Vector3 optionalTarget] - (optional) The optional target.
+			[parameter:number t] - A position on the curve. Must be in the range [ 0, 1 ].<br />
+			[parameter:Vector3 optionalTarget] - (optional) If specified, the result will be copied into this Vector, otherwise a new Vector will be created.
 		</p>
 		<p>
-			Returns a unit vector tangent at t. If the subclassed curve do not implement its tangent derivation, 2 points a<br />
-			small delta apart will be used to find its gradient which seems to give a reasonable approximation<br />
-			getTangent(t: number, optionalTarget?: T): T;
+			Returns : Returns a unit vector tangent at t. If the derived curve does not implement its tangent derivation, two points a small delta apart will be used to find its gradient which seems to give a reasonable approximation.
 		</p>
 
 		<h3>[method:Vector3 getTangentAt](  [param:number u],  [param:Vector3 optionalTarget]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number u] - The u.<br />
-			[parameter:Vector3 optionalTarget] - (optional) The optional target.
+			[parameter:number u] - A position on the curve according to the arc length. Must be in the range [ 0, 1 ].<br />
+			[parameter:Vector3 optionalTarget] - (optional) If specified, the result will be copied into this Vector, otherwise a new Vector will be created.
 		</p>
 		<p>
-			Returns tangent at equidistance point u on the curve<br />
-			getTangentAt(u: number, optionalTarget?: T): T;
+			Returns : Returns tangent at a point which is equidistant to the ends of the curve from the point given in <i>.getTangent</i>.
 		</p>
 
 		<h3>[method:number getUtoTmapping](  [param:number u],  [param:number distance] )</h3>
@@ -186,17 +169,18 @@
 			[parameter:number distance] - The distance.
 		</p>
 		<p>
-			Given u ( 0 .. 1 ), get a t to find p. This gives you points which are equi distance
+			Given u in the range ( 0 .. 1 ), returns [page:Float t] also in the range ( 0 .. 1 ). u and t can then be used to give you points which are equidistant from the ends of the curve, using <i>.getPoint</i>.
 		</p>
 
 		<h3>[method:object toJSON](  )</h3>
 		<p>
-			
+			Returns : Returns a JSON object representation of this instance.
 		</p>
 
 		<h3>[method:void updateArcLengths](  )</h3>
 		<p>
-			Update the cumlative segment distance cache
+			Update the cumlative segment distance cache. The method must be called every time curve parameters are changed.<br />
+			If an updated curve is part of a composed curve like [page:CurvePath CurvePath], <i>.updateArcLengths</i>() must be called on the composed curve, too.
 		</p>
 
 

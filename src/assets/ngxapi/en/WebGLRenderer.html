@@ -14,7 +14,7 @@
 		<p class="desc">
 			The WebGL renderer displays your beautifully crafted scenes using WebGL, if your device supports it.<br />
 			This renderer has way better performance than CanvasRenderer.<br />
-			see {@link https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js|src/renderers/WebGLRenderer.js}
+			see [link:https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js src/renderers/WebGLRenderer.js]
 		</p>
 
 		<h2>Constructor</h2>
@@ -83,11 +83,6 @@
 			
 		</p>
 
-		<h3>[property:number gammaFactor]</h3>
-		<p>
-			deprecated -
-		</p>
-
 		<h3>[property:WebGLInfo info]</h3>
 		<p>
 			
@@ -128,21 +123,6 @@
 			
 		</p>
 
-		<h3>[property:CullFace shadowMapCullFace]</h3>
-		<p>
-			deprecated - Use {@link WebGLShadowMap#cullFace .shadowMap.cullFace} instead.
-		</p>
-
-		<h3>[property:boolean shadowMapEnabled]</h3>
-		<p>
-			deprecated - Use {@link WebGLShadowMap#enabled .shadowMap.enabled} instead.
-		</p>
-
-		<h3>[property:ShadowMapType shadowMapType]</h3>
-		<p>
-			deprecated - Use {@link WebGLShadowMap#type .shadowMap.type} instead.
-		</p>
-
 		<h3>[property:boolean sortObjects]</h3>
 		<p>
 			Defines whether the renderer should sort objects. Default is true.
@@ -163,11 +143,6 @@
 			
 		</p>
 
-		<h3>[property:boolean vr]</h3>
-		<p>
-			deprecated - Use {@link WebGLRenderer#xr .xr} instead.
-		</p>
-
 		<h3>[property:WebXRManager xr]</h3>
 		<p>
 			
@@ -176,15 +151,6 @@
 		<h2>Methods</h2>
 		<p>
 			See the base [page:Renderer Renderer] class for common methods.
-		</p>
-
-		<h3>[method:void animate](  [param:any callback] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:any callback] - The callback.
-		</p>
-		<p>
-			deprecated - Use {@link WebGLRenderer#setAnimationLoop .setAnimationLoop()} instead.
 		</p>
 
 		<h3>[method:void clear](  [param:boolean color]?,  [param:boolean depth]?,  [param:boolean stencil]? )</h3>
@@ -278,15 +244,6 @@
 			
 		</p>
 
-		<h3>[method:any enableScissorTest](  [param:any boolean] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:any boolean] - The boolean.
-		</p>
-		<p>
-			deprecated - Use {@link WebGLRenderer#setScissorTest .setScissorTest()} instead.
-		</p>
-
 		<h3>[method:void forceContextLoss](  )</h3>
 		<p>
 			
@@ -331,11 +288,6 @@
 			
 		</p>
 
-		<h3>[method:WebGLRenderTarget getCurrentRenderTarget](  )</h3>
-		<p>
-			deprecated - Use {@link WebGLRenderer#getRenderTarget .getRenderTarget()} instead.
-		</p>
-
 		<h3>[method:Vector4 getCurrentViewport](  [param:Vector4 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
@@ -354,19 +306,9 @@
 			
 		</p>
 
-		<h3>[method:number getMaxAnisotropy](  )</h3>
-		<p>
-			deprecated - Use {@link WebGLCapabilities#getMaxAnisotropy .capabilities.getMaxAnisotropy()} instead.
-		</p>
-
 		<h3>[method:number getPixelRatio](  )</h3>
 		<p>
 			
-		</p>
-
-		<h3>[method:string getPrecision](  )</h3>
-		<p>
-			deprecated - Use {@link WebGLCapabilities#precision .capabilities.precision} instead.
 		</p>
 
 		<h3>[method:WebGLRenderTarget getRenderTarget](  )</h3>
@@ -438,13 +380,13 @@
 		</p>
 		<p>
 			Render a scene or an object using a camera.<br />
-			The render is done to a previously specified {@link WebGLRenderTarget#renderTarget .renderTarget} set by calling<br />
-			{@link WebGLRenderer#setRenderTarget .setRenderTarget} or to the canvas as usual.<br />
+			The render is done to a previously specified [.renderTarget](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/WebGLRenderTarget.renderTarget). set by calling<br />
+			[.setRenderTarget](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/WebGLRenderer.setRenderTarget). or to the canvas as usual.<br />
 			By default render buffers are cleared before rendering but you can prevent this by setting the property<br />
-			{@link WebGLRenderer#autoClear autoClear} to false. If you want to prevent only certain buffers being cleared<br />
-			you can set either the {@link WebGLRenderer#autoClearColor autoClearColor},<br />
-			{@link WebGLRenderer#autoClearStencil autoClearStencil} or {@link WebGLRenderer#autoClearDepth autoClearDepth}<br />
-			properties to false. To forcibly clear one ore more buffers call {@link WebGLRenderer#clear .clear}.
+			[page:WebGLRenderer.autoClear autoClear]. to false. If you want to prevent only certain buffers being cleared<br />
+			you can set either the [page:WebGLRenderer.autoClearColor autoClearColor].,<br />
+			[page:WebGLRenderer.autoClearStencil autoClearStencil]. or [page:WebGLRenderer.autoClearDepth autoClearDepth].<br />
+			properties to false. To forcibly clear one ore more buffers call [page:WebGLRenderer.clear .clear]..
 		</p>
 
 		<h3>[method:void renderBufferDirect](  [param:Camera camera],  [param:Scene scene],  [param:BufferGeometry geometry],  [param:Material material],  [param:Object3D object],  [param:any geometryGroup] )</h3>
@@ -459,11 +401,6 @@
 		</p>
 		<p>
 			
-		</p>
-
-		<h3>[method:void resetGLState](  )</h3>
-		<p>
-			deprecated - Use {@link WebGLState#reset .state.reset()} instead.
 		</p>
 
 		<h3>[method:void resetState](  )</h3>
@@ -593,195 +530,478 @@
 			(x, y) is the lower-left corner of the region.
 		</p>
 
-		<h3>[method:any supportsBlendMinMax](  )</h3>
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="TextureEncoding">TextureEncoding <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
 		<p>
-			deprecated - Use {@link WebGLExtensions#get .extensions.get( 'EXT_blend_minmax' )} instead.
+			[property:TextureEncoding GammaEncoding] = 3007 -  The gamma encoding.<br />
+			[property:TextureEncoding LinearEncoding] = 3000 -  The linear encoding.<br />
+			[property:TextureEncoding RGBDEncoding] = 3006 -  The r g b d encoding.<br />
+			[property:TextureEncoding RGBEEncoding] = 3002 -  The r g b e encoding.<br />
+			[property:TextureEncoding RGBM16Encoding] = 3005 -  The r g b m16 encoding.<br />
+			[property:TextureEncoding RGBM7Encoding] = 3004 -  The r g b m7 encoding.<br />
+			[property:TextureEncoding sRGBEncoding] = 3001 -  The s r g b encoding.
 		</p>
 
-		<h3>[method:any supportsCompressedTexturePVRTC](  )</h3>
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="ToneMapping">ToneMapping <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
 		<p>
-			deprecated - Use {@link WebGLExtensions#get .extensions.get( 'WEBGL_compressed_texture_pvrtc' )} instead.
+			[property:ToneMapping ACESFilmicToneMapping] = 4 -  The a c e s filmic tone mapping.<br />
+			[property:ToneMapping CineonToneMapping] = 3 -  The cineon tone mapping.<br />
+			[property:ToneMapping CustomToneMapping] = 5 -  The custom tone mapping.<br />
+			[property:ToneMapping LinearToneMapping] = 1 -  The linear tone mapping.<br />
+			[property:ToneMapping NoToneMapping] = 0 -  The no tone mapping.<br />
+			[property:ToneMapping ReinhardToneMapping] = 2 -  The reinhard tone mapping.
 		</p>
 
-		<h3>[method:any supportsCompressedTextureS3TC](  )</h3>
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="WebGLCapabilities">WebGLCapabilities <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
 		<p>
-			deprecated - Use {@link WebGLExtensions#get .extensions.get( 'WEBGL_compressed_texture_s3tc' )} instead.
+			[constructor:WebGLCapabilities WebGLCapabilities](  [param:WebGLRenderingContext gl],  [param:any extensions],  [param:WebGLCapabilitiesParameters parameters] ) 
 		</p>
-
-		<h3>[method:any supportsFloatTextures](  )</h3>
+		<h4>Properties</h4>
 		<p>
-			deprecated - Use {@link WebGLExtensions#get .extensions.get( 'OES_texture_float' )} instead.
+			[property:boolean floatFragmentTextures] -  The float fragment textures.<br />
+			[property:boolean floatVertexTextures] -  The float vertex textures.<br />
+			[property:boolean isWebGL2] -  The is web g l2.<br />
+			[property:boolean logarithmicDepthBuffer] -  The logarithmic depth buffer.<br />
+			[property:number maxAttributes] -  The max attributes.<br />
+			[property:number maxCubemapSize] -  The max cubemap size.<br />
+			[property:number maxFragmentUniforms] -  The max fragment uniforms.<br />
+			[property:number maxTextureSize] -  The max texture size.<br />
+			[property:number maxTextures] -  The max textures.<br />
+			[property:number maxVaryings] -  The max varyings.<br />
+			[property:number maxVertexTextures] -  The max vertex textures.<br />
+			[property:number maxVertexUniforms] -  The max vertex uniforms.<br />
+			[property:string precision] -  The precision.<br />
+			[property:boolean vertexTextures] -  The vertex textures.
 		</p>
-
-		<h3>[method:any supportsHalfFloatTextures](  )</h3>
+		<h4>Methods</h4>
 		<p>
-			deprecated - Use {@link WebGLExtensions#get .extensions.get( 'OES_texture_half_float' )} instead.
+			[method:number getMaxAnisotropy](  ) <br />
+			[method:string getMaxPrecision](  [param:string precision] ) 
 		</p>
 
-		<h3>[method:any supportsInstancedArrays](  )</h3>
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="WebGLDebug">WebGLDebug <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
 		<p>
-			deprecated - Use {@link WebGLExtensions#get .extensions.get( 'ANGLE_instanced_arrays' )} instead.
+			[property:boolean checkShaderErrors] - Enables error checking and reporting when shader programs are being compiled.
 		</p>
 
-		<h3>[method:any supportsStandardDerivatives](  )</h3>
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="WebGLExtensions">WebGLExtensions <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
 		<p>
-			deprecated - Use {@link WebGLExtensions#get .extensions.get( 'OES_standard_derivatives' )} instead.
+			[constructor:WebGLExtensions WebGLExtensions](  [param:WebGLRenderingContext gl] ) 
 		</p>
-
-		<h3>[method:any supportsVertexTextures](  )</h3>
+		<h4>Methods</h4>
 		<p>
-			deprecated - Use {@link WebGLCapabilities#vertexTextures .capabilities.vertexTextures} instead.
+			[method:any get](  [param:string name] ) <br />
+			[method:boolean has](  [param:string name] ) <br />
+			[method:void init](  [param:WebGLCapabilities capabilities] ) 
 		</p>
-
 
 		<p class="desc">
 			
 		</p>
 
+		<hr class="interface-line"/>
+		<h3 id="WebGLInfo">WebGLInfo <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:WebGLInfo WebGLInfo](  [param:WebGLRenderingContext gl] ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean autoReset] -  The auto reset.<br />
+			[property:any memory] -  The memory.<br />
+			[property:WebGLProgram[] programs] -  The programs.<br />
+			[property:any render] -  The render.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void reset](  ) <br />
+			[method:void update](  [param:number count],  [param:number mode],  [param:number instanceCount] ) 
+		</p>
+
+		<p class="desc">
+			An object with a series of statistical information about the graphics board memory and the rendering process.
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="WebGLProperties">WebGLProperties <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:WebGLProperties WebGLProperties](  ) 
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void dispose](  ) <br />
+			[method:any get](  [param:any object] ) <br />
+			[method:void remove](  [param:any object] ) <br />
+			[method:any update](  [param:any object],  [param:any key],  [param:any value] ) 
+		</p>
 
 		<p class="desc">
 			
 		</p>
 
+		<hr class="interface-line"/>
+		<h3 id="WebGLRenderLists">WebGLRenderLists <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:WebGLRenderLists WebGLRenderLists](  [param:WebGLProperties properties] ) 
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void dispose](  ) <br />
+			[method:WebGLRenderList get](  [param:Scene scene],  [param:number renderCallDepth] ) 
+		</p>
 
 		<p class="desc">
 			
 		</p>
 
+		<hr class="interface-line"/>
+		<h3 id="WebGLRendererParameters">WebGLRendererParameters <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean alpha]? - default is false.<br />
+			[property:boolean antialias]? - default is false.<br />
+			[property:HTMLCanvasElement|OffscreenCanvas canvas]? - A Canvas where the renderer draws its output.<br />
+			[property:WebGLRenderingContext context]? - A WebGL Rendering [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext Context]<br />
+			Default is null<br />
+			[property:boolean depth]? - default is true.<br />
+			[property:boolean failIfMajorPerformanceCaveat]? - default is false.<br />
+			[property:boolean logarithmicDepthBuffer]? - default is false.<br />
+			[property:string powerPreference]? - Can be "high-performance", "low-power" or "default"<br />
+			[property:string precision]? - The shader precision. Can be "highp", "mediump" or "lowp".<br />
+			[property:boolean premultipliedAlpha]? - default is true.<br />
+			[property:boolean preserveDrawingBuffer]? - default is false.<br />
+			[property:boolean stencil]? - default is true.
+		</p>
 
 		<p class="desc">
 			
 		</p>
 
+		<hr class="interface-line"/>
+		<h3 id="WebGLRenderingContext">WebGLRenderingContext <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Methods</h4>
+		<p>
+			[method:Promise makeXRCompatible](  ) 
+		</p>
 
 		<p class="desc">
 			
 		</p>
 
+		<hr class="interface-line"/>
+		<h3 id="WebGLShadowMap">WebGLShadowMap <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:WebGLShadowMap WebGLShadowMap](  [param:WebGLRenderer _renderer],  [param:WebGLObjects _objects],  [param:WebGLCapabilities _capabilities] ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean autoUpdate] -  The auto update.<br />
+			[property:boolean enabled] -  The enabled.<br />
+			[property:boolean needsUpdate] -  The needs update.<br />
+			[property:ShadowMapType type] -  The type.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void render](  [param:Light[] shadowsArray],  [param:Scene scene],  [param:Camera camera] ) 
+		</p>
 
 		<p class="desc">
 			
 		</p>
 
+		<hr class="interface-line"/>
+		<h3 id="WebGLState">WebGLState <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:WebGLState WebGLState](  [param:WebGLRenderingContext gl],  [param:WebGLExtensions extensions],  [param:WebGLCapabilities capabilities] ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:any buffers] -  The buffers.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void activeTexture](  [param:number webglSlot] ) <br />
+			[method:void bindFramebuffer](  [param:number target],  [param:WebGLFramebuffer framebuffer] ) <br />
+			[method:void bindTexture](  [param:number webglType],  [param:any webglTexture] ) <br />
+			[method:void bindXRFramebuffer](  [param:WebGLFramebuffer framebuffer] ) <br />
+			[method:void compressedTexImage2D](  [param:number target],  [param:number level],  [param:number internalformat],  [param:number width],  [param:number height],  [param:number border],  [param:ArrayBufferView data] ) <br />
+			[method:void disable](  [param:number id] ) <br />
+			[method:void disableUnusedAttributes](  ) <br />
+			[method:void enable](  [param:number id] ) <br />
+			[method:void enableAttribute](  [param:number attribute] ) <br />
+			[method:void enableAttributeAndDivisor](  [param:number attribute],  [param:number meshPerAttribute] ) <br />
+			[method:void initAttributes](  ) <br />
+			[method:void reset](  ) <br />
+			[method:void scissor](  [param:Vector4 scissor] ) <br />
+			[method:void setBlending](  [param:Blending blending],  [param:BlendingEquation blendEquation]?,  [param:SrcAlphaSaturateFactor blendSrc]?,  [param:BlendingDstFactor blendDst]?,  [param:BlendingEquation blendEquationAlpha]?,  [param:SrcAlphaSaturateFactor blendSrcAlpha]?,  [param:BlendingDstFactor blendDstAlpha]?,  [param:boolean premultiplyAlpha]? ) <br />
+			[method:void setCullFace](  [param:CullFace cullFace] ) <br />
+			[method:void setFlipSided](  [param:boolean flipSided] ) <br />
+			[method:void setLineWidth](  [param:number width] ) <br />
+			[method:void setMaterial](  [param:Material material],  [param:boolean frontFaceCW] ) <br />
+			[method:void setPolygonOffset](  [param:boolean polygonoffset],  [param:number factor]?,  [param:number units]? ) <br />
+			[method:void setScissorTest](  [param:boolean scissorTest] ) <br />
+			[method:void texImage2D](  [param:number target],  [param:number level],  [param:number internalformat],  [param:number width],  [param:number height],  [param:number border],  [param:number format],  [param:number type],  [param:ArrayBufferView pixels] ) <br />
+			[method:void texImage2D](  [param:number target],  [param:number level],  [param:number internalformat],  [param:number width],  [param:number height],  [param:number border],  [param:number format],  [param:number type],  [param:ArrayBufferView pixels],  [param:number target],  [param:number level],  [param:number internalformat],  [param:number format],  [param:number type],  [param:any source] ) <br />
+			[method:void texImage3D](  [param:number target],  [param:number level],  [param:number internalformat],  [param:number width],  [param:number height],  [param:number depth],  [param:number border],  [param:number format],  [param:number type],  [param:any pixels] ) <br />
+			[method:void unbindTexture](  ) <br />
+			[method:boolean useProgram](  [param:any program] ) <br />
+			[method:void vertexAttribPointer](  [param:number index],  [param:number size],  [param:number type],  [param:boolean normalized],  [param:number stride],  [param:number offset] ) <br />
+			[method:void viewport](  [param:Vector4 viewport] ) 
+		</p>
 
 		<p class="desc">
 			
 		</p>
 
+		<hr class="interface-line"/>
+		[page:EventDispatcher] &rarr;
+
+		<h3 id="WebXRManager">WebXRManager <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:WebXRManager WebXRManager](  [param:any renderer],  [param:WebGLRenderingContext gl] ) <br />
+			[constructor:WebXRManager WebXRManager](  [param:any renderer],  [param:WebGLRenderingContext gl] ) - Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean enabled] -  The enabled.<br />
+			[property:boolean isPresenting] -  The is presenting.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void addEventListener](  [param:T type],  [param:EventListener listener] ) - Adds a listener to an event type.<br />
+			[method:void dispatchEvent](  [param:Event event] ) - Fire an event type.<br />
+			[method:void dispose](  ) <br />
+			[method:Camera getCamera](  [param:Camera camera] ) <br />
+			[method:Group getController](  [param:number index] ) <br />
+			[method:Group getControllerGrip](  [param:number index] ) <br />
+			[method:number getFoveation](  ) <br />
+			[method:Group getHand](  [param:number index] ) <br />
+			[method:XRReferenceSpace getReferenceSpace](  ) <br />
+			[method:XRSession getSession](  ) <br />
+			[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] ) - Checks if listener is added to an event type.<br />
+			[method:void removeEventListener](  [param:T type],  [param:EventListener listener] ) - Removes a listener from an event type.<br />
+			[method:void setAnimationLoop](  [param:XRFrameRequestCallback callback] ) <br />
+			[method:void setFoveation](  [param:number foveation] ) <br />
+			[method:void setFramebufferScaleFactor](  [param:number value] ) <br />
+			[method:void setReferenceSpaceType](  [param:XRReferenceSpaceType value] ) <br />
+			[method:Promise setSession](  [param:XRSession value] ) 
+		</p>
 
 		<p class="desc">
 			
 		</p>
 
-
-		<p class="desc">
+		<hr class="interface-line"/>
+		<h3 id="XRAnimationLoopCallback">XRAnimationLoopCallback <i class="modifier modifier-interface">Type alias</i></h3>
+		<hr class="interface-line"/>
+		<h4>[method:void function](  [param:number time],  [param:XRFrame frame]? )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:number time] -  The time.<br />
+			[property:XRFrame frame]? -  The frame.
+		</p>
+		<p>
 			
 		</p>
 
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
 
 
 		<p class="desc">

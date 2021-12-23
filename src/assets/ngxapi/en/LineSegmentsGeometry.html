@@ -40,38 +40,32 @@
 		<h3>[property:any attributes]</h3>
 		<p>
 			This hashmap has as id the name of the attribute to be set and as value the [page:BufferAttribute buffer] to set it to.<br />
-			Rather than accessing this property directly, use *.setAttribute* and *.getAttribute* to access attributes of this geometry.
+			Rather than accessing this property directly, use <i>.setAttribute</i> and <i>.getAttribute</i> to access attributes of this geometry.
 		</p>
 
 		<h3>[property:Box3 boundingBox]</h3>
 		<p>
-			Bounding box for the bufferGeometry, which can be calculated with *.computeBoundingBox*(). Default is *null*.
+			Bounding box for the bufferGeometry, which can be calculated with <i>.computeBoundingBox</i>(). Default is <i>null</i>.
 		</p>
 
 		<h3>[property:Sphere boundingSphere]</h3>
 		<p>
-			Bounding sphere for the bufferGeometry, which can be calculated with *.computeBoundingSphere*(). Default is *null*.
+			Bounding sphere for the bufferGeometry, which can be calculated with <i>.computeBoundingSphere</i>(). Default is <i>null</i>.
 		</p>
 
 		<h3>[property:any drawRange]</h3>
 		<p>
-			Determines the part of the geometry to render. This should not be set directly, instead use *.setDrawRange*. Default is { start: 0, count: Infinity }<br />
+			Determines the part of the geometry to render. This should not be set directly, instead use <i>.setDrawRange</i>. Default is { start: 0, count: Infinity }<br />
 			For non-indexed BufferGeometry, count is the number of vertices to render.<br />
 			For indexed BufferGeometry, count is the number of indices to render.
-		</p>
-
-		<h3>[property:any drawcalls]</h3>
-		<p>
-			deprecated - Use {@link BufferGeometry#groups .groups} instead.
 		</p>
 
 		<h3>[property:any groups]</h3>
 		<p>
 			Split the geometry into groups, each of which will be rendered in a separate WebGL draw call.<br />
 			This allows an array of materials to be used with the bufferGeometry.<br />
-			Each group is an object of the form: { start: Integer, count: Integer, materialIndex: Integer }<br />
-			where start specifies the first element in this draw call – the first vertex for non-indexed geometry, otherwise the first triangle index. Count specifies how many vertices (or indices) are included, and materialIndex specifies the material array index to use.<br />
-			Use *.addGroup* to add groups, rather than modifying this array directly.
+			Each group is an object of the form: { start: Integer, count: Integer, materialIndex: Integer } where start specifies the first element in this draw call – the first vertex for non-indexed geometry, otherwise the first triangle index. Count specifies how many vertices (or indices) are included, and materialIndex specifies the material array index to use.<br />
+			Use <i>.addGroup</i> to add groups, rather than modifying this array directly.
 		</p>
 
 		<h3>[property:number id]</h3>
@@ -84,12 +78,12 @@
 			Allows for vertices to be re-used across multiple triangles; this is called using "indexed triangles".<br />
 			Each triangle is associated with the indices of three vertices. This attribute therefore stores the index of each vertex for each triangular face.<br />
 			If this attribute is not set, the [page:WebGLRenderer renderer] assumes that each three contiguous positions represent a single triangle.<br />
-			Default is *null*.
+			Default is <i>null</i>.
 		</p>
 
 		<h3>[property:number instanceCount]</h3>
 		<p>
-			Default is *Infinity*.
+			Default is <i>Infinity</i>.
 		</p>
 
 		<h3>[property:any isBufferGeometry]</h3>
@@ -115,7 +109,7 @@
 		<h3>[property:boolean morphTargetsRelative]</h3>
 		<p>
 			Used to control the morph target behavior; when set to true, the morph target data is treated as relative offsets, rather than as absolute positions/normals.<br />
-			Default is *false*.
+			Default is <i>false</i>.
 		</p>
 
 		<h3>[property:string name]</h3>
@@ -123,9 +117,9 @@
 			Optional name for this bufferGeometry instance. Default is an empty string.
 		</p>
 
-		<h3>[property:any offsets]</h3>
+		<h3>[property:any parameters]?<i class="modifier modifier-optional">Optional</i></h3>
 		<p>
-			deprecated - Use {@link BufferGeometry#groups .groups} instead.
+			An object with a property for each of the constructor parameters. Any modification after instantiation does not change the geometry.
 		</p>
 
 		<h3>[property:string type]</h3>
@@ -155,28 +149,15 @@
 			See the base [page:InstancedBufferGeometry InstancedBufferGeometry] class for common methods.
 		</p>
 
-		<h3>[method:any addAttribute](  [param:string name],  [param:BufferAttribute|InterleavedBufferAttribute attribute],  [param:any name],  [param:any array],  [param:any itemSize] )</h3>
+		<h3>[method:any addAttribute](  [param:any name],  [param:any array],  [param:any itemSize] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string name] - The name.<br />
-			[parameter:BufferAttribute|InterleavedBufferAttribute attribute] - The attribute.<br />
 			[parameter:any name] - The name.<br />
 			[parameter:any array] - The array.<br />
 			[parameter:any itemSize] - The item size.
 		</p>
 		<p>
 			Returns : attribute
-		</p>
-
-		<h3>[method:void addDrawCall](  [param:any start],  [param:any count],  [param:any indexOffset]? )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:any start] - The start.<br />
-			[parameter:any count] - The count.<br />
-			[parameter:any indexOffset] - (optional) The index offset.
-		</p>
-		<p>
-			deprecated - Use {@link BufferGeometry#addGroup .addGroup()} instead.
 		</p>
 
 		<h3>[method:void addEventListener](  [param:T type],  [param:EventListener listener] )</h3>
@@ -197,17 +178,7 @@
 			[parameter:number instances] - The instances.
 		</p>
 		<p>
-			Adds a group to this geometry; see the [page:BufferGeometry.groups groups]<br />
-			property for details.
-		</p>
-
-		<h3>[method:void addIndex](  [param:any index] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:any index] - The index.
-		</p>
-		<p>
-			deprecated - Use {@link BufferGeometry#setIndex .setIndex()} instead.
+			Adds a group to this geometry; see the [page:BufferGeometry.groups groups] property for details.
 		</p>
 
 		<h3>[method:LineSegmentsGeometry applyMatrix4](  [param:Matrix4 matrix] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
@@ -233,11 +204,6 @@
 			Center the geometry based on the bounding box.
 		</p>
 
-		<h3>[method:void clearDrawCalls](  )</h3>
-		<p>
-			deprecated - Use {@link BufferGeometry#clearGroups .clearGroups()} instead.
-		</p>
-
 		<h3>[method:void clearGroups](  )</h3>
 		<p>
 			Clears all groups.
@@ -250,14 +216,14 @@
 
 		<h3>[method:void computeBoundingBox](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Computes bounding box of the geometry, updating *.boundingBox* attribute.<br />
-			Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
+			Computes bounding box of the geometry, updating <i>.boundingBox</i> attribute.<br />
+			Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.
 		</p>
 
 		<h3>[method:void computeBoundingSphere](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Computes bounding sphere of the geometry, updating *.boundingSphere* attribute.<br />
-			Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
+			Computes bounding sphere of the geometry, updating <i>.boundingSphere</i> attribute.<br />
+			Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.
 		</p>
 
 		<h3>[method:void computeTangents](  )</h3>
@@ -351,7 +317,7 @@
 
 		<h3>[method:BufferAttribute getIndex](  )</h3>
 		<p>
-			Returns : Return the *.index* buffer.
+			Returns : Return the <i>.index</i> buffer.
 		</p>
 
 		<h3>[method:boolean hasAttribute](  [param:BuiltinShaderAttributeName name] )</h3>
@@ -360,7 +326,7 @@
 			[parameter:BuiltinShaderAttributeName name] - The name.
 		</p>
 		<p>
-			Returns : Returns *true* if the attribute with the specified name exists.
+			Returns : Returns <i>true</i> if the attribute with the specified name exists.
 		</p>
 
 		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )</h3>
@@ -379,7 +345,6 @@
 			[parameter:Vector3 v] - The v.
 		</p>
 		<p>
-			vector - A world vector to look at.<br />
 			Rotates the geometry to face a point in space. This is typically done as a one time operation, and not during a loop.<br />
 			Use [page:Object3D.lookAt Object3D.lookAt] for typical real-time mesh usage.
 		</p>
@@ -398,15 +363,6 @@
 		<p>
 			Every normal vector in a geometry will have a magnitude of 1.<br />
 			This will correct lighting on the geometry surfaces.
-		</p>
-
-		<h3>[method:BufferGeometry removeAttribute](  [param:string name] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:string name] - The name.
-		</p>
-		<p>
-			deprecated - Use {@link BufferGeometry#deleteAttribute .deleteAttribute()} instead.
 		</p>
 
 		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )</h3>
@@ -468,7 +424,7 @@
 			[parameter:BufferAttribute|InterleavedBufferAttribute attribute] - The attribute.
 		</p>
 		<p>
-			Sets an attribute to this geometry. Use this rather than the attributes property, because an internal hashmap of *.attributes* is maintained to speed up iterating over attributes.
+			Sets an attribute to this geometry. Use this rather than the attributes property, because an internal hashmap of <i>.attributes</i> is maintained to speed up iterating over attributes.
 		</p>
 
 		<h3>[method:LineSegmentsGeometry setColors](  [param:Float32Array|number[] array] )</h3>
@@ -487,7 +443,7 @@
 			[parameter:number count] - The count.
 		</p>
 		<p>
-			Set the *.drawRange* property. For non-indexed BufferGeometry, count is the number of vertices to render.<br />
+			Set the <i>.drawRange</i> property. For non-indexed BufferGeometry, count is the number of vertices to render.<br />
 			For indexed BufferGeometry, count is the number of indices to render.
 		</p>
 
@@ -506,7 +462,7 @@
 			[parameter:BufferAttribute|number[] index] - The index.
 		</p>
 		<p>
-			Set the *.index* buffer.
+			Set the <i>.index</i> buffer.
 		</p>
 
 		<h3>[method:LineSegmentsGeometry setPositions](  [param:Float32Array|number[] array] )</h3>
@@ -664,6 +620,49 @@
 		<p class="desc">
 			
 		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:BaseEvent] &rarr;
+
+		<h3 id="Event">Event <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:any target]? -  The target.<br />
+			[property:string type] -  The type.
+		</p>
+
+		<p class="desc">
+			Event object.
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="BuiltinShaderAttributeName">BuiltinShaderAttributeName <i class="modifier modifier-interface">Type alias</i></h3>
+		<hr class="interface-line"/>
+		<h3>[property:'position'|'normal'|'uv'|'color'|'skinIndex'|'skinWeight'|'instanceMatrix'|'morphTarget0'|'morphTarget1'|'morphTarget2'|'morphTarget3'|'morphTarget4'|'morphTarget5'|'morphTarget6'|'morphTarget7'|'morphNormal0'|'morphNormal1'|'morphNormal2'|'morphNormal3' BuiltinShaderAttributeName]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="EventListener">EventListener <i class="modifier modifier-interface">Type alias</i></h3>
+		<hr class="interface-line"/>
+		<h4>[method:void function](  [param:any event] )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:any event] -  The event.
+		</p>
+		<p>
+			
+		</p>
+
 
 
 		<p class="desc">

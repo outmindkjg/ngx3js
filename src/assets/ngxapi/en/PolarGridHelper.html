@@ -12,7 +12,23 @@
 		<h1>PolarGridHelper</h1>
 
 		<p class="desc">
-			
+			The PolarGridHelper is an object to define polar grids. Grids are two-dimensional arrays of lines.<br />
+			<br />
+			<h3>Preview - WebGL / helpers</h3><br />
+			<iframe src="#/viewer/webgl_helpers"></iframe><br />
+			<br />
+			<h2>Code Example</h2><br />
+			<code data-type="javascript"><br />
+			const radius = 10;<br />
+			const radials = 16;<br />
+			const circles = 8;<br />
+			const divisions = 64;<br />
+			const helper = new THREE.PolarGridHelper( radius, radials, circles, divisions );<br />
+			scene.add( helper );<br />
+			</code><br />
+			<br />
+			<h2>Examples</h2><br />
+			[example:webgl_helpers WebGL / helpers]
 		</p>
 
 		<h2>Constructor</h2>
@@ -42,12 +58,12 @@
 
 		<h3>[property:boolean DefaultMatrixAutoUpdate]</h3>
 		<p>
-			The default setting for *.matrixAutoUpdate* for newly created Object3Ds.
+			The default setting for <i>.matrixAutoUpdate</i> for newly created Object3Ds.
 		</p>
 
 		<h3>[property:Vector3 DefaultUp]</h3>
 		<p>
-			The default *.up* direction for objects, also used as the default position for [page:DirectionalLight DirectionalLight],<br />
+			The default <i>.up</i> direction for objects, also used as the default position for [page:DirectionalLight DirectionalLight],<br />
 			[page:HemisphereLight HemisphereLight] and [page:Spotlight Spotlight] (which creates lights shining from the top down).<br />
 			Set to ( 0, 1, 0 ) by default.
 		</p>
@@ -59,7 +75,7 @@
 
 		<h3>[property:boolean castShadow]</h3>
 		<p>
-			Whether the object gets rendered into shadow map. Default is *false*.
+			Whether the object gets rendered into shadow map. Default is <i>false</i>.
 		</p>
 
 		<h3>[property:Object3D[] children]</h3>
@@ -70,12 +86,12 @@
 		<h3>[property:Material customDepthMaterial]</h3>
 		<p>
 			Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br />
-			When shadow-casting with a [page:DirectionalLight DirectionalLight] or [page:SpotLight SpotLight], if you are modifying vertex positions in the vertex shader you must specify a customDepthMaterial for proper shadows. Default is *undefined*.
+			When shadow-casting with a [page:DirectionalLight DirectionalLight] or [page:SpotLight SpotLight], if you are modifying vertex positions in the vertex shader you must specify a customDepthMaterial for proper shadows. Default is <i>undefined</i>.
 		</p>
 
 		<h3>[property:Material customDistanceMaterial]</h3>
 		<p>
-			Same as *.customDepthMaterial*, but used with [page:PointLight PointLight]. Default is *undefined*.
+			Same as <i>.customDepthMaterial</i>, but used with [page:PointLight PointLight]. Default is <i>undefined</i>.
 		</p>
 
 		<h3>[property:boolean frustumCulled]</h3>
@@ -90,7 +106,7 @@
 
 		<h3>[property:number id]</h3>
 		<p>
-			readonly – Unique number for this object instance.
+			Unique number for this object instance.
 		</p>
 
 		<h3>[property:any isLine]</h3>
@@ -131,12 +147,12 @@
 
 		<h3>[property:Matrix4 matrixWorld]</h3>
 		<p>
-			The global transform of the object. If the Object3D has no parent, then it's identical to the local transform *.matrix*.
+			The global transform of the object. If the Object3D has no parent, then it's identical to the local transform <i>.matrix</i>.
 		</p>
 
 		<h3>[property:boolean matrixWorldNeedsUpdate]</h3>
 		<p>
-			When this is set, it calculates the matrixWorld in that frame and resets this property  to false. Default is *false*.
+			When this is set, it calculates the matrixWorld in that frame and resets this property  to false. Default is <i>false</i>.
 		</p>
 
 		<h3>[property:Matrix4 modelViewMatrix]</h3>
@@ -147,13 +163,13 @@
 		<h3>[property:any morphTargetDictionary]?<i class="modifier modifier-optional">Optional</i></h3>
 		<p>
 			A dictionary of morphTargets based on the morphTarget.name property.<br />
-			Undefined by default, but rebuilt *.updateMorphTargets*().
+			Undefined by default, but rebuilt <i>.updateMorphTargets</i>().
 		</p>
 
 		<h3>[property:number[] morphTargetInfluences]?<i class="modifier modifier-optional">Optional</i></h3>
 		<p>
 			An array of weights typically from 0-1 that specify how much of the morph is applied.<br />
-			Undefined by default, but reset to a blank array by *.updateMorphTargets*().
+			Undefined by default, but reset to a blank array by <i>.updateMorphTargets</i>().
 		</p>
 
 		<h3>[property:string name]</h3>
@@ -185,14 +201,13 @@
 
 		<h3>[property:boolean receiveShadow]</h3>
 		<p>
-			Whether the material receives shadows. Default is *false*.
+			Whether the material receives shadows. Default is <i>false</i>.
 		</p>
 
 		<h3>[property:number renderOrder]</h3>
 		<p>
-			This value allows the default rendering order of [link:https://en.wikipedia.org/wiki/Scene_graph scene graph]<br />
-			objects to be overridden although opaque and transparent objects remain sorted independently. When this property is set for an instance of [page:Group Group], all descendants objects will be sorted and rendered together.<br />
-			Sorting is from lowest to highest renderOrder. Default value is *0*.
+			This value allows the default rendering order of [link:https://en.wikipedia.org/wiki/Scene_graph scene graph] objects to be overridden although opaque and transparent objects remain sorted independently. When this property is set for an instance of [page:Group Group], all descendants objects will be sorted and rendered together.<br />
+			Sorting is from lowest to highest renderOrder. Default value is <i>0</i>.
 		</p>
 
 		<h3>[property:Euler rotation]</h3>
@@ -212,7 +227,7 @@
 
 		<h3>[property:Vector3 up]</h3>
 		<p>
-			This is used by the *.lookAt* method, for example, to determine the orientation of the result.<br />
+			This is used by the <i>.lookAt</i> method, for example, to determine the orientation of the result.<br />
 			Default is [page:Object3D.DefaultUp Object3D.DefaultUp] - that is, ( 0, 1, 0 ).
 		</p>
 
@@ -229,7 +244,7 @@
 
 		<h3>[property:boolean visible]</h3>
 		<p>
-			Object gets rendered if *true*. Default is *true*.
+			Object gets rendered if <i>true</i>. Default is <i>true</i>.
 		</p>
 
 		<h2>Methods</h2>
@@ -252,7 +267,7 @@
 			[parameter:Object3D[] object] - The object.
 		</p>
 		<p>
-			Adds *object* as child of this object. An arbitrary number of objects may be added. Any current parent on an object passed in here will be removed, since an object can have at most one parent.<br />
+			Adds <i>object</i> as child of this object. An arbitrary number of objects may be added. Any current parent on an object passed in here will be removed, since an object can have at most one parent.<br />
 			See [page:Group Group] for info on manually grouping objects.
 		</p>
 
@@ -290,7 +305,7 @@
 			[parameter:Object3D object] - The object.
 		</p>
 		<p>
-			Adds *object* as a child of this, while maintaining the object's world transform.<br />
+			Adds <i>object</i> as a child of this, while maintaining the object's world transform.<br />
 			Note: This method does not support scene graphs having non-uniformly-scaled nodes(s).
 		</p>
 
@@ -302,11 +317,9 @@
 		<h3>[method:PolarGridHelper clone](  [param:boolean recursive]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:boolean recursive] - (optional) The recursive.
+			[parameter:boolean recursive] - (optional) if true, descendants of the object are also cloned. Default is true.
 		</p>
 		<p>
-			recursive -- if true, descendants of the object are also cloned. Default is true.<br />
-			<br />
 			Returns : Returns a clone of this object and optionally all descendants.
 		</p>
 
@@ -319,12 +332,11 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:PolarGridHelper source] - The source.<br />
-			[parameter:boolean recursive] - (optional) The recursive.
+			[parameter:boolean recursive] - (optional) if true, descendants of the object are also copied. Default is true.
 		</p>
 		<p>
-			recursive -- if true, descendants of the object are also copied. Default is true.<br />
 			Copy the given object into this object.<br />
-			Note: event listeners and user-defined callbacks (*.onAfterRender* and *.onBeforeRender*) are not copied.
+			Note: event listeners and user-defined callbacks (<i>.onAfterRender</i> and <i>.onBeforeRender</i>) are not copied.
 		</p>
 
 		<h3>[method:void dispatchEvent](  [param:Event event] )</h3>
@@ -339,20 +351,18 @@
 		<h3>[method:Object3D getObjectById](  [param:number id] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number id] - Unique number of the object instance
+			[parameter:number id] - Unique number of the object instance Searches through an object and its children, starting with the object itself, and returns the first with a matching id.
 		</p>
 		<p>
-			id -- Unique number of the object instance Searches through an object and its children, starting with the object itself, and returns the first with a matching id.<br />
 			Note that ids are assigned in chronological order: 1, 2, 3, ..., incrementing by one for each new object.
 		</p>
 
 		<h3>[method:Object3D getObjectByName](  [param:string name] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string name] - String to match to the children's Object3d.name property.
+			[parameter:string name] - String to match to the children's Object3D.name property.
 		</p>
 		<p>
-			name -- String to match to the children's Object3D.name property.<br />
 			Searches through an object and its children, starting with the object itself, and returns the first with a matching name.<br />
 			Note that for most objects the name is an empty string by default. You will have to set it manually to make use of this method.
 		</p>
@@ -360,19 +370,17 @@
 		<h3>[method:Object3D getObjectByProperty](  [param:string name],  [param:string value] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string name] - The name.<br />
-			[parameter:string value] - The value.
+			[parameter:string name] - The property name to search for.<br />
+			[parameter:string value] - Value of the given property.
 		</p>
 		<p>
-			name -- the property name to search for.<br />
-			value -- value of the given property.<br />
 			Searches through an object and its children, starting with the object itself, and returns the first with a property that matches the value given.
 		</p>
 
 		<h3>[method:Vector3 getWorldDirection](  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - the result will be copied into this Vector3.
+			[parameter:Vector3 target] - The result will be copied into this Vector3.
 		</p>
 		<p>
 			Returns : Returns a vector representing the direction of object's positive z-axis in world space.
@@ -381,7 +389,7 @@
 		<h3>[method:Vector3 getWorldPosition](  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - the result will be copied into this Vector3.
+			[parameter:Vector3 target] - The result will be copied into this Vector3.
 		</p>
 		<p>
 			Returns : Returns a vector representing the position of the object in world space.
@@ -390,7 +398,7 @@
 		<h3>[method:Quaternion getWorldQuaternion](  [param:Quaternion target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Quaternion target] - the result will be copied into this Quaternion.
+			[parameter:Quaternion target] - The result will be copied into this Quaternion.
 		</p>
 		<p>
 			Returns : Returns a quaternion representing the rotation of the object in world space.
@@ -399,7 +407,7 @@
 		<h3>[method:Vector3 getWorldScale](  [param:Vector3 target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 target] - the result will be copied into this Vector3.
+			[parameter:Vector3 target] - The result will be copied into this Vector3.
 		</p>
 		<p>
 			Returns : Returns a vector of the scaling factors applied to the object for each axis in world space.
@@ -418,10 +426,9 @@
 		<h3>[method:Vector3 localToWorld](  [param:Vector3 vector] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Vector3 vector] - A local vector.
+			[parameter:Vector3 vector] - A vector representing a position in this object's local space.
 		</p>
 		<p>
-			vector - A vector representing a position in this object's local space.<br />
 			Converts the vector from this object's local space to world space.
 		</p>
 
@@ -433,7 +440,7 @@
 			[parameter:number z] - (optional) The z.
 		</p>
 		<p>
-			Optionally, the *.x*, *.y* and *.z* components of the world space position.<br />
+			Optionally, the <i>.x</i>, <i>.y</i> and <i>.z</i> components of the world space position.<br />
 			Rotates the object to face a point in world space.<br />
 			This method does not support objects having non-uniformly-scaled parent(s).
 		</p>
@@ -451,7 +458,7 @@
 		<p>
 			An optional callback that is executed immediately after a 3D object is rendered.<br />
 			This function is called with the following parameters: renderer, scene, camera, geometry, material, group.<br />
-			Please notice that this callback is only executed for *renderable* 3D objects. Meaning 3D objects which define their visual appearance with geometries and materials like instances of [page:Mesh Mesh], [page:Line Line], [page:Points Points] or [page:Sprite Sprite].<br />
+			Please notice that this callback is only executed for <i>renderable</i> 3D objects. Meaning 3D objects which define their visual appearance with geometries and materials like instances of [page:Mesh Mesh], [page:Line Line], [page:Points Points] or [page:Sprite Sprite].<br />
 			Instances of [page:Object3D Object3D], [page:Group Group] or [page:Bone Bone] are not renderable and thus this callback is not executed for such objects.
 		</p>
 
@@ -468,7 +475,7 @@
 		<p>
 			An optional callback that is executed immediately before a 3D object is rendered.<br />
 			This function is called with the following parameters: renderer, scene, camera, geometry, material, group.<br />
-			Please notice that this callback is only executed for *renderable* 3D objects. Meaning 3D objects which define their visual appearance with geometries and materials like instances of [page:Mesh Mesh], [page:Line Line], [page:Points Points] or [page:Sprite Sprite].<br />
+			Please notice that this callback is only executed for <i>renderable</i> 3D objects. Meaning 3D objects which define their visual appearance with geometries and materials like instances of [page:Mesh Mesh], [page:Line Line], [page:Points Points] or [page:Sprite Sprite].<br />
 			Instances of [page:Object3D Object3D], [page:Group Group] or [page:Bone Bone] are not renderable and thus this callback is not executed for such objects.
 		</p>
 
@@ -489,7 +496,7 @@
 			[parameter:Object3D[] object] - The object.
 		</p>
 		<p>
-			Removes *object* as child of this object. An arbitrary number of objects may be removed.
+			Removes <i>object</i> as child of this object. An arbitrary number of objects may be removed.
 		</p>
 
 		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )</h3>
@@ -531,7 +538,7 @@
 		<h3>[method:PolarGridHelper rotateX](  [param:number angle] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number angle] - the angle to rotate in radians.
+			[parameter:number angle] - The angle to rotate in radians.
 		</p>
 		<p>
 			Rotates the object around x axis in local space.
@@ -540,7 +547,7 @@
 		<h3>[method:PolarGridHelper rotateY](  [param:number angle] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number angle] - the angle to rotate in radians.
+			[parameter:number angle] - The angle to rotate in radians.
 		</p>
 		<p>
 			Rotates the object around y axis in local space.
@@ -549,7 +556,7 @@
 		<h3>[method:PolarGridHelper rotateZ](  [param:number angle] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number angle] - the angle to rotate in radians.
+			[parameter:number angle] - The angle to rotate in radians.
 		</p>
 		<p>
 			Rotates the object around z axis in local space.
@@ -562,7 +569,7 @@
 			[parameter:number angle] - angle in radians
 		</p>
 		<p>
-			Calls [page:Quaternion.setFromAxisAngle setFromAxisAngle]( [page:Float axis], [page:Float angle] ) on the *.quaternion*.
+			Calls [page:Quaternion.setFromAxisAngle setFromAxisAngle]( [page:Float axis], [page:Float angle] ) on the <i>.quaternion</i>.
 		</p>
 
 		<h3>[method:void setRotationFromEuler](  [param:Euler euler] )</h3>
@@ -571,7 +578,7 @@
 			[parameter:Euler euler] - Euler angle specifying rotation amount.
 		</p>
 		<p>
-			Calls [page:Quaternion.setRotationFromEuler setRotationFromEuler]( [page:Euler euler]) on the *.quaternion*.
+			Calls [page:Quaternion.setRotationFromEuler setRotationFromEuler]( [page:Euler euler]) on the <i>.quaternion</i>.
 		</p>
 
 		<h3>[method:void setRotationFromMatrix](  [param:Matrix4 m] )</h3>
@@ -580,7 +587,7 @@
 			[parameter:Matrix4 m] - rotate the quaternion by the rotation component of the matrix.
 		</p>
 		<p>
-			Calls [page:Quaternion.setFromRotationMatrix setFromRotationMatrix]( [page:Matrix4 m]) on the *.quaternion*.<br />
+			Calls [page:Quaternion.setFromRotationMatrix setFromRotationMatrix]( [page:Matrix4 m]) on the <i>.quaternion</i>.<br />
 			Note that this assumes that the upper 3x3 of m is a pure rotation matrix (i.e, unscaled).
 		</p>
 
@@ -590,7 +597,7 @@
 			[parameter:Quaternion q] - normalized Quaternion
 		</p>
 		<p>
-			Copy the given quaternion into *.quaternion*.
+			Copy the given quaternion into <i>.quaternion</i>.
 		</p>
 
 		<h3>[method:any toJSON](  [param:any meta]? )</h3>
@@ -618,7 +625,7 @@
 			[parameter:number distance] - Distance.
 		</p>
 		<p>
-			Translates object along x axis in object space by *distance* units.
+			Translates object along x axis in object space by <i>distance</i> units.
 		</p>
 
 		<h3>[method:PolarGridHelper translateY](  [param:number distance] )</h3>
@@ -627,7 +634,7 @@
 			[parameter:number distance] - Distance.
 		</p>
 		<p>
-			Translates object along y axis in object space by *distance* units.
+			Translates object along y axis in object space by <i>distance</i> units.
 		</p>
 
 		<h3>[method:PolarGridHelper translateZ](  [param:number distance] )</h3>
@@ -636,7 +643,7 @@
 			[parameter:number distance] - Distance.
 		</p>
 		<p>
-			Translates object along z axis in object space by *distance* units.
+			Translates object along z axis in object space by <i>distance</i> units.
 		</p>
 
 		<h3>[method:void traverse](  [param:any callback] )</h3>
@@ -686,7 +693,7 @@
 
 		<h3>[method:void updateMorphTargets](  )</h3>
 		<p>
-			Updates the morphTargets to have no influence on the object. Resets the *.morphTargetInfluences* and *.morphTargetDictionary* properties.
+			Updates the morphTargets to have no influence on the object. Resets the <i>.morphTargetInfluences</i> and <i>.morphTargetDictionary</i> properties.
 		</p>
 
 		<h3>[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] )</h3>
@@ -867,6 +874,59 @@
 		<p class="desc">
 			
 		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:BaseEvent] &rarr;
+
+		<h3 id="Event">Event <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:any target]? -  The target.<br />
+			[property:string type] -  The type.
+		</p>
+
+		<p class="desc">
+			Event object.
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="Intersection">Intersection <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:number distance] -  The distance.<br />
+			[property:number distanceToRay]? -  The distance to ray.<br />
+			[property:Face face]? -  The face.<br />
+			[property:number faceIndex]? -  The face index.<br />
+			[property:number index]? -  The index.<br />
+			[property:number instanceId]? -  The instance id.<br />
+			[property:TIntersected object] -  The object.<br />
+			[property:Vector3 point] -  The point.<br />
+			[property:Vector2 uv]? -  The uv.
+		</p>
+
+		<p class="desc">
+			Intersection
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="EventListener">EventListener <i class="modifier modifier-interface">Type alias</i></h3>
+		<hr class="interface-line"/>
+		<h4>[method:void function](  [param:any event] )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:any event] -  The event.
+		</p>
+		<p>
+			
+		</p>
+
 
 
 		<p class="desc">

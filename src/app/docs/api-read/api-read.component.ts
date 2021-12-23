@@ -297,7 +297,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 					if (!hrefId.startsWith('THREE.') && hrefId.startsWith(this.pageName + '.')) {
 						hrefId = hrefId.substr(this.pageName.length + 1);
 					} 
-					if (this.menuId.endsWith('.THREE') && this.menuId.endsWith('.I3JS') && this.menuId.endsWith('.AMMO') && this.setElementById(hrefId) !== null) {
+					if (this.setElementById(hrefId) !== null) {
 						this.setFocus(hrefId);
 					} else {
 						this.docsComponent.changePage(hrefId, this.menuId);

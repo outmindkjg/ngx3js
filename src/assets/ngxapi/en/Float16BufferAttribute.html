@@ -20,8 +20,8 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number|ArrayLike|Iterable array] - Must be a [TypedArray](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/TypedArray). Used to instantiate the buffer. This array should have itemSize * numVertices<br />
-			[parameter:number itemSize] - the number of values of the array that should be associated with a particular vertex. For instance, if this attribute is storing a 3-component vector (such as a position, normal, or color), then itemSize should be 3.<br />
-			[parameter:boolean normalized] - (optional) The normalized.
+			[parameter:number itemSize] - The number of values of the array that should be associated with a particular vertex. For instance, if this attribute is storing a 3-component vector (such as a position, normal, or color), then itemSize should be 3.<br />
+			[parameter:boolean normalized] - (optional) Applies to integer data only. Indicates how the underlying data in the buffer maps to the values in the GLSL code. For instance, if [array](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/TypedArray) is an instance of UInt16Array, and [normalized](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Boolean) is true, the values 0 - +65535 in the array  data will be mapped to 0.0f - +1.0f in the GLSL attribute. An Int16Array (signed) would map  from -32767 - +32767  to -1.0f - +1.0f. If [normalized](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Boolean) is false, the values  will be converted to floats unmodified, i.e. 32767 becomes 32767.0f.
 		</p>
 		<p>
 			
@@ -66,15 +66,12 @@
 
 		<h3>[property:any updateRange]</h3>
 		<p>
-			Object containing:<br />
-			[page:Integer offset]: Default is *0*. Position at which to start update.<br />
-			[page:Integer count]: Default is *-1*, which means don't use update ranges.<br />
-			This can be used to only update some components of stored vectors (for example, just the component related to color).
+			Object containing:
 		</p>
 
 		<h3>[property:Usage usage]</h3>
 		<p>
-			Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the *usage* parameter of [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().<br />
+			Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the <i>usage</i> parameter of [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().<br />
 			Default is [page:BufferAttributeUsage StaticDrawUsage]. See usage [page:BufferAttributeUsage constants] for all possible values.
 		</p>
 
@@ -136,8 +133,7 @@
 		</p>
 		<p>
 			Copy the array given here (which can be a normal array or TypedArray) into [page:BufferAttribute.array array].<br />
-			See [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set TypedArray.set]<br />
-			for notes on requirements if copying a TypedArray.
+			See [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set TypedArray.set] for notes on requirements if copying a TypedArray.
 		</p>
 
 		<h3>[method:Float16BufferAttribute copyAt](  [param:number index1],  [param:BufferAttribute attribute],  [param:number index2] )</h3>
@@ -241,14 +237,12 @@
 		<h3>[method:Float16BufferAttribute set](  [param:ArrayLike|ArrayBufferView value],  [param:number offset]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:ArrayLike|ArrayBufferView value] - an [Array](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Array) or [TypedArray](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/TypedArray) from which to copy values.<br />
+			[parameter:ArrayLike|ArrayBufferView value] - An [Array](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Array) or [TypedArray](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/TypedArray) from which to copy values.<br />
 			[parameter:number offset] - (optional) index of the [array](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/BufferAttribute.array) at which to start copying.
 		</p>
 		<p>
-			Calls [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set TypedArray.set]( [page:Array value], [page:Integer offset] )<br />
-			on the [page:BufferAttribute.array array].<br />
-			In particular, see that page for requirements on [page:Array value]<br />
-			being a [page:TypedArray TypedArray].
+			Calls [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set TypedArray.set]( [page:Array value], [page:Integer offset] ) on the [page:BufferAttribute.array array].<br />
+			In particular, see that page for requirements on [page:Array value] being a [page:TypedArray TypedArray].
 		</p>
 
 		<h3>[method:Float16BufferAttribute setUsage](  [param:Usage usage] )</h3>
@@ -375,6 +369,26 @@
 			
 		</p>
 
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="Usage">Usage <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:Usage DynamicCopyUsage] = 35050 -  The dynamic copy usage.<br />
+			[property:Usage DynamicDrawUsage] = 35048 -  The dynamic draw usage.<br />
+			[property:Usage DynamicReadUsage] = 35049 -  The dynamic read usage.<br />
+			[property:Usage StaticCopyUsage] = 35046 -  The static copy usage.<br />
+			[property:Usage StaticDrawUsage] = 35044 -  The static draw usage.<br />
+			[property:Usage StaticReadUsage] = 35045 -  The static read usage.<br />
+			[property:Usage StreamCopyUsage] = 35042 -  The stream copy usage.<br />
+			[property:Usage StreamDrawUsage] = 35040 -  The stream draw usage.<br />
+			[property:Usage StreamReadUsage] = 35041 -  The stream read usage.
+		</p>
 
 		<p class="desc">
 			

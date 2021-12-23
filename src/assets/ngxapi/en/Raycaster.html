@@ -16,6 +16,7 @@
 			<h3>Preview - Raycasting to a Mesh</h3><br />
 			<iframe src="#/viewer/webgl_interactive_cubes"></iframe><br />
 			<br />
+			<h2>Examples</h2><br />
 			[example:webgl_interactive_cubes Raycasting to a Mesh]<br />
 			[example:webgl_interactive_cubes_ortho Raycasting to a Mesh in using an OrthographicCamera]<br />
 			[example:webgl_interactive_buffergeometry Raycasting to a Mesh with BufferGeometry]<br />
@@ -26,17 +27,19 @@
 			[example:webgl_interactive_voxelpainter Raycasting to paint voxels]<br />
 			[example:webgl_raycast_texture Raycast to a Texture]<br />
 			<br />
+			<h2>Code Example</h2><br />
 			<code data-type="javascript"><br />
 			const raycaster = new THREE.Raycaster();<br />
 			const mouse = new THREE.Vector2();<br />
 			function onMouseMove( event ) {<br />
 			 //  calculate mouse position in normalized device coordinates // (-1 to +1) for both components<br />
-			 mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;<br />
-			 mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;<br />
+			 mouse.x = ( event.clientX / window.innerWidth ) <i> 2 - 1;<br />
+			 mouse.y = - ( event.clientY / window.innerHeight ) </i> 2 + 1;<br />
 			}<br />
 			function render() {<br />
 			 //  update the picking ray with the camera and mouse position raycaster.setFromCamera( mouse, camera );<br />
-			 //  calculate objects intersecting the picking ray const intersects = raycaster.intersectObjects( scene.children );<br />
+			 //  calculate objects intersecting the picking ray <br />
+				const intersects = raycaster.intersectObjects( scene.children );<br />
 			 for ( let i = 0; i &lt; intersects.length; i ++ ) {<br />
 			     intersects[ i ].object.material.color.set( 0xff0000 );<br />
 			 }<br />
@@ -75,7 +78,7 @@
 
 		<h3>[property:Layers layers]</h3>
 		<p>
-			Used by Raycaster to selectively ignore 3D objects when performing intersection tests. The following code example ensures that only 3D objects on layer *1* will be honored by the instance of Raycaster.<br />
+			Used by Raycaster to selectively ignore 3D objects when performing intersection tests. The following code example ensures that only 3D objects on layer <i>1</i> will be honored by the instance of Raycaster.<br />
 			raycaster.layers.set( 1 );<br />
 			object.layers.enable( 1 );
 		</p>
@@ -107,9 +110,8 @@
 		</p>
 		<p>
 			Checks all intersection between the ray and the object with or without the descendants. Intersections are returned sorted by distance, closest first.<br />
-			An array of intersections is returned... [ { distance, point, face, faceIndex, object }, ... ]<br />
-			distance - Second set of U,V coordinates at point of intersection [page:Integer instanceId] – The index number of the instance where the ray intersects the InstancedMesh *Raycaster* delegates to the [page:Object3D.raycast raycast] method of the passed object, when evaluating whether the ray intersects the object or not. This allows [page:Mesh meshes] to respond differently to ray casting than [page:Line lines] and [page:Points pointclouds].<br />
-			*Note* that for meshes, faces must be pointed towards the origin of the *.ray* in order to be detected; intersections of the ray passing through the back of a face will not be detected. To raycast against both faces of an object, you'll want to set the [page:Mesh.material material]'s [page:Material.side side] property to *THREE.DoubleSide*.
+			An array of intersections is returned... [ { distance, point, face, faceIndex, object }, ... ] distance - Second set of U,V coordinates at point of intersection [page:Integer instanceId] – The index number of the instance where the ray intersects the InstancedMesh <i>Raycaster</i> delegates to the [page:Object3D.raycast raycast] method of the passed object, when evaluating whether the ray intersects the object or not. This allows [page:Mesh meshes] to respond differently to ray casting than [page:Line lines] and [page:Points pointclouds].<br />
+			<i>Note</i> that for meshes, faces must be pointed towards the origin of the <i>.ray</i> in order to be detected; intersections of the ray passing through the back of a face will not be detected. To raycast against both faces of an object, you'll want to set the [page:Mesh.material material]'s [page:Material.side side] property to <i>THREE.DoubleSide</i>.
 		</p>
 
 		<h3>[method:Intersection[] intersectObjects](  [param:Object3D[] objects],  [param:boolean recursive]?,  [param:Intersection[] optionalTarget]? )</h3>
@@ -120,7 +122,7 @@
 			[parameter:Intersection[] optionalTarget] - (optional) target to set the result. Otherwise a new [Array](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Array) is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).
 		</p>
 		<p>
-			Checks all intersection between the ray and the objects with or without the descendants. Intersections are returned sorted by distance, closest first. Intersections are of the same form as those returned by *.intersectObject*.
+			Checks all intersection between the ray and the objects with or without the descendants. Intersections are returned sorted by distance, closest first. Intersections are of the same form as those returned by <i>.intersectObject</i>.
 		</p>
 
 		<h3>[method:void set](  [param:Vector3 origin],  [param:Vector3 direction] )</h3>
@@ -137,7 +139,7 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any coords] - 2D coordinates of the mouse, in normalized device coordinates (NDC)---X and Y components should be between -1 and 1.<br />
-			[parameter:Camera camera] - camera from which the ray should originate Updates the ray with a new origin and direction.
+			[parameter:Camera camera] - The camera.
 		</p>
 		<p>
 			Updates the ray with a new origin and direction.
@@ -181,6 +183,42 @@
 
 		<p class="desc">
 			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="Intersection">Intersection <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:number distance] -  The distance.<br />
+			[property:number distanceToRay]? -  The distance to ray.<br />
+			[property:Face face]? -  The face.<br />
+			[property:number faceIndex]? -  The face index.<br />
+			[property:number index]? -  The index.<br />
+			[property:number instanceId]? -  The instance id.<br />
+			[property:TIntersected object] -  The object.<br />
+			[property:Vector3 point] -  The point.<br />
+			[property:Vector2 uv]? -  The uv.
+		</p>
+
+		<p class="desc">
+			Intersection
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="RaycasterParameters">RaycasterParameters <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:any LOD]? -  The l o d.<br />
+			[property:any Line]? -  The line.<br />
+			[property:any Mesh]? -  The mesh.<br />
+			[property:any Points]? -  The points.<br />
+			[property:any Sprite]? -  The sprite.
+		</p>
+
+		<p class="desc">
+			Raycaster parameters
 		</p>
 
 		<br /><br />

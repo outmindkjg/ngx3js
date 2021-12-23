@@ -12,6 +12,8 @@
 		<p class="desc">
 			Class representing a color.<br />
 			A Color can be initialised in any of the following ways:<br />
+			<br />
+			<h2>Code Example</h2><br />
 			<code data-type="javascript"><br />
 			// empty constructor - will default white<br />
 			const color1 = new THREE.Color();<br />
@@ -106,7 +108,7 @@
 
 		<h3>[method:Color clone](  )</h3>
 		<p>
-			Returns : Returns a new Color with the same *.r*, *.g* and *.b* values as this one.
+			Returns : Returns a new Color with the same <i>.r</i>, <i>.g</i> and <i>.b</i> values as this one.
 		</p>
 
 		<h3>[method:Color convertGammaToLinear](  [param:number gammaFactor]? )</h3>
@@ -115,7 +117,7 @@
 			[parameter:number gammaFactor] - (optional) Default is *2.0*.
 		</p>
 		<p>
-			Converts this color from gamma space to linear space by taking *.r*, *.g* and *.b* to the power of [page:Float gammaFactor].
+			Converts this color from gamma space to linear space by taking <i>.r</i>, <i>.g</i> and <i>.b</i> to the power of [page:Float gammaFactor].
 		</p>
 
 		<h3>[method:Color convertLinearToGamma](  [param:number gammaFactor]? )</h3>
@@ -124,7 +126,7 @@
 			[parameter:number gammaFactor] - (optional) Default is *2.0*.
 		</p>
 		<p>
-			Converts this color from linear space to gamma space by taking *.r*, *.g* and *.b* to the power of 1 / [page:Float gammaFactor].
+			Converts this color from linear space to gamma space by taking <i>.r</i>, <i>.g</i> and <i>.b</i> to the power of 1 / [page:Float gammaFactor].
 		</p>
 
 		<h3>[method:Color convertLinearToSRGB](  )</h3>
@@ -143,7 +145,7 @@
 			[parameter:Color color] - The color.
 		</p>
 		<p>
-			Copies the *.r*, *.g* and *.b* parameters from [page:Color color] in to this color.
+			Copies the <i>.r</i>, <i>.g</i> and <i>.b</i> parameters from [page:Color color] in to this color.
 		</p>
 
 		<h3>[method:Color copyGammaToLinear](  [param:Color color],  [param:number gammaFactor]? )</h3>
@@ -153,7 +155,7 @@
 			[parameter:number gammaFactor] - (optional) Default is *2.0*.
 		</p>
 		<p>
-			Copies the given color into this color, and then converts this color from gamma space to linear space by taking *.r*, *.g* and *.b* to the power of [page:Float gammaFactor].
+			Copies the given color into this color, and then converts this color from gamma space to linear space by taking <i>.r</i>, <i>.g</i> and <i>.b</i> to the power of [page:Float gammaFactor].
 		</p>
 
 		<h3>[method:Color copyLinearToGamma](  [param:Color color],  [param:number gammaFactor]? )</h3>
@@ -163,7 +165,7 @@
 			[parameter:number gammaFactor] - (optional) Default is *2.0*.
 		</p>
 		<p>
-			Copies the given color into this color, and then converts this color from linear space to gamma space by taking *.r*, *.g* and *.b* to the power of 1 / [page:Float gammaFactor].
+			Copies the given color into this color, and then converts this color from linear space to gamma space by taking <i>.r</i>, <i>.g</i> and <i>.b</i> to the power of 1 / [page:Float gammaFactor].
 		</p>
 
 		<h3>[method:Color copyLinearToSRGB](  [param:Color color] )</h3>
@@ -196,7 +198,7 @@
 		<h3>[method:Color fromArray](  [param:ArrayLike|number[] array],  [param:number offset]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:ArrayLike|number[] array] - [Array](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Array) of floats in the form [ [r](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), [g](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), [b](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) ].<br />
+			[parameter:ArrayLike|number[] array] - Array of floats in the form [ [r](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), [g](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float), [b](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Float) ].<br />
 			[parameter:number offset] - (optional) An optional offset into the array.
 		</p>
 		<p>
@@ -206,7 +208,7 @@
 		<h3>[method:Color fromBufferAttribute](  [param:BufferAttribute attribute],  [param:number index] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:BufferAttribute attribute] - the source attribute.<br />
+			[parameter:BufferAttribute attribute] - The source attribute.<br />
 			[parameter:number index] - index in the attribute.
 		</p>
 		<p>
@@ -216,10 +218,10 @@
 		<h3>[method:HSL getHSL](  [param:HSL target] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:HSL target] - the result will be copied into this Object. Adds h, s and l keys to the object (if not already present).
+			[parameter:HSL target] - The result will be copied into this Object. Adds h, s and l keys to the object (if not already present).
 		</p>
 		<p>
-			Convert this Color's *.r*, *.g* and *.b* values to [link:https://en.wikipedia.org/wiki/HSL_and_HSV HSL] format and returns an object of the form: { h: 0, s: 0, l: 0 }
+			Convert this Color's <i>.r</i>, <i>.g</i> and <i>.b</i> values to [link:https://en.wikipedia.org/wiki/HSL_and_HSV HSL] format and returns an object of the form: { h: 0, s: 0, l: 0 }
 		</p>
 
 		<h3>[method:number getHex](  )</h3>
@@ -241,7 +243,7 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Color color] - color to converge on.<br />
-			[parameter:number alpha] - interpolation factor in the closed interval [0, 1].
+			[parameter:number alpha] - The alpha.
 		</p>
 		<p>
 			Linearly interpolates this color's RGB values toward the RGB values of the passed argument.<br />
@@ -251,9 +253,9 @@
 		<h3>[method:Color lerpColors](  [param:Color color1],  [param:Color color2],  [param:number alpha] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:Color color1] - the starting [Color](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Color).<br />
-			[parameter:Color color2] - [Color](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Color) to interpolate towards.<br />
-			[parameter:number alpha] - interpolation factor, typically in the closed interval [0, 1].
+			[parameter:Color color1] - The starting [Color](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Color).<br />
+			[parameter:Color color2] - Color to interpolate towards.<br />
+			[parameter:number alpha] - The alpha.
 		</p>
 		<p>
 			Sets this color to be the color linearly interpolated between [page:Color color1] and [page:Color color2] where alpha is the percent distance along the line connecting the two colors - alpha = 0 will be [page:Color color1], and alpha = 1 will be [page:Color color2].
@@ -263,11 +265,11 @@
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Color color] - color to converge on.<br />
-			[parameter:number alpha] - interpolation factor in the closed interval [0, 1].
+			[parameter:number alpha] - The alpha.
 		</p>
 		<p>
 			Linearly interpolates this color's HSL values toward the HSL values of the passed argument.<br />
-			It differs from the classic *.lerp* by not interpolating straight from one color to the other, but instead going through all the hues in between those two colors.<br />
+			It differs from the classic <i>.lerp</i> by not interpolating straight from one color to the other, but instead going through all the hues in between those two colors.<br />
 			The alpha argument can be thought of as the ratio between the two colors, where 0.0 is this color and 1.0 is the first argument.
 		</p>
 
@@ -298,7 +300,7 @@
 		</p>
 		<p>
 			Adds the given [page:Float h], [page:Float s], and [page:Float l] to this color's values.<br />
-			Internally, this converts the color's *.r*, *.g* and *.b* values to HSL, adds [page:Float h], [page:Float s], and [page:Float l], and then converts the color back to RGB.
+			Internally, this converts the color's <i>.r</i>, <i>.g</i> and <i>.b</i> values to HSL, adds [page:Float h], [page:Float s], and [page:Float l], and then converts the color back to RGB.
 		</p>
 
 		<h3>[method:Color set](  [param:ColorRepresentation color] )</h3>
@@ -308,7 +310,7 @@
 		</p>
 		<p>
 			See the Constructor above for full details of what [link:https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Color_Hex_or_String value] can be.<br />
-			Delegates to *.copy*, *.setStyle*, or *.setHex* depending on input type.
+			Delegates to <i>.copy</i>, <i>.setStyle</i>, or <i>.setHex</i> depending on input type.
 		</p>
 
 		<h3>[method:Color setColorName](  [param:string style] )</h3>
@@ -317,7 +319,7 @@
 			[parameter:string style] - color name ( from [X11 color names](https://en.wikipedia.org/wiki/X11_color_names#Color_name_chart) ).
 		</p>
 		<p>
-			Sets this color from a color name. Faster than *.setStyle* method if you don't need the other CSS-style formats.<br />
+			Sets this color from a color name. Faster than <i>.setStyle</i> method if you don't need the other CSS-style formats.<br />
 			For convenience, the list of names is exposed in Color.NAMES as a hash:<br />
 			Color.NAMES.aliceblue // returns 0xF0F8FF
 		</p>
@@ -336,7 +338,7 @@
 		<h3>[method:Color setHex](  [param:number hex] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number hex] - [hexadecimal triplet](https://en.wikipedia.org/wiki/Web_colors#Hex_triplet) format.
+			[parameter:number hex] - (https://en.wikipedia.org/wiki/Web_colors#Hex_triplet) format.
 		</p>
 		<p>
 			Sets this color from a hexadecimal value.
@@ -356,7 +358,7 @@
 		<h3>[method:Color setScalar](  [param:number scalar] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number scalar] - a value between 0.0 and 1.0.
+			[parameter:number scalar] - A value between 0.0 and 1.0.
 		</p>
 		<p>
 			Sets all three color components to the value [page:Float scalar].
@@ -383,10 +385,10 @@
 			If this results in a negative component, that component is set to zero.
 		</p>
 
-		<h3>[method:number[] toArray](  [param:number[] array]?,  [param:number offset]? )</h3>
+		<h3>[method:number[] toArray](  [param:ArrayLike|number[] array]?,  [param:number offset]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number[] array] - (optional) An optional array to store the color to.<br />
+			[parameter:ArrayLike|number[] array] - (optional) An optional array to store the color to.<br />
 			[parameter:number offset] - (optional) An optional offset into the array.
 		</p>
 		<p>

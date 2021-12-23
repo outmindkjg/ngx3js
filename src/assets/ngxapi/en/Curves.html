@@ -93,6 +93,47 @@
 			None
 		</p>
 
+		<hr class="interface-line"/>
+		[page:Curve] &rarr;
+
+		<h3 id="ExampleCustomCurves">ExampleCustomCurves <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:ExampleCustomCurves ExampleCustomCurves](  [param:number scale]? ) - This constructor creates a new Curve.<br />
+			[constructor:ExampleCustomCurves ExampleCustomCurves](  [param:number scale]? ) - This constructor creates a new Curve.
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:number arcLengthDivisions] - This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via <i>.getLengths</i>.<br />
+			To ensure precision when using methods like <i>.getSpacedPoints</i>, it is recommended to increase <i>.arcLengthDivisions</i> if the curve is very large. Default is 200.<br />
+			[property:number scale] -  The scale.<br />
+			[property:string type] -  The type.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:ExampleCustomCurves clone](  ) - Creates a clone of this instance.<br />
+			[method:void computeFrenetFrames](  [param:number segments],  [param:boolean closed]? ) - Generates the Frenet Frames. Requires a curve definition in 3D space. Used in geometries like [page:TubeGeometry TubeGeometry] or [page:ExtrudeGeometry ExtrudeGeometry].<br />
+			[method:ExampleCustomCurves copy](  [param:Curve source] ) - Copies another Curve object to this instance.<br />
+			[method:ExampleCustomCurves fromJSON](  [param:object json] ) - Copies the data from the given JSON object to this instance.<br />
+			[method:number getLength](  ) - Get total curve arc length.<br />
+			[method:number[] getLengths](  [param:number divisions]? ) - Get list of cumulative segment lengths.<br />
+			[method:Vector3 getPoint](  [param:number t],  [param:Vector3 optionalTarget]? ) - Returns : Returns a vector for a given position on the curve.<br />
+			[method:Vector3 getPointAt](  [param:number u],  [param:Vector3 optionalTarget]? ) - Returns : Returns a vector for a given position on the curve according to the arc length.<br />
+			[method:Vector3[] getPoints](  [param:number divisions]? ) - Returns : Returns a set of divisions + 1 points using getPoint( t ).<br />
+			[method:Vector3[] getSpacedPoints](  [param:number divisions]? ) - Returns : Returns a set of divisions + 1 equi-spaced points using getPointAt( u ).<br />
+			[method:Vector3 getTangent](  [param:number t],  [param:Vector3 optionalTarget]? ) - Returns : Returns a unit vector tangent at t. If the derived curve does not implement its tangent derivation, two points a small delta apart will be used to find its gradient which seems to give a reasonable approximation.<br />
+			[method:Vector3 getTangentAt](  [param:number u],  [param:Vector3 optionalTarget]? ) - Returns : Returns tangent at a point which is equidistant to the ends of the curve from the point given in <i>.getTangent</i>.<br />
+			[method:number getUtoTmapping](  [param:number u],  [param:number distance] ) - Given u in the range ( 0 .. 1 ), returns [page:Float t] also in the range ( 0 .. 1 ). u and t can then be used to give you points which are equidistant from the ends of the curve, using <i>.getPoint</i>.<br />
+			[method:object toJSON](  ) - Returns : Returns a JSON object representation of this instance.<br />
+			[method:void updateArcLengths](  ) - Update the cumlative segment distance cache. The method must be called every time curve parameters are changed.<br />
+			If an updated curve is part of a composed curve like [page:CurvePath CurvePath], <i>.updateArcLengths</i>() must be called on the composed curve, too.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
 		<br /><br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/curves.ts /threejs-library/types/three/examples/curves.ts]</p>

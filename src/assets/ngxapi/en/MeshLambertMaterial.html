@@ -12,14 +12,20 @@
 		<h1>MeshLambertMaterial</h1>
 
 		<p class="desc">
-			
+			A material for non-shiny surfaces, without specular highlights.<br />
+			The material uses a non-physically based [link:https://en.wikipedia.org/wiki/Lambertian_reflectance Lambertian]<br />
+			model for calculating reflectance. This can simulate some surfaces (such as untreated wood or stone) well, but cannot simulate shiny surfaces with specular highlights (such as varnished wood).<br />
+			Shading is calculated using a [link:https://en.wikipedia.org/wiki/Gouraud_shading Gouraud] shading model.<br />
+			This calculates shading per vertex (i.e. in the [link:https://en.wikipedia.org/wiki/Shader#Vertex_shaders vertex shader])<br />
+			and interpolates the results over the polygon's faces.<br />
+			Due to the simplicity of the reflectance and illumination models, performance will be greater when using this material over the [page:MeshPhongMaterial MeshPhongMaterial],	[page:MeshStandardMaterial MeshStandardMaterial] or [page:MeshPhysicalMaterial MeshPhysicalMaterial], at the cost of some graphical accuracy.
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:MeshLambertMaterial MeshLambertMaterial](  [param:MeshLambertMaterialParameters parameters]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:MeshLambertMaterialParameters parameters] - (optional) The parameters.
+			[parameter:MeshLambertMaterialParameters parameters] - (optional) an object with one or more properties defining the material's appearance.
 		</p>
 		<p>
 			Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
@@ -35,72 +41,87 @@
 
 		<h3>[property:Texture alphaMap]</h3>
 		<p>
-			
+			The alpha map is a grayscale texture that controls the opacity across the surface (black: fully transparent; white: fully opaque). Default is null.<br />
+			Only the color of the texture is used, ignoring the alpha channel if one exists.<br />
+			For RGB and RGBA textures, the [page:WebGLRenderer WebGL] renderer will use the green channel when sampling this texture due to the extra bit of precision provided for green in DXT-compressed and uncompressed RGB 565 formats. Luminance-only and luminance/alpha textures will also still work as expected.
 		</p>
 
 		<h3>[property:number alphaTest]</h3>
 		<p>
-			Sets the alpha value to be used when running an alpha test. Default is 0.
+			Sets the alpha value to be used when running an alpha test.<br />
+			The material will not be rendered if the opacity is lower than this value.<br />
+			Default is <i>0</i>.
 		</p>
 
 		<h3>[property:boolean alphaToCoverage]</h3>
 		<p>
-			Enables alpha to coverage. Can only be used with MSAA-enabled rendering contexts.
+			Enables alpha to coverage. Can only be used with MSAA-enabled contexts (meaning when the renderer was created with <i>antialias</i> parameter set to <i>true</i>).<br />
+			Default is <i>false</i>.
 		</p>
 
 		<h3>[property:Texture aoMap]</h3>
 		<p>
-			
+			The red channel of this texture is used as the ambient occlusion map. Default is null.<br />
+			The aoMap requires a second set of UVs.
 		</p>
 
 		<h3>[property:number aoMapIntensity]</h3>
 		<p>
-			
+			Intensity of the ambient occlusion effect. Default is 1. Zero is no occlusion effect.
 		</p>
 
 		<h3>[property:BlendingDstFactor blendDst]</h3>
 		<p>
-			Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.
+			Blending destination. Default is [page:CustomBlendingEquation OneMinusSrcAlphaFactor].<br />
+			See the destination factors [page:CustomBlendingEquation constants] for all possible values.<br />
+			The material's [page:Constant blending] must be set to [page:Materials CustomBlending] for this to have any effect.
 		</p>
 
 		<h3>[property:number blendDstAlpha]</h3>
 		<p>
-			The tranparency of the .blendDst. Default is null.
+			The transparency of the <i>.blendDst</i>. Uses <i>.blendDst</i> value if null. Default is <i>null</i>.
 		</p>
 
 		<h3>[property:BlendingEquation blendEquation]</h3>
 		<p>
-			Blending equation to use when applying blending. It's one of the constants defined in Three.js. Default is {@link AddEquation}.
+			Blending equation to use when applying blending. Default is [page:CustomBlendingEquation AddEquation].<br />
+			See the blending equation [page:CustomBlendingEquation constants] for all possible values.<br />
+			The material's [page:Constant blending] must be set to [page:Materials CustomBlending] for this to have any effect.
 		</p>
 
 		<h3>[property:number blendEquationAlpha]</h3>
 		<p>
-			The tranparency of the .blendEquation. Default is null.
+			The transparency of the <i>.blendEquation</i>. Uses <i>.blendEquation</i> value if null. Default is <i>null</i>.
 		</p>
 
 		<h3>[property:BlendingDstFactor|SrcAlphaSaturateFactor blendSrc]</h3>
 		<p>
-			Blending source. It's one of the blending mode constants defined in Three.js. Default is {@link SrcAlphaFactor}.
+			Blending source. Default is [page:CustomBlendingEquation SrcAlphaFactor].<br />
+			See the source factors [page:CustomBlendingEquation constants] for all possible values.<br />
+			The material's [page:Constant blending] must be set to [page:Materials CustomBlending] for this to have any effect.
 		</p>
 
 		<h3>[property:number blendSrcAlpha]</h3>
 		<p>
-			The tranparency of the .blendSrc. Default is null.
+			The transparency of the <i>.blendSrc</i>. Uses <i>.blendSrc</i> value if null. Default is <i>null</i>.
 		</p>
 
 		<h3>[property:Blending blending]</h3>
 		<p>
-			Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.
+			Which blending to use when displaying objects with this material.<br />
+			This must be set to [page:Materials CustomBlending] to use custom [page:Constant blendSrc], [page:Constant blendDst] or [page:Constant blendEquation].<br />
+			See the blending mode [page:Materials constants] for all possible values. Default is [page:Materials NormalBlending].
 		</p>
 
 		<h3>[property:boolean clipIntersection]</h3>
 		<p>
-			Changes the behavior of clipping planes so that only their intersection is clipped, rather than their union. Default is false.
+			Changes the behavior of clipping planes so that only their intersection is clipped, rather than their union.<br />
+			Default is <i>false</i>.
 		</p>
 
 		<h3>[property:boolean clipShadows]</h3>
 		<p>
-			Defines whether to clip shadows according to the clipping planes specified on this material. Default is false.
+			Defines whether to clip shadows according to the clipping planes specified on this material. Default is <i>false</i>.
 		</p>
 
 		<h3>[property:any clippingPlanes]</h3>
@@ -108,84 +129,90 @@
 			User-defined clipping planes specified as THREE.Plane objects in world space.<br />
 			These planes apply to the objects this material is attached to.<br />
 			Points in space whose signed distance to the plane is negative are clipped (not rendered).<br />
-			See the WebGL / clipping /intersection example. Default is null.
+			This requires [page:WebGLRenderer.localClippingEnabled WebGLRenderer.localClippingEnabled] to be <i>true</i>.<br />
+			See the [example:webgl_clipping_intersection WebGL / clipping /intersection] example.<br />
+			Default is <i>null</i>.
 		</p>
 
 		<h3>[property:Color color]</h3>
 		<p>
-			
+			Color of the material, by default set to white (0xffffff).
 		</p>
 
 		<h3>[property:boolean colorWrite]</h3>
 		<p>
-			Whether to render the material's color. This can be used in conjunction with a mesh's .renderOrder property to create invisible objects that occlude other objects. Default is true.
+			Whether to render the material's color.<br />
+			This can be used in conjunction with a mesh's [page:Integer renderOrder] property to create invisible objects that occlude other objects. Default is <i>true</i>.
 		</p>
 
 		<h3>[property:Combine combine]</h3>
 		<p>
-			
+			How to combine the result of the surface's color with the environment map, if any.<br />
+			Options are [page:Materials THREE.Multiply] (default), [page:Materials THREE.MixOperation],<br />
+			[page:Materials THREE.AddOperation]. If mix is chosen, the <i>.reflectivity</i> is used to blend between the two colors.
 		</p>
 
 		<h3>[property:any defines]</h3>
 		<p>
-			Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI * 2 }.<br />
-			The pairs are defined in both vertex and fragment shaders. Default is undefined.
+			Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI <i> 2 }. The pairs are defined in both vertex and fragment shaders.  Default is </i>undefined*.
 		</p>
 
 		<h3>[property:DepthModes depthFunc]</h3>
 		<p>
-			Which depth to use. Default is {@link LessEqualDepth}. See the depth mode constants for all possible values.
+			Which depth function to use. Default is [page:Materials LessEqualDepth]. See the depth mode [page:Materials constants] for all possible values.
 		</p>
 
 		<h3>[property:boolean depthTest]</h3>
 		<p>
-			Whether to have depth test enabled when rendering this material. Default is true.
+			Whether to have depth test enabled when rendering this material. Default is <i>true</i>.
 		</p>
 
 		<h3>[property:boolean depthWrite]</h3>
 		<p>
-			Whether rendering this material has any effect on the depth buffer. Default is true.<br />
+			Whether rendering this material has any effect on the depth buffer. Default is <i>true</i>.<br />
 			When drawing 2D overlays it can be useful to disable the depth writing in order to layer several things together without creating z-index artifacts.
 		</p>
 
 		<h3>[property:boolean dithering]</h3>
 		<p>
-			Whether to apply dithering to the color to remove the appearance of banding. Default is false.
+			Whether to apply dithering to the color to remove the appearance of banding.<br />
+			Default is <i>false</i>.
 		</p>
 
 		<h3>[property:Color emissive]</h3>
 		<p>
-			
+			Emissive (light) color of the material, essentially a solid color unaffected by other lighting.<br />
+			Default is black.
 		</p>
 
 		<h3>[property:number emissiveIntensity]</h3>
 		<p>
-			
+			Intensity of the emissive light. Modulates the emissive color. Default is 1.
 		</p>
 
 		<h3>[property:Texture emissiveMap]</h3>
 		<p>
-			
+			Set emissive (glow) map. Default is null. The emissive map color is modulated by the emissive color and the emissive intensity. If you have an emissive map, be sure to set the emissive color to something other than black.
 		</p>
 
 		<h3>[property:Texture envMap]</h3>
 		<p>
-			
+			The environment map. Default is null.
 		</p>
 
 		<h3>[property:boolean fog]</h3>
 		<p>
-			Whether the material is affected by fog. Default is true.
+			Whether the material is affected by fog. Default is <i>true</i>.
 		</p>
 
 		<h3>[property:PixelFormat format]</h3>
 		<p>
-			When this property is set to THREE.RGBFormat, the material is considered to be opaque and alpha values are ignored.
+			When this property is set to [page:Textures THREE.RGBFormat], the material is considered to be opaque and alpha values are ignored. Default is [page:Textures THREE.RGBAFormat].
 		</p>
 
 		<h3>[property:number id]</h3>
 		<p>
-			Unique number of this material instance.
+			Unique number for this material instance.
 		</p>
 
 		<h3>[property:any isMaterial]</h3>
@@ -196,142 +223,146 @@
 
 		<h3>[property:Texture lightMap]</h3>
 		<p>
-			
+			The light map. Default is null. The lightMap requires a second set of UVs.
 		</p>
 
 		<h3>[property:number lightMapIntensity]</h3>
 		<p>
-			
+			Intensity of the baked light. Default is 1.
 		</p>
 
 		<h3>[property:Texture map]</h3>
 		<p>
-			
+			The color map. Default is  null.
 		</p>
 
 		<h3>[property:string name]</h3>
 		<p>
-			Material name. Default is an empty string.
+			Optional name of the object (doesn't need to be unique). Default is an empty string.
 		</p>
 
 		<h3>[property:boolean needsUpdate]</h3>
 		<p>
-			Specifies that the material needs to be updated, WebGL wise. Set it to true if you made changes that need to be reflected in WebGL.<br />
-			This property is automatically set to true when instancing a new material.
+			Specifies that the material needs to be recompiled.
 		</p>
 
 		<h3>[property:number opacity]</h3>
 		<p>
-			Opacity. Default is 1.
+			Float in the range of <i>0.0</i> - <i>1.0</i> indicating how transparent the material is.<br />
+			A value of <i>0.0</i> indicates fully transparent, <i>1.0</i> is fully opaque.<br />
+			If the material's [page:Boolean transparent] property is not set to <i>true</i>, the material will remain fully opaque and this value will only affect its color.<br />
+			Default is <i>1.0</i>.
 		</p>
 
 		<h3>[property:boolean polygonOffset]</h3>
 		<p>
-			Whether to use polygon offset. Default is false. This corresponds to the POLYGON_OFFSET_FILL WebGL feature.
+			Whether to use polygon offset. Default is <i>false</i>. This corresponds to the <i>GL_POLYGON_OFFSET_FILL</i> WebGL feature.
 		</p>
 
 		<h3>[property:number polygonOffsetFactor]</h3>
 		<p>
-			Sets the polygon offset factor. Default is 0.
+			Sets the polygon offset factor. Default is <i>0</i>.
 		</p>
 
 		<h3>[property:number polygonOffsetUnits]</h3>
 		<p>
-			Sets the polygon offset units. Default is 0.
+			Sets the polygon offset units. Default is <i>0</i>.
 		</p>
 
 		<h3>[property:'highp'|'mediump'|'lowp' precision]</h3>
 		<p>
-			Override the renderer's default precision for this material. Can be "highp", "mediump" or "lowp". Defaults is null.
+			Override the renderer's default precision for this material. Can be "<i>highp</i>", "<i>mediump</i>" or "<i>lowp</i>".<br />
+			Default is <i>null</i>.
 		</p>
 
 		<h3>[property:boolean premultipliedAlpha]</h3>
 		<p>
-			Whether to premultiply the alpha (transparency) value. See WebGL / Materials / Transparency for an example of the difference. Default is false.
+			Whether to premultiply the alpha (transparency) value.<br />
+			See [Example:webgl_materials_physical_transmission WebGL / Materials / Physical / Transmission] for an example of the difference.<br />
+			Default is <i>false</i>.
 		</p>
 
 		<h3>[property:number reflectivity]</h3>
 		<p>
-			
+			How much the environment map affects the surface; also see <i>.combine</i>.<br />
+			The default value is 1 and the valid range is between 0 (no reflections) and 1 (full reflections).
 		</p>
 
 		<h3>[property:number refractionRatio]</h3>
 		<p>
-			
+			The index of refraction (IOR) of air (approximately 1) divided by the index of refraction of the material.<br />
+			It is used with environment mapping modes [page:Textures THREE.CubeRefractionMapping] and [page:Textures THREE.EquirectangularRefractionMapping].<br />
+			The refraction ratio should not exceed 1. Default is <i>0.98</i>.
 		</p>
 
 		<h3>[property:Side shadowSide]</h3>
 		<p>
-			Defines which of the face sides will cast shadows. Default is *null*.<br />
-			If *null*, the value is opposite that of side, above.
+			Defines which side of faces cast shadows.<br />
+			When set, can be [page:Materials THREE.FrontSide], [page:Materials THREE.BackSide], or [page:Materials THREE.DoubleSide]. Default is <i>null</i>.<br />
+			If <i>null</i>, the side casting shadows is determined as follows:
 		</p>
 
 		<h3>[property:Side side]</h3>
 		<p>
-			Defines which of the face sides will be rendered - front, back or both.<br />
-			Default is THREE.FrontSide. Other options are THREE.BackSide and THREE.DoubleSide.
+			Defines which side of faces will be rendered - front, back or both.<br />
+			Default is [page:Materials THREE.FrontSide].<br />
+			Other options are [page:Materials THREE.BackSide] and [page:Materials THREE.DoubleSide].
 		</p>
 
 		<h3>[property:Texture specularMap]</h3>
 		<p>
-			
+			Specular map used by the material. Default is null.
 		</p>
 
 		<h3>[property:StencilOp stencilFail]</h3>
 		<p>
-			Which stencil operation to perform when the comparison returns false. Default is {@link KeepStencilOp}. See the stencil operation constants for all possible values.
+			Which stencil operation to perform when the comparison function returns false. Default is [page:Materials KeepStencilOp]. See the stencil operations [page:Materials constants] for all possible values.
 		</p>
 
 		<h3>[property:StencilFunc stencilFunc]</h3>
 		<p>
-			The stencil comparison to use. Default is {@link AlwaysStencilFunc}. See stencil operation constants for all possible values.
+			The stencil comparison function to use. Default is [page:Materials AlwaysStencilFunc]. See stencil function [page:Materials constants] for all possible values.
 		</p>
 
 		<h3>[property:number stencilFuncMask]</h3>
 		<p>
-			The bit mask to use when comparing against the stencil buffer. Default is *0xFF*.
+			The bit mask to use when comparing against the stencil buffer. Default is <i>0xFF</i>.
 		</p>
 
 		<h3>[property:number stencilRef]</h3>
 		<p>
-			The value to use when performing stencil comparisons or stencil operations. Default is *0*.
+			The value to use when performing stencil comparisons or stencil operations. Default is <i>0</i>.
 		</p>
 
 		<h3>[property:boolean stencilWrite]</h3>
 		<p>
-			Whether rendering this material has any effect on the stencil buffer. Default is *false*.
+			Whether stencil operations are performed against the stencil buffer. In order to perform writes or comparisons against the stencil buffer this value must be <i>true</i>. Default is <i>false</i>.
 		</p>
 
 		<h3>[property:number stencilWriteMask]</h3>
 		<p>
-			The bit mask to use when writing to the stencil buffer. Default is *0xFF*.
+			The bit mask to use when writing to the stencil buffer. Default is <i>0xFF</i>.
 		</p>
 
 		<h3>[property:StencilOp stencilZFail]</h3>
 		<p>
-			Which stencil operation to perform when the comparison returns true but the depth test fails.<br />
-			Default is {@link KeepStencilOp}.<br />
-			See the stencil operation constants for all possible values.
+			Which stencil operation to perform when the comparison function returns true but the depth test fails. Default is [page:Materials KeepStencilOp]. See the stencil operations [page:Materials constants] for all possible values.
 		</p>
 
 		<h3>[property:StencilOp stencilZPass]</h3>
 		<p>
-			Which stencil operation to perform when the comparison returns true and the depth test passes.<br />
-			Default is {@link KeepStencilOp}.<br />
-			See the stencil operation constants for all possible values.
+			Which stencil operation to perform when the comparison function returns true and the depth test passes. Default is [page:Materials KeepStencilOp]. See the stencil operations [page:Materials constants] for all possible values.
 		</p>
 
 		<h3>[property:boolean toneMapped]</h3>
 		<p>
-			Defines whether this material is tone mapped according to the renderer's toneMapping setting.<br />
-			Default is true.
+			Defines whether this material is tone mapped according to the renderer's [page:WebGLRenderer.toneMapping toneMapping] setting. Default is <i>true</i>.
 		</p>
 
 		<h3>[property:boolean transparent]</h3>
 		<p>
-			Defines whether this material is transparent. This has an effect on rendering as transparent objects need special treatment and are rendered after non-transparent objects.<br />
-			When set to true, the extent to which the material is transparent is controlled by setting it's .opacity property.<br />
-			Default is false.
+			Defines whether this material is transparent. This has an effect on rendering as transparent objects need special treatment and are rendered after non-transparent objects. g When set to true, the extent to which the material is transparent is controlled by setting its [page:Float opacity] property.<br />
+			Default is <i>false</i>.
 		</p>
 
 		<h3>[property:string type]</h3>
@@ -346,42 +377,46 @@
 
 		<h3>[property:string uuid]</h3>
 		<p>
-			UUID of this material instance. This gets automatically assigned, so this shouldn't be edited.
+			[link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this material instance.<br />
+			This gets automatically assigned, so this shouldn't be edited.
 		</p>
 
 		<h3>[property:number version]</h3>
 		<p>
-			This starts at 0 and counts how many times .needsUpdate is set to true.
+			This starts at <i>0</i> and counts how many times [property:Boolean needsUpdate] is set to <i>true</i>.
 		</p>
 
 		<h3>[property:boolean vertexColors]</h3>
 		<p>
-			Defines whether vertex coloring is used. Default is false.
+			Defines whether vertex coloring is used. Default is <i>false</i>.
 		</p>
 
 		<h3>[property:boolean visible]</h3>
 		<p>
-			Defines whether this material is visible. Default is true.
+			Defines whether this material is visible. Default is <i>true</i>.
 		</p>
 
 		<h3>[property:boolean wireframe]</h3>
 		<p>
-			
+			Render geometry as wireframe. Default is <i>false</i> (i.e. render as flat polygons).
 		</p>
 
 		<h3>[property:string wireframeLinecap]</h3>
 		<p>
-			
+			Define appearance of line ends. Possible values are "butt", "round" and "square". Default is 'round'.<br />
+			This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap 2D Canvas lineCap] property and it is ignored by the [page:WebGLRenderer WebGL] renderer.
 		</p>
 
 		<h3>[property:string wireframeLinejoin]</h3>
 		<p>
-			
+			Define appearance of line joints. Possible values are "round", "bevel" and "miter". Default is 'round'.<br />
+			This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin 2D Canvas lineJoin] property and it is ignored by the [page:WebGLRenderer WebGL] renderer.
 		</p>
 
 		<h3>[property:number wireframeLinewidth]</h3>
 		<p>
-			
+			Controls wireframe thickness. Default is 1.<br />
+			Due to limitations of the [link:https://www.khronos.org/registry/OpenGL/specs/gl/glspec46.core.pdf OpenGL Core Profile] with the [page:WebGLRenderer WebGL] renderer on most platforms linewidth will always be 1 regardless of the set value.
 		</p>
 
 		<h2>Methods</h2>
@@ -404,7 +439,7 @@
 
 		<h3>[method:MeshLambertMaterial clone](  )</h3>
 		<p>
-			Return a new material with the same parameters as this material.
+			Returns : Return a new material with the same parameters as this material.
 		</p>
 
 		<h3>[method:MeshLambertMaterial copy](  [param:Material material] )</h3>
@@ -418,7 +453,18 @@
 
 		<h3>[method:string customProgramCacheKey](  )</h3>
 		<p>
-			In case onBeforeCompile is used, this callback can be used to identify values of settings used in onBeforeCompile, so three.js can reuse a cached shader or recompile the shader as needed.
+			In case onBeforeCompile is used, this callback can be used to identify values of settings used in onBeforeCompile, so three.js can reuse a cached shader or recompile the shader for this material as needed.<br />
+			For example, if onBeforeCompile contains a conditional statement like:<br />
+			<code data-type="javascript"><br />
+			if ( black ) {<br />
+				shader.fragmentShader = shader.fragmentShader.replace('gl_FragColor = vec4(1)', 'gl_FragColor = vec4(0)')<br />
+			}<br />
+			// then customProgramCacheKey should be set like this:<br />
+			material.customProgramCacheKey = function() {<br />
+				return black ? '1' : '0';<br />
+			}<br />
+			</code><br />
+			Unlike properties, the callback is not supported by [page:Material.clone .clone](), [page:Material.copy .copy]() and [page:Material.toJSON .toJSON]().
 		</p>
 
 		<h3>[method:void dispatchEvent](  [param:Event event] )</h3>
@@ -432,7 +478,8 @@
 
 		<h3>[method:void dispose](  )</h3>
 		<p>
-			This disposes the material. Textures of a material don't get disposed. These needs to be disposed by {@link Texture}.
+			This disposes the material. Textures of a material don't get disposed.<br />
+			These needs to be disposed by [page:Texture Texture].
 		</p>
 
 		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )</h3>
@@ -453,8 +500,8 @@
 		</p>
 		<p>
 			An optional callback that is executed immediately before the shader program is compiled.<br />
-			This is called with the shader source code as a parameter.<br />
-			Useful for the modification of built-in materials.
+			This function is called with the shader source code as a parameter. Useful for the modification of built-in materials.<br />
+			Unlike properties, the callback is not supported by [page:Material.clone .clone](), [page:Material.copy .copy]() and [page:Material.toJSON .toJSON]().
 		</p>
 
 		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )</h3>
@@ -470,19 +517,19 @@
 		<h3>[method:void setValues](  [param:MeshLambertMaterialParameters parameters] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:MeshLambertMaterialParameters parameters] - The parameters.
+			[parameter:MeshLambertMaterialParameters parameters] - A container with parameters.
 		</p>
 		<p>
-			Sets the properties based on the values.
+			Sets the properties based on the <i>parameters</i>.
 		</p>
 
 		<h3>[method:any toJSON](  [param:any meta]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:any meta] - (optional) Object containing metadata such as textures or images for the material.
+			[parameter:any meta] - (optional) The meta.
 		</p>
 		<p>
-			Convert the material to three.js JSON format.
+			Convert the material to three.js [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].
 		</p>
 
 
@@ -524,6 +571,334 @@
 		<p class="desc">
 			
 		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="Blending">Blending <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:Blending AdditiveBlending] = 2 -  The additive blending.<br />
+			[property:Blending CustomBlending] = 5 -  The custom blending.<br />
+			[property:Blending MultiplyBlending] = 4 -  The multiply blending.<br />
+			[property:Blending NoBlending] = 0 -  The no blending.<br />
+			[property:Blending NormalBlending] = 1 -  The normal blending.<br />
+			[property:Blending SubtractiveBlending] = 3 -  The subtractive blending.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="BlendingDstFactor">BlendingDstFactor <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:BlendingDstFactor DstAlphaFactor] = 206 -  The dst alpha factor.<br />
+			[property:BlendingDstFactor DstColorFactor] = 208 -  The dst color factor.<br />
+			[property:BlendingDstFactor OneFactor] = 201 -  The one factor.<br />
+			[property:BlendingDstFactor OneMinusDstAlphaFactor] = 207 -  The one minus dst alpha factor.<br />
+			[property:BlendingDstFactor OneMinusDstColorFactor] = 209 -  The one minus dst color factor.<br />
+			[property:BlendingDstFactor OneMinusSrcAlphaFactor] = 205 -  The one minus src alpha factor.<br />
+			[property:BlendingDstFactor OneMinusSrcColorFactor] = 203 -  The one minus src color factor.<br />
+			[property:BlendingDstFactor SrcAlphaFactor] = 204 -  The src alpha factor.<br />
+			[property:BlendingDstFactor SrcColorFactor] = 202 -  The src color factor.<br />
+			[property:BlendingDstFactor ZeroFactor] = 200 -  The zero factor.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="BlendingEquation">BlendingEquation <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:BlendingEquation AddEquation] = 100 -  The add equation.<br />
+			[property:BlendingEquation MaxEquation] = 104 -  The max equation.<br />
+			[property:BlendingEquation MinEquation] = 103 -  The min equation.<br />
+			[property:BlendingEquation ReverseSubtractEquation] = 102 -  The reverse subtract equation.<br />
+			[property:BlendingEquation SubtractEquation] = 101 -  The subtract equation.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="Combine">Combine <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:Combine AddOperation] = 2 -  The add operation.<br />
+			[property:Combine MixOperation] = 1 -  The mix operation.<br />
+			[property:Combine MultiplyOperation] = 0 -  The multiply operation.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="DepthModes">DepthModes <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:DepthModes AlwaysDepth] = 1 -  The always depth.<br />
+			[property:DepthModes EqualDepth] = 4 -  The equal depth.<br />
+			[property:DepthModes GreaterDepth] = 6 -  The greater depth.<br />
+			[property:DepthModes GreaterEqualDepth] = 5 -  The greater equal depth.<br />
+			[property:DepthModes LessDepth] = 2 -  The less depth.<br />
+			[property:DepthModes LessEqualDepth] = 3 -  The less equal depth.<br />
+			[property:DepthModes NeverDepth] = 0 -  The never depth.<br />
+			[property:DepthModes NotEqualDepth] = 7 -  The not equal depth.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="PixelFormat">PixelFormat <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:PixelFormat AlphaFormat] = 1021 -  The alpha format.<br />
+			[property:PixelFormat DepthFormat] = 1026 -  The depth format.<br />
+			[property:PixelFormat DepthStencilFormat] = 1027 -  The depth stencil format.<br />
+			[property:PixelFormat LuminanceAlphaFormat] = 1025 -  The luminance alpha format.<br />
+			[property:PixelFormat LuminanceFormat] = 1024 -  The luminance format.<br />
+			[property:PixelFormat RGBAFormat] = 1023 -  The r g b a format.<br />
+			[property:PixelFormat RGBAIntegerFormat] = 1033 -  The r g b a integer format.<br />
+			[property:PixelFormat RGBEFormat] = 1023 -  The r g b e format.<br />
+			[property:PixelFormat RGBFormat] = 1022 -  The r g b format.<br />
+			[property:PixelFormat RGBIntegerFormat] = 1032 -  The r g b integer format.<br />
+			[property:PixelFormat RGFormat] = 1030 -  The r g format.<br />
+			[property:PixelFormat RGIntegerFormat] = 1031 -  The r g integer format.<br />
+			[property:PixelFormat RedFormat] = 1028 -  The red format.<br />
+			[property:PixelFormat RedIntegerFormat] = 1029 -  The red integer format.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="Side">Side <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:Side BackSide] = 1 -  The back side.<br />
+			[property:Side DoubleSide] = 2 -  The double side.<br />
+			[property:Side FrontSide] = 0 -  The front side.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="StencilFunc">StencilFunc <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:StencilFunc AlwaysStencilFunc] = 519 -  The always stencil func.<br />
+			[property:StencilFunc EqualStencilFunc] = 514 -  The equal stencil func.<br />
+			[property:StencilFunc GreaterEqualStencilFunc] = 518 -  The greater equal stencil func.<br />
+			[property:StencilFunc GreaterStencilFunc] = 516 -  The greater stencil func.<br />
+			[property:StencilFunc LessEqualStencilFunc] = 515 -  The less equal stencil func.<br />
+			[property:StencilFunc LessStencilFunc] = 513 -  The less stencil func.<br />
+			[property:StencilFunc NeverStencilFunc] = 512 -  The never stencil func.<br />
+			[property:StencilFunc NotEqualStencilFunc] = 517 -  The not equal stencil func.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="StencilOp">StencilOp <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:StencilOp DecrementStencilOp] = 7683 -  The decrement stencil op.<br />
+			[property:StencilOp DecrementWrapStencilOp] = 34056 -  The decrement wrap stencil op.<br />
+			[property:StencilOp IncrementStencilOp] = 7682 -  The increment stencil op.<br />
+			[property:StencilOp IncrementWrapStencilOp] = 34055 -  The increment wrap stencil op.<br />
+			[property:StencilOp InvertStencilOp] = 5386 -  The invert stencil op.<br />
+			[property:StencilOp KeepStencilOp] = 7680 -  The keep stencil op.<br />
+			[property:StencilOp ReplaceStencilOp] = 7681 -  The replace stencil op.<br />
+			[property:StencilOp ZeroStencilOp] = 0 -  The zero stencil op.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:BaseEvent] &rarr;
+
+		<h3 id="Event">Event <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:any target]? -  The target.<br />
+			[property:string type] -  The type.
+		</p>
+
+		<p class="desc">
+			Event object.
+		</p>
+
+		<hr class="interface-line"/>
+		[page:MaterialParameters] &rarr;
+
+		<h3 id="MeshLambertMaterialParameters">MeshLambertMaterialParameters <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:Texture alphaMap]? - The alpha map is a grayscale texture that controls the opacity across the surface (black: fully transparent; white: fully opaque). Default is null.<br />
+			Only the color of the texture is used, ignoring the alpha channel if one exists.<br />
+			For RGB and RGBA textures, the [page:WebGLRenderer WebGL] renderer will use the green channel when sampling this texture due to the extra bit of precision provided for green in DXT-compressed and uncompressed RGB 565 formats. Luminance-only and luminance/alpha textures will also still work as expected.<br />
+			[property:number alphaTest]? - Sets the alpha value to be used when running an alpha test.<br />
+			The material will not be rendered if the opacity is lower than this value.<br />
+			Default is <i>0</i>.<br />
+			[property:boolean alphaToCoverage]? - Enables alpha to coverage. Can only be used with MSAA-enabled contexts (meaning when the renderer was created with <i>antialias</i> parameter set to <i>true</i>).<br />
+			Default is <i>false</i>.<br />
+			[property:Texture aoMap]? - The red channel of this texture is used as the ambient occlusion map. Default is null.<br />
+			The aoMap requires a second set of UVs.<br />
+			[property:number aoMapIntensity]? - Intensity of the ambient occlusion effect. Default is 1. Zero is no occlusion effect.<br />
+			[property:BlendingDstFactor blendDst]? - Blending destination. Default is [page:CustomBlendingEquation OneMinusSrcAlphaFactor].<br />
+			See the destination factors [page:CustomBlendingEquation constants] for all possible values.<br />
+			The material's [page:Constant blending] must be set to [page:Materials CustomBlending] for this to have any effect.<br />
+			[property:number blendDstAlpha]? - The transparency of the <i>.blendDst</i>. Uses <i>.blendDst</i> value if null. Default is <i>null</i>.<br />
+			[property:BlendingEquation blendEquation]? - Blending equation to use when applying blending. Default is [page:CustomBlendingEquation AddEquation].<br />
+			See the blending equation [page:CustomBlendingEquation constants] for all possible values.<br />
+			The material's [page:Constant blending] must be set to [page:Materials CustomBlending] for this to have any effect.<br />
+			[property:number blendEquationAlpha]? - The transparency of the <i>.blendEquation</i>. Uses <i>.blendEquation</i> value if null. Default is <i>null</i>.<br />
+			[property:BlendingDstFactor|SrcAlphaSaturateFactor blendSrc]? - Blending source. Default is [page:CustomBlendingEquation SrcAlphaFactor].<br />
+			See the source factors [page:CustomBlendingEquation constants] for all possible values.<br />
+			The material's [page:Constant blending] must be set to [page:Materials CustomBlending] for this to have any effect.<br />
+			[property:number blendSrcAlpha]? - The transparency of the <i>.blendSrc</i>. Uses <i>.blendSrc</i> value if null. Default is <i>null</i>.<br />
+			[property:Blending blending]? - Which blending to use when displaying objects with this material.<br />
+			This must be set to [page:Materials CustomBlending] to use custom [page:Constant blendSrc], [page:Constant blendDst] or [page:Constant blendEquation].<br />
+			See the blending mode [page:Materials constants] for all possible values. Default is [page:Materials NormalBlending].<br />
+			[property:boolean clipIntersection]? - Changes the behavior of clipping planes so that only their intersection is clipped, rather than their union.<br />
+			Default is <i>false</i>.<br />
+			[property:boolean clipShadows]? - Defines whether to clip shadows according to the clipping planes specified on this material. Default is <i>false</i>.<br />
+			[property:Plane[] clippingPlanes]? - User-defined clipping planes specified as THREE.Plane objects in world space.<br />
+			These planes apply to the objects this material is attached to.<br />
+			Points in space whose signed distance to the plane is negative are clipped (not rendered).<br />
+			This requires [page:WebGLRenderer.localClippingEnabled WebGLRenderer.localClippingEnabled] to be <i>true</i>.<br />
+			See the [example:webgl_clipping_intersection WebGL / clipping /intersection] example.<br />
+			Default is <i>null</i>.<br />
+			[property:ColorRepresentation color]? - Color of the material, by default set to white (0xffffff).<br />
+			[property:boolean colorWrite]? - Whether to render the material's color.<br />
+			This can be used in conjunction with a mesh's [page:Integer renderOrder] property to create invisible objects that occlude other objects. Default is <i>true</i>.<br />
+			[property:Combine combine]? - How to combine the result of the surface's color with the environment map, if any.<br />
+			Options are [page:Materials THREE.Multiply] (default), [page:Materials THREE.MixOperation],<br />
+			[page:Materials THREE.AddOperation]. If mix is chosen, the <i>.reflectivity</i> is used to blend between the two colors.<br />
+			[property:any defines]? - Custom defines to be injected into the shader. These are passed in form of an object literal, with key/value pairs. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI <i> 2 }. The pairs are defined in both vertex and fragment shaders.  Default is </i>undefined*.<br />
+			[property:DepthModes depthFunc]? - Which depth function to use. Default is [page:Materials LessEqualDepth]. See the depth mode [page:Materials constants] for all possible values.<br />
+			[property:boolean depthTest]? - Whether to have depth test enabled when rendering this material. Default is <i>true</i>.<br />
+			[property:boolean depthWrite]? - Whether rendering this material has any effect on the depth buffer. Default is <i>true</i>.<br />
+			When drawing 2D overlays it can be useful to disable the depth writing in order to layer several things together without creating z-index artifacts.<br />
+			[property:boolean dithering]? - Whether to apply dithering to the color to remove the appearance of banding.<br />
+			Default is <i>false</i>.<br />
+			[property:ColorRepresentation emissive]? - Emissive (light) color of the material, essentially a solid color unaffected by other lighting.<br />
+			Default is black.<br />
+			[property:number emissiveIntensity]? - Intensity of the emissive light. Modulates the emissive color. Default is 1.<br />
+			[property:Texture emissiveMap]? - Set emissive (glow) map. Default is null. The emissive map color is modulated by the emissive color and the emissive intensity. If you have an emissive map, be sure to set the emissive color to something other than black.<br />
+			[property:Texture envMap]? - The environment map. Default is null.<br />
+			[property:boolean fog]? - Whether the material is affected by fog. Default is <i>true</i>.<br />
+			[property:PixelFormat format]? - When this property is set to [page:Textures THREE.RGBFormat], the material is considered to be opaque and alpha values are ignored. Default is [page:Textures THREE.RGBAFormat].<br />
+			[property:Texture lightMap]? - The light map. Default is null. The lightMap requires a second set of UVs.<br />
+			[property:number lightMapIntensity]? - Intensity of the baked light. Default is 1.<br />
+			[property:Texture map]? - The color map. Default is  null.<br />
+			[property:string name]? - Optional name of the object (doesn't need to be unique). Default is an empty string.<br />
+			[property:number opacity]? - Float in the range of <i>0.0</i> - <i>1.0</i> indicating how transparent the material is.<br />
+			A value of <i>0.0</i> indicates fully transparent, <i>1.0</i> is fully opaque.<br />
+			If the material's [page:Boolean transparent] property is not set to <i>true</i>, the material will remain fully opaque and this value will only affect its color.<br />
+			Default is <i>1.0</i>.<br />
+			[property:boolean polygonOffset]? - Whether to use polygon offset. Default is <i>false</i>. This corresponds to the <i>GL_POLYGON_OFFSET_FILL</i> WebGL feature.<br />
+			[property:number polygonOffsetFactor]? - Sets the polygon offset factor. Default is <i>0</i>.<br />
+			[property:number polygonOffsetUnits]? - Sets the polygon offset units. Default is <i>0</i>.<br />
+			[property:'highp'|'mediump'|'lowp' precision]? - Override the renderer's default precision for this material. Can be "<i>highp</i>", "<i>mediump</i>" or "<i>lowp</i>".<br />
+			Default is <i>null</i>.<br />
+			[property:boolean premultipliedAlpha]? - Whether to premultiply the alpha (transparency) value.<br />
+			See [Example:webgl_materials_physical_transmission WebGL / Materials / Physical / Transmission] for an example of the difference.<br />
+			Default is <i>false</i>.<br />
+			[property:number reflectivity]? - How much the environment map affects the surface; also see <i>.combine</i>.<br />
+			The default value is 1 and the valid range is between 0 (no reflections) and 1 (full reflections).<br />
+			[property:number refractionRatio]? - The index of refraction (IOR) of air (approximately 1) divided by the index of refraction of the material.<br />
+			It is used with environment mapping modes [page:Textures THREE.CubeRefractionMapping] and [page:Textures THREE.EquirectangularRefractionMapping].<br />
+			The refraction ratio should not exceed 1. Default is <i>0.98</i>.<br />
+			[property:Side shadowSide]? - Defines which side of faces cast shadows.<br />
+			When set, can be [page:Materials THREE.FrontSide], [page:Materials THREE.BackSide], or [page:Materials THREE.DoubleSide]. Default is <i>null</i>.<br />
+			If <i>null</i>, the side casting shadows is determined as follows:<br />
+			[property:Side side]? - Defines which side of faces will be rendered - front, back or both.<br />
+			Default is [page:Materials THREE.FrontSide].<br />
+			Other options are [page:Materials THREE.BackSide] and [page:Materials THREE.DoubleSide].<br />
+			[property:Texture specularMap]? - Specular map used by the material. Default is null.<br />
+			[property:StencilOp stencilFail]? - Which stencil operation to perform when the comparison function returns false. Default is [page:Materials KeepStencilOp]. See the stencil operations [page:Materials constants] for all possible values.<br />
+			[property:StencilFunc stencilFunc]? - The stencil comparison function to use. Default is [page:Materials AlwaysStencilFunc]. See stencil function [page:Materials constants] for all possible values.<br />
+			[property:number stencilFuncMask]? - The bit mask to use when comparing against the stencil buffer. Default is <i>0xFF</i>.<br />
+			[property:number stencilRef]? - The value to use when performing stencil comparisons or stencil operations. Default is <i>0</i>.<br />
+			[property:boolean stencilWrite]? - Whether stencil operations are performed against the stencil buffer. In order to perform writes or comparisons against the stencil buffer this value must be <i>true</i>. Default is <i>false</i>.<br />
+			[property:number stencilWriteMask]? - The bit mask to use when writing to the stencil buffer. Default is <i>0xFF</i>.<br />
+			[property:StencilOp stencilZFail]? - Which stencil operation to perform when the comparison function returns true but the depth test fails. Default is [page:Materials KeepStencilOp]. See the stencil operations [page:Materials constants] for all possible values.<br />
+			[property:StencilOp stencilZPass]? - Which stencil operation to perform when the comparison function returns true and the depth test passes. Default is [page:Materials KeepStencilOp]. See the stencil operations [page:Materials constants] for all possible values.<br />
+			[property:boolean toneMapped]? - Defines whether this material is tone mapped according to the renderer's [page:WebGLRenderer.toneMapping toneMapping] setting. Default is <i>true</i>.<br />
+			[property:boolean transparent]? - Defines whether this material is transparent. This has an effect on rendering as transparent objects need special treatment and are rendered after non-transparent objects. g When set to true, the extent to which the material is transparent is controlled by setting its [page:Float opacity] property.<br />
+			Default is <i>false</i>.<br />
+			[property:any userData]? - An object that can be used to store custom data about the Material. It should not hold references to functions as these will not be cloned.<br />
+			[property:boolean vertexColors]? - Defines whether vertex coloring is used. Default is <i>false</i>.<br />
+			[property:boolean visible]? - Defines whether this material is visible. Default is <i>true</i>.<br />
+			[property:boolean wireframe]? - Render geometry as wireframe. Default is <i>false</i> (i.e. render as flat polygons).<br />
+			[property:string wireframeLinecap]? - Define appearance of line ends. Possible values are "butt", "round" and "square". Default is 'round'.<br />
+			This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap 2D Canvas lineCap] property and it is ignored by the [page:WebGLRenderer WebGL] renderer.<br />
+			[property:string wireframeLinejoin]? - Define appearance of line joints. Possible values are "round", "bevel" and "miter". Default is 'round'.<br />
+			This corresponds to the [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin 2D Canvas lineJoin] property and it is ignored by the [page:WebGLRenderer WebGL] renderer.<br />
+			[property:number wireframeLinewidth]? - Controls wireframe thickness. Default is 1.<br />
+			Due to limitations of the [link:https://www.khronos.org/registry/OpenGL/specs/gl/glspec46.core.pdf OpenGL Core Profile] with the [page:WebGLRenderer WebGL] renderer on most platforms linewidth will always be 1 regardless of the set value.
+		</p>
+
+		<p class="desc">
+			Mesh lambert material parameters
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="Shader">Shader <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:string fragmentShader] -  The fragment shader.<br />
+			[property:any uniforms] -  The uniforms.<br />
+			[property:string vertexShader] -  The vertex shader.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="EventListener">EventListener <i class="modifier modifier-interface">Type alias</i></h3>
+		<hr class="interface-line"/>
+		<h4>[method:void function](  [param:any event] )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:any event] -  The event.
+		</p>
+		<p>
+			
+		</p>
+
 
 
 		<p class="desc">

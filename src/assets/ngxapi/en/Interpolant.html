@@ -14,7 +14,7 @@
 			The parameter domain is one dimensional, typically the time or a path along a curve defined by the data.<br />
 			The sample values can have any dimensionality and derived classes may apply special interpretations to the data.<br />
 			This class provides the interval seek in a Template Method, deferring the actual interpolation to derived classes.<br />
-			Time complexity is *O(1)* for linear access crossing at most two points and *O(log N)* for random access, where *N* is the number of positions.<br />
+			Time complexity is <i>O(1)</i> for linear access crossing at most two points and <i>O(log N)</i> for random access, where <i>N</i> is the number of positions.<br />
 			References:	[link:http://www.oodesign.com/template-method-pattern.html http://www.oodesign.com/template-method-pattern.html]
 		</p>
 
@@ -22,10 +22,10 @@
 		<h3>[constructor:Interpolant Interpolant](  [param:any parameterPositions],  [param:any sampleValues],  [param:number sampleSize],  [param:any resultBuffer]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:any parameterPositions] - -- array of positions<br />
-			[parameter:any sampleValues] - -- array of samples<br />
-			[parameter:number sampleSize] - -- number of samples<br />
-			[parameter:any resultBuffer] - (optional) -- buffer to store the interpolation results.
+			[parameter:any parameterPositions] - array of positions<br />
+			[parameter:any sampleValues] - array of samples<br />
+			[parameter:number sampleSize] - number of samples<br />
+			[parameter:any resultBuffer] - (optional) buffer to store the interpolation results.
 		</p>
 		<p>
 			Note: This is not designed to be called directly.
@@ -34,22 +34,22 @@
 		<h2>Properties</h2>
 		<h3>[property:any parameterPositions]</h3>
 		<p>
-			array of positions
+			Array of positions
 		</p>
 
 		<h3>[property:any resultBuffer]</h3>
 		<p>
-			buffer to store the interpolation results.
+			Buffer to store the interpolation results.
 		</p>
 
 		<h3>[property:any sampleValues]</h3>
 		<p>
-			array of samples
+			Array of samples
 		</p>
 
 		<h3>[property:number valueSize]</h3>
 		<p>
-			number of samples
+			Number of samples
 		</p>
 
 		<h2>Methods</h2>
@@ -59,7 +59,7 @@
 			[parameter:number time] - The time.
 		</p>
 		<p>
-			Evaluate the interpolant at position *t*.
+			Evaluate the interpolant at position <i>t</i>.
 		</p>
 
 		<br /><br />

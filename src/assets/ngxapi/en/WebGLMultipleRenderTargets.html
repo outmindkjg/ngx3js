@@ -12,17 +12,24 @@
 		<h1>WebGLMultipleRenderTargets</h1>
 
 		<p class="desc">
-			This class originall extended WebGLMultipleRenderTarget<br />
-			However, there are some issues with this method as documented below
+			A special render target that enables a fragment shader to write to several textures.<br />
+			This approach is useful for advanced rendering techniques like post-processing or deferred rendering.<br />
+			Heads up: WebGLMultipleRenderTargets can only be used with a WebGL 2 rendering context.<br />
+			<br />
+			<h3>Preview - webgl2 / multiple / rendertargets</h3><br />
+			<iframe src="#/viewer/webgl2_multiple_rendertargets"></iframe><br />
+			<br />
+			<h2>Examples</h2><br />
+			[example:webgl2_multiple_rendertargets webgl2 / multiple / rendertargets]
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:WebGLMultipleRenderTargets WebGLMultipleRenderTargets](  [param:number width],  [param:number height],  [param:number count] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:number width] - The width.<br />
-			[parameter:number height] - The height.<br />
-			[parameter:number count] - The count.
+			[parameter:number width] - The width of the render target.<br />
+			[parameter:number height] - The height of the render target.<br />
+			[parameter:number count] - The number of render targets.
 		</p>
 		<p>
 			Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
@@ -40,7 +47,8 @@
 
 		<h3>[property:Texture[] texture]</h3>
 		<p>
-			
+			The texture property is overwritten in WebGLMultipleRenderTargets and replaced with an array. This array holds the [page:WebGLRenderTarget.texture texture] references of the respective render targets.<br />
+			[page:WebGLRenderTarget WebGLRenderTarget] properties are available on this class.
 		</p>
 
 		<h2>Methods</h2>
@@ -140,6 +148,39 @@
 		<p class="desc">
 			
 		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:BaseEvent] &rarr;
+
+		<h3 id="Event">Event <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:any target]? -  The target.<br />
+			[property:string type] -  The type.
+		</p>
+
+		<p class="desc">
+			Event object.
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="EventListener">EventListener <i class="modifier modifier-interface">Type alias</i></h3>
+		<hr class="interface-line"/>
+		<h4>[method:void function](  [param:any event] )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:any event] -  The event.
+		</p>
+		<p>
+			
+		</p>
+
 
 
 		<p class="desc">

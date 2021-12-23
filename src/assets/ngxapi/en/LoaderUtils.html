@@ -10,7 +10,7 @@
 		<h1>LoaderUtils</h1>
 
 		<p class="desc">
-			
+			An object with several loader utility functions.
 		</p>
 
 		<p>
@@ -26,29 +26,29 @@
 		<h3>[method:string decodeText](  [param:BufferSource array] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:BufferSource array] - The array.
+			[parameter:BufferSource array] - A stream of bytes as a typed array.
 		</p>
 		<p>
-			
+			The function takes a stream of bytes as input and returns a string representation.
 		</p>
 
 		<h3>[method:string extractUrlBase](  [param:string url] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The url.
+			[parameter:string url] - The url to extract the base url from.
 		</p>
 		<p>
-			
+			Extract the base from the URL.
 		</p>
 
 		<h3>[method:string resolveURL](  [param:string url],  [param:string path] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The url.<br />
-			[parameter:string path] - The path.
+			[parameter:string url] - The absolute or relative url resolve.<br />
+			[parameter:string path] - The base path for relative urls to be resolved against.
 		</p>
 		<p>
-			
+			Resolves relative urls against the given path. Absolute paths, data urls, and blob urls will be returned as is. Invalid urls will return an empty string.
 		</p>
 
 		<br /><br />

@@ -12,17 +12,17 @@
 		<h1>BooleanKeyframeTrack</h1>
 
 		<p class="desc">
-			
+			A Track of boolean keyframe values.
 		</p>
 
 		<h2>Constructor</h2>
 		<h3>[constructor:BooleanKeyframeTrack BooleanKeyframeTrack](  [param:string name],  [param:ArrayLike times],  [param:ArrayLike values],  [param:InterpolationModes interpolation]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string name] - The name.<br />
-			[parameter:ArrayLike times] - The times.<br />
+			[parameter:string name] - The identifier for the *KeyframeTrack*.<br />
+			[parameter:ArrayLike times] - an array with the values related to the times array, converted internally to aa [Float32Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array).<br />
 			[parameter:ArrayLike values] - The values.<br />
-			[parameter:InterpolationModes interpolation] - (optional) The interpolation.
+			[parameter:InterpolationModes interpolation] - (optional) The type of interpolation to use. See [Animation Constants](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Animation) for possible values. Default is [InterpolateLinear](https://outmindkjg.github.io/ngx3js-doc/#/docs/ngxapi/en/Animation).
 		</p>
 		<p>
 			
@@ -40,12 +40,12 @@
 
 		<h3>[property:Float32Array TimeBufferType]</h3>
 		<p>
-			
+			[link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array Float32Array], the type of the buffer internally used for the times.
 		</p>
 
 		<h3>[property:Float32Array ValueBufferType]</h3>
 		<p>
-			
+			[link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array Float32Array], the type of the buffer internally used for the values.
 		</p>
 
 		<h3>[property:string ValueTypeName]</h3>
@@ -55,17 +55,22 @@
 
 		<h3>[property:string name]</h3>
 		<p>
-			
+			The track's name can refer to  morph targets or [page:SkinnedMesh bones] or possibly other values within an animated object. See [page:PropertyBinding.parseTrackName PropertyBinding.parseTrackName] for the forms of strings that can be parsed for property binding:<br />
+			The name can specify the node either using its name or its uuid (although it needs to be in the subtree of the scene graph node passed into the mixer). Or, if the track name starts with a dot, the track applies to the root node that was passed into the mixer.<br />
+			Usually after the node a property will be specified directly. But you can also specify a subproperty, such as .rotation[x], if you just want to drive the X component of the rotation via a float track.<br />
+			You can also specify bones or multimaterials by using an object name, for example: .bones[R_hand].scale; the red channel of the diffuse color of the fourth material in a materials array - as a further example - can be accessed with .materials[3].diffuse[r].<br />
+			PropertyBinding will also resolve morph target names, for example: .morphTargetInfluences[run].<br />
+			Note: The track's name does not necessarily have to be unique. Multiple tracks can drive the same property. The result should be based on a weighted blend between the multiple tracks according to the weights of their respective actions.
 		</p>
 
 		<h3>[property:Float32Array times]</h3>
 		<p>
-			
+			A [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array Float32Array], converted from the times array which is passed in the constructor.
 		</p>
 
 		<h3>[property:Float32Array values]</h3>
 		<p>
-			
+			A [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array Float32Array], converted from the values array which is passed in the constructor.
 		</p>
 
 		<h2>Methods</h2>
@@ -79,7 +84,7 @@
 			[parameter:any result] - The result.
 		</p>
 		<p>
-			
+			Creates a new [page:DiscreteInterpolant DiscreteInterpolant] from the [page:KeyframeTrack.times times] and [page:KeyframeTrack.times values]. A Float32Array can be passed which will receive the results. Otherwise a new array with the appropriate size will be created automatically.
 		</p>
 
 		<h3>[method:LinearInterpolant InterpolantFactoryMethodLinear](  [param:any result] )</h3>
@@ -88,7 +93,7 @@
 			[parameter:any result] - The result.
 		</p>
 		<p>
-			
+			Creates a new [page:LinearInterpolant LinearInterpolant] from the [page:KeyframeTrack.times times] and [page:KeyframeTrack.times values]. A Float32Array can be passed which will receive the results. Otherwise a new array with the appropriate size will be created automatically.
 		</p>
 
 		<h3>[method:CubicInterpolant InterpolantFactoryMethodSmooth](  [param:any result] )</h3>
@@ -97,27 +102,32 @@
 			[parameter:any result] - The result.
 		</p>
 		<p>
-			
+			Create a new [page:CubicInterpolant CubicInterpolant] from the [page:KeyframeTrack.times times] and [page:KeyframeTrack.times values]. A Float32Array can be passed which will receive the results. Otherwise a new array with the appropriate size will be created automatically.
 		</p>
 
 		<h3>[method:BooleanKeyframeTrack clone](  )</h3>
 		<p>
-			
+			Returns : Returns a copy of this track.
+		</p>
+
+		<h3>[method:InterpolationModes createInterpolant](  )</h3>
+		<p>
+			Creates a [page:LinearInterpolant LinearInterpolant], [page:CubicInterpolant CubicInterpolant] or [page:DiscreteInterpolant DiscreteInterpolant], depending on the value of the interpolation parameter passed in the constructor.
 		</p>
 
 		<h3>[method:InterpolationModes getInterpolation](  )</h3>
 		<p>
-			
+			Returns : Returns the interpolation type.
 		</p>
 
 		<h3>[method:number getValueSize](  )</h3>
 		<p>
-			
+			Returns : Returns the size of each value (that is the length of the <i>.values</i> array divided by the length of the <i>.times</i> array).
 		</p>
 
 		<h3>[method:KeyframeTrack optimize](  )</h3>
 		<p>
-			
+			Removes equivalent sequential keys, which are common in morph target sequences.
 		</p>
 
 		<h3>[method:KeyframeTrack scale](  [param:number timeScale] )</h3>
@@ -126,7 +136,8 @@
 			[parameter:number timeScale] - The time scale.
 		</p>
 		<p>
-			
+			Scales all keyframe times by a factor.<br />
+			Note: This is useful, for example, for conversions to a certain rate of frames per seconds (as it is done internally by [page:AnimationClip.CreateFromMorphTargetSequence animationClip.CreateFromMorphTargetSequence]).
 		</p>
 
 		<h3>[method:KeyframeTrack setInterpolation](  [param:InterpolationModes interpolation] )</h3>
@@ -135,7 +146,7 @@
 			[parameter:InterpolationModes interpolation] - The interpolation.
 		</p>
 		<p>
-			
+			Sets the interpolation type. See [page:Animation Animation Constants] for choices.
 		</p>
 
 		<h3>[method:KeyframeTrack shift](  [param:number timeOffset] )</h3>
@@ -144,7 +155,7 @@
 			[parameter:number timeOffset] - The time offset.
 		</p>
 		<p>
-			
+			Moves all keyframes either forward or backward in time.
 		</p>
 
 		<h3>[method:any toJSON](  [param:KeyframeTrack track] )</h3>
@@ -153,7 +164,7 @@
 			[parameter:KeyframeTrack track] - The track.
 		</p>
 		<p>
-			
+			Converts the track to JSON.
 		</p>
 
 		<h3>[method:KeyframeTrack trim](  [param:number startTime],  [param:number endTime] )</h3>
@@ -163,11 +174,17 @@
 			[parameter:number endTime] - The end time.
 		</p>
 		<p>
-			
+			Removes keyframes before <i>startTime</i> and after <i>endTime</i>, without changing any values within the range [<i>startTime</i>, <i>endTime</i>].
 		</p>
 
 		<h3>[method:boolean validate](  )</h3>
 		<p>
+			Performs minimal validation on the tracks. Returns true if valid.<br />
+			This method logs errors to the console, if a track is empty, if the <i>.valueSize</i> is not valid, if an item in the <i>.times</i> or <i>.values</i> array is not a valid number or if the items in the <i>times</i> array are out of order.
+		</p>
+
+
+		<p class="desc">
 			
 		</p>
 
@@ -176,6 +193,15 @@
 			
 		</p>
 
+		<hr class="interface-line"/>
+		<h3 id="InterpolationModes">InterpolationModes <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:InterpolationModes InterpolateDiscrete] = 2300 -  The interpolate discrete.<br />
+			[property:InterpolationModes InterpolateLinear] = 2301 -  The interpolate linear.<br />
+			[property:InterpolationModes InterpolateSmooth] = 2302 -  The interpolate smooth.
+		</p>
 
 		<p class="desc">
 			

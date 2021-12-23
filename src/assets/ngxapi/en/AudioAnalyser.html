@@ -10,7 +10,41 @@
 		<h1>AudioAnalyser</h1>
 
 		<p class="desc">
-			
+			Create a AudioAnalyser object, which uses an [AnalyserNode](https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode)<br />
+			to analyse audio data.<br />
+			<br />
+			<h3>Preview - webaudio / sandbox</h3><br />
+			<iframe src="#/viewer/webaudio_sandbox"></iframe><br />
+			<br />
+			This uses the [link:https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API Web Audio API]<br />
+			<br />
+			<h2>Examples</h2><br />
+			[example:webaudio_sandbox webaudio / sandbox]<br />
+			[example:webaudio_visualizer webaudio / visualizer]<br />
+			<br />
+			<h2>Code Example</h2><br />
+			<code data-type="javascript"><br />
+			//  create an AudioListener and add it to the camera<br />
+			const listener = new THREE.AudioListener();<br />
+			camera.add( listener );<br />
+			//  create an Audio source<br />
+			const sound = new THREE.Audio( listener );<br />
+			//  load a sound and set it as the Audio object's buffer<br />
+			const audioLoader = new THREE.AudioLoader();<br />
+			audioLoader.load(<br />
+				'sounds/ambient.ogg',<br />
+				function( buffer ) {<br />
+					sound.setBuffer( buffer );<br />
+					sound.setLoop(true);<br />
+					sound.setVolume(0.5);<br />
+					sound.play();<br />
+				}<br />
+			);<br />
+			//  create an AudioAnalyser, passing in the sound and desired fftSize<br />
+			const analyser = new THREE.AudioAnalyser( sound, 32 );<br />
+			//  get the average frequency of the sound<br />
+			const data = analyser.getAverageFrequency();<br />
+			</code>
 		</p>
 
 		<h2>Constructor</h2>
@@ -21,38 +55,36 @@
 			[parameter:number fftSize] - (optional) The fft size.
 		</p>
 		<p>
-			
+			Create a new [page:AudioAnalyser AudioAnalyser].
 		</p>
 
 		<h2>Properties</h2>
 		<h3>[property:AnalyserNode analyser]</h3>
 		<p>
-			
+			An [link:https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode AnalyserNode] used to analyze audio.
 		</p>
 
 		<h3>[property:Uint8Array data]</h3>
 		<p>
-			
+			A Uint8Array with size determined by [link:https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/frequencyBinCount analyser.frequencyBinCount] used to hold analysis data.
+		</p>
+
+		<h3>[property:number fftSize]</h3>
+		<p>
+			A non-zero power of two up to 2048, representing the size of the FFT (Fast Fourier Transform) to be used to determine the frequency domain.<br />
+			See [link:https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/fftSize this page] for details.
 		</p>
 
 		<h2>Methods</h2>
 		<h3>[method:number getAverageFrequency](  )</h3>
 		<p>
-			
-		</p>
-
-		<h3>[method:any getData](  [param:any file] )</h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:any file] - The file.
-		</p>
-		<p>
-			deprecated - Use {@link AudioAnalyser#getFrequencyData .getFrequencyData()} instead.
+			Get the average of the frequencies returned by the [page:AudioAnalyser.getFrequencyData getFrequencyData] method.
 		</p>
 
 		<h3>[method:Uint8Array getFrequencyData](  )</h3>
 		<p>
-			
+			Uses the Web Audio's [link:https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/getByteFrequencyData getByteFrequencyData] method.<br />
+			See that page.
 		</p>
 
 

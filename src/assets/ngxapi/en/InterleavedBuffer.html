@@ -16,6 +16,7 @@
 			<h3>Preview - webgl / buffergeometry / points / interleaved</h3><br />
 			<iframe src="#/viewer/webgl_buffergeometry_points_interleaved"></iframe><br />
 			<br />
+			<h2>Examples</h2><br />
 			[example:webgl_buffergeometry_points_interleaved webgl / buffergeometry / points / interleaved]
 		</p>
 
@@ -48,7 +49,7 @@
 
 		<h3>[property:boolean needsUpdate]</h3>
 		<p>
-			Default is *false*. Setting this to true increments [page:InterleavedBuffer.version version].
+			Default is <i>false</i>. Setting this to true increments [page:InterleavedBuffer.version version].
 		</p>
 
 		<h3>[property:number stride]</h3>
@@ -63,7 +64,7 @@
 
 		<h3>[property:Usage usage]</h3>
 		<p>
-			Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the *usage* parameter of [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().
+			Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the <i>usage</i> parameter of [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().
 		</p>
 
 		<h3>[property:string uuid]</h3>
@@ -80,11 +81,11 @@
 		<h3>[method:InterleavedBuffer clone](  [param:object data] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:object data] - The data.
+			[parameter:object data] - This object holds shared array buffers required for properly cloning geometries with interleaved attributes.
+Creates a clone of this InterleavedBuffer.
 		</p>
 		<p>
-			data - This object holds shared array buffers required for properly cloning geometries with interleaved attributes.<br />
-			Creates a clone of this [name].
+			
 		</p>
 
 		<h3>[method:InterleavedBuffer copy](  [param:InterleavedBuffer source] )</h3>
@@ -93,7 +94,7 @@
 			[parameter:InterleavedBuffer source] - The source.
 		</p>
 		<p>
-			Copies another [name] to this [name].
+			Copies another InterleavedBuffer to this InterleavedBuffer.
 		</p>
 
 		<h3>[method:InterleavedBuffer copyAt](  [param:number index1],  [param:InterleavedBufferAttribute attribute],  [param:number index2] )</h3>
@@ -110,12 +111,10 @@
 		<h3>[method:InterleavedBuffer set](  [param:ArrayLike value],  [param:number index] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:ArrayLike value] - The value.<br />
+			[parameter:ArrayLike value] - The source (typed) array.<br />
 			[parameter:number index] - The index.
 		</p>
 		<p>
-			value - The source (typed) array.<br />
-			offset - The offset into the target array at which to begin writing values from the source array. Default is *0*.<br />
 			Stores multiple values in the buffer, reading input values from a specified array.
 		</p>
 
@@ -131,11 +130,10 @@
 		<h3>[method:void toJSON](  [param:object data] )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:object data] - The data.
+			[parameter:object data] - This object holds shared array buffers required for properly serializing geometries with interleaved attributes.
 		</p>
 		<p>
-			data - This object holds shared array buffers required for properly serializing geometries with interleaved attributes.<br />
-			Serializes this [name].
+			Serializes this InterleavedBuffer.
 		</p>
 
 
@@ -153,6 +151,26 @@
 			
 		</p>
 
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="Usage">Usage <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:Usage DynamicCopyUsage] = 35050 -  The dynamic copy usage.<br />
+			[property:Usage DynamicDrawUsage] = 35048 -  The dynamic draw usage.<br />
+			[property:Usage DynamicReadUsage] = 35049 -  The dynamic read usage.<br />
+			[property:Usage StaticCopyUsage] = 35046 -  The static copy usage.<br />
+			[property:Usage StaticDrawUsage] = 35044 -  The static draw usage.<br />
+			[property:Usage StaticReadUsage] = 35045 -  The static read usage.<br />
+			[property:Usage StreamCopyUsage] = 35042 -  The stream copy usage.<br />
+			[property:Usage StreamDrawUsage] = 35040 -  The stream draw usage.<br />
+			[property:Usage StreamReadUsage] = 35041 -  The stream read usage.
+		</p>
 
 		<p class="desc">
 			

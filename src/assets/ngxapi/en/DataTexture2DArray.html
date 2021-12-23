@@ -12,7 +12,48 @@
 		<h1>DataTexture2DArray</h1>
 
 		<p class="desc">
-			
+			Creates an array of textures directly from raw data, width and height and depth. This type of texture can only be used with a WebGL 2 rendering context.<br />
+			<br />
+			<h3>Preview - WebGL2 / materials / texture2darray</h3><br />
+			<iframe src="#/viewer/webgl2_materials_texture2darray"></iframe><br />
+			<br />
+			The data argument must be an [link:https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView ArrayBufferView].<br />
+			The properties inherited from [page:Texture Texture] are the default, except magFilter and minFilter default to THREE.NearestFilter. The properties flipY and generateMipmaps are initially set to false.<br />
+			The interpretation of the data depends on type and format:<br />
+			If the type is THREE.UnsignedByteType, a Uint8Array will be useful for addressing the texel data.<br />
+			If the format is THREE.RGBAFormat, data needs four values for one texel; Red, Green, Blue and Alpha (typically the opacity). Similarly, THREE.RGBFormat specifies a format where only three values are used for each texel.<br />
+			For the packed types, THREE.UnsignedShort4444Type, THREE.UnsignedShort5551Type or THREE.UnsignedShort565Type, all color components of one texel can be addressed as bitfields within an integer element of a Uint16Array.<br />
+			In order to use the types THREE.FloatType and THREE.HalfFloatType, the WebGL implementation must support the respective extensions OES_texture_float and OES_texture_half_float. In order to use THREE.LinearFilter for component-wise, bilinear interpolation of the texels based on these types, the WebGL extensions OES_texture_float_linear or OES_texture_half_float_linear must also be present.<br />
+			<br />
+			<h2>Examples</h2><br />
+			[example:webgl2_materials_texture2darray WebGL2 / materials / texture2darray]<br />
+			<br />
+			<h2>Code Example</h2><br />
+			<code data-type="javascript"><br />
+			This creates a DataTexture2DArray where each texture has a different color.<br />
+			// create a buffer with color data<br />
+			const width = 512;<br />
+			const height = 512;<br />
+			const depth = 100;<br />
+			const size = width <i> height;<br />
+			const data = new Uint8Array( 3 </i> size <i> depth );<br />
+			for ( let i = 0; i &lt; depth; i ++ ) {<br />
+				const color = new THREE.Color( Math.random(), Math.random(), Math.random() );<br />
+				const r = Math.floor( color.r </i> 255 );<br />
+				const g = Math.floor( color.g <i> 255 );<br />
+				const b = Math.floor( color.b </i> 255 );<br />
+				for ( let j = 0; j &lt; size; j ++ ) {<br />
+					const stride = ( i <i> size + j ) </i> 3;<br />
+					data[ stride ] = r;<br />
+					data[ stride + 1 ] = g;<br />
+					data[ stride + 2 ] = b;<br />
+				}<br />
+			}<br />
+			// used the buffer to create a DataTexture2DArray<br />
+			const texture = new THREE.DataTexture2DArray( data, width, height, depth );<br />
+			texture.format = THREE.RGBFormat;<br />
+			texture.needsUpdate = true;<br />
+			</code>
 		</p>
 
 		<h2>Constructor</h2>
@@ -54,32 +95,39 @@
 
 		<h3>[property:number anisotropy]</h3>
 		<p>
-			
+			The number of samples taken along the axis through the pixel that has the highest density of texels.<br />
+			By default, this value is 1. A higher value gives a less blurry result than a basic mipmap, at the cost of more texture samples being used. Use [page:WebGLRenderer.getMaxAnisotropy renderer.getMaxAnisotropy]() to find the maximum valid anisotropy value for the GPU; this value is usually a power of 2.
 		</p>
 
 		<h3>[property:Vector2 center]</h3>
 		<p>
-			
+			The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.
 		</p>
 
 		<h3>[property:TextureEncoding encoding]</h3>
 		<p>
-			
+			THREE.LinearEncoding THREE.sRGBEncoding THREE.GammaEncoding THREE.RGBEEncoding THREE.RGBDEncoding THREE.BasicDepthPacking THREE.RGBADepthPacking<br />
+			For use with a Texture's [page:Texture.encoding encoding]	property.<br />
+			If the encoding type is changed after the texture has already been used by a material, you will need to set [page:Material.needsUpdate Material.needsUpdate] to <i>true</i> to make the material recompile.<br />
+			[page:constant LinearEncoding] is the default.<br />
+			Values other than this are only valid for a material's map, envMap and emissiveMap.
 		</p>
 
 		<h3>[property:boolean flipY]</h3>
 		<p>
-			
+			False by default. Flipping textures does not work for compressed textures.
 		</p>
 
 		<h3>[property:PixelFormat format]</h3>
 		<p>
-			
+			The default is [page:Textures THREE.RGBAFormat], although the [page:TextureLoader TextureLoader] will automatically set this to [page:Textures THREE.RGBFormat] for JPG images.<br />
+			See the [page:Textures texture constants] page for details of other formats.
 		</p>
 
 		<h3>[property:boolean generateMipmaps]</h3>
 		<p>
-			
+			False by default. Mipmaps can't be generated for compressed textures &lt;h2&gt;Methods&lt;/h2&gt;<br />
+			See the base [page:Texture Texture] class for common methods.
 		</p>
 
 		<h3>[property:number id]</h3>
@@ -94,7 +142,9 @@
 
 		<h3>[property:PixelFormatGPU internalFormat]</h3>
 		<p>
-			
+			The default value is obtained using a combination of [page:Texture.format .format] and [page:Texture.type .type].<br />
+			The GPU format allows the developer to specify how the data is going to be stored on the GPU.<br />
+			See the [page:Textures texture constants] page for details regarding all supported internal formats.
 		</p>
 
 		<h3>[property:any isDataTexture2DArray]</h3>
@@ -114,37 +164,46 @@
 
 		<h3>[property:TextureFilter magFilter]</h3>
 		<p>
-			
+			How the texture is sampled when a texel covers more than one pixel. The default is  [page:Textures THREE.LinearFilter], which takes the four closest texels and bilinearly interpolates among them.<br />
+			The other option is [page:Textures THREE.NearestFilter], which uses the value of the closest texel.<br />
+			See the [page:Textures texture constants] page for details.
 		</p>
 
 		<h3>[property:Mapping mapping]</h3>
 		<p>
-			
+			How the image is applied to the object. An object type of [page:Textures THREE.UVMapping] is the default, where the U,V coordinates are used to apply the map.<br />
+			See the [page:Textures texture constants] page for other mapping types.
 		</p>
 
 		<h3>[property:Matrix3 matrix]</h3>
 		<p>
-			
+			The uv-transform matrix for the texture. Updated by the renderer from the texture properties [page:Texture.offset .offset], [page:Texture.repeat .repeat],<br />
+			[page:Texture.rotation .rotation], and [page:Texture.center .center] when the texture's [page:Texture.matrixAutoUpdate .matrixAutoUpdate] property is true.<br />
+			When [page:Texture.matrixAutoUpdate .matrixAutoUpdate] property is false, this matrix may be set manually.<br />
+			Default is the identity matrix.
 		</p>
 
 		<h3>[property:boolean matrixAutoUpdate]</h3>
 		<p>
-			
+			Whether to update the texture's uv-transform [page:Texture.matrix .matrix] from the texture properties [page:Texture.offset .offset], [page:Texture.repeat .repeat],<br />
+			[page:Texture.rotation .rotation], and [page:Texture.center .center]. True by default.<br />
+			Set this to false if you are specifying the uv-transform matrix directly.
 		</p>
 
 		<h3>[property:TextureFilter minFilter]</h3>
 		<p>
-			
+			How the texture is sampled when a texel covers less than one pixel. The default is [page:Textures THREE.LinearMipmapLinearFilter], which uses mipmapping and a trilinear filter.<br />
+			See the [page:Textures texture constants] page for all possible choices.
 		</p>
 
 		<h3>[property:any[] mipmaps]</h3>
 		<p>
-			
+			Array of user-specified mipmaps (optional).
 		</p>
 
 		<h3>[property:string name]</h3>
 		<p>
-			
+			Optional name of the object (doesn't need to be unique). Default is an empty string.
 		</p>
 
 		<h3>[property:boolean needsUpdate]</h3>
@@ -154,22 +213,26 @@
 
 		<h3>[property:Vector2 offset]</h3>
 		<p>
-			
+			How much a single repetition of the texture is offset from the beginning, in each direction U and V.<br />
+			Typical range is <i>0.0</i> to <i>1.0</i>.<br />
+			The below texture types share the <i>first</i> uv channel in the engine. The offset (and repeat) setting is evaluated according to the following priorities and then shared by those textures:
 		</p>
 
 		<h3>[property:boolean premultiplyAlpha]</h3>
 		<p>
-			
+			If set to <i>true</i>, the alpha channel, if present, is multiplied into the color channels when the texture is uploaded to the GPU. Default is <i>false</i>.<br />
+			Note that this property has no effect for [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap].<br />
+			You need to configure on bitmap creation instead. See [page:ImageBitmapLoader ImageBitmapLoader].
 		</p>
 
 		<h3>[property:Vector2 repeat]</h3>
 		<p>
-			
+			How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set greater than 1 in either direction, the corresponding Wrap parameter should also be set to [page:Textures THREE.RepeatWrapping] or [page:Textures THREE.MirroredRepeatWrapping] to achieve the desired tiling effect. Setting different repeat values for textures is restricted in the same way like <i>.offset</i>.
 		</p>
 
 		<h3>[property:number rotation]</h3>
 		<p>
-			
+			How much the texture is rotated around the center point, in radians. Positive values are counter-clockwise. Default is <i>0</i>.
 		</p>
 
 		<h3>[property:string sourceFile]</h3>
@@ -179,12 +242,16 @@
 
 		<h3>[property:TextureDataType type]</h3>
 		<p>
-			
+			This must correspond to the [page:Texture.format .format]. The default is [page:Textures THREE.UnsignedByteType], which will be used for most texture formats.<br />
+			See the [page:Textures texture constants] page for details of other formats.
 		</p>
 
 		<h3>[property:number unpackAlignment]</h3>
 		<p>
-			
+			4 by default. Specifies the alignment requirements for the start of each pixel row in memory.<br />
+			The allowable values are 1 (byte-alignment), 2 (rows aligned to even-numbered bytes),<br />
+			4 (word-alignment), and 8 (rows start on double-word boundaries).<br />
+			See [link:http://www.khronos.org/opengles/sdk/docs/man/xhtml/glPixelStorei.xml glPixelStorei] for more information.
 		</p>
 
 		<h3>[property:any userData]</h3>
@@ -194,7 +261,8 @@
 
 		<h3>[property:string uuid]</h3>
 		<p>
-			
+			[link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this object instance.<br />
+			This gets automatically assigned, so this shouldn't be edited.
 		</p>
 
 		<h3>[property:number version]</h3>
@@ -209,12 +277,19 @@
 
 		<h3>[property:Wrapping wrapS]</h3>
 		<p>
-			
+			This defines how the texture is wrapped horizontally and corresponds to <i>U</i> in UV mapping.<br />
+			The default is [page:Textures THREE.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.<br />
+			The other two choices are [page:Textures THREE.RepeatWrapping] and [page:Textures THREE.MirroredRepeatWrapping].<br />
+			See the [page:Textures texture constants] page for details.
 		</p>
 
 		<h3>[property:Wrapping wrapT]</h3>
 		<p>
-			
+			This defines how the texture is wrapped vertically and corresponds to <i>V</i> in UV mapping.<br />
+			The same choices are available as for [property:number wrapS].<br />
+			NOTE: tiling of images in textures only functions if image dimensions are powers of two  (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...) in terms of pixels.<br />
+			Individual dimensions need not be equal, but each must be a power of two.<br />
+			This is a limitation of WebGL, not three.js.
 		</p>
 
 		<h2>Methods</h2>
@@ -237,7 +312,8 @@
 
 		<h3>[method:DataTexture2DArray clone](  )</h3>
 		<p>
-			
+			Make copy of the texture. Note this is not a "deep copy", the image is shared.<br />
+			Besides, cloning a texture does not automatically mark it for a texture upload. You have to set [page:Texture.needsUpdate Texture.needsUpdate] to true as soon as its image property (the data source) is fully loaded or ready.
 		</p>
 
 		<h3>[method:DataTexture2DArray copy](  [param:Texture source] )</h3>
@@ -246,7 +322,7 @@
 			[parameter:Texture source] - The source.
 		</p>
 		<p>
-			
+			Returns : copy
 		</p>
 
 		<h3>[method:void dispatchEvent](  [param:Event event] )</h3>
@@ -260,7 +336,7 @@
 
 		<h3>[method:void dispose](  )</h3>
 		<p>
-			
+			Frees the GPU related resources allocated by a texture. Call this method whenever a texture is no longer used in your app.
 		</p>
 
 		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )</h3>
@@ -294,7 +370,7 @@
 			[parameter:any meta] - The meta.
 		</p>
 		<p>
-			
+			Convert the texture to three.js [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].
 		</p>
 
 		<h3>[method:Vector2 transformUv](  [param:Vector2 uv] )</h3>
@@ -303,38 +379,202 @@
 			[parameter:Vector2 uv] - The uv.
 		</p>
 		<p>
-			
+			Transform the uv based on the value of this texture's [page:Texture.offset .offset], [page:Texture.repeat .repeat],<br />
+			[page:Texture.wrapS .wrapS], [page:Texture.wrapT .wrapT] and [page:Texture.flipY .flipY] properties.
 		</p>
 
 		<h3>[method:void updateMatrix](  )</h3>
+		<p>
+			Update the texture's uv-transform [page:Texture.matrix .matrix] from the texture properties [page:Texture.offset .offset], [page:Texture.repeat .repeat],<br />
+			[page:Texture.rotation .rotation], and [page:Texture.center .center].
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="Mapping">Mapping <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:Mapping CubeReflectionMapping] = 301 -  The cube reflection mapping.<br />
+			[property:Mapping CubeRefractionMapping] = 302 -  The cube refraction mapping.<br />
+			[property:Mapping CubeUVReflectionMapping] = 306 -  The cube u v reflection mapping.<br />
+			[property:Mapping CubeUVRefractionMapping] = 307 -  The cube u v refraction mapping.<br />
+			[property:Mapping EquirectangularReflectionMapping] = 303 -  The equirectangular reflection mapping.<br />
+			[property:Mapping EquirectangularRefractionMapping] = 304 -  The equirectangular refraction mapping.<br />
+			[property:Mapping UVMapping] = 300 -  The u v mapping.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="PixelFormat">PixelFormat <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:PixelFormat AlphaFormat] = 1021 -  The alpha format.<br />
+			[property:PixelFormat DepthFormat] = 1026 -  The depth format.<br />
+			[property:PixelFormat DepthStencilFormat] = 1027 -  The depth stencil format.<br />
+			[property:PixelFormat LuminanceAlphaFormat] = 1025 -  The luminance alpha format.<br />
+			[property:PixelFormat LuminanceFormat] = 1024 -  The luminance format.<br />
+			[property:PixelFormat RGBAFormat] = 1023 -  The r g b a format.<br />
+			[property:PixelFormat RGBAIntegerFormat] = 1033 -  The r g b a integer format.<br />
+			[property:PixelFormat RGBEFormat] = 1023 -  The r g b e format.<br />
+			[property:PixelFormat RGBFormat] = 1022 -  The r g b format.<br />
+			[property:PixelFormat RGBIntegerFormat] = 1032 -  The r g b integer format.<br />
+			[property:PixelFormat RGFormat] = 1030 -  The r g format.<br />
+			[property:PixelFormat RGIntegerFormat] = 1031 -  The r g integer format.<br />
+			[property:PixelFormat RedFormat] = 1028 -  The red format.<br />
+			[property:PixelFormat RedIntegerFormat] = 1029 -  The red integer format.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="TextureDataType">TextureDataType <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:TextureDataType ByteType] = 1010 -  The byte type.<br />
+			[property:TextureDataType FloatType] = 1015 -  The float type.<br />
+			[property:TextureDataType HalfFloatType] = 1016 -  The half float type.<br />
+			[property:TextureDataType IntType] = 1013 -  The int type.<br />
+			[property:TextureDataType ShortType] = 1011 -  The short type.<br />
+			[property:TextureDataType UnsignedByteType] = 1009 -  The unsigned byte type.<br />
+			[property:TextureDataType UnsignedInt248Type] = 1020 -  The unsigned int248 type.<br />
+			[property:TextureDataType UnsignedIntType] = 1014 -  The unsigned int type.<br />
+			[property:TextureDataType UnsignedShort4444Type] = 1017 -  The unsigned short4444 type.<br />
+			[property:TextureDataType UnsignedShort5551Type] = 1018 -  The unsigned short5551 type.<br />
+			[property:TextureDataType UnsignedShort565Type] = 1019 -  The unsigned short565 type.<br />
+			[property:TextureDataType UnsignedShortType] = 1012 -  The unsigned short type.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="TextureEncoding">TextureEncoding <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:TextureEncoding GammaEncoding] = 3007 -  The gamma encoding.<br />
+			[property:TextureEncoding LinearEncoding] = 3000 -  The linear encoding.<br />
+			[property:TextureEncoding RGBDEncoding] = 3006 -  The r g b d encoding.<br />
+			[property:TextureEncoding RGBEEncoding] = 3002 -  The r g b e encoding.<br />
+			[property:TextureEncoding RGBM16Encoding] = 3005 -  The r g b m16 encoding.<br />
+			[property:TextureEncoding RGBM7Encoding] = 3004 -  The r g b m7 encoding.<br />
+			[property:TextureEncoding sRGBEncoding] = 3001 -  The s r g b encoding.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="TextureFilter">TextureFilter <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:TextureFilter LinearFilter] = 1006 -  The linear filter.<br />
+			[property:TextureFilter LinearMipMapLinearFilter] = 1008 -  The linear mip map linear filter.<br />
+			[property:TextureFilter LinearMipMapNearestFilter] = 1007 -  The linear mip map nearest filter.<br />
+			[property:TextureFilter LinearMipmapLinearFilter] = 1008 -  The linear mipmap linear filter.<br />
+			[property:TextureFilter LinearMipmapNearestFilter] = 1007 -  The linear mipmap nearest filter.<br />
+			[property:TextureFilter NearestFilter] = 1003 -  The nearest filter.<br />
+			[property:TextureFilter NearestMipMapLinearFilter] = 1005 -  The nearest mip map linear filter.<br />
+			[property:TextureFilter NearestMipMapNearestFilter] = 1004 -  The nearest mip map nearest filter.<br />
+			[property:TextureFilter NearestMipmapLinearFilter] = 1005 -  The nearest mipmap linear filter.<br />
+			[property:TextureFilter NearestMipmapNearestFilter] = 1004 -  The nearest mipmap nearest filter.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="Wrapping">Wrapping <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:Wrapping ClampToEdgeWrapping] = 1001 -  The clamp to edge wrapping.<br />
+			[property:Wrapping MirroredRepeatWrapping] = 1002 -  The mirrored repeat wrapping.<br />
+			[property:Wrapping RepeatWrapping] = 1000 -  The repeat wrapping.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line"/>
+		[page:BaseEvent] &rarr;
+
+		<h3 id="Event">Event <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line"/>
+		<h4>Properties</h4>
+		<p>
+			[property:any target]? -  The target.<br />
+			[property:string type] -  The type.
+		</p>
+
+		<p class="desc">
+			Event object.
+		</p>
+
+		<hr class="interface-line"/>
+		<h3 id="EventListener">EventListener <i class="modifier modifier-interface">Type alias</i></h3>
+		<hr class="interface-line"/>
+		<h4>[method:void function](  [param:any event] )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:any event] -  The event.
+		</p>
 		<p>
 			
 		</p>
 
 
-		<p class="desc">
-			
-		</p>
-
 
 		<p class="desc">
 			
 		</p>
 
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
-
-
-		<p class="desc">
-			
-		</p>
+		<hr class="interface-line"/>
+		<h3 id="PixelFormatGPU">PixelFormatGPU <i class="modifier modifier-interface">Type alias</i></h3>
+		<hr class="interface-line"/>
+		<h3>[property:'ALPHA'|'RGB'|'RGBA'|'LUMINANCE'|'LUMINANCE_ALPHA'|'RED_INTEGER'|'R8'|'R8_SNORM'|'R8I'|'R8UI'|'R16I'|'R16UI'|'R16F'|'R32I'|'R32UI'|'R32F'|'RG8'|'RG8_SNORM'|'RG8I'|'RG8UI'|'RG16I'|'RG16UI'|'RG16F'|'RG32I'|'RG32UI'|'RG32F'|'RGB565'|'RGB8'|'RGB8_SNORM'|'RGB8I'|'RGB8UI'|'RGB16I'|'RGB16UI'|'RGB16F'|'RGB32I'|'RGB32UI'|'RGB32F'|'RGB9_E5'|'SRGB8'|'R11F_G11F_B10F'|'RGBA4'|'RGBA8'|'RGBA8_SNORM'|'RGBA8I'|'RGBA8UI'|'RGBA16I'|'RGBA16UI'|'RGBA16F'|'RGBA32I'|'RGBA32UI'|'RGBA32F'|'RGB5_A1'|'RGB10_A2'|'RGB10_A2UI'|'SRGB8_ALPHA8'|'DEPTH_COMPONENT16'|'DEPTH_COMPONENT24'|'DEPTH_COMPONENT32F'|'DEPTH24_STENCIL8'|'DEPTH32F_STENCIL8' PixelFormatGPU]</h3>
 
 
 		<p class="desc">
