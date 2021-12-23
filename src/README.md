@@ -8,6 +8,7 @@ ngx3js
 
 The aim of the project is to create an easy to use, lightweight, cross-browser, general purpose 3D library in angular. The current builds only include a WebGL renderer but WebGPU (experimental), SVG and CSS3D renderers are also available in the examples.
 
+[Home](https://outmindkjg.github.io/ngx3js-doc/#) &mdash;
 [Examples](https://outmindkjg.github.io/ngx3js-doc/#/examples/) &mdash;
 [Documentation](https://outmindkjg.github.io/ngx3js-doc/#/docs) &mdash;
 [API Documentation](https://outmindkjg.github.io/ngx3js-doc/docs)
@@ -36,11 +37,6 @@ npm install --save ngx3js
 npm install --save three@0.135.0
 npm install --save-dev @types/three@0.135.0
 npm install --save gsap
-npm install --save lil-gui
-npm install --save chroma-js
-npm install --save-dev @types/chroma-js
-npm install --save fs
-npm install --save fs-web
 ```
 
 
@@ -99,9 +95,6 @@ the assets url can be changed by your site.
       "architect": {
         "build": {
           "options": {
-            "allowedCommonJsDependencies" : [
-              "fs"
-            ],
             "assets": [
                 {
                     "glob": "**/*",
@@ -120,7 +113,7 @@ the assets url can be changed by your site.
 }
 ```
 
-### Change tsconfig.json for fs ####
+### Change tsconfig.json for fs - optional####
 
 // tsconfig.json
 ```json
