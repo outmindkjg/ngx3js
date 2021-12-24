@@ -12,7 +12,20 @@
 		<h1>FBXLoader</h1>
 
 		<p class="desc">
-			
+			Fbxloader<br />
+			See the [page:FBXLoader ngx3js docs] page for details.<br />
+			<br />
+			<h3>Preview - webgl / loader / fbx / nurbs</h3><br />
+			<iframe src="#/viewer/webgl_loader_fbx_nurbs"></iframe><br />
+			<br />
+			<h2>Examples</h2><br />
+			[example:webgl_loader_fbx_nurbs webgl / loader / fbx / nurbs] |<br />
+			[example:webgl_loader_fbx webgl / loader / fbx] |<br />
+			[example:webgl_materials_nodes_playground webgl / materials / nodes / playground] |<br />
+			[example:webgl_materials_subsurface_scattering webgl / materials / subsurface / scattering] |<br />
+			[example:webgpu_nodes_playground webgpu / nodes / playground] |<br />
+			[example:webgpu_skinning_points webgpu / skinning / points] |<br />
+			[example:webgpu_skinning webgpu / skinning]
 		</p>
 
 		<h2>Constructor</h2>
@@ -72,23 +85,23 @@
 		<h3>[method:void load](  [param:string url],  [param:any onLoad],  [param:any onProgress]?,  [param:any onError]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The url.<br />
-			[parameter:any onLoad] - The on load.<br />
-			[parameter:any onProgress] - (optional) The on progress.<br />
-			[parameter:any onError] - (optional) The on error.
+			[parameter:string url] - The path or URL to the file.<br />
+			[parameter:any onLoad] - Will be called when load completes.<br />
+			[parameter:any onProgress] - (optional) Will be called while load progresses.<br />
+			[parameter:any onError] - (optional) Will be called when load errors.
 		</p>
 		<p>
-			
+			Begin loading from url.
 		</p>
 
 		<h3>[method:Promise loadAsync](  [param:string url],  [param:any onProgress]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The url.<br />
-			[parameter:any onProgress] - (optional) The on progress.
+			[parameter:string url] - The path or URL to the file.<br />
+			[parameter:any onProgress] - (optional) Will be called while load progresses.
 		</p>
 		<p>
-			
+			Begin loading from url.
 		</p>
 
 		<h3>[method:Group parse](  [param:string|ArrayBuffer FBXBuffer],  [param:string path] )</h3>

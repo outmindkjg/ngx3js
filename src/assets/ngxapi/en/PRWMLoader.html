@@ -12,7 +12,14 @@
 		<h1>PRWMLoader</h1>
 
 		<p class="desc">
-			
+			Prwmloader<br />
+			See the [page:PRWMLoader ngx3js docs] page for details.<br />
+			<br />
+			<h3>Preview - webgl / loader / prwm</h3><br />
+			<iframe src="#/viewer/webgl_loader_prwm"></iframe><br />
+			<br />
+			<h2>Examples</h2><br />
+			[example:webgl_loader_prwm webgl / loader / prwm]
 		</p>
 
 		<h2>Constructor</h2>
@@ -77,23 +84,23 @@
 		<h3>[method:void load](  [param:string url],  [param:any onLoad],  [param:any onProgress]?,  [param:any onError]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The url.<br />
-			[parameter:any onLoad] - The on load.<br />
-			[parameter:any onProgress] - (optional) The on progress.<br />
-			[parameter:any onError] - (optional) The on error.
+			[parameter:string url] - The path or URL to the file.<br />
+			[parameter:any onLoad] - Will be called when load completes.<br />
+			[parameter:any onProgress] - (optional) Will be called while load progresses.<br />
+			[parameter:any onError] - (optional) Will be called when load errors.
 		</p>
 		<p>
-			
+			Begin loading from url.
 		</p>
 
 		<h3>[method:Promise loadAsync](  [param:string url],  [param:any onProgress]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string url] - The url.<br />
-			[parameter:any onProgress] - (optional) The on progress.
+			[parameter:string url] - The path or URL to the file.<br />
+			[parameter:any onProgress] - (optional) Will be called while load progresses.
 		</p>
 		<p>
-			
+			Begin loading from url.
 		</p>
 
 		<h3>[method:BufferGeometry parse](  [param:ArrayBuffer data] )</h3>
