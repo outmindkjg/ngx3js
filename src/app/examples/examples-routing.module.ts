@@ -1587,6 +1587,7 @@ const routes: Routes = [
 	{ path: 'ngx_scene', component: NgxSceneComponent },
 	{ path: 'ngx_renderer', component: NgxRendererComponent },
 	{ path: 'ngx_camera', component: NgxCameraComponent },
+	{ path: 'ngx_camera/:type', component: NgxCameraComponent },
 	{ path: 'ngx_pipes', component: NgxPipesComponent },
 	{ path: 'ngx_directives', component: NgxDirectivesComponent },
 	{ path: 'ngx_physics', component: NgxPhysicsComponent },

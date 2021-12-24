@@ -191,7 +191,7 @@
 		<h3>[property:string controlType] &nbsp; = 'none' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of control<br />
-			Notice - case insensitive.
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> FlyControls </td><td> FlyControls, Fly </td></tr> <tr><td> FirstPersonControls </td><td> FirstPersonControls, FirstPerson </td></tr> <tr><td> DeviceOrientationControls </td><td> DeviceOrientationControls, DeviceOrientation </td></tr> <tr><td> DragControls </td><td> DragControls, Drag </td></tr> <tr><td> TransformControls </td><td> TransformControls, Transform </td></tr> <tr><td> TrackballControls </td><td> TrackballControls, Trackball </td></tr> <tr><td> ArcballControls </td><td> ArcballControls, Arcball </td></tr> <tr><td> CSM </td><td> CSM </td></tr> <tr><td> PlaneControls </td><td> PlaneControls, Plane </td></tr> <tr><td> OrbitControls </td><td> OrbitControls, Orbit </td></tr> </table>
 		</p>
 
 		<h3>[property:string cssClass] &nbsp; = '' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -202,7 +202,8 @@
 		<h3>[property:string cssType] &nbsp; = 'none' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of css renderer<br />
-			Notice - case insensitive.
+			<table><thead><tr></th><th>   Three Type               </th><th> Value String(case insensitive) </th><th></tr></thead><tbody> <tr></td><td> CSS2DRenderer </td><td> CSS2DRenderer, CSS2D, 2D </td><td></tr> <tr></td><td> CSS3DRenderer </td><td> CSS3DRenderer, CSS3D, 3D </td><td></tr> </table><br />
+			mixed - "css3d,css2d", "css2d,css3d"
 		</p>
 
 		<h3>[property:boolean debug] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -281,17 +282,7 @@
 			Defines the output encoding of the renderer. Default is [page:Textures THREE.LinearEncoding].<br />
 			If a render target has been set using [page:WebGLRenderer.setRenderTarget .setRenderTarget] then renderTarget.texture.encoding will be used instead.<br />
 			See the [page:Textures texture constants] page for details of other formats.<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br />
-			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding, sRGB<br />
-			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding, Gamma<br />
-			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding, RGBE<br />
-			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding, LogLuv<br />
-			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding, RGBM7<br />
-			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding, RGBM16<br />
-			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding, RGBD<br />
-			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding, Linear
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> THREE.sRGBEncoding </td><td> sRGBEncoding, sRGB </td></tr> <tr><td> THREE.GammaEncoding </td><td> GammaEncoding, Gamma </td></tr> <tr><td> THREE.RGBEEncoding </td><td> RGBEEncoding, RGBE </td></tr> <tr><td> THREE.LogLuvEncoding </td><td> LogLuvEncoding, LogLuv </td></tr> <tr><td> THREE.RGBM7Encoding </td><td> RGBM7Encoding, RGBM7 </td></tr> <tr><td> THREE.RGBM16Encoding </td><td> RGBM16Encoding, RGBM16 </td></tr> <tr><td> THREE.RGBDEncoding </td><td> RGBDEncoding, RGBD </td></tr> <tr><td> THREE.LinearEncoding </td><td> LinearEncoding, Linear </td></tr> </table>
 		</p>
 
 		<h3>[property:any overrideParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -393,14 +384,7 @@
 		<h3>[property:string toneMapping]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Default is [page:Renderer NoToneMapping]. See the [page:Renderer Renderer constants] for other choices.<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:ToneMapping ToneMapping] - THREE.ToneMapping<br />
-			[page:LinearToneMapping LinearToneMapping] - THREE.LinearToneMapping - LinearToneMapping, Linear<br />
-			[page:ReinhardToneMapping ReinhardToneMapping] - THREE.ReinhardToneMapping - ReinhardToneMapping, Reinhard<br />
-			[page:CineonToneMapping CineonToneMapping] - THREE.CineonToneMapping - CineonToneMapping, CineonTone<br />
-			[page:ACESFilmicToneMapping ACESFilmicToneMapping] - THREE.ACESFilmicToneMapping - ACESFilmicToneMapping, ACESFilmic<br />
-			[page:NoToneMapping NoToneMapping] - THREE.NoToneMapping - NoToneMapping, No
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> THREE.LinearToneMapping </td><td> LinearToneMapping, Linear </td></tr> <tr><td> THREE.ReinhardToneMapping </td><td> ReinhardToneMapping, Reinhard </td></tr> <tr><td> THREE.CineonToneMapping </td><td> CineonToneMapping, CineonTone </td></tr> <tr><td> THREE.ACESFilmicToneMapping </td><td> ACESFilmicToneMapping, ACESFilmic </td></tr> <tr><td> THREE.NoToneMapping </td><td> NoToneMapping, No </td></tr> </table>
 		</p>
 
 		<h3>[property:number toneMappingExposure]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -416,9 +400,7 @@
 		<h3>[property:string type] &nbsp; = 'webgl' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of renderer<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:WebGLRenderer WebGLRenderer] - THREE.WebGLRenderer - WebGLRenderer, WebGL, GL, WebGL2
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> SVGRenderer </td><td> SVGRenderer, SVG </td></tr> <tr><td> THREE.WebGLRenderer </td><td> WebGLRenderer, WebGL, GL, WebGL2 </td></tr> </table>
 		</p>
 
 		<h3>[property:string useEvent]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -923,7 +905,7 @@
 			[property:boolean staticMoving]? - The staticMoving of control<br />
 			[property:any target]? - The target of control<br />
 			[property:string type]? - The type of control<br />
-			Notice - case insensitive.<br />
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> FlyControls </td><td> FlyControls, Fly </td></tr> <tr><td> FirstPersonControls </td><td> FirstPersonControls, FirstPerson </td></tr> <tr><td> DeviceOrientationControls </td><td> DeviceOrientationControls, DeviceOrientation </td></tr> <tr><td> DragControls </td><td> DragControls, Drag </td></tr> <tr><td> TransformControls </td><td> TransformControls, Transform </td></tr> <tr><td> TrackballControls </td><td> TrackballControls, Trackball </td></tr> <tr><td> ArcballControls </td><td> ArcballControls, Arcball </td></tr> <tr><td> CSM </td><td> CSM </td></tr> <tr><td> PlaneControls </td><td> PlaneControls, Plane </td></tr> <tr><td> OrbitControls </td><td> OrbitControls, Orbit </td></tr> </table><br />
 			[property:number verticalMax]? - The verticalMax of control<br />
 			[property:number verticalMin]? - The verticalMin of control<br />
 			[property:number xDistance]? - The xDistance of control<br />
@@ -981,7 +963,9 @@
 		</p>
 
 		<p class="desc">
-			
+			Renderer<br />
+			See the [page:Renderer ngx3js docs] page for details.<br />
+			See the [example:ngx_renderer ngx renderer] page for a live demo.
 		</p>
 
 		<br /><br />

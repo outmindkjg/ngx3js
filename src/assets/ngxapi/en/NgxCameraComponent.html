@@ -464,14 +464,7 @@
 			The type of camera<br />
 			PingPong - When use "PingPongCamera", the camera muse be located in scene<br />
 			<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:PerspectiveCamera PerspectiveCamera] - THREE.PerspectiveCamera - PerspectiveCamera, Perspective<br />
-			[page:ArrayCamera ArrayCamera] - THREE.ArrayCamera       - ArrayCamera, Array<br />
-			[page:CubeCamera CubeCamera] - THREE.CubeCamera        - CubeCamera, Cube, CubePingPong<br />
-			[page:CubeCamera CubeCamera] - THREE.CubeCamera        - PingPong, CubePingPong, CubePingPongCamera, PingPongCamera<br />
-			[page:OrthographicCamera OrthographicCamera] - THREE.OrthographicCamera - OrthographicCamera, Orthographic<br />
-			[page:StereoCamera StereoCamera] - THREE.StereoCamera      - StereoCamera, Stereo
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> THREE.PerspectiveCamera </td><td> PerspectiveCamera, Perspective </td></tr> <tr><td> THREE.ArrayCamera </td><td> ArrayCamera, Array </td></tr> <tr><td> THREE.CubeCamera </td><td> CubeCamera, Cube, CubePingPong </td></tr> <tr><td> THREE.CubeCamera </td><td> PingPong, CubePingPong, CubePingPongCamera, PingPongCamera </td></tr> <tr><td> THREE.OrthographicCamera </td><td> OrthographicCamera, Orthographic </td></tr> <tr><td> THREE.StereoCamera </td><td> StereoCamera, Stereo </td></tr> </table>
 		</p>
 
 		<h3>[property:any userData]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -487,12 +480,7 @@
 		<h3>[property:string viewportType] &nbsp; = 'renderer' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The viewport of this render target.<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:WebGLRenderer WebGLRenderer] - THREE.WebGLRenderer#setViewport - renderer<br />
-			[page:PerspectiveCamera PerspectiveCamera] - THREE.PerspectiveCamera#setViewOffset - viewoffset, offset<br />
-			[page:OrthographicCamera OrthographicCamera] - THREE.OrthographicCamera#setViewOffset - viewoffset, offset<br />
-			[page:PerspectiveCamera PerspectiveCamera] - THREE.PerspectiveCamera - #viewport - camera
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> THREE.WebGLRenderer#setViewport </td><td> renderer </td></tr> <tr><td> THREE.PerspectiveCamera#setViewOffset </td><td> viewoffset, offset </td></tr> <tr><td> THREE.OrthographicCamera#setViewOffset </td><td> viewoffset, offset </td></tr> <tr><td> THREE.PerspectiveCamera </td><td> #viewport - camera </td></tr> </table>
 		</p>
 
 		<h3>[property:boolean visible] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -1326,7 +1314,7 @@
 		<hr class="interface-line top"/>
 		<h3 id="INgxColor">INgxColor <i class="modifier modifier-interface">Type alias</i></h3>
 		<hr class="interface-line bottom"/>
-		<h3>[property:string|number|Color INgxColor]</h3>
+		<h3>[property:string|number|I3JS.Color INgxColor]</h3>
 
 
 		<p class="desc">
@@ -1511,7 +1499,9 @@
 		</p>
 
 		<p class="desc">
-			
+			Renderer<br />
+			See the [page:Renderer ngx3js docs] page for details.<br />
+			See the [example:ngx_renderer ngx renderer] page for a live demo.
 		</p>
 
 		<br /><br />

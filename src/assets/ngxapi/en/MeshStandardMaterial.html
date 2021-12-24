@@ -15,14 +15,19 @@
 			A standard physically based material, using Metallic-Roughness workflow.<br />
 			Physically based rendering (PBR) has recently become the standard in many 3D applications, such as [link:https://blogs.unity3d.com/2014/10/29/physically-based-shading-in-unity-5-a-primer/ Unity],s [link:https://docs.unrealengine.com/latest/INT/Engine/Rendering/Materials/PhysicallyBased/ Unreal] and [link:http://area.autodesk.com/blogs/the-3ds-max-blog/what039s-new-for-rendering-in-3ds-max-2017 3D Studio Max].<br />
 			This approach differs from older approaches in that instead of using approximations for the way in which light	interacts with a surface, a physically correct model is used. The idea is that, instead of tweaking materials to look good under specific lighting, a material can	be created that will react 'correctly' under all lighting scenarios.<br />
-			In practice this gives a more	accurate and realistic looking result than the [page:MeshLambertMaterial MeshLambertMaterial]<br />
-			or [page:MeshPhongMaterial MeshPhongMaterial], at the cost of being somewhat more computationally expensive.<br />
+			In practice this gives a more	accurate and realistic looking result than the [page:MeshLambertMaterial MeshLambertMaterial] or [page:MeshPhongMaterial MeshPhongMaterial], at the cost of being somewhat more computationally expensive.<br />
 			Shading is calculated in the same way as for the [page:MeshPhongMaterial MeshPhongMaterial], using a [link:https://en.wikipedia.org/wiki/Phong_shading Phong] shading model.	This calculates shading per pixel (i.e. in the [link:https://en.wikipedia.org/wiki/Shader#Pixel_shaders fragment shader],a AKA pixel shader) which gives more accurate results than the Gouraud model used by [page:MeshLambertMaterial MeshLambertMaterial], at the cost of some performance.<br />
 			Note that for best results you should always specify an <i>.envMap</i> when using this material.<br />
 			For a non-technical introduction to the concept of PBR and how to set up a PBR material, check out these articles by the people at [link:https://www.marmoset.co marmoset]:<br />
 			[link:https://www.marmoset.co/posts/basic-theory-of-physically-based-rendering/ Basic Theory of Physically Based Rendering]<br />
 			[link:https://www.marmoset.co/posts/physically-based-rendering-and-you-can-too/ Physically Based Rendering and You Can Too]<br />
-			Technical details of the approach used in three.js (and most other PBR systems) can be found is this [link:https://media.disneyanimation.com/uploads/production/publication_asset/48/asset/s2012_pbs_disney_brdf_notes_v3.pdf paper from Disney] (pdf), by Brent Burley.
+			Technical details of the approach used in three.js (and most other PBR systems) can be found is this [link:https://media.disneyanimation.com/uploads/production/publication_asset/48/asset/s2012_pbs_disney_brdf_notes_v3.pdf paper from Disney] (pdf), by Brent Burley.<br />
+			<br />
+			<h3>Preview - ngx material</h3><br />
+			<iframe src="#/viewer/ngx_material/MeshStandardMaterial"></iframe><br />
+			<br />
+			See the [page:MeshStandardMaterial ngx3js docs] page for details.<br />
+			See the [example:ngx_material/MeshStandardMaterial ngx material] page for a live demo.
 		</p>
 
 		<h2>Constructor</h2>

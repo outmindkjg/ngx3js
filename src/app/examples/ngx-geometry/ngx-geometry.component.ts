@@ -190,6 +190,58 @@ export class NgxGeometryComponent extends NgxBaseComponent<{
 						case 'ShapeBufferGeometry':
 						case 'TubeBufferGeometry':
 							break;
+						case 'BoxGeometry':
+							this.controls.geometry.type = 'BoxBufferGeometry';
+							this.changeGeometry();
+							break;
+						case 'CircleGeometry':
+							this.controls.geometry.type = 'CircleBufferGeometry';
+							this.changeGeometry();
+							break;
+						case 'ConeGeometry':
+							this.controls.geometry.type = 'ConeBufferGeometry';
+							this.changeGeometry();
+							break;
+						case 'CylinderGeometry':
+							this.controls.geometry.type = 'CylinderBufferGeometry';
+							this.changeGeometry();
+							break;
+						case 'DodecahedronGeometry':
+							this.controls.geometry.type = 'DodecahedronBufferGeometry';
+							this.changeGeometry();
+							break;
+						case 'IcosahedronGeometry':
+							this.controls.geometry.type = 'IcosahedronBufferGeometry';
+							this.changeGeometry();
+							break;
+						case 'OctahedronGeometry':
+							this.controls.geometry.type = 'OctahedronBufferGeometry';
+							this.changeGeometry();
+							break;
+						case 'PlaneGeometry':
+							this.controls.geometry.type = 'PlaneBufferGeometry';
+							this.changeGeometry();
+							break;
+						case 'RingGeometry':
+							this.controls.geometry.type = 'RingBufferGeometry';
+							this.changeGeometry();
+							break;
+						case 'SphereGeometry':
+							this.controls.geometry.type = 'SphereBufferGeometry';
+							this.changeGeometry();
+							break;
+						case 'TetrahedronGeometry':
+							this.controls.geometry.type = 'TetrahedronBufferGeometry';
+							this.changeGeometry();
+							break;
+						case 'TorusGeometry':
+							this.controls.geometry.type = 'TorusBufferGeometry';
+							this.changeGeometry();
+							break;
+						case 'TorusKnotGeometry':
+							this.controls.geometry.type = 'TorusKnotBufferGeometry';
+							this.changeGeometry();
+							break;
 						default:
 							this.controls.geometry.type = params['type'];
 							this.changeGeometry();

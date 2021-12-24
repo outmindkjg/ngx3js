@@ -153,7 +153,6 @@
 				"SelectionHelper": "ngxapi/en/SelectionHelper",
 				"Line2": "ngxapi/en/Line2",
 				"LineSegments2": "ngxapi/en/LineSegments2",
-				"Wireframe": "ngxapi/en/Wireframe",
 				"Flow": "ngxapi/en/Flow",
 				"MD2Character": "ngxapi/en/MD2Character",
 				"MD2CharacterComplex": "ngxapi/en/MD2CharacterComplex",
@@ -178,7 +177,6 @@
 				"NgxStarDepthGeometry": "ngxapi/en/NgxStarDepthGeometry",
 				"NgxStarGeometry": "ngxapi/en/NgxStarGeometry",
 				"NgxGeometryUtils": "ngxapi/en/NgxGeometryUtils",
-				"GeometryFunctionType": "ngxapi/en/GeometryFunctionType",
 				"NgxGridGeometry": "ngxapi/en/NgxGridGeometry",
 				"BoxGeometry": "ngxapi/en/BoxGeometry",
 				"BoxLineGeometry": "ngxapi/en/BoxLineGeometry",
@@ -187,7 +185,6 @@
 				"ConvexGeometry": "ngxapi/en/ConvexGeometry",
 				"CylinderGeometry": "ngxapi/en/CylinderGeometry",
 				"DecalGeometry": "ngxapi/en/DecalGeometry",
-				"DecalVertex": "ngxapi/en/DecalVertex",
 				"DodecahedronGeometry": "ngxapi/en/DodecahedronGeometry",
 				"EdgesGeometry": "ngxapi/en/EdgesGeometry",
 				"ExtrudeGeometry": "ngxapi/en/ExtrudeGeometry",
@@ -225,8 +222,6 @@
 			},
 			"Materials": {
 				"NgxMaterialComponent": "ngxapi/en/NgxMaterialComponent",
-				"LineBasicMaterial": "ngxapi/en/LineBasicMaterial",
-				"LineDashedMaterial": "ngxapi/en/LineDashedMaterial",
 				"NgxRawShaderMaterial": "ngxapi/en/NgxRawShaderMaterial",
 				"NgxShaderAttributeSizeColor1Material": "ngxapi/en/NgxShaderAttributeSizeColor1Material",
 				"NgxShaderAttributeSizeColorMaterial": "ngxapi/en/NgxShaderAttributeSizeColorMaterial",
@@ -255,6 +250,8 @@
 				"NgxShaderVolumeRenderShader1Material": "ngxapi/en/NgxShaderVolumeRenderShader1Material",
 				"NgxShaderWireframeMaterial": "ngxapi/en/NgxShaderWireframeMaterial",
 				"Material": "ngxapi/en/Material",
+				"LineBasicMaterial": "ngxapi/en/LineBasicMaterial",
+				"LineDashedMaterial": "ngxapi/en/LineDashedMaterial",
 				"MeshBasicMaterial": "ngxapi/en/MeshBasicMaterial",
 				"MeshDepthMaterial": "ngxapi/en/MeshDepthMaterial",
 				"MeshDistanceMaterial": "ngxapi/en/MeshDistanceMaterial",
@@ -359,10 +356,7 @@
 				"Zip": "ngxapi/en/Zip",
 				"ZipDeflate": "ngxapi/en/ZipDeflate",
 				"ZipPassThrough": "ngxapi/en/ZipPassThrough",
-				"Zlib": "ngxapi/en/Zlib",
-				"strFromU8": "ngxapi/en/strFromU8",
-				"unzip": "ngxapi/en/unzip",
-				"unzipSync": "ngxapi/en/unzipSync"
+				"Zlib": "ngxapi/en/Zlib"
 			},
 			"Nodes": {
 				"AttributeNode": "ngxapi/en/AttributeNode",
@@ -489,8 +483,7 @@
 				"RoughnessMipmapper": "ngxapi/en/RoughnessMipmapper",
 				"SceneUtils": "ngxapi/en/SceneUtils",
 				"ShadowMapViewer": "ngxapi/en/ShadowMapViewer",
-				"SkeletonUtils": "ngxapi/en/SkeletonUtils",
-				"UVsDebug": "ngxapi/en/UVsDebug"
+				"SkeletonUtils": "ngxapi/en/SkeletonUtils"
 			},
 			"Loaders": {
 				"NgxLocalStorageService": "ngxapi/en/NgxLocalStorageService",

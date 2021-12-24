@@ -319,7 +319,9 @@
 
 		<h3>[property:any cssTag]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The css tag of CSS2DObject, CSS3DObject
+			The css tag of CSS2DObject, CSS3DObject<br />
+			| HTMLDivElement | div |<br />
+			| HTMLSpanElement | span |
 		</p>
 
 		<h3>[property:Curve|NgxCurveComponent curve]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -372,17 +374,7 @@
 			[page:Textures THREE.LinearEncoding] is the default.<br />
 			See the [page:Textures texture constants] page for details of other formats.<br />
 			Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:TextureEncoding TextureEncoding] - THREE.TextureEncoding<br />
-			[page:LinearEncoding LinearEncoding] - THREE.LinearEncoding - LinearEncoding <br />
-			[page:sRGBEncoding sRGBEncoding] - THREE.sRGBEncoding - sRGBEncoding <br />
-			[page:GammaEncoding GammaEncoding] - THREE.GammaEncoding - GammaEncoding <br />
-			[page:RGBEEncoding RGBEEncoding] - THREE.RGBEEncoding - RGBEEncoding <br />
-			[page:LogLuvEncoding LogLuvEncoding] - THREE.LogLuvEncoding - LogLuvEncoding <br />
-			[page:RGBM7Encoding RGBM7Encoding] - THREE.RGBM7Encoding - RGBM7Encoding <br />
-			[page:RGBM16Encoding RGBM16Encoding] - THREE.RGBM16Encoding - RGBM16Encoding <br />
-			[page:RGBDEncoding RGBDEncoding] - THREE.RGBDEncoding - RGBDEncoding
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> THREE.LinearEncoding </td><td> LinearEncoding , </td></tr> <tr><td> THREE.sRGBEncoding </td><td> sRGBEncoding , </td></tr> <tr><td> THREE.GammaEncoding </td><td> GammaEncoding , </td></tr> <tr><td> THREE.RGBEEncoding </td><td> RGBEEncoding , </td></tr> <tr><td> THREE.LogLuvEncoding </td><td> LogLuvEncoding , </td></tr> <tr><td> THREE.RGBM7Encoding </td><td> RGBM7Encoding , </td></tr> <tr><td> THREE.RGBM16Encoding </td><td> RGBM16Encoding , </td></tr> <tr><td> THREE.RGBDEncoding </td><td> RGBDEncoding , </td></tr> </table>
 		</p>
 
 		<h3>[property:number flowDirectionX]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -669,9 +661,7 @@
 		<h3>[property:string skyboxType] &nbsp; = 'auto' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of skybox<br />
-			<br />
-			[page:BoxGeometry BoxGeometry] - THREE.BoxGeometry - box<br />
-			[page:SphereGeometry SphereGeometry] - THREE.SphereGeometry - sphere
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> Lensflare </td><td> sun </td></tr> <tr><td> THREE.BoxGeometry </td><td> box </td></tr> <tr><td> THREE.SphereGeometry </td><td> sphere </td></tr> </table>
 		</p>
 
 		<h3>[property:string storageName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -752,18 +742,7 @@
 		<h3>[property:string type] &nbsp; = 'mesh' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of mesh<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:Light Light] - THREE.Light - light<br />
-			[page:LineLoop LineLoop] - THREE.LineLoop - LineLoop<br />
-			[page:InstancedMesh InstancedMesh] - THREE.InstancedMesh - InstancedMesh, Instanced<br />
-			[page:Sprite Sprite] - THREE.Sprite - Sprite<br />
-			[page:LOD LOD] - THREE.LOD - lod<br />
-			[page:Points Points] - THREE.Points - points<br />
-			[page:Line Line] - THREE.Line - Line<br />
-			[page:LineSegments LineSegments] - THREE.LineSegments - linesegments<br />
-			[page:Group Group] - THREE.Group - group<br />
-			[page:Mesh Mesh] - THREE.Mesh - mesh
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> Lensflare </td><td> type : skybox, skyboxType : sun </td></tr> <tr><td> SVGObject </td><td> SVGObject, SVG </td></tr> <tr><td> CSS2DObject </td><td> CSS2DObject, CSS2D </td></tr> <tr><td> CSS3DSprite </td><td> CSS3DSprite </td></tr> <tr><td> CSS3DObject </td><td> CSS3DObject, CSS3D, CSS </td></tr> <tr><td> Reflector </td><td> Reflector </td></tr> <tr><td> ReflectorRTT </td><td> ReflectorRTT </td></tr> <tr><td> Refractor </td><td> Refractor </td></tr> <tr><td> ReflectorForSSRPass </td><td> RefractorForSSRPass </td></tr> <tr><td> Water </td><td> Water </td></tr> <tr><td> Water2 </td><td> Water2 </td></tr> <tr><td> Sky </td><td> Sky </td></tr> <tr><td> Flow </td><td> Flow </td></tr> <tr><td> InstancedFlow </td><td> InstancedFlow </td></tr> <tr><td> THREE.Light </td><td> light </td></tr> <tr><td> THREE.LineLoop </td><td> LineLoop </td></tr> <tr><td> Lensflare </td><td> Lensflare, lensflareelement </td></tr> <tr><td> THREE.InstancedMesh </td><td> InstancedMesh, Instanced </td></tr> <tr><td> BufferGeometryUtils.mergeBufferGeometries </td><td> merged </td></tr> <tr><td> SceneUtils.createMultiMaterialObject </td><td> multimaterial, multi </td></tr> <tr><td> THREE.Sprite </td><td> Sprite </td></tr> <tr><td> Wireframe </td><td> wireframe </td></tr> <tr><td> THREE.LOD </td><td> lod </td></tr> <tr><td> MarchingCubes </td><td> marchingcubes </td></tr> <tr><td> THREE.Points </td><td> points </td></tr> <tr><td> THREE.Line </td><td> Line </td></tr> <tr><td> Line2 </td><td> line2 </td></tr> <tr><td> THREE.LineSegments </td><td> linesegments </td></tr> <tr><td> MD2CharacterComplex </td><td> md2charactercomplex </td></tr> <tr><td> THREE.Group </td><td> group </td></tr> <tr><td> THREE.Mesh </td><td> mesh </td></tr> </table>
 		</p>
 
 		<h3>[property:any uniforms]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -774,17 +753,7 @@
 		<h3>[property:string usage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The usage of InstancedMesh<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:StaticDrawUsage StaticDrawUsage] - THREE.StaticDrawUsage - StaticDrawUsage, StaticDraw<br />
-			[page:DynamicDrawUsage DynamicDrawUsage] - THREE.DynamicDrawUsage - DynamicDrawUsage, DynamicDraw<br />
-			[page:StreamDrawUsage StreamDrawUsage] - THREE.StreamDrawUsage - StreamDrawUsage, StreamDraw<br />
-			[page:StaticReadUsage StaticReadUsage] - THREE.StaticReadUsage - StaticReadUsage, StaticRead<br />
-			[page:DynamicReadUsage DynamicReadUsage] - THREE.DynamicReadUsage - DynamicReadUsage, DynamicRead<br />
-			[page:StreamReadUsage StreamReadUsage] - THREE.StreamReadUsage - StreamReadUsage, StreamRead<br />
-			[page:StaticCopyUsage StaticCopyUsage] - THREE.StaticCopyUsage - StaticCopyUsage, StaticCopy<br />
-			[page:DynamicCopyUsage DynamicCopyUsage] - THREE.DynamicCopyUsage - DynamicCopyUsage, DynamicCopy<br />
-			[page:StreamCopyUsage StreamCopyUsage] - THREE.StreamCopyUsage - StreamCopyUsage, StreamCopy
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> THREE.StaticDrawUsage </td><td> StaticDrawUsage, StaticDraw </td></tr> <tr><td> THREE.DynamicDrawUsage </td><td> DynamicDrawUsage, DynamicDraw </td></tr> <tr><td> THREE.StreamDrawUsage </td><td> StreamDrawUsage, StreamDraw </td></tr> <tr><td> THREE.StaticReadUsage </td><td> StaticReadUsage, StaticRead </td></tr> <tr><td> THREE.DynamicReadUsage </td><td> DynamicReadUsage, DynamicRead </td></tr> <tr><td> THREE.StreamReadUsage </td><td> StreamReadUsage, StreamRead </td></tr> <tr><td> THREE.StaticCopyUsage </td><td> StaticCopyUsage, StaticCopy </td></tr> <tr><td> THREE.DynamicCopyUsage </td><td> DynamicCopyUsage, DynamicCopy </td></tr> <tr><td> THREE.StreamCopyUsage </td><td> StreamCopyUsage, StreamCopy </td></tr> </table>
 		</p>
 
 		<h3>[property:boolean useDepthTexture]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -1667,16 +1636,9 @@
 			[property:number headWidth]? - The width of the head of the arrow. Default is 0.2 * headLength.<br />
 			[property:number length]? - length of the arrow. Default is <i>1</i>.<br />
 			[property:string materialBlending]? - The Input of helper component<br />
-			Notice - case insensitive.<br />
-			<br />
 			Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.<br />
-			<br />
-			[page:NoBlending NoBlending] - THREE.NoBlending - NoBlending, No<br />
-			[page:NormalBlending NormalBlending] - THREE.NormalBlending - NormalBlending, Normal<br />
-			[page:AdditiveBlending AdditiveBlending] - THREE.AdditiveBlending - AdditiveBlending, Additive<br />
-			[page:SubtractiveBlending SubtractiveBlending] - THREE.SubtractiveBlending - SubtractiveBlending, Subtractive<br />
-			[page:MultiplyBlending MultiplyBlending] - THREE.MultiplyBlending - MultiplyBlending, Multiply<br />
-			[page:CustomBlending CustomBlending] - THREE.CustomBlending - CustomBlending, Custom<br />
+			|   Three Type               | Value String(case insensitive) |<br />
+			|:--------------------------:|--------------------------:|<br />
 			[property:INgxColor materialColor]? - The color of material<br />
 			[property:boolean materialTransparent]? - Defines whether this material is transparent. This has an effect on rendering as transparent objects need special treatment and are rendered after non-transparent objects.<br />
 			When set to true, the extent to which the material is transparent is controlled by setting it's .opacity property.<br />
@@ -1692,21 +1654,7 @@
 			[property:number size]? - size of the lines representing the axes. Default is <i>1</i>.<br />
 			[property:any target]? - The target object of helper<br />
 			[property:string type]? - the type of helper<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:ArrowHelper ArrowHelper] - THREE.ArrowHelper - ArrowHelper, Arrow<br />
-			[page:BoxHelper BoxHelper] - THREE.BoxHelper - BoxHelper, Box<br />
-			[page:Box3Helper Box3Helper] - THREE.Box3Helper - Box3Helper, Box3<br />
-			[page:GridHelper GridHelper] - THREE.GridHelper - GridHelper, Grid<br />
-			[page:PolarGridHelper PolarGridHelper] - THREE.PolarGridHelper - PolarGridHelper, PolarGrid<br />
-			[page:CameraHelper CameraHelper] - THREE.CameraHelper - CameraHelper, Camera<br />
-			[page:DirectionalLightHelper DirectionalLightHelper] - THREE.DirectionalLightHelper - DirectionalLightHelper, DirectionalLight, Directional, Light<br />
-			[page:HemisphereLightHelper HemisphereLightHelper] - THREE.HemisphereLightHelper - HemisphereLightHelper, HemisphereLight, Hemisphere, Light<br />
-			[page:PointLightHelper PointLightHelper] - THREE.PointLightHelper - PointLightHelper, PointLightHelper, PointLight, Light<br />
-			[page:SpotLightHelper SpotLightHelper] - THREE.SpotLightHelper - SpotLightHelper, SpotLight, Light<br />
-			[page:PlaneHelper PlaneHelper] - THREE.PlaneHelper - PlaneHelper, Plane<br />
-			[page:SkeletonHelper SkeletonHelper] - THREE.SkeletonHelper - SkeletonHelper, Skeleton<br />
-			[page:AxesHelper AxesHelper] - THREE.AxesHelper - AxesHelper, Axes
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> Gyroscope </td><td> Gyroscope </td></tr> <tr><td> CSM </td><td> CSM </td></tr> <tr><td> THREE.ArrowHelper </td><td> ArrowHelper, Arrow </td></tr> <tr><td> THREE.BoxHelper </td><td> BoxHelper, Box </td></tr> <tr><td> THREE.Box3Helper </td><td> Box3Helper, Box3 </td></tr> <tr><td> THREE.GridHelper </td><td> GridHelper, Grid </td></tr> <tr><td> THREE.PolarGridHelper </td><td> PolarGridHelper, PolarGrid </td></tr> <tr><td> PositionalAudioHelper </td><td> PositionalAudioHelper, PositionalAudio </td></tr> <tr><td> THREE.CameraHelper </td><td> CameraHelper, Camera </td></tr> <tr><td> THREE.DirectionalLightHelper </td><td> DirectionalLightHelper, DirectionalLight, Directional, Light </td></tr> <tr><td> THREE.HemisphereLightHelper </td><td> HemisphereLightHelper, HemisphereLight, Hemisphere, Light </td></tr> <tr><td> THREE.PointLightHelper </td><td> PointLightHelper, PointLightHelper, PointLight, Light </td></tr> <tr><td> THREE.SpotLightHelper </td><td> SpotLightHelper, SpotLight, Light </td></tr> <tr><td> RectAreaLightHelper </td><td> RectAreaLightHelper, RectAreaLight, Light </td></tr> <tr><td> LightProbeHelper </td><td> LightProbeHelper, LightProbe, Light </td></tr> <tr><td> THREE.PlaneHelper </td><td> PlaneHelper, Plane </td></tr> <tr><td> VertexTangentsHelper </td><td> VertexTangentsHelper, VertexTangents </td></tr> <tr><td> VertexNormalsHelper </td><td> VertexNormalsHelper, VertexNormals </td></tr> <tr><td> THREE.SkeletonHelper </td><td> SkeletonHelper, Skeleton </td></tr> <tr><td> THREE.AxesHelper </td><td> AxesHelper, Axes </td></tr> </table>
 		</p>
 
 		<p class="desc">
@@ -1780,15 +1728,7 @@
 			[property:number targetZ]? - The Input of light component<br />
 			[property:any texture]? - The Input of light component<br />
 			[property:string type]? - The type of light<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:PointLight PointLight] - THREE.PointLight - PointLight, Point<br />
-			[page:RectAreaLight RectAreaLight] - THREE.RectAreaLight - RectAreaLight, RectArea<br />
-			[page:SpotLight SpotLight] - THREE.SpotLight - SpotLight, Spot<br />
-			[page:DirectionalLight DirectionalLight] - THREE.DirectionalLight - DirectionalLight, Directional<br />
-			[page:HemisphereLight HemisphereLight] - THREE.HemisphereLight - HemisphereLight, Hemisphere<br />
-			[page:LightProbe LightProbe] - THREE.LightProbe - LightProbe, Probe<br />
-			[page:AmbientLight AmbientLight] - THREE.AmbientLight - AmbientLight, Ambient<br />
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> THREE.PointLight </td><td> PointLight, Point </td></tr> <tr><td> THREE.RectAreaLight </td><td> RectAreaLight, RectArea </td></tr> <tr><td> THREE.SpotLight </td><td> SpotLight, Spot </td></tr> <tr><td> THREE.DirectionalLight </td><td> DirectionalLight, Directional </td></tr> <tr><td> THREE.HemisphereLight </td><td> HemisphereLight, Hemisphere </td></tr> <tr><td> THREE.LightProbe </td><td> LightProbe, Probe </td></tr> <tr><td> THREE.AmbientLight </td><td> AmbientLight, Ambient </td></tr> </table><br />
 			[property:boolean visible]? - Object gets rendered if <i>true</i>. Default is <i>true</i>.<br />
 			[property:number width]? - width of the light. Default is 10.
 		</p>
@@ -1863,7 +1803,7 @@
 		<hr class="interface-line top"/>
 		<h3 id="INgxColor">INgxColor <i class="modifier modifier-interface">Type alias</i></h3>
 		<hr class="interface-line bottom"/>
-		<h3>[property:string|number|Color INgxColor]</h3>
+		<h3>[property:string|number|I3JS.Color INgxColor]</h3>
 
 
 		<p class="desc">
@@ -2113,7 +2053,7 @@
 		</p>
 
 		<p class="desc">
-			
+			Storm params
 		</p>
 
 		<br /><br />

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { I3JS, NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
@@ -43,7 +44,7 @@ export class NgxCameraComponent extends NgxBaseComponent<{
 		height: number;
 	};
 }> {
-	constructor() {
+	constructor(private route: ActivatedRoute) {
 		super(
 			{
 				environment: {
@@ -162,6 +163,23 @@ export class NgxCameraComponent extends NgxBaseComponent<{
 			],
 			true,
 			false
+		);
+	}
+
+	ngOnInit() {
+		this.subscribeRefer(
+			'router',
+			this.route.params.subscribe((params) => {
+				if (params['type']) {
+					switch (params['type']) {
+						case 'PerspectiveCamera':
+						case 'OrthographicCamera':
+							this.controls.camera.type = params['type'];
+							this.changeCamera();
+							break;
+					}
+				}
+			})
 		);
 	}
 

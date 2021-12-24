@@ -13,15 +13,16 @@
 
 		<p class="desc">
 			A material for shiny surfaces with specular highlights.<br />
-			The material uses a non-physically based [link:https://en.wikipedia.org/wiki/Blinn-Phong_shading_model Blinn-Phong]<br />
-			model for calculating reflectance. Unlike the Lambertian model used in the [page:MeshLambertMaterial MeshLambertMaterial]<br />
-			this can simulate shiny surfaces with specular highlights (such as varnished wood).<br />
+			The material uses a non-physically based [link:https://en.wikipedia.org/wiki/Blinn-Phong_shading_model Blinn-Phong] model for calculating reflectance. Unlike the Lambertian model used in the [page:MeshLambertMaterial MeshLambertMaterial] this can simulate shiny surfaces with specular highlights (such as varnished wood).<br />
 			Shading is calculated using a [link:https://en.wikipedia.org/wiki/Phong_shading Phong] shading model.<br />
-			This calculates shading per pixel (i.e. in the [link:https://en.wikipedia.org/wiki/Shader#Pixel_shaders fragment shader],<br />
-			AKA pixel shader)	which gives more accurate results than the Gouraud model used by [page:MeshLambertMaterial MeshLambertMaterial], at the cost of some performance. The [page:MeshStandardMaterial MeshStandardMaterial] and [page:MeshPhysicalMaterial MeshPhysicalMaterial]<br />
-			also use this shading model.<br />
-			Performance will generally be greater when using this material over the	[page:MeshStandardMaterial MeshStandardMaterial]<br />
-			or [page:MeshPhysicalMaterial MeshPhysicalMaterial], at the cost of some graphical accuracy.
+			This calculates shading per pixel (i.e. in the [link:https://en.wikipedia.org/wiki/Shader#Pixel_shaders fragment shader], AKA pixel shader)	which gives more accurate results than the Gouraud model used by [page:MeshLambertMaterial MeshLambertMaterial], at the cost of some performance. The [page:MeshStandardMaterial MeshStandardMaterial] and [page:MeshPhysicalMaterial MeshPhysicalMaterial] also use this shading model.<br />
+			Performance will generally be greater when using this material over the	[page:MeshStandardMaterial MeshStandardMaterial] or [page:MeshPhysicalMaterial MeshPhysicalMaterial], at the cost of some graphical accuracy.<br />
+			<br />
+			<h3>Preview - ngx material</h3><br />
+			<iframe src="#/viewer/ngx_material/MeshPhongMaterial"></iframe><br />
+			<br />
+			See the [page:MeshPhongMaterial ngx3js docs] page for details.<br />
+			See the [example:ngx_material/MeshPhongMaterial ngx material] page for a live demo.
 		</p>
 
 		<h2>Constructor</h2>

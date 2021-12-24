@@ -69,7 +69,7 @@
 			[ headWidth ]="... number -- The width of the head of the a... "
 			[ length ]="... number -- length of the arrow. Default i... "
 			[ material ]="... Material|NgxAbstractMaterialComponent -- The material of mesh "
-			[ materialBlending ]="... string -- The Input of helper component "
+			[ materialBlending ]="... string -- The Input of helper component ... "
 			[ materialColor ]="... INgxColor -- The color of material "
 			[ materialIsArray ]="... boolean -- The material of mesh is array "
 			[ materialTransparent ]="... boolean -- Defines whether this material ... "
@@ -297,16 +297,8 @@
 		<h3>[property:string materialBlending]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The Input of helper component<br />
-			Notice - case insensitive.<br />
-			<br />
 			Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.<br />
-			<br />
-			[page:NoBlending NoBlending] - THREE.NoBlending - NoBlending, No<br />
-			[page:NormalBlending NormalBlending] - THREE.NormalBlending - NormalBlending, Normal<br />
-			[page:AdditiveBlending AdditiveBlending] - THREE.AdditiveBlending - AdditiveBlending, Additive<br />
-			[page:SubtractiveBlending SubtractiveBlending] - THREE.SubtractiveBlending - SubtractiveBlending, Subtractive<br />
-			[page:MultiplyBlending MultiplyBlending] - THREE.MultiplyBlending - MultiplyBlending, Multiply<br />
-			[page:CustomBlending CustomBlending] - THREE.CustomBlending - CustomBlending, Custom
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> THREE.NoBlending </td><td> NoBlending, No </td></tr> <tr><td> THREE.NormalBlending </td><td> NormalBlending, Normal </td></tr> <tr><td> THREE.AdditiveBlending </td><td> AdditiveBlending, Additive </td></tr> <tr><td> THREE.SubtractiveBlending </td><td> SubtractiveBlending, Subtractive </td></tr> <tr><td> THREE.MultiplyBlending </td><td> MultiplyBlending, Multiply </td></tr> <tr><td> THREE.CustomBlending </td><td> CustomBlending, Custom </td></tr> </table>
 		</p>
 
 		<h3>[property:INgxColor materialColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -454,21 +446,7 @@
 		<h3>[property:string type] &nbsp; = 'axes' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			the type of helper<br />
-			Notice - case insensitive.<br />
-			<br />
-			[page:ArrowHelper ArrowHelper] - THREE.ArrowHelper - ArrowHelper, Arrow<br />
-			[page:BoxHelper BoxHelper] - THREE.BoxHelper - BoxHelper, Box<br />
-			[page:Box3Helper Box3Helper] - THREE.Box3Helper - Box3Helper, Box3<br />
-			[page:GridHelper GridHelper] - THREE.GridHelper - GridHelper, Grid<br />
-			[page:PolarGridHelper PolarGridHelper] - THREE.PolarGridHelper - PolarGridHelper, PolarGrid<br />
-			[page:CameraHelper CameraHelper] - THREE.CameraHelper - CameraHelper, Camera<br />
-			[page:DirectionalLightHelper DirectionalLightHelper] - THREE.DirectionalLightHelper - DirectionalLightHelper, DirectionalLight, Directional, Light<br />
-			[page:HemisphereLightHelper HemisphereLightHelper] - THREE.HemisphereLightHelper - HemisphereLightHelper, HemisphereLight, Hemisphere, Light<br />
-			[page:PointLightHelper PointLightHelper] - THREE.PointLightHelper - PointLightHelper, PointLightHelper, PointLight, Light<br />
-			[page:SpotLightHelper SpotLightHelper] - THREE.SpotLightHelper - SpotLightHelper, SpotLight, Light<br />
-			[page:PlaneHelper PlaneHelper] - THREE.PlaneHelper - PlaneHelper, Plane<br />
-			[page:SkeletonHelper SkeletonHelper] - THREE.SkeletonHelper - SkeletonHelper, Skeleton<br />
-			[page:AxesHelper AxesHelper] - THREE.AxesHelper - AxesHelper, Axes
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> Gyroscope </td><td> Gyroscope </td></tr> <tr><td> CSM </td><td> CSM </td></tr> <tr><td> THREE.ArrowHelper </td><td> ArrowHelper, Arrow </td></tr> <tr><td> THREE.BoxHelper </td><td> BoxHelper, Box </td></tr> <tr><td> THREE.Box3Helper </td><td> Box3Helper, Box3 </td></tr> <tr><td> THREE.GridHelper </td><td> GridHelper, Grid </td></tr> <tr><td> THREE.PolarGridHelper </td><td> PolarGridHelper, PolarGrid </td></tr> <tr><td> PositionalAudioHelper </td><td> PositionalAudioHelper, PositionalAudio </td></tr> <tr><td> THREE.CameraHelper </td><td> CameraHelper, Camera </td></tr> <tr><td> THREE.DirectionalLightHelper </td><td> DirectionalLightHelper, DirectionalLight, Directional, Light </td></tr> <tr><td> THREE.HemisphereLightHelper </td><td> HemisphereLightHelper, HemisphereLight, Hemisphere, Light </td></tr> <tr><td> THREE.PointLightHelper </td><td> PointLightHelper, PointLightHelper, PointLight, Light </td></tr> <tr><td> THREE.SpotLightHelper </td><td> SpotLightHelper, SpotLight, Light </td></tr> <tr><td> RectAreaLightHelper </td><td> RectAreaLightHelper, RectAreaLight, Light </td></tr> <tr><td> LightProbeHelper </td><td> LightProbeHelper, LightProbe, Light </td></tr> <tr><td> THREE.PlaneHelper </td><td> PlaneHelper, Plane </td></tr> <tr><td> VertexTangentsHelper </td><td> VertexTangentsHelper, VertexTangents </td></tr> <tr><td> VertexNormalsHelper </td><td> VertexNormalsHelper, VertexNormals </td></tr> <tr><td> THREE.SkeletonHelper </td><td> SkeletonHelper, Skeleton </td></tr> <tr><td> THREE.AxesHelper </td><td> AxesHelper, Axes </td></tr> </table>
 		</p>
 
 		<h3>[property:any userData]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -1144,7 +1122,7 @@
 		<hr class="interface-line top"/>
 		<h3 id="INgxColor">INgxColor <i class="modifier modifier-interface">Type alias</i></h3>
 		<hr class="interface-line bottom"/>
-		<h3>[property:string|number|Color INgxColor]</h3>
+		<h3>[property:string|number|I3JS.Color INgxColor]</h3>
 
 
 		<p class="desc">
