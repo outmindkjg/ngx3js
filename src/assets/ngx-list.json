@@ -485,7 +485,7 @@
 				"ShadowMapViewer": "ngxapi/en/ShadowMapViewer",
 				"SkeletonUtils": "ngxapi/en/SkeletonUtils"
 			},
-			"Loaders": {
+			"Loaders & Exporters": {
 				"NgxLocalStorageService": "ngxapi/en/NgxLocalStorageService",
 				"AMFLoader": "ngxapi/en/AMFLoader",
 				"AnimationLoader": "ngxapi/en/AnimationLoader",
@@ -552,9 +552,7 @@
 				"VRMLLoader": "ngxapi/en/VRMLLoader",
 				"VRMLoader": "ngxapi/en/VRMLoader",
 				"VTKLoader": "ngxapi/en/VTKLoader",
-				"XYZLoader": "ngxapi/en/XYZLoader"
-			},
-			"Exporters": {
+				"XYZLoader": "ngxapi/en/XYZLoader",
 				"ColladaExporter": "ngxapi/en/ColladaExporter",
 				"DRACOExporter": "ngxapi/en/DRACOExporter",
 				"GLTFExporter": "ngxapi/en/GLTFExporter",
