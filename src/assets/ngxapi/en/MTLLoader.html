@@ -7,7 +7,194 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		<h1>MTLLoader - Namespace</h1>
+		[page:Loader] &rarr;
+
+		<h1>MTLLoader</h1>
+
+		<p class="desc">
+			Mtlloader<br />
+			See the [page:MTLLoader ngx3js docs] page for details.<br />
+			<br />
+			<h3>Preview - webgl / loader / obj / mtl</h3><br />
+			<iframe src="#/viewer/webgl_loader_obj_mtl"></iframe><br />
+			<br />
+			<h2>Examples</h2><br />
+			[example:webgl_loader_obj_mtl webgl / loader / obj / mtl]
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:MTLLoader MTLLoader](  [param:LoadingManager manager]? )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:LoadingManager manager] - (optional) The [page:LoadingManager loadingManager] for the loader to use. Default is [page:LoadingManager THREE.DefaultLoadingManager].
+		</p>
+		<p>
+			Creates a new Loader.
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:Loader Loader] class for common properties.
+		</p>
+
+		<h3>[property:string crossOrigin]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The crossOrigin string to implement CORS for loading the url from a different domain that allows CORS.<br />
+			Default is <i>anonymous</i>.
+		</p>
+
+		<h3>[property:LoadingManager manager]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The [page:LoadingManager loadingManager]  the loader is using. Default is [page:DefaultLoadingManager DefaultLoadingManager].
+		</p>
+
+		<h3>[property:MaterialCreatorOptions materialOptions]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string path]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The base path from which the asset will be loaded.<br />
+			Default is the empty string.
+		</p>
+
+		<h3>[property:any requestHeader]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header request header] used in HTTP request. See <i>.setRequestHeader</i>. Default is empty object.
+		</p>
+
+		<h3>[property:string resourcePath]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The base path from which additional resources like textures will be loaded.<br />
+			Default is the empty string.
+		</p>
+
+		<h3>[property:boolean withCredentials]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Whether the XMLHttpRequest uses credentials. See <i>.setWithCredentials</i>.<br />
+			Default is <i>false</i>.
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:Loader Loader] class for common methods.
+		</p>
+
+		<h3>[method:void load](  [param:string url],  [param:any onLoad],  [param:any onProgress]?,  [param:any onError]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The path or URL to the file.<br />
+			[parameter:any onLoad] - Will be called when load completes.<br />
+			[parameter:any onProgress] - (optional) Will be called while load progresses.<br />
+			[parameter:any onError] - (optional) Will be called when load errors.
+		</p>
+		<p>
+			Begin loading from url.
+		</p>
+
+		<h3>[method:Promise loadAsync](  [param:string url],  [param:any onProgress]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The path or URL to the file.<br />
+			[parameter:any onProgress] - (optional) Will be called while load progresses.
+		</p>
+		<p>
+			Begin loading from url.
+		</p>
+
+		<h3>[method:MTLLoaderMaterialCreator parse](  [param:string text],  [param:string path] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string text] - The text.<br />
+			[parameter:string path] - The path.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:MTLLoader setCrossOrigin](  [param:string crossOrigin] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string crossOrigin] - The crossOrigin string to implement CORS for loading the url from a different domain that allows CORS.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void setMaterialOptions](  [param:MaterialCreatorOptions value] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:MaterialCreatorOptions value] - The value.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:MTLLoader setPath](  [param:string path] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string path] - Set the base path for the asset.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:MTLLoader setRequestHeader](  [param:any requestHeader] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any requestHeader] - key: The name of the header whose value is to be set. value: The value to set as the body of the header.
+Set the [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header request header] used in HTTP request.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:MTLLoader setResourcePath](  [param:string resourcePath] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string resourcePath] - Set the base path for dependent resources like textures.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:MTLLoader setWithCredentials](  [param:boolean value] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean value] - The value.
+		</p>
+		<p>
+			Whether the XMLHttpRequest uses credentials such as cookies, authorization headers or TLS client certificates. See [link:https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials XMLHttpRequest.withCredentials].<br />
+			Note that this has no effect if you are loading files locally or from the same domain.
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line top"/>
+		<h3 id="MaterialCreatorOptions">MaterialCreatorOptions <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line bottom"/>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean ignoreZeroRGBs]? -  The ignore zero r g bs.<br />
+			[property:boolean invertTrProperty]? -  The invert tr property.<br />
+			[property:boolean normalizeRGB]? -  The normalize r g b.<br />
+			[property:Side side]? - side: Which side to apply the material<br />
+			THREE.FrontSide (default), THREE.BackSide, THREE.DoubleSide<br />
+			[property:Wrapping wrap]? -  The wrap.
+		</p>
+
+		<p class="desc">
+			Material creator options
+		</p>
 
 		<br /><br />
 		<h2>Source</h2>

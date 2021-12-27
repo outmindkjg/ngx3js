@@ -21,11 +21,16 @@
 			texture.wrapS = THREE.RepeatWrapping;<br />
 			texture.wrapT = THREE.RepeatWrapping;<br />
 			texture.repeat.set( 4, 4 );<br />
+			</code><br />
+			<br />
+			<h2>Ngx3Js Code Example</h2><br />
+			<code data-type="html"><br />
+			&lt;ngx3js-texture [image]="'textures/water.jpg'" [wrapS]="'RepeatWrapping'" [wrapT]="'RepeatWrapping'" [repeatX]="4" [repeatY]="4"&gt;&lt;/ngx3js-texture&gt;<br />
 			</code>
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:Texture Texture](  [param:HTMLCanvasElement|HTMLVideoElement|HTMLImageElement image]?,  [param:Mapping mapping]?,  [param:Wrapping wrapS]?,  [param:Wrapping wrapT]?,  [param:TextureFilter magFilter]?,  [param:TextureFilter minFilter]?,  [param:PixelFormat format]?,  [param:TextureDataType type]?,  [param:number anisotropy]?,  [param:TextureEncoding encoding]? )</h3>
+		<h3>[constructor:Texture Texture](  [param:HTMLCanvasElement|HTMLVideoElement|HTMLImageElement image]?,  [param:Mapping mapping]?,  [param:Wrapping wrapS]?,  [param:Wrapping wrapT]?,  [param:TextureFilter magFilter]?,  [param:TextureFilter minFilter]?,  [param:PixelFormat format]?,  [param:TextureDataType type]?,  [param:number anisotropy]?,  [param:TextureEncoding encoding]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:HTMLCanvasElement|HTMLVideoElement|HTMLImageElement image] - (optional) The image.<br />
@@ -252,7 +257,7 @@
 			See the base [page:EventDispatcher EventDispatcher] class for common methods.
 		</p>
 
-		<h3>[method:void addEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h3>[method:void addEventListener](  [param:T type],  [param:EventListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:T type] - The type of event to listen to.<br />
@@ -277,7 +282,7 @@
 			Returns : copy
 		</p>
 
-		<h3>[method:void dispatchEvent](  [param:Event event] )</h3>
+		<h3>[method:void dispatchEvent](  [param:Event event] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Event event] - The event.
@@ -291,7 +296,7 @@
 			Frees the GPU related resources allocated by a texture. Call this method whenever a texture is no longer used in your app.
 		</p>
 
-		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:T type] - The type of event to listen to.<br />
@@ -306,7 +311,7 @@
 			
 		</p>
 
-		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:T type] - The type of the listener that gets removed.<br />

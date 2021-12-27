@@ -16,7 +16,7 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:Float64BufferAttribute Float64BufferAttribute](  [param:number|ArrayLike|Iterable array],  [param:number itemSize],  [param:boolean normalized]? )</h3>
+		<h3>[constructor:Float64BufferAttribute Float64BufferAttribute](  [param:number|ArrayLike|Iterable array],  [param:number itemSize],  [param:boolean normalized]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number|ArrayLike|Iterable array] - Must be a [link:https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/TypedArray TypedArray]. Used to instantiate the buffer. This array should have itemSize * numVertices<br />
@@ -32,50 +32,50 @@
 			See the base [page:BufferAttribute BufferAttribute] class for common properties.
 		</p>
 
-		<h3>[property:ArrayLike array]</h3>
+		<h3>[property:ArrayLike array]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The [page:TypedArray array] holding data stored in the buffer.
 		</p>
 
-		<h3>[property:number count]</h3>
+		<h3>[property:number count]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Stores the [page:BufferAttribute.array array]'s length divided by the [page:BufferAttribute.itemSize itemSize].<br />
 			If the buffer is storing a 3-component vector (such as a position, normal, or color), then this will count the number of such vectors stored.
 		</p>
 
-		<h3>[property:any isBufferAttribute]</h3>
+		<h3>[property:any isBufferAttribute]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			
 		</p>
 
-		<h3>[property:number itemSize]</h3>
+		<h3>[property:number itemSize]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The length of vectors that are being stored in the [page:BufferAttribute.array array].
 		</p>
 
-		<h3>[property:string name]</h3>
+		<h3>[property:string name]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Optional name for this attribute instance. Default is an empty string.
 		</p>
 
-		<h3>[property:boolean normalized]</h3>
+		<h3>[property:boolean normalized]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Indicates how the underlying data in the buffer maps to the values in the GLSL shader code.<br />
 			See the constructor above for details.
 		</p>
 
-		<h3>[property:any updateRange]</h3>
+		<h3>[property:any updateRange]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Object containing:
 		</p>
 
-		<h3>[property:Usage usage]</h3>
+		<h3>[property:Usage usage]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the <i>usage</i> parameter of [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().<br />
 			Default is [page:BufferAttributeUsage StaticDrawUsage]. See usage [page:BufferAttributeUsage constants] for all possible values.
 		</p>
 
-		<h3>[property:number version]</h3>
+		<h3>[property:number version]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			A version number, incremented every time the [page:BufferAttribute.needsUpdate needsUpdate] property is set to true.
 		</p>
@@ -85,7 +85,7 @@
 			See the base [page:BufferAttribute BufferAttribute] class for common methods.
 		</p>
 
-		<h3>[method:Float64BufferAttribute applyMatrix3](  [param:Matrix3 m] )</h3>
+		<h3>[method:Float64BufferAttribute applyMatrix3](  [param:Matrix3 m] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Matrix3 m] - The m.
@@ -94,7 +94,7 @@
 			Applies matrix [page:Matrix3 m] to every Vector3 element of this BufferAttribute.
 		</p>
 
-		<h3>[method:Float64BufferAttribute applyMatrix4](  [param:Matrix4 m] )</h3>
+		<h3>[method:Float64BufferAttribute applyMatrix4](  [param:Matrix4 m] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Matrix4 m] - The m.
@@ -103,7 +103,7 @@
 			Applies matrix [page:Matrix4 m] to every Vector3 element of this BufferAttribute.
 		</p>
 
-		<h3>[method:Float64BufferAttribute applyNormalMatrix](  [param:Matrix3 m] )</h3>
+		<h3>[method:Float64BufferAttribute applyNormalMatrix](  [param:Matrix3 m] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Matrix3 m] - The m.
@@ -112,12 +112,12 @@
 			Applies normal matrix [page:Matrix3 m] to every Vector3 element of this BufferAttribute.
 		</p>
 
-		<h3>[method:Float64BufferAttribute clone](  )</h3>
+		<h3>[method:Float64BufferAttribute clone](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Returns : Return a copy of this bufferAttribute.
 		</p>
 
-		<h3>[method:Float64BufferAttribute copy](  [param:BufferAttribute source] )</h3>
+		<h3>[method:Float64BufferAttribute copy](  [param:BufferAttribute source] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:BufferAttribute source] - The source.
@@ -126,7 +126,7 @@
 			Copies another BufferAttribute to this BufferAttribute.
 		</p>
 
-		<h3>[method:Float64BufferAttribute copyArray](  [param:ArrayLike array] )</h3>
+		<h3>[method:Float64BufferAttribute copyArray](  [param:ArrayLike array] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:ArrayLike array] - The array.
@@ -136,7 +136,7 @@
 			See [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set TypedArray.set] for notes on requirements if copying a TypedArray.
 		</p>
 
-		<h3>[method:Float64BufferAttribute copyAt](  [param:number index1],  [param:BufferAttribute attribute],  [param:number index2] )</h3>
+		<h3>[method:Float64BufferAttribute copyAt](  [param:number index1],  [param:BufferAttribute attribute],  [param:number index2] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number index1] - The index1.<br />
@@ -147,7 +147,7 @@
 			Copy a vector from bufferAttribute[index2] to [page:BufferAttribute.array array][index1].
 		</p>
 
-		<h3>[method:Float64BufferAttribute copyColorsArray](  [param:any colors] )</h3>
+		<h3>[method:Float64BufferAttribute copyColorsArray](  [param:any colors] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any colors] - The colors.
@@ -156,7 +156,7 @@
 			Copy an array representing RGB color values into [page:BufferAttribute.array array].
 		</p>
 
-		<h3>[method:Float64BufferAttribute copyVector2sArray](  [param:any vectors] )</h3>
+		<h3>[method:Float64BufferAttribute copyVector2sArray](  [param:any vectors] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any vectors] - The vectors.
@@ -165,7 +165,7 @@
 			Copy an array representing [page:Vector2 Vector2]s into [page:BufferAttribute.array array].
 		</p>
 
-		<h3>[method:Float64BufferAttribute copyVector3sArray](  [param:any vectors] )</h3>
+		<h3>[method:Float64BufferAttribute copyVector3sArray](  [param:any vectors] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any vectors] - The vectors.
@@ -174,7 +174,7 @@
 			Copy an array representing [page:Vector3 Vector3]s into [page:BufferAttribute.array array].
 		</p>
 
-		<h3>[method:Float64BufferAttribute copyVector4sArray](  [param:any vectors] )</h3>
+		<h3>[method:Float64BufferAttribute copyVector4sArray](  [param:any vectors] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any vectors] - The vectors.
@@ -183,7 +183,7 @@
 			Copy an array representing [page:Vector4 Vector4]s into [page:BufferAttribute.array array].
 		</p>
 
-		<h3>[method:number getW](  [param:number index] )</h3>
+		<h3>[method:number getW](  [param:number index] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number index] - The index.
@@ -192,7 +192,7 @@
 			Returns : Returns the w component of the vector at the given index.
 		</p>
 
-		<h3>[method:number getX](  [param:number index] )</h3>
+		<h3>[method:number getX](  [param:number index] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number index] - The index.
@@ -201,7 +201,7 @@
 			Returns : Returns the x component of the vector at the given index.
 		</p>
 
-		<h3>[method:number getY](  [param:number index] )</h3>
+		<h3>[method:number getY](  [param:number index] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number index] - The index.
@@ -210,7 +210,7 @@
 			Returns : Returns the y component of the vector at the given index.
 		</p>
 
-		<h3>[method:number getZ](  [param:number index] )</h3>
+		<h3>[method:number getZ](  [param:number index] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number index] - The index.
@@ -219,7 +219,7 @@
 			Returns : Returns the z component of the vector at the given index.
 		</p>
 
-		<h3>[method:Float64BufferAttribute onUpload](  [param:any callback] )</h3>
+		<h3>[method:Float64BufferAttribute onUpload](  [param:any callback] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any callback] - The callback.
@@ -229,12 +229,12 @@
 			In the [example:webgl_buffergeometry WebGL / Buffergeometry] this is used to free memory after the buffer has been	transferred to the GPU.
 		</p>
 
-		<h3>[method:void onUploadCallback](  )</h3>
+		<h3>[method:void onUploadCallback](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			A callback function that is executed after the Renderer has transferred the attribute array data to the GPU.
 		</p>
 
-		<h3>[method:Float64BufferAttribute set](  [param:ArrayLike|ArrayBufferView value],  [param:number offset]? )</h3>
+		<h3>[method:Float64BufferAttribute set](  [param:ArrayLike|ArrayBufferView value],  [param:number offset]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:ArrayLike|ArrayBufferView value] - An [page:Array Array] or [page:TypedArray TypedArray] from which to copy values.<br />
@@ -245,7 +245,7 @@
 			In particular, see that page for requirements on [page:Array value] being a [page:TypedArray TypedArray].
 		</p>
 
-		<h3>[method:Float64BufferAttribute setUsage](  [param:Usage usage] )</h3>
+		<h3>[method:Float64BufferAttribute setUsage](  [param:Usage usage] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Usage usage] - The usage.
@@ -254,7 +254,7 @@
 			Set [page:BufferAttribute.usage usage] to value. See usage [page:BufferAttributeUsage constants] for all possible input values.
 		</p>
 
-		<h3>[method:Float64BufferAttribute setW](  [param:number index],  [param:number z] )</h3>
+		<h3>[method:Float64BufferAttribute setW](  [param:number index],  [param:number z] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number index] - The index.<br />
@@ -264,7 +264,7 @@
 			Sets the w component of the vector at the given index.
 		</p>
 
-		<h3>[method:Float64BufferAttribute setX](  [param:number index],  [param:number x] )</h3>
+		<h3>[method:Float64BufferAttribute setX](  [param:number index],  [param:number x] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number index] - The index.<br />
@@ -274,7 +274,7 @@
 			Sets the x component of the vector at the given index.
 		</p>
 
-		<h3>[method:Float64BufferAttribute setXY](  [param:number index],  [param:number x],  [param:number y] )</h3>
+		<h3>[method:Float64BufferAttribute setXY](  [param:number index],  [param:number x],  [param:number y] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number index] - The index.<br />
@@ -285,7 +285,7 @@
 			Sets the x and y components of the vector at the given index.
 		</p>
 
-		<h3>[method:Float64BufferAttribute setXYZ](  [param:number index],  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<h3>[method:Float64BufferAttribute setXYZ](  [param:number index],  [param:number x],  [param:number y],  [param:number z] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number index] - The index.<br />
@@ -297,7 +297,7 @@
 			Sets the x, y and z components of the vector at the given index.
 		</p>
 
-		<h3>[method:Float64BufferAttribute setXYZW](  [param:number index],  [param:number x],  [param:number y],  [param:number z],  [param:number w] )</h3>
+		<h3>[method:Float64BufferAttribute setXYZW](  [param:number index],  [param:number x],  [param:number y],  [param:number z],  [param:number w] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number index] - The index.<br />
@@ -310,7 +310,7 @@
 			Sets the x, y, z and w components of the vector at the given index.
 		</p>
 
-		<h3>[method:Float64BufferAttribute setY](  [param:number index],  [param:number y] )</h3>
+		<h3>[method:Float64BufferAttribute setY](  [param:number index],  [param:number y] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number index] - The index.<br />
@@ -320,7 +320,7 @@
 			Sets the y component of the vector at the given index.
 		</p>
 
-		<h3>[method:Float64BufferAttribute setZ](  [param:number index],  [param:number z] )</h3>
+		<h3>[method:Float64BufferAttribute setZ](  [param:number index],  [param:number z] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number index] - The index.<br />
@@ -330,12 +330,12 @@
 			Sets the z component of the vector at the given index.
 		</p>
 
-		<h3>[method:void toJSON](  )</h3>
+		<h3>[method:void toJSON](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			
 		</p>
 
-		<h3>[method:Float64BufferAttribute transformDirection](  [param:Matrix4 m] )</h3>
+		<h3>[method:Float64BufferAttribute transformDirection](  [param:Matrix4 m] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Matrix4 m] - The m.

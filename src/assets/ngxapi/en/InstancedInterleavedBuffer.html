@@ -16,7 +16,7 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:InstancedInterleavedBuffer InstancedInterleavedBuffer](  [param:ArrayLike array],  [param:number stride] )</h3>
+		<h3>[constructor:InstancedInterleavedBuffer InstancedInterleavedBuffer](  [param:ArrayLike array],  [param:number stride] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:ArrayLike array] - A typed array with a shared buffer. Stores the geometry data.<br />
@@ -31,17 +31,17 @@
 			See the base [page:InterleavedBuffer InterleavedBuffer] class for common properties.
 		</p>
 
-		<h3>[property:ArrayLike array]</h3>
+		<h3>[property:ArrayLike array]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			A typed array with a shared buffer. Stores the geometry data.
 		</p>
 
-		<h3>[property:number count]</h3>
+		<h3>[property:number count]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Gives the total number of elements in the array.
 		</p>
 
-		<h3>[property:number length]</h3>
+		<h3>[property:number length]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			
 		</p>
@@ -51,32 +51,32 @@
 			Default is <i>1</i>.
 		</p>
 
-		<h3>[property:boolean needsUpdate]</h3>
+		<h3>[property:boolean needsUpdate]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Default is <i>false</i>. Setting this to true increments [page:InterleavedBuffer.version version].
 		</p>
 
-		<h3>[property:number stride]</h3>
+		<h3>[property:number stride]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The number of typed-array elements per vertex.
 		</p>
 
-		<h3>[property:any updateRange]</h3>
+		<h3>[property:any updateRange]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Object containing offset and count.
 		</p>
 
-		<h3>[property:Usage usage]</h3>
+		<h3>[property:Usage usage]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the <i>usage</i> parameter of [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().
 		</p>
 
-		<h3>[property:string uuid]</h3>
+		<h3>[property:string uuid]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			[link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this instance. This gets automatically assigned, so this shouldn't be edited.
 		</p>
 
-		<h3>[property:number version]</h3>
+		<h3>[property:number version]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			A version number, incremented every time the needsUpdate property is set to true.
 		</p>
@@ -86,7 +86,7 @@
 			See the base [page:InterleavedBuffer InterleavedBuffer] class for common methods.
 		</p>
 
-		<h3>[method:InterleavedBuffer clone](  [param:object data] )</h3>
+		<h3>[method:InterleavedBuffer clone](  [param:object data] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:object data] - This object holds shared array buffers required for properly cloning geometries with interleaved attributes.
@@ -96,7 +96,7 @@ Creates a clone of this InterleavedBuffer.
 			
 		</p>
 
-		<h3>[method:InstancedInterleavedBuffer copy](  [param:InterleavedBuffer source] )</h3>
+		<h3>[method:InstancedInterleavedBuffer copy](  [param:InterleavedBuffer source] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:InterleavedBuffer source] - The source.
@@ -105,7 +105,7 @@ Creates a clone of this InterleavedBuffer.
 			Copies another InterleavedBuffer to this InterleavedBuffer.
 		</p>
 
-		<h3>[method:InterleavedBuffer copyAt](  [param:number index1],  [param:InterleavedBufferAttribute attribute],  [param:number index2] )</h3>
+		<h3>[method:InterleavedBuffer copyAt](  [param:number index1],  [param:InterleavedBufferAttribute attribute],  [param:number index2] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number index1] - The index1.<br />
@@ -116,7 +116,7 @@ Creates a clone of this InterleavedBuffer.
 			Copies data from attribute[index2] to [page:InterleavedBuffer.array array][index1].
 		</p>
 
-		<h3>[method:InterleavedBuffer set](  [param:ArrayLike value],  [param:number index] )</h3>
+		<h3>[method:InterleavedBuffer set](  [param:ArrayLike value],  [param:number index] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:ArrayLike value] - The source (typed) array.<br />
@@ -126,7 +126,7 @@ Creates a clone of this InterleavedBuffer.
 			Stores multiple values in the buffer, reading input values from a specified array.
 		</p>
 
-		<h3>[method:InterleavedBuffer setUsage](  [param:Usage usage] )</h3>
+		<h3>[method:InterleavedBuffer setUsage](  [param:Usage usage] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Usage usage] - The usage.
@@ -135,7 +135,7 @@ Creates a clone of this InterleavedBuffer.
 			Set [page:InterleavedBuffer.usage usage] to value.
 		</p>
 
-		<h3>[method:void toJSON](  [param:object data] )</h3>
+		<h3>[method:void toJSON](  [param:object data] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:object data] - This object holds shared array buffers required for properly serializing geometries with interleaved attributes.

@@ -14,6 +14,7 @@
 		<p class="desc">
 			Create a positional audio object.<br />
 			This uses the [link:https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API Web Audio API].<br />
+			See the [page:PositionalAudio ngx3js docs] page for details.<br />
 			<br />
 			<h3>Preview - webaudio / orientation</h3><br />
 			<iframe src="#/viewer/webaudio_orientation"></iframe><br />
@@ -47,11 +48,22 @@
 			scene.add( mesh );<br />
 			//  finally add the sound to the mesh<br />
 			mesh.add( sound );<br />
+			</code><br />
+			<br />
+			<h2>Ngx3Js Code Example</h2><br />
+			<code data-type="html"><br />
+			&lt;ngx3js-camera&gt;<br />
+				&lt;ngx3js-listener&gt;&lt;/ngx3js-listener&gt;<br />
+			&lt;/ngx3js-camera&gt;<br />
+			&lt;ngx3js-mesh&gt;<br />
+				&lt;ngx3js-geometry [type]="'SphereGeometry'" [radius]="20" [widthSegments]="32" [heightSegments]="16"&gt;&lt;/ngx3js-geometry&gt;<br />
+				&lt;ngx3js-audio [url]="'sounds/ambient.ogg'" [volume]="0.5" [loop]="true"&gt;&lt;/ngx3js-audio&gt;<br />
+			&lt;/ngx3js-mesh&gt;<br />
 			</code>
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:PositionalAudio PositionalAudio](  [param:AudioListener listener] )</h3>
+		<h3>[constructor:PositionalAudio PositionalAudio](  [param:AudioListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:AudioListener listener] - AudioListener instance.
@@ -71,180 +83,180 @@
 			See the base [page:Audio Audio] class for common properties.
 		</p>
 
-		<h3>[property:boolean DefaultMatrixAutoUpdate]</h3>
+		<h3>[property:boolean DefaultMatrixAutoUpdate]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The default setting for <i>.matrixAutoUpdate</i> for newly created Object3Ds.
 		</p>
 
-		<h3>[property:Vector3 DefaultUp]</h3>
+		<h3>[property:Vector3 DefaultUp]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The default <i>.up</i> direction for objects, also used as the default position for [page:DirectionalLight DirectionalLight],<br />
 			[page:HemisphereLight HemisphereLight] and [page:Spotlight Spotlight] (which creates lights shining from the top down).<br />
 			Set to ( 0, 1, 0 ) by default.
 		</p>
 
-		<h3>[property:AnimationClip[] animations]</h3>
+		<h3>[property:AnimationClip[] animations]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Array with object's animation clips.
 		</p>
 
-		<h3>[property:boolean autoplay]</h3>
+		<h3>[property:boolean autoplay]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Whether to start playback automatically. Default is <i>false</i>.
 		</p>
 
-		<h3>[property:AudioBuffer buffer]</h3>
+		<h3>[property:AudioBuffer buffer]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			
 		</p>
 
-		<h3>[property:boolean castShadow]</h3>
+		<h3>[property:boolean castShadow]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Whether the object gets rendered into shadow map. Default is <i>false</i>.
 		</p>
 
-		<h3>[property:Object3D[] children]</h3>
+		<h3>[property:Object3D[] children]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Array with object's children. See [page:Group Group] for info on manually grouping objects.
 		</p>
 
-		<h3>[property:AudioContext context]</h3>
+		<h3>[property:AudioContext context]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext] of the [page:AudioListener listener] given in the constructor.
 		</p>
 
-		<h3>[property:Material customDepthMaterial]</h3>
+		<h3>[property:Material customDepthMaterial]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br />
 			When shadow-casting with a [page:DirectionalLight DirectionalLight] or [page:SpotLight SpotLight], if you are modifying vertex positions in the vertex shader you must specify a customDepthMaterial for proper shadows. Default is <i>undefined</i>.
 		</p>
 
-		<h3>[property:Material customDistanceMaterial]</h3>
+		<h3>[property:Material customDistanceMaterial]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Same as <i>.customDepthMaterial</i>, but used with [page:PointLight PointLight]. Default is <i>undefined</i>.
 		</p>
 
-		<h3>[property:number detune]</h3>
+		<h3>[property:number detune]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Modify pitch, measured in cents. +/- 100 is a semitone. +/- 1200 is an octave. Default is <i>0</i>.
 		</p>
 
-		<h3>[property:number duration]</h3>
+		<h3>[property:number duration]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Overrides the duration of the audio. Same as the <i>duration</i> parameter of [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/start AudioBufferSourceNode.start](). Default is <i>undefined</i> to play the whole buffer.
 		</p>
 
-		<h3>[property:AudioNode[] filters]</h3>
+		<h3>[property:AudioNode[] filters]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Represents an array of [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioNode AudioNodes]. Can be used to apply a variety of low-order filters to create more complex sound effects.<br />
 			In most cases, the array contains instances of [link:https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode BiquadFilterNodes]. Filters are set via [page:Audio.setFilter Audio.setFilter] or [page:Audio.setFilters Audio.setFilters].
 		</p>
 
-		<h3>[property:boolean frustumCulled]</h3>
+		<h3>[property:boolean frustumCulled]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object. If set to `false` the object gets rendered every frame even if it is not in the frustum of the camera. Default is `true`.
 		</p>
 
-		<h3>[property:GainNode gain]</h3>
+		<h3>[property:GainNode gain]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			A [link:https://developer.mozilla.org/en-US/docs/Web/API/GainNode GainNode] created using [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createGain AudioContext.createGain]().
 		</p>
 
-		<h3>[property:BufferGeometry geometry]?<i class="modifier modifier-optional">Optional</i></h3>
+		<h3>[property:BufferGeometry geometry]?<i class="modifier modifier-inherited">Inherited</i> <i class="modifier modifier-optional">Optional</i></h3>
 		<p>
 			The BufferGeometry
 		</p>
 
-		<h3>[property:boolean hasPlaybackControl]</h3>
+		<h3>[property:boolean hasPlaybackControl]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Whether playback can be controlled using the [page:Audio.play play](),<br />
 			[page:Audio.pause pause]() etc. methods. Default is <i>true</i>.
 		</p>
 
-		<h3>[property:number id]</h3>
+		<h3>[property:number id]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Unique number for this object instance.
 		</p>
 
-		<h3>[property:any isObject3D]</h3>
+		<h3>[property:any isObject3D]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Used to check whether this or derived classes are Object3Ds. Default is true.<br />
 			You should not change this, as it is used internally for optimisation.
 		</p>
 
-		<h3>[property:boolean isPlaying]</h3>
+		<h3>[property:boolean isPlaying]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Whether the audio is currently playing.
 		</p>
 
-		<h3>[property:Layers layers]</h3>
+		<h3>[property:Layers layers]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The layer membership of the object. The object is only visible if it has at least one layer in common with the [page:Camera Camera] in use. This property can also be used to filter out unwanted objects in ray-intersection tests when using [page:Raycaster Raycaster].
 		</p>
 
-		<h3>[property:AudioListener listener]</h3>
+		<h3>[property:AudioListener listener]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			A reference to the listener object of this audio.
 		</p>
 
-		<h3>[property:boolean loop]</h3>
+		<h3>[property:boolean loop]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			
 		</p>
 
-		<h3>[property:number loopEnd]</h3>
+		<h3>[property:number loopEnd]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			
 		</p>
 
-		<h3>[property:number loopStart]</h3>
+		<h3>[property:number loopStart]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			
 		</p>
 
-		<h3>[property:Material|Material[] material]?<i class="modifier modifier-optional">Optional</i></h3>
+		<h3>[property:Material|Material[] material]?<i class="modifier modifier-inherited">Inherited</i> <i class="modifier modifier-optional">Optional</i></h3>
 		<p>
 			The Material
 		</p>
 
-		<h3>[property:Matrix4 matrix]</h3>
+		<h3>[property:Matrix4 matrix]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The local transform matrix.
 		</p>
 
-		<h3>[property:boolean matrixAutoUpdate]</h3>
+		<h3>[property:boolean matrixAutoUpdate]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate Object3D.DefaultMatrixAutoUpdate] (true).
 		</p>
 
-		<h3>[property:Matrix4 matrixWorld]</h3>
+		<h3>[property:Matrix4 matrixWorld]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The global transform of the object. If the Object3D has no parent, then it's identical to the local transform <i>.matrix</i>.
 		</p>
 
-		<h3>[property:boolean matrixWorldNeedsUpdate]</h3>
+		<h3>[property:boolean matrixWorldNeedsUpdate]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			When this is set, it calculates the matrixWorld in that frame and resets this property  to false. Default is <i>false</i>.
 		</p>
 
-		<h3>[property:Matrix4 modelViewMatrix]</h3>
+		<h3>[property:Matrix4 modelViewMatrix]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			This is passed to the shader and used to calculate the position of the object.
 		</p>
 
-		<h3>[property:string name]</h3>
+		<h3>[property:string name]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Optional name of the object (doesn't need to be unique). Default is an empty string.
 		</p>
 
-		<h3>[property:Matrix3 normalMatrix]</h3>
+		<h3>[property:Matrix3 normalMatrix]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			This is passed to the shader and used to calculate lighting for the object. It is the transpose of the inverse of the upper left 3x3 sub-matrix of this object's modelViewMatrix.<br />
 			The reason for this special matrix is that simply using the modelViewMatrix could result in a non-unit length of normals (on scaling) or in a non-perpendicular direction (on non-uniform scaling).<br />
 			On the other hand the translation part of the modelViewMatrix is not relevant for the calculation of normals. Thus a Matrix3 is sufficient.
 		</p>
 
-		<h3>[property:number offset]</h3>
+		<h3>[property:number offset]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			An offset to the time within the audio buffer that playback should begin. Same as the <i>offset</i> parameter of [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/start AudioBufferSourceNode.start](). Default is <i>0</i>.
 		</p>
@@ -254,80 +266,80 @@
 			The PositionalAudio's [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode PannerNode].
 		</p>
 
-		<h3>[property:Object3D parent]</h3>
+		<h3>[property:Object3D parent]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Object's parent in the [link:https://en.wikipedia.org/wiki/Scene_graph scene graph]. An object can have at most one parent.
 		</p>
 
-		<h3>[property:number playbackRate]</h3>
+		<h3>[property:number playbackRate]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Speed of playback. Default is <i>1</i>.
 		</p>
 
-		<h3>[property:Vector3 position]</h3>
+		<h3>[property:Vector3 position]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			A [page:Vector3 Vector3] representing the object's local position. Default is (0, 0, 0).
 		</p>
 
-		<h3>[property:Quaternion quaternion]</h3>
+		<h3>[property:Quaternion quaternion]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Object's local rotation as a [page:Quaternion Quaternion].
 		</p>
 
-		<h3>[property:boolean receiveShadow]</h3>
+		<h3>[property:boolean receiveShadow]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Whether the material receives shadows. Default is <i>false</i>.
 		</p>
 
-		<h3>[property:number renderOrder]</h3>
+		<h3>[property:number renderOrder]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			This value allows the default rendering order of [link:https://en.wikipedia.org/wiki/Scene_graph scene graph] objects to be overridden although opaque and transparent objects remain sorted independently. When this property is set for an instance of [page:Group Group], all descendants objects will be sorted and rendered together.<br />
 			Sorting is from lowest to highest renderOrder. Default value is <i>0</i>.
 		</p>
 
-		<h3>[property:Euler rotation]</h3>
+		<h3>[property:Euler rotation]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Object's local rotation (see [link:https://en.wikipedia.org/wiki/Euler_angles Euler angles]), in radians.
 		</p>
 
-		<h3>[property:Vector3 scale]</h3>
+		<h3>[property:Vector3 scale]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The object's local scale. Default is [link: 1, 1, 1  page:Vector3 Vector3].
 		</p>
 
-		<h3>[property:AudioBufferSourceNode source]</h3>
+		<h3>[property:AudioBufferSourceNode source]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			An [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode AudioBufferSourceNode] created using [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createBufferSource AudioContext.createBufferSource]().
 		</p>
 
-		<h3>[property:string sourceType]</h3>
+		<h3>[property:string sourceType]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Type of the audio source. Default is string 'empty'.
 		</p>
 
-		<h3>[property:any type]</h3>
+		<h3>[property:any type]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			String denoting the type, set to 'Audio'.
 		</p>
 
-		<h3>[property:Vector3 up]</h3>
+		<h3>[property:Vector3 up]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			This is used by the <i>.lookAt</i> method, for example, to determine the orientation of the result.<br />
 			Default is [page:Object3D.DefaultUp Object3D.DefaultUp] - that is, ( 0, 1, 0 ).
 		</p>
 
-		<h3>[property:any userData]</h3>
+		<h3>[property:any userData]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			An object that can be used to store custom data about the Object3D. It should not hold references to functions as these will not be cloned.
 		</p>
 
-		<h3>[property:string uuid]</h3>
+		<h3>[property:string uuid]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			[link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this object instance.<br />
 			This gets automatically assigned, so this shouldn't be edited.
 		</p>
 
-		<h3>[property:boolean visible]</h3>
+		<h3>[property:boolean visible]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Object gets rendered if <i>true</i>. Default is <i>true</i>.
 		</p>
@@ -343,7 +355,7 @@
 			See the base [page:Audio Audio] class for common methods.
 		</p>
 
-		<h3>[method:PositionalAudio add](  [param:Object3D[] object] )</h3>
+		<h3>[method:PositionalAudio add](  [param:Object3D[] object] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Object3D[] object] - The object.
@@ -353,7 +365,7 @@
 			See [page:Group Group] for info on manually grouping objects.
 		</p>
 
-		<h3>[method:void addEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h3>[method:void addEventListener](  [param:T type],  [param:EventListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:T type] - The type of event to listen to.<br />
@@ -363,7 +375,7 @@
 			Adds a listener to an event type.
 		</p>
 
-		<h3>[method:void applyMatrix4](  [param:Matrix4 matrix] )</h3>
+		<h3>[method:void applyMatrix4](  [param:Matrix4 matrix] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Matrix4 matrix] - The matrix.
@@ -372,7 +384,7 @@
 			Applies the matrix transform to the object and updates the object's position, rotation and scale.
 		</p>
 
-		<h3>[method:PositionalAudio applyQuaternion](  [param:Quaternion quaternion] )</h3>
+		<h3>[method:PositionalAudio applyQuaternion](  [param:Quaternion quaternion] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Quaternion quaternion] - The quaternion.
@@ -381,7 +393,7 @@
 			Applies the rotation represented by the quaternion to the object.
 		</p>
 
-		<h3>[method:PositionalAudio attach](  [param:Object3D object] )</h3>
+		<h3>[method:PositionalAudio attach](  [param:Object3D object] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Object3D object] - The object.
@@ -391,12 +403,12 @@
 			Note: This method does not support scene graphs having non-uniformly-scaled nodes(s).
 		</p>
 
-		<h3>[method:PositionalAudio clear](  )</h3>
+		<h3>[method:PositionalAudio clear](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Removes all child objects.
 		</p>
 
-		<h3>[method:PositionalAudio clone](  [param:boolean recursive]? )</h3>
+		<h3>[method:PositionalAudio clone](  [param:boolean recursive]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:boolean recursive] - (optional) if true, descendants of the object are also cloned. Default is true.
@@ -405,12 +417,12 @@
 			Returns : Returns a clone of this object and optionally all descendants.
 		</p>
 
-		<h3>[method:PositionalAudio connect](  )</h3>
+		<h3>[method:PositionalAudio connect](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Connect to the [page:Audio.source Audio.source]. This is used internally on initialisation and when setting / removing filters.
 		</p>
 
-		<h3>[method:PositionalAudio copy](  [param:PositionalAudio source],  [param:boolean recursive]? )</h3>
+		<h3>[method:PositionalAudio copy](  [param:PositionalAudio source],  [param:boolean recursive]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:PositionalAudio source] - The source.<br />
@@ -421,12 +433,12 @@
 			Note: event listeners and user-defined callbacks (<i>.onAfterRender</i> and <i>.onBeforeRender</i>) are not copied.
 		</p>
 
-		<h3>[method:PositionalAudio disconnect](  )</h3>
+		<h3>[method:PositionalAudio disconnect](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Disconnect from the [page:Audio.source Audio.source]. This is used internally when setting / removing filters.
 		</p>
 
-		<h3>[method:void dispatchEvent](  [param:Event event] )</h3>
+		<h3>[method:void dispatchEvent](  [param:Event event] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Event event] - The event.
@@ -435,7 +447,7 @@
 			Fire an event type.
 		</p>
 
-		<h3>[method:number getDetune](  )</h3>
+		<h3>[method:number getDetune](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			
 		</p>
@@ -445,17 +457,17 @@
 			Returns : Returns the value of [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/distanceModel panner.distanceModel].
 		</p>
 
-		<h3>[method:AudioNode getFilter](  )</h3>
+		<h3>[method:AudioNode getFilter](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Returns : Returns the first element of the [page:Audio.filters filters] array.
 		</p>
 
-		<h3>[method:AudioNode[] getFilters](  )</h3>
+		<h3>[method:AudioNode[] getFilters](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Returns : Returns the [page:Audio.filters filters] array.
 		</p>
 
-		<h3>[method:boolean getLoop](  )</h3>
+		<h3>[method:boolean getLoop](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Returns : Return the value of [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loop source.loop] (whether playback should loop).
 		</p>
@@ -465,7 +477,7 @@
 			Returns : Returns the value of [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/maxDistance panner.maxDistance].
 		</p>
 
-		<h3>[method:Object3D getObjectById](  [param:number id] )</h3>
+		<h3>[method:Object3D getObjectById](  [param:number id] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number id] - Unique number of the object instance Searches through an object and its children, starting with the object itself, and returns the first with a matching id.
@@ -474,7 +486,7 @@
 			Note that ids are assigned in chronological order: 1, 2, 3, ..., incrementing by one for each new object.
 		</p>
 
-		<h3>[method:Object3D getObjectByName](  [param:string name] )</h3>
+		<h3>[method:Object3D getObjectByName](  [param:string name] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string name] - String to match to the children's Object3D.name property.
@@ -484,7 +496,7 @@
 			Note that for most objects the name is an empty string by default. You will have to set it manually to make use of this method.
 		</p>
 
-		<h3>[method:Object3D getObjectByProperty](  [param:string name],  [param:string value] )</h3>
+		<h3>[method:Object3D getObjectByProperty](  [param:string name],  [param:string value] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string name] - The property name to search for.<br />
@@ -499,7 +511,7 @@
 			Returns : Returns the [page:PositionalAudio.panner panner].
 		</p>
 
-		<h3>[method:number getPlaybackRate](  )</h3>
+		<h3>[method:number getPlaybackRate](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Returns : Return the value of [page:Audio.playbackRate playbackRate].
 		</p>
@@ -514,12 +526,12 @@
 			Returns : Returns the value of [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/rolloffFactor panner.rolloffFactor].
 		</p>
 
-		<h3>[method:number getVolume](  )</h3>
+		<h3>[method:number getVolume](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Returns : Return the current volume.
 		</p>
 
-		<h3>[method:Vector3 getWorldDirection](  [param:Vector3 target] )</h3>
+		<h3>[method:Vector3 getWorldDirection](  [param:Vector3 target] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 target] - The result will be copied into this Vector3.
@@ -528,7 +540,7 @@
 			Returns : Returns a vector representing the direction of object's positive z-axis in world space.
 		</p>
 
-		<h3>[method:Vector3 getWorldPosition](  [param:Vector3 target] )</h3>
+		<h3>[method:Vector3 getWorldPosition](  [param:Vector3 target] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 target] - The result will be copied into this Vector3.
@@ -537,7 +549,7 @@
 			Returns : Returns a vector representing the position of the object in world space.
 		</p>
 
-		<h3>[method:Quaternion getWorldQuaternion](  [param:Quaternion target] )</h3>
+		<h3>[method:Quaternion getWorldQuaternion](  [param:Quaternion target] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Quaternion target] - The result will be copied into this Quaternion.
@@ -546,7 +558,7 @@
 			Returns : Returns a quaternion representing the rotation of the object in world space.
 		</p>
 
-		<h3>[method:Vector3 getWorldScale](  [param:Vector3 target] )</h3>
+		<h3>[method:Vector3 getWorldScale](  [param:Vector3 target] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 target] - The result will be copied into this Vector3.
@@ -555,7 +567,7 @@
 			Returns : Returns a vector of the scaling factors applied to the object for each axis in world space.
 		</p>
 
-		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:T type] - The type of event to listen to.<br />
@@ -565,7 +577,7 @@
 			Checks if listener is added to an event type.
 		</p>
 
-		<h3>[method:Vector3 localToWorld](  [param:Vector3 vector] )</h3>
+		<h3>[method:Vector3 localToWorld](  [param:Vector3 vector] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 vector] - A vector representing a position in this object's local space.
@@ -574,7 +586,7 @@
 			Converts the vector from this object's local space to world space.
 		</p>
 
-		<h3>[method:void lookAt](  [param:number|Vector3 vector],  [param:number y]?,  [param:number z]? )</h3>
+		<h3>[method:void lookAt](  [param:number|Vector3 vector],  [param:number y]?,  [param:number z]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number|Vector3 vector] - A vector representing a position in world space.<br />
@@ -587,7 +599,7 @@
 			This method does not support objects having non-uniformly-scaled parent(s).
 		</p>
 
-		<h3>[method:void onAfterRender](  [param:WebGLRenderer renderer],  [param:Scene scene],  [param:Camera camera],  [param:BufferGeometry geometry],  [param:Material material],  [param:Group group] )</h3>
+		<h3>[method:void onAfterRender](  [param:WebGLRenderer renderer],  [param:Scene scene],  [param:Camera camera],  [param:BufferGeometry geometry],  [param:Material material],  [param:Group group] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:WebGLRenderer renderer] - The renderer.<br />
@@ -604,7 +616,7 @@
 			Instances of [page:Object3D Object3D], [page:Group Group] or [page:Bone Bone] are not renderable and thus this callback is not executed for such objects.
 		</p>
 
-		<h3>[method:void onBeforeRender](  [param:WebGLRenderer renderer],  [param:Scene scene],  [param:Camera camera],  [param:BufferGeometry geometry],  [param:Material material],  [param:Group group] )</h3>
+		<h3>[method:void onBeforeRender](  [param:WebGLRenderer renderer],  [param:Scene scene],  [param:Camera camera],  [param:BufferGeometry geometry],  [param:Material material],  [param:Group group] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:WebGLRenderer renderer] - The renderer.<br />
@@ -621,17 +633,17 @@
 			Instances of [page:Object3D Object3D], [page:Group Group] or [page:Bone Bone] are not renderable and thus this callback is not executed for such objects.
 		</p>
 
-		<h3>[method:void onEnded](  )</h3>
+		<h3>[method:void onEnded](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Called automatically when playback finished.
 		</p>
 
-		<h3>[method:PositionalAudio pause](  )</h3>
+		<h3>[method:PositionalAudio pause](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			If [page:Audio.hasPlaybackControl hasPlaybackControl] is true, pauses playback.
 		</p>
 
-		<h3>[method:PositionalAudio play](  [param:number delay]? )</h3>
+		<h3>[method:PositionalAudio play](  [param:number delay]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number delay] - (optional) The delay.
@@ -640,7 +652,7 @@
 			If [page:Audio.hasPlaybackControl hasPlaybackControl] is true, starts playback.
 		</p>
 
-		<h3>[method:void raycast](  [param:Raycaster raycaster],  [param:Intersection[] intersects] )</h3>
+		<h3>[method:void raycast](  [param:Raycaster raycaster],  [param:Intersection[] intersects] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Raycaster raycaster] - The raycaster.<br />
@@ -651,7 +663,7 @@
 			Subclasses such as [page:Mesh Mesh], [page:Line Line], and [page:Points Points] implement this method in order to use raycasting.
 		</p>
 
-		<h3>[method:PositionalAudio remove](  [param:Object3D[] object] )</h3>
+		<h3>[method:PositionalAudio remove](  [param:Object3D[] object] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Object3D[] object] - The object.
@@ -660,7 +672,7 @@
 			Removes <i>object</i> as child of this object. An arbitrary number of objects may be removed.
 		</p>
 
-		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:T type] - The type of the listener that gets removed.<br />
@@ -670,12 +682,12 @@
 			Removes a listener from an event type.
 		</p>
 
-		<h3>[method:PositionalAudio removeFromParent](  )</h3>
+		<h3>[method:PositionalAudio removeFromParent](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Removes this object from its current parent.
 		</p>
 
-		<h3>[method:PositionalAudio rotateOnAxis](  [param:Vector3 axis],  [param:number angle] )</h3>
+		<h3>[method:PositionalAudio rotateOnAxis](  [param:Vector3 axis],  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 axis] - A normalized vector in object space.<br />
@@ -685,7 +697,7 @@
 			Rotate an object along an axis in object space. The axis is assumed to be normalized.
 		</p>
 
-		<h3>[method:PositionalAudio rotateOnWorldAxis](  [param:Vector3 axis],  [param:number angle] )</h3>
+		<h3>[method:PositionalAudio rotateOnWorldAxis](  [param:Vector3 axis],  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 axis] - A normalized vector in object space.<br />
@@ -696,7 +708,7 @@
 			Method Assumes no rotated parent.
 		</p>
 
-		<h3>[method:PositionalAudio rotateX](  [param:number angle] )</h3>
+		<h3>[method:PositionalAudio rotateX](  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number angle] - The angle to rotate in radians.
@@ -705,7 +717,7 @@
 			Rotates the object around x axis in local space.
 		</p>
 
-		<h3>[method:PositionalAudio rotateY](  [param:number angle] )</h3>
+		<h3>[method:PositionalAudio rotateY](  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number angle] - The angle to rotate in radians.
@@ -714,7 +726,7 @@
 			Rotates the object around y axis in local space.
 		</p>
 
-		<h3>[method:PositionalAudio rotateZ](  [param:number angle] )</h3>
+		<h3>[method:PositionalAudio rotateZ](  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number angle] - The angle to rotate in radians.
@@ -723,7 +735,7 @@
 			Rotates the object around z axis in local space.
 		</p>
 
-		<h3>[method:PositionalAudio setBuffer](  [param:AudioBuffer audioBuffer] )</h3>
+		<h3>[method:PositionalAudio setBuffer](  [param:AudioBuffer audioBuffer] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:AudioBuffer audioBuffer] - The audio buffer.
@@ -733,7 +745,7 @@
 			If [page:Audio.autoplay autoplay], also starts playback.
 		</p>
 
-		<h3>[method:PositionalAudio setDetune](  [param:number value] )</h3>
+		<h3>[method:PositionalAudio setDetune](  [param:number value] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number value] - The value.
@@ -762,7 +774,7 @@
 			Sets the value of [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/distanceModel panner.distanceModel].
 		</p>
 
-		<h3>[method:PositionalAudio setFilter](  [param:AudioNode filter] )</h3>
+		<h3>[method:PositionalAudio setFilter](  [param:AudioNode filter] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:AudioNode filter] - The filter.
@@ -771,7 +783,7 @@
 			Applies a single filter node to the audio.
 		</p>
 
-		<h3>[method:PositionalAudio setFilters](  [param:AudioNode[] value] )</h3>
+		<h3>[method:PositionalAudio setFilters](  [param:AudioNode[] value] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:AudioNode[] value] - arrays of filters.
@@ -780,7 +792,7 @@
 			Applies an array of filter nodes to the audio.
 		</p>
 
-		<h3>[method:PositionalAudio setLoop](  [param:boolean value] )</h3>
+		<h3>[method:PositionalAudio setLoop](  [param:boolean value] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:boolean value] - The value.
@@ -789,7 +801,7 @@
 			Set [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loop source.loop] to <i>value</i> (whether playback should loop).
 		</p>
 
-		<h3>[method:PositionalAudio setLoopEnd](  [param:number value] )</h3>
+		<h3>[method:PositionalAudio setLoopEnd](  [param:number value] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number value] - The value.
@@ -798,7 +810,7 @@
 			Set [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loopEnd source.loopEnd] to <i>value</i>.
 		</p>
 
-		<h3>[method:PositionalAudio setLoopStart](  [param:number value] )</h3>
+		<h3>[method:PositionalAudio setLoopStart](  [param:number value] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number value] - The value.
@@ -816,7 +828,7 @@
 			Sets the value of [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/maxDistance panner.maxDistance].
 		</p>
 
-		<h3>[method:PositionalAudio setMediaElementSource](  [param:HTMLMediaElement mediaElement] )</h3>
+		<h3>[method:PositionalAudio setMediaElementSource](  [param:HTMLMediaElement mediaElement] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:HTMLMediaElement mediaElement] - The media element.
@@ -826,7 +838,7 @@
 			Also sets [page:Audio.hasPlaybackControl hasPlaybackControl] to false.
 		</p>
 
-		<h3>[method:PositionalAudio setMediaStreamSource](  [param:MediaStream mediaStream] )</h3>
+		<h3>[method:PositionalAudio setMediaStreamSource](  [param:MediaStream mediaStream] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:MediaStream mediaStream] - The media stream.
@@ -836,7 +848,7 @@
 			Also sets [page:Audio.hasPlaybackControl hasPlaybackControl] to false.
 		</p>
 
-		<h3>[method:PositionalAudio setNodeSource](  [param:AudioBufferSourceNode|OscillatorNode audioNode] )</h3>
+		<h3>[method:PositionalAudio setNodeSource](  [param:AudioBufferSourceNode|OscillatorNode audioNode] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:AudioBufferSourceNode|OscillatorNode audioNode] - The audio node.
@@ -846,7 +858,7 @@
 			Also sets [page:Audio.hasPlaybackControl hasPlaybackControl] to false.
 		</p>
 
-		<h3>[method:PositionalAudio setPlaybackRate](  [param:number value] )</h3>
+		<h3>[method:PositionalAudio setPlaybackRate](  [param:number value] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number value] - The value.
@@ -873,7 +885,7 @@
 			Sets the value of [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/rolloffFactor panner.rolloffFactor].
 		</p>
 
-		<h3>[method:void setRotationFromAxisAngle](  [param:Vector3 axis],  [param:number angle] )</h3>
+		<h3>[method:void setRotationFromAxisAngle](  [param:Vector3 axis],  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 axis] - A normalized vector in object space.<br />
@@ -883,7 +895,7 @@
 			Calls [link: [page:Float axis], [page:Float angle]  page:Quaternion.setFromAxisAngle setFromAxisAngle] on the <i>.quaternion</i>.
 		</p>
 
-		<h3>[method:void setRotationFromEuler](  [param:Euler euler] )</h3>
+		<h3>[method:void setRotationFromEuler](  [param:Euler euler] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Euler euler] - Euler angle specifying rotation amount.
@@ -892,7 +904,7 @@
 			Calls [link: [page:Euler euler] page:Quaternion.setRotationFromEuler setRotationFromEuler] on the <i>.quaternion</i>.
 		</p>
 
-		<h3>[method:void setRotationFromMatrix](  [param:Matrix4 m] )</h3>
+		<h3>[method:void setRotationFromMatrix](  [param:Matrix4 m] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Matrix4 m] - rotate the quaternion by the rotation component of the matrix.
@@ -902,7 +914,7 @@
 			Note that this assumes that the upper 3x3 of m is a pure rotation matrix (i.e, unscaled).
 		</p>
 
-		<h3>[method:void setRotationFromQuaternion](  [param:Quaternion q] )</h3>
+		<h3>[method:void setRotationFromQuaternion](  [param:Quaternion q] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Quaternion q] - normalized Quaternion
@@ -911,7 +923,7 @@
 			Copy the given quaternion into <i>.quaternion</i>.
 		</p>
 
-		<h3>[method:PositionalAudio setVolume](  [param:number value] )</h3>
+		<h3>[method:PositionalAudio setVolume](  [param:number value] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number value] - The value.
@@ -920,12 +932,12 @@
 			Set the volume.
 		</p>
 
-		<h3>[method:PositionalAudio stop](  )</h3>
+		<h3>[method:PositionalAudio stop](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			If [page:Audio.hasPlaybackControl hasPlaybackControl] is enabled, stops playback.
 		</p>
 
-		<h3>[method:any toJSON](  [param:any meta]? )</h3>
+		<h3>[method:any toJSON](  [param:any meta]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any meta] - (optional) The meta.
@@ -934,7 +946,7 @@
 			
 		</p>
 
-		<h3>[method:PositionalAudio translateOnAxis](  [param:Vector3 axis],  [param:number distance] )</h3>
+		<h3>[method:PositionalAudio translateOnAxis](  [param:Vector3 axis],  [param:number distance] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 axis] - A normalized vector in object space.<br />
@@ -944,7 +956,7 @@
 			Translate an object by distance along an axis in object space. The axis is assumed to be normalized.
 		</p>
 
-		<h3>[method:PositionalAudio translateX](  [param:number distance] )</h3>
+		<h3>[method:PositionalAudio translateX](  [param:number distance] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number distance] - Distance.
@@ -953,7 +965,7 @@
 			Translates object along x axis in object space by <i>distance</i> units.
 		</p>
 
-		<h3>[method:PositionalAudio translateY](  [param:number distance] )</h3>
+		<h3>[method:PositionalAudio translateY](  [param:number distance] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number distance] - Distance.
@@ -962,7 +974,7 @@
 			Translates object along y axis in object space by <i>distance</i> units.
 		</p>
 
-		<h3>[method:PositionalAudio translateZ](  [param:number distance] )</h3>
+		<h3>[method:PositionalAudio translateZ](  [param:number distance] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number distance] - Distance.
@@ -971,7 +983,7 @@
 			Translates object along z axis in object space by <i>distance</i> units.
 		</p>
 
-		<h3>[method:void traverse](  [param:any callback] )</h3>
+		<h3>[method:void traverse](  [param:any callback] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any callback] - A function with as first argument an object3D object.
@@ -981,7 +993,7 @@
 			Note: Modifying the scene graph inside the callback is discouraged.
 		</p>
 
-		<h3>[method:void traverseAncestors](  [param:any callback] )</h3>
+		<h3>[method:void traverseAncestors](  [param:any callback] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any callback] - A function with as first argument an object3D object.
@@ -991,7 +1003,7 @@
 			Note: Modifying the scene graph inside the callback is discouraged.
 		</p>
 
-		<h3>[method:void traverseVisible](  [param:any callback] )</h3>
+		<h3>[method:void traverseVisible](  [param:any callback] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any callback] - A function with as first argument an object3D object.
@@ -1002,7 +1014,7 @@
 			Note: Modifying the scene graph inside the callback is discouraged.
 		</p>
 
-		<h3>[method:void updateMatrix](  )</h3>
+		<h3>[method:void updateMatrix](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Updates the local transform.
 		</p>
@@ -1016,7 +1028,7 @@
 			
 		</p>
 
-		<h3>[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] )</h3>
+		<h3>[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:boolean updateParents] - recursively updates global transform of ancestors.<br />
@@ -1026,7 +1038,7 @@
 			Updates the global transform of the object.
 		</p>
 
-		<h3>[method:Vector3 worldToLocal](  [param:Vector3 vector] )</h3>
+		<h3>[method:Vector3 worldToLocal](  [param:Vector3 vector] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 vector] - A vector representing a position in world space.

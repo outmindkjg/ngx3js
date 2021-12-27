@@ -7,7 +7,134 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		<h1>PropertyBinding - Namespace</h1>
+		<h1>PropertyBinding</h1>
+
+		<p class="desc">
+			This holds a reference to a real property in the scene graph; used internally.
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:PropertyBinding PropertyBinding](  [param:any rootNode],  [param:string path],  [param:any parsedPath]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any rootNode] - The root node.<br />
+			[parameter:string path] - The path.<br />
+			[parameter:any parsedPath] - (optional) The parsed path.
+		</p>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<h3>[property:any BindingType]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any GetterByBindingType]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any SetterByBindingTypeAndVersioning]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any Versioning]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any node]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any parsedPath]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string path]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:any rootNode]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<h3>[method:void bind](  )</h3>
+		<p>
+			Create getter / setter pair for a property in the scene graph. Used internally by [page:PropertyBinding.getValue getValue] and [page:PropertyBinding.setValue setValue].
+		</p>
+
+		<h3>[method:PropertyBinding|PropertyBindingComposite create](  [param:any root],  [param:any path],  [param:any parsedPath]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any root] - The root.<br />
+			[parameter:any path] - The path.<br />
+			[parameter:any parsedPath] - (optional) The parsed path.
+		</p>
+		<p>
+			Create a new Composite PropertyBinding (if root is an [page:AnimationObjectGroup AnimationObjectGroup]) or PropertyBinding.
+		</p>
+
+		<h3>[method:any findNode](  [param:any root],  [param:string nodeName] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any root] - The root.<br />
+			[parameter:string nodeName] - The node name.
+		</p>
+		<p>
+			Find a node in a node tree or [page:Skeleton Skeleton].
+		</p>
+
+		<h3>[method:any getValue](  [param:any targetArray],  [param:number offset] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any targetArray] - The target array.<br />
+			[parameter:number offset] - The offset.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:ParseTrackNameResults parseTrackName](  [param:string trackName] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string trackName] - The track name.
+		</p>
+		<p>
+			Matches strings in the following forms:
+		</p>
+
+		<h3>[method:string sanitizeNodeName](  [param:string name] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string name] - The name.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void setValue](  [param:any sourceArray],  [param:number offset] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any sourceArray] - The source array.<br />
+			[parameter:number offset] - The offset.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void unbind](  )</h3>
+		<p>
+			Unbind getter / setter pair for a property in the scene graph.
+		</p>
 
 		<br /><br />
 		<h2>Source</h2>

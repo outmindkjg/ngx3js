@@ -26,20 +26,20 @@
 			<h2>Code Example</h2><br />
 			<code data-type="javascript"><br />
 			//  Create cube render target<br />
-			const cubeRenderTarget = new THREE.WebGLCubeRenderTarget( <br />
-				128, <br />
-				{ <br />
-					format: THREE.RGBFormat, <br />
-					generateMipmaps: true, <br />
-					minFilter: THREE.LinearMipmapLinearFilter <br />
-				} <br />
+			const cubeRenderTarget = new THREE.WebGLCubeRenderTarget(<br />
+				128,<br />
+				{<br />
+					format: THREE.RGBFormat,<br />
+					generateMipmaps: true,<br />
+					minFilter: THREE.LinearMipmapLinearFilter<br />
+				}<br />
 			);<br />
 			//  Create cube camera<br />
 			const cubeCamera = new THREE.CubeCamera( 1, 100000, cubeRenderTarget );<br />
 			scene.add( cubeCamera );<br />
 			//  Create car<br />
-			const chromeMaterial = new THREE.MeshLambertMaterial( <br />
-				{ color: 0xffffff, envMap: cubeRenderTarget.texture } <br />
+			const chromeMaterial = new THREE.MeshLambertMaterial(<br />
+				{ color: 0xffffff, envMap: cubeRenderTarget.texture }<br />
 			);<br />
 			const car = new Mesh( carGeometry, chromeMaterial );<br />
 			scene.add( car );<br />
@@ -50,11 +50,19 @@
 			//  Render the scene<br />
 			car.visible = true;<br />
 			renderer.render( scene, camera );<br />
+			</code><br />
+			<br />
+			<h2>Ngx3Js Code Example</h2><br />
+			<code data-type="html"><br />
+			&lt;ngx3js-mesh&gt;<br />
+				&lt;ngx3js-camera #cubeCamera [type]="'cubeCamera'" [near]="1" [far]="100000"&gt;&lt;/ngx3js-camera&gt;<br />
+				&lt;ngx3js-matrial [type]="'MeshLambertMaterial'" [envMap]="cubeCamera"&gt;&lt;/ngx3js-matrial&gt;<br />
+			&lt;/ngx3js-mesh&gt;<br />
 			</code>
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:CubeCamera CubeCamera](  [param:number near],  [param:number far],  [param:WebGLCubeRenderTarget renderTarget] )</h3>
+		<h3>[constructor:CubeCamera CubeCamera](  [param:number near],  [param:number far],  [param:WebGLCubeRenderTarget renderTarget] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number near] - The near clipping distance.<br />
@@ -73,133 +81,133 @@
 			See the base [page:Object3D Object3D] class for common properties.
 		</p>
 
-		<h3>[property:boolean DefaultMatrixAutoUpdate]</h3>
+		<h3>[property:boolean DefaultMatrixAutoUpdate]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The default setting for <i>.matrixAutoUpdate</i> for newly created Object3Ds.
 		</p>
 
-		<h3>[property:Vector3 DefaultUp]</h3>
+		<h3>[property:Vector3 DefaultUp]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The default <i>.up</i> direction for objects, also used as the default position for [page:DirectionalLight DirectionalLight],<br />
 			[page:HemisphereLight HemisphereLight] and [page:Spotlight Spotlight] (which creates lights shining from the top down).<br />
 			Set to ( 0, 1, 0 ) by default.
 		</p>
 
-		<h3>[property:AnimationClip[] animations]</h3>
+		<h3>[property:AnimationClip[] animations]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Array with object's animation clips.
 		</p>
 
-		<h3>[property:boolean castShadow]</h3>
+		<h3>[property:boolean castShadow]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Whether the object gets rendered into shadow map. Default is <i>false</i>.
 		</p>
 
-		<h3>[property:Object3D[] children]</h3>
+		<h3>[property:Object3D[] children]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Array with object's children. See [page:Group Group] for info on manually grouping objects.
 		</p>
 
-		<h3>[property:Material customDepthMaterial]</h3>
+		<h3>[property:Material customDepthMaterial]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br />
 			When shadow-casting with a [page:DirectionalLight DirectionalLight] or [page:SpotLight SpotLight], if you are modifying vertex positions in the vertex shader you must specify a customDepthMaterial for proper shadows. Default is <i>undefined</i>.
 		</p>
 
-		<h3>[property:Material customDistanceMaterial]</h3>
+		<h3>[property:Material customDistanceMaterial]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Same as <i>.customDepthMaterial</i>, but used with [page:PointLight PointLight]. Default is <i>undefined</i>.
 		</p>
 
-		<h3>[property:boolean frustumCulled]</h3>
+		<h3>[property:boolean frustumCulled]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object. If set to `false` the object gets rendered every frame even if it is not in the frustum of the camera. Default is `true`.
 		</p>
 
-		<h3>[property:BufferGeometry geometry]?<i class="modifier modifier-optional">Optional</i></h3>
+		<h3>[property:BufferGeometry geometry]?<i class="modifier modifier-inherited">Inherited</i> <i class="modifier modifier-optional">Optional</i></h3>
 		<p>
 			The BufferGeometry
 		</p>
 
-		<h3>[property:number id]</h3>
+		<h3>[property:number id]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Unique number for this object instance.
 		</p>
 
-		<h3>[property:any isObject3D]</h3>
+		<h3>[property:any isObject3D]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Used to check whether this or derived classes are Object3Ds. Default is true.<br />
 			You should not change this, as it is used internally for optimisation.
 		</p>
 
-		<h3>[property:Layers layers]</h3>
+		<h3>[property:Layers layers]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The layer membership of the object. The object is only visible if it has at least one layer in common with the [page:Camera Camera] in use. This property can also be used to filter out unwanted objects in ray-intersection tests when using [page:Raycaster Raycaster].
 		</p>
 
-		<h3>[property:Material|Material[] material]?<i class="modifier modifier-optional">Optional</i></h3>
+		<h3>[property:Material|Material[] material]?<i class="modifier modifier-inherited">Inherited</i> <i class="modifier modifier-optional">Optional</i></h3>
 		<p>
 			The Material
 		</p>
 
-		<h3>[property:Matrix4 matrix]</h3>
+		<h3>[property:Matrix4 matrix]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The local transform matrix.
 		</p>
 
-		<h3>[property:boolean matrixAutoUpdate]</h3>
+		<h3>[property:boolean matrixAutoUpdate]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate Object3D.DefaultMatrixAutoUpdate] (true).
 		</p>
 
-		<h3>[property:Matrix4 matrixWorld]</h3>
+		<h3>[property:Matrix4 matrixWorld]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The global transform of the object. If the Object3D has no parent, then it's identical to the local transform <i>.matrix</i>.
 		</p>
 
-		<h3>[property:boolean matrixWorldNeedsUpdate]</h3>
+		<h3>[property:boolean matrixWorldNeedsUpdate]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			When this is set, it calculates the matrixWorld in that frame and resets this property  to false. Default is <i>false</i>.
 		</p>
 
-		<h3>[property:Matrix4 modelViewMatrix]</h3>
+		<h3>[property:Matrix4 modelViewMatrix]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			This is passed to the shader and used to calculate the position of the object.
 		</p>
 
-		<h3>[property:string name]</h3>
+		<h3>[property:string name]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Optional name of the object (doesn't need to be unique). Default is an empty string.
 		</p>
 
-		<h3>[property:Matrix3 normalMatrix]</h3>
+		<h3>[property:Matrix3 normalMatrix]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			This is passed to the shader and used to calculate lighting for the object. It is the transpose of the inverse of the upper left 3x3 sub-matrix of this object's modelViewMatrix.<br />
 			The reason for this special matrix is that simply using the modelViewMatrix could result in a non-unit length of normals (on scaling) or in a non-perpendicular direction (on non-uniform scaling).<br />
 			On the other hand the translation part of the modelViewMatrix is not relevant for the calculation of normals. Thus a Matrix3 is sufficient.
 		</p>
 
-		<h3>[property:Object3D parent]</h3>
+		<h3>[property:Object3D parent]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Object's parent in the [link:https://en.wikipedia.org/wiki/Scene_graph scene graph]. An object can have at most one parent.
 		</p>
 
-		<h3>[property:Vector3 position]</h3>
+		<h3>[property:Vector3 position]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			A [page:Vector3 Vector3] representing the object's local position. Default is (0, 0, 0).
 		</p>
 
-		<h3>[property:Quaternion quaternion]</h3>
+		<h3>[property:Quaternion quaternion]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Object's local rotation as a [page:Quaternion Quaternion].
 		</p>
 
-		<h3>[property:boolean receiveShadow]</h3>
+		<h3>[property:boolean receiveShadow]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Whether the material receives shadows. Default is <i>false</i>.
 		</p>
 
-		<h3>[property:number renderOrder]</h3>
+		<h3>[property:number renderOrder]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			This value allows the default rendering order of [link:https://en.wikipedia.org/wiki/Scene_graph scene graph] objects to be overridden although opaque and transparent objects remain sorted independently. When this property is set for an instance of [page:Group Group], all descendants objects will be sorted and rendered together.<br />
 			Sorting is from lowest to highest renderOrder. Default value is <i>0</i>.
@@ -210,12 +218,12 @@
 			The destination cube render target.
 		</p>
 
-		<h3>[property:Euler rotation]</h3>
+		<h3>[property:Euler rotation]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Object's local rotation (see [link:https://en.wikipedia.org/wiki/Euler_angles Euler angles]), in radians.
 		</p>
 
-		<h3>[property:Vector3 scale]</h3>
+		<h3>[property:Vector3 scale]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The object's local scale. Default is [link: 1, 1, 1  page:Vector3 Vector3].
 		</p>
@@ -225,24 +233,24 @@
 			
 		</p>
 
-		<h3>[property:Vector3 up]</h3>
+		<h3>[property:Vector3 up]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			This is used by the <i>.lookAt</i> method, for example, to determine the orientation of the result.<br />
 			Default is [page:Object3D.DefaultUp Object3D.DefaultUp] - that is, ( 0, 1, 0 ).
 		</p>
 
-		<h3>[property:any userData]</h3>
+		<h3>[property:any userData]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			An object that can be used to store custom data about the Object3D. It should not hold references to functions as these will not be cloned.
 		</p>
 
-		<h3>[property:string uuid]</h3>
+		<h3>[property:string uuid]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			[link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this object instance.<br />
 			This gets automatically assigned, so this shouldn't be edited.
 		</p>
 
-		<h3>[property:boolean visible]</h3>
+		<h3>[property:boolean visible]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Object gets rendered if <i>true</i>. Default is <i>true</i>.
 		</p>
@@ -255,7 +263,7 @@
 			See the base [page:Object3D Object3D] class for common methods.
 		</p>
 
-		<h3>[method:CubeCamera add](  [param:Object3D[] object] )</h3>
+		<h3>[method:CubeCamera add](  [param:Object3D[] object] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Object3D[] object] - The object.
@@ -265,7 +273,7 @@
 			See [page:Group Group] for info on manually grouping objects.
 		</p>
 
-		<h3>[method:void addEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h3>[method:void addEventListener](  [param:T type],  [param:EventListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:T type] - The type of event to listen to.<br />
@@ -275,7 +283,7 @@
 			Adds a listener to an event type.
 		</p>
 
-		<h3>[method:void applyMatrix4](  [param:Matrix4 matrix] )</h3>
+		<h3>[method:void applyMatrix4](  [param:Matrix4 matrix] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Matrix4 matrix] - The matrix.
@@ -284,7 +292,7 @@
 			Applies the matrix transform to the object and updates the object's position, rotation and scale.
 		</p>
 
-		<h3>[method:CubeCamera applyQuaternion](  [param:Quaternion quaternion] )</h3>
+		<h3>[method:CubeCamera applyQuaternion](  [param:Quaternion quaternion] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Quaternion quaternion] - The quaternion.
@@ -293,7 +301,7 @@
 			Applies the rotation represented by the quaternion to the object.
 		</p>
 
-		<h3>[method:CubeCamera attach](  [param:Object3D object] )</h3>
+		<h3>[method:CubeCamera attach](  [param:Object3D object] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Object3D object] - The object.
@@ -303,12 +311,12 @@
 			Note: This method does not support scene graphs having non-uniformly-scaled nodes(s).
 		</p>
 
-		<h3>[method:CubeCamera clear](  )</h3>
+		<h3>[method:CubeCamera clear](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Removes all child objects.
 		</p>
 
-		<h3>[method:CubeCamera clone](  [param:boolean recursive]? )</h3>
+		<h3>[method:CubeCamera clone](  [param:boolean recursive]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:boolean recursive] - (optional) if true, descendants of the object are also cloned. Default is true.
@@ -317,7 +325,7 @@
 			Returns : Returns a clone of this object and optionally all descendants.
 		</p>
 
-		<h3>[method:CubeCamera copy](  [param:CubeCamera source],  [param:boolean recursive]? )</h3>
+		<h3>[method:CubeCamera copy](  [param:CubeCamera source],  [param:boolean recursive]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:CubeCamera source] - The source.<br />
@@ -328,7 +336,7 @@
 			Note: event listeners and user-defined callbacks (<i>.onAfterRender</i> and <i>.onBeforeRender</i>) are not copied.
 		</p>
 
-		<h3>[method:void dispatchEvent](  [param:Event event] )</h3>
+		<h3>[method:void dispatchEvent](  [param:Event event] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Event event] - The event.
@@ -337,7 +345,7 @@
 			Fire an event type.
 		</p>
 
-		<h3>[method:Object3D getObjectById](  [param:number id] )</h3>
+		<h3>[method:Object3D getObjectById](  [param:number id] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number id] - Unique number of the object instance Searches through an object and its children, starting with the object itself, and returns the first with a matching id.
@@ -346,7 +354,7 @@
 			Note that ids are assigned in chronological order: 1, 2, 3, ..., incrementing by one for each new object.
 		</p>
 
-		<h3>[method:Object3D getObjectByName](  [param:string name] )</h3>
+		<h3>[method:Object3D getObjectByName](  [param:string name] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string name] - String to match to the children's Object3D.name property.
@@ -356,7 +364,7 @@
 			Note that for most objects the name is an empty string by default. You will have to set it manually to make use of this method.
 		</p>
 
-		<h3>[method:Object3D getObjectByProperty](  [param:string name],  [param:string value] )</h3>
+		<h3>[method:Object3D getObjectByProperty](  [param:string name],  [param:string value] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string name] - The property name to search for.<br />
@@ -366,7 +374,7 @@
 			Searches through an object and its children, starting with the object itself, and returns the first with a property that matches the value given.
 		</p>
 
-		<h3>[method:Vector3 getWorldDirection](  [param:Vector3 target] )</h3>
+		<h3>[method:Vector3 getWorldDirection](  [param:Vector3 target] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 target] - The result will be copied into this Vector3.
@@ -375,7 +383,7 @@
 			Returns : Returns a vector representing the direction of object's positive z-axis in world space.
 		</p>
 
-		<h3>[method:Vector3 getWorldPosition](  [param:Vector3 target] )</h3>
+		<h3>[method:Vector3 getWorldPosition](  [param:Vector3 target] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 target] - The result will be copied into this Vector3.
@@ -384,7 +392,7 @@
 			Returns : Returns a vector representing the position of the object in world space.
 		</p>
 
-		<h3>[method:Quaternion getWorldQuaternion](  [param:Quaternion target] )</h3>
+		<h3>[method:Quaternion getWorldQuaternion](  [param:Quaternion target] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Quaternion target] - The result will be copied into this Quaternion.
@@ -393,7 +401,7 @@
 			Returns : Returns a quaternion representing the rotation of the object in world space.
 		</p>
 
-		<h3>[method:Vector3 getWorldScale](  [param:Vector3 target] )</h3>
+		<h3>[method:Vector3 getWorldScale](  [param:Vector3 target] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 target] - The result will be copied into this Vector3.
@@ -402,7 +410,7 @@
 			Returns : Returns a vector of the scaling factors applied to the object for each axis in world space.
 		</p>
 
-		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:T type] - The type of event to listen to.<br />
@@ -412,7 +420,7 @@
 			Checks if listener is added to an event type.
 		</p>
 
-		<h3>[method:Vector3 localToWorld](  [param:Vector3 vector] )</h3>
+		<h3>[method:Vector3 localToWorld](  [param:Vector3 vector] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 vector] - A vector representing a position in this object's local space.
@@ -421,7 +429,7 @@
 			Converts the vector from this object's local space to world space.
 		</p>
 
-		<h3>[method:void lookAt](  [param:number|Vector3 vector],  [param:number y]?,  [param:number z]? )</h3>
+		<h3>[method:void lookAt](  [param:number|Vector3 vector],  [param:number y]?,  [param:number z]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number|Vector3 vector] - A vector representing a position in world space.<br />
@@ -434,7 +442,7 @@
 			This method does not support objects having non-uniformly-scaled parent(s).
 		</p>
 
-		<h3>[method:void onAfterRender](  [param:WebGLRenderer renderer],  [param:Scene scene],  [param:Camera camera],  [param:BufferGeometry geometry],  [param:Material material],  [param:Group group] )</h3>
+		<h3>[method:void onAfterRender](  [param:WebGLRenderer renderer],  [param:Scene scene],  [param:Camera camera],  [param:BufferGeometry geometry],  [param:Material material],  [param:Group group] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:WebGLRenderer renderer] - The renderer.<br />
@@ -451,7 +459,7 @@
 			Instances of [page:Object3D Object3D], [page:Group Group] or [page:Bone Bone] are not renderable and thus this callback is not executed for such objects.
 		</p>
 
-		<h3>[method:void onBeforeRender](  [param:WebGLRenderer renderer],  [param:Scene scene],  [param:Camera camera],  [param:BufferGeometry geometry],  [param:Material material],  [param:Group group] )</h3>
+		<h3>[method:void onBeforeRender](  [param:WebGLRenderer renderer],  [param:Scene scene],  [param:Camera camera],  [param:BufferGeometry geometry],  [param:Material material],  [param:Group group] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:WebGLRenderer renderer] - The renderer.<br />
@@ -468,7 +476,7 @@
 			Instances of [page:Object3D Object3D], [page:Group Group] or [page:Bone Bone] are not renderable and thus this callback is not executed for such objects.
 		</p>
 
-		<h3>[method:void raycast](  [param:Raycaster raycaster],  [param:Intersection[] intersects] )</h3>
+		<h3>[method:void raycast](  [param:Raycaster raycaster],  [param:Intersection[] intersects] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Raycaster raycaster] - The raycaster.<br />
@@ -479,7 +487,7 @@
 			Subclasses such as [page:Mesh Mesh], [page:Line Line], and [page:Points Points] implement this method in order to use raycasting.
 		</p>
 
-		<h3>[method:CubeCamera remove](  [param:Object3D[] object] )</h3>
+		<h3>[method:CubeCamera remove](  [param:Object3D[] object] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Object3D[] object] - The object.
@@ -488,7 +496,7 @@
 			Removes <i>object</i> as child of this object. An arbitrary number of objects may be removed.
 		</p>
 
-		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:T type] - The type of the listener that gets removed.<br />
@@ -498,12 +506,12 @@
 			Removes a listener from an event type.
 		</p>
 
-		<h3>[method:CubeCamera removeFromParent](  )</h3>
+		<h3>[method:CubeCamera removeFromParent](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Removes this object from its current parent.
 		</p>
 
-		<h3>[method:CubeCamera rotateOnAxis](  [param:Vector3 axis],  [param:number angle] )</h3>
+		<h3>[method:CubeCamera rotateOnAxis](  [param:Vector3 axis],  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 axis] - A normalized vector in object space.<br />
@@ -513,7 +521,7 @@
 			Rotate an object along an axis in object space. The axis is assumed to be normalized.
 		</p>
 
-		<h3>[method:CubeCamera rotateOnWorldAxis](  [param:Vector3 axis],  [param:number angle] )</h3>
+		<h3>[method:CubeCamera rotateOnWorldAxis](  [param:Vector3 axis],  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 axis] - A normalized vector in object space.<br />
@@ -524,7 +532,7 @@
 			Method Assumes no rotated parent.
 		</p>
 
-		<h3>[method:CubeCamera rotateX](  [param:number angle] )</h3>
+		<h3>[method:CubeCamera rotateX](  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number angle] - The angle to rotate in radians.
@@ -533,7 +541,7 @@
 			Rotates the object around x axis in local space.
 		</p>
 
-		<h3>[method:CubeCamera rotateY](  [param:number angle] )</h3>
+		<h3>[method:CubeCamera rotateY](  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number angle] - The angle to rotate in radians.
@@ -542,7 +550,7 @@
 			Rotates the object around y axis in local space.
 		</p>
 
-		<h3>[method:CubeCamera rotateZ](  [param:number angle] )</h3>
+		<h3>[method:CubeCamera rotateZ](  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number angle] - The angle to rotate in radians.
@@ -551,7 +559,7 @@
 			Rotates the object around z axis in local space.
 		</p>
 
-		<h3>[method:void setRotationFromAxisAngle](  [param:Vector3 axis],  [param:number angle] )</h3>
+		<h3>[method:void setRotationFromAxisAngle](  [param:Vector3 axis],  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 axis] - A normalized vector in object space.<br />
@@ -561,7 +569,7 @@
 			Calls [link: [page:Float axis], [page:Float angle]  page:Quaternion.setFromAxisAngle setFromAxisAngle] on the <i>.quaternion</i>.
 		</p>
 
-		<h3>[method:void setRotationFromEuler](  [param:Euler euler] )</h3>
+		<h3>[method:void setRotationFromEuler](  [param:Euler euler] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Euler euler] - Euler angle specifying rotation amount.
@@ -570,7 +578,7 @@
 			Calls [link: [page:Euler euler] page:Quaternion.setRotationFromEuler setRotationFromEuler] on the <i>.quaternion</i>.
 		</p>
 
-		<h3>[method:void setRotationFromMatrix](  [param:Matrix4 m] )</h3>
+		<h3>[method:void setRotationFromMatrix](  [param:Matrix4 m] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Matrix4 m] - rotate the quaternion by the rotation component of the matrix.
@@ -580,7 +588,7 @@
 			Note that this assumes that the upper 3x3 of m is a pure rotation matrix (i.e, unscaled).
 		</p>
 
-		<h3>[method:void setRotationFromQuaternion](  [param:Quaternion q] )</h3>
+		<h3>[method:void setRotationFromQuaternion](  [param:Quaternion q] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Quaternion q] - normalized Quaternion
@@ -589,7 +597,7 @@
 			Copy the given quaternion into <i>.quaternion</i>.
 		</p>
 
-		<h3>[method:any toJSON](  [param:any meta]? )</h3>
+		<h3>[method:any toJSON](  [param:any meta]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any meta] - (optional) The meta.
@@ -598,7 +606,7 @@
 			
 		</p>
 
-		<h3>[method:CubeCamera translateOnAxis](  [param:Vector3 axis],  [param:number distance] )</h3>
+		<h3>[method:CubeCamera translateOnAxis](  [param:Vector3 axis],  [param:number distance] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 axis] - A normalized vector in object space.<br />
@@ -608,7 +616,7 @@
 			Translate an object by distance along an axis in object space. The axis is assumed to be normalized.
 		</p>
 
-		<h3>[method:CubeCamera translateX](  [param:number distance] )</h3>
+		<h3>[method:CubeCamera translateX](  [param:number distance] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number distance] - Distance.
@@ -617,7 +625,7 @@
 			Translates object along x axis in object space by <i>distance</i> units.
 		</p>
 
-		<h3>[method:CubeCamera translateY](  [param:number distance] )</h3>
+		<h3>[method:CubeCamera translateY](  [param:number distance] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number distance] - Distance.
@@ -626,7 +634,7 @@
 			Translates object along y axis in object space by <i>distance</i> units.
 		</p>
 
-		<h3>[method:CubeCamera translateZ](  [param:number distance] )</h3>
+		<h3>[method:CubeCamera translateZ](  [param:number distance] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number distance] - Distance.
@@ -635,7 +643,7 @@
 			Translates object along z axis in object space by <i>distance</i> units.
 		</p>
 
-		<h3>[method:void traverse](  [param:any callback] )</h3>
+		<h3>[method:void traverse](  [param:any callback] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any callback] - A function with as first argument an object3D object.
@@ -645,7 +653,7 @@
 			Note: Modifying the scene graph inside the callback is discouraged.
 		</p>
 
-		<h3>[method:void traverseAncestors](  [param:any callback] )</h3>
+		<h3>[method:void traverseAncestors](  [param:any callback] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any callback] - A function with as first argument an object3D object.
@@ -655,7 +663,7 @@
 			Note: Modifying the scene graph inside the callback is discouraged.
 		</p>
 
-		<h3>[method:void traverseVisible](  [param:any callback] )</h3>
+		<h3>[method:void traverseVisible](  [param:any callback] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any callback] - A function with as first argument an object3D object.
@@ -676,12 +684,12 @@
 			
 		</p>
 
-		<h3>[method:void updateMatrix](  )</h3>
+		<h3>[method:void updateMatrix](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Updates the local transform.
 		</p>
 
-		<h3>[method:void updateMatrixWorld](  [param:boolean force]? )</h3>
+		<h3>[method:void updateMatrixWorld](  [param:boolean force]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:boolean force] - (optional) The force.
@@ -690,7 +698,7 @@
 			Updates the global transform of the object and its descendants.
 		</p>
 
-		<h3>[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] )</h3>
+		<h3>[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:boolean updateParents] - recursively updates global transform of ancestors.<br />
@@ -700,7 +708,7 @@
 			Updates the global transform of the object.
 		</p>
 
-		<h3>[method:Vector3 worldToLocal](  [param:Vector3 vector] )</h3>
+		<h3>[method:Vector3 worldToLocal](  [param:Vector3 vector] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 vector] - A vector representing a position in world space.

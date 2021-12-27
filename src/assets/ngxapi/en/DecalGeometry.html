@@ -18,11 +18,14 @@
 			<iframe src="#/viewer/ngx_geometry/DecalGeometry"></iframe><br />
 			<br />
 			See the [page:DecalGeometry ngx3js docs] page for details.<br />
-			See the [example:ngx_geometry/DecalGeometry ngx geometey] page for a live demo.
+			See the [example:ngx_geometry/DecalGeometry ngx geometey] page for a live demo.<br />
+			<br />
+			<h2>Examples</h2><br />
+			[example:webgl_decals webgl / decals ]
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:DecalGeometry DecalGeometry](  [param:Mesh mesh],  [param:Vector3 position],  [param:Euler orientation],  [param:Vector3 size] )</h3>
+		<h3>[constructor:DecalGeometry DecalGeometry](  [param:Mesh mesh],  [param:Vector3 position],  [param:Euler orientation],  [param:Vector3 size] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Mesh mesh] - The mesh.<br />
@@ -42,35 +45,35 @@
 			See the base [page:BufferGeometry BufferGeometry] class for common properties.
 		</p>
 
-		<h3>[property:number MaxIndex]</h3>
+		<h3>[property:number MaxIndex]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			
 		</p>
 
-		<h3>[property:any attributes]</h3>
+		<h3>[property:any attributes]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			This hashmap has as id the name of the attribute to be set and as value the [page:BufferAttribute buffer] to set it to.<br />
 			Rather than accessing this property directly, use <i>.setAttribute</i> and <i>.getAttribute</i> to access attributes of this geometry.
 		</p>
 
-		<h3>[property:Box3 boundingBox]</h3>
+		<h3>[property:Box3 boundingBox]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Bounding box for the bufferGeometry, which can be calculated with <i>.computeBoundingBox</i>(). Default is <i>null</i>.
 		</p>
 
-		<h3>[property:Sphere boundingSphere]</h3>
+		<h3>[property:Sphere boundingSphere]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Bounding sphere for the bufferGeometry, which can be calculated with <i>.computeBoundingSphere</i>(). Default is <i>null</i>.
 		</p>
 
-		<h3>[property:any drawRange]</h3>
+		<h3>[property:any drawRange]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Determines the part of the geometry to render. This should not be set directly, instead use <i>.setDrawRange</i>. Default is { start: 0, count: Infinity }<br />
 			For non-indexed BufferGeometry, count is the number of vertices to render.<br />
 			For indexed BufferGeometry, count is the number of indices to render.
 		</p>
 
-		<h3>[property:any groups]</h3>
+		<h3>[property:any groups]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Split the geometry into groups, each of which will be rendered in a separate WebGL draw call.<br />
 			This allows an array of materials to be used with the bufferGeometry.<br />
@@ -78,12 +81,12 @@
 			Use <i>.addGroup</i> to add groups, rather than modifying this array directly.
 		</p>
 
-		<h3>[property:number id]</h3>
+		<h3>[property:number id]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Unique number for this bufferGeometry instance.
 		</p>
 
-		<h3>[property:BufferAttribute index]</h3>
+		<h3>[property:BufferAttribute index]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Allows for vertices to be re-used across multiple triangles; this is called using "indexed triangles".<br />
 			Each triangle is associated with the indices of three vertices. This attribute therefore stores the index of each vertex for each triangular face.<br />
@@ -91,43 +94,43 @@
 			Default is <i>null</i>.
 		</p>
 
-		<h3>[property:any isBufferGeometry]</h3>
+		<h3>[property:any isBufferGeometry]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			
 		</p>
 
-		<h3>[property:any morphAttributes]</h3>
+		<h3>[property:any morphAttributes]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Hashmap of [page:BufferAttribute BufferAttribute]s holding details of the geometry's morph targets.
 		</p>
 
-		<h3>[property:boolean morphTargetsRelative]</h3>
+		<h3>[property:boolean morphTargetsRelative]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Used to control the morph target behavior; when set to true, the morph target data is treated as relative offsets, rather than as absolute positions/normals.<br />
 			Default is <i>false</i>.
 		</p>
 
-		<h3>[property:string name]</h3>
+		<h3>[property:string name]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Optional name for this bufferGeometry instance. Default is an empty string.
 		</p>
 
-		<h3>[property:any parameters]?<i class="modifier modifier-optional">Optional</i></h3>
+		<h3>[property:any parameters]?<i class="modifier modifier-inherited">Inherited</i> <i class="modifier modifier-optional">Optional</i></h3>
 		<p>
 			An object with a property for each of the constructor parameters. Any modification after instantiation does not change the geometry.
 		</p>
 
-		<h3>[property:string type]</h3>
+		<h3>[property:string type]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			
 		</p>
 
-		<h3>[property:any userData]</h3>
+		<h3>[property:any userData]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			An object that can be used to store custom data about the BufferGeometry. It should not hold references to functions as these will not be cloned.
 		</p>
 
-		<h3>[property:string uuid]</h3>
+		<h3>[property:string uuid]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			[link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this object instance.<br />
 			This gets automatically assigned and shouldn't be edited.
@@ -141,7 +144,7 @@
 			See the base [page:BufferGeometry BufferGeometry] class for common methods.
 		</p>
 
-		<h3>[method:any addAttribute](  [param:any name],  [param:any array],  [param:any itemSize] )</h3>
+		<h3>[method:any addAttribute](  [param:any name],  [param:any array],  [param:any itemSize] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any name] - The name.<br />
@@ -152,7 +155,7 @@
 			Returns : attribute
 		</p>
 
-		<h3>[method:void addEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h3>[method:void addEventListener](  [param:T type],  [param:EventListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:T type] - The type of event to listen to.<br />
@@ -162,7 +165,7 @@
 			Adds a listener to an event type.
 		</p>
 
-		<h3>[method:void addGroup](  [param:number start],  [param:number count],  [param:number materialIndex]? )</h3>
+		<h3>[method:void addGroup](  [param:number start],  [param:number count],  [param:number materialIndex]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number start] - The start.<br />
@@ -173,7 +176,7 @@
 			Adds a group to this geometry; see the [page:BufferGeometry.groups groups] property for details.
 		</p>
 
-		<h3>[method:BufferGeometry applyMatrix4](  [param:Matrix4 matrix] )</h3>
+		<h3>[method:BufferGeometry applyMatrix4](  [param:Matrix4 matrix] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Matrix4 matrix] - The matrix.
@@ -182,7 +185,7 @@
 			Applies the matrix transform to the geometry.
 		</p>
 
-		<h3>[method:BufferGeometry applyQuaternion](  [param:Quaternion q] )</h3>
+		<h3>[method:BufferGeometry applyQuaternion](  [param:Quaternion q] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Quaternion q] - The q.
@@ -191,45 +194,45 @@
 			Applies the rotation represented by the quaternion to the geometry.
 		</p>
 
-		<h3>[method:BufferGeometry center](  )</h3>
+		<h3>[method:BufferGeometry center](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Center the geometry based on the bounding box.
 		</p>
 
-		<h3>[method:void clearGroups](  )</h3>
+		<h3>[method:void clearGroups](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Clears all groups.
 		</p>
 
-		<h3>[method:BufferGeometry clone](  )</h3>
+		<h3>[method:BufferGeometry clone](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Creates a clone of this BufferGeometry.
 		</p>
 
-		<h3>[method:void computeBoundingBox](  )</h3>
+		<h3>[method:void computeBoundingBox](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Computes bounding box of the geometry, updating <i>.boundingBox</i> attribute.<br />
 			Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.
 		</p>
 
-		<h3>[method:void computeBoundingSphere](  )</h3>
+		<h3>[method:void computeBoundingSphere](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Computes bounding sphere of the geometry, updating <i>.boundingSphere</i> attribute.<br />
 			Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.
 		</p>
 
-		<h3>[method:void computeTangents](  )</h3>
+		<h3>[method:void computeTangents](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Calculates and adds a tangent attribute to this geometry.<br />
 			The computation is only supported for indexed geometries and if position, normal, and uv attributes are defined.
 		</p>
 
-		<h3>[method:void computeVertexNormals](  )</h3>
+		<h3>[method:void computeVertexNormals](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Computes vertex normals by averaging face normals.
 		</p>
 
-		<h3>[method:DecalGeometry copy](  [param:BufferGeometry source] )</h3>
+		<h3>[method:DecalGeometry copy](  [param:BufferGeometry source] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:BufferGeometry source] - The source.
@@ -238,7 +241,7 @@
 			Copies another BufferGeometry to this BufferGeometry.
 		</p>
 
-		<h3>[method:BufferGeometry deleteAttribute](  [param:BuiltinShaderAttributeName name] )</h3>
+		<h3>[method:BufferGeometry deleteAttribute](  [param:BuiltinShaderAttributeName name] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:BuiltinShaderAttributeName name] - The name.
@@ -247,7 +250,7 @@
 			Deletes the [page:BufferAttribute attribute] with the specified name.
 		</p>
 
-		<h3>[method:void dispatchEvent](  [param:Event event] )</h3>
+		<h3>[method:void dispatchEvent](  [param:Event event] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Event event] - The event.
@@ -256,13 +259,13 @@
 			Fire an event type.
 		</p>
 
-		<h3>[method:void dispose](  )</h3>
+		<h3>[method:void dispose](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Disposes the object from memory.<br />
 			You need to call this when you want the BufferGeometry removed while the application is running.
 		</p>
 
-		<h3>[method:BufferAttribute|InterleavedBufferAttribute getAttribute](  [param:BuiltinShaderAttributeName name] )</h3>
+		<h3>[method:BufferAttribute|InterleavedBufferAttribute getAttribute](  [param:BuiltinShaderAttributeName name] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:BuiltinShaderAttributeName name] - The name.
@@ -271,12 +274,12 @@
 			Returns : Returns the [page:BufferAttribute attribute] with the specified name.
 		</p>
 
-		<h3>[method:BufferAttribute getIndex](  )</h3>
+		<h3>[method:BufferAttribute getIndex](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Returns : Return the <i>.index</i> buffer.
 		</p>
 
-		<h3>[method:boolean hasAttribute](  [param:BuiltinShaderAttributeName name] )</h3>
+		<h3>[method:boolean hasAttribute](  [param:BuiltinShaderAttributeName name] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:BuiltinShaderAttributeName name] - The name.
@@ -285,7 +288,7 @@
 			Returns : Returns <i>true</i> if the attribute with the specified name exists.
 		</p>
 
-		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:T type] - The type of event to listen to.<br />
@@ -295,7 +298,7 @@
 			Checks if listener is added to an event type.
 		</p>
 
-		<h3>[method:void lookAt](  [param:Vector3 v] )</h3>
+		<h3>[method:void lookAt](  [param:Vector3 v] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3 v] - The v.
@@ -305,7 +308,7 @@
 			Use [page:Object3D.lookAt Object3D.lookAt] for typical real-time mesh usage.
 		</p>
 
-		<h3>[method:BufferGeometry merge](  [param:BufferGeometry geometry],  [param:number offset]? )</h3>
+		<h3>[method:BufferGeometry merge](  [param:BufferGeometry geometry],  [param:number offset]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:BufferGeometry geometry] - The geometry.<br />
@@ -315,13 +318,13 @@
 			Merge in another BufferGeometry with an optional offset of where to start merging in.
 		</p>
 
-		<h3>[method:void normalizeNormals](  )</h3>
+		<h3>[method:void normalizeNormals](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Every normal vector in a geometry will have a magnitude of 1.<br />
 			This will correct lighting on the geometry surfaces.
 		</p>
 
-		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )</h3>
+		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:T type] - The type of the listener that gets removed.<br />
@@ -331,7 +334,7 @@
 			Removes a listener from an event type.
 		</p>
 
-		<h3>[method:BufferGeometry rotateX](  [param:number angle] )</h3>
+		<h3>[method:BufferGeometry rotateX](  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number angle] - The angle.
@@ -341,7 +344,7 @@
 			Use [page:Object3D.rotation Object3D.rotation] for typical real-time mesh rotation.
 		</p>
 
-		<h3>[method:BufferGeometry rotateY](  [param:number angle] )</h3>
+		<h3>[method:BufferGeometry rotateY](  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number angle] - The angle.
@@ -351,7 +354,7 @@
 			Use [page:Object3D.rotation Object3D.rotation] for typical real-time mesh rotation.
 		</p>
 
-		<h3>[method:BufferGeometry rotateZ](  [param:number angle] )</h3>
+		<h3>[method:BufferGeometry rotateZ](  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number angle] - The angle.
@@ -361,7 +364,7 @@
 			Use [page:Object3D.rotation Object3D.rotation] for typical real-time mesh rotation.
 		</p>
 
-		<h3>[method:BufferGeometry scale](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<h3>[method:BufferGeometry scale](  [param:number x],  [param:number y],  [param:number z] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number x] - The x.<br />
@@ -373,7 +376,7 @@
 			Use [page:Object3D.scale Object3D.scale] for typical real-time mesh scaling.
 		</p>
 
-		<h3>[method:BufferGeometry setAttribute](  [param:BuiltinShaderAttributeName name],  [param:BufferAttribute|InterleavedBufferAttribute attribute] )</h3>
+		<h3>[method:BufferGeometry setAttribute](  [param:BuiltinShaderAttributeName name],  [param:BufferAttribute|InterleavedBufferAttribute attribute] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:BuiltinShaderAttributeName name] - The name.<br />
@@ -383,7 +386,7 @@
 			Sets an attribute to this geometry. Use this rather than the attributes property, because an internal hashmap of <i>.attributes</i> is maintained to speed up iterating over attributes.
 		</p>
 
-		<h3>[method:void setDrawRange](  [param:number start],  [param:number count] )</h3>
+		<h3>[method:void setDrawRange](  [param:number start],  [param:number count] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number start] - The start.<br />
@@ -394,7 +397,7 @@
 			For indexed BufferGeometry, count is the number of indices to render.
 		</p>
 
-		<h3>[method:BufferGeometry setFromPoints](  [param:Vector3[]|Vector2[] points] )</h3>
+		<h3>[method:BufferGeometry setFromPoints](  [param:Vector3[]|Vector2[] points] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector3[]|Vector2[] points] - The points.
@@ -403,7 +406,7 @@
 			Sets the attributes for this BufferGeometry from an array of points.
 		</p>
 
-		<h3>[method:BufferGeometry setIndex](  [param:BufferAttribute|number[] index] )</h3>
+		<h3>[method:BufferGeometry setIndex](  [param:BufferAttribute|number[] index] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:BufferAttribute|number[] index] - The index.
@@ -412,17 +415,17 @@
 			Set the <i>.index</i> buffer.
 		</p>
 
-		<h3>[method:any toJSON](  )</h3>
+		<h3>[method:any toJSON](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Convert the buffer geometry to three.js [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].
 		</p>
 
-		<h3>[method:BufferGeometry toNonIndexed](  )</h3>
+		<h3>[method:BufferGeometry toNonIndexed](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Returns : Return a non-index version of an indexed BufferGeometry.
 		</p>
 
-		<h3>[method:BufferGeometry translate](  [param:number x],  [param:number y],  [param:number z] )</h3>
+		<h3>[method:BufferGeometry translate](  [param:number x],  [param:number y],  [param:number z] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number x] - The x.<br />

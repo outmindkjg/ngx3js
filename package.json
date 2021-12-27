@@ -1,6 +1,6 @@
 {
   "name": "three-sample",
-  "version": "0.135.0-2021122423",
+  "version": "0.136.0-2021122717",
   "scripts": {
     "ng": "ng",
     "start": "node --max_old_space_size=6000 ./node_modules/@angular/cli/bin/ng serve --port 4300",
@@ -32,13 +32,15 @@
     "@angular/router": "^13.0.1",
     "@babel/core": "^7.15.8",
     "gsap": "^3.8.0",
-    "three": "0.135.0",
+    "three": "0.136.0",
     "ngx-highlightjs": "^4.1.4",
     "ngx3js": "file:../ngx3js-module/dist/ngx3js",
     "rxjs": "^6.6.7",
     "tslib": "^2.3.1",
     "webpack": "^5.58.2",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "fs": "0.0.1-security",
+    "fs-web": "^1.0.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^13.0.2",

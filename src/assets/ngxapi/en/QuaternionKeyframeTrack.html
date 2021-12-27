@@ -16,7 +16,7 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:QuaternionKeyframeTrack QuaternionKeyframeTrack](  [param:string name],  [param:ArrayLike times],  [param:ArrayLike values],  [param:InterpolationModes interpolation]? )</h3>
+		<h3>[constructor:QuaternionKeyframeTrack QuaternionKeyframeTrack](  [param:string name],  [param:ArrayLike times],  [param:ArrayLike values],  [param:InterpolationModes interpolation]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string name] - The identifier for the <i>KeyframeTrack</i>.<br />
@@ -33,17 +33,17 @@
 			See the base [page:KeyframeTrack KeyframeTrack] class for common properties.
 		</p>
 
-		<h3>[property:InterpolationModes DefaultInterpolation]</h3>
+		<h3>[property:InterpolationModes DefaultInterpolation]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			
 		</p>
 
-		<h3>[property:Float32Array TimeBufferType]</h3>
+		<h3>[property:Float32Array TimeBufferType]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			[link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array Float32Array], the type of the buffer internally used for the times.
 		</p>
 
-		<h3>[property:Float32Array ValueBufferType]</h3>
+		<h3>[property:Float32Array ValueBufferType]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			[link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array Float32Array], the type of the buffer internally used for the values.
 		</p>
@@ -53,7 +53,7 @@
 			
 		</p>
 
-		<h3>[property:string name]</h3>
+		<h3>[property:string name]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The track's name can refer to  morph targets or [page:SkinnedMesh bones] or possibly other values within an animated object. See [page:PropertyBinding.parseTrackName PropertyBinding.parseTrackName] for the forms of strings that can be parsed for property binding:<br />
 			The name can specify the node either using its name or its uuid (although it needs to be in the subtree of the scene graph node passed into the mixer). Or, if the track name starts with a dot, the track applies to the root node that was passed into the mixer.<br />
@@ -63,12 +63,12 @@
 			Note: The track's name does not necessarily have to be unique. Multiple tracks can drive the same property. The result should be based on a weighted blend between the multiple tracks according to the weights of their respective actions.
 		</p>
 
-		<h3>[property:Float32Array times]</h3>
+		<h3>[property:Float32Array times]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			A [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array Float32Array], converted from the times array which is passed in the constructor.
 		</p>
 
-		<h3>[property:Float32Array values]</h3>
+		<h3>[property:Float32Array values]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			A [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array Float32Array], converted from the values array which is passed in the constructor.
 		</p>
@@ -78,7 +78,7 @@
 			See the base [page:KeyframeTrack KeyframeTrack] class for common methods.
 		</p>
 
-		<h3>[method:DiscreteInterpolant InterpolantFactoryMethodDiscrete](  [param:any result] )</h3>
+		<h3>[method:DiscreteInterpolant InterpolantFactoryMethodDiscrete](  [param:any result] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any result] - The result.
@@ -87,7 +87,7 @@
 			Creates a new [page:DiscreteInterpolant DiscreteInterpolant] from the [page:KeyframeTrack.times times] and [page:KeyframeTrack.times values]. A Float32Array can be passed which will receive the results. Otherwise a new array with the appropriate size will be created automatically.
 		</p>
 
-		<h3>[method:LinearInterpolant InterpolantFactoryMethodLinear](  [param:any result] )</h3>
+		<h3>[method:LinearInterpolant InterpolantFactoryMethodLinear](  [param:any result] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any result] - The result.
@@ -96,7 +96,7 @@
 			Creates a new [page:LinearInterpolant LinearInterpolant] from the [page:KeyframeTrack.times times] and [page:KeyframeTrack.times values]. A Float32Array can be passed which will receive the results. Otherwise a new array with the appropriate size will be created automatically.
 		</p>
 
-		<h3>[method:CubicInterpolant InterpolantFactoryMethodSmooth](  [param:any result] )</h3>
+		<h3>[method:CubicInterpolant InterpolantFactoryMethodSmooth](  [param:any result] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any result] - The result.
@@ -105,32 +105,32 @@
 			Create a new [page:CubicInterpolant CubicInterpolant] from the [page:KeyframeTrack.times times] and [page:KeyframeTrack.times values]. A Float32Array can be passed which will receive the results. Otherwise a new array with the appropriate size will be created automatically.
 		</p>
 
-		<h3>[method:QuaternionKeyframeTrack clone](  )</h3>
+		<h3>[method:QuaternionKeyframeTrack clone](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Returns : Returns a copy of this track.
 		</p>
 
-		<h3>[method:InterpolationModes createInterpolant](  )</h3>
+		<h3>[method:InterpolationModes createInterpolant](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Creates a [page:LinearInterpolant LinearInterpolant], [page:CubicInterpolant CubicInterpolant] or [page:DiscreteInterpolant DiscreteInterpolant], depending on the value of the interpolation parameter passed in the constructor.
 		</p>
 
-		<h3>[method:InterpolationModes getInterpolation](  )</h3>
+		<h3>[method:InterpolationModes getInterpolation](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Returns : Returns the interpolation type.
 		</p>
 
-		<h3>[method:number getValueSize](  )</h3>
+		<h3>[method:number getValueSize](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Returns : Returns the size of each value (that is the length of the <i>.values</i> array divided by the length of the <i>.times</i> array).
 		</p>
 
-		<h3>[method:KeyframeTrack optimize](  )</h3>
+		<h3>[method:KeyframeTrack optimize](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Removes equivalent sequential keys, which are common in morph target sequences.
 		</p>
 
-		<h3>[method:KeyframeTrack scale](  [param:number timeScale] )</h3>
+		<h3>[method:KeyframeTrack scale](  [param:number timeScale] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number timeScale] - The time scale.
@@ -140,7 +140,7 @@
 			Note: This is useful, for example, for conversions to a certain rate of frames per seconds (as it is done internally by [page:AnimationClip.CreateFromMorphTargetSequence animationClip.CreateFromMorphTargetSequence]).
 		</p>
 
-		<h3>[method:KeyframeTrack setInterpolation](  [param:InterpolationModes interpolation] )</h3>
+		<h3>[method:KeyframeTrack setInterpolation](  [param:InterpolationModes interpolation] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:InterpolationModes interpolation] - The interpolation.
@@ -149,7 +149,7 @@
 			Sets the interpolation type. See [page:Animation Animation Constants] for choices.
 		</p>
 
-		<h3>[method:KeyframeTrack shift](  [param:number timeOffset] )</h3>
+		<h3>[method:KeyframeTrack shift](  [param:number timeOffset] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number timeOffset] - The time offset.
@@ -158,7 +158,7 @@
 			Moves all keyframes either forward or backward in time.
 		</p>
 
-		<h3>[method:any toJSON](  [param:KeyframeTrack track] )</h3>
+		<h3>[method:any toJSON](  [param:KeyframeTrack track] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:KeyframeTrack track] - The track.
@@ -167,7 +167,7 @@
 			Converts the track to JSON.
 		</p>
 
-		<h3>[method:KeyframeTrack trim](  [param:number startTime],  [param:number endTime] )</h3>
+		<h3>[method:KeyframeTrack trim](  [param:number startTime],  [param:number endTime] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number startTime] - The start time.<br />
@@ -177,7 +177,7 @@
 			Removes keyframes before <i>startTime</i> and after <i>endTime</i>, without changing any values within the range [<i>startTime</i>, <i>endTime</i>].
 		</p>
 
-		<h3>[method:boolean validate](  )</h3>
+		<h3>[method:boolean validate](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Performs minimal validation on the tracks. Returns true if valid.<br />
 			This method logs errors to the console, if a track is empty, if the <i>.valueSize</i> is not valid, if an item in the <i>.times</i> or <i>.values</i> array is not a valid number or if the items in the <i>times</i> array are out of order.

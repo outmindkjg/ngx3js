@@ -19,6 +19,18 @@
 			Any arbitrary ordered quadruplet of numbers.<br />
 			There are other things a 4D vector can be used to represent, however these are the most common uses in three.js.<br />
 			Iterating through a Vector4 instance will yield its components (x, y, z, w) in the corresponding order.<br />
+			See the [page:Vector4 ngx3js docs] page for details.<br />
+			<br />
+			<h3>Preview - webgl / buffergeometry / instancing</h3><br />
+			<iframe src="#/viewer/webgl_buffergeometry_instancing"></iframe><br />
+			<br />
+			<h2>Examples</h2><br />
+			[example:webgl_buffergeometry_instancing webgl / buffergeometry / instancing]<br />
+			[example:webgl_camera_array webgl / camera / array]<br />
+			[example:webgl_geometry_nurbs webgl / geometry / nurbs]<br />
+			[example:webgl_postprocessing_godrays webgl / postprocessing / godrays]<br />
+			[example:webgl_shadowmesh webgl / shadowmesh]<br />
+			<br />
 			<h2>Code Example</h2><br />
 			<code data-type="javascript"><br />
 			const a = new THREE.Vector4( 0, 1, 0, 0 );<br />
@@ -29,7 +41,7 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:Vector4 Vector4](  [param:number x]?,  [param:number y]?,  [param:number z]?,  [param:number w]? )</h3>
+		<h3>[constructor:Vector4 Vector4](  [param:number x]?,  [param:number y]?,  [param:number z]?,  [param:number w]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number x] - (optional) The x value of this vector. Default is <i>0</i>.<br />
@@ -182,7 +194,7 @@
 			Copies the values of the passed Vector4's <i>.x</i>, <i>.y</i>, <i>.z</i> and <i>.w</i> properties to this Vector4.
 		</p>
 
-		<h3>[method:number distanceTo](  [param:Vector v] )</h3>
+		<h3>[method:number distanceTo](  [param:Vector v] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector v] - The v.
@@ -191,7 +203,7 @@
 			Computes the distance from this vector to [page:Vector v].
 		</p>
 
-		<h3>[method:number distanceToSquared](  [param:Vector v] )</h3>
+		<h3>[method:number distanceToSquared](  [param:Vector v] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector v] - The v.
@@ -584,7 +596,8 @@
 			<br />
 			Currently the members of Vector is NOT type safe because it accepts different typed vectors.<br />
 			<br />
-			Those definitions will be changed when TypeScript innovates Generics to be type safe.
+			Those definitions will be changed when TypeScript innovates Generics to be type safe.<br />
+			See the [page:Vector ngx3js docs] page for details.
 		</p>
 
 		<br /><br />

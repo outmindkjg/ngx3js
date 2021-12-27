@@ -16,7 +16,7 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:CurvePath CurvePath](  )</h3>
+		<h3>[constructor:CurvePath CurvePath](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			This constructor creates a new Curve.
 		</p>
@@ -26,7 +26,7 @@
 			See the base [page:Curve Curve] class for common properties.
 		</p>
 
-		<h3>[property:number arcLengthDivisions]</h3>
+		<h3>[property:number arcLengthDivisions]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via <i>.getLengths</i>.<br />
 			To ensure precision when using methods like <i>.getSpacedPoints</i>, it is recommended to increase <i>.arcLengthDivisions</i> if the curve is very large. Default is 200.
@@ -61,7 +61,7 @@
 			Add a curve to the <i>.curves</i> array.
 		</p>
 
-		<h3>[method:CurvePath clone](  )</h3>
+		<h3>[method:CurvePath clone](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Creates a clone of this instance.
 		</p>
@@ -71,7 +71,7 @@
 			Adds a [page:LineCurve lineCurve] to close the path.
 		</p>
 
-		<h3>[method:void computeFrenetFrames](  [param:number segments],  [param:boolean closed]? )</h3>
+		<h3>[method:void computeFrenetFrames](  [param:number segments],  [param:boolean closed]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number segments] - The segments.<br />
@@ -81,7 +81,7 @@
 			Generates the Frenet Frames. Requires a curve definition in 3D space. Used in geometries like [page:TubeGeometry TubeGeometry] or [page:ExtrudeGeometry ExtrudeGeometry].
 		</p>
 
-		<h3>[method:CurvePath copy](  [param:Curve source] )</h3>
+		<h3>[method:CurvePath copy](  [param:Curve source] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Curve source] - The source.
@@ -90,7 +90,7 @@
 			Copies another Curve object to this instance.
 		</p>
 
-		<h3>[method:CurvePath fromJSON](  [param:object json] )</h3>
+		<h3>[method:CurvePath fromJSON](  [param:object json] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:object json] - The json.
@@ -104,12 +104,12 @@
 			Get list of cumulative curve lengths of the curves in the <i>.curves</i> array.
 		</p>
 
-		<h3>[method:number getLength](  )</h3>
+		<h3>[method:number getLength](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Get total curve arc length.
 		</p>
 
-		<h3>[method:number[] getLengths](  [param:number divisions]? )</h3>
+		<h3>[method:number[] getLengths](  [param:number divisions]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number divisions] - (optional) The divisions.
@@ -128,7 +128,7 @@
 			Returns : Returns an array of points representing a sequence of curves. The <i>division</i> parameter defines the number of pieces each curve is divided into. However, for optimization and quality purposes, the actual sampling resolution for each curve depends on its type. For example, for a [page:LineCurve LineCurve], the returned number of points is always just 2.
 		</p>
 
-		<h3>[method:T getPointAt](  [param:number u],  [param:T optionalTarget]? )</h3>
+		<h3>[method:T getPointAt](  [param:number u],  [param:T optionalTarget]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number u] - A position on the curve according to the arc length. Must be in the range [ 0, 1 ].<br />
@@ -138,7 +138,7 @@
 			Returns : Returns a vector for a given position on the curve according to the arc length.
 		</p>
 
-		<h3>[method:T[] getPoints](  [param:number divisions]? )</h3>
+		<h3>[method:T[] getPoints](  [param:number divisions]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number divisions] - (optional) The divisions.
@@ -147,7 +147,7 @@
 			Returns : Returns a set of divisions + 1 points using getPoint( t ).
 		</p>
 
-		<h3>[method:T[] getSpacedPoints](  [param:number divisions]? )</h3>
+		<h3>[method:T[] getSpacedPoints](  [param:number divisions]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number divisions] - (optional) The divisions.
@@ -156,7 +156,7 @@
 			Returns : Returns a set of divisions + 1 equi-spaced points using getPointAt( u ).
 		</p>
 
-		<h3>[method:T getTangent](  [param:number t],  [param:T optionalTarget]? )</h3>
+		<h3>[method:T getTangent](  [param:number t],  [param:T optionalTarget]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number t] - A position on the curve. Must be in the range [ 0, 1 ].<br />
@@ -166,7 +166,7 @@
 			Returns : Returns a unit vector tangent at t. If the derived curve does not implement its tangent derivation, two points a small delta apart will be used to find its gradient which seems to give a reasonable approximation.
 		</p>
 
-		<h3>[method:T getTangentAt](  [param:number u],  [param:T optionalTarget]? )</h3>
+		<h3>[method:T getTangentAt](  [param:number u],  [param:T optionalTarget]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number u] - A position on the curve according to the arc length. Must be in the range [ 0, 1 ].<br />
@@ -176,7 +176,7 @@
 			Returns : Returns tangent at a point which is equidistant to the ends of the curve from the point given in <i>.getTangent</i>.
 		</p>
 
-		<h3>[method:number getUtoTmapping](  [param:number u],  [param:number distance] )</h3>
+		<h3>[method:number getUtoTmapping](  [param:number u],  [param:number distance] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number u] - The u.<br />
@@ -186,12 +186,12 @@
 			Given u in the range ( 0 .. 1 ), returns [page:Float t] also in the range ( 0 .. 1 ). u and t can then be used to give you points which are equidistant from the ends of the curve, using <i>.getPoint</i>.
 		</p>
 
-		<h3>[method:object toJSON](  )</h3>
+		<h3>[method:object toJSON](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Returns : Returns a JSON object representation of this instance.
 		</p>
 
-		<h3>[method:void updateArcLengths](  )</h3>
+		<h3>[method:void updateArcLengths](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Update the cumlative segment distance cache. The method must be called every time curve parameters are changed.<br />
 			If an updated curve is part of a composed curve like [page:CurvePath CurvePath], <i>.updateArcLengths</i>() must be called on the composed curve, too.

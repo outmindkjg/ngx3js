@@ -28,13 +28,13 @@
 			heartShape.bezierCurveTo( 60, 77, 80, 55, 80, 35 );<br />
 			heartShape.bezierCurveTo( 80, 35, 80, 0, 50, 0 );<br />
 			heartShape.bezierCurveTo( 35, 0, 25, 25, 25, 25 );<br />
-			const extrudeSettings = { <br />
-				depth: 8, <br />
-				bevelEnabled: true, <br />
-				bevelSegments: 2, <br />
-				steps: 2, <br />
-				bevelSize: 1, <br />
-				bevelThickness: 1 <br />
+			const extrudeSettings = {<br />
+				depth: 8,<br />
+				bevelEnabled: true,<br />
+				bevelSegments: 2,<br />
+				steps: 2,<br />
+				bevelSize: 1,<br />
+				bevelThickness: 1<br />
 			};<br />
 			const geometry = new THREE.ExtrudeGeometry( heartShape, extrudeSettings );<br />
 			const mesh = new THREE.Mesh( geometry, new THREE.MeshPhongMaterial() );<br />
@@ -47,7 +47,7 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:Shape Shape](  [param:Vector2[] points]? )</h3>
+		<h3>[constructor:Shape Shape](  [param:Vector2[] points]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector2[] points] - (optional) The points.
@@ -67,23 +67,23 @@
 			See the base [page:Path Path] class for common properties.
 		</p>
 
-		<h3>[property:number arcLengthDivisions]</h3>
+		<h3>[property:number arcLengthDivisions]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via <i>.getLengths</i>.<br />
 			To ensure precision when using methods like <i>.getSpacedPoints</i>, it is recommended to increase <i>.arcLengthDivisions</i> if the curve is very large. Default is 200.
 		</p>
 
-		<h3>[property:boolean autoClose]</h3>
+		<h3>[property:boolean autoClose]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Whether or not to automatically close the path.
 		</p>
 
-		<h3>[property:Vector2 currentPoint]</h3>
+		<h3>[property:Vector2 currentPoint]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The current offset of the path. Any new [page:Curve Curve] added will start here.
 		</p>
 
-		<h3>[property:Curve[] curves]</h3>
+		<h3>[property:Curve[] curves]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The array of [page:Curve Curves].
 		</p>
@@ -114,7 +114,7 @@
 			See the base [page:Path Path] class for common methods.
 		</p>
 
-		<h3>[method:Shape absarc](  [param:number aX],  [param:number aY],  [param:number aRadius],  [param:number aStartAngle],  [param:number aEndAngle],  [param:boolean aClockwise] )</h3>
+		<h3>[method:Shape absarc](  [param:number aX],  [param:number aY],  [param:number aRadius],  [param:number aStartAngle],  [param:number aEndAngle],  [param:boolean aClockwise] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number aX] - The absolute center of the arc.<br />
@@ -128,7 +128,7 @@
 			Adds an absolutely positioned [page:EllipseCurve EllipseCurve] to the path.
 		</p>
 
-		<h3>[method:Shape absellipse](  [param:number aX],  [param:number aY],  [param:number xRadius],  [param:number yRadius],  [param:number aStartAngle],  [param:number aEndAngle],  [param:boolean aClockwise],  [param:number aRotation] )</h3>
+		<h3>[method:Shape absellipse](  [param:number aX],  [param:number aY],  [param:number xRadius],  [param:number yRadius],  [param:number aStartAngle],  [param:number aEndAngle],  [param:boolean aClockwise],  [param:number aRotation] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number aX] - The a x.<br />
@@ -144,7 +144,7 @@
 			
 		</p>
 
-		<h3>[method:void add](  [param:Curve curve] )</h3>
+		<h3>[method:void add](  [param:Curve curve] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Curve curve] - The curve.
@@ -153,7 +153,7 @@
 			Add a curve to the <i>.curves</i> array.
 		</p>
 
-		<h3>[method:Shape arc](  [param:number aX],  [param:number aY],  [param:number aRadius],  [param:number aStartAngle],  [param:number aEndAngle],  [param:boolean aClockwise] )</h3>
+		<h3>[method:Shape arc](  [param:number aX],  [param:number aY],  [param:number aRadius],  [param:number aStartAngle],  [param:number aEndAngle],  [param:boolean aClockwise] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number aX] - The a x.<br />
@@ -167,7 +167,7 @@
 			
 		</p>
 
-		<h3>[method:Shape bezierCurveTo](  [param:number aCP1x],  [param:number aCP1y],  [param:number aCP2x],  [param:number aCP2y],  [param:number aX],  [param:number aY] )</h3>
+		<h3>[method:Shape bezierCurveTo](  [param:number aCP1x],  [param:number aCP1y],  [param:number aCP2x],  [param:number aCP2y],  [param:number aX],  [param:number aY] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number aCP1x] - The a c p1x.<br />
@@ -181,17 +181,17 @@
 			This creates a bezier curve from <i>.currentPoint</i> with (cp1X, cp1Y) and (cp2X, cp2Y) as control points and updates <i>.currentPoint</i> to x and y.
 		</p>
 
-		<h3>[method:Shape clone](  )</h3>
+		<h3>[method:Shape clone](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Creates a clone of this instance.
 		</p>
 
-		<h3>[method:void closePath](  )</h3>
+		<h3>[method:void closePath](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Adds a [page:LineCurve lineCurve] to close the path.
 		</p>
 
-		<h3>[method:void computeFrenetFrames](  [param:number segments],  [param:boolean closed]? )</h3>
+		<h3>[method:void computeFrenetFrames](  [param:number segments],  [param:boolean closed]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number segments] - The segments.<br />
@@ -201,7 +201,7 @@
 			Generates the Frenet Frames. Requires a curve definition in 3D space. Used in geometries like [page:TubeGeometry TubeGeometry] or [page:ExtrudeGeometry ExtrudeGeometry].
 		</p>
 
-		<h3>[method:Shape copy](  [param:Curve source] )</h3>
+		<h3>[method:Shape copy](  [param:Curve source] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Curve source] - The source.
@@ -210,7 +210,7 @@
 			Copies another Curve object to this instance.
 		</p>
 
-		<h3>[method:Shape ellipse](  [param:number aX],  [param:number aY],  [param:number xRadius],  [param:number yRadius],  [param:number aStartAngle],  [param:number aEndAngle],  [param:boolean aClockwise],  [param:number aRotation] )</h3>
+		<h3>[method:Shape ellipse](  [param:number aX],  [param:number aY],  [param:number xRadius],  [param:number yRadius],  [param:number aStartAngle],  [param:number aEndAngle],  [param:boolean aClockwise],  [param:number aRotation] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number aX] - The a x.<br />
@@ -235,7 +235,7 @@
 			Call [page:Curve.getPoints getPoints] on the shape and the <i>.holes</i> array, and return an object of the form:  { shape holes } where shape and holes are arrays of [page:Vector2 Vector2s].
 		</p>
 
-		<h3>[method:Shape fromJSON](  [param:object json] )</h3>
+		<h3>[method:Shape fromJSON](  [param:object json] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:object json] - The json.
@@ -244,17 +244,17 @@
 			Copies the data from the given JSON object to this instance.
 		</p>
 
-		<h3>[method:number[] getCurveLengths](  )</h3>
+		<h3>[method:number[] getCurveLengths](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Get list of cumulative curve lengths of the curves in the <i>.curves</i> array.
 		</p>
 
-		<h3>[method:number getLength](  )</h3>
+		<h3>[method:number getLength](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Get total curve arc length.
 		</p>
 
-		<h3>[method:number[] getLengths](  [param:number divisions]? )</h3>
+		<h3>[method:number[] getLengths](  [param:number divisions]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number divisions] - (optional) The divisions.
@@ -263,7 +263,7 @@
 			Get list of cumulative segment lengths.
 		</p>
 
-		<h3>[method:Vector2 getPoint](  [param:number t],  [param:Vector2 optionalTarget]? )</h3>
+		<h3>[method:Vector2 getPoint](  [param:number t],  [param:Vector2 optionalTarget]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number t] - The t.<br />
@@ -273,7 +273,7 @@
 			Returns : Returns an array of points representing a sequence of curves. The <i>division</i> parameter defines the number of pieces each curve is divided into. However, for optimization and quality purposes, the actual sampling resolution for each curve depends on its type. For example, for a [page:LineCurve LineCurve], the returned number of points is always just 2.
 		</p>
 
-		<h3>[method:Vector2 getPointAt](  [param:number u],  [param:Vector2 optionalTarget]? )</h3>
+		<h3>[method:Vector2 getPointAt](  [param:number u],  [param:Vector2 optionalTarget]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number u] - A position on the curve according to the arc length. Must be in the range [ 0, 1 ].<br />
@@ -283,7 +283,7 @@
 			Returns : Returns a vector for a given position on the curve according to the arc length.
 		</p>
 
-		<h3>[method:Vector2[] getPoints](  [param:number divisions]? )</h3>
+		<h3>[method:Vector2[] getPoints](  [param:number divisions]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number divisions] - (optional) The divisions.
@@ -301,7 +301,7 @@
 			Get an array of [page:Vector2 Vector2s] that represent the holes in the shape.
 		</p>
 
-		<h3>[method:Vector2[] getSpacedPoints](  [param:number divisions]? )</h3>
+		<h3>[method:Vector2[] getSpacedPoints](  [param:number divisions]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number divisions] - (optional) The divisions.
@@ -310,7 +310,7 @@
 			Returns : Returns a set of divisions + 1 equi-spaced points using getPointAt( u ).
 		</p>
 
-		<h3>[method:Vector2 getTangent](  [param:number t],  [param:Vector2 optionalTarget]? )</h3>
+		<h3>[method:Vector2 getTangent](  [param:number t],  [param:Vector2 optionalTarget]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number t] - A position on the curve. Must be in the range [ 0, 1 ].<br />
@@ -320,7 +320,7 @@
 			Returns : Returns a unit vector tangent at t. If the derived curve does not implement its tangent derivation, two points a small delta apart will be used to find its gradient which seems to give a reasonable approximation.
 		</p>
 
-		<h3>[method:Vector2 getTangentAt](  [param:number u],  [param:Vector2 optionalTarget]? )</h3>
+		<h3>[method:Vector2 getTangentAt](  [param:number u],  [param:Vector2 optionalTarget]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number u] - A position on the curve according to the arc length. Must be in the range [ 0, 1 ].<br />
@@ -330,7 +330,7 @@
 			Returns : Returns tangent at a point which is equidistant to the ends of the curve from the point given in <i>.getTangent</i>.
 		</p>
 
-		<h3>[method:number getUtoTmapping](  [param:number u],  [param:number distance] )</h3>
+		<h3>[method:number getUtoTmapping](  [param:number u],  [param:number distance] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number u] - The u.<br />
@@ -340,7 +340,7 @@
 			Given u in the range ( 0 .. 1 ), returns [page:Float t] also in the range ( 0 .. 1 ). u and t can then be used to give you points which are equidistant from the ends of the curve, using <i>.getPoint</i>.
 		</p>
 
-		<h3>[method:Shape lineTo](  [param:number x],  [param:number y] )</h3>
+		<h3>[method:Shape lineTo](  [param:number x],  [param:number y] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number x] - The x.<br />
@@ -350,7 +350,7 @@
 			Connects a [page:LineCurve LineCurve] from <i>.currentPoint</i> to x, y onto the path.
 		</p>
 
-		<h3>[method:Shape moveTo](  [param:number x],  [param:number y] )</h3>
+		<h3>[method:Shape moveTo](  [param:number x],  [param:number y] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number x] - The x.<br />
@@ -360,7 +360,7 @@
 			Move the <i>.currentPoint</i> to x, y.
 		</p>
 
-		<h3>[method:Shape quadraticCurveTo](  [param:number aCPx],  [param:number aCPy],  [param:number aX],  [param:number aY] )</h3>
+		<h3>[method:Shape quadraticCurveTo](  [param:number aCPx],  [param:number aCPy],  [param:number aX],  [param:number aY] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number aCPx] - The a c px.<br />
@@ -372,7 +372,7 @@
 			Creates a quadratic curve from <i>.currentPoint</i> with cpX and cpY as control point and updates <i>.currentPoint</i> to x and y.
 		</p>
 
-		<h3>[method:Shape setFromPoints](  [param:Vector2[] vectors] )</h3>
+		<h3>[method:Shape setFromPoints](  [param:Vector2[] vectors] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector2[] vectors] - The vectors.
@@ -381,7 +381,7 @@
 			Points are added to the [page:CurvePath.curves curves] array as [page:LineCurve LineCurves].
 		</p>
 
-		<h3>[method:Shape splineThru](  [param:Vector2[] pts] )</h3>
+		<h3>[method:Shape splineThru](  [param:Vector2[] pts] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Vector2[] pts] - The pts.
@@ -390,12 +390,12 @@
 			Connects a new [page:SplineCurve SplineCurve] onto the path.
 		</p>
 
-		<h3>[method:object toJSON](  )</h3>
+		<h3>[method:object toJSON](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Returns : Returns a JSON object representation of this instance.
 		</p>
 
-		<h3>[method:void updateArcLengths](  )</h3>
+		<h3>[method:void updateArcLengths](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Update the cumlative segment distance cache. The method must be called every time curve parameters are changed.<br />
 			If an updated curve is part of a composed curve like [page:CurvePath CurvePath], <i>.updateArcLengths</i>() must be called on the composed curve, too.

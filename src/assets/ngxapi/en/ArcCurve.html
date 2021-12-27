@@ -16,7 +16,7 @@
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:ArcCurve ArcCurve](  [param:number aX],  [param:number aY],  [param:number xRadius],  [param:number yRadius],  [param:number aStartAngle],  [param:number aEndAngle],  [param:boolean aClockwise],  [param:number aRotation] )</h3>
+		<h3>[constructor:ArcCurve ArcCurve](  [param:number aX],  [param:number aY],  [param:number xRadius],  [param:number yRadius],  [param:number aStartAngle],  [param:number aEndAngle],  [param:boolean aClockwise],  [param:number aRotation] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number aX] - – The X center of the ellipse. Default is <i>0</i>.<br />
@@ -40,37 +40,37 @@
 			See the base [page:EllipseCurve EllipseCurve] class for common properties.
 		</p>
 
-		<h3>[property:boolean aClockwise]</h3>
+		<h3>[property:boolean aClockwise]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Whether the ellipse is drawn clockwise.
 		</p>
 
-		<h3>[property:number aEndAngle]</h3>
+		<h3>[property:number aEndAngle]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The end angle of the curve in radians starting from the middle right side.
 		</p>
 
-		<h3>[property:number aRotation]</h3>
+		<h3>[property:number aRotation]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The rotation angle of the ellipse in radians, counterclockwise from the positive X axis Default is <i>0</i>.
 		</p>
 
-		<h3>[property:number aStartAngle]</h3>
+		<h3>[property:number aStartAngle]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The start angle of the curve in radians starting from the middle right side.
 		</p>
 
-		<h3>[property:number aX]</h3>
+		<h3>[property:number aX]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The X center of the ellipse.
 		</p>
 
-		<h3>[property:number aY]</h3>
+		<h3>[property:number aY]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The Y center of the ellipse.
 		</p>
 
-		<h3>[property:number arcLengthDivisions]</h3>
+		<h3>[property:number arcLengthDivisions]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via <i>.getLengths</i>.<br />
 			To ensure precision when using methods like <i>.getSpacedPoints</i>, it is recommended to increase <i>.arcLengthDivisions</i> if the curve is very large. Default is 200.
@@ -81,12 +81,12 @@
 			
 		</p>
 
-		<h3>[property:number xRadius]</h3>
+		<h3>[property:number xRadius]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The radius of the ellipse in the x direction.
 		</p>
 
-		<h3>[property:number yRadius]</h3>
+		<h3>[property:number yRadius]<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The radius of the ellipse in the y direction.
 		</p>
@@ -99,12 +99,12 @@
 			See the base [page:EllipseCurve EllipseCurve] class for common methods.
 		</p>
 
-		<h3>[method:ArcCurve clone](  )</h3>
+		<h3>[method:ArcCurve clone](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Creates a clone of this instance.
 		</p>
 
-		<h3>[method:void computeFrenetFrames](  [param:number segments],  [param:boolean closed]? )</h3>
+		<h3>[method:void computeFrenetFrames](  [param:number segments],  [param:boolean closed]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number segments] - The segments.<br />
@@ -114,7 +114,7 @@
 			Generates the Frenet Frames. Requires a curve definition in 3D space. Used in geometries like [page:TubeGeometry TubeGeometry] or [page:ExtrudeGeometry ExtrudeGeometry].
 		</p>
 
-		<h3>[method:ArcCurve copy](  [param:Curve source] )</h3>
+		<h3>[method:ArcCurve copy](  [param:Curve source] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:Curve source] - The source.
@@ -123,7 +123,7 @@
 			Copies another Curve object to this instance.
 		</p>
 
-		<h3>[method:ArcCurve fromJSON](  [param:object json] )</h3>
+		<h3>[method:ArcCurve fromJSON](  [param:object json] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:object json] - The json.
@@ -132,12 +132,12 @@
 			Copies the data from the given JSON object to this instance.
 		</p>
 
-		<h3>[method:number getLength](  )</h3>
+		<h3>[method:number getLength](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Get total curve arc length.
 		</p>
 
-		<h3>[method:number[] getLengths](  [param:number divisions]? )</h3>
+		<h3>[method:number[] getLengths](  [param:number divisions]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number divisions] - (optional) The divisions.
@@ -146,7 +146,7 @@
 			Get list of cumulative segment lengths.
 		</p>
 
-		<h3>[method:Vector2 getPoint](  [param:number t],  [param:Vector2 optionalTarget]? )</h3>
+		<h3>[method:Vector2 getPoint](  [param:number t],  [param:Vector2 optionalTarget]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number t] - A position on the curve. Must be in the range [ 0, 1 ].<br />
@@ -156,7 +156,7 @@
 			Returns : Returns a vector for a given position on the curve.
 		</p>
 
-		<h3>[method:Vector2 getPointAt](  [param:number u],  [param:Vector2 optionalTarget]? )</h3>
+		<h3>[method:Vector2 getPointAt](  [param:number u],  [param:Vector2 optionalTarget]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number u] - A position on the curve according to the arc length. Must be in the range [ 0, 1 ].<br />
@@ -166,7 +166,7 @@
 			Returns : Returns a vector for a given position on the curve according to the arc length.
 		</p>
 
-		<h3>[method:Vector2[] getPoints](  [param:number divisions]? )</h3>
+		<h3>[method:Vector2[] getPoints](  [param:number divisions]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number divisions] - (optional) The divisions.
@@ -175,7 +175,7 @@
 			Returns : Returns a set of divisions + 1 points using getPoint( t ).
 		</p>
 
-		<h3>[method:Vector2[] getSpacedPoints](  [param:number divisions]? )</h3>
+		<h3>[method:Vector2[] getSpacedPoints](  [param:number divisions]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number divisions] - (optional) The divisions.
@@ -184,7 +184,7 @@
 			Returns : Returns a set of divisions + 1 equi-spaced points using getPointAt( u ).
 		</p>
 
-		<h3>[method:Vector2 getTangent](  [param:number t],  [param:Vector2 optionalTarget]? )</h3>
+		<h3>[method:Vector2 getTangent](  [param:number t],  [param:Vector2 optionalTarget]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number t] - A position on the curve. Must be in the range [ 0, 1 ].<br />
@@ -194,7 +194,7 @@
 			Returns : Returns a unit vector tangent at t. If the derived curve does not implement its tangent derivation, two points a small delta apart will be used to find its gradient which seems to give a reasonable approximation.
 		</p>
 
-		<h3>[method:Vector2 getTangentAt](  [param:number u],  [param:Vector2 optionalTarget]? )</h3>
+		<h3>[method:Vector2 getTangentAt](  [param:number u],  [param:Vector2 optionalTarget]? )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number u] - A position on the curve according to the arc length. Must be in the range [ 0, 1 ].<br />
@@ -204,7 +204,7 @@
 			Returns : Returns tangent at a point which is equidistant to the ends of the curve from the point given in <i>.getTangent</i>.
 		</p>
 
-		<h3>[method:number getUtoTmapping](  [param:number u],  [param:number distance] )</h3>
+		<h3>[method:number getUtoTmapping](  [param:number u],  [param:number distance] )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:number u] - The u.<br />
@@ -214,12 +214,12 @@
 			Given u in the range ( 0 .. 1 ), returns [page:Float t] also in the range ( 0 .. 1 ). u and t can then be used to give you points which are equidistant from the ends of the curve, using <i>.getPoint</i>.
 		</p>
 
-		<h3>[method:object toJSON](  )</h3>
+		<h3>[method:object toJSON](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Returns : Returns a JSON object representation of this instance.
 		</p>
 
-		<h3>[method:void updateArcLengths](  )</h3>
+		<h3>[method:void updateArcLengths](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Update the cumlative segment distance cache. The method must be called every time curve parameters are changed.<br />
 			If an updated curve is part of a composed curve like [page:CurvePath CurvePath], <i>.updateArcLengths</i>() must be called on the composed curve, too.

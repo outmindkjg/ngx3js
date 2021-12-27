@@ -20,6 +20,10 @@
 			[page:Object3D.matrixWorld Object3D.matrixWorld]: The global or world transform of the object. If the object has no parent, then this is identical to the local transform stored in [page:Object3D.matrix matrix].<br />
 			[page:Object3D.modelViewMatrix Object3D.modelViewMatrix]: This represents the object's transformation relative to the camera's coordinate system.<br />
 			An object's modelViewMatrix is the object's matrixWorld pre-multiplied by the camera's matrixWorldInverse.<br />
+			<br />
+			<h3>Preview - css3d / molecules</h3><br />
+			<iframe src="#/viewer/css3d_molecules"></iframe><br />
+			<br />
 			[page:Camera Cameras] have three additional Matrix4s:<br />
 			[page:Camera.matrixWorldInverse Camera.matrixWorldInverse]: The view matrix - the inverse of the Camera's [page:Object3D.matrixWorld matrixWorld].<br />
 			[page:Camera.projectionMatrix Camera.projectionMatrix]: Represents the information how to project the scene to clip space.<br />
@@ -41,11 +45,19 @@
 			[page:Vector3.setFromMatrixPosition Vector3.setFromMatrixPosition]: can be used to extract the translation component.<br />
 			[page:Vector3.setFromMatrixScale Vector3.setFromMatrixScale]: can be used to extract the scale component.<br />
 			[page:Quaternion.setFromRotationMatrix Quaternion.setFromRotationMatrix], [page:Euler.setFromRotationMatrix Euler.setFromRotationMatrix] or <i>.extractRotation</i> can be used to extract the rotation component from a pure (unscaled) matrix.<br />
-			<i>.decompose</i> can be used to extract position, rotation and scale all at once.
+			<i>.decompose</i> can be used to extract position, rotation and scale all at once.<br />
+			See the [page:Matrix4 ngx3js docs] page for details.<br />
+			<br />
+			<h2>Examples</h2><br />
+			[example:css3d_molecules css3d / molecules]<br />
+			[example:physics_ammo_instancing physics / ammo / instancing]<br />
+			[example:webgl_custom_attributes_points2 webgl / custom / attributes / points2]<br />
+			[example:webgl_clipping_advanced webgl / clipping / advanced]<br />
+			[example:webgl_geometry_minecraft webgl / geometry / minecraft]
 		</p>
 
 		<h2>Constructor</h2>
-		<h3>[constructor:Matrix4 Matrix4](  )</h3>
+		<h3>[constructor:Matrix4 Matrix4](  )<i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Creates and initializes the Matrix4 to the 4x4<br />
 			[link:https://en.wikipedia.org/wiki/Identity_matrix identity matrix].

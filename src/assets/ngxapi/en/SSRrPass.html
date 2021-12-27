@@ -7,7 +7,430 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		<h1>SSRrPass - Namespace</h1>
+		[page:Pass] &rarr;
+
+		<h1>SSRrPass</h1>
+
+		<p class="desc">
+			Ssrr pass<br />
+			See the [page:SSRrPass ngx3js docs] page for details.<br />
+			<br />
+			<h3>Preview - webgl / postprocessing / ssrr</h3><br />
+			<iframe src="#/viewer/webgl_postprocessing_ssrr"></iframe><br />
+			<br />
+			<h2>Examples</h2><br />
+			[example:webgl_postprocessing_ssrr webgl / postprocessing / ssrr]
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:SSRrPass SSRrPass](  [param:SSRrPassParams params] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:SSRrPassParams params] - The params.
+		</p>
+		<p>
+			
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:Pass Pass] class for common properties.
+		</p>
+
+		<h3>[property:SSRrPassOUTPUT OUTPUT]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean _fillHole]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean _infiniteThick]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean _specular]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:WebGLRenderTarget beautyRenderTarget]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Camera camera]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean clear]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Color color]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:ShaderMaterial copyMaterial]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:ShaderMaterial depthRenderMaterial]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean enabled]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:FullScreenQuad fsQuad]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number height]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number ior]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number maxDistance]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean needsSwap]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:MeshNormalMaterial normalMaterial]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:WebGLRenderTarget normalSelectsRenderTarget]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Color originalClearColor]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number output]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:MeshBasicMaterial refractiveOffMaterial]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:MeshBasicMaterial refractiveOnMaterial]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:WebGLRenderTarget refractiveRenderTarget]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean renderToScreen]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:WebGLRenderer renderer]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Scene scene]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Mesh[] seleects]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:MeshStandardMaterial specularMaterial]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:WebGLRenderTarget specularRenderTarget]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:ShaderMaterial ssrrMaterial]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:WebGLRenderTarget ssrrRenderTarget]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number surfDist]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number width]</h3>
+		<p>
+			
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:Pass Pass] class for common methods.
+		</p>
+
+		<h3>[method:void dispose](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:void render](  [param:WebGLRenderer renderer],  [param:WebGLRenderTarget writeBuffer] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:WebGLRenderer renderer] - The renderer.<br />
+			[parameter:WebGLRenderTarget writeBuffer] - The write buffer.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void renderOverride](  [param:WebGLRenderer renderer],  [param:Material passMaterial],  [param:WebGLRenderTarget renderTarget],  [param:ColorRepresentation clearColor],  [param:ColorRepresentation clearAlpha] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:WebGLRenderer renderer] - The renderer.<br />
+			[parameter:Material passMaterial] - The pass material.<br />
+			[parameter:WebGLRenderTarget renderTarget] - The render target.<br />
+			[parameter:ColorRepresentation clearColor] - The clear color.<br />
+			[parameter:ColorRepresentation clearAlpha] - The clear alpha.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void renderPass](  [param:WebGLRenderer renderer],  [param:Material passMaterial],  [param:WebGLRenderTarget renderTarget],  [param:ColorRepresentation clearColor],  [param:ColorRepresentation clearAlpha] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:WebGLRenderer renderer] - The renderer.<br />
+			[parameter:Material passMaterial] - The pass material.<br />
+			[parameter:WebGLRenderTarget renderTarget] - The render target.<br />
+			[parameter:ColorRepresentation clearColor] - The clear color.<br />
+			[parameter:ColorRepresentation clearAlpha] - The clear alpha.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void renderRefractive](  [param:WebGLRenderer renderer],  [param:Material passMaterial],  [param:WebGLRenderTarget renderTarget],  [param:ColorRepresentation clearColor],  [param:ColorRepresentation clearAlpha] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:WebGLRenderer renderer] - The renderer.<br />
+			[parameter:Material passMaterial] - The pass material.<br />
+			[parameter:WebGLRenderTarget renderTarget] - The render target.<br />
+			[parameter:ColorRepresentation clearColor] - The clear color.<br />
+			[parameter:ColorRepresentation clearAlpha] - The clear alpha.
+		</p>
+		<p>
+			
+		</p>
+
+		<h3>[method:void setSize](  [param:number width],  [param:number height] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number width] - The width.<br />
+			[parameter:number height] - The height.
+		</p>
+		<p>
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line top"/>
+		<h3 id="SSRrPassOUTPUT">SSRrPassOUTPUT <i class="modifier modifier-interface">Enumeration</i></h3>
+		<hr class="interface-line bottom"/>
+		<h4>Properties</h4>
+		<p>
+			[property:SSRrPassOUTPUT Beauty] = 3 -  The beauty.<br />
+			[property:SSRrPassOUTPUT Default] = 0 -  The default.<br />
+			[property:SSRrPassOUTPUT Depth] = 4 -  The depth.<br />
+			[property:SSRrPassOUTPUT DepthSelects] = 9 -  The depth selects.<br />
+			[property:SSRrPassOUTPUT NormalSelects] = 5 -  The normal selects.<br />
+			[property:SSRrPassOUTPUT Refractive] = 7 -  The refractive.<br />
+			[property:SSRrPassOUTPUT SSRr] = 1 -  The s s rr.<br />
+			[property:SSRrPassOUTPUT Specular] = 8 -  The specular.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line top"/>
+		<h3 id="SSRrPassParams">SSRrPassParams <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line bottom"/>
+		<h4>Properties</h4>
+		<p>
+			[property:Camera camera] -  The camera.<br />
+			[property:number height]? -  The height.<br />
+			[property:WebGLRenderer renderer] -  The renderer.<br />
+			[property:Scene scene] -  The scene.<br />
+			[property:Mesh[] selects] -  The selects.<br />
+			[property:number width]? -  The width.
+		</p>
+
+		<p class="desc">
+			Ssrr pass params
+		</p>
 
 		<br /><br />
 		<h2>Source</h2>

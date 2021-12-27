@@ -17,6 +17,7 @@
 			 time: { value: 1.0 }, resolution: new Uniform( new Vector2() )<br />
 			};<br />
 			</code><br />
+			<br />
 			Each uniform must have a <i>value</i> property. The type of the value must correspond to the type of the uniform variable in the GLSL code as specified for the primitive GLSL types in the table below. Uniform structures and arrays are also supported. GLSL arrays of primitive type must either be specified as an array of the corresponding THREE objects or as a flat array containing the data of all the objects. In other words; GLSL primitives in arrays must not be represented by arrays. This rule does not apply transitively.<br />
 			An array of <i>vec2</i> arrays, each with a length of five vectors, must be an array of arrays, of either five [page:Vector2 Vector2] objects or ten <i>number</i>s.<br />
 			<br />

@@ -38,7 +38,7 @@
 			}<br />
 			function render() {<br />
 			 //  update the picking ray with the camera and mouse position raycaster.setFromCamera( mouse, camera );<br />
-			 //  calculate objects intersecting the picking ray <br />
+			 //  calculate objects intersecting the picking ray<br />
 				const intersects = raycaster.intersectObjects( scene.children );<br />
 			 for ( let i = 0; i &lt; intersects.length; i ++ ) {<br />
 			     intersects[ i ].object.material.color.set( 0xff0000 );<br />
