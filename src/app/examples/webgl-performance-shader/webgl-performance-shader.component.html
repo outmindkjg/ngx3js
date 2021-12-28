@@ -1,0 +1,64 @@
+<div class="info">
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - shader material demo. featuring lava shader by <a href="http://irrlicht.sourceforge.net/phpBB2/viewtopic.php?t=21057" target="_blank" rel="noopener">TheGameMaker</a>
+	todo
+</div>
+<ngx3js-renderer
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[useEvent]="'mousemove'"
+	(eventListener)="onMouseMove($event)"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera
+		[type]="'perspective'"
+		[fov]="60"
+		[near]="1"
+		[far]="3000"
+		(onLoad)="setCamera($event)"
+	>
+		<ngx3js-position [x]="0" [y]="0" [z]="7"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [matrixAutoUpdate]="false">
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#geometry
+				[type]="'TorusGeometry'"
+				[radius]="0.65"
+				[tube]="0.3"
+				[radiusSegments]="30"
+				[tubularSegments]="30"
+			></ngx3js-geometry>
+			<ngx3js-material #material [type]="'ShaderMaterial'" [fragmentShader]="fragmentShader" [vertexShader]="vertexShader" [uniforms]="uniforms" (onLoad)="setMaterial($event)"></ngx3js-material>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-mesh
+				*ngFor="let info of meshInfos"
+				[geometry]="geometry"
+				[material]="material"
+				[matrixAutoUpdate]="false"
+			>
+				<ngx3js-position
+					[x]="info.position.x"
+					[y]="info.position.y"
+					[z]="info.position.z"
+				></ngx3js-position>
+				<ngx3js-rotation
+					[x]="info.rotation.x"
+					[y]="info.rotation.y"
+					[z]="info.rotation.z"
+				></ngx3js-rotation>
+				<ngx3js-scale
+					[x]="info.scale.x"
+					[y]="info.scale.y"
+					[z]="info.scale.z"
+				></ngx3js-scale>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>

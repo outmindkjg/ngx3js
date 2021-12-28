@@ -320,6 +320,7 @@ import { WebglMultipleViewsComponent } from './webgl-multiple-views/webgl-multip
 import { WebglPanoramaCubeComponent } from './webgl-panorama-cube/webgl-panorama-cube.component';
 import { WebglPanoramaEquirectangularComponent } from './webgl-panorama-equirectangular/webgl-panorama-equirectangular.component';
 import { WebglPerformanceNodesComponent } from './webgl-performance-nodes/webgl-performance-nodes.component';
+import { WebglPerformanceShaderComponent } from './webgl-performance-shader/webgl-performance-shader.component';
 import { WebglPerformanceStaticComponent } from './webgl-performance-static/webgl-performance-static.component';
 import { WebglPerformanceComponent } from './webgl-performance/webgl-performance.component';
 import { WebglPmremTestComponent } from './webgl-pmrem-test/webgl-pmrem-test.component';
@@ -647,6 +648,7 @@ import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component
 		WebglPanoramaEquirectangularComponent,
 		WebglPerformanceComponent,
 		WebglPerformanceStaticComponent,
+		WebglPerformanceShaderComponent,
 		WebglPointsBillboardsComponent,
 		WebglPointsDynamicComponent,
 		WebglPointsSpritesComponent,

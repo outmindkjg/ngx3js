@@ -434,6 +434,7 @@ import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component
 import { HelloWorldComponent } from './hello-world/hello-world.component';
 import { NgxMeshComponent } from './ngx-mesh/ngx-mesh.component';
 import { WebglLoaderTextureLogluvComponent } from './webgl-loader-texture-logluv/webgl-loader-texture-logluv.component';
+import { WebglPerformanceShaderComponent } from './webgl-performance-shader/webgl-performance-shader.component';
 
 const routes: Routes = [
 	{ path: '', pathMatch: 'full', redirectTo: 'ngx_scene' },
@@ -950,6 +951,10 @@ const routes: Routes = [
 	{
 		path: 'webgl_performance_static',
 		component: WebglPerformanceStaticComponent,
+	},
+	{
+		path: 'webgl_performance_shader',
+		component: WebglPerformanceShaderComponent,
 	},
 	{
 		path: 'webgl_points_billboards',
