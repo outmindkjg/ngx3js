@@ -379,7 +379,7 @@ export class WebglGeometryTeapotComponent extends NgxBaseComponent<{
 		}
 	}
 
-	teapotSize = 400;
+	teapotSize = 300;
 
 	teapotMaterial: { [key: string]: any } = {
 		wire: { type: 'MeshBasic', color: 0xffffff, wireframe: true },
@@ -424,8 +424,7 @@ export class WebglGeometryTeapotComponent extends NgxBaseComponent<{
 		if (this.teapot !== null) {
 			this.teapot.dispose();
 		}
-		const TeapotGeometryAlias: any = TeapotGeometry;
-		this.teapot = new TeapotGeometryAlias(
+		this.teapot = new TeapotGeometry(
 			this.teapotSize,
 			this.controls.newTess,
 			this.controls.bottom,

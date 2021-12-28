@@ -32,6 +32,7 @@
 			[penumbra]="0.5"
 			[shadowMapSizeWidth]="1024"
 			[shadowMapSizeHeight]="1024"
+			[castShadow]="true"
 		>
 			<ngx3js-position [x]="200" [y]="250" [z]="500"></ngx3js-position>
 		</ngx3js-light>
@@ -44,6 +45,7 @@
 			[penumbra]="0.5"
 			[shadowMapSizeWidth]="1024"
 			[shadowMapSizeHeight]="1024"
+			[castShadow]="true"
 		>
 			<ngx3js-position [x]="-100" [y]="350" [z]="350"></ngx3js-position>
 		</ngx3js-light>
@@ -51,6 +53,7 @@
 			(onLoad)="setMesh($event)"
 			[storageName]="'models/md2/ratamahatta/ratamahatta.md2'"
 			[storageOption]="config"
+			[castShadow]="true"
 		>
 			<ngx3js-mixer
 				[action]="controls.animation"

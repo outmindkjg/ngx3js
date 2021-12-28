@@ -31,16 +31,13 @@ export class WebglFramebufferTextureComponent extends NgxBaseComponent<{}> {
 		this.textureSize = 128 * this.dpr;
 		this.vector = new THREE.Vector2();
 		this.color = new THREE.Color();
-		this.spriteData = new Uint8Array(this.textureSize * this.textureSize * 3);
 	}
 
 	setTexture(texture: NgxTextureComponent) {
 		this.texture = texture.getTexture() ;
 	}
 
-	texture: I3JS.DataTexture = null;
-
-	spriteData: Uint8Array = null;
+	texture: I3JS.FramebufferTexture = null;
 
 	offset = 0;
 	dpr = 0;

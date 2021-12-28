@@ -30,7 +30,7 @@ export class WebglEffectsStereoComponent extends NgxBaseComponent<{
 
 	ngOnInit() {
 		this.models = [];
-		for (let i = 0; i < 500; i++) {
+		for (let i = 0; i < 200; i++) {
 			this.models.push({
 				x: Math.random() * 10000 - 5000,
 				y: Math.random() * 10000 - 5000,

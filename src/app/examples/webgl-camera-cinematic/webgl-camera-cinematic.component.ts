@@ -105,7 +105,7 @@ export class WebglCameraCinematicComponent extends NgxBaseComponent<{
 
 	ngOnInit() {
 		this.boxes = [];
-		for (let i = 0; i < 1500; i++) {
+		for (let i = 0; i < 500; i++) {
 			this.boxes.push({
 				color: Math.random() * 0xffffff,
 				x: Math.random() * 800 - 400,
