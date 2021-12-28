@@ -5,11 +5,11 @@ import {
 } from 'ngx3js';
 
 @Component({
-	selector: 'app-webgl-materials-nodes',
-	templateUrl: './webgl-materials-nodes.component.html',
-	styleUrls: ['./webgl-materials-nodes.component.scss'],
+	selector: 'app-webgl-materials-nodes-playground',
+	templateUrl: './webgl-materials-nodes-playground.component.html',
+	styleUrls: ['./webgl-materials-nodes-playground.component.scss'],
 })
-export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
+export class WebglMaterialsNodesPlaygroundComponent extends NgxBaseComponent<{
 	example: string;
 	useMap: boolean;
 	useEnvMap: boolean;

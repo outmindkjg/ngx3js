@@ -1,6 +1,6 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - vr
-	sandbox - need ar/vr device to test
+	sandbox - need ar/vr device to test todo
 </div>
 <ngx3js-renderer
 	#renderer
@@ -10,8 +10,10 @@
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
-	[guiStyle]="{ width: '300px', visib1ility: 'hidden' }"
+	[guiStyle]="{ width: '300px', visibility: 'hidden' }"
+	[guiOpen]="true"
 	[xrEnabled]="true"
+	(onLoad)="setRender($event)"
 	(onRender)="onRender($event)"
 >
 	<ngx3js-lookat [x]="0" [y]="1.25" [z]="-2"></ngx3js-lookat>
@@ -32,8 +34,8 @@
 			[storageName]="'textures/equirectangular/moonless_golf_1k.hdr'"
 			[mapping]="'EquirectangularReflectionMapping'"
 		></ngx3js-texture>
-		<ngx3js-mesh [type]="'InteractiveGroup'" [sharedCamera]="camera">
-			<ngx3js-mesh [type]="'htmlmesh'" [domElement]="renderer.gui?.domElement">
+		<ngx3js-mesh *ngIf="domElement" [type]="'InteractiveGroup'" [sharedCamera]="camera">
+			<ngx3js-mesh [type]="'htmlmesh'" [domElement]="domElement">
 				<ngx3js-position [x]="-0.75" [y]="1.5" [z]="-0.5"></ngx3js-position>
 				<ngx3js-rotation [x]="0" [y]="45" [z]="0"></ngx3js-rotation>
 				<ngx3js-scale [x]="2" [y]="2" [z]="2"></ngx3js-scale>

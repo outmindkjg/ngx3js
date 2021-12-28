@@ -29,7 +29,7 @@ export class WebglLightningstrikeComponent extends NgxBaseComponent<{
 	constructor() {
 		super(
 			{
-				scene: 'storm',
+				scene: 'cones',
 				timeRate: 1,
 				outlineEnabled: true,
 				lightningColor: 0xb0ffff,
@@ -56,7 +56,7 @@ export class WebglLightningstrikeComponent extends NgxBaseComponent<{
 							select: {
 								'Electric Cones': 'cones',
 								'Plasma Ball': 'ball',
-								Storm: 'storm',
+								'Storm': 'storm',
 							},
 							change: () => {
 								this.changeScene();

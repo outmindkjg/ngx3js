@@ -268,6 +268,7 @@ import { WebglMaterialsInstanceUniformNodesComponent } from './webgl-materials-i
 import { WebglMaterialsLightmapComponent } from './webgl-materials-lightmap/webgl-materials-lightmap.component';
 import { WebglMaterialsMatcapComponent } from './webgl-materials-matcap/webgl-materials-matcap.component';
 import { WebglMaterialsModifiedComponent } from './webgl-materials-modified/webgl-materials-modified.component';
+import { WebglMaterialsNodesPlaygroundComponent } from './webgl-materials-nodes-playground/webgl-materials-nodes-playground.component';
 import { WebglMaterialsNodesComponent } from './webgl-materials-nodes/webgl-materials-nodes.component';
 import { WebglMaterialsNormalmapObjectSpaceComponent } from './webgl-materials-normalmap-object-space/webgl-materials-normalmap-object-space.component';
 import { WebglMaterialsNormalmapComponent } from './webgl-materials-normalmap/webgl-materials-normalmap.component';
@@ -413,8 +414,10 @@ import { WebgpuInstanceUniformComponent } from './webgpu-instance-uniform/webgpu
 import { WebgpuLightsCustomComponent } from './webgpu-lights-custom/webgpu-lights-custom.component';
 import { WebgpuLightsSelectiveComponent } from './webgpu-lights-selective/webgpu-lights-selective.component';
 import { WebgpuMaterialsComponent } from './webgpu-materials/webgpu-materials.component';
+import { WebgpuNodesPlaygroundComponent } from './webgpu-nodes-playground/webgpu-nodes-playground.component';
 import { WebgpuRttComponent } from './webgpu-rtt/webgpu-rtt.component';
 import { WebgpuSandboxComponent } from './webgpu-sandbox/webgpu-sandbox.component';
+import { WebgpuSkinningPointsComponent } from './webgpu-skinning-points/webgpu-skinning-points.component';
 import { WebgpuSkinningComponent } from './webgpu-skinning/webgpu-skinning.component';
 import { WebxrArConesComponent } from './webxr-ar-cones/webxr-ar-cones.component';
 import { WebxrArHittestComponent } from './webxr-ar-hittest/webxr-ar-hittest.component';
@@ -691,6 +694,7 @@ import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component
 		WebglMaterialsEnvmapsHdrNodesComponent,
 		WebglMaterialsEnvmapsPmremNodesComponent,
 		WebglMaterialsNodesComponent,
+		WebglMaterialsNodesPlaygroundComponent,
 		WebglPerformanceNodesComponent,
 		WebglPostprocessingNodesComponent,
 		WebglPostprocessingNodesPassComponent,
@@ -764,6 +768,8 @@ import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component
 		WebgpuSkinningComponent,
 		WebgpuRttComponent,
 		WebgpuComputeComponent,
+		WebgpuNodesPlaygroundComponent,
+		WebgpuSkinningPointsComponent,
 		WebaudioOrientationComponent,
 		WebaudioSandboxComponent,
 		WebaudioTimingComponent,
@@ -877,11 +883,7 @@ import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component
 		WebxrVrHandinputPressbuttonComponent,
 		WebxrVrLayersComponent,
 	],
-	imports: [
-		CommonModule,
-		ExamplesRoutingModule,
-		Ngx3JsModule
-	],
+	imports: [CommonModule, ExamplesRoutingModule, Ngx3JsModule],
 	providers: [],
 	bootstrap: [],
 })

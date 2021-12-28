@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
+import { NgxBaseComponent, IRendererTimer, NgxRendererComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webxr-vr-sandbox',
@@ -36,6 +36,15 @@ export class WebxrVrSandboxComponent extends NgxBaseComponent<{
 				{ name: 'thickness', type: 'number', min: 0, max: 1, step: 0.01 },
 			]
 		);
+	}
+
+	domElement : HTMLElement = null;
+
+	setRender(render : NgxRendererComponent) {
+		super.setRender(render);
+		this.getTimeout().then(() => {
+			this.domElement = render.gui.domElement;
+		});
 	}
 
 	onRender(timer: IRendererTimer) {

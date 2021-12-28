@@ -435,6 +435,9 @@ import { HelloWorldComponent } from './hello-world/hello-world.component';
 import { NgxMeshComponent } from './ngx-mesh/ngx-mesh.component';
 import { WebglLoaderTextureLogluvComponent } from './webgl-loader-texture-logluv/webgl-loader-texture-logluv.component';
 import { WebglPerformanceShaderComponent } from './webgl-performance-shader/webgl-performance-shader.component';
+import { WebglMaterialsNodesPlaygroundComponent } from './webgl-materials-nodes-playground/webgl-materials-nodes-playground.component';
+import { WebgpuNodesPlaygroundComponent } from './webgpu-nodes-playground/webgpu-nodes-playground.component';
+import { WebgpuSkinningPointsComponent } from './webgpu-skinning-points/webgpu-skinning-points.component';
 
 const routes: Routes = [
 	{ path: '', pathMatch: 'full', redirectTo: 'ngx_scene' },
@@ -876,7 +879,10 @@ const routes: Routes = [
 	{ path: 'webgl_loader_vrm', component: WebglLoaderVrmComponent },
 	{ path: 'webgl_loader_vox', component: WebglLoaderVoxComponent },
 	{ path: 'webgl_loader_ttf', component: WebglLoaderTtfComponent },
-	{ path: 'webgl_loader_texture_logluv', component: WebglLoaderTextureLogluvComponent },
+	{
+		path: 'webgl_loader_texture_logluv',
+		component: WebglLoaderTextureLogluvComponent,
+	},
 	{ path: 'webgl_math_obb', component: WebglMathObbComponent },
 	{
 		path: 'webgl_math_orientation_transform',
@@ -1040,6 +1046,10 @@ const routes: Routes = [
 	{
 		path: 'webgl_materials_nodes',
 		component: WebglMaterialsNodesComponent,
+	},
+	{
+		path: 'webgl_materials_nodes_playground',
+		component: WebglMaterialsNodesPlaygroundComponent,
 	},
 	{
 		path: 'webgl_materials_standard_nodes',
@@ -1310,6 +1320,8 @@ const routes: Routes = [
 		component: WebgpuLightsSelectiveComponent,
 	},
 	{ path: 'webgpu_materials', component: WebgpuMaterialsComponent },
+	{ path: 'webgpu_nodes_playground', component: WebgpuNodesPlaygroundComponent },
+	{ path: 'webgpu_skinning_points', component: WebgpuSkinningPointsComponent },
 	{ path: 'webaudio_orientation', component: WebaudioOrientationComponent },
 	{ path: 'webaudio_sandbox', component: WebaudioSandboxComponent },
 	{ path: 'webaudio_timing', component: WebaudioTimingComponent },

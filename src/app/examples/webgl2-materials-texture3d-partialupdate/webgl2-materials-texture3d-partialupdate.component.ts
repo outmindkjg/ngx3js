@@ -116,7 +116,7 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends NgxBaseCompo
 		if (this.camera !== null && this.meshObject3d !== null) {
 			this.meshObject3d.rotation.y = timer.elapsedTime / 7.5;
 			const uniforms = this.getUniforms();
-			if (uniforms !== null) {
+			if (uniforms !== null && false) {
 				if (
 					this.nextTime < timer.elapsedTime &&
 					this.addedCnt < this.texture3dList.length
