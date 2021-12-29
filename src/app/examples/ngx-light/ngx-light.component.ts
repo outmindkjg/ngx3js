@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 
 @Component({
@@ -68,7 +69,7 @@ export class NgxLightComponent extends NgxBaseComponent<{
 		z: number;
 	};
 }> {
-	constructor() {
+	constructor(private route: ActivatedRoute) {
 		super(
 			{
 				showHelper: false,
@@ -246,6 +247,17 @@ export class NgxLightComponent extends NgxBaseComponent<{
 			],
 			true,
 			false
+		);
+	}
+
+	ngOnInit() {
+		this.subscribeRefer(
+			'router',
+			this.route.params.subscribe((params) => {
+				if (params['type']) {
+					
+				}
+			})
 		);
 	}
 

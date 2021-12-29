@@ -1599,6 +1599,7 @@ const routes: Routes = [
 	{ path: 'ngx_chart_mixed', component: NgxChartMixedComponent },
 	{ path: 'ngx_hud', component: NgxHudComponent },
 	{ path: 'ngx_light', component: NgxLightComponent },
+	{ path: 'ngx_light/:type', component: NgxLightComponent },
 	{ path: 'ngx_control', component: NgxControlComponent },
 	{ path: 'ngx_control/:type', component: NgxControlComponent },
 	{ path: 'ngx_scene', component: NgxSceneComponent },
