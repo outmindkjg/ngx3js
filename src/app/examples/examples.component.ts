@@ -65,7 +65,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 
 	changeRouter(url: string) {
 		NgxThreeUtil.clearThreeComponent();
-		const cache:I3JS.Cache = THREE['Cache'];
+		const cache:I3JS.Cache = THREE.Cache;
 		if (cache !== null && cache !== undefined) {
 			cache.clear();
 		}
@@ -233,10 +233,6 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 						'';
 					this.ngxGithub.nativeElement.title =
 						'View source code for "' + child.name + '" on GitHub ngx3js';
-					setTimeout(() => {
-						console.log('INFO : ', child.id);
-						console.log('INFO : ', child.safeId);
-					}, 1000);
 				}
 			});
 		});

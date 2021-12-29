@@ -7,17 +7,15 @@ pre.prettyprint,
 code.prettyprint {
 	font-family: 'Roboto Mono', monospace;
 	border-width: 5px;
-	border-style: solid;
-	border-radius: 10px;
+	border-style: solid none solid none;
 	background-color:var(--background-color);
 	border-color:var(--secondary-background-color);
-	transition: border-radius 1s, background-color 1s, box-shadow 3s;
+	transition: border-color 1s, background-color 1s, box-shadow 3s;
 	box-shadow: 0px 0px 50px 25px var(--background-color);
 	&:hover {
 		background-color: #fefefe;
 		border-color: #fefefe;
-		border-radius: 30px;
-		box-shadow: 0px 0px 10px 5px #e0e0e0;
+		box-shadow: 0px 10px 30px 0px #e0e0e0;
 	}
 }
 
@@ -63,13 +61,14 @@ pre {
 		&:hover {
 			background-color: #2b2b2b;
 			border-color: #202020;
-			box-shadow: 0px 0px 10px 5px #464646;
+			box-shadow: 0px 10px 30px 0px #464646;
 		}
 	}
 }
 
 #example-iframe #viewer-inner,
 #example #viewer-inner {
+
 	.debug {
 		display: block;
 		position: absolute;
@@ -238,6 +237,9 @@ pre {
 
 #example-iframe #viewer-inner,
 #example #viewer-inner {
+	div.info {
+		display: none;
+	}
 	div.bottom:hover,
 	div.info:hover {
 		opacity: 0.7;
@@ -264,32 +266,33 @@ div#docs {
 			margin-top: -15px;
 		}		
 	}
-	div.dummy-iframe,
-	iframe {
-		max-height: calc(100vh - 100px);
-		border:2px solid var(--secondary-text-color);
-		border-radius: 20px;
-		overflow: hidden;
-		transition: border-radius 0.5s;
-		&:hover {
-			border-radius: 0px;
+	div.doc-body {
+		div.dummy-iframe,
+		iframe {
+			max-height: calc(100vh - 100px);
+			border:2px solid var(--secondary-text-color);
+			border-radius: 20px;
+			overflow: hidden;
+			transition: border-radius 0.5s;
+			&:hover {
+				border-radius: 0px;
+			}
+		}
+		iframe {
+			animation: loadingIframe 2s normal forwards ease-in-out;
+		}
+		@keyframes loadingIframe {
+			0% {
+				opacity: 0;
+			}
+			70% {
+				opacity: 0.9;
+			}
+			100% {
+				opacity: 1;
+			}
 		}
 	}
-	iframe {
-		animation: loadingIframe 2s normal forwards ease-in-out;
-	}
-	@keyframes loadingIframe {
-		0% {
-			opacity: 0;
-		}
-		70% {
-			opacity: 0.9;
-		}
-		100% {
-			opacity: 1;
-		}
-	}
-	
 
 	#inputWrapper>input::placeholder {
 		padding-left: 10px;

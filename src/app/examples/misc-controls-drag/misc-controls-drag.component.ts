@@ -80,7 +80,6 @@ export class MiscControlsDragComponent extends NgxBaseComponent<{}> {
 					}
 					break;
 				default:
-					// console.log(event.type);
 					break;
 			}
 		}
