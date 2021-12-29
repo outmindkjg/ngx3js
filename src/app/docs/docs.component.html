@@ -1,6 +1,7 @@
 <div id="docs">
 	<div
 		id="panel"
+		class="open"
 		#panel
 		[ngClass]="searchFocused ? 'searchFocused' : 'searchUnFocused'"
 	>
@@ -39,7 +40,7 @@
 						<ul>
 							<li *ngFor="let gchild of child.children">
 								<a
-									href="#"
+									[href]="'#' + gchild.id"
 									[routerLink]="gchild.id"
 									[ngClass]="gchild.selected ? 'selected' : 'unselected'"
 									>{{ gchild.name }}</a

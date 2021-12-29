@@ -84,31 +84,36 @@ export class DocsComponent implements OnInit {
 		}
 		if (this.menuId !== null && this.menuId !== undefined) {
 			this.checkSearchMenuSelected(this.searchMenu);
-			this.setFocus(this.menuId);
+			this.setFocus(this.menuId.split('.')[0]);
 		}
 	}
-
+	private lastFocus: string = null;
 	setFocus(menuId: string) {
 		if (this.list === null) {
 			setTimeout(() => {
 				this.setFocus(menuId);
 			}, 500);
-		} else {
+		} else if (this.lastFocus !== menuId) {
+			this.lastFocus = menuId;
 			this.menu.closeMenu(true);
 			const links: HTMLAnchorElement[] =
 				this.ele.nativeElement.getElementsByTagName('a');
 			let selected: HTMLAnchorElement = null;
 			for (let i = 0; i < links.length; i++) {
-				if (links[i].getAttribute('href') === '#' + menuId) {
+				if (links[i].getAttribute('href').endsWith('#' + menuId)) {
 					selected = links[i];
 					break;
 				}
 			}
 			if (selected !== null) {
-				selected.scrollIntoView({ block: 'start', inline : 'start', behavior: 'smooth' });
+				selected.scrollIntoView({
+					block: 'nearest',
+					inline: 'start',
+					behavior: 'auto',
+				});
 				setTimeout(() => {
 					this.menu.closeMenu(false);
-				}, 2000);
+				}, 1000);
 			} else {
 				setTimeout(() => {
 					this.menu.closeMenu(false);
@@ -163,7 +168,7 @@ export class DocsComponent implements OnInit {
 	loadedPageInfo: { [key: string]: string } = {};
 	ngxLoadedPageInfo: { [key: string]: string } = {};
 
-	changePage(url: string, pageUrl : string = '') {
+	changePage(url: string, pageUrl: string = '') {
 		let pageName = '';
 		let hashTag = '';
 		if (url.indexOf('.') > 0) {
@@ -174,11 +179,14 @@ export class DocsComponent implements OnInit {
 		} else {
 			pageName = url;
 		}
-		if (pageUrl.startsWith('ngxapi/') && this.ngxLoadedPageInfo[pageName] !== undefined) {
+		if (
+			pageUrl.startsWith('ngxapi/') &&
+			this.ngxLoadedPageInfo[pageName] !== undefined
+		) {
 			let viewUrl = this.ngxLoadedPageInfo[pageName];
 			this.router.navigateByUrl(viewUrl + (hashTag != '' ? '.' + hashTag : ''));
 			this.checkSearch('');
-		} else  if (this.loadedPageInfo[pageName] !== undefined) {
+		} else if (this.loadedPageInfo[pageName] !== undefined) {
 			let viewUrl = this.loadedPageInfo[pageName];
 			this.router.navigateByUrl(viewUrl + (hashTag != '' ? '.' + hashTag : ''));
 			this.checkSearch('');
@@ -349,12 +357,13 @@ export class DocsComponent implements OnInit {
 	}
 
 	checkSearchMenuSelected(searchMenu: SearchMenuTop[]): SearchMenuTop[] {
+		const menuId = this.menuId.split('.')[0];
 		searchMenu.forEach((menu) => {
 			menu.children.forEach((child) => {
-				child.selected = child.id === this.menuId;
+				child.selected = child.id === menuId;
 				if (child.children !== null && child.children.length > 0) {
 					child.children.forEach((gchild) => {
-						gchild.selected = gchild.id === this.menuId;
+						gchild.selected = gchild.id === menuId;
 						if (gchild.selected) {
 							document.title = gchild.name + ' :: Three.js + Ngx3js docs';
 							if (
@@ -455,7 +464,7 @@ export class DocsComponent implements OnInit {
 			const urlInfos = url.split('/');
 			if (url.startsWith('ngxapi/')) {
 				this.ngxLoadedPageInfo[urlInfos[urlInfos.length - 1]] = saveUrl;
-			}  else {
+			} else {
 				this.loadedPageInfo[urlInfos[urlInfos.length - 1]] = saveUrl;
 			}
 			const itemTags = [];

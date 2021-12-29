@@ -1,6 +1,7 @@
 <div id="example">
 	<div
 		id="panel"
+		class="open"
 		[ngClass]="searchFocused ? 'searchFocused' : 'searchUnFocused'"
 	>
 		<app-menu [menuType]="'examples'" #menu></app-menu>
@@ -36,7 +37,7 @@
 						class="card"
 						[ngClass]="child.selected ? 'selected' : 'unselected'"
 					>
-						<a href="#" [routerLink]="child.id">
+						<a [href]="'#' + child.id" [routerLink]="child.id">
 							<div class="cover">
 								<img [src]="child.image" loading="lazy" />
 							</div>

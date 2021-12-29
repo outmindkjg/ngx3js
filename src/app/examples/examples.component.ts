@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { NgxRendererComponent, NgxThreeUtil  , I3JS, THREE } from 'ngx3js';
+import { NgxRendererComponent, NgxThreeUtil , I3JS, THREE } from 'ngx3js';
 import { HttpClient } from '@angular/common/http';
 import { MenuComponent } from '../menu/menu.component';
 
@@ -64,6 +64,11 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 	private menuId: string = '';
 
 	changeRouter(url: string) {
+		NgxThreeUtil.clearThreeComponent();
+		const cache:I3JS.Cache = THREE['Cache'];
+		if (cache !== null && cache !== undefined) {
+			cache.clear();
+		}
 		this.menuId = '/examples/' + url.split('/')[2];
 		if (this.menuId !== null && this.menuId !== undefined) {
 			this.checkSearchMenuSelected(this.searchMenu);
@@ -71,27 +76,29 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 		}
 	}
 
+	private lastFocus : string = null;
 	setFocus(menuId: string) {
 		if (this.files === null) {
 			setTimeout(() => {
 				this.setFocus(menuId);
 			}, 500);
-		} else {
+		} else if (this.lastFocus !== menuId){
+			this.lastFocus = menuId;
 			this.menu.closeMenu(true);
 			const links: HTMLAnchorElement[] =
 				this.ele.nativeElement.getElementsByTagName('a');
 			let selected: HTMLAnchorElement = null;
 			for (let i = 0; i < links.length; i++) {
-				if (links[i].getAttribute('href') === '#' + menuId) {
+				if (links[i].getAttribute('href').endsWith('#' + menuId)) {
 					selected = links[i];
 					break;
 				}
-			}
+			} 
 			if (selected !== null) {
-				selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+				selected.scrollIntoView({ block: 'nearest', inline : 'start', behavior: 'auto' });
 				setTimeout(() => {
 					this.menu.closeMenu(false);
-				}, 3000);
+				}, 1000);
 			} else {
 				setTimeout(() => {
 					this.menu.closeMenu(false);
@@ -152,7 +159,9 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 			this.files[key] = value as any;
 		});
 		if (this.menuId !== null) {
-			this.setFocus(this.menuId);
+			setTimeout(()=> {
+				this.setFocus(this.menuId);
+			}, 2000);
 		}
 	}
 
