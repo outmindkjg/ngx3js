@@ -20,6 +20,7 @@
 			See the [page:LightComponent ngx3js docs] page for details.<br />
 			See the [example:ngx_light ngx light] page for a live demo.<br />
 			<br />
+			<table><thead><tr></th><th>  Three Type        </th><th> Type Key           </th><th> Acceptable Input          </th><th></tr></thead><tbody> <tr></td><td> DirectionalLight </td><td> DirectionalLight, Directional </td><td> color, intensity </td><td></tr> <tr></td><td> HemisphereLight </td><td> HemisphereLight, Hemisphere </td><td> skyColor, groundColor, intensity </td><td></tr> <tr></td><td> LightProbe </td><td> LightProbe, Probe </td><td> sh, intensity, texture </td><td></tr> <tr></td><td> PointLight </td><td> PointLight, Point </td><td> color, intensity, distance, decay </td><td></tr> <tr></td><td> RectAreaLight </td><td> RectAreaLight, RectArea </td><td> color, intensity, width, height </td><td></tr> <tr></td><td> SpotLight </td><td> SpotLight, Spot </td><td> color, intensity, distance, angle, penumbra, decay, shadowFocus </td><td></tr> <tr></td><td> AmbientLight </td><td> AmbientLight, Ambient </td><td> color, intensity </td><td></tr> </table><br />
 			<code data-type="html"><br />
 			&lt;ngx3js-light<br />
 				[type]="'Hemisphere'" [skyColor]="'0xffffff'"<br />

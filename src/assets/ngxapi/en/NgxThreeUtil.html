@@ -56,6 +56,11 @@
 			Camels case to dash
 		</p>
 
+		<h3>[method:void clearThreeComponent](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Clears three component
+		</p>
+
 		<h3>[method:boolean cssEject](  [param:string id],  [param:any indoc]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
@@ -128,7 +133,7 @@
 		<p>
 			Gets blend equation<br />
 			custom blending equations (numbers start from 100 not to clash with other mappings to OpenGL constants defined in Texture.js)<br />
-			<table><thead><tr></th><th>   Three Type               </th><th> Value String(case insensitive) </th><th></tr></thead><tbody> <tr></td><td> THREE.AddEquation </td><td> Add </td><td></tr> <tr></td><td> THREE.SubtractEquation </td><td> Subtract </td><td></tr> <tr></td><td> THREE.ReverseSubtractEquation </td><td> ReverseSubtract, Reverse </td><td></tr> <tr></td><td> THREE.MinEquation </td><td> Nin </td><td></tr> <tr></td><td> THREE.MaxEquation </td><td> Max </td><td></tr> </table><br />
+			<table><thead><tr></th><th>   Three Type               </th><th> Value String(case insensitive) </th><th></tr></thead><tbody> <tr></td><td> THREE.AddEquation </td><td> AddEquation, Add </td><td></tr> <tr></td><td> THREE.SubtractEquation </td><td> SubtractEquation, Subtract </td><td></tr> <tr></td><td> THREE.ReverseSubtractEquation </td><td> ReverseSubtractEquation, ReverseSubtract, Reverse </td><td></tr> <tr></td><td> THREE.MinEquation </td><td> MinEquation, Min </td><td></tr> <tr></td><td> THREE.MaxEquation </td><td> MaxEquation, Max </td><td></tr> </table><br />
 			Returns : blend equation
 		</p>
 
@@ -421,7 +426,7 @@
 		</p>
 		<p>
 			Gets depth func<br />
-			<br />
+			<table><thead><tr></th><th>   Three Type               </th><th> Value String(case insensitive) </th><th></tr></thead><tbody> <tr></td><td> THREE.NeverDepth </td><td> NeverDepth, Never </td><td></tr> <tr></td><td> THREE.AlwaysDepth </td><td> AlwaysDepth, Always </td><td></tr> <tr></td><td> THREE.LessDepth </td><td> LessDepth, Less </td><td></tr> <tr></td><td> THREE.LessEqualDepth </td><td> LessEqualDepth, LessEqual </td><td></tr> <tr></td><td> THREE.EqualDepth </td><td> EqualDepth, Equal </td><td></tr> <tr></td><td> THREE.GreaterEqualDepth </td><td> GreaterEqualDepth, GreaterEqual </td><td></tr> <tr></td><td> THREE.GreaterDepth </td><td> GreaterDepth, Greater </td><td></tr> <tr></td><td> THREE.NotEqualDepth </td><td> NotEqualDepth, NotEqual </td><td></tr> </table><br />
 			Returns : depth func
 		</p>
 
@@ -433,7 +438,7 @@
 		</p>
 		<p>
 			Gets depth packing, Depth packing strategies<br />
-			<br />
+			<table><thead><tr></th><th>   Three Type               </th><th> Value String(case insensitive) </th><th></tr></thead><tbody> <tr></td><td> THREE.RGBADepthPacking </td><td> RGBADepthPacking, RGBADepth, RGBA </td><td></tr> <tr></td><td> THREE.BasicDepthPacking </td><td> BasicDepthPacking, BasicDepth, Basic </td><td></tr> </table><br />
 			Returns : depth packing
 		</p>
 
@@ -482,7 +487,7 @@
 		</p>
 		<p>
 			Gets glsl version<br />
-			<br />
+			<table><thead><tr></th><th>   Three Type               </th><th> Value String(case insensitive) </th><th></tr></thead><tbody> <tr></td><td> THREE.GLSLVersion.GLSL1 </td><td> GLSL1, GL1, 1 </td><td></tr> <tr></td><td> THREE.GLSLVersion.GLSL3 </td><td> GLSL3, GL3, 3 </td><td></tr> </table><br />
 			Returns : glsl version
 		</p>
 
@@ -678,7 +683,7 @@
 		</p>
 		<p>
 			Gets normal map type<br />
-			<br />
+			<table><thead><tr></th><th>   Three Type               </th><th> Value String(case insensitive) </th><th></tr></thead><tbody> <tr></td><td> THREE.TangentSpaceNormalMap </td><td> TangentSpaceNormalMap, TangentSpace </td><td></tr> <tr></td><td> THREE.ObjectSpaceNormalMap </td><td> ObjectSpaceNormalMap, ObjectSpace </td><td></tr> </table><br />
 			Returns : normal map type
 		</p>
 
@@ -783,7 +788,7 @@
 		</p>
 		<p>
 			Gets precision safe<br />
-			<br />
+			<table><thead><tr></th><th>   Three Type               </th><th> Value String(case insensitive) </th><th></tr></thead><tbody> <tr></td><td> String </td><td> highp </td><td></tr> <tr></td><td> String </td><td> mediump </td><td></tr> <tr></td><td> String </td><td> lowp </td><td></tr> </table><br />
 			Returns : precision safe
 		</p>
 
@@ -921,7 +926,7 @@
 		</p>
 		<p>
 			Gets stencil func<br />
-			<br />
+			<table><thead><tr></th><th>   Three Type               </th><th> Value String(case insensitive) </th><th></tr></thead><tbody> <tr></td><td> THREE.NeverStencilFunc </td><td> NeverStencilFunc, Never </td><td></tr> <tr></td><td> THREE.LessStencilFunc </td><td> LessStencilFunc, Less </td><td></tr> <tr></td><td> THREE.EqualStencilFunc </td><td> EqualStencilFunc, Equal </td><td></tr> <tr></td><td> THREE.LessEqualStencilFunc </td><td> LessEqualStencilFunc, LessEqual </td><td></tr> <tr></td><td> THREE.GreaterStencilFunc </td><td> GreaterStencilFunc, Greater </td><td></tr> <tr></td><td> THREE.NotEqualStencilFunc </td><td> NotEqualStencilFunc, NotEqual </td><td></tr> <tr></td><td> THREE.GreaterEqualStencilFunc </td><td> GreaterEqualStencilFunc, GreaterEqual </td><td></tr> <tr></td><td> THREE.AlwaysStencilFunc </td><td> AlwaysStencilFunc, Always </td><td></tr> </table><br />
 			Returns : stencil func
 		</p>
 
@@ -933,7 +938,7 @@
 		</p>
 		<p>
 			Gets stencil fail<br />
-			<br />
+			<table><thead><tr></th><th>   Three Type               </th><th> Value String(case insensitive) </th><th></tr></thead><tbody> <tr></td><td> THREE.ZeroStencilOp </td><td> ZeroStencilOp, Zero </td><td></tr> <tr></td><td> THREE.KeepStencilOp </td><td> KeepStencilOp, Keep </td><td></tr> <tr></td><td> THREE.ReplaceStencilOp </td><td> ReplaceStencilOp, Replace </td><td></tr> <tr></td><td> THREE.IncrementStencilOp </td><td> IncrementStencilOp, Increment </td><td></tr> <tr></td><td> THREE.DecrementStencilOp </td><td> DecrementStencilOp, Decrement </td><td></tr> <tr></td><td> THREE.IncrementWrapStencilOp </td><td> IncrementWrapStencilOp, IncrementWrap </td><td></tr> <tr></td><td> THREE.DecrementWrapStencilOp </td><td> DecrementWrapStencilOp, DecrementWrap </td><td></tr> <tr></td><td> THREE.InvertStencilOp </td><td> InvertStencilOp, Invert </td><td></tr> </table><br />
 			Returns : stencil fail
 		</p>
 
@@ -1090,7 +1095,7 @@
 		</p>
 		<p>
 			Gets usage<br />
-			<br />
+			<table><thead><tr></th><th>   Three Type               </th><th> Value String(case insensitive) </th><th></tr></thead><tbody> <tr></td><td> THREE.StreamDrawUsage </td><td> StreamDrawUsage, StreamDraw </td><td></tr> <tr></td><td> THREE.StaticReadUsage </td><td> StaticReadUsage, StaticRead </td><td></tr> <tr></td><td> THREE.DynamicReadUsage </td><td> DynamicReadUsage, DynamicRead </td><td></tr> <tr></td><td> THREE.StreamReadUsage </td><td> StreamReadUsage, StreamRead </td><td></tr> <tr></td><td> THREE.StaticCopyUsage </td><td> StaticCopyUsage, StaticCopy </td><td></tr> <tr></td><td> THREE.DynamicCopyUsage </td><td> DynamicCopyUsage, DynamicCopy </td><td></tr> <tr></td><td> THREE.StreamCopyUsage </td><td> StreamCopyUsage, StreamCopy </td><td></tr> <tr></td><td> THREE.StaticDrawUsage </td><td> StaticDrawUsage, StaticDraw </td><td></tr> <tr></td><td> THREE.DynamicDrawUsage </td><td> DynamicDrawUsage, DynamicDraw </td><td></tr> </table><br />
 			Returns : usage
 		</p>
 

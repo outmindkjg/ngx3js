@@ -20,8 +20,7 @@
 			See the [page:CameraComponent ngx3js docs] page for details.<br />
 			See the [example:ngx_camera ngx camera] page for a live demo.<br />
 			<br />
-			Abstract base class for cameras. This class should always be inherited when you build a new camera.<br />
-			<br />
+			<table><thead><tr></th><th>  Three Type        </th><th> Type Key           </th><th> Acceptable Input          </th><th></tr></thead><tbody> <tr></td><td> OrthographicCamera </td><td> OrthographicCamera, Orthographic </td><td> left, right, top, bottom, near, far </td><td></tr> <tr></td><td> PerspectiveCamera </td><td> PerspectiveCamera, Perspective </td><td> fov, aspect , near, far </td><td></tr> <tr></td><td> NgxPingPongCamera </td><td> PingPong, CubePingPong, CubePingPongCamera, PingPongCamera </td><td> near, far </td><td></tr> <tr></td><td> ArrayCamera </td><td> ArrayCamera, Array </td><td> </td><td></tr> <tr></td><td> StereoCamera </td><td> StereoCamera, Stereo </td><td> </td><td></tr> <tr></td><td> CubeCamera </td><td> CubeCamera, Cube </td><td> near, far </td><td></tr> </table><br />
 			<code data-type="html"><br />
 			&lt;ngx3js-camera<br />
 				[type]="'perspective'" [fov]="45" [near]="0.1" [far]="200"<br />
@@ -464,7 +463,7 @@
 			The type of camera<br />
 			PingPong - When use "PingPongCamera", the camera muse be located in scene<br />
 			<br />
-			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> THREE.PerspectiveCamera </td><td> PerspectiveCamera, Perspective </td></tr> <tr><td> THREE.ArrayCamera </td><td> ArrayCamera, Array </td></tr> <tr><td> THREE.CubeCamera </td><td> CubeCamera, Cube, CubePingPong </td></tr> <tr><td> THREE.CubeCamera </td><td> PingPong, CubePingPong, CubePingPongCamera, PingPongCamera </td></tr> <tr><td> THREE.OrthographicCamera </td><td> OrthographicCamera, Orthographic </td></tr> <tr><td> THREE.StereoCamera </td><td> StereoCamera, Stereo </td></tr> </table>
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> THREE.PerspectiveCamera </td><td> PerspectiveCamera, Perspective </td></tr> <tr><td> THREE.ArrayCamera </td><td> ArrayCamera, Array </td></tr> <tr><td> THREE.CubeCamera </td><td> CubeCamera, Cube, CubePingPong </td></tr> <tr><td> NgxPingPongCamera </td><td> PingPong, CubePingPong, CubePingPongCamera, PingPongCamera </td></tr> <tr><td> THREE.OrthographicCamera </td><td> OrthographicCamera, Orthographic </td></tr> <tr><td> THREE.StereoCamera </td><td> StereoCamera, Stereo </td></tr> </table>
 		</p>
 
 		<h3>[property:any userData]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
