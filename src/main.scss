@@ -548,14 +548,12 @@ body.home #panel #content h2 {
 		right: 0;
 		z-index: 1000;
 		overflow-x: hidden;
-		transition: 0s 0s height;
 		border: none;
 		height: var(--header-height);
 		transition: 0s 0.2s height;
 	}
 	#panel.open {
 		height: 100%;
-		transition: 0s 0s height;
 	}
 
 	#panelScrim {

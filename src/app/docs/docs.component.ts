@@ -67,7 +67,7 @@ export class DocsComponent implements OnInit {
 		this.checkSearch('');
 	}
 
-	private menuId: string = '';
+	private menuId: string = null;
 
 	changeRouter(url: string) {
 		this.menuId = url;
@@ -87,37 +87,42 @@ export class DocsComponent implements OnInit {
 			this.setFocus(this.menuId.split('.')[0]);
 		}
 	}
+	
 	private lastFocus: string = null;
+
 	setFocus(menuId: string) {
-		if (this.list === null) {
-			setTimeout(() => {
-				this.setFocus(menuId);
-			}, 500);
-		} else if (this.lastFocus !== menuId) {
-			this.lastFocus = menuId;
-			this.menu.closeMenu(true);
-			const links: HTMLAnchorElement[] =
-				this.ele.nativeElement.getElementsByTagName('a');
-			let selected: HTMLAnchorElement = null;
-			for (let i = 0; i < links.length; i++) {
-				if (links[i].getAttribute('href').endsWith('#' + menuId)) {
-					selected = links[i];
-					break;
+		if (this.ele.nativeElement) {
+			if (this.list === null) {
+				setTimeout(() => {
+					this.setFocus(menuId);
+				}, 500);
+			} else if (this.lastFocus !== menuId) {
+				this.lastFocus = menuId;
+				this.menu.closeMenu(true);
+				const links: HTMLAnchorElement[] =
+					this.ele.nativeElement.getElementsByTagName('a');
+				let selected: HTMLAnchorElement = null;
+				for (let i = 0; i < links.length; i++) {
+					const href = links[i].getAttribute('href');
+					if (href && href.endsWith('#' + menuId)) {
+						selected = links[i];
+						break;
+					}
 				}
-			}
-			if (selected !== null) {
-				selected.scrollIntoView({
-					block: 'nearest',
-					inline: 'start',
-					behavior: 'auto',
-				});
-				setTimeout(() => {
-					this.menu.closeMenu(false);
-				}, 1000);
-			} else {
-				setTimeout(() => {
-					this.menu.closeMenu(false);
-				}, 1000);
+				if (selected !== null) {
+					selected.scrollIntoView({
+						block: 'nearest',
+						inline: 'start',
+						behavior: 'auto',
+					});
+					setTimeout(() => {
+						this.menu.closeMenu(false);
+					}, 1000);
+				} else {
+					setTimeout(() => {
+						this.menu.closeMenu(false);
+					}, 1000);
+				}
 			}
 		}
 	}
@@ -155,7 +160,7 @@ export class DocsComponent implements OnInit {
 		this.minimal = !this.minimal;
 	}
 
-	language: string = 'ko';
+	language: string = 'en';
 
 	localeInfos: { value: string; text: string }[] = [
 		{ value: 'en', text: 'English' },
@@ -226,6 +231,9 @@ export class DocsComponent implements OnInit {
 			this.list['zh'],
 			this.list['ja'],
 		]);
+		if (this.menuId !== null) {
+			this.setFocus(this.menuId.split('.')[0]);
+		}
 	}
 
 	docsAlias: { [key: string]: string[] } = {

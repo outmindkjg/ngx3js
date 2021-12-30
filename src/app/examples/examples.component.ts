@@ -64,11 +64,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 	private menuId: string = '';
 
 	changeRouter(url: string) {
-		NgxThreeUtil.clearThreeComponent();
-		const cache:I3JS.Cache = THREE.Cache;
-		if (cache !== null && cache !== undefined) {
-			cache.clear();
-		}
+		NgxThreeUtil.clear();
 		this.menuId = '/examples/' + url.split('/')[2];
 		if (this.menuId !== null && this.menuId !== undefined) {
 			this.checkSearchMenuSelected(this.searchMenu);
@@ -78,31 +74,34 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 
 	private lastFocus : string = null;
 	setFocus(menuId: string) {
-		if (this.files === null) {
-			setTimeout(() => {
-				this.setFocus(menuId);
-			}, 500);
-		} else if (this.lastFocus !== menuId){
-			this.lastFocus = menuId;
-			this.menu.closeMenu(true);
-			const links: HTMLAnchorElement[] =
-				this.ele.nativeElement.getElementsByTagName('a');
-			let selected: HTMLAnchorElement = null;
-			for (let i = 0; i < links.length; i++) {
-				if (links[i].getAttribute('href').endsWith('#' + menuId)) {
-					selected = links[i];
-					break;
+		if (this.ele.nativeElement) {
+			if (this.files === null) {
+				setTimeout(() => {
+					this.setFocus(menuId);
+				}, 500);
+			} else if (this.lastFocus !== menuId){
+				this.lastFocus = menuId;
+				this.menu.closeMenu(true);
+				const links: HTMLAnchorElement[] =
+					this.ele.nativeElement.getElementsByTagName('a');
+				let selected: HTMLAnchorElement = null;
+				for (let i = 0; i < links.length; i++) {
+					const href = links[i].getAttribute('href');
+					if (href && href.endsWith('#' + menuId)) {
+						selected = links[i];
+						break;
+					}
+				} 
+				if (selected !== null) {
+					selected.scrollIntoView({ block: 'nearest', inline : 'start', behavior: 'auto' });
+					setTimeout(() => {
+						this.menu.closeMenu(false);
+					}, 1000);
+				} else {
+					setTimeout(() => {
+						this.menu.closeMenu(false);
+					}, 1000);
 				}
-			} 
-			if (selected !== null) {
-				selected.scrollIntoView({ block: 'nearest', inline : 'start', behavior: 'auto' });
-				setTimeout(() => {
-					this.menu.closeMenu(false);
-				}, 1000);
-			} else {
-				setTimeout(() => {
-					this.menu.closeMenu(false);
-				}, 1000);
 			}
 		}
 	}

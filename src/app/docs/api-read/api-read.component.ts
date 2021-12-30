@@ -54,6 +54,8 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 	public pageName: string = '';
 	public tagName: string = '';
 	public errorPage : string = null;
+	public altPage : string = null;
+	
 	changeRouter(url: string) {
 		const menuId = url.substr(6).split('.')[0];
 		if (this.menuId !== menuId) {
@@ -66,9 +68,14 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				})
 				.subscribe((response) => {
 					this.errorPage = null;
+					this.altPage = null;
 					this.setBody(response, this.menuId);
 				}, () => {
 					this.errorPage = this.menuId;
+					this.altPage = this.menuId.replace(/\/(ko|ar|zh|ja)\//,'/en/');
+					if (this.altPage === this.errorPage) {
+						this.altPage = null;
+					}
 					this.docEle.nativeElement.innerHTML = '';
 				});
 		} else {
@@ -422,24 +429,26 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 	}
 
 	private checkScrollIframe(docEle: HTMLDivElement) {
-		const dummyIframes = docEle.getElementsByClassName('dummy-iframe');
-		if (dummyIframes.length > 0) {
-			const scrollSize: {
-				clientHeight: number;
-				clientWidth: number;
-			} = {
-				clientHeight: docEle.clientHeight,
-				clientWidth: docEle.clientWidth,
-			};
-			for (let i = 0; i < dummyIframes.length; i++) {
-				const dummyIframe = dummyIframes[i] as HTMLDivElement;
-				const isVisible = this.isElementInViewport(dummyIframe, scrollSize);
-				if (isVisible) {
-					const src = dummyIframe.dataset.src;
-					const iframe = document.createElement('iframe');
-					iframe.src = src;
-					dummyIframe.parentElement.insertBefore(iframe, dummyIframe);
-					dummyIframe.parentElement.removeChild(dummyIframe);
+		if (docEle) {
+			const dummyIframes = docEle.getElementsByClassName('dummy-iframe');
+			if (dummyIframes.length > 0) {
+				const scrollSize: {
+					clientHeight: number;
+					clientWidth: number;
+				} = {
+					clientHeight: docEle.clientHeight,
+					clientWidth: docEle.clientWidth,
+				};
+				for (let i = 0; i < dummyIframes.length; i++) {
+					const dummyIframe = dummyIframes[i] as HTMLDivElement;
+					const isVisible = this.isElementInViewport(dummyIframe, scrollSize);
+					if (isVisible) {
+						const src = dummyIframe.dataset.src;
+						const iframe = document.createElement('iframe');
+						iframe.src = src;
+						dummyIframe.parentElement.insertBefore(iframe, dummyIframe);
+						dummyIframe.parentElement.removeChild(dummyIframe);
+					}
 				}
 			}
 		}

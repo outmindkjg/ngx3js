@@ -16,7 +16,7 @@
 		},
 		"ngx - Reference": {
 			"Abstract": {
-				"BaseComponent": "ngxapi/en/BaseComponent",
+				"NgxBaseComponent": "ngxapi/en/NgxBaseComponent",
 				"NgxAbstractControllerComponent": "ngxapi/en/NgxAbstractControllerComponent",
 				"NgxAbstractGeometryComponent": "ngxapi/en/NgxAbstractGeometryComponent",
 				"NgxAbstractMaterialComponent": "ngxapi/en/NgxAbstractMaterialComponent",
@@ -26,9 +26,7 @@
 				"NgxAbstractTweenComponent": "ngxapi/en/NgxAbstractTweenComponent"
 			},
 			"Component": {
-				"NgxAudioComponent": "ngxapi/en/NgxAudioComponent",
 				"NgxBackgroundComponent": "ngxapi/en/NgxBackgroundComponent",
-				"NgxBaseComponent": "ngxapi/en/NgxBaseComponent",
 				"NgxCanvasComponent": "ngxapi/en/NgxCanvasComponent",
 				"NgxCapsuleGeometry": "ngxapi/en/NgxCapsuleGeometry",
 				"NgxClipComponent": "ngxapi/en/NgxClipComponent",
@@ -41,7 +39,6 @@
 				"NgxViewerComponent": "ngxapi/en/NgxViewerComponent",
 				"NgxViewportInComponent": "ngxapi/en/NgxViewportInComponent",
 				"NgxVisualComponent": "ngxapi/en/NgxVisualComponent",
-				"NgxEffectComponent": "ngxapi/en/NgxEffectComponent",
 				"NgxHtmlComponent": "ngxapi/en/NgxHtmlComponent",
 				"NgxLensflareelementComponent": "ngxapi/en/NgxLensflareelementComponent",
 				"NgxLookatComponent": "ngxapi/en/NgxLookatComponent",
@@ -105,20 +102,14 @@
 				"RoomEnvironment": "ngxapi/en/RoomEnvironment"
 			},
 			"Cameras": {
+				"NgxCameraComponent": "ngxapi/en/NgxCameraComponent",
 				"ArrayCamera": "ngxapi/en/ArrayCamera",
 				"Camera": "ngxapi/en/Camera",
 				"CinematicCamera": "ngxapi/en/CinematicCamera",
 				"CubeCamera": "ngxapi/en/CubeCamera",
 				"OrthographicCamera": "ngxapi/en/OrthographicCamera",
 				"PerspectiveCamera": "ngxapi/en/PerspectiveCamera",
-				"StereoCamera": "ngxapi/en/StereoCamera",
-				"NgxCameraComponent": "ngxapi/en/NgxCameraComponent",
-				"NgxArrayCamera": "ngxapi/en/NgxArrayCamera",
-				"NgxCinematicCamera": "ngxapi/en/NgxCinematicCamera",
-				"NgxCubeCamera": "ngxapi/en/NgxCubeCamera",
-				"NgxOrthographicCamera": "ngxapi/en/NgxOrthographicCamera",
-				"NgxPerspectiveCamera": "ngxapi/en/NgxPerspectiveCamera",
-				"NgxStereoCamera": "ngxapi/en/NgxStereoCamera"
+				"StereoCamera": "ngxapi/en/StereoCamera"
 			},
 			"Objects": {
 				"NgxHTMLMesh": "ngxapi/en/NgxHTMLMesh",
@@ -434,6 +425,7 @@
 			},
 			"Audio": {
 				"NgxListenerComponent": "ngxapi/en/NgxListenerComponent",
+				"NgxAudioComponent": "ngxapi/en/NgxAudioComponent",
 				"Audio": "ngxapi/en/Audio",
 				"PositionalAudio": "ngxapi/en/PositionalAudio",
 				"AudioListener": "ngxapi/en/AudioListener",
@@ -609,20 +601,16 @@
 				"NgxColorPipe": "ngxapi/en/NgxColorPipe",
 				"NgxAssetsPipe": "ngxapi/en/NgxAssetsPipe"
 			},
-			"Ngx Interface": {
-				"INgxColor": "ngxapi/en/INgxColor",
-				"INgxTexture": "ngxapi/en/INgxTexture",
-				"INgxUniform": "ngxapi/en/INgxUniform",
-				"INgxUniforms": "ngxapi/en/INgxUniforms",
-				"TAttrBufferAttribute": "ngxapi/en/TAttrBufferAttribute",
-				"TCanvasFunctionType": "ngxapi/en/TCanvasFunctionType",
-				"TDataFunctionType": "ngxapi/en/TDataFunctionType",
-				"TMeshMaterial": "ngxapi/en/TMeshMaterial",
-				"TObject3dFunction": "ngxapi/en/TObject3dFunction",
-				"TObjectFunction": "ngxapi/en/TObjectFunction"
-			},
-			"Postprocessing": {
+			"Effect & Postprocessing": {
+				"NgxEffectComponent": "ngxapi/en/NgxEffectComponent",
 				"NgxPassComponent": "ngxapi/en/NgxPassComponent",
+				"AnaglyphEffect": "ngxapi/en/AnaglyphEffect",
+				"AsciiEffect": "ngxapi/en/AsciiEffect",
+				"OutlineEffect": "ngxapi/en/OutlineEffect",
+				"ParallaxBarrierEffect": "ngxapi/en/ParallaxBarrierEffect",
+				"PeppersGhostEffect": "ngxapi/en/PeppersGhostEffect",
+				"StereoEffect": "ngxapi/en/StereoEffect",
+				"EffectComposer": "ngxapi/en/EffectComposer",
 				"AdaptiveToneMappingPass": "ngxapi/en/AdaptiveToneMappingPass",
 				"AfterimagePass": "ngxapi/en/AfterimagePass",
 				"BloomPass": "ngxapi/en/BloomPass",
@@ -631,7 +619,6 @@
 				"ClearPass": "ngxapi/en/ClearPass",
 				"CubeTexturePass": "ngxapi/en/CubeTexturePass",
 				"DotScreenPass": "ngxapi/en/DotScreenPass",
-				"EffectComposer": "ngxapi/en/EffectComposer",
 				"FilmPass": "ngxapi/en/FilmPass",
 				"FullScreenQuad": "ngxapi/en/FullScreenQuad",
 				"GlitchPass": "ngxapi/en/GlitchPass",
@@ -743,14 +730,6 @@
 				"AmmoPhysics": "ngxapi/en/AmmoPhysics",
 				"OimoPhysics": "ngxapi/en/OimoPhysics",
 				"ConvexObjectBreaker": "ngxapi/en/ConvexObjectBreaker"
-			},
-			"Effects": {
-				"AnaglyphEffect": "ngxapi/en/AnaglyphEffect",
-				"AsciiEffect": "ngxapi/en/AsciiEffect",
-				"OutlineEffect": "ngxapi/en/OutlineEffect",
-				"ParallaxBarrierEffect": "ngxapi/en/ParallaxBarrierEffect",
-				"PeppersGhostEffect": "ngxapi/en/PeppersGhostEffect",
-				"StereoEffect": "ngxapi/en/StereoEffect"
 			},
 			"Animation": {
 				"NgxKeyframeComponent": "ngxapi/en/NgxKeyframeComponent",

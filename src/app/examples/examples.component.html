@@ -37,7 +37,7 @@
 						class="card"
 						[ngClass]="child.selected ? 'selected' : 'unselected'"
 					>
-						<a [href]="'#' + child.id" [routerLink]="child.id">
+						<a [href]="'#' + child.id" [routerLink]="child.id" (click)="setFocus(child.id)">
 							<div class="cover">
 								<img [src]="child.image" loading="lazy" />
 							</div>

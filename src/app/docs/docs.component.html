@@ -43,8 +43,8 @@
 									[href]="'#' + gchild.id"
 									[routerLink]="gchild.id"
 									[ngClass]="gchild.selected ? 'selected' : 'unselected'"
-									>{{ gchild.name }}</a
-								>
+									(click)="setFocus(gchild.id)"
+								>{{ gchild.name }}</a>
 							</li>
 						</ul>
 					</div>

@@ -5,7 +5,9 @@
 		<h3>File not found - {{errorPage}}</h3>
 		<p class="desc">
 			The site configured at this address does not contain the requested file. <br/>
-			If this is your site, make sure that the filename case matches the URL.
+			<a *ngIf="altPage" href="#" [routerLink]="'/docs/' + altPage">
+				Try "{{altPage}}" Try this page instead.
+			</a>
 		</p>
 	</div>
 	<div #apiDoc class="doc-body"></div>
