@@ -1,14 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import {
 	AfterViewInit,
 	Component,
 	ElementRef,
 	OnInit,
-	ViewChild,
+	ViewChild
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { NgxRendererComponent, NgxThreeUtil } from 'ngx3js';
 import { Subscription } from 'rxjs';
-import { NgxRendererComponent, NgxThreeUtil , I3JS, THREE } from 'ngx3js';
-import { HttpClient } from '@angular/common/http';
 import { MenuComponent } from '../menu/menu.component';
 
 export interface SearchMenu {
@@ -32,8 +32,6 @@ export interface SearchMenuTop {
 })
 export class ExamplesComponent implements OnInit, AfterViewInit {
 	@ViewChild('search') search: ElementRef;
-	@ViewChild('github') gitHub: ElementRef;
-	@ViewChild('ngxGithub') ngxGithub: ElementRef;
 	@ViewChild('menu') menu: MenuComponent;
 
 	private subscription: Subscription;
@@ -62,7 +60,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 	}
 
 	private menuId: string = '';
-
+	
 	changeRouter(url: string) {
 		NgxThreeUtil.clear();
 		this.menuId = '/examples/' + url.split('/')[2];
@@ -209,29 +207,6 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 				child.selected = child.id === this.menuId;
 				if (child.selected) {
 					document.title = child.name + ' :: Three.js + Ngx3js examples';
-					if (child.safeId.startsWith('/examples/ngx-')) {
-						this.gitHub.nativeElement.style.pointerEvents = 'none';
-						this.gitHub.nativeElement.href =
-							'https://github.com/outmindkjg/ngx3js/tree/master/src/app' +
-							child.safeId +
-							'';
-						this.gitHub.nativeElement.title =
-							'View source code for "' + child.name + '" on GitHub ngx3js';
-					} else {
-						this.gitHub.nativeElement.style.pointerEvents = 'all';
-						this.gitHub.nativeElement.href =
-							'https://github.com/mrdoob/three.js/blob/master' +
-							child.id +
-							'.html';
-						this.gitHub.nativeElement.title =
-							'View source code for "' + child.name + '" on GitHub';
-					}
-					this.ngxGithub.nativeElement.href =
-						'https://github.com/outmindkjg/ngx3js/tree/master/src/app' +
-						child.safeId +
-						'';
-					this.ngxGithub.nativeElement.title =
-						'View source code for "' + child.name + '" on GitHub ngx3js';
 				}
 			});
 		});

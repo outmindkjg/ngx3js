@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApiReadComponent } from './docs/api-read/api-read.component';
 import { DocsComponent } from './docs/docs.component';
+import { ExamplesIframeComponent } from './examples/examples-iframe.component';
 import { ExamplesComponent } from './examples/examples.component';
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
@@ -20,6 +21,7 @@ import { ExampleViewerComponent } from './viewer/viewer.component';
 		DocsComponent,
 		ApiReadComponent,
 		ExamplesComponent,
+		ExamplesIframeComponent,
 		HomeComponent,
 		ExampleViewerComponent,
 	],

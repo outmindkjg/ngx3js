@@ -6,16 +6,14 @@
 pre.prettyprint,
 code.prettyprint {
 	font-family: 'Roboto Mono', monospace;
-	border-width: 5px;
+	border-width: 5px 0 2px 0;
 	border-style: solid none solid none;
 	background-color:var(--background-color);
 	border-color:var(--secondary-background-color);
-	transition: border-color 1s, background-color 1s, box-shadow 3s;
-	box-shadow: 0px 0px 50px 25px var(--background-color);
+	transition: border-color 3s, background-color 1s;
 	&:hover {
-		background-color: #fefefe;
-		border-color: #fefefe;
-		box-shadow: 0px 10px 30px 0px #e0e0e0;
+		background-color: var(--secondary-background-color);
+		border-color: var(--color-blue);
 	}
 }
 
@@ -24,26 +22,26 @@ pre {
 	>span.language-type {
 		display: inline-block;
 		position: absolute;
-		right:0px;
+		right:-10px;
 		top : 10px;
 		padding: 2px 10px;
 		border-radius: 10px;
 		border-width: 2px;
 		border-style: solid;
-		transition: top 1s;
+		transition: top 1s, opacity 1s;
 		border-color: var(--secondary-background-color);
 		background-color:var(--background-color);
 		font-size: 0.8em;
 		text-align: center;
 		min-width: 70px;
-		opacity: 0.3;
+		opacity: 1;
 		font-style: italic;
 		box-shadow: 3px 3px 3px 0px var(--background-color);
 	}
 	&:hover {
 		>span.language-type {
-			opacity: 1;
-			top : -20px;
+			opacity: 0.7;
+			top : calc(100% - 10px);
 		}
 	}
 }
@@ -53,17 +51,6 @@ pre {
 .lil-gui.root > div.children {
 	background-color: var(--background-color);
 	max-height: calc(100vh - 200px) !important;
-}
-
-@media (prefers-color-scheme: dark) {
-	pre.prettyprint,
-	code.prettyprint {
-		&:hover {
-			background-color: #2b2b2b;
-			border-color: #202020;
-			box-shadow: 0px 10px 30px 0px #464646;
-		}
-	}
 }
 
 #example-iframe #viewer-inner,
@@ -152,6 +139,9 @@ pre {
 		background-color: rgba(255, 255, 255, 0.2);
 		box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
 		z-index: 10;
+		&:hover {
+			opacity: 0.7;
+		}
 		p {
 			margin: 0.2em 0;
 		}
@@ -235,14 +225,10 @@ pre {
 	}
 }
 
-#example-iframe #viewer-inner,
+#example-iframe.view-screen #viewer-inner,
 #example #viewer-inner {
 	div.info {
 		display: none;
-	}
-	div.bottom:hover,
-	div.info:hover {
-		opacity: 0.7;
 	}
 }
 
@@ -396,43 +382,6 @@ div#docs {
 	}
 	height: 100%;
 	position: relative;
-	a.button {
-		position: absolute;
-		opacity: 0.2;
-		right: 1rem;
-		bottom: 1rem;
-		z-index: 100;
-		padding: 12px;
-		border-radius: 25px;
-		border: 2px solid var(--background-color);
-		background-color: var(--text-color);
-		transform: rotate(0deg);
-		transform-origin: center center;
-		transition: transform 0.5s, opacity 0.5s;
-		cursor: pointer;
-	}
-
-	a.button.download {
-		bottom: 80px;
-	}
-	a.button.ngxgithub {
-		right: 80px;
-	}
-	a.button:hover {
-		opacity: 1;
-		transform: rotate(360deg);
-	}
-	a.button img {
-		display: block;
-		width: var(--icon-size);
-	}
-	a.button.text {
-		padding-right: 20px;
-		padding-left: 20px;
-		color: var(--color-blue);
-		opacity: 1;
-		font-weight: 500;
-	}
 }
 
 div#example-iframe #viewer-inner,
@@ -457,7 +406,7 @@ div#viewer {
 	}
 }
 
-#example-iframe #viewer-inner .debug {
+#example-iframe.view-screen #viewer-inner .debug {
 	div.debug-stats {
 		top : 5px;
 		left : -70px;
@@ -485,8 +434,9 @@ div#viewer {
 				div.debug-stats {
 					z-index: 10;
 					left : -70px;
+					top : 3px;
 					&:hover {
-						left: 0;
+						left: 3px;
 					}
 				}
 				div.debug-controls {

@@ -1,15 +1,4 @@
 
-a#newWindow {
-    position: absolute;
-    display: block;
-    position: absolute;
-    bottom: 0.3em;
-    right: 0.5em;
-    color: #fff;
-    background-color: rgba(0,0,0,0.6);
-    padding: 3px 10px;
-    z-index: 100;
-}
 div#example-iframe {
     position: relative;
     div.loading {
@@ -28,6 +17,65 @@ div#example-iframe {
         z-index: 1000;
         animation: loadingAnni 2s normal forwards ease-in-out;
     }
+    a#newWindow {
+        position: absolute;
+        display: block;
+        position: absolute;
+        bottom: 0.3em;
+        right: 0.5em;
+        color: #fff;
+        background-color: rgba(0,0,0,0.6);
+        padding: 3px 10px;
+        z-index: 100;
+    }
+	a.button {
+		position: absolute;
+		opacity: 0.2;
+		right: 1rem;
+		bottom: 1rem;
+		z-index: 100;
+		padding: 12px;
+		border-radius: 25px;
+		border: 2px solid var(--background-color);
+		background-color: var(--text-color);
+		transform: rotate(0deg);
+		transform-origin: center center;
+		transition: transform 0.5s, opacity 0.5s;
+		cursor: pointer;
+        display: none;
+	}
+    &.full-screen {
+        div.loading {
+            display: none;
+        }
+        a#newWindow {
+            display: none;
+        }
+        a.button {
+            display: inline-block;
+        }
+    }
+	a.button.download {
+		bottom: 80px;
+	}
+	a.button.ngxgithub {
+		right: 80px;
+	}
+	a.button:hover {
+		opacity: 1;
+		transform: rotate(360deg);
+	}
+	a.button img {
+		display: block;
+		width: var(--icon-size);
+	}
+	a.button.text {
+		padding-right: 20px;
+		padding-left: 20px;
+		color: var(--color-blue);
+		opacity: 1;
+		font-weight: 500;
+	}    
 }
 
 @keyframes loadingAnni {

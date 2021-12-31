@@ -1,0 +1,49 @@
+
+iframe {
+    border:0;
+    width: 100%;
+    height: 100%;
+    transform: translate(100%, 0);
+    &.iframe-unloaded {
+        animation: unloadIframe 0.5s normal forwards ease-in-out;
+    }
+    &.iframe-loaded {
+        animation: loadedIframe 1s normal forwards cubic-bezier(0.2,-2,0.8,2);
+    }
+}
+
+div.loading {
+    position: absolute;
+    display: block;
+    top : 50%;
+    left : 0;
+    margin-top: -50px;
+    width: 100%;
+    height: 100px;
+    text-align: center;
+    color:var(--text-color);
+    font-size: 2em;
+    z-index: -1;
+    background-image: url(../../assets/examples/files/loadiing.svg);
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: 100px 100px;
+}
+
+@keyframes loadedIframe {
+    0% {
+        transform: translate(0, -100%);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes unloadIframe {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(100%, 0);
+    }
+}
