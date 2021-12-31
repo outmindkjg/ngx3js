@@ -82,7 +82,7 @@ export class AppComponent {
 ```
 
 
-### Change angular.json for  basic assets ###
+### Change angular.json for basic assets ###
 
 if you need lottie_canvas add "node_modules/ngx3js/assets/js/libs/lottie_canvas.js" to scripts like below.
 if you need DRACOExporter add "node_modules/ngx3js/assets/js/libs/draco/draco_encoder.js" to scripts like below.
@@ -132,7 +132,7 @@ the assets url can be changed by your site.
 ### Add Code to your template ###
 
 
-~~~html
+```html
 <!-- src/app/app.component.html -->
 <div style="width: 700px; height: 500px; display: block; position: relative">
   <ngx3js-renderer
@@ -203,7 +203,7 @@ the assets url can be changed by your site.
     </ngx3js-scene>
   </ngx3js-renderer>
 </div>
-~~~
+```
 
 ## Cloning this repository ##
 

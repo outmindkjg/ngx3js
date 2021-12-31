@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:EventDispatcher] &rarr; [page:Object3D] &rarr; [page:Scene] &rarr;
+
+		<h1>DebugEnvironment</h1>
+
+		<p class="desc">
+			Debug environment
+		</p>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:DebugEnvironment DebugEnvironment](  )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
+		</p>
+
+		<h2>Properties</h2>
+		<p>
+			See the base [page:EventDispatcher EventDispatcher] class for common properties.
+		</p>
+		<p>
+			See the base [page:Object3D Object3D] class for common properties.
+		</p>
+		<p>
+			See the base [page:Scene Scene] class for common properties.
+		</p>
+
+		<h3>[property:boolean DefaultMatrixAutoUpdate]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The default setting for <i>.matrixAutoUpdate</i> for newly created Object3Ds.
+		</p>
+
+		<h3>[property:Vector3 DefaultUp]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The default <i>.up</i> direction for objects, also used as the default position for [page:DirectionalLight DirectionalLight],<br />
+			[page:HemisphereLight HemisphereLight] and [page:Spotlight Spotlight] (which creates lights shining from the top down).<br />
+			Set to ( 0, 1, 0 ) by default.
+		</p>
+
+		<h3>[property:AnimationClip[] animations]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Array with object's animation clips.
+		</p>
+
+		<h3>[property:boolean autoUpdate]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Default is true. If set, then the renderer checks every frame if the scene and its objects needs matrix updates.<br />
+			When it isn't, then you have to maintain all matrices in the scene yourself.
+		</p>
+
+		<h3>[property:Color|Texture background]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			If not null, sets the background used when rendering the scene, and is always rendered first.<br />
+			Can be set to a [page:Color Color] which sets the clear color, a [page:Texture Texture] covering the canvas, a cubemap as a [page:CubeTexture CubeTexture] or an equirectangular as a [page:Texture Texture] . Default is null.
+		</p>
+
+		<h3>[property:boolean castShadow]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Whether the object gets rendered into shadow map. Default is <i>false</i>.
+		</p>
+
+		<h3>[property:Object3D[] children]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Array with object's children. See [page:Group Group] for info on manually grouping objects.
+		</p>
+
+		<h3>[property:Material customDepthMaterial]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.<br />
+			When shadow-casting with a [page:DirectionalLight DirectionalLight] or [page:SpotLight SpotLight], if you are modifying vertex positions in the vertex shader you must specify a customDepthMaterial for proper shadows. Default is <i>undefined</i>.
+		</p>
+
+		<h3>[property:Material customDistanceMaterial]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Same as <i>.customDepthMaterial</i>, but used with [page:PointLight PointLight]. Default is <i>undefined</i>.
+		</p>
+
+		<h3>[property:Texture environment]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			If not null, this texture is set as the environment map for all physical materials in the scene.<br />
+			However, it's not possible to overwrite an existing texture assigned to [page:MeshStandardMaterial.envMap MeshStandardMaterial.envMap]. Default is null.
+		</p>
+
+		<h3>[property:FogBase fog]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			A [page:Fog fog] instance defining the type of fog that affects everything rendered in the scene. Default is null.
+		</p>
+
+		<h3>[property:boolean frustumCulled]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object. If set to `false` the object gets rendered every frame even if it is not in the frustum of the camera. Default is `true`.
+		</p>
+
+		<h3>[property:BufferGeometry geometry]?<i class="modifier modifier-inherited">Inherited</i> <i class="modifier modifier-optional">Optional</i></h3>
+		<p>
+			The BufferGeometry
+		</p>
+
+		<h3>[property:number id]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Unique number for this object instance.
+		</p>
+
+		<h3>[property:any isObject3D]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Used to check whether this or derived classes are Object3Ds. Default is true.<br />
+			You should not change this, as it is used internally for optimisation.
+		</p>
+
+		<h3>[property:any isScene]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Layers layers]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The layer membership of the object. The object is only visible if it has at least one layer in common with the [page:Camera Camera] in use. This property can also be used to filter out unwanted objects in ray-intersection tests when using [page:Raycaster Raycaster].
+		</p>
+
+		<h3>[property:Material|Material[] material]?<i class="modifier modifier-inherited">Inherited</i> <i class="modifier modifier-optional">Optional</i></h3>
+		<p>
+			The Material
+		</p>
+
+		<h3>[property:Matrix4 matrix]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The local transform matrix.
+		</p>
+
+		<h3>[property:boolean matrixAutoUpdate]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate Object3D.DefaultMatrixAutoUpdate] (true).
+		</p>
+
+		<h3>[property:Matrix4 matrixWorld]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The global transform of the object. If the Object3D has no parent, then it's identical to the local transform <i>.matrix</i>.
+		</p>
+
+		<h3>[property:boolean matrixWorldNeedsUpdate]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			When this is set, it calculates the matrixWorld in that frame and resets this property  to false. Default is <i>false</i>.
+		</p>
+
+		<h3>[property:Matrix4 modelViewMatrix]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			This is passed to the shader and used to calculate the position of the object.
+		</p>
+
+		<h3>[property:string name]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Optional name of the object (doesn't need to be unique). Default is an empty string.
+		</p>
+
+		<h3>[property:Matrix3 normalMatrix]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			This is passed to the shader and used to calculate lighting for the object. It is the transpose of the inverse of the upper left 3x3 sub-matrix of this object's modelViewMatrix.<br />
+			The reason for this special matrix is that simply using the modelViewMatrix could result in a non-unit length of normals (on scaling) or in a non-perpendicular direction (on non-uniform scaling).<br />
+			On the other hand the translation part of the modelViewMatrix is not relevant for the calculation of normals. Thus a Matrix3 is sufficient.
+		</p>
+
+		<h3>[property:Material overrideMaterial]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			If not null, it will force everything in the scene to be rendered with that material. Default is null.
+		</p>
+
+		<h3>[property:Object3D parent]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Object's parent in the [link:https://en.wikipedia.org/wiki/Scene_graph scene graph]. An object can have at most one parent.
+		</p>
+
+		<h3>[property:Vector3 position]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			A [page:Vector3 Vector3] representing the object's local position. Default is (0, 0, 0).
+		</p>
+
+		<h3>[property:Quaternion quaternion]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Object's local rotation as a [page:Quaternion Quaternion].
+		</p>
+
+		<h3>[property:boolean receiveShadow]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Whether the material receives shadows. Default is <i>false</i>.
+		</p>
+
+		<h3>[property:number renderOrder]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			This value allows the default rendering order of [link:https://en.wikipedia.org/wiki/Scene_graph scene graph] objects to be overridden although opaque and transparent objects remain sorted independently. When this property is set for an instance of [page:Group Group], all descendants objects will be sorted and rendered together.<br />
+			Sorting is from lowest to highest renderOrder. Default value is <i>0</i>.
+		</p>
+
+		<h3>[property:Euler rotation]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Object's local rotation (see [link:https://en.wikipedia.org/wiki/Euler_angles Euler angles]), in radians.
+		</p>
+
+		<h3>[property:Vector3 scale]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The object's local scale. Default is [link: 1, 1, 1  page:Vector3 Vector3].
+		</p>
+
+		<h3>[property:any type]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:Vector3 up]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			This is used by the <i>.lookAt</i> method, for example, to determine the orientation of the result.<br />
+			Default is [page:Object3D.DefaultUp Object3D.DefaultUp] - that is, ( 0, 1, 0 ).
+		</p>
+
+		<h3>[property:any userData]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			An object that can be used to store custom data about the Object3D. It should not hold references to functions as these will not be cloned.
+		</p>
+
+		<h3>[property:string uuid]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			[link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this object instance.<br />
+			This gets automatically assigned, so this shouldn't be edited.
+		</p>
+
+		<h3>[property:boolean visible]<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Object gets rendered if <i>true</i>. Default is <i>true</i>.
+		</p>
+
+		<h2>Methods</h2>
+		<p>
+			See the base [page:EventDispatcher EventDispatcher] class for common methods.
+		</p>
+		<p>
+			See the base [page:Object3D Object3D] class for common methods.
+		</p>
+		<p>
+			See the base [page:Scene Scene] class for common methods.
+		</p>
+
+		<h3>[method:DebugEnvironment add](  [param:Object3D[] object] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D[] object] - The object.
+		</p>
+		<p>
+			Adds <i>object</i> as child of this object. An arbitrary number of objects may be added. Any current parent on an object passed in here will be removed, since an object can have at most one parent.<br />
+			See [page:Group Group] for info on manually grouping objects.
+		</p>
+
+		<h3>[method:void addEventListener](  [param:T type],  [param:EventListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T type] - The type of event to listen to.<br />
+			[parameter:EventListener listener] - The that gets called when the event is fired.
+		</p>
+		<p>
+			Adds a listener to an event type.
+		</p>
+
+		<h3>[method:void applyMatrix4](  [param:Matrix4 matrix] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 matrix] - The matrix.
+		</p>
+		<p>
+			Applies the matrix transform to the object and updates the object's position, rotation and scale.
+		</p>
+
+		<h3>[method:DebugEnvironment applyQuaternion](  [param:Quaternion quaternion] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion quaternion] - The quaternion.
+		</p>
+		<p>
+			Applies the rotation represented by the quaternion to the object.
+		</p>
+
+		<h3>[method:DebugEnvironment attach](  [param:Object3D object] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D object] - The object.
+		</p>
+		<p>
+			Adds <i>object</i> as a child of this, while maintaining the object's world transform.<br />
+			Note: This method does not support scene graphs having non-uniformly-scaled nodes(s).
+		</p>
+
+		<h3>[method:DebugEnvironment clear](  )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Removes all child objects.
+		</p>
+
+		<h3>[method:DebugEnvironment clone](  [param:boolean recursive]? )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean recursive] - (optional) if true, descendants of the object are also cloned. Default is true.
+		</p>
+		<p>
+			Returns : Returns a clone of this object and optionally all descendants.
+		</p>
+
+		<h3>[method:DebugEnvironment copy](  [param:DebugEnvironment source],  [param:boolean recursive]? )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:DebugEnvironment source] - The source.<br />
+			[parameter:boolean recursive] - (optional) if true, descendants of the object are also copied. Default is true.
+		</p>
+		<p>
+			Copy the given object into this object.<br />
+			Note: event listeners and user-defined callbacks (<i>.onAfterRender</i> and <i>.onBeforeRender</i>) are not copied.
+		</p>
+
+		<h3>[method:void dispatchEvent](  [param:Event event] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Event event] - The event.
+		</p>
+		<p>
+			Fire an event type.
+		</p>
+
+		<h3>[method:Object3D getObjectById](  [param:number id] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number id] - Unique number of the object instance Searches through an object and its children, starting with the object itself, and returns the first with a matching id.
+		</p>
+		<p>
+			Note that ids are assigned in chronological order: 1, 2, 3, ..., incrementing by one for each new object.
+		</p>
+
+		<h3>[method:Object3D getObjectByName](  [param:string name] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string name] - String to match to the children's Object3D.name property.
+		</p>
+		<p>
+			Searches through an object and its children, starting with the object itself, and returns the first with a matching name.<br />
+			Note that for most objects the name is an empty string by default. You will have to set it manually to make use of this method.
+		</p>
+
+		<h3>[method:Object3D getObjectByProperty](  [param:string name],  [param:string value] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string name] - The property name to search for.<br />
+			[parameter:string value] - Value of the given property.
+		</p>
+		<p>
+			Searches through an object and its children, starting with the object itself, and returns the first with a property that matches the value given.
+		</p>
+
+		<h3>[method:Vector3 getWorldDirection](  [param:Vector3 target] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 target] - The result will be copied into this Vector3.
+		</p>
+		<p>
+			Returns : Returns a vector representing the direction of object's positive z-axis in world space.
+		</p>
+
+		<h3>[method:Vector3 getWorldPosition](  [param:Vector3 target] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 target] - The result will be copied into this Vector3.
+		</p>
+		<p>
+			Returns : Returns a vector representing the position of the object in world space.
+		</p>
+
+		<h3>[method:Quaternion getWorldQuaternion](  [param:Quaternion target] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion target] - The result will be copied into this Quaternion.
+		</p>
+		<p>
+			Returns : Returns a quaternion representing the rotation of the object in world space.
+		</p>
+
+		<h3>[method:Vector3 getWorldScale](  [param:Vector3 target] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 target] - The result will be copied into this Vector3.
+		</p>
+		<p>
+			Returns : Returns a vector of the scaling factors applied to the object for each axis in world space.
+		</p>
+
+		<h3>[method:boolean hasEventListener](  [param:T type],  [param:EventListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T type] - The type of event to listen to.<br />
+			[parameter:EventListener listener] - The that gets called when the event is fired.
+		</p>
+		<p>
+			Checks if listener is added to an event type.
+		</p>
+
+		<h3>[method:Vector3 localToWorld](  [param:Vector3 vector] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 vector] - A vector representing a position in this object's local space.
+		</p>
+		<p>
+			Converts the vector from this object's local space to world space.
+		</p>
+
+		<h3>[method:void lookAt](  [param:number|Vector3 vector],  [param:number y]?,  [param:number z]? )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number|Vector3 vector] - A vector representing a position in world space.<br />
+			[parameter:number y] - (optional) The y.<br />
+			[parameter:number z] - (optional) The z.
+		</p>
+		<p>
+			Optionally, the <i>.x</i>, <i>.y</i> and <i>.z</i> components of the world space position.<br />
+			Rotates the object to face a point in world space.<br />
+			This method does not support objects having non-uniformly-scaled parent(s).
+		</p>
+
+		<h3>[method:void onAfterRender](  [param:WebGLRenderer renderer],  [param:Scene scene],  [param:Camera camera] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:WebGLRenderer renderer] - The renderer.<br />
+			[parameter:Scene scene] - The scene.<br />
+			[parameter:Camera camera] - The camera.
+		</p>
+		<p>
+			Calls after rendering scene
+		</p>
+
+		<h3>[method:void onBeforeRender](  [param:WebGLRenderer renderer],  [param:Scene scene],  [param:Camera camera],  [param:any renderTarget] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:WebGLRenderer renderer] - The renderer.<br />
+			[parameter:Scene scene] - The scene.<br />
+			[parameter:Camera camera] - The camera.<br />
+			[parameter:any renderTarget] - The render target.
+		</p>
+		<p>
+			Calls before rendering scene
+		</p>
+
+		<h3>[method:void raycast](  [param:Raycaster raycaster],  [param:Intersection[] intersects] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Raycaster raycaster] - The raycaster.<br />
+			[parameter:Intersection[] intersects] - The intersects.
+		</p>
+		<p>
+			Abstract (empty) method to get intersections between a casted ray and this object.<br />
+			Subclasses such as [page:Mesh Mesh], [page:Line Line], and [page:Points Points] implement this method in order to use raycasting.
+		</p>
+
+		<h3>[method:DebugEnvironment remove](  [param:Object3D[] object] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Object3D[] object] - The object.
+		</p>
+		<p>
+			Removes <i>object</i> as child of this object. An arbitrary number of objects may be removed.
+		</p>
+
+		<h3>[method:void removeEventListener](  [param:T type],  [param:EventListener listener] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:T type] - The type of the listener that gets removed.<br />
+			[parameter:EventListener listener] - The listener that gets removed.
+		</p>
+		<p>
+			Removes a listener from an event type.
+		</p>
+
+		<h3>[method:DebugEnvironment removeFromParent](  )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Removes this object from its current parent.
+		</p>
+
+		<h3>[method:DebugEnvironment rotateOnAxis](  [param:Vector3 axis],  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 axis] - A normalized vector in object space.<br />
+			[parameter:number angle] - The angle in radians.
+		</p>
+		<p>
+			Rotate an object along an axis in object space. The axis is assumed to be normalized.
+		</p>
+
+		<h3>[method:DebugEnvironment rotateOnWorldAxis](  [param:Vector3 axis],  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 axis] - A normalized vector in object space.<br />
+			[parameter:number angle] - The angle in radians.
+		</p>
+		<p>
+			Rotate an object along an axis in world space. The axis is assumed to be normalized.<br />
+			Method Assumes no rotated parent.
+		</p>
+
+		<h3>[method:DebugEnvironment rotateX](  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number angle] - The angle to rotate in radians.
+		</p>
+		<p>
+			Rotates the object around x axis in local space.
+		</p>
+
+		<h3>[method:DebugEnvironment rotateY](  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number angle] - The angle to rotate in radians.
+		</p>
+		<p>
+			Rotates the object around y axis in local space.
+		</p>
+
+		<h3>[method:DebugEnvironment rotateZ](  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number angle] - The angle to rotate in radians.
+		</p>
+		<p>
+			Rotates the object around z axis in local space.
+		</p>
+
+		<h3>[method:void setRotationFromAxisAngle](  [param:Vector3 axis],  [param:number angle] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 axis] - A normalized vector in object space.<br />
+			[parameter:number angle] - angle in radians
+		</p>
+		<p>
+			Calls [link: [page:Float axis], [page:Float angle]  page:Quaternion.setFromAxisAngle setFromAxisAngle] on the <i>.quaternion</i>.
+		</p>
+
+		<h3>[method:void setRotationFromEuler](  [param:Euler euler] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Euler euler] - Euler angle specifying rotation amount.
+		</p>
+		<p>
+			Calls [link: [page:Euler euler] page:Quaternion.setRotationFromEuler setRotationFromEuler] on the <i>.quaternion</i>.
+		</p>
+
+		<h3>[method:void setRotationFromMatrix](  [param:Matrix4 m] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Matrix4 m] - rotate the quaternion by the rotation component of the matrix.
+		</p>
+		<p>
+			Calls [link: [page:Matrix4 m] page:Quaternion.setFromRotationMatrix setFromRotationMatrix] on the <i>.quaternion</i>.<br />
+			Note that this assumes that the upper 3x3 of m is a pure rotation matrix (i.e, unscaled).
+		</p>
+
+		<h3>[method:void setRotationFromQuaternion](  [param:Quaternion q] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Quaternion q] - normalized Quaternion
+		</p>
+		<p>
+			Copy the given quaternion into <i>.quaternion</i>.
+		</p>
+
+		<h3>[method:any toJSON](  [param:any meta]? )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any meta] - (optional) The meta.
+		</p>
+		<p>
+			Convert the scene to three.js [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].
+		</p>
+
+		<h3>[method:DebugEnvironment translateOnAxis](  [param:Vector3 axis],  [param:number distance] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 axis] - A normalized vector in object space.<br />
+			[parameter:number distance] - The distance to translate.
+		</p>
+		<p>
+			Translate an object by distance along an axis in object space. The axis is assumed to be normalized.
+		</p>
+
+		<h3>[method:DebugEnvironment translateX](  [param:number distance] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number distance] - Distance.
+		</p>
+		<p>
+			Translates object along x axis in object space by <i>distance</i> units.
+		</p>
+
+		<h3>[method:DebugEnvironment translateY](  [param:number distance] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number distance] - Distance.
+		</p>
+		<p>
+			Translates object along y axis in object space by <i>distance</i> units.
+		</p>
+
+		<h3>[method:DebugEnvironment translateZ](  [param:number distance] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number distance] - Distance.
+		</p>
+		<p>
+			Translates object along z axis in object space by <i>distance</i> units.
+		</p>
+
+		<h3>[method:void traverse](  [param:any callback] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any callback] - A function with as first argument an object3D object.
+		</p>
+		<p>
+			Executes the callback on this object and all descendants.<br />
+			Note: Modifying the scene graph inside the callback is discouraged.
+		</p>
+
+		<h3>[method:void traverseAncestors](  [param:any callback] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any callback] - A function with as first argument an object3D object.
+		</p>
+		<p>
+			Executes the callback on all ancestors.<br />
+			Note: Modifying the scene graph inside the callback is discouraged.
+		</p>
+
+		<h3>[method:void traverseVisible](  [param:any callback] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any callback] - A function with as first argument an object3D object.
+		</p>
+		<p>
+			Like traverse, but the callback will only be executed for visible objects.<br />
+			Descendants of invisible objects are not traversed.<br />
+			Note: Modifying the scene graph inside the callback is discouraged.
+		</p>
+
+		<h3>[method:void updateMatrix](  )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Updates the local transform.
+		</p>
+
+		<h3>[method:void updateMatrixWorld](  [param:boolean force]? )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean force] - (optional) The force.
+		</p>
+		<p>
+			Updates the global transform of the object and its descendants.
+		</p>
+
+		<h3>[method:void updateWorldMatrix](  [param:boolean updateParents],  [param:boolean updateChildren] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean updateParents] - recursively updates global transform of ancestors.<br />
+			[parameter:boolean updateChildren] - recursively updates global transform of descendants.
+		</p>
+		<p>
+			Updates the global transform of the object.
+		</p>
+
+		<h3>[method:Vector3 worldToLocal](  [param:Vector3 vector] )<i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Vector3 vector] - A vector representing a position in world space.
+		</p>
+		<p>
+			Converts the vector from world space to this object's local space.
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<hr class="interface-line top"/>
+		[page:BaseEvent] &rarr;
+
+		<h3 id="Event">Event <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line bottom"/>
+		<h4>Properties</h4>
+		<p>
+			[property:any target]? -  The target.<br />
+			[property:string type] -  The type.
+		</p>
+
+		<p class="desc">
+			Event object.
+		</p>
+
+		<hr class="interface-line top"/>
+		<h3 id="FogBase">FogBase <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line bottom"/>
+		<h4>Constructor</h4>
+		<p>
+			[constructor:FogBase FogBase](  ) 
+		</p>
+		<h4>Properties</h4>
+		<p>
+			[property:Color color] - Fog color.  Example: If set to black, far away objects will be rendered black.<br />
+			[property:string name] - Optional name of the object (doesn't need to be unique). Default is an empty string.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:FogBase clone](  ) - Returns : Returns a new fog instance with the same parameters as this one.<br />
+			[method:any toJSON](  ) - Returns : Return fog data in JSON format.
+		</p>
+
+		<p class="desc">
+			Abstract Fog base Class
+		</p>
+
+		<hr class="interface-line top"/>
+		<h3 id="Intersection">Intersection <i class="modifier modifier-interface">Interface</i></h3>
+		<hr class="interface-line bottom"/>
+		<h4>Properties</h4>
+		<p>
+			[property:number distance] -  The distance.<br />
+			[property:number distanceToRay]? -  The distance to ray.<br />
+			[property:Face face]? -  The face.<br />
+			[property:number faceIndex]? -  The face index.<br />
+			[property:number index]? -  The index.<br />
+			[property:number instanceId]? -  The instance id.<br />
+			[property:TIntersected object] -  The object.<br />
+			[property:Vector3 point] -  The point.<br />
+			[property:Vector2 uv]? -  The uv.
+		</p>
+
+		<p class="desc">
+			Intersection
+		</p>
+
+		<hr class="interface-line top"/>
+		<h3 id="EventListener">EventListener <i class="modifier modifier-interface">Type alias</i></h3>
+		<hr class="interface-line bottom"/>
+		<h4>[method:void function](  [param:any event] )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:any event] -  The event.
+		</p>
+		<p>
+			
+		</p>
+
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/environments.ts /threejs-library/types/three/examples/environments.ts]</p>
+	</body>
+</html>

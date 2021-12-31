@@ -22,6 +22,10 @@
 						provide: NgxAbstractObject3dComponent,<br />
 						useExisting: forwardRef(() =&gt; NgxXxxComponent),<br />
 					},<br />
+					{<br />
+						provide: NgxAbstractSubscribeComponent,<br />
+						useExisting: forwardRef(() =&gt; NgxXxxComponent),<br />
+					},<br />
 				],<br />
 			})<br />
 			export class NgxXxxComponent extends NgxAbstractObject3dComponent implements OnInit {<br />

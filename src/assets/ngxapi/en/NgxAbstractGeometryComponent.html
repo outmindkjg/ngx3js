@@ -27,6 +27,10 @@
 						provide: NgxAbstractGeometryComponent,<br />
 						useExisting: forwardRef(() =&gt; NgxXxxComponent),<br />
 					},<br />
+					{<br />
+						provide: NgxAbstractSubscribeComponent,<br />
+						useExisting: forwardRef(() =&gt; NgxXxxComponent),<br />
+					}<br />
 				],<br />
 			})<br />
 			export class NgxXxxComponent extends NgxAbstractGeometryComponent implements OnInit {<br />
