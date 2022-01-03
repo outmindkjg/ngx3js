@@ -8,7 +8,7 @@ import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 })
 export class WebglEffectsAsciiComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	onRender(timer: IRendererTimer) {

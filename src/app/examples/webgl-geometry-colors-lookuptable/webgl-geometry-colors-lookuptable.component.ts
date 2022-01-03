@@ -19,7 +19,7 @@ export class WebglGeometryColorsLookuptableComponent extends NgxBaseComponent<{
 					this.updateColors();
 				},
 			},
-		]);
+		], false, false);
 	}
 
 	ngOnInit() {

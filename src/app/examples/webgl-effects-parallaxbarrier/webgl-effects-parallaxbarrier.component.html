@@ -17,9 +17,10 @@
 	[guiParams]="controlsParams"
 	(onRender)="onRender($event)"
 >
-	<ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
-	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="1000">
-		<ngx3js-position [x]="1" [y]="2" [z]="-3"></ngx3js-position>
+	<ngx3js-effect [type]="'ParallaxBarrierEffect'"></ngx3js-effect>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="60" [near]="0.01" [far]="100" [focalLength]="3">
+		<ngx3js-position [x]="0" [y]="0" [z]="3"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-scene #scene>
 		<ngx3js-material [materialType]="'background'">

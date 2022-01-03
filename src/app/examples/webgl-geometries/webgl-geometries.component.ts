@@ -8,7 +8,7 @@ import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 })
 export class WebglGeometriesComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	points: { x: number; y: number }[] = [];

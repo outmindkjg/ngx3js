@@ -82,7 +82,7 @@ export class WebglClippingAdvancedComponent extends NgxBaseComponent<{
 					isOpen: true,
 				},
 			]
-		);
+		, false, false);
 	}
 
 	boxes: { x: number; y: number; z: number }[] = [];
@@ -172,13 +172,11 @@ export class WebglClippingAdvancedComponent extends NgxBaseComponent<{
 	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (this.mesh !== null) {
-			if (!this.controls.meshRotate.autoRotate) {
-				this.mesh.setRotation(
-					null,
-					timer.elapsedTime * 45,
-					timer.elapsedTime * 15
-				);
-			}
+			this.mesh.setRotation(
+				null,
+				timer.elapsedTime * 45,
+				timer.elapsedTime * 15
+			);
 			// this.mesh.setScaleScalar(Math.cos(timer.elapsedTime) * 0.125 + 0.875);
 		}
 		if (this.localPlane.length > 0) {

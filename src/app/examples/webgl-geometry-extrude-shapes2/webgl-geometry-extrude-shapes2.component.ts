@@ -98,7 +98,7 @@ export class WebglGeometryExtrudeShapes2Component extends NgxBaseComponent<{
 					],
 				},
 			]
-		);
+		, false, false);
 	}
 
 	changeMapInfo(

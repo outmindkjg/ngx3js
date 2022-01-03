@@ -8,7 +8,7 @@ import { NgxBaseComponent, THREE } from 'ngx3js';
 })
 export class WebglGeometryExtrudeShapesComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	extrudePath: { x: number; y: number; z: number }[] = [

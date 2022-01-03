@@ -39,7 +39,7 @@ export class WebglAnimationSkinningAdditiveBlendingComponent extends NgxBaseComp
 							title: 'Sneak Pose',
 							type: 'number',
 							min: 0.0,
-							max: 2,
+							max: 1,
 							step: 0.01,
 						},
 						{
@@ -69,8 +69,8 @@ export class WebglAnimationSkinningAdditiveBlendingComponent extends NgxBaseComp
 					],
 					isOpen: true,
 				},
-				{ name: 'duration', type: 'number', min: 0.2, max: 5 },
+				{ name: 'duration', type: 'number', min: 0.0, max: 1.5, step : 0.01 },
 			]
-		);
+		, false, false);
 	}
 }

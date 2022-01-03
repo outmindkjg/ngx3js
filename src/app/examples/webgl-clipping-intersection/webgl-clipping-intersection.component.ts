@@ -36,17 +36,10 @@ export class WebglClippingIntersectionComponent extends NgxBaseComponent<{
 					min: -1,
 					max: 1,
 					step: 0.01,
-					finishChange: () => {
-						if (this.localPlane.length > 0) {
-							this.localPlane.forEach((plane) => {
-								plane.setPlane(null, null, null, this.controls.planeConstant);
-							});
-						}
-					},
 				},
 				{ name: 'showHelpers', type: 'checkbox', change: () => {} },
 			]
-		);
+		, false, false);
 	}
 
 	changeClipIntersection(mesh: any) {
@@ -76,13 +69,6 @@ export class WebglClippingIntersectionComponent extends NgxBaseComponent<{
 				color: new THREE.Color().setHSL(Math.random(), 0.5, 0.5).getHex(),
 				radius: i / 30,
 			});
-		}
-	}
-
-	localPlane: NgxPlaneComponent[] = [];
-	setLocalPlane(localPlane: NgxPlaneComponent) {
-		if (this.localPlane.indexOf(localPlane) === -1) {
-			this.localPlane.push(localPlane);
 		}
 	}
 

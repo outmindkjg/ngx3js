@@ -65,7 +65,7 @@ export class WebglCameraCinematicComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+		, false, false);
 	}
 
 	camera: NgxCameraComponent = null;
@@ -77,22 +77,17 @@ export class WebglCameraCinematicComponent extends NgxBaseComponent<{
 
 	matChanger() {
 		if (this.camera !== null) {
-			const camera : CinematicCamera = this.camera.getObject3d() as any;
+			const camera : any = this.camera.getObject3d() as any;
 			const postprocessing = camera.postprocessing as any;
 			for (const e in this.controls) {
 				if (e in postprocessing.bokeh_uniforms) {
 					postprocessing.bokeh_uniforms[e].value = this.controls[e];
 				}
 			}
-			postprocessing.bokeh_uniforms['znear'].value = camera.near;
-			postprocessing.bokeh_uniforms['zfar'].value = camera.far;
-			// * @deprecated Use {@link PerspectiveCamera#setFocalLength .setFocalLength()}
-			// and {@link PerspectiveCamera#filmGauge .filmGauge} instead.
-			camera.setFocalLength(this.controls.focalLength);
-			// camera.setfstop(this.controls.focalLength);
-			// camera.setLens( this.controls.focalLength, camera.frameHeight, EffectController.fstop, camera.coc );
-			this.controls.focalDepth =
-				postprocessing.bokeh_uniforms['focalDepth'].value;
+			postprocessing.bokeh_uniforms[ 'znear' ].value = camera.near;
+			postprocessing.bokeh_uniforms[ 'zfar' ].value = camera.far;
+			camera.setLens( this.controls.focalLength, camera.frameHeight, this.controls.fstop, camera.coc );
+			this.controls.focalDepth = camera.postprocessing.bokeh_uniforms[ 'focalDepth' ].value;
 		}
 	}
 

@@ -112,6 +112,7 @@
 			(onLoad)="setMesh($event)"
 			#mesh
 			[storageName]="'models/gltf/LeePerrySmith/LeePerrySmith.glb'"
+			[storageOption]="{ firstChild : true }"
 		>
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
 			<ngx3js-scale [x]="10" [y]="10" [z]="10"></ngx3js-scale>

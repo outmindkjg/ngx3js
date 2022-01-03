@@ -4,7 +4,7 @@ import {
 	NgxMaterialComponent,
 	NgxPlaneComponent,
 	NgxRendererComponent,
-	IRendererTimer
+	IRendererTimer,
 } from 'ngx3js';
 
 @Component({
@@ -48,8 +48,7 @@ export class WebglClippingComponent extends NgxBaseComponent<{
 							type: 'checkbox',
 							change: () => {
 								if (this.renderer !== null) {
-									const renderer =
-										this.renderer.getRenderer() as any;
+									const renderer = this.renderer.getRenderer() as any;
 									renderer.localClippingEnabled =
 										this.controls.localClipping.enabled;
 								}
@@ -62,7 +61,7 @@ export class WebglClippingComponent extends NgxBaseComponent<{
 							change: () => {
 								if (this.mesh !== null) {
 									const mesh = this.mesh.getObject3d() as any;
-									const material = mesh.material ;
+									const material = mesh.material;
 									material.clipShadows = this.controls.localClipping.shadow;
 								}
 							},
@@ -72,7 +71,7 @@ export class WebglClippingComponent extends NgxBaseComponent<{
 							title: 'Plane',
 							type: 'number',
 							min: -0.5,
-							max: 0.5,
+							max: 3,
 							change: () => {
 								if (this.localPlane !== null) {
 									this.localPlane.setPlane(
@@ -118,7 +117,9 @@ export class WebglClippingComponent extends NgxBaseComponent<{
 					],
 					isOpen: true,
 				},
-			]
+			],
+			false,
+			false
 		);
 	}
 
@@ -146,13 +147,11 @@ export class WebglClippingComponent extends NgxBaseComponent<{
 		super.onRender(timer);
 
 		if (this.mesh !== null) {
-			if (!this.controls.meshRotate.autoRotate) {
-				this.mesh.setRotation(
-					null,
-					timer.elapsedTime * 90,
-					timer.elapsedTime * 36
-				);
-			}
+			this.mesh.setRotation(
+				null,
+				timer.elapsedTime * 90,
+				timer.elapsedTime * 36
+			);
 			this.mesh.setScaleScalar(Math.cos(timer.elapsedTime) * 0.125 + 0.875);
 		}
 	}

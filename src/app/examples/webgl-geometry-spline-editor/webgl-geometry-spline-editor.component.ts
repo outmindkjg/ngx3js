@@ -77,7 +77,7 @@ export class WebglGeometrySplineEditorComponent extends NgxBaseComponent<{
 				{ name: 'removePoint', type: 'button' },
 				{ name: 'exportSpline', type: 'button' },
 			]
-		);
+		, false, false);
 	}
 
 	ngOnInit() {

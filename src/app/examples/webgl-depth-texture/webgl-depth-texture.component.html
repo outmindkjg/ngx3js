@@ -5,7 +5,7 @@
 	Created by
 	<a href="http://twitter.com/mattdesl" target="_blank" rel="noopener"
 		>@mattdesl</a
-	>. todo
+	>.
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -15,12 +15,13 @@
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
-	[requiredExtensions]="['texture']"
+	[requiredExtensions]="['depth']"
+	[beforeRender]="beforeRender"
 	(onRender)="onRender($event)"
 >
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera [type]="'perspective'" [fov]="70" [near]="0.01" [far]="50">
-		<ngx3js-position [x]="4" [y]="0" [z]="14"></ngx3js-position>
+		<ngx3js-position [x]="0" [y]="0" [z]="4"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-scene>
 		<ngx3js-shared>

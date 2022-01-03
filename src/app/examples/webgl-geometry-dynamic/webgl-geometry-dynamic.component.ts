@@ -8,7 +8,7 @@ import { NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 'ngx3j
 })
 export class WebglGeometryDynamicComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	worldWidth = 128;

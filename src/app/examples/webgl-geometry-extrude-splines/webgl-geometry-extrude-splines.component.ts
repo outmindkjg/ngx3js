@@ -101,7 +101,7 @@ export class WebglGeometryExtrudeSplinesComponent extends NgxBaseComponent<{
 					],
 				},
 			]
-		);
+		, false, false);
 	}
 
 	pipeSpline = [
@@ -146,9 +146,10 @@ export class WebglGeometryExtrudeSplinesComponent extends NgxBaseComponent<{
 	curvePath: { x: number; y: number; z: number }[] = [];
 
 	spline: string = 'spline';
-	scale: number = 0;
+	scale: number = 1;
 	setSpline(spline: string) {
 		this.spline = spline;
+		this.curvePath = [];
 		switch (spline) {
 			case 'HeartCurve':
 				this.scale = 3.5;

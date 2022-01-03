@@ -59,9 +59,6 @@ export class WebglClippingStencilComponent extends NgxBaseComponent<{
 							name: 'displayHelper',
 							title: 'DisplayHelper',
 							type: 'checkbox',
-							change: () => {
-								this.displayHelper('X', this.controls.planeX.displayHelper);
-							},
 						},
 						{
 							name: 'constant',
@@ -71,17 +68,11 @@ export class WebglClippingStencilComponent extends NgxBaseComponent<{
 							min: -1,
 							max: 1,
 							step: 0.01,
-							finishChange: () => {
-								this.constantHelper('X', this.controls.planeX.constant);
-							},
 						},
 						{
 							name: 'negated',
 							title: 'Negated',
 							type: 'checkbox',
-							change: () => {
-								this.controls.planeX.constant = this.negatedHelper('X');
-							},
 						},
 					],
 					isOpen: true,
@@ -95,9 +86,6 @@ export class WebglClippingStencilComponent extends NgxBaseComponent<{
 							name: 'displayHelper',
 							title: 'DisplayHelper',
 							type: 'checkbox',
-							change: () => {
-								this.displayHelper('Y', this.controls.planeY.displayHelper);
-							},
 						},
 						{
 							name: 'constant',
@@ -107,17 +95,11 @@ export class WebglClippingStencilComponent extends NgxBaseComponent<{
 							min: -1,
 							max: 1,
 							step: 0.01,
-							finishChange: () => {
-								this.constantHelper('Y', this.controls.planeY.constant);
-							},
 						},
 						{
 							name: 'negated',
 							title: 'Negated',
 							type: 'checkbox',
-							change: () => {
-								this.controls.planeY.constant = this.negatedHelper('Y');
-							},
 						},
 					],
 					isOpen: true,
@@ -131,9 +113,6 @@ export class WebglClippingStencilComponent extends NgxBaseComponent<{
 							name: 'displayHelper',
 							title: 'DisplayHelper',
 							type: 'checkbox',
-							change: () => {
-								this.displayHelper('Z', this.controls.planeZ.displayHelper);
-							},
 						},
 						{
 							name: 'constant',
@@ -143,107 +122,23 @@ export class WebglClippingStencilComponent extends NgxBaseComponent<{
 							min: -1,
 							max: 1,
 							step: 0.01,
-							finishChange: () => {
-								this.constantHelper('Z', this.controls.planeZ.constant);
-							},
 						},
 						{
 							name: 'negated',
 							title: 'Negated',
 							type: 'checkbox',
-							change: () => {
-								this.controls.planeZ.constant = this.negatedHelper('Z');
-							},
 						},
 					],
 					isOpen: true,
 				},
 			]
-		);
-	}
-
-	constantHelper(axis: string, value: number) {
-		if (this.localHelper !== null) {
-			let helper: I3JS.PlaneHelper = this.getAxisHelper(axis);
-			if (helper !== null) {
-				helper.plane.constant = value;
-			}
-		}
-	}
-
-	negatedHelper(axis: string): number {
-		if (this.localHelper !== null) {
-			let helper: I3JS.PlaneHelper = this.getAxisHelper(axis);
-			if (helper !== null) {
-				helper.plane.negate();
-				return helper.plane.constant;
-			}
-		}
-		return 0;
-	}
-
-	displayHelper(axis: string, visible: boolean) {
-		if (this.localHelper !== null) {
-			let helper: I3JS.PlaneHelper = this.getAxisHelper(axis);
-			if (helper !== null) {
-				helper.visible = visible;
-			}
-		}
-	}
-
-	getAxisHelper(axis: string): I3JS.PlaneHelper {
-		let helper: I3JS.PlaneHelper = null;
-		let x = 0,
-			y = 0,
-			z = 0;
-		switch (axis) {
-			case 'X':
-				x = -1;
-				break;
-			case 'Y':
-				y = -1;
-				break;
-			case 'Z':
-				z = -1;
-				break;
-		}
-		const helperGroup = this.localHelper.getHelper();
-		helperGroup.children.forEach((child) => {
-			const childHelper = child as any;
-			const plane = childHelper.plane.normal;
-			if (
-				Math.abs(plane.x) == Math.abs(x) &&
-				Math.abs(plane.y) == Math.abs(y) &&
-				Math.abs(plane.z) == Math.abs(z)
-			) {
-				helper = childHelper;
-			}
-		});
-		return helper;
-	}
-
-	localHelper: NgxHelperComponent = null;
-	setLocalHelper(localHelper: NgxHelperComponent) {
-		this.localHelper = localHelper;
-		const helperGroup = this.localHelper.getHelper();
-		helperGroup.visible = true;
-		helperGroup.children.forEach((child) => {
-			child.visible = false;
-		});
-	}
-
-	localPlane: NgxPlaneComponent[] = [];
-	setLocalPlane(localPlane: NgxPlaneComponent) {
-		if (this.localPlane.indexOf(localPlane) === -1) {
-			this.localPlane.push(localPlane);
-		}
+		, false, false);
 	}
 
 	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
 		if (
 			this.mesh !== null &&
-			!this.controls.meshRotate.autoRotate &&
 			this.controls.animate
 		) {
 			this.mesh.addRotation(timer.delta * 9, timer.delta * 4, 0);

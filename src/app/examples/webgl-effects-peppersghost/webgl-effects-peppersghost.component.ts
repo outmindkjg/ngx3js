@@ -8,7 +8,7 @@ import { NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 'ngx3j
 })
 export class WebglEffectsPeppersghostComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	setMesh(mesh: NgxMeshComponent) {

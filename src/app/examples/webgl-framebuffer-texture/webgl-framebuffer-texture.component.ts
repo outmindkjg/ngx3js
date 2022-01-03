@@ -10,7 +10,7 @@ import {
 })
 export class WebglFramebufferTextureComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	loadGeometry(geometry: I3JS.BufferGeometry) {

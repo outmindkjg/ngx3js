@@ -8,7 +8,7 @@ import { NgxBaseComponent, NURBSCurve, NURBSSurface, THREE } from 'ngx3js';
 })
 export class WebglGeometryNurbsComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	nurbsCurvePoints: any = null;

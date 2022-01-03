@@ -8,7 +8,7 @@ import { NgxBaseComponent, IRendererTimer } from 'ngx3js';
 })
 export class WebglGeometryConvexComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	onRender(timer: IRendererTimer) {

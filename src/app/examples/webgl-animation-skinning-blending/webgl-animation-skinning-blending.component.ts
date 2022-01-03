@@ -149,7 +149,7 @@ export class WebglAnimationSkinningBlendingComponent extends NgxBaseComponent<{
 					],
 				},
 			]
-		);
+		, false, false);
 	}
 
 	mixer: NgxMixerComponent = null;

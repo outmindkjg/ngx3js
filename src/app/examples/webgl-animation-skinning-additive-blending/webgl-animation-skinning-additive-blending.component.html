@@ -3,6 +3,7 @@
 	Skeletal Additive Animation Blending (model from
 	<a href="https://www.mixamo.com/" target="_blank" rel="noopener">mixamo.com</a
 	>)<br />
+	todo
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -10,6 +11,7 @@
 	[statsMode]="0"
 	[antialias]="true"
 	[clearColor]="'0xffffff'"
+	[outputEncoding]="'sRGBEncoding'"
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
@@ -75,12 +77,18 @@
 					[weight]="controls.sad_pose"
 					[additive]="true"
 					[subclip]="true"
+					[startFrame]="2"
+					[endFrame]="3"
+					[fps]="30"
 					[name]="'sad_pose'"
 				></ngx3js-clip>
 				<ngx3js-clip
 					[weight]="controls.sneak_pose"
 					[additive]="true"
 					[subclip]="true"
+					[startFrame]="2"
+					[endFrame]="3"
+					[fps]="30"
 					[name]="'sneak_pose'"
 				></ngx3js-clip>
 			</ngx3js-mixer>

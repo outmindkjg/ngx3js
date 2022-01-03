@@ -8,7 +8,7 @@ import { NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 })
 export class WebglEffectsAnaglyphComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	models: { x: number; y: number; z: number; scale: number }[] = [];

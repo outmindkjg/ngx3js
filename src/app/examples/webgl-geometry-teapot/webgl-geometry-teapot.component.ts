@@ -230,49 +230,31 @@ export class WebglGeometryTeapotComponent extends NgxBaseComponent<{
 							type: 'select',
 							select: [2, 3, 4, 5, 6, 8, 10, 15, 20, 30, 40, 50],
 							title: 'Tessellation Level',
-							change: () => {
-								this.createTeapot();
-							},
 						},
 						{
 							name: 'lid',
 							type: 'checkbox',
 							title: 'display lid',
-							change: () => {
-								this.createTeapot();
-							},
 						},
 						{
 							name: 'body',
 							type: 'checkbox',
 							title: 'display body',
-							change: () => {
-								this.createTeapot();
-							},
 						},
 						{
 							name: 'bottom',
 							type: 'checkbox',
 							title: 'display bottom',
-							change: () => {
-								this.createTeapot();
-							},
 						},
 						{
 							name: 'fitLid',
 							type: 'checkbox',
 							title: 'snug lid',
-							change: () => {
-								this.createTeapot();
-							},
 						},
 						{
 							name: 'nonblinn',
 							type: 'checkbox',
 							title: 'original scale',
-							change: () => {
-								this.createTeapot();
-							},
 						},
 					],
 				},
@@ -293,10 +275,9 @@ export class WebglGeometryTeapotComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+		, false, false);
 	}
 
-	teapot: I3JS.BufferGeometry = null;
 	material: {
 		type: string;
 		color: number;
@@ -313,9 +294,8 @@ export class WebglGeometryTeapotComponent extends NgxBaseComponent<{
 	ambientLight: number = 0;
 
 	ngOnInit() {
-		this.createTeapot();
-		this.changeColor();
 		this.changeShading();
+		this.changeColor();
 	}
 
 	changeColor() {
@@ -333,10 +313,12 @@ export class WebglGeometryTeapotComponent extends NgxBaseComponent<{
 		}
 		diffuseColor.multiplyScalar(this.controls.kd);
 		Object.entries(this.teapotMaterial).forEach(([, value]) => {
-			value.color = diffuseColor.getHex();
+			if (value.color !== undefined) {
+				value.color = diffuseColor.getHex();
+			}
 		});
 		specularColor.multiplyScalar(this.controls.ks);
-		this.teapotMaterial.phong.specular = specularColor.getHex();
+		this.teapotMaterial.flat.specular = specularColor.getHex();
 		this.teapotMaterial.textured.specular = specularColor.getHex();
 
 		const ambientLight = new THREE.Color();
@@ -365,10 +347,10 @@ export class WebglGeometryTeapotComponent extends NgxBaseComponent<{
 				this.material = this.teapotMaterial.flat;
 				break;
 			case 'smooth':
-				this.material = this.teapotMaterial.gouraud;
+				this.material = this.teapotMaterial.smooth;
 				break;
 			case 'glossy':
-				this.material = this.teapotMaterial.phong;
+				this.material = this.teapotMaterial.glossy;
 				break;
 			case 'textured':
 				this.material = this.teapotMaterial.textured;
@@ -391,15 +373,14 @@ export class WebglGeometryTeapotComponent extends NgxBaseComponent<{
 			side: 'double',
 			wireframe: false,
 		},
-		gouraud: {
+		smooth: {
 			type: 'MeshLambert',
 			color: 0xffffff,
 			side: 'double',
 			wireframe: false,
 		},
-		phong: {
+		glossy: {
 			type: 'MeshPhong',
-			color: 0xffffff,
 			side: 'double',
 			wireframe: false,
 		},
@@ -419,19 +400,4 @@ export class WebglGeometryTeapotComponent extends NgxBaseComponent<{
 			env: true,
 		},
 	};
-
-	createTeapot() {
-		if (this.teapot !== null) {
-			this.teapot.dispose();
-		}
-		this.teapot = new TeapotGeometry(
-			this.teapotSize,
-			this.controls.newTess,
-			this.controls.bottom,
-			this.controls.lid,
-			this.controls.body,
-			this.controls.fitLid,
-			this.controls.nonblinn ? false : true
-		);
-	}
 }

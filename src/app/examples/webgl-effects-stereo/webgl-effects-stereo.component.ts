@@ -23,7 +23,7 @@ export class WebglEffectsStereoComponent extends NgxBaseComponent<{
 					step: 0.001,
 				},
 			]
-		);
+		, false, false);
 	}
 
 	models: { x: number; y: number; z: number; scale: number }[] = [];

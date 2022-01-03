@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import {
-	I3JS, NgxBaseComponent,
-	NgxCameraComponent, NgxMeshComponent, IRendererTimer, THREE
+	I3JS,
+	NgxBaseComponent,
+	NgxCameraComponent,
+	NgxMeshComponent,
+	IRendererTimer,
+	THREE,
+	IRendererEvent,
 } from 'ngx3js';
 
 @Component({
@@ -19,11 +24,29 @@ export class WebglCameraComponent extends NgxBaseComponent<{
 				title: 'CamaraType',
 				type: 'select',
 				select: ['perspective', 'orthographic'],
+				listen: true,
 				change: () => {
 					this.changeCameraType();
 				},
 			},
-		]);
+		], false, false);
+	}
+
+	eventListener(event: IRendererEvent) {
+		switch (event.type) {
+			case 'keydown':
+				switch (event.keyInfo.code) {
+					case 'KeyO':
+						this.controls.cameraType = 'orthographic';
+						this.changeCameraType();
+						break;
+					case 'KeyP':
+						this.controls.cameraType = 'perspective';
+						this.changeCameraType();
+						break;
+				}
+				break;
+		}
 	}
 
 	vertices: number[] = [];

@@ -13,6 +13,8 @@
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
 	(onRender)="onRender($event)"
+	[useEvent]="'keydown'"
+	(eventListener)="eventListener($event)"
 	[autoClear]="true"
 >
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>

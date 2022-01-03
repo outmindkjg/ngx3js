@@ -1,5 +1,5 @@
 <div class="info">
-	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - solid geometry with clip planes and stencil materials
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -21,27 +21,27 @@
 	<ngx3js-shared>
 		<ngx3js-plane
 			#plane1
-			(onLoad)="setLocalPlane($event)"
 			[x]="-1"
 			[y]="0"
 			[z]="0"
-			[w]="0"
+			[w]="controls.planeX.constant"
+			[negate]="controls.planeX.negated"
 		></ngx3js-plane>
 		<ngx3js-plane
 			#plane2
-			(onLoad)="setLocalPlane($event)"
 			[x]="0"
 			[y]="-1"
 			[z]="0"
-			[w]="0"
+			[w]="controls.planeY.constant"
+			[negate]="controls.planeY.negated"
 		></ngx3js-plane>
 		<ngx3js-plane
 			#plane3
-			(onLoad)="setLocalPlane($event)"
 			[x]="0"
 			[y]="0"
 			[z]="-1"
-			[w]="0"
+			[w]="controls.planeZ.constant"
+			[negate]="controls.planeZ.negated"
 		></ngx3js-plane>
 	</ngx3js-shared>
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
@@ -63,11 +63,6 @@
 			[shadowMapSizeWidth]="1024"
 			[shadowMapSizeHeight]="1024"
 		>
-			<ngx3js-helper
-				[type]="'light'"
-				[color]="'0xffffff'"
-				[size]="1"
-			></ngx3js-helper>
 			<ngx3js-position [x]="5" [y]="10" [z]="7.5"></ngx3js-position>
 		</ngx3js-light>
 		<ngx3js-mesh
@@ -79,13 +74,29 @@
 			[renderOrder]="6"
 			[usePlaneStencil]="true"
 		>
+			<ngx3js-mesh>
 			<ngx3js-helper
-				(onLoad)="setLocalHelper($event)"
+				[visible]="controls.planeX.displayHelper"
 				[type]="'plane'"
-				[visible]="false"
-				[size]="1.3"
-				[color]="'0xffffff'"
+				[plane]="plane1"
+				[size]="2"
+				[color]="'0xff0000'"
 			></ngx3js-helper>
+			<ngx3js-helper
+				[visible]="controls.planeY.displayHelper"
+				[type]="'plane'"
+				[plane]="plane2"
+				[size]="2"
+				[color]="'0x00ff00'"
+			></ngx3js-helper>
+			<ngx3js-helper
+				[visible]="controls.planeZ.displayHelper"
+				[type]="'plane'"
+				[plane]="plane3"
+				[size]="2"
+				[color]="'0x0000ff'"
+			></ngx3js-helper>
+		</ngx3js-mesh>
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
 			<ngx3js-geometry
 				[type]="'TorusKnot'"

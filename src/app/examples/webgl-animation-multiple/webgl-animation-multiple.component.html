@@ -12,6 +12,7 @@
 	[statsMode]="0"
 	[antialias]="true"
 	[clearColor]="'0xffffff'"
+	[outputEncoding]="'sRGBEncoding'"
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
@@ -19,10 +20,10 @@
 >
 	<ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="10000">
-		<ngx3js-position [x]="3" [y]="6" [z]="-10"></ngx3js-position>
+		<ngx3js-position [x]="2" [y]="3" [z]="-6"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-scene #scene [background]="'0xe0e0e0'">
-		<ngx3js-fog [color]="'0xe0e0e0'" [near]="10" [far]="22"></ngx3js-fog>
+		<ngx3js-fog [color]="'0xe0e0e0'" [near]="10" [far]="50"></ngx3js-fog>
 		<ngx3js-light
 			[type]="'Hemisphere'"
 			[skyColor]="'0xffffff'"
@@ -35,10 +36,10 @@
 			[color]="'0xffffff'"
 			[intensity]="1"
 			[castShadow]="true"
-			[shadowCameraTop]="5"
-			[shadowCameraBottom]="-5"
-			[shadowCameraLeft]="-5"
-			[shadowCameraRight]="5"
+			[shadowCameraTop]="4"
+			[shadowCameraBottom]="-4"
+			[shadowCameraLeft]="-4"
+			[shadowCameraRight]="4"
 			[shadowCameraNear]="0.1"
 			[shadowCameraFar]="40"
 		>
@@ -51,7 +52,7 @@
 				[castShadow]="true"
 			>
 				<ngx3js-scale [multiply]="1"></ngx3js-scale>
-				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-position [x]="-2" [y]="0" [z]="0"></ngx3js-position>
 				<ngx3js-mixer [action]="'Idle'">
 					<ngx3js-clip [name]="'Idle'"></ngx3js-clip>
 				</ngx3js-mixer>
@@ -60,10 +61,10 @@
 				[storageName]="'models/gltf/Soldier.glb'"
 				[castShadow]="true"
 			>
-				<ngx3js-scale [multiply]="2"></ngx3js-scale>
-				<ngx3js-position [x]="3" [y]="0" [z]="0"></ngx3js-position>
-				<ngx3js-mixer [action]="'Walk'">
-					<ngx3js-clip [name]="'Walk'"></ngx3js-clip>
+				<ngx3js-scale [multiply]="1"></ngx3js-scale>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-mixer [action]="'Run'">
+					<ngx3js-clip [name]="'Run'"></ngx3js-clip>
 				</ngx3js-mixer>
 			</ngx3js-mesh>
 			<ngx3js-mesh
@@ -71,23 +72,10 @@
 				[castShadow]="true"
 			>
 				<ngx3js-scale [multiply]="1"></ngx3js-scale>
-				<ngx3js-position [x]="1" [y]="0" [z]="0"></ngx3js-position>
-				<ngx3js-mixer [action]="'Run'">
-					<ngx3js-clip [name]="'Run'"></ngx3js-clip>
+				<ngx3js-position [x]="2" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-mixer [action]="'Walk'">
+					<ngx3js-clip [name]="'Walk'"></ngx3js-clip>
 				</ngx3js-mixer>
-			</ngx3js-mesh>
-			<ngx3js-mesh [storageName]="'models/gltf/Parrot.glb'" [castShadow]="true">
-				<ngx3js-scale [multiply]="0.01"></ngx3js-scale>
-				<ngx3js-position [x]="-4" [y]="1" [z]="0"></ngx3js-position>
-				<ngx3js-rotation [x]="0" [y]="180" [z]="0"></ngx3js-rotation>
-				<ngx3js-mixer [action]="'parrot_A_'">
-					<ngx3js-clip [name]="'parrot_A_'"></ngx3js-clip>
-				</ngx3js-mixer>
-			</ngx3js-mesh>
-			<ngx3js-mesh [storageName]="'models/gltf/Parrot.glb'" [castShadow]="true">
-				<ngx3js-scale [multiply]="0.02"></ngx3js-scale>
-				<ngx3js-position [x]="-2" [y]="1" [z]="0"></ngx3js-position>
-				<ngx3js-rotation [x]="0" [y]="90" [z]="0"></ngx3js-rotation>
 			</ngx3js-mesh>
 		</ngx3js-mesh>
 		<ngx3js-mesh [receiveShadow]="true">

@@ -29,7 +29,7 @@ export class WebglCameraLogarithmicdepthbufferComponent extends NgxBaseComponent
 				{ name: 'screenRate', type: 'number', min: 0, max: 100 },
 				{ name: 'reset', type: 'button' },
 			]
-		);
+		, false, false);
 	}
 
 	labelData: { size: number; scale: number; label: string; color?: number }[] =

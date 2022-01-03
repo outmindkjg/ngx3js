@@ -19,16 +19,17 @@
 	[statsMode]="0"
 	[antialias]="true"
 	[clearColor]="'0xffffff'"
+	[outputEncoding]="'sRGBEncoding'"
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
 	(onRender)="onRender($event)"
 >
+	<ngx3js-lookat [x]="0" [y]="0.5" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="100">
 		<ngx3js-position [x]="5" [y]="2" [z]="8"></ngx3js-position>
-		<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	</ngx3js-camera>
-	<ngx3js-scene #scene [background]="'0xbfe3dd'">
+	<ngx3js-scene #scene [background]="'0xbfe3dd'" [environment]="{ value : 'RoomEnvironment.room', sigma : 0.04}">
 		<ngx3js-mesh
 			[type]="'light'"
 			[lightOptions]="{

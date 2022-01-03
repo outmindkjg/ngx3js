@@ -109,7 +109,7 @@ export class WebglAnimationSkinningMorphComponent extends NgxBaseComponent<{
 					isOpen: true,
 				},
 			]
-		);
+		, false, false);
 	}
 
 	fadeToAction(

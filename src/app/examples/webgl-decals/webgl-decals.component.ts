@@ -28,7 +28,7 @@ export class WebglDecalsComponent extends NgxBaseComponent<{
 				{ name: 'rotate', type: 'checkbox' },
 				{ name: 'clear', type: 'button' },
 			]
-		);
+		, false, false);
 	}
 
 	private move: boolean = false;
