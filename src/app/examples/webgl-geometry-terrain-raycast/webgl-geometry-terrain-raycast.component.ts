@@ -8,7 +8,7 @@ import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererEvent } from 'ngx3js
 })
 export class WebglGeometryTerrainRaycastComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	helper: I3JS.Mesh = null;

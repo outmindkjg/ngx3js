@@ -16,7 +16,6 @@ code.prettyprint {
 		border-color: var(--color-blue);
 	}
 }
-
 pre {
 	position: relative;
 	>span.language-type {
@@ -262,21 +261,22 @@ div#docs {
 		bottom: 0;
 		right: 0;
 		background-color: var(--background-color);
-		opacity: 0.9;
+		opacity: 0.95;
 		z-index: -1;
 	}
 	#panel #content h2,
 	#panel #content h3{
 		position: sticky;
 		left:0;right:0;
-		z-index: 100;
 		padding: 3px 10px;
+		border-bottom: 1px solid var(--secondary-background-color);
 	}
 	#panel #content h2 {
-		top :0;
+		z-index: 100;
+		top :0px;
 	}
 	#panel #content h3{
-		top :35px;
+		top :33px;
 		z-index: 99;
 	}
 
@@ -343,7 +343,7 @@ div#docs {
 		h2[id],
 		h3[id],
 		h4[id] {
-			scroll-margin: 30px;
+			scroll-margin-top: 70px;
 		}
 	}
 	hr.interface-line {

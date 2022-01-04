@@ -87,12 +87,12 @@ export class DocsComponent implements OnInit {
 			this.setFocus(this.menuId.split('.')[0]);
 		}
 	}
-	
+
 	private lastFocus: string = null;
 
 	setFocus(menuId: string) {
 		if (this.ele.nativeElement) {
-			if (this.list === null) {
+			if (!this.isLoaded) {
 				setTimeout(() => {
 					this.setFocus(menuId);
 				}, 500);
@@ -206,6 +206,14 @@ export class DocsComponent implements OnInit {
 		}
 	}
 
+	subChildMenu : { id: string; name: string }[] = null;
+	changeSubPage(menuId: string, subMenuList: { id: string; name: string }[]) {
+		this.subChildMenu = [];
+		subMenuList.forEach(menu => {
+			this.subChildMenu.push({ id : '/docs/' + menuId + '.'+ menu.id, name : menu.name})
+		});
+	}
+
 	changeLocale(locale: Event) {
 		const language = (locale.target as any).value;
 		this.menuId = this.menuId.replace(
@@ -231,9 +239,12 @@ export class DocsComponent implements OnInit {
 			this.list['zh'],
 			this.list['ja'],
 		]);
-		if (this.menuId !== null) {
-			this.setFocus(this.menuId.split('.')[0]);
-		}
+		setTimeout(() => {
+			this.isLoaded = true;
+			if (this.menuId !== null) {
+				this.setFocus(this.menuId.split('.')[0]);
+			}
+		}, 1000);
 	}
 
 	docsAlias: { [key: string]: string[] } = {
@@ -501,4 +512,6 @@ export class DocsComponent implements OnInit {
 	private list: {
 		[key: string]: { [key: string]: { [key: string]: string } };
 	} = null;
+
+	private isLoaded: boolean = false;
 }

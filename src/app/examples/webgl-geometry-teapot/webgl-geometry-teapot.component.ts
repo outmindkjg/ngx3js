@@ -393,10 +393,9 @@ export class WebglGeometryTeapotComponent extends NgxBaseComponent<{
 		},
 		reflective: {
 			type: 'MeshPhong',
-			color: 0xffffff,
 			side: 'double',
 			wireframe: false,
-			map: true,
+			map: false,
 			env: true,
 		},
 	};

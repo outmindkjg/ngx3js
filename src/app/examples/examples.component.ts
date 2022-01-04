@@ -73,7 +73,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 	private lastFocus : string = null;
 	setFocus(menuId: string) {
 		if (this.ele.nativeElement) {
-			if (this.files === null) {
+			if (!this.isLoaded) {
 				setTimeout(() => {
 					this.setFocus(menuId);
 				}, 500);
@@ -157,8 +157,9 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 		});
 		if (this.menuId !== null) {
 			setTimeout(()=> {
+				this.isLoaded = true;
 				this.setFocus(this.menuId);
-			}, 2000);
+			}, 1000);
 		}
 	}
 
@@ -307,6 +308,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 		children: SearchMenu[];
 	}[] = [];
 
+	private isLoaded: boolean = false;
 	private files: { [key: string]: string[] } = null;
 
 	private tags: { [key: string]: string[] } = null;

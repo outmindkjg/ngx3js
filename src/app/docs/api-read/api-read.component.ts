@@ -59,7 +59,8 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 	changeRouter(url: string) {
 		const menuId = url.substr(6).split('.')[0];
 		if (this.menuId !== menuId) {
-			this.menuId = url.substr(6).split('.')[0];
+			this.isLoaded = false;
+			this.menuId = url.substring(6).split('.')[0];
 			this.pageName = /[\-A-z0-9]+$/.exec(this.menuId).toString();
 			this.tagName = url.indexOf('.') > 0 ? url.split('.')[1] : null;
 			this.http
@@ -81,7 +82,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		} else {
 			this.tagName = url.indexOf('.') > 0 ? url.split('.')[1] : null;
 			if (this.tagName !== null && this.tagName !== '') {
-				this.setFocus(this.tagName, 500);
+				this.setFocus(this.tagName);
 			}
 		}
 	}
@@ -274,15 +275,29 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 			/\[example:([\w\_/]+) ([\w\:\/\.\-\_ \s]+)\]/gi,
 			'<a href="#examples/$1">$2</a>'
 		); // [example:name title]
-
+		text = text.replace(/<h2>([^<]+)<\/h2>/gi, function(_, p1) {
+			let id:string = p1.trim().replace(/ /g, '_');
+			if (!/^[a-zA-Z0-9_]+$/.test(id)) {
+				id = 'h2_' +((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+			}
+			return '<h2 id="'+id+'">'+p1+'</h2>'
+		});
 		text = text.replace(/(\w|\')\|(\w|\')/gi, '$1 | $2');
 		text = text.replace(/emptyName : /gi, '');
-
 		text = text
 			.replace(/\<code>/gi, '<pre><code>')
 			.replace(/\<code /gi, '<pre><code ')
 			.replace(/\<\/code>/gi, '</code></pre>');
 		this.docEle.nativeElement.innerHTML = text;
+		const linksH2: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('h2');
+		const h2Menus : { id : string, name : string}[] = [];
+		for (let i = 0; i < linksH2.length; i++) {
+			const link = linksH2[i];
+			if (link.hasAttribute('id')) {
+				h2Menus.push({ id : link.getAttribute('id'), name : link.textContent });
+			}
+		}
+		this.docsComponent.changeSubPage(this.menuId, h2Menus);
 		const links = this.docEle.nativeElement.getElementsByTagName('a');
 		for (let i = 0; i < links.length; i++) {
 			const link = links[i];
@@ -291,7 +306,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				const href: string = htmlAnchorElement.getAttribute(
 					'href'
 				);
-				let hrefId = href.substr(href.indexOf('#') + 1);
+				let hrefId = href.substring(href.indexOf('#') + 1);
 				if (
 					href.startsWith('http://') ||
 					href.startsWith('https://') ||
@@ -302,7 +317,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 					this.setFocus(null);
 				} else {
 					if (!hrefId.startsWith('THREE.') && hrefId.startsWith(this.pageName + '.')) {
-						hrefId = hrefId.substr(this.pageName.length + 1);
+						hrefId = hrefId.substring(this.pageName.length + 1);
 					} 
 					if (this.setElementById(hrefId) !== null) {
 						this.router.navigateByUrl('/docs/' + this.menuId + '.' + hrefId);
@@ -382,13 +397,14 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 					code.innerHTML = hi.value;
 				});
 		}
-		if (this.tagName !== null) {
-			this.setFocus(this.tagName, 1000);
-			this.tagName = null;
-		} else {
-			this.setFocus(null);
-		}
 		setTimeout(() => {
+			this.isLoaded = true;
+			if (this.tagName !== null) {
+				this.setFocus(this.tagName);
+				this.tagName = null;
+			} else {
+				this.setFocus(null);
+			}
 			const docEle: HTMLDivElement =
 				this.docEle.nativeElement.parentElement.parentElement.parentElement;
 			this.checkScrollIframe(docEle);
@@ -427,6 +443,8 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		};
 		this._docEle.addEventListener('scroll', this._onScrollBind);
 	}
+
+	private isLoaded: boolean = false;
 
 	private checkScrollIframe(docEle: HTMLDivElement) {
 		if (docEle) {
@@ -486,8 +504,12 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		return selected;
 	}
 
-	setFocus(menuId: string, timeOut: number = 200) {
-		setTimeout(() => {
+	setFocus(menuId: string) {
+		if (!this.isLoaded) {
+			setTimeout(() => {
+				this.setFocus(menuId);
+			}, 500)
+		} else {
 			if (menuId !== null) {
 				let selected: HTMLElement = this.setElementById(menuId);
 				if (selected !== null) {
@@ -499,6 +521,6 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 					behavior: 'smooth',
 				});
 			}
-		}, timeOut);
+		}
 	}
 }

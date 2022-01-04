@@ -45,6 +45,14 @@
 									[ngClass]="gchild.selected ? 'selected' : 'unselected'"
 									(click)="setFocus(gchild.id)"
 								>{{ gchild.name }}</a>
+								<ul *ngIf="gchild.selected && subChildMenu !== null && subChildMenu.length > 0">
+									<li *ngFor="let schild of subChildMenu">
+										<a
+											[href]="'#' + schild.id"
+											[routerLink]="schild.id"
+										>{{ schild.name }}</a>
+									</li>
+								</ul>
 							</li>
 						</ul>
 					</div>

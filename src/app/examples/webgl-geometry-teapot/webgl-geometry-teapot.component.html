@@ -7,6 +7,7 @@
 		target="_blank"
 		rel="noopener"
 		>Udacity Interactive 3D Graphics</a>
+		/ todo
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -42,7 +43,7 @@
 		<ngx3js-material #background [materialType]="'background'" [map]="envMap">
 		</ngx3js-material>
 	</ngx3js-shared>
-	<ngx3js-scene #scene [background]="material.env ? background : null">
+	<ngx3js-scene #scene [background]="material.env ? envMap : null">
 		<ngx3js-light
 			[type]="'ambientLight'"
 			[color]="'0x333333'"

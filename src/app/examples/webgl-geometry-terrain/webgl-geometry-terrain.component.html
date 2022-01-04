@@ -3,8 +3,8 @@
 	webgl terrain demo<br />(left click: forward, right click: backward)
 </div>
 <ngx3js-renderer
-	[controlType]="'orbit'"
-	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[controlType]="'FirstPersonControls'"
+	[controlOptions]="{ movementSpeed: 150, lookSpeed: 0.1 }"
 	[statsMode]="0"
 	[antialias]="true"
 	[shadowMapEnabled]="true"

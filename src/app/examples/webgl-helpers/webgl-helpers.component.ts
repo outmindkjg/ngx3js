@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { I3JS, NgxBaseComponent, NgxHelperComponent, IRendererTimer } from 'ngx3js';
+import { IRendererTimer, NgxBaseComponent, NgxHelperComponent, NgxLightComponent, Object3D } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-helpers',
@@ -8,15 +8,7 @@ import { I3JS, NgxBaseComponent, NgxHelperComponent, IRendererTimer } from 'ngx3
 })
 export class WebglHelpersComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
-	}
-
-	selectStoreMesh(object: I3JS.Object3D): I3JS.Object3D {
-		const mesh = object.children[0] as any;
-		if (mesh.geometry) {
-			mesh.geometry.computeTangents();
-		}
-		return mesh;
+		super({}, [], false, false);
 	}
 
 	setHelper(helper: NgxHelperComponent, type: string) {
@@ -30,6 +22,10 @@ export class WebglHelpersComponent extends NgxBaseComponent<{}> {
 		}
 	}
 
+	setLight(light : NgxLightComponent) {
+		this.light = light.getLight();
+	}
+	light : Object3D = null;
 	vertexNormals: any = null;
 	vertexTangents: any = null;
 
@@ -40,6 +36,13 @@ export class WebglHelpersComponent extends NgxBaseComponent<{}> {
 		}
 		if (this.vertexTangents !== null && this.vertexTangents.update) {
 			this.vertexTangents.update();
+		}
+		if (this.light !== null) {
+			const light = this.light;
+			const time = timer.elapsedTime / 3;
+			light.position.x = Math.sin( time * 1.7 ) * 300;
+			light.position.y = Math.cos( time * 1.5 ) * 400;
+			light.position.z = Math.cos( time * 1.3 ) * 300;
 		}
 	}
 }

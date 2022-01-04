@@ -306,6 +306,9 @@ body.home #panel #sections {
 #panel #content ul li {
 	margin: 1px 0;
 }
+#panel #content ul li ul{
+	margin-left: 10px;
+}
 
 #panel #content h2:not(.hidden) {
 	margin-top: 16px;

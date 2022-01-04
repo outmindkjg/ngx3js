@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgxBaseComponent } from 'ngx3js';
+import { IRendererEvent, NgxBaseComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-geometry-text',
@@ -14,7 +14,6 @@ export class WebglGeometryTextComponent extends NgxBaseComponent<{
 	curveSegments: number;
 	bevelThickness: number;
 	bevelSize: number;
-	text: string;
 	bevelEnabled: boolean;
 	fontName: string;
 	fontWeight: string;
@@ -25,11 +24,10 @@ export class WebglGeometryTextComponent extends NgxBaseComponent<{
 				color: 0xc56b1a,
 				height: 20,
 				size: 70,
-				hover: 30,
+				hover: 55,
 				curveSegments: 4,
 				bevelThickness: 2,
 				bevelSize: 1.5,
-				text: 'three.js',
 				bevelEnabled: true,
 				fontName: 'optimer',
 				fontWeight: 'bold',
@@ -56,6 +54,36 @@ export class WebglGeometryTextComponent extends NgxBaseComponent<{
 				},
 				{ name: 'bevelEnabled', type: 'checkbox', title: 'Bevel Enabled' },
 			]
-		);
+		, false, false);
+	}
+
+	text: string = 'three.js';
+	firstLetter : boolean = true;
+	onDocumentKeyPress(event : IRendererEvent) {
+		switch(event.type) {
+			case 'keydown' :
+				if ( this.firstLetter ) {
+					this.firstLetter = false;
+					this.text = '';
+				}
+				switch(event.keyInfo.code) {
+					case 'Backspace' :
+						this.text = this.text.substring( 0, this.text.length - 1 );
+						break;
+				}
+				break;
+			case 'keypress' :
+				switch(event.keyInfo.code) {
+					case 'Enter' :
+					case 'Backspace' :
+						break;
+					default :
+						this.text += event.keyInfo.key;
+						break;
+				}
+				break;
+			default :
+				break;
+		}
 	}
 }
