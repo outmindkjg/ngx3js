@@ -147,7 +147,7 @@ export class WebglPostprocessingSsrrComponent extends NgxBaseComponent<{
 					],
 				},
 			]
-		);
+			,false , false);
 	}
 
 	selectableMesh: I3JS.Mesh[] = [];

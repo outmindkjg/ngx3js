@@ -8,7 +8,7 @@ import { NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js';
 })
 export class WebglLightsPointlightsComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	light1: any = null;

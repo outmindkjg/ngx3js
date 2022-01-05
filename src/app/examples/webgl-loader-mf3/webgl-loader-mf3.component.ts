@@ -26,6 +26,6 @@ export class WebglLoaderMf3Component extends NgxBaseComponent<{
 					],
 				},
 			]
-		);
+			,false , false);
 	}
 }

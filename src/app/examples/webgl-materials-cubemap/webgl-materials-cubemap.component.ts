@@ -8,6 +8,6 @@ import { NgxBaseComponent } from 'ngx3js';
 })
 export class WebglMaterialsCubemapComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 }

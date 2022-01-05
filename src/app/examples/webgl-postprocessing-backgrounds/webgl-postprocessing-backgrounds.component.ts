@@ -42,6 +42,6 @@ export class WebglPostprocessingBackgroundsComponent extends NgxBaseComponent<{
 				{ name: 'cubeTexturePassOpacity', type: 'number', min: 0, max: 1 },
 				{ name: 'renderPass', type: 'checkbox' },
 			]
-		);
+			,false , false);
 	}
 }

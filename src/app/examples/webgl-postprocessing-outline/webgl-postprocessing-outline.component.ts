@@ -38,7 +38,7 @@ export class WebglPostprocessingOutlineComponent extends NgxBaseComponent<{
 				{ name: 'visibleEdgeColor', type: 'color' },
 				{ name: 'hiddenEdgeColor', type: 'color' },
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

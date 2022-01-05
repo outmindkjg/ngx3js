@@ -61,6 +61,6 @@ export class WebglLoaderSvgComponent extends NgxBaseComponent<{
 					title: 'Wireframe fill shapes',
 				},
 			]
-		);
+			,false , false);
 	}
 }

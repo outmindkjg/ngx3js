@@ -21,6 +21,6 @@ export class WebglPostprocessingProceduralComponent extends NgxBaseComponent<{
 					select: ['noiseRandom1D', 'noiseRandom2D', 'noiseRandom3D'],
 				},
 			]
-		);
+			,false , false);
 	}
 }

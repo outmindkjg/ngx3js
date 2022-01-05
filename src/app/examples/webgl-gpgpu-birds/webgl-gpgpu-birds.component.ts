@@ -8,7 +8,7 @@ import { GPUComputationRenderer, NgxBaseComponent } from 'ngx3js';
 })
 export class WebglGpgpuBirdsComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	fragmentShaderPosition = `

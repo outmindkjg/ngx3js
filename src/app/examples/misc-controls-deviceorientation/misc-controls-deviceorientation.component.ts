@@ -8,6 +8,6 @@ import { NgxBaseComponent } from 'ngx3js';
 })
 export class MiscControlsDeviceorientationComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 }

@@ -24,6 +24,6 @@ export class WebglMaterialsEnvmapsComponent extends NgxBaseComponent<{
 				},
 				{ name: 'refraction', type: 'checkbox' },
 			]
-		);
+			,false , false);
 	}
 }

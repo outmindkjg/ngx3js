@@ -8,7 +8,7 @@ import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 
 })
 export class WebglCustomAttributesPoints3Component extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	vertices1: number = 0;

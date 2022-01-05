@@ -20,6 +20,6 @@ export class WebglMaterialsTextureCanvasComponent extends NgxBaseComponent<{
 				{ name: 'backgroundColor', type: 'color' },
 				{ name: 'lineColor', type: 'color' },
 			]
-		);
+			,false , false);
 	}
 }

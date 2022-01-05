@@ -203,7 +203,7 @@ export class WebglLightningstrikeComponent extends NgxBaseComponent<{
 					],
 				},
 			]
-		);
+			, false, false);
 	}
 
 	ngOnInit() {

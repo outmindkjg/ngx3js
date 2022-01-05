@@ -44,7 +44,7 @@ export class WebglPostprocessingTaaComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	setTaaPass(pass: NgxPassComponent) {

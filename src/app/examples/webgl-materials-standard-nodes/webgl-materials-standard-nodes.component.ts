@@ -24,6 +24,6 @@ export class WebglMaterialsStandardNodesComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 }

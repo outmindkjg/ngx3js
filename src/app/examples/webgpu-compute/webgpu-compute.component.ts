@@ -8,6 +8,6 @@ import { NgxBaseComponent } from 'ngx3js';
 })
 export class WebgpuComputeComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 }

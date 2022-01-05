@@ -12,7 +12,7 @@ import {
 })
 export class WebglInstancingModifiedComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	amount: number = 8;

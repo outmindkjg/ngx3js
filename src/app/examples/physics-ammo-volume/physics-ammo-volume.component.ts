@@ -8,7 +8,7 @@ import { NgxBaseComponent, IRendererEvent } from 'ngx3js';
 })
 export class PhysicsAmmoVolumeComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({});
+		super({}, [], false, false);
 	}
 
 	ballInfos: {

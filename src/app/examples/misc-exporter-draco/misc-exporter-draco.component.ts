@@ -20,6 +20,6 @@ export class MiscExporterDracoComponent extends NgxBaseComponent<{
 				},
 			},
 			[{ name: 'export', type: 'button' }]
-		);
+			,false , false);
 	}
 }

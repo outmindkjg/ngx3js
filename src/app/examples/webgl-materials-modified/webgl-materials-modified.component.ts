@@ -8,7 +8,7 @@ import { I3JS, NgxBaseComponent, NgxMaterialComponent, IRendererTimer } from 'ng
 })
 export class WebglMaterialsModifiedComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	setMaterial(matCom: NgxMaterialComponent, amount: number) {

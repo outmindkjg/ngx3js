@@ -53,7 +53,7 @@ export class WebglMaterialsPhysicalTransmissionComponent extends NgxBaseComponen
 				},
 				{ name: 'exposure', type: 'number', min: 0, max: 1 },
 			]
-		);
+			,false , false);
 	}
 
 	onRender(timer: IRendererTimer) {

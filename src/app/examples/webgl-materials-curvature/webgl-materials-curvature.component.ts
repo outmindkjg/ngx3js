@@ -37,7 +37,9 @@ export class WebglMaterialsCurvatureComponent extends NgxBaseComponent<{
 				{ name: 'filterConvex', type: 'button' },
 				{ name: 'filterConcave', type: 'button' },
 				{ name: 'filterBoth', type: 'button' },
-			]
+			],
+			false,
+			false
 		);
 	}
 
@@ -140,7 +142,6 @@ export class WebglMaterialsCurvatureComponent extends NgxBaseComponent<{
 				array[3 * (i + 2) + 1],
 				array[3 * (i + 2) + 2]
 			);
-
 			const normA = new THREE.Vector3(
 				normArray[3 * i],
 				normArray[3 * i + 1],
@@ -239,7 +240,7 @@ export class WebglMaterialsCurvatureComponent extends NgxBaseComponent<{
 			const pos = new THREE.Vector3(
 				array[3 * i],
 				array[3 * i + 1],
-				array[3 * i + 2]
+				array[3 * i + 2],
 			);
 			const str = pos.toArray().toString();
 			curvatureAttribute[i] = curvatureDict[str];

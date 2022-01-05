@@ -17,7 +17,7 @@ export class MiscControlsPointerlockComponent extends NgxBaseComponent<{}> {
 	@ViewChild('blocker') private blocker: ElementRef = null;
 
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	initFloor(floorGeometry: I3JS.BufferGeometry) {

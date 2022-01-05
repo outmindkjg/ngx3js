@@ -12,7 +12,7 @@ import {
 })
 export class MiscControlsDragComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

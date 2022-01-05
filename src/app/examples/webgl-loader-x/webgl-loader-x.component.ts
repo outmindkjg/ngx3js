@@ -25,6 +25,6 @@ export class WebglLoaderXComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 }

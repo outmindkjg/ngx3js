@@ -12,7 +12,7 @@ import {
 })
 export class WebglGeometryHierarchy2Component extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 	meshInfos: { x: number; y: number; z: number }[] = [
 		{ x: 100, y: 0, z: 0 },

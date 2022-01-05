@@ -96,7 +96,7 @@ export class WebglLightsSpotlightComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	lightHelper: any = null;

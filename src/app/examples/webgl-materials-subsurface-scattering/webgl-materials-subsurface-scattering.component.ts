@@ -80,7 +80,7 @@ export class WebglMaterialsSubsurfaceScatteringComponent extends NgxBaseComponen
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	setMatrial(matrial: NgxMaterialComponent) {

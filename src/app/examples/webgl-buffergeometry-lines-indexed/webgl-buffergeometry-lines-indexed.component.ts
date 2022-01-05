@@ -8,7 +8,7 @@ import { NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 })
 export class WebglBuffergeometryLinesIndexedComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	iteration_count = 4;

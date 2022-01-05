@@ -19,7 +19,7 @@ export class PhysicsAmmoTerrainComponent extends NgxBaseComponent<{
 				},
 			},
 			[{ name: 'addShape', title: 'add', type: 'button' }]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

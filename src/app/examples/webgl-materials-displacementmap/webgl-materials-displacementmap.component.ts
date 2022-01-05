@@ -35,6 +35,6 @@ export class WebglMaterialsDisplacementmapComponent extends NgxBaseComponent<{
 				{ name: 'displacementScale', type: 'number', min: 0, max: 3.0 },
 				{ name: 'normalScale', type: 'number', min: -1, max: 1 },
 			]
-		);
+			,false , false);
 	}
 }

@@ -13,7 +13,7 @@ import {
 })
 export class MiscControlsTransformComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	onUpPosition = new THREE.Vector2();

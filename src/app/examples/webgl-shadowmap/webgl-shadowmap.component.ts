@@ -15,7 +15,7 @@ export class WebglShadowmapComponent extends NgxBaseComponent<{
 				hudEnable: true,
 			},
 			[{ name: 'hudEnable', title: 'show HUD', type: 'checkbox', listen: true }]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

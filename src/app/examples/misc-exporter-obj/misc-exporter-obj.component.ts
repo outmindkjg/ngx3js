@@ -39,7 +39,7 @@ export class MiscExporterObjComponent extends NgxBaseComponent<{
 				},
 				{ name: 'export', title: 'Export to OBJ', type: 'button' },
 			]
-		);
+			,false , false);
 	}
 
 	vertices: number[] = [-50, -50, 0, 50, -50, 0, 50, 50, 0];

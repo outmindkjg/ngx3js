@@ -44,7 +44,7 @@ export class WebglLightsHemisphereComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	hemiLight: any = null;

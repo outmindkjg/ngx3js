@@ -15,7 +15,7 @@ export class WebglMaterialsEnvmapsParallaxComponent extends NgxBaseComponent<{
 				boxProjected: true,
 			},
 			[{ name: 'boxProjected', type: 'checkbox' }]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

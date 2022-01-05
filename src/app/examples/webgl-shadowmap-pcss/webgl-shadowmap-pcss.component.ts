@@ -11,7 +11,7 @@ export class WebglShadowmapPcssComponent
 	implements OnInit, OnDestroy
 {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	PCSS = `

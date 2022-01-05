@@ -36,7 +36,7 @@ export class WebglLoaderGltfExtensionsComponent extends NgxBaseComponent<{
 					change: () => {},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

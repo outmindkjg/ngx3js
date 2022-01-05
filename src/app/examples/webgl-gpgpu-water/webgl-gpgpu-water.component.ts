@@ -32,6 +32,6 @@ export class WebglGpgpuWaterComponent extends NgxBaseComponent<{
 				{ name: 'spheresEnabled', type: 'checkbox' },
 				{ name: 'smoothWater', type: 'button' },
 			]
-		);
+			,false , false);
 	}
 }

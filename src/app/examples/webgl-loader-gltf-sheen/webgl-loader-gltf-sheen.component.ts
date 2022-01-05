@@ -22,7 +22,7 @@ export class WebglLoaderGltfSheenComponent extends NgxBaseComponent<{
 					}
 				},
 			},
-		]);
+		], false, false);
 	}
 
 	material: any;

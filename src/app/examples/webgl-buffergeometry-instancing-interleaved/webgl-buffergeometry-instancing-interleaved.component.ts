@@ -8,7 +8,7 @@ import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 
 })
 export class WebglBuffergeometryInstancingInterleavedComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	vertexBuffer: number[] = [

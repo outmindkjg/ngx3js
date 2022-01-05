@@ -68,7 +68,7 @@ export class WebglLoaderDm3Component extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	setMeshVisible(name: string, visible: boolean) {

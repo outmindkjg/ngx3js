@@ -101,7 +101,7 @@ export class WebglMaterialsTextureRotationComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	updateUvTransform() {}

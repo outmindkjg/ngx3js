@@ -74,7 +74,7 @@ export class MiscExporterGltfComponent extends NgxBaseComponent<{
 					step: 1,
 				},
 			]
-		);
+			,false , false);
 	}
 
 	exportGLTF(name: string | string[], fileName: string) {

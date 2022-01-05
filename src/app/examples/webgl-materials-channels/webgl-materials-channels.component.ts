@@ -27,6 +27,6 @@ export class WebglMaterialsChannelsComponent extends NgxBaseComponent<{
 				{ name: 'camera', type: 'select', select: ['perspective', 'ortho'] },
 				{ name: 'side', type: 'select', select: ['front', 'back', 'double'] },
 			]
-		);
+			,false , false);
 	}
 }

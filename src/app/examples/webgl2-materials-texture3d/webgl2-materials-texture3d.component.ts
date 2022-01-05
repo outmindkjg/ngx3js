@@ -70,7 +70,7 @@ export class Webgl2MaterialsTexture3dComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	setColorMapTexture(shared: NgxSharedComponent) {

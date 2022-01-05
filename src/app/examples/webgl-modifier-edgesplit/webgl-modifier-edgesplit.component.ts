@@ -29,6 +29,6 @@ export class WebglModifierEdgesplitComponent extends NgxBaseComponent<{
 				{ name: 'cutOffAngle', type: 'number', min: 0, max: 180 },
 				{ name: 'tryKeepNormals', type: 'checkbox' },
 			]
-		);
+			,false , false);
 	}
 }

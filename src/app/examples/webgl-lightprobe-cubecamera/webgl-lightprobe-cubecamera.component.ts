@@ -60,7 +60,7 @@ export class WebglLightprobeCubecameraComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			, false, false);
 	}
 	lightProbe: any;
 	directionalLight: any;

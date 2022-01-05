@@ -8,7 +8,7 @@ import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer, THREE } from 
 })
 export class Webgl2MaterialsTexture2darrayComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	uniformsDepth: I3JS.IUniform = null;

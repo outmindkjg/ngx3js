@@ -10,6 +10,6 @@ export class WebglPostprocessingSobelComponent extends NgxBaseComponent<{
 	enable: boolean;
 }> {
 	constructor() {
-		super({ enable: true }, [{ name: 'enable', type: 'checkbox' }]);
+		super({ enable: true }, [{ name: 'enable', type: 'checkbox' }], false, false);
 	}
 }

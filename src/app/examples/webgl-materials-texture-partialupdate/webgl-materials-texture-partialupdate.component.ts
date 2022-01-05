@@ -8,7 +8,7 @@ import { I3JS, NgxBaseComponent, NgxTextureComponent, IRendererTimer, THREE } fr
 })
 export class WebglMaterialsTexturePartialupdateComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	setDiffuseMap(texture: NgxTextureComponent) {

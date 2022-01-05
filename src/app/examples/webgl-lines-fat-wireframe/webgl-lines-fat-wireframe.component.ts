@@ -46,6 +46,6 @@ export class WebglLinesFatWireframeComponent extends NgxBaseComponent<{
 					select: ['2 : 1', '1 : 1', '1 : 2'],
 				},
 			]
-		);
+			,false , false);
 	}
 }

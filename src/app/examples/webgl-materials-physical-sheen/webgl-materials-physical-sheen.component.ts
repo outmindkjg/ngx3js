@@ -32,6 +32,6 @@ export class WebglMaterialsPhysicalSheenComponent extends NgxBaseComponent<{
 				{ name: 'roughness', type: 'number', min: 0, max: 1 },
 				{ name: 'exposure', type: 'number', min: 0, max: 3 },
 			]
-		);
+			,false , false);
 	}
 }

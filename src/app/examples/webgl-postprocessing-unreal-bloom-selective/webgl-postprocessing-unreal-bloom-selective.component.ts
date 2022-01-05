@@ -99,7 +99,7 @@ export class WebglPostprocessingUnrealBloomSelectiveComponent extends NgxBaseCom
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

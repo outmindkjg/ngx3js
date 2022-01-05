@@ -8,6 +8,6 @@ import { NgxBaseComponent  , I3JS, THREE } from 'ngx3js';
 })
 export class WebglLoaderVrmComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 }

@@ -46,7 +46,7 @@ export class WebglMultipleScenesComparisonComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

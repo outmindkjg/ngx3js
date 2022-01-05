@@ -62,7 +62,7 @@ export class Webgl2VolumeCloudComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	updateUniforms() {

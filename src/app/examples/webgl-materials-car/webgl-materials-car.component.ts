@@ -27,7 +27,7 @@ export class WebglMaterialsCarComponent extends NgxBaseComponent<{
 				{ name: 'detail', type: 'color' },
 				{ name: 'glass', type: 'color' },
 			]
-		);
+			,false , false);
 	}
 
 	setGridHelp(helper: NgxHelperComponent) {

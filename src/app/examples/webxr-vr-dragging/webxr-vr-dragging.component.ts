@@ -36,7 +36,7 @@ export class WebxrVrDraggingComponent extends NgxBaseComponent<{
 					],
 				},
 			]
-		);
+			,false , false);
 	}
 
 	setShared(shared: NgxSharedComponent) {

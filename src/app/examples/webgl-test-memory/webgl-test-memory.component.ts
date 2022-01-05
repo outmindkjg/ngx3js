@@ -8,7 +8,7 @@ import { I3JS, NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 })
 export class WebglTestMemoryComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	createImage() {

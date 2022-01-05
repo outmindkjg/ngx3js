@@ -12,7 +12,7 @@ export class Css2dLabelComponent extends NgxBaseComponent<{}> {
 	 *
 	 */
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	/**

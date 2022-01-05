@@ -57,6 +57,6 @@ export class WebglShadowContactComponent extends NgxBaseComponent<{
 				},
 				{ name: 'showWireframe', type: 'checkbox' },
 			]
-		);
+			,false , false);
 	}
 }

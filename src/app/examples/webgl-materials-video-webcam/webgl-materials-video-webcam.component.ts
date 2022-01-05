@@ -8,7 +8,7 @@ import { I3JS, NgxBaseComponent, THREE } from 'ngx3js';
 })
 export class WebglMaterialsVideoWebcamComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

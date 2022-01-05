@@ -45,7 +45,7 @@ export class WebglMaterialsEnvmapsPmremNodesComponent extends NgxBaseComponent<{
 				{ name: 'animate', type: 'checkbox' },
 				{ name: 'debug', type: 'checkbox' },
 			]
-		);
+			,false , false);
 	}
 
 	onRender(timer: IRendererTimer) {

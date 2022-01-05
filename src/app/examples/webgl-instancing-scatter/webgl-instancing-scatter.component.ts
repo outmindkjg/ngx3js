@@ -48,7 +48,7 @@ export class WebglInstancingScatterComponent extends NgxBaseComponent<{
 				},
 				{ name: 'resample', type: 'button' },
 			]
-		);
+			,false , false);
 	}
 
 	ngAfterViewInit() {

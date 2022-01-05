@@ -8,7 +8,7 @@ import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js
 })
 export class WebglRefractionComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	setSmallSphere(smallSphere: NgxMeshComponent) {

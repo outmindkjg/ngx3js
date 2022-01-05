@@ -39,7 +39,7 @@ export class WebglLayersComponent extends NgxBaseComponent<{
 				{ name: 'enable', title: 'enable All' },
 				{ name: 'disable', title: 'disable All' },
 			]
-		);
+		, false, false);
 	}
 
 	ngOnInit() {

@@ -36,7 +36,7 @@ export class Css3dPeriodictableComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			, false, false);
 	}
 
 	checkAutoPlay() {

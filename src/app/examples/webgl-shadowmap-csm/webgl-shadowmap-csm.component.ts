@@ -219,7 +219,7 @@ export class WebglShadowmapCsmComponent extends NgxBaseComponent<{
 					isOpen: true,
 				},
 			]
-		);
+			,false , false);
 	}
 
 	updateOrthoCamera() {

@@ -57,7 +57,7 @@ export class WebglShadowmapProgressiveComponent extends NgxBaseComponent<{
 				},
 				{ name: 'enable', title: 'Debug Lightmap', type: 'checkbox' },
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {}

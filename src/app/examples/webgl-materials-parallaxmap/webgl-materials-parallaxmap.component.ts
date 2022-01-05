@@ -66,7 +66,7 @@ export class WebglMaterialsParallaxmapComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	guiChanged() {

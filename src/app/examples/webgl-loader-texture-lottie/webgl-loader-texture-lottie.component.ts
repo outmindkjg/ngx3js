@@ -45,7 +45,7 @@ export class WebglLoaderTextureLottieComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	setLottie(texture: NgxTextureComponent) {

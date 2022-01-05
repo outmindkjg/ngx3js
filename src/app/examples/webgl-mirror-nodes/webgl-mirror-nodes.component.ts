@@ -13,7 +13,7 @@ export class WebglMirrorNodesComponent extends NgxBaseComponent<{ blur: number }
 				blur: 0,
 			},
 			[{ name: 'blur', type: 'number', min: 0, max: 25 }]
-		);
+			,false , false);
 	}
 
 	setSphereGroup(mesh: NgxMeshComponent) {

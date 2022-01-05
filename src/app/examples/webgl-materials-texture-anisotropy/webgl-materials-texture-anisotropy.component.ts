@@ -8,7 +8,7 @@ import { NgxBaseComponent, NgxRendererComponent } from 'ngx3js';
 })
 export class WebglMaterialsTextureAnisotropyComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	setRender(render: NgxRendererComponent) {

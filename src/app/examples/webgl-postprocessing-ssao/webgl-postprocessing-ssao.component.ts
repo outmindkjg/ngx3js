@@ -64,7 +64,7 @@ export class WebglPostprocessingSsaoComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	setSsaoPass(pass: NgxPassComponent) {

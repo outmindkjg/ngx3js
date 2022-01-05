@@ -8,7 +8,7 @@ import { NgxBaseComponent } from 'ngx3js';
 })
 export class Css3dYoutubeComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	youtubeInfo: {

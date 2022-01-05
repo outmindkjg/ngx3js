@@ -8,7 +8,7 @@ import { NgxBaseComponent, IRendererEvent, THREE } from 'ngx3js';
 })
 export class WebglFurnaceTestComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

@@ -15,6 +15,6 @@ export class WebglShaderComponent extends NgxBaseComponent<{
 				speed: 1,
 			},
 			[{ name: 'speed', type: 'number', min: 0.1, max: 2, step: 0.2 }]
-		);
+			,false , false);
 	}
 }

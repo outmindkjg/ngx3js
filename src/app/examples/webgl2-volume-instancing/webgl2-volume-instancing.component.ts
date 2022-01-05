@@ -8,7 +8,7 @@ import { NgxBaseComponent } from 'ngx3js';
 })
 export class Webgl2VolumeInstancingComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {}

@@ -38,7 +38,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 				side: 'double',
 			},
 			[]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

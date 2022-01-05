@@ -29,6 +29,6 @@ export class WebglMaterialsEnvmapsExrComponent extends NgxBaseComponent<{
 				{ name: 'exposure', type: 'number', min: 0, max: 2, step: 0.01 },
 				{ name: 'debug', type: 'checkbox' },
 			]
-		);
+			,false , false);
 	}
 }

@@ -31,7 +31,7 @@ export class WebglAnimationClothComponent
 				{ name: 'showBall', type: 'checkbox', title: 'Show ball' },
 				{ name: 'togglePins', type: 'button', title: 'Toggle pins' },
 			]
-		);
+			,false , false);
 	}
 
 	DAMPING = 0.03;

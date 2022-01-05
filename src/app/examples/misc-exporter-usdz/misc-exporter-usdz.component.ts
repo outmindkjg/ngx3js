@@ -20,6 +20,6 @@ export class MiscExporterUsdzComponent extends NgxBaseComponent<{
 				},
 			},
 			[{ name: 'downloadUsdz', title: 'export Usdz', type: 'button' }]
-		);
+			,false , false);
 	}
 }

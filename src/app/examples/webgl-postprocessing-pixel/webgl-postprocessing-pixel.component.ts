@@ -23,7 +23,7 @@ export class WebglPostprocessingPixelComponent extends NgxBaseComponent<{
 				{ name: 'pixelSize', type: 'number', min: 2, max: 32, step: 2 },
 				{ name: 'postprocessing', type: 'checkbox' },
 			]
-		);
+			,false , false);
 	}
 
 	setShared(shared: NgxSharedComponent) {

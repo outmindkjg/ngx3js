@@ -40,7 +40,7 @@ export class WebglLoaderNodesComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

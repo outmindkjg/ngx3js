@@ -11,7 +11,7 @@ import {
 })
 export class WebglModifierCurveInstancedComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	initialPoints1: { x: number; y: number; z: number }[] = [

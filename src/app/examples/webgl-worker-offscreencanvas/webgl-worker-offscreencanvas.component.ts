@@ -11,7 +11,7 @@ import {
 })
 export class WebglWorkerOffscreencanvasComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	setShared(shared: NgxSharedComponent) {

@@ -8,7 +8,7 @@ import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererTimer } from 'ngx3js
 })
 export class WebglPostprocessingGodraysComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	setSphere(mesh: NgxMeshComponent) {

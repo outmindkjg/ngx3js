@@ -77,7 +77,7 @@ export class WebglRaycastTextureComponent extends NgxBaseComponent<{
 					step: 1,
 				},
 			]
-		);
+			,false , false);
 	}
 
 	setGeometry(type: string, geometryCom: NgxGeometryComponent) {

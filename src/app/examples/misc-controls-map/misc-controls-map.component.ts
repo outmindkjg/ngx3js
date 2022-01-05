@@ -15,7 +15,7 @@ export class MiscControlsMapComponent extends NgxBaseComponent<{
 				screenSpacePanning: false,
 			},
 			[{ name: 'screenSpacePanning', type: 'checkbox' }]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

@@ -8,7 +8,7 @@ import { NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 })
 export class WebglTestMemory2Component extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	fragmentShader = `

@@ -26,6 +26,6 @@ export class WebglShadingPhysicalComponent extends NgxBaseComponent<{
 				{ name: 'shadowCameraFar', type: 'number', min: 1501, max: 5000 },
 				{ name: 'shadowBias', type: 'number', min: -0.01, max: 0.01 },
 			]
-		);
+			,false , false);
 	}
 }

@@ -66,7 +66,7 @@ export class WebglPostprocessingUnrealBloomComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	setBloomPass(pass: NgxPassComponent) {

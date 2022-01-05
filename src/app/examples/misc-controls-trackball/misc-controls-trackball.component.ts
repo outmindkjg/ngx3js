@@ -15,7 +15,7 @@ export class MiscControlsTrackballComponent extends NgxBaseComponent<{
 				orthographicCamera: false,
 			},
 			[{ name: 'orthographicCamera', type: 'checkbox' }]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

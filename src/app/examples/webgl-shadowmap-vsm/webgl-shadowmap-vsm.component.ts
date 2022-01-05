@@ -88,7 +88,7 @@ export class WebglShadowmapVsmComponent extends NgxBaseComponent<{
 					],
 				},
 			]
-		);
+			,false , false);
 	}
 
 	setSpotLight(light: NgxLightComponent) {

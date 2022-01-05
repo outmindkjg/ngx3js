@@ -11,7 +11,7 @@ import {
 })
 export class PhysicsOimoInstancingComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	makeMatrix(mat: I3JS.Matrix4) {

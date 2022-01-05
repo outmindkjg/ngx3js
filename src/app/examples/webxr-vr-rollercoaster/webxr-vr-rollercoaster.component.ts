@@ -11,7 +11,7 @@ import {
 })
 export class WebxrVrRollercoasterComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	curve: I3JS.Curve<I3JS.Vector3> = null;

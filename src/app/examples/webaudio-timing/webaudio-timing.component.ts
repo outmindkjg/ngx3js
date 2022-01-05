@@ -26,7 +26,7 @@ export class WebaudioTimingComponent extends NgxBaseComponent<{
 					],
 				},
 			]
-		);
+			,false , false);
 	}
 
 	count = 5;

@@ -25,7 +25,7 @@ export class WebglShadowmeshComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

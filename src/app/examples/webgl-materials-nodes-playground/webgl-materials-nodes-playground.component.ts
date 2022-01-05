@@ -38,7 +38,7 @@ export class WebglMaterialsNodesPlaygroundComponent extends NgxBaseComponent<{
 				side: 'double',
 			},
 			[]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

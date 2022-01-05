@@ -78,7 +78,7 @@ export class WebglShadersSkyComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

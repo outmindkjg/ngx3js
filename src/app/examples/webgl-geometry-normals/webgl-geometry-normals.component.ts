@@ -40,7 +40,7 @@ export class WebglGeometryNormalsComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

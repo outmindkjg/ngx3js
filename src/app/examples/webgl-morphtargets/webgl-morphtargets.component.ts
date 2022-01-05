@@ -58,7 +58,7 @@ export class WebglMorphtargetsComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	setMorphTargetInfluences(value, index) {

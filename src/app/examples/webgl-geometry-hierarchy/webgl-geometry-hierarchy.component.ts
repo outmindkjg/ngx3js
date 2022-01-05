@@ -8,7 +8,7 @@ import { NgxBaseComponent, IRendererEvent, IRendererTimer } from 'ngx3js';
 })
 export class WebglGeometryHierarchyComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 	meshInfos: {
 		position: { x: number; y: number; z: number };

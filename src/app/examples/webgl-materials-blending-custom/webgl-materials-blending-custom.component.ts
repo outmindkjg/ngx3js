@@ -57,7 +57,7 @@ export class WebglMaterialsBlendingCustomComponent extends NgxBaseComponent<{
 				},
 				{ name: 'premultiply', type: 'checkbox' },
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

@@ -32,7 +32,7 @@ export class WebxrVrPanoramaComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	layers: number[] = [1];

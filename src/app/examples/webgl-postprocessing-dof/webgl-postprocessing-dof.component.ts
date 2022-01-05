@@ -23,7 +23,7 @@ export class WebglPostprocessingDofComponent extends NgxBaseComponent<{
 				{ name: 'aperture', type: 'number', min: 0, max: 10, step: 0.1 },
 				{ name: 'maxblur', type: 'number', min: 0.0, max: 0.01, step: 0.001 },
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

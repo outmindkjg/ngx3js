@@ -15,7 +15,7 @@ export class WebglPostprocessingGlitchComponent extends NgxBaseComponent<{
 				wildGlitch: false,
 			},
 			[{ name: 'wildGlitch', type: 'checkbox' }]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

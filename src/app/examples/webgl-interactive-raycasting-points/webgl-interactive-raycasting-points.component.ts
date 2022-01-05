@@ -13,7 +13,7 @@ import {
 })
 export class WebglInteractiveRaycastingPointsComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

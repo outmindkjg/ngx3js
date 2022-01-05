@@ -21,6 +21,6 @@ export class NgxChartLineComponent extends NgxBaseComponent<{
 					select: ['circle', 'sphere', 'plane', 'box', 'star', 'ring'],
 				},
 			]
-		);
+			,false , false);
 	}
 }

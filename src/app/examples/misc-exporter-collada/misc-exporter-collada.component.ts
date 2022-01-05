@@ -233,7 +233,7 @@ export class MiscExporterColladaComponent extends NgxBaseComponent<{
 				},
 				{ name: 'export', title: 'export', type: 'button' },
 			]
-		);
+			,false , false);
 	}
 	ngOnInit() {
 		this.changeShading();

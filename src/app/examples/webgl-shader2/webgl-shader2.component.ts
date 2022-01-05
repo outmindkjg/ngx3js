@@ -13,7 +13,7 @@ export class WebglShader2Component extends NgxBaseComponent<{ speed: number }> {
 				speed: 1,
 			},
 			[{ name: 'speed', type: 'number', min: 0.1, max: 2, step: 0.2 }]
-		);
+			,false , false);
 	}
 
 	setMesh(mesh: NgxMeshComponent) {

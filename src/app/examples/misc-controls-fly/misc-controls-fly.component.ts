@@ -13,7 +13,7 @@ import {
 })
 export class MiscControlsFlyComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

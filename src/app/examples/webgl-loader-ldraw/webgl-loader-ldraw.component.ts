@@ -55,7 +55,7 @@ export class WebglLoaderLdrawComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

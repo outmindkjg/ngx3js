@@ -8,7 +8,7 @@ import { NgxBaseComponent, I3JS, NgxMeshComponent, IRendererTimer } from 'ngx3js
 })
 export class WebglMirrorComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	setSphereGroup(mesh: NgxMeshComponent) {

@@ -8,7 +8,7 @@ import { NgxBaseComponent, NgxGeometryComponent, IRendererTimer, THREE } from 'n
 })
 export class WebglMaterialsVideoComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

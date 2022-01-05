@@ -8,7 +8,7 @@ import { ICharacterControl, NgxBaseComponent, IRendererEvent } from 'ngx3js';
 })
 export class WebglLoaderMd2ControlComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	characterControls: ICharacterControl = {

@@ -8,7 +8,7 @@ import { I3JS, NgxBaseComponent, NgxLightComponent, IRendererTimer } from 'ngx3j
 })
 export class WebglMaterialsComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

@@ -54,7 +54,7 @@ export class WebglPostprocessingSsaaComponent extends NgxBaseComponent<{
 				{ name: 'clearAlpha', type: 'number', min: 0, max: 1 },
 				{ name: 'autoRotate', type: 'checkbox' },
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

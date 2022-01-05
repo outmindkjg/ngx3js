@@ -7,7 +7,7 @@ import { CSS3DSprite, NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 })
 export class Css3dSpritesComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	particlesTotal: number = 512;

@@ -42,7 +42,7 @@ export class WebglLoaderPdbComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

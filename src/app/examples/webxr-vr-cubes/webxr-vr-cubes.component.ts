@@ -7,7 +7,7 @@ import { I3JS, NgxBaseComponent, IRendererTimer, THREE } from 'ngx3js';
 })
 export class WebxrVrCubesComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

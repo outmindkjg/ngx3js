@@ -12,7 +12,7 @@ import {
 })
 export class PhysicsAmmoInstancingComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	makeMatrix(mat: I3JS.Matrix4) {

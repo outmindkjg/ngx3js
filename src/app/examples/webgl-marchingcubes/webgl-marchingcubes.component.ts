@@ -231,7 +231,7 @@ export class WebglMarchingcubesComponent extends NgxBaseComponent<{
 					],
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

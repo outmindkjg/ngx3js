@@ -8,7 +8,7 @@ import { NgxBaseComponent, NgxMeshComponent } from 'ngx3js';
 })
 export class WebglLoaderIfcComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	setMesh(mesh: NgxMeshComponent) {

@@ -16,7 +16,7 @@ export class WebglReadFloatBufferComponent extends NgxBaseComponent<{}> {
 	@ViewChild('rgbInfo') private rgbInfo: ElementRef = null;
 
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

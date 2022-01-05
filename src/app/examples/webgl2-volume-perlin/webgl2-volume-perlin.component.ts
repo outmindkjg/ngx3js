@@ -38,7 +38,7 @@ export class Webgl2VolumePerlinComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	updateUniforms() {

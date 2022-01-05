@@ -82,7 +82,7 @@ export class WebglWaterComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	setWater(mesh: NgxMeshComponent) {

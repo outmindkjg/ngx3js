@@ -32,7 +32,7 @@ export class WebglPerformanceNodesComponent extends NgxBaseComponent<{
 					title: 'StandardNodeMaterial',
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

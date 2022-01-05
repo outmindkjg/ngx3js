@@ -30,7 +30,7 @@ export class WebglPointsSpritesComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

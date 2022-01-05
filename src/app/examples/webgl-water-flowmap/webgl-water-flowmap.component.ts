@@ -15,6 +15,6 @@ export class WebglWaterFlowmapComponent extends NgxBaseComponent<{
 				visible: false,
 			},
 			[{ name: 'visible', title: 'Show Flow Map', type: 'checkbox' }]
-		);
+			,false , false);
 	}
 }

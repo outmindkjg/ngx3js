@@ -37,7 +37,7 @@ export class WebglMaterialsPhysicalReflectivityComponent extends NgxBaseComponen
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

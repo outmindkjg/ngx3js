@@ -8,7 +8,7 @@ import { NgxBaseComponent, NgxThreeUtil } from 'ngx3js';
 })
 export class WebglPanoramaCubeComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

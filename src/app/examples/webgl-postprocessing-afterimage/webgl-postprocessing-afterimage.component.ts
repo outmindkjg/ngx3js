@@ -20,7 +20,7 @@ export class WebglPostprocessingAfterimageComponent extends NgxBaseComponent<{
 				{ name: 'value', type: 'number', min: 0, max: 1, step: 0.001 },
 				{ name: 'enable', type: 'checkbox' },
 			]
-		);
+			,false , false);
 	}
 
 	onRender(timer: IRendererTimer) {

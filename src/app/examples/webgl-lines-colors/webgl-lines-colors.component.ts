@@ -8,7 +8,7 @@ import { GeometryUtils, NgxBaseComponent, THREE } from 'ngx3js';
 })
 export class WebglLinesColorsComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

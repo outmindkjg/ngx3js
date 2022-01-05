@@ -8,7 +8,7 @@ import { NgxBaseComponent, NgxGeometryComponent, IRendererTimer, THREE } from 'n
 })
 export class WebglModifierTessellationComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	uniforms = { amplitude: { value: 1.0 } };

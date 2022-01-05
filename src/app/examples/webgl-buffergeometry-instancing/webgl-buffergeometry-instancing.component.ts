@@ -24,7 +24,7 @@ export class WebglBuffergeometryInstancingComponent extends NgxBaseComponent<{
 					}
 				},
 			},
-		]);
+		], false, false);
 	}
 
 	ngOnInit() {

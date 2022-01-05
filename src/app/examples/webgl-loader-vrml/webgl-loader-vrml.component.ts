@@ -35,6 +35,6 @@ export class WebglLoaderVrmlComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 }

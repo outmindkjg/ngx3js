@@ -81,7 +81,7 @@ export class WebglLoaderMmdComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	Effect: any = null;

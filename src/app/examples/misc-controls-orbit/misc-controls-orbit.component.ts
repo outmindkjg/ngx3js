@@ -8,7 +8,7 @@ import { NgxBaseComponent } from 'ngx3js';
 })
 export class MiscControlsOrbitComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

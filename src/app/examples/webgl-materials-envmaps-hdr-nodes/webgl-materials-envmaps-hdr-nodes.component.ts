@@ -55,7 +55,7 @@ export class WebglMaterialsEnvmapsHdrNodesComponent extends NgxBaseComponent<{
 				{ name: 'animate', type: 'checkbox' },
 				{ name: 'debug', type: 'checkbox' },
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

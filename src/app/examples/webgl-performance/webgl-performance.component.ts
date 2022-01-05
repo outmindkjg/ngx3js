@@ -13,7 +13,7 @@ import {
 })
 export class WebglPerformanceComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

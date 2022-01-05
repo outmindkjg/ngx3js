@@ -75,7 +75,7 @@ export class WebglShadersOceanComponent extends NgxBaseComponent<{
 					],
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

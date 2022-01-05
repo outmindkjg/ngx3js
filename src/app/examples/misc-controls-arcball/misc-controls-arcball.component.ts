@@ -141,7 +141,7 @@ export class MiscControlsArcballComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+		,false , false);
 	}
 
 	arcballControl: any = null;

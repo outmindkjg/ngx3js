@@ -48,6 +48,6 @@ export class MiscExporterPlyComponent extends NgxBaseComponent<{
 					type: 'button',
 				},
 			]
-		);
+			,false , false);
 	}
 }

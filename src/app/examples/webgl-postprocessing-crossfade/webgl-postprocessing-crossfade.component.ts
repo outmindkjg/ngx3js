@@ -58,6 +58,6 @@ export class WebglPostprocessingCrossfadeComponent extends NgxBaseComponent<{
 					step: 0.01,
 				},
 			]
-		);
+			,false , false);
 	}
 }

@@ -35,7 +35,7 @@ export class WebxrVrSandboxComponent extends NgxBaseComponent<{
 				{ name: 'q', type: 'number', min: 0, max: 10, step: 1 },
 				{ name: 'thickness', type: 'number', min: 0, max: 1, step: 0.01 },
 			]
-		);
+			,false , false);
 	}
 
 	domElement : HTMLElement = null;

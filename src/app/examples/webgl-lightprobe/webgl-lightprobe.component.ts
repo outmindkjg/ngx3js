@@ -59,7 +59,9 @@ export class WebglLightprobeComponent extends NgxBaseComponent<{
 						}
 					},
 				},
-			]
+			],
+			false,
+			false
 		);
 	}
 	lightProbe: any;

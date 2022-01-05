@@ -43,7 +43,7 @@ export class WebglTonemappingComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	changeRenderer() {

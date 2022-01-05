@@ -36,6 +36,6 @@ export class WebglPostprocessingD3lutComponent extends NgxBaseComponent<{
 				{ name: 'intensity', type: 'number', min: 0, max: 1 },
 				{ name: 'use2dLut', type: 'checkbox' },
 			]
-		);
+			,false , false);
 	}
 }

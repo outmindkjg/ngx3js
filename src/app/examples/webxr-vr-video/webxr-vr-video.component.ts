@@ -32,7 +32,7 @@ export class WebxrVrVideoComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	layers: number[] = [1];

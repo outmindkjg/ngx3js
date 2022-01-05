@@ -15,7 +15,7 @@ export class WebglPointsBillboardsComponent extends NgxBaseComponent<{
 				sizeAttenuation: true,
 			},
 			[{ name: 'sizeAttenuation', type: 'checkbox' }]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

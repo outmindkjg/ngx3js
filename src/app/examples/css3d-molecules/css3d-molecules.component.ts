@@ -67,7 +67,7 @@ export class Css3dMoleculesComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+		, false, false);
 	}
 
 	changeVisible() {

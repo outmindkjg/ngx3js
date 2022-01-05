@@ -14,7 +14,7 @@ import {
 })
 export class GamesFpsComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

@@ -8,7 +8,7 @@ import { NgxBaseComponent, NgxMeshComponent, THREE } from 'ngx3js';
 })
 export class WebglLoaderColladaKinematicsComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	setMesh(mesh: NgxMeshComponent) {

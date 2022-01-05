@@ -8,7 +8,7 @@ import { NgxBaseComponent, NgxLightComponent, IRendererTimer } from 'ngx3js';
 })
 export class WebglMaterialsCubemapRefractionComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	pointLight: any = null;

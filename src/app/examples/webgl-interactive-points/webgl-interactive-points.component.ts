@@ -10,7 +10,7 @@ import {
 })
 export class WebglInteractivePointsComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

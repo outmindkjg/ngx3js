@@ -15,7 +15,7 @@ export class WebglBuffergeometryLinesComponent extends NgxBaseComponent<{
 				morphTargets: false,
 			},
 			[{ name: 'morphTargets', type: 'checkbox' }]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

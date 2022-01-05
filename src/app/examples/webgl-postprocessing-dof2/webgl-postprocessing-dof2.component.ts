@@ -96,7 +96,7 @@ export class WebglPostprocessingDof2Component extends NgxBaseComponent<{
 				{ name: 'rings', type: 'number', min: 1, max: 8, step: 1 },
 				{ name: 'samples', type: 'number', min: 1, max: 13, step: 1 },
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

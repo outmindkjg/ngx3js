@@ -11,7 +11,7 @@ import {
 })
 export class WebglCustomAttributesLinesComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	object3d: I3JS.Object3D = null;

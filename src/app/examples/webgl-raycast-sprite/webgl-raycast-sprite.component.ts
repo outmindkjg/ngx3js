@@ -8,7 +8,7 @@ import { I3JS, NgxBaseComponent, NgxMeshComponent, IRendererEvent, THREE } from 
 })
 export class WebglRaycastSpriteComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	setMesh(mesh: NgxMeshComponent) {

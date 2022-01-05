@@ -8,7 +8,7 @@ import { NgxBaseComponent, NgxHelperComponent, NgxTweenComponent } from 'ngx3js'
 })
 export class WebglLightsSpotlightsComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	lightInfos: { x: number; y: number; z: number; color: number }[] = [];

@@ -20,6 +20,6 @@ export class WebglModifierSimplifierComponent extends NgxBaseComponent<{
 				{ name: 'simplify', type: 'checkbox' },
 				{ name: 'count', type: 'number', min: 0, max: 1 },
 			]
-		);
+			,false , false);
 	}
 }

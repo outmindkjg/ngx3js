@@ -31,6 +31,6 @@ export class MiscExporterStlComponent extends NgxBaseComponent<{
 				{ name: 'ascii', title: 'export ASCII', type: 'button' },
 				{ name: 'binary', title: 'export binary', type: 'button' },
 			]
-		);
+			,false , false);
 	}
 }

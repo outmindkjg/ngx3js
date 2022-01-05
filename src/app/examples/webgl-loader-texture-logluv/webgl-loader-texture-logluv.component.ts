@@ -14,6 +14,6 @@ export class WebglLoaderTextureLogluvComponent extends NgxBaseComponent<{
 			exposure : 2.0
 		}, [
 			{ name : 'exposure', type : 'number', min : 0, max : 4, step : 0.01}
-		]);
+		], false, false);
 	}
 }

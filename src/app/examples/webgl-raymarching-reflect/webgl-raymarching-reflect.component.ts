@@ -40,7 +40,7 @@ export class WebglRaymarchingReflectComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	setRender(renderer: NgxRendererComponent) {

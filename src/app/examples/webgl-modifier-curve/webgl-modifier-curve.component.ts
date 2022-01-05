@@ -27,7 +27,7 @@ export class WebglModifierCurveComponent extends NgxBaseComponent<{
 					step: 0.001,
 				},
 			]
-		);
+			,false , false);
 	}
 
 	initialPoints: { x: number; y: number; z: number }[] = [

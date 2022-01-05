@@ -15,7 +15,7 @@ export class WebglMaterialsWireframeComponent extends NgxBaseComponent<{
 				widthFactor: 1,
 			},
 			[{ name: 'widthFactor', type: 'number', min: 0.4, max: 4 }]
-		);
+			,false , false);
 	}
 
 	setGeometry(geometry: I3JS.BufferGeometry) {

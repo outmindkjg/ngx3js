@@ -8,7 +8,7 @@ import { I3JS, NgxBaseComponent, NgxLightComponent, IRendererEvent, THREE } from
 })
 export class WebglPmremTestComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

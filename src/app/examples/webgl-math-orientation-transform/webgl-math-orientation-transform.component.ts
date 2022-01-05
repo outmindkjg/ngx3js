@@ -8,7 +8,7 @@ import { NgxBaseComponent, I3JS, NgxMeshComponent, THREE, IRendererTimer } from 
 })
 export class WebglMathOrientationTransformComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	setTarget(mesh: NgxMeshComponent) {

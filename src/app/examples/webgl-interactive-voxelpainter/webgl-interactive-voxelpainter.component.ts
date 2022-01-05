@@ -17,7 +17,7 @@ export class WebglInteractiveVoxelpainterComponent extends NgxBaseComponent<{
 				},
 			},
 			[{ name: 'clear', type: 'button' }]
-		);
+		,false, false);
 	}
 
 	rollOver: I3JS.Object3D = null;

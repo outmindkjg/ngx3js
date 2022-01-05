@@ -32,7 +32,7 @@ export class WebglBuffergeometryDrawrangeComponent extends NgxBaseComponent<{
 				{ name: 'maxConnections', type: 'number', min: 0, max: 30, step: 1 },
 				{ name: 'particleCount', type: 'number', min: 0, max: 1000, step: 1 },
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

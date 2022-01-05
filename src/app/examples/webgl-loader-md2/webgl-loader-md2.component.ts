@@ -82,7 +82,7 @@ export class WebglLoaderMd2Component extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	config = {

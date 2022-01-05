@@ -16,7 +16,7 @@ import {
 })
 export class WebglPerformanceShaderComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	fragmentShader = `

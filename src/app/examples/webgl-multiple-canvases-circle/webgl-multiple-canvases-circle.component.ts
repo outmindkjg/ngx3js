@@ -116,7 +116,7 @@ export class WebglMultipleCanvasesCircleComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	updateScreen() {

@@ -62,7 +62,7 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends NgxBaseCompo
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

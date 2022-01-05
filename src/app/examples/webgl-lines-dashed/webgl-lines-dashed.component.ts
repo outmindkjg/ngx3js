@@ -8,7 +8,7 @@ import { GeometryUtils, I3JS, NgxBaseComponent, THREE } from 'ngx3js';
 })
 export class WebglLinesDashedComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

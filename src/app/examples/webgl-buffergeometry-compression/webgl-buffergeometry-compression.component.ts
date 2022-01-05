@@ -132,7 +132,7 @@ export class WebglBuffergeometryCompressionComponent extends NgxBaseComponent<{
 					isOpen: true,
 				},
 			]
-		);
+			,false , false);
 	}
 	ngOnInit() {
 		this.changeModel();

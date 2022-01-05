@@ -120,7 +120,7 @@ export class WebglPostprocessingRgbHalftoneComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

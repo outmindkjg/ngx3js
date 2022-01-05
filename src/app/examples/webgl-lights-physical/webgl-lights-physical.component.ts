@@ -85,7 +85,7 @@ export class WebglLightsPhysicalComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	bulbLuminousPowers = {

@@ -20,6 +20,6 @@ export class WebglMaterialsMatcapComponent extends NgxBaseComponent<{
 				{ name: 'color', type: 'color' },
 				{ name: 'exposure', type: 'number', min: 0, max: 2 },
 			]
-		);
+			,false , false);
 	}
 }

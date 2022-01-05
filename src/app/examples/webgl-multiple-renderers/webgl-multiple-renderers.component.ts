@@ -37,7 +37,7 @@ export class WebglMultipleRenderersComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {

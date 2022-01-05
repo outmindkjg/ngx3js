@@ -8,7 +8,7 @@ import { NgxBaseComponent, THREE } from 'ngx3js';
 })
 export class WebglTiledForwardComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

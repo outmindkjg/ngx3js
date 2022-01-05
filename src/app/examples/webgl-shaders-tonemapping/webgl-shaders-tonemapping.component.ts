@@ -35,7 +35,7 @@ export class WebglShadersTonemappingComponent extends NgxBaseComponent<{
 				{ name: 'avgLuminance', type: 'number', min: 0.001, max: 2.0 },
 				{ name: 'adaptionRate', type: 'number', min: 0.0, max: 10.0 },
 			]
-		);
+			,false , false);
 	}
 
 	ngOnInit() {
