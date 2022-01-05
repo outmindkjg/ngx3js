@@ -20,6 +20,7 @@
 		<code data-type="html">&lt;ngx3js-plane
 			[ debug ]="... boolean -- Debug this Object "
 			[ enabled ]="... boolean -- Enabled or Not "
+			[ negate ]="... boolean -- The negate of plane component "
 			( onDestory )="...($event : NgxPlaneComponent -- Will be called when before des... )"
 			( onLoad )="...($event : NgxPlaneComponent -- Will be called when load compl... )"
 			[ overrideParams ]="... any -- The override params "
@@ -72,6 +73,11 @@
 		<h3>[property:string id] &nbsp; = '' <i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The Id of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean negate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The negate of plane component
 		</p>
 
 		<h3>[property:EventEmitter onDestory] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -153,7 +159,7 @@
 			Adds changes
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string[] changes] - The changes.

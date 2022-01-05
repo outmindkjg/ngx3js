@@ -22,6 +22,9 @@
               "crypto",
               "crypto-js",
               "highlight.js",
+              "fs",
+              "fs",
+              "fs",
               "fs"
             ],
             "outputPath": "dist/ngx3js-doc",

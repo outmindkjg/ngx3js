@@ -35,7 +35,7 @@ npm install
 npm install -g @angular/cli
 npm install --save ngx3js
 npm install --save three@0.136.0
-npm install --save-dev @types/three@0.135.0
+npm install --save-dev @types/three@0.136.1
 npm install --save gsap
 ```
 

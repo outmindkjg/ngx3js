@@ -1,6 +1,6 @@
 {
   "name": "three-sample",
-  "version": "0.136.0-2021123115",
+  "version": "0.136.0-2022010517",
   "scripts": {
     "ng": "ng",
     "start": "node --max_old_space_size=6000 ./node_modules/@angular/cli/bin/ng serve --port 4300",
@@ -63,7 +63,7 @@
     "typescript": "~4.4.4",
     "webworkify": "^1.5.0",
     "worker-loader": "^3.0.8",
-    "@types/three": "0.135.0"
+    "@types/three": "0.136.1"
   },
   "keywords": [
     "three",
