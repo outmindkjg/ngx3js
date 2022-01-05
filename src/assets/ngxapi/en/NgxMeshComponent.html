@@ -87,17 +87,7 @@
 			[page:Group Group] - THREE.Group
 		</p>
 
-		<h2>Constructor</h2>
-		<h3>[constructor:NgxMeshComponent NgxMeshComponent](  [param:NgxLocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:NgxLocalStorageService localStorageService] - The local storage service.
-		</p>
-		<p>
-			Creates an instance of mesh component.
-		</p>
-
-		<h3>Angular Html Template [ Input ] ( Output )</h3>
+		<h2>Template</h2>
 		<code data-type="html">&lt;ngx3js-mesh
 			[ alpha ]="... number -- The alpha of water "
 			[ axis ]="... string -- The axis of mesh component "
@@ -195,6 +185,16 @@
 			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-mesh&gt;
 		</code>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:NgxMeshComponent NgxMeshComponent](  [param:NgxLocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:NgxLocalStorageService localStorageService] - The local storage service.
+		</p>
+		<p>
+			Creates an instance of mesh component.
+		</p>
 
 		<h2>Properties</h2>
 		<p>
@@ -1504,9 +1504,8 @@
 			Updates input params
 		</p>
 
-		<hr class="interface-line top"/>
-		<h3 id="ICssStyle">ICssStyle <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line bottom"/>
+		<h2>Interfaces</h2>
+		<h3 id="ICssStyle" class="interface"> ICssStyle <i class="modifier modifier-interface">Interface</i></h3>
 		<h4>Properties</h4>
 		<p>
 			[property:Vector4|INgxColor background]? - The background shorthand CSS property sets all background style properties at once, such as color, image, origin and size, or repeat method.<br />
@@ -1612,9 +1611,7 @@
 			Css style
 		</p>
 
-		<hr class="interface-line top"/>
-		<h3 id="IHelperOptions">IHelperOptions <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line bottom"/>
+		<h3 id="IHelperOptions" class="interface"> IHelperOptions <i class="modifier modifier-interface">Interface</i></h3>
 		<h4>Properties</h4>
 		<p>
 			[property:any arrowFrom]? - Point at which the arrow starts.<br />
@@ -1661,11 +1658,7 @@
 			Helper options
 		</p>
 
-		<hr class="interface-line top"/>
-		[page:IObject3dOptions] &rarr;
-
-		<h3 id="ILightOptions">ILightOptions <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line bottom"/>
+		<h3 id="ILightOptions" class="interface">[page:IObject3dOptions] &rarr; ILightOptions <i class="modifier modifier-interface">Interface</i></h3>
 		<h4>Properties</h4>
 		<p>
 			[property:number angle]? - Maximum angle of light dispersion from its direction whose upper bound is Math.PI/2(360).<br />
@@ -1737,9 +1730,7 @@
 			Light options
 		</p>
 
-		<hr class="interface-line top"/>
-		<h3 id="IMaterialParameters">IMaterialParameters <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line bottom"/>
+		<h3 id="IMaterialParameters" class="interface"> IMaterialParameters <i class="modifier modifier-interface">Interface</i></h3>
 		<h4>Properties</h4>
 		<p>
 			[property:boolean fog]? -  The fog.<br />
@@ -1756,9 +1747,7 @@
 			MaterialParameters
 		</p>
 
-		<hr class="interface-line top"/>
-		<h3 id="ITagAttributes">ITagAttributes <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line bottom"/>
+		<h3 id="ITagAttributes" class="interface"> ITagAttributes <i class="modifier modifier-interface">Interface</i></h3>
 		<h4>Properties</h4>
 		<p>
 			[property:any attributes] -  The attributes.<br />
@@ -1771,9 +1760,7 @@
 			Tag attributes
 		</p>
 
-		<hr class="interface-line top"/>
-		<h3 id="IVolumeOptions">IVolumeOptions <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line bottom"/>
+		<h3 id="IVolumeOptions" class="interface"> IVolumeOptions <i class="modifier modifier-interface">Interface</i></h3>
 		<h4>Properties</h4>
 		<p>
 			[property:boolean boxVisible]? - boxVisible<br />
@@ -1800,9 +1787,7 @@
 			
 		</p>
 
-		<hr class="interface-line top"/>
-		<h3 id="INgxColor">INgxColor <i class="modifier modifier-interface">Type alias</i></h3>
-		<hr class="interface-line bottom"/>
+		<h3 id="INgxColor" class="interface"> INgxColor <i class="modifier modifier-interface">Type alias</i></h3>
 		<h3>[property:string|number|I3JS.Color INgxColor]</h3>
 
 
@@ -1872,11 +1857,7 @@
 			
 		</p>
 
-		<hr class="interface-line top"/>
-		[page:MaterialParameters] &rarr;
-
-		<h3 id="MeshBasicMaterialParameters">MeshBasicMaterialParameters <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line bottom"/>
+		<h3 id="MeshBasicMaterialParameters" class="interface">[page:MaterialParameters] &rarr; MeshBasicMaterialParameters <i class="modifier modifier-interface">Interface</i></h3>
 		<h4>Properties</h4>
 		<p>
 			[property:Texture alphaMap]? - The alpha map is a grayscale texture that controls the opacity across the surface (black: fully transparent; white: fully opaque). Default is null.<br />
@@ -1985,9 +1966,7 @@
 			Mesh basic material parameters
 		</p>
 
-		<hr class="interface-line top"/>
-		<h3 id="RayParameters">RayParameters <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line bottom"/>
+		<h3 id="RayParameters" class="interface"> RayParameters <i class="modifier modifier-interface">Interface</i></h3>
 		<h4>Properties</h4>
 		<p>
 			[property:number birthTime]? -  The birth time.<br />
@@ -2028,9 +2007,7 @@
 			Ray parameters
 		</p>
 
-		<hr class="interface-line top"/>
-		<h3 id="StormParams">StormParams <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line bottom"/>
+		<h3 id="StormParams" class="interface"> StormParams <i class="modifier modifier-interface">Interface</i></h3>
 		<h4>Properties</h4>
 		<p>
 			[property:boolean isEternal]? -  The is eternal.<br />

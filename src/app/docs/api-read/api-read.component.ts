@@ -86,6 +86,8 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 			}
 		}
 	}
+	
+	private lastH2Menu :{ id : string, name : string, selected :boolean, element : HTMLElement }[] = [];
 
 	setBody(body: string, pageId: string) {
 		const start = body.indexOf('<body>') + 6;
@@ -290,14 +292,14 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 			.replace(/\<\/code>/gi, '</code></pre>');
 		this.docEle.nativeElement.innerHTML = text;
 		const linksH2: HTMLElement[] = this.docEle.nativeElement.getElementsByTagName('h2');
-		const h2Menus : { id : string, name : string}[] = [];
+		this.lastH2Menu = [];
 		for (let i = 0; i < linksH2.length; i++) {
 			const link = linksH2[i];
 			if (link.hasAttribute('id')) {
-				h2Menus.push({ id : link.getAttribute('id'), name : link.textContent });
+				this.lastH2Menu.push({ id : '/docs/' + this.menuId + '.'+ link.getAttribute('id'), name : link.textContent, selected : false, element : link });
 			}
 		}
-		this.docsComponent.changeSubPage(this.menuId, h2Menus);
+		this.docsComponent.changeSubPage(this.lastH2Menu);
 		const links = this.docEle.nativeElement.getElementsByTagName('a');
 		for (let i = 0; i < links.length; i++) {
 			const link = links[i];
@@ -423,11 +425,12 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		scrollSize: {
 			clientHeight: number;
 			clientWidth: number;
-		}
+		},
+		ignoreTop : boolean = false
 	): boolean {
 		const rect = el.getBoundingClientRect();
 		return (
-			rect.top >= 0 &&
+			(rect.top >= 0 || ignoreTop)&&
 			rect.top + (rect.bottom - rect.top) * 0.7 <=
 				(scrollSize.clientHeight || document.documentElement.clientHeight)
 		);
@@ -449,14 +452,14 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 	private checkScrollIframe(docEle: HTMLDivElement) {
 		if (docEle) {
 			const dummyIframes = docEle.getElementsByClassName('dummy-iframe');
+			const scrollSize: {
+				clientHeight: number;
+				clientWidth: number;
+			} = {
+				clientHeight: docEle.clientHeight,
+				clientWidth: docEle.clientWidth,
+			};
 			if (dummyIframes.length > 0) {
-				const scrollSize: {
-					clientHeight: number;
-					clientWidth: number;
-				} = {
-					clientHeight: docEle.clientHeight,
-					clientWidth: docEle.clientWidth,
-				};
 				for (let i = 0; i < dummyIframes.length; i++) {
 					const dummyIframe = dummyIframes[i] as HTMLDivElement;
 					const isVisible = this.isElementInViewport(dummyIframe, scrollSize);
@@ -468,6 +471,23 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 						dummyIframe.parentElement.removeChild(dummyIframe);
 					}
 				}
+			}
+			let lastVisibleMenu : number = -1;
+			let lastVisibleMenuInView : boolean = false;
+			
+			for(let i = 0; i < this.lastH2Menu.length ; i++) {
+				const menu = this.lastH2Menu[i];
+				const isVisible = this.isElementInViewport(menu.element, scrollSize, true);
+				if (isVisible) {
+					if (!lastVisibleMenuInView) {
+						lastVisibleMenu = i;
+						lastVisibleMenuInView = this.isElementInViewport(menu.element, scrollSize, false);
+					}
+				}
+				menu.selected = false;
+			}
+			if (lastVisibleMenu > -1) {
+				this.lastH2Menu[lastVisibleMenu].selected = true;
 			}
 		}
 	}
@@ -516,10 +536,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 					selected.scrollIntoView({ block: 'start', behavior: 'smooth' });
 				}
 			} else {
-				this.apiTop.nativeElement.scrollIntoView({
-					block: 'start',
-					behavior: 'smooth',
-				});
+				this.apiTop.nativeElement.scrollIntoView({block: 'start', behavior: 'smooth'});
 			}
 		}
 	}

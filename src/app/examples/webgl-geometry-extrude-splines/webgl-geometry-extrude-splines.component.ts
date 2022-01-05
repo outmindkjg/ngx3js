@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
 import {
-	I3JS, NgxBaseComponent,
+	I3JS,
+	NgxBaseComponent,
 	NgxCameraComponent,
-	NgxGeometryComponent, NgxHelperComponent, NgxMeshComponent, IRendererTimer, THREE
+	NgxGeometryComponent,
+	NgxHelperComponent,
+	NgxMeshComponent,
+	IRendererTimer,
+	THREE,
 } from 'ngx3js';
 
 @Component({
@@ -100,8 +105,10 @@ export class WebglGeometryExtrudeSplinesComponent extends NgxBaseComponent<{
 						{ name: 'cameraHelper', type: 'checkbox' },
 					],
 				},
-			]
-		, false, false);
+			],
+			false,
+			false
+		);
 	}
 
 	pipeSpline = [
@@ -143,13 +150,14 @@ export class WebglGeometryExtrudeSplinesComponent extends NgxBaseComponent<{
 		{ x: 0, y: -40, z: 40 },
 	];
 
-	curvePath: { x: number; y: number; z: number }[] = [];
+	curvePath: { x: number; y: number; z: number }[] = null;
 
 	spline: string = 'spline';
 	scale: number = 1;
 	setSpline(spline: string) {
 		this.spline = spline;
-		this.curvePath = [];
+		this.curvePath = null;
+		this.scale = 1;
 		switch (spline) {
 			case 'HeartCurve':
 				this.scale = 3.5;
@@ -163,14 +171,25 @@ export class WebglGeometryExtrudeSplinesComponent extends NgxBaseComponent<{
 			case 'CinquefoilKnot':
 				this.scale = 20;
 				break;
+			case 'TrefoilKnot':
+				this.scale = 10;
+				break;
 			case 'TrefoilPolynomialKnot':
 				this.scale = 14;
 				break;
+			case 'DecoratedTorusKnot4a':
+			case 'DecoratedTorusKnot4b':
+			case 'DecoratedTorusKnot5a':
+			case 'DecoratedTorusKnot5c':
+				this.scale = 40;
+				break;
 			case 'PipeSpline':
 				this.curvePath = this.pipeSpline;
+				this.spline = null;
 				break;
 			case 'SampleClosedSpline':
 				this.curvePath = this.sampleClosedSpline;
+				this.spline = null;
 				break;
 		}
 	}

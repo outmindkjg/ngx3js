@@ -281,6 +281,14 @@ div#docs {
 	}
 
 	div.doc-body {
+		h3.interface {
+			color: var(--color-blue);
+			a {
+				font-size: 0.8em;
+				vertical-align: middle;
+				font-style: italic;
+			}
+		}
 		h1 {
 			position: sticky;
 			&::after {

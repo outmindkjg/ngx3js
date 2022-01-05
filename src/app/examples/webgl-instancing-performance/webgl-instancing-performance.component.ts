@@ -26,7 +26,7 @@ export class WebglInstancingPerformanceComponent extends NgxBaseComponent<{
 				},
 				{ name: 'count', type: 'number', min: 10, max: 1000, step: 1 },
 			]
-		);
+		, false, false);
 	}
 
 	ngOnInit() {

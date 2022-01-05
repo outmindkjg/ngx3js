@@ -29,13 +29,7 @@
 			</code>
 		</p>
 
-		<h2>Constructor</h2>
-		<h3>[constructor:NgxClipComponent NgxClipComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
-		<p>
-			Creates an instance of clip component.
-		</p>
-
-		<h3>Angular Html Template [ Input ] ( Output )</h3>
+		<h2>Template</h2>
 		<code data-type="html">&lt;ngx3js-clip
 			[ additive ]="... boolean -- makeClipAdditive "
 			[ blendMode ]="... string -- The blendMode of clip componen... "
@@ -60,6 +54,12 @@
 			[ windowExport ]="... string -- Export this Object to window g... "
 		&gt;&lt;/ngx3js-clip&gt;
 		</code>
+
+		<h2>Constructor</h2>
+		<h3>[constructor:NgxClipComponent NgxClipComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Creates an instance of clip component.
+		</p>
 
 		<h2>Properties</h2>
 		<p>
@@ -592,6 +592,7 @@
 			Updates input params
 		</p>
 
+		<h2>Interfaces</h2>
 
 		<p class="desc">
 			
@@ -612,9 +613,7 @@
 			
 		</p>
 
-		<hr class="interface-line top"/>
-		<h3 id="AnimationAction">AnimationAction <i class="modifier modifier-interface">Interface</i></h3>
-		<hr class="interface-line bottom"/>
+		<h3 id="AnimationAction" class="interface"> AnimationAction <i class="modifier modifier-interface">Interface</i></h3>
 		<h4>Constructor</h4>
 		<p>
 			[constructor:AnimationAction AnimationAction](  [param:AnimationMixer mixer],  [param:AnimationClip clip],  [param:Object3D localRoot]?,  [param:AnimationBlendMode blendMode]? ) - Note: Instead of calling this constructor directly you should instantiate an AnimationAction with [page:AnimationMixer.clipAction AnimationMixer.clipAction] since this method provides caching for better performance.

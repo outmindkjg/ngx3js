@@ -27,7 +27,9 @@ export class WebglEffectsAnaglyphComponent extends NgxBaseComponent<{}> {
 
 	spheres: NgxMeshComponent[] = [];
 	setSpheres(sphere: NgxMeshComponent) {
-		this.spheres.push(sphere);
+		if (!this.spheres.includes(sphere)) {
+			this.spheres.push(sphere);
+		}
 	}
 
 	onRender(timer: IRendererTimer) {

@@ -112,7 +112,7 @@ export class WebglGeometrySplineEditorComponent extends NgxBaseComponent<{
 	pointMesh: I3JS.Object3D[] = [];
 	setPointMesh(mesh: NgxMeshComponent) {
 		const object = mesh.getObject3d();
-		if (this.pointMesh.indexOf(object) === -1) {
+		if (!this.pointMesh.includes(object)) {
 			this.pointMesh.push(object);
 		}
 		this.checkPointMesh();
@@ -149,8 +149,11 @@ export class WebglGeometrySplineEditorComponent extends NgxBaseComponent<{
 					break;
 				case 'objectChange':
 					const curvePath: { x: number; y: number; z: number }[] = [];
-					this.pointMesh.forEach((mesh) => {
+					this.pointMesh.forEach((mesh, idx) => {
 						const position = mesh.position;
+						this.positions[idx].x = position.x;
+						this.positions[idx].y = position.y;
+						this.positions[idx].z = position.z;
 						curvePath.push({
 							x: position.x,
 							y: position.y,

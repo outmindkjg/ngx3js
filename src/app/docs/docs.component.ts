@@ -110,11 +110,7 @@ export class DocsComponent implements OnInit {
 					}
 				}
 				if (selected !== null) {
-					selected.scrollIntoView({
-						block: 'nearest',
-						inline: 'start',
-						behavior: 'auto',
-					});
+					selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 					setTimeout(() => {
 						this.menu.closeMenu(false);
 					}, 1000);
@@ -206,12 +202,9 @@ export class DocsComponent implements OnInit {
 		}
 	}
 
-	subChildMenu : { id: string; name: string }[] = null;
-	changeSubPage(menuId: string, subMenuList: { id: string; name: string }[]) {
-		this.subChildMenu = [];
-		subMenuList.forEach(menu => {
-			this.subChildMenu.push({ id : '/docs/' + menuId + '.'+ menu.id, name : menu.name})
-		});
+	subChildMenu : { id: string; name: string, selected : boolean }[] = null;
+	changeSubPage(subMenuList: { id: string; name: string, selected : boolean }[]) {
+		this.subChildMenu = subMenuList;
 	}
 
 	changeLocale(locale: Event) {

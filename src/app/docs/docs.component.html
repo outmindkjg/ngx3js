@@ -50,6 +50,7 @@
 										<a
 											[href]="'#' + schild.id"
 											[routerLink]="schild.id"
+											[ngClass]="schild.selected ? 'selected' : 'unselected'"
 										>{{ schild.name }}</a>
 									</li>
 								</ul>

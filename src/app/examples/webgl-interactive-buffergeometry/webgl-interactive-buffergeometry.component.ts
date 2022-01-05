@@ -11,7 +11,7 @@ import {
 })
 export class WebglInteractiveBuffergeometryComponent extends NgxBaseComponent<{}> {
 	constructor() {
-		super({}, []);
+		super({}, [], false, false);
 	}
 
 	ngOnInit() {

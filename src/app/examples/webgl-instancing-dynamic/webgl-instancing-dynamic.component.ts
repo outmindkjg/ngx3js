@@ -17,7 +17,7 @@ export class WebglInstancingDynamicComponent extends NgxBaseComponent<{
 				count: 1000,
 			},
 			[{ name: 'count', type: 'number', min: 10, max: 1000, step: 1 }]
-		);
+		, false, false);
 	}
 
 	onRender(timer: IRendererTimer) {

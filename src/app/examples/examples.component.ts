@@ -91,7 +91,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 					}
 				} 
 				if (selected !== null) {
-					selected.scrollIntoView({ block: 'nearest', inline : 'start', behavior: 'auto' });
+					selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 					setTimeout(() => {
 						this.menu.closeMenu(false);
 					}, 1000);

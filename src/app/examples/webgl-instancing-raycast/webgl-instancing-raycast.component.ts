@@ -31,8 +31,10 @@ export class WebglInstancingRaycastComponent extends NgxBaseComponent<{
 					},
 				},
 			]
-		);
+		, false, false);
 	}
+
+	changedColor : number[] = [];
 
 	onMouseMove(event: IRendererEvent) {
 		if (this.camera !== null && this.mesh !== null) {
@@ -40,9 +42,12 @@ export class WebglInstancingRaycastComponent extends NgxBaseComponent<{
 			const intersection = this.camera.getIntersection(event.mouse, mesh);
 			if (intersection !== null) {
 				const instanceId = intersection.instanceId;
-				const color = new THREE.Color();
-				mesh.setColorAt(instanceId, color.setHex(Math.random() * 0xffffff));
-				mesh.instanceColor.needsUpdate = true;
+				if (!this.changedColor.includes(instanceId)) {
+					const color = new THREE.Color();
+					mesh.setColorAt(instanceId, color.setHex(Math.random() * 0xffffff));
+					mesh.instanceColor.needsUpdate = true;
+					this.changedColor.push(instanceId);
+				}
 			}
 		}
 	}

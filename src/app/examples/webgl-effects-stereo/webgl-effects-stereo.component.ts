@@ -41,8 +41,10 @@ export class WebglEffectsStereoComponent extends NgxBaseComponent<{
 	}
 
 	spheres: NgxMeshComponent[] = [];
-	setSpheres(spheres: NgxMeshComponent) {
-		this.spheres.push(spheres);
+	setSpheres(sphere: NgxMeshComponent) {
+		if (!this.spheres.includes(sphere)) {
+			this.spheres.push(sphere);
+		}
 	}
 
 	onRender(timer: IRendererTimer) {
