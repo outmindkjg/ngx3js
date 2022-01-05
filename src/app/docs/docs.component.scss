@@ -1,4 +1,29 @@
-
-#content>div>div>ul {
-     margin-left: 1rem !important;
+#content > div > div > ul {
+	margin-left: 1rem !important;
+}
+a.button {
+	position: absolute;
+	opacity: 0.2;
+	right: 1rem;
+	bottom: 1rem;
+	z-index: 100;
+	padding: 12px;
+	border-radius: 25px;
+	border: 2px solid var(--background-color);
+	background-color: var(--text-color);
+	transform: rotate(0deg);
+	transform-origin: center center;
+	transition: transform 0.5s, opacity 0.5s;
+	cursor: pointer;
+	&.gototop {
+		right: 5rem;
+	}
+	&:hover {
+		opacity: 1;
+		transform: rotate(360deg);
+	}
+	img {
+		display: block;
+		width: var(--icon-size);
+	}
 }

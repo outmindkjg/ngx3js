@@ -5,7 +5,6 @@
 	"Q" toggle world/local space | "Shift" snap to grid<br />
 	"X" toggle X | "Y" toggle Y | "Z" toggle Z | "Spacebar" toggle enabled<br />
 	"C" toggle camera | "V" random zoom
-	todo
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -20,14 +19,24 @@
 	(onRender)="onRender($event)"
 	(onLoad)="setRender($event)"
 >
+	<ngx3js-lookat [x]="0" [y]="200" [z]="0"></ngx3js-lookat>
 	<ngx3js-control
 		[type]="'TransformControls'"
 		(eventListener)="setTransformEventListener($event)"
 		(onLoad)="setTransformControl($event)"
-	></ngx3js-control>
-	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.01" [far]="30000">
-		<ngx3js-lookat [x]="0" [y]="200" [z]="0"></ngx3js-lookat>
-		<ngx3js-position [x]="1000" [y]="500" [z]="1000"></ngx3js-position>
+	>
+	</ngx3js-control>
+	<ngx3js-camera 
+		[type]="cameraInfo.type" 
+		[fov]="cameraInfo.fov" 
+		[left]="cameraInfo.left" 
+		[right]="cameraInfo.right" 
+		[top]="cameraInfo.top" 
+		[bottom]="cameraInfo.bottom" 
+		[zoom]="cameraInfo.zoom" [near]="0.01" [far]="30000"
+		(onLoad)="setCamera($event)"
+	>
+		<ngx3js-position [x]="cameraInfo.x" [y]="cameraInfo.y" [z]="cameraInfo.z"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-scene #scene [background]="'0xa0a0a0'">
 		<ngx3js-light
@@ -38,7 +47,7 @@
 			<ngx3js-position [x]="1" [y]="1" [z]="1"></ngx3js-position>
 		</ngx3js-light>
 		<ngx3js-mesh (onLoad)="setMesh($event)">
-			<ngx3js-position [x]="0" [y]="1" [z]="0"></ngx3js-position>
+			<ngx3js-position [x]="0" [y]="200" [z]="0"></ngx3js-position>
 			<ngx3js-geometry
 				[type]="'BoxGeometry'"
 				[width]="200"

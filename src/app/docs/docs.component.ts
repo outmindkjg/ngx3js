@@ -90,9 +90,13 @@ export class DocsComponent implements OnInit {
 
 	private lastFocus: string = null;
 
+	@ViewChild('apiTop') private apiTop: ElementRef = null;
+
 	setFocus(menuId: string) {
 		if (this.ele.nativeElement) {
-			if (!this.isLoaded) {
+			if (menuId === null) {
+				this.apiTop.nativeElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+			} else if (!this.isLoaded) {
 				setTimeout(() => {
 					this.setFocus(menuId);
 				}, 500);
@@ -121,6 +125,7 @@ export class DocsComponent implements OnInit {
 				}
 			}
 		}
+		return false;
 	}
 
 	ngAfterViewInit() {}

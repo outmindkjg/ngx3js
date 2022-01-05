@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import {
 	NgxBaseComponent,
 	NgxControlComponent,
-	NgxMeshComponent, NgxRendererComponent,
-	IRendererEvent, THREE
+	NgxMeshComponent,
+	NgxRendererComponent,
+	IRendererEvent,
+	THREE,
 } from 'ngx3js';
 
 @Component({
@@ -83,8 +85,23 @@ export class MiscControlsTransformComponent extends NgxBaseComponent<{}> {
 							control.setMode('scale');
 							break;
 						case 67: // C
+							this.cameraInfo.x = this.cameraObject3d.position.x;
+							this.cameraInfo.y = this.cameraObject3d.position.y;
+							this.cameraInfo.z = this.cameraObject3d.position.z;
+							this.cameraInfo.type = (this.cameraInfo.type === 'PerspectiveCamera') ? 'OrthographicCamera' : 'PerspectiveCamera';
 							break;
 						case 86: // V
+							this.cameraInfo.x = this.cameraObject3d.position.x;
+							this.cameraInfo.y = this.cameraObject3d.position.y;
+							this.cameraInfo.z = this.cameraObject3d.position.z;
+							const randomFoV = Math.random() + 0.1;
+							const randomZoom = Math.random() + 0.1;
+							this.cameraInfo.fov = randomFoV * 160;
+							this.cameraInfo.left = -randomFoV  * 2;
+							this.cameraInfo.right = randomFoV * 2;
+							this.cameraInfo.top = randomFoV * 2;
+							this.cameraInfo.bottom = - randomFoV  * 2;
+							this.cameraInfo.zoom = randomZoom;
 							break;
 						case 187:
 						case 107: // +, =, num+
@@ -106,6 +123,9 @@ export class MiscControlsTransformComponent extends NgxBaseComponent<{}> {
 						case 32: // Spacebar
 							control.enabled = !control.enabled;
 							break;
+						case 27: // Esc
+							control.reset();
+							break;
 					}
 					break;
 				case 'keyup':
@@ -117,5 +137,29 @@ export class MiscControlsTransformComponent extends NgxBaseComponent<{}> {
 					break;
 			}
 		}
+	}
+
+	cameraInfo : {
+		type : string;
+		fov : number;
+		left : number;
+		right : number;
+		bottom : number;
+		top : number;
+		zoom : number;
+		x : number;
+		y : number;
+		z : number;
+	} = {
+		type : 'PerspectiveCamera',
+		fov : 50,
+		left : -1, 
+		right : 1,
+		top : 1,
+		bottom : -1,
+		zoom : 1,
+		x : 1000,
+		y : 500,
+		z : 1000
 	}
 }

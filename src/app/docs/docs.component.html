@@ -63,6 +63,7 @@
 	</div>
 	<div id="viewer">
 		<div id="viewer-inner">
+			<a #apiTop class="doc-top"></a>
 			<router-outlet></router-outlet>
 		</div>
 	</div>
@@ -73,5 +74,12 @@
 		href="#"
 		title="View source code"
 		><img src="assets/examples/files/ic_mode_edit_black_24dp.svg"
+	/></a>
+	<a
+		class="button gototop"
+		href="#"
+		title="Goto Top"
+		(click)="setFocus(null)"
+		><img src="assets/examples/files/gototop.svg"
 	/></a>
 </div>

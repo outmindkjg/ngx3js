@@ -1,6 +1,7 @@
 :root {
 	color-scheme: light dark;
 	--background-color: #fff;
+	--background-color-rgba: rgba(255,255,255, 0.7);
 	--secondary-background-color: #f7f7f7;
 
 	--color-blue: #049ef4;
@@ -22,6 +23,7 @@
 @media (prefers-color-scheme: dark) {
 	:root {
 		--background-color: #222;
+		--background-color-rgba: rgba(34,34,34, 0.7);
 		--secondary-background-color: #2e2e2e;
 
 		--text-color: #bbb;
