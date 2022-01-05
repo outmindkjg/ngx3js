@@ -591,10 +591,10 @@
 				"NgxAbstractThreeDirective": "ngxapi/en/NgxAbstractThreeDirective",
 				"DrawingCanvasDirective": "ngxapi/en/DrawingCanvasDirective",
 				"NgxAbstractObject3dDirective": "ngxapi/en/NgxAbstractObject3dDirective",
-				"PositionDirective": "ngxapi/en/PositionDirective",
-				"RotateDirective": "ngxapi/en/RotateDirective",
-				"ScaleDirective": "ngxapi/en/ScaleDirective",
-				"NumberDirective": "ngxapi/en/NumberDirective"
+				"NgxPositionDirective": "ngxapi/en/NgxPositionDirective",
+				"NgxRotateDirective": "ngxapi/en/NgxRotateDirective",
+				"NgxScaleDirective": "ngxapi/en/NgxScaleDirective",
+				"NgxNumberDirective": "ngxapi/en/NgxNumberDirective"
 			},
 			"Pipe": {
 				"NgxAnglePipe": "ngxapi/en/NgxAnglePipe",
