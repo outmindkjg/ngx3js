@@ -1,3 +1,32 @@
 .doc-top {
 	display: block;
 }
+div.loading {
+	position: absolute;
+	left:0;
+	top:0;
+	right: 0;
+	bottom: 0;
+	opacity: 1;
+	background-color: rgba(0,0,0,0.7);
+	background-image: url(../../../assets/examples/files/loadiing.svg);
+	background-position:center;
+	background-repeat: no-repeat;
+	background-size: 100px 100px;
+	display: inline-block;
+	z-index: 1000;
+	animation: loadingAnni 2s normal forwards ease-in-out;
+}
+
+@keyframes loadingAnni {
+    0% {
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}

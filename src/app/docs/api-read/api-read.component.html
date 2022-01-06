@@ -1,4 +1,5 @@
 <div class="doc-wraper">
+	<div *ngIf="!isLoaded" class="loading"></div>
 	<a #apiTop class="doc-top"></a>
 	<div class="doc-body" *ngIf="errorPage">
 		<h1>404</h1>

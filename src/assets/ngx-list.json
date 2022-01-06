@@ -99,7 +99,8 @@
 				"Fog": "ngxapi/en/Fog",
 				"FogExp2": "ngxapi/en/FogExp2",
 				"Scene": "ngxapi/en/Scene",
-				"RoomEnvironment": "ngxapi/en/RoomEnvironment"
+				"RoomEnvironment": "ngxapi/en/RoomEnvironment",
+				"DebugEnvironment": "ngxapi/en/DebugEnvironment"
 			},
 			"Cameras": {
 				"NgxCameraComponent": "ngxapi/en/NgxCameraComponent",
@@ -560,11 +561,11 @@
 				"CubicBezierCurve": "ngxapi/en/CubicBezierCurve",
 				"CubicBezierCurve3": "ngxapi/en/CubicBezierCurve3",
 				"Curve": "ngxapi/en/Curve",
+				"CurveVector2": "ngxapi/en/CurveVector2",
+				"CurveVector3": "ngxapi/en/CurveVector3",
 				"CurvePath": "ngxapi/en/CurvePath",
 				"CurvePathVector2": "ngxapi/en/CurvePathVector2",
 				"CurvePathVector3": "ngxapi/en/CurvePathVector3",
-				"CurveVector2": "ngxapi/en/CurveVector2",
-				"CurveVector3": "ngxapi/en/CurveVector3",
 				"DataUtils": "ngxapi/en/DataUtils",
 				"EllipseCurve": "ngxapi/en/EllipseCurve",
 				"ImageUtils": "ngxapi/en/ImageUtils",
