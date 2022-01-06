@@ -42,7 +42,8 @@
 			<ngx3js-mesh *ngFor="let info of headInfos">
 				<ngx3js-position [x]="info.x" [y]="0" [z]="info.z"></ngx3js-position>
 				<ngx3js-rotation [x]="0" [y]="info.ry" [z]="0"></ngx3js-rotation>
-				<ngx3js-mesh [geometry]="waltHead">
+				<ngx3js-mesh>
+					<ngx3js-geometry [type]="'box'"></ngx3js-geometry>
 					<ngx3js-position [x]="0" [y]="-37" [z]="0"></ngx3js-position>
 					<ngx3js-material
 						[type]="'ShaderMaterial'"

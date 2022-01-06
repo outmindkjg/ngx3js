@@ -1,6 +1,6 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-	webgl2 - volume - cloud todo
+	webgl2 - volume - cloud
 </div>
 <ngx3js-renderer
 	[type]="'webgl2'"
@@ -25,7 +25,8 @@
 		<ngx3js-position [x]="0" [y]="0" [z]="1.5"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-scene #scene>
-		<ngx3js-mesh #sky>
+		<ngx3js-light [color]="'0xffffff'" [intensity]="20"></ngx3js-light>
+		<ngx3js-mesh #sky [castShadow]="false">
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
 			<ngx3js-geometry
 				[type]="'SphereGeometry'"
@@ -44,7 +45,7 @@
 				*ngFor="let info of textureInfos"
 				[image]="'cloud'"
 				[loaderType]="'DataTexture3D'"
-				[width]="30"
+				[width]="32"
 				[scale]="info.scale"
 			></ngx3js-texture>
 		</ngx3js-shared>

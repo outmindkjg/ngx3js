@@ -4,7 +4,7 @@
 	Renders geometry into a G-Buffer.<br />
 	Visualized here is the color and normal data from the G-Buffer.<br />
 	Created by
-	<a href="http://twitter.com/mattdesl" target="_blank">@mattdesl</a>. todo
+	<a href="http://twitter.com/mattdesl" target="_blank">@mattdesl</a>.
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -14,6 +14,7 @@
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
+	[beforeRender]="beforeRender"
 	(onRender)="onRender($event)"
 >
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>

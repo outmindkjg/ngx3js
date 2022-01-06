@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { I3JS, NgxBaseComponent, NgxSharedComponent, IRendererTimer, THREE } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxSharedComponent, IRendererTimer, THREE, NgxMeshComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl2-materials-texture3d-partialupdate',
@@ -81,12 +81,16 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends NgxBaseCompo
 		}
 	}
 
+	textLoaded : boolean = false;
 	setShared(shared: NgxSharedComponent) {
 		const textureList = shared.getTextureComponents();
 		this.texture3dList = [];
 		textureList.forEach((texture) => {
 			this.texture3dList.push(texture.getTexture());
 		});
+		this.getTimeout(3000).then(() => {
+			this.textLoaded = true;
+		})
 	}
 
 	textureInfos: { scale: number; x: number; y: number; z: number }[] = [];
@@ -113,10 +117,10 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends NgxBaseCompo
 	nextTime: number = 0;
 	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
-		if (this.camera !== null && this.meshObject3d !== null) {
+		if (this.textLoaded && this.camera !== null && this.meshObject3d !== null) {
 			this.meshObject3d.rotation.y = timer.elapsedTime / 7.5;
 			const uniforms = this.getUniforms();
-			if (uniforms !== null && false) {
+			if (uniforms !== null && uniforms.map.value) {
 				if (
 					this.nextTime < timer.elapsedTime &&
 					this.addedCnt < this.texture3dList.length
@@ -131,9 +135,9 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends NgxBaseCompo
 					const position = new THREE.Vector3(x * 32, y * 32, z * 32).floor();
 					const box = new THREE.Box3(
 						new THREE.Vector3(0, 0, 0),
-						new THREE.Vector3(29, 29, 29)
+						new THREE.Vector3(31, 31, 31)
 					);
-					(timer.renderer as any).copyTextureToTexture3D(
+					(timer.renderer as I3JS.WebGL1Renderer).copyTextureToTexture3D(
 						box,
 						position,
 						texture,
@@ -142,7 +146,7 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends NgxBaseCompo
 					this.addedCnt++;
 					this.nextTime = timer.elapsedTime + 1;
 				}
-				uniforms.cameraPos.value.copy(this.camera.getCamera().position);
+				uniforms.cameraPos.value.copy(this.cameraObject3d.position);
 				uniforms.frame.value++;
 			}
 		}
