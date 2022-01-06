@@ -88,7 +88,7 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends NgxBaseCompo
 		textureList.forEach((texture) => {
 			this.texture3dList.push(texture.getTexture());
 		});
-		this.getTimeout(3000).then(() => {
+		this.getTimeout(1000).then(() => {
 			this.textLoaded = true;
 		})
 	}
