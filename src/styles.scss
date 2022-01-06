@@ -280,14 +280,24 @@ div#docs {
 		}
 		h1 {
 			position: sticky;
-			background-color:var(--background-color-rgba);
-			border-bottom: 2px solid var(--secondary-background-color);
+			background-color:var(--background-color);
+			border-bottom: 1px solid var(--secondary-background-color);
+			text-shadow: 0px 0px 1px var(--secondary-background-color);
 			top : 0;
 			left : 0;
 			right : 0;
-			padding : 5px 10px;
+			padding : 4px 10px;
 			line-height: 100%;
 			z-index: 100;
+			transition: background-color 1s, margin 1s, text-shadow 1s;
+		}
+		&.scrolled {
+			h1 {
+				background-color:var(--background-color-rgba);
+				text-shadow: 3px 3px 1px var(--secondary-background-color);
+				margin-left: -1.3rem;
+				margin-right: -1.3rem;
+			}
 		}
 		div.dummy-iframe,
 		iframe {

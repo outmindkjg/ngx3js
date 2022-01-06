@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Component({
 	selector: 'app-examples-iframe',
@@ -48,16 +49,21 @@ export class ExamplesIframeComponent implements AfterViewInit{
 		if (this.iframe !== null && this.iframe !== undefined && url != null) {
 			if (this.lastIframeUrl !== url) {
 				const iframe: HTMLIFrameElement = this.iframe.nativeElement;
-				if (this.lastIframeUrl !== null) {
-					iframe.className = 'iframe-unloaded';
-				}
-				this.lastIframeUrl = url;
-				setTimeout(() => {
-					iframe.src = 'about:blank';
+				if (environment.production) {
+					if (this.lastIframeUrl !== null) {
+						iframe.className = 'iframe-unloaded';
+					}
+					this.lastIframeUrl = url;
 					setTimeout(() => {
-						iframe.src = url;
+						iframe.src = 'about:blank';
+						setTimeout(() => {
+							iframe.src = url;
+						}, 1000);
 					}, 1000);
-				}, 1000);
+				} else {
+					this.lastIframeUrl = url;
+					iframe.src = url;
+				}
 			}
 		}
 	}
@@ -65,11 +71,15 @@ export class ExamplesIframeComponent implements AfterViewInit{
 	ngAfterViewInit(): void {
 		if (this.iframe !== null && this.iframe !== undefined) {
 			const iframe: HTMLIFrameElement = this.iframe.nativeElement;
-			iframe.addEventListener('load', () => {
-				if(iframe.src !== 'about:blank') {
-					iframe.className = 'iframe-loaded';
-				}
-			});
+			if (environment.production) {
+				iframe.addEventListener('load', () => {
+					if(iframe.src !== 'about:blank') {
+						iframe.className = 'iframe-loaded';
+					}
+				});
+			} else {
+				iframe.className = 'iframe-loaded';
+			}
 			this.changeIframeSrc(this.iframeUrl);
 		}
 	}

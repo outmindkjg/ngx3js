@@ -101,27 +101,40 @@ export class DocsComponent implements OnInit {
 					this.setFocus(menuId);
 				}, 500);
 			} else if (this.lastFocus !== menuId) {
-				this.lastFocus = menuId;
-				this.menu.closeMenu(true);
-				const links: HTMLAnchorElement[] =
-					this.ele.nativeElement.getElementsByTagName('a');
-				let selected: HTMLAnchorElement = null;
-				for (let i = 0; i < links.length; i++) {
-					const href = links[i].getAttribute('href');
-					if (href && href.endsWith('#' + menuId)) {
-						selected = links[i];
-						break;
+				if (this.lastFocus === null || !this.lastFocus.startsWith(menuId)) {
+					this.menu.closeMenu(true);
+					this.lastFocus = menuId;
+					const links: HTMLAnchorElement[] =
+						this.ele.nativeElement.getElementsByTagName('a');
+					let selected: HTMLAnchorElement = null;
+					for (let i = 0; i < links.length; i++) {
+						const href = links[i].getAttribute('href');
+						if (href && href.endsWith('#' + menuId)) {
+							selected = links[i];
+							break;
+						}
+					}
+					if (selected !== null) {
+						selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+						setTimeout(() => {
+							this.menu.closeMenu(false);
+						}, 1000);
+					} else {
+						setTimeout(() => {
+							this.menu.closeMenu(false);
+						}, 1000);
 					}
 				}
-				if (selected !== null) {
-					selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-					setTimeout(() => {
-						this.menu.closeMenu(false);
-					}, 1000);
-				} else {
-					setTimeout(() => {
-						this.menu.closeMenu(false);
-					}, 1000);
+			} else if (this.subChildMenu !== null && this.subChildMenu.length > 0){
+				let linkElement : HTMLElement = null;
+				this.subChildMenu.forEach(menu => {
+					if (menu.id === menuId) {
+						linkElement = menu.element;
+					}
+				})
+				if (linkElement !== null) {
+					this.menu.closeMenu(false);
+					linkElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
 				}
 			}
 		}
@@ -207,8 +220,8 @@ export class DocsComponent implements OnInit {
 		}
 	}
 
-	subChildMenu : { id: string; name: string, selected : boolean }[] = null;
-	changeSubPage(subMenuList: { id: string; name: string, selected : boolean }[]) {
+	subChildMenu : { id: string; name: string, element : HTMLElement, selected : boolean }[] = null;
+	changeSubPage(subMenuList: { id: string; name: string, element : HTMLElement, selected : boolean }[]) {
 		this.subChildMenu = subMenuList;
 	}
 

@@ -51,6 +51,7 @@
 											[href]="'#' + schild.id"
 											[routerLink]="schild.id"
 											[ngClass]="schild.selected ? 'selected' : 'unselected'"
+											(click)="setFocus(schild.id)"
 										>{{ schild.name }}</a>
 									</li>
 								</ul>

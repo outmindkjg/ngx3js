@@ -1,6 +1,19 @@
-#content > div > div > ul {
-	margin-left: 1rem !important;
+#panel #content > div > div > ul {
+	margin-left: 1rem;
+	>li>ul {
+		margin-left: 1rem;
+		a {
+			color : var(--secondary-text-color);
+			text-decoration: none;
+			font-size: 0.9em;
+			&.selected,
+			&:hover {
+				color : var(--text-color);
+			}
+		}
+	}
 }
+
 a.button {
 	position: absolute;
 	opacity: 0.2;

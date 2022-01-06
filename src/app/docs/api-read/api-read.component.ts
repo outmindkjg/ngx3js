@@ -448,6 +448,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 	}
 
 	private isLoaded: boolean = false;
+	public isScrolled: boolean = false;
 
 	private checkScrollIframe(docEle: HTMLDivElement) {
 		if (docEle) {
@@ -472,6 +473,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 					}
 				}
 			}
+			this.isScrolled =  (docEle.scrollTop > 50) ? true : false;
 			let lastVisibleMenu : number = -1;
 			let lastVisibleMenuInView : boolean = false;
 			
