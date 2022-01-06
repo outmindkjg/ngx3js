@@ -71,7 +71,7 @@ export class Webgl2MaterialsTexture3dPartialupdateComponent extends NgxBaseCompo
 			for (let y = 0; y < 4; y++) {
 				for (let z = 0; z < 4; z++) {
 					this.textureInfos.push({
-						scale: (Math.random() + 0.5) * 0.5,
+						scale: (Math.random() + 0.5) * 0.5 * 10.0 / 32,
 						x: x,
 						y: y,
 						z: z,
