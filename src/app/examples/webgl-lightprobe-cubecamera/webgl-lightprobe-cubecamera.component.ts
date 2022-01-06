@@ -66,7 +66,7 @@ export class WebglLightprobeCubecameraComponent extends NgxBaseComponent<{
 	directionalLight: any;
 	meshMaterial: any;
 
-	setlightProbe(lightProbe: NgxLightComponent) {
+	setLightProbe(lightProbe: NgxLightComponent) {
 		this.lightProbe = lightProbe.getObject3d();
 	}
 
