@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import {
 	I3JS, NgxBaseComponent, NgxMeshComponent,
 	NgxRendererComponent,
-	IRendererTimer
+	IRendererTimer,
+	NgxMaterialComponent,
+	Vector2,
+	THREE
 } from 'ngx3js';
 
 @Component({
@@ -43,24 +46,64 @@ export class WebglRaymarchingReflectComponent extends NgxBaseComponent<{
 			,false , false);
 	}
 
-	setRender(renderer: NgxRendererComponent) {
-		super.setRender(renderer);
+	ngOnInit(): void {
 		this.changeSize();
 	}
 
+	setRender(renderer: NgxRendererComponent) {
+		super.setRender(renderer);
+		this.subscribeRefer('windowSize',
+			renderer.sizeSubscribe().subscribe(() => {
+				if (this.renderer !== null && this.material !== null && this.cameraObject3d !== null) {
+					const width = window.innerWidth;
+					const height = window.innerHeight;
+					if ((width !== this.width || height !== this.height) && this.controls.resolution !== 'full') {
+						this.changeSize();
+					} else {
+						const renderer : I3JS.WebGL1Renderer = this.renderer.renderer as any;
+						const size : I3JS.Vector2 = new THREE.Vector2();
+						renderer.getSize(size);
+						const material = this.material;
+						const camera = this.cameraObject3d;
+						material.uniforms.resolution.value.set( size.x, size.y );
+						material.uniforms.cameraProjectionMatrixInverse.value.copy( camera.projectionMatrixInverse );
+					}
+				}
+			})
+		);
+	}
+
+	setRayMarchingMaterial(matrial : NgxMaterialComponent) {
+		this.material = matrial.getMaterial();
+	}
+	
+	material : I3JS.RawShaderMaterial = null;
+
+	resolution : number = 512;
+	sizeType : string = "fixed";
+	left : number = 0;
+	top : number = 0;
+	width : number = 0;
+	height : number = 0;
 	changeSize() {
-		if (this.renderer !== null) {
-			if (this.controls.resolution !== 'full') {
-				const resolution = parseInt(this.controls.resolution);
-				this.renderer.resizeCanvas(resolution, resolution);
-			} else {
-				this.renderer.resizeCanvas(0, 0);
-			}
+		this.width = window.innerWidth;
+		this.height = window.innerHeight;
+		if (this.controls.resolution !== 'full') {
+			this.resolution = parseInt(this.controls.resolution);
+			this.left = (this.width - this.resolution) / 2;
+			this.top = (this.height - this.resolution) / 2;
+			this.sizeType = 'fixed';
+		} else {
+			this.resolution = -1;
+			this.sizeType = 'auto';
+			this.left = 0;
+			this.top = 0;
 		}
 	}
 
 	setDolly(mesh: NgxMeshComponent) {
 		this.dolly = mesh.getObject3d();
+		this.cameraObject3d = this.dolly.children[0] as any;
 	}
 
 	dolly: I3JS.Object3D = null;

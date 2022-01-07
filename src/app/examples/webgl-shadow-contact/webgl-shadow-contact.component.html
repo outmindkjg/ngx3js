@@ -1,6 +1,6 @@
 <div class="info dark">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-	webgl - contact shadows todo
+	webgl - contact shadows
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -11,21 +11,31 @@
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
+	[beforeRender]="beforeRender"
 	(onRender)="onRender($event)"
 >
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera [type]="'perspective'" [fov]="50" [near]="0.1" [far]="100">
 		<ngx3js-position [x]="0.5" [y]="1" [z]="2"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-scene #scene [background]="'0xffffff'">
+	<ngx3js-scene #scene [background]="'0xffffff'" (onLoad)="setScene($event)">
 		<ngx3js-shared>
 			<ngx3js-material
 				#material
 				[type]="'MeshNormalMaterial'"
 			></ngx3js-material>
+			<ngx3js-geometry
+				#planeGeometry
+				[type]="'Plane'"
+				[width]="2.5"
+				[height]="2.5"
+				
+			>
+				<ngx3js-rotation [x]="90" [y]="0" [z]="0"></ngx3js-rotation>
+			</ngx3js-geometry>
 		</ngx3js-shared>
 		<ngx3js-mesh (onLoad)="setMesh($event)">
-			<ngx3js-mesh #box [material]="material">
+			<ngx3js-mesh #box [material]="material" (onLoad)="addMeshes($event)">
 				<ngx3js-position [x]="1 / 2.0" [y]="0.1" [z]="0"></ngx3js-position>
 				<ngx3js-geometry
 					[type]="'BoxGeometry'"
@@ -35,14 +45,14 @@
 				></ngx3js-geometry>
 			</ngx3js-mesh>
 		</ngx3js-mesh>
-		<ngx3js-mesh #icosahedron [material]="material">
+		<ngx3js-mesh #icosahedron [material]="material" (onLoad)="addMeshes($event)">
 			<ngx3js-position [x]="-1 / 4" [y]="0.1" [z]="0.433"></ngx3js-position>
 			<ngx3js-geometry
 				[type]="'IcosahedronGeometry'"
 				[radius]="0.3"
 			></ngx3js-geometry>
 		</ngx3js-mesh>
-		<ngx3js-mesh #TorusKnot [material]="material">
+		<ngx3js-mesh #TorusKnot [material]="material" (onLoad)="addMeshes($event)">
 			<ngx3js-position [x]="-1 / 4" [y]="0.1" [z]="-0.433"></ngx3js-position>
 			<ngx3js-geometry
 				[type]="'TorusKnotGeometry'"
@@ -54,16 +64,37 @@
 				[q]="3"
 			></ngx3js-geometry>
 		</ngx3js-mesh>
-		<ngx3js-mesh [receiveShadow]="true">
-			<ngx3js-position [x]="0" [y]="-0.2" [z]="0"></ngx3js-position>
-			<ngx3js-rotation [x]="-90" [y]="0" [z]="0"></ngx3js-rotation>
-			<ngx3js-geometry [type]="'Plane'" [width]="2.5" [height]="2.5">
-			</ngx3js-geometry>
-			<ngx3js-material
-				[type]="'MeshBasic'"
-				[color]="'0xf0f0f0'"
-				[depthWrite]="false"
-			></ngx3js-material>
+		<ngx3js-mesh #shadowGroup (onLoad)="setShadowGroup($event)">
+			<ngx3js-position [x]="0" [y]="-0.3" [z]="0"></ngx3js-position>
+			<ngx3js-mesh
+				#plane
+				[renderOrder]="10"
+				[geometry]="planeGeometry"
+				(onLoad)="setPlaneMesh($event, 'plane')"
+			>
+				<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+				<ngx3js-scale [x]="1" [y]="-1" [z]="1"></ngx3js-scale>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[depthWrite]="false"
+					[map]="renderTarget.texture"
+					[opacity]="controls.shadow.opacity"
+					[transparent]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh #blurPlane [visible]="false" [geometry]="planeGeometry" (onLoad)="setPlaneMesh($event, 'blur')">
+				<ngx3js-material [type]="'MeshBasicMaterial'" ></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh #fillPlane [geometry]="planeGeometry" (onLoad)="setPlaneMesh($event, 'fill')">
+				<ngx3js-rotation [x]="180" [y]="0" [z]="0"></ngx3js-rotation>
+				<ngx3js-material
+					[type]="'MeshBasicMaterial'"
+					[depthWrite]="false"
+					[opacity]="controls.plane.opacity"
+					[transparent]="true"
+					[color]="controls.plane.color"
+				></ngx3js-material>
+			</ngx3js-mesh>
 		</ngx3js-mesh>
 	</ngx3js-scene>
 </ngx3js-renderer>

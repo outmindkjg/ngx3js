@@ -10,11 +10,11 @@
 		target="_blank"
 		rel="noopener"
 		>article</a
-	>) todo
+	>)
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
-	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[controlOptions]="{ enablePan: false, enableDamping: true, enableZoom : false }"
 	[statsMode]="0"
 	[antialias]="true"
 	[shadowMapEnabled]="true"
@@ -22,6 +22,11 @@
 	[guiParams]="controlsParams"
 	(onRender)="onRender($event)"
 	(onLoad)="setRender($event)"
+	[width]="resolution"
+	[height]="resolution"
+	[x]="left"
+	[y]="top"
+	[sizeType]="sizeType"
 >
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	<ngx3js-scene #scene>
@@ -54,6 +59,7 @@
 					}
 				}"
 				[shader]="'RaymarchingReflect'"
+				(onLoad)="setRayMarchingMaterial($event)"
 			></ngx3js-material>
 		</ngx3js-mesh>
 	</ngx3js-scene>

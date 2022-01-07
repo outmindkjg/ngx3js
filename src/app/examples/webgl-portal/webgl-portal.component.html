@@ -1,6 +1,6 @@
 <div class="info dark">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-	portal todo
+	portal
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -13,16 +13,17 @@
 	[localClippingEnabled]="true"
 	[statsMode]="0"
 	[antialias]="true"
-	[shadowMapEnabled]="true"
+	[shadowMapEnabled]="false"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
+	[beforeRender]="beforeRender"
 	(onRender)="onRender($event)"
 >
 	<ngx3js-lookat [x]="0" [y]="40" [z]="0"></ngx3js-lookat>
-	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="5000">
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="1" [far]="5000" (onLoad)="setCamera($event)">
 		<ngx3js-position [x]="0" [y]="75" [z]="160"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-scene #scene>
+	<ngx3js-scene #scene (onLoad)="setScene($event)">
 		<ngx3js-light
 			#mainLight
 			[type]="'PointLight'"
@@ -77,6 +78,8 @@
 				[type]="'MeshPhongMaterial'"
 				[color]="'0xffffff'"
 				[emissive]="'0x333333'"
+				[clippingPlanes]="[portalPlane]"
+				[clipShadows]="true"
 				[flatShading]="true"
 			></ngx3js-material>
 		</ngx3js-shared>
@@ -97,19 +100,21 @@
 			>
 				<ngx3js-position [x]="25" [y]="50" [z]="0"></ngx3js-position>
 			</ngx3js-mesh>
-			<ngx3js-mesh #leftPortal [geometry]="planeGeo">
+			<ngx3js-mesh #leftPortal [geometry]="planeGeo" (onLoad)="setPortal($event,'left')">
 				<ngx3js-position [x]="-30" [y]="20" [z]="0"></ngx3js-position>
 				<ngx3js-scale [multiply]="0.35"></ngx3js-scale>
 				<ngx3js-material
 					[type]="'MeshBasicMaterial'"
+					[map]="leftPortalTexture.texture"
 					[color]="'0xffffff'"
 				></ngx3js-material>
 			</ngx3js-mesh>
-			<ngx3js-mesh #rightPortal [geometry]="planeGeo">
+			<ngx3js-mesh #rightPortal [geometry]="planeGeo" (onLoad)="setPortal($event,'right')">
 				<ngx3js-position [x]="30" [y]="20" [z]="0"></ngx3js-position>
 				<ngx3js-scale [multiply]="0.35"></ngx3js-scale>
 				<ngx3js-material
 					[type]="'MeshBasicMaterial'"
+					[map]="rightPortalTexture.texture"
 					[color]="'0xffffff'"
 				></ngx3js-material>
 			</ngx3js-mesh>
