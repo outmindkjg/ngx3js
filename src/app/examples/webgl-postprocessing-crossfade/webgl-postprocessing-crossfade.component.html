@@ -11,6 +11,7 @@
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
 	[beforeRender]="beforeRender"
+	(onLoad)="setRender($event)"
 	(onRender)="onRender($event)"
 >
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>

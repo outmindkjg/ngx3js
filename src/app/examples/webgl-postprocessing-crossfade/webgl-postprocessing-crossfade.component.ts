@@ -7,6 +7,7 @@ import {
 	TWEEN,
 	NgxSharedComponent,
 	IRendererInfo,
+	NgxRendererComponent,
 } from 'ngx3js';
 
 @Component({
@@ -70,6 +71,18 @@ export class WebglPostprocessingCrossfadeComponent extends NgxBaseComponent<{
 		);
 	}
 
+	setRender(renderer: NgxRendererComponent): void {
+		super.setRender(renderer);
+		this.subscribeRefer('winddowSize',
+			this.renderer.sizeSubscribe().subscribe((size : I3JS.Vector2) => {
+				this.sceneA.resize(size);
+				this.sceneB.resize(size);
+			})
+		)
+	}
+
+	sceneA : FXScene = null;
+	sceneB : FXScene = null;
 	setShared(shared: NgxSharedComponent) {
 		const geometryList = shared.getGeometryComponents();
 		let geometryA: I3JS.BufferGeometry = null;
@@ -85,17 +98,17 @@ export class WebglPostprocessingCrossfadeComponent extends NgxBaseComponent<{
 					break;
 			}
 		});
-		const sceneA = new FXScene(
+		this.sceneA = new FXScene(
 			geometryA,
 			new THREE.Vector3(0, -0.4, 0),
 			new THREE.Color(0xffffff)
 		);
-		const sceneB = new FXScene(
+		this.sceneB = new FXScene(
 			geometryB,
 			new THREE.Vector3(0, 0.2, 0.1),
 			new THREE.Color(0x000000)
 		);
-		this.transition = new Transition( sceneA, sceneB, this.controls );
+		this.transition = new Transition( this.sceneA, this.sceneB, this.controls );
 	}
 
 	transition : Transition = null;
@@ -154,6 +167,11 @@ class FXScene {
 			window.innerHeight,
 			renderTargetParameters
 		);
+	}
+
+	resize(size : I3JS.Vector2) {
+		this.camera.aspect =  size.x / size.y;
+		this.camera.updateProjectionMatrix();
 	}
 
 	render(renderer, delta, rtt) {
