@@ -431,8 +431,8 @@ export class WebglGpgpuBirdsComponent extends NgxBaseComponent<{
   onRender(timer: IRendererTimer): void {
       super.onRender(timer);
       if (this.gpuCompute !== null) {
-        let delta = timer.delta;
-        const now = timer.elapsedTime;
+        let delta = timer.delta ;
+        const now = timer.elapsedTime ;
         if ( delta > 1 ) delta = 1; // safety cap on large deltas
 
         this.positionUniforms[ 'time' ].value = now;
