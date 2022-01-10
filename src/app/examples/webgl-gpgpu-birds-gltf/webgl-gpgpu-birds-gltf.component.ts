@@ -111,16 +111,16 @@ export class WebglGpgpuBirdsGltfComponent extends NgxBaseComponent<{
 		this.velocityUniforms['alignmentDistance'].value = this.controls.alignment;
 		this.velocityUniforms['cohesionDistance'].value = this.controls.cohesion;
 		this.velocityUniforms['freedomFactor'].value = this.controls.freedom;
-		if ( this.materialShader ) {
-			this.materialShader.uniforms[ "size" ].value = this.controls.size;
+		if (this.materialShader) {
+			this.materialShader.uniforms['size'].value = this.controls.size;
 		}
 		if (this.bird) {
-			this.bird.setDrawRange( 0, this.vertexPerBird * this.controls.count );
+			this.bird.setDrawRange(0, this.vertexPerBird * this.controls.count);
 		}
 	}
 
-	vertexPerBird : number = 0;
-	materialShader : any = null;
+	vertexPerBird: number = 0;
+	materialShader: any = null;
 
 	fragmentShaderPosition = `
 	uniform float time;
@@ -309,30 +309,32 @@ export class WebglGpgpuBirdsGltfComponent extends NgxBaseComponent<{
 	};
 
 	ngOnInit() {
-		if (Math.random() > 0.5) {
+		const id = Math.random();
+		if (id > 0.66) {
 			this.controls.bird = 'models/gltf/Parrot.glb';
-		} else {
+		} else if (id > 0.33) {
 			this.controls.bird = 'models/gltf/Flamingo.glb';
+		} else {
+			this.controls.bird = 'models/gltf/Horse.glb';
 		}
 		this.loadBird();
 	}
 
 	backgroundColor: number;
 
-	nextPowerOf2( n : number ) : number {
-		return Math.pow( 2, Math.ceil( Math.log( n ) / Math.log( 2 ) ) );
+	nextPowerOf2(n: number): number {
+		return Math.pow(2, Math.ceil(Math.log(n) / Math.log(2)));
 	}
 
-	lerp ( value1 : number, value2 : number, amount : number ) : number {
-		amount = Math.max( Math.min( amount, 1 ), 0 );
-		return value1 + ( value2 - value1 ) * amount;
+	lerp(value1: number, value2: number, amount: number): number {
+		amount = Math.max(Math.min(amount, 1), 0);
+		return value1 + (value2 - value1) * amount;
 	}
 
-	initBirds( ) {
+	initBirds() {
 		const effectController = this.controls;
-		const m :I3JS.MeshStandardMaterial  = this.meshObject3d.material as any;
-		m.onBeforeCompile = ( shader ) => {
-
+		const m: I3JS.MeshStandardMaterial = this.meshObject3d.material as any;
+		m.onBeforeCompile = (shader) => {
 			shader.uniforms.texturePosition = { value: null };
 			shader.uniforms.textureVelocity = { value: null };
 			shader.uniforms.textureAnimation = { value: this.textureAnimation };
@@ -342,7 +344,7 @@ export class WebglGpgpuBirdsGltfComponent extends NgxBaseComponent<{
 
 			let token = '#define STANDARD';
 
-			let insert = /* glsl */`
+			let insert = /* glsl */ `
 				attribute vec4 reference;
 				attribute vec4 seeds;
 				attribute vec3 birdColor;
@@ -353,11 +355,11 @@ export class WebglGpgpuBirdsGltfComponent extends NgxBaseComponent<{
 				uniform float time;
 			`;
 
-			shader.vertexShader = shader.vertexShader.replace( token, token + insert );
+			shader.vertexShader = shader.vertexShader.replace(token, token + insert);
 
 			token = '#include <begin_vertex>';
 
-			insert = /* glsl */`
+			insert = /* glsl */ `
 				vec4 tmpPos = texture2D( texturePosition, reference.xy );
 
 				vec3 pos = tmpPos.xyz;
@@ -388,10 +390,9 @@ export class WebglGpgpuBirdsGltfComponent extends NgxBaseComponent<{
 				vec3 transformed = vec3( newPosition );
 			`;
 
-			shader.vertexShader = shader.vertexShader.replace( token, insert );
+			shader.vertexShader = shader.vertexShader.replace(token, insert);
 
 			this.materialShader = shader;
-
 		};
 	}
 
@@ -404,6 +405,14 @@ export class WebglGpgpuBirdsGltfComponent extends NgxBaseComponent<{
 			case 'models/gltf/Flamingo.glb':
 				this.controls.size = 0.1;
 				this.backgroundColor = 0xffdeff;
+				break;
+			case 'models/gltf/Horse.glb':
+				this.controls.size = 0.07;
+				this.backgroundColor = 0x1b631f;
+				break;
+			case 'models/gltf/fish.glb':
+				this.controls.size = 0.07;
+				this.backgroundColor = 0x1b631f;
 				break;
 		}
 		const birdGeometry = new THREE.BufferGeometry();
@@ -420,88 +429,123 @@ export class WebglGpgpuBirdsGltfComponent extends NgxBaseComponent<{
 			) => {
 				const gltf = source;
 				const animations = gltf.animations;
-				const durationAnimation = Math.round( animations[ 0 ].duration * 60 );
-				const birdGeo = gltf.scene.children[ 0 ].geometry;
-				const morphAttributes = birdGeo.morphAttributes.position;
-				const tHeight = this.nextPowerOf2( durationAnimation );
-				const tWidth = this.nextPowerOf2( birdGeo.getAttribute( 'position' ).count );
-				this.vertexPerBird = birdGeo.getAttribute( 'position' ).count;
-				const tData = new Float32Array( 3 * tWidth * tHeight );
+				console.log(gltf)
+				const durationAnimation = Math.round(animations[0].duration * 60);
+				const birdGeo = gltf.scene.children[0].geometry;
+				const morphAttributes = birdGeo?.morphAttributes?.position || [];
+				const tHeight = this.nextPowerOf2(durationAnimation);
+				const tWidth = this.nextPowerOf2(
+					birdGeo.getAttribute('position').count
+				);
+				this.vertexPerBird = birdGeo.getAttribute('position').count;
+				const tData = new Float32Array(3 * tWidth * tHeight);
 
-				for ( let i = 0; i < tWidth; i ++ ) {
-
-					for ( let j = 0; j < tHeight; j ++ ) {
-
+				for (let i = 0; i < tWidth; i++) {
+					for (let j = 0; j < tHeight; j++) {
 						const offset = j * tWidth * 3;
 
-						const curMorph = Math.floor( j / durationAnimation * morphAttributes.length );
-						const nextMorph = ( Math.floor( j / durationAnimation * morphAttributes.length ) + 1 ) % morphAttributes.length;
-						const lerpAmount = j / durationAnimation * morphAttributes.length % 1;
+						const curMorph = Math.floor(
+							(j / durationAnimation) * morphAttributes.length
+						);
+						const nextMorph =
+							(Math.floor((j / durationAnimation) * morphAttributes.length) +
+								1) %
+							morphAttributes.length;
+						const lerpAmount =
+							((j / durationAnimation) * morphAttributes.length) % 1;
 
-						if ( j < durationAnimation ) {
-
+						if (j < durationAnimation) {
 							let d0, d1;
 
-							d0 = morphAttributes[ curMorph ].array[ i * 3 ];
-							d1 = morphAttributes[ nextMorph ].array[ i * 3 ];
+							d0 = morphAttributes[curMorph].array[i * 3];
+							d1 = morphAttributes[nextMorph].array[i * 3];
 
-							if ( d0 !== undefined && d1 !== undefined ) tData[ offset + i * 3 ] = this.lerp( d0, d1, lerpAmount );
+							if (d0 !== undefined && d1 !== undefined)
+								tData[offset + i * 3] = this.lerp(d0, d1, lerpAmount);
 
-							d0 = morphAttributes[ curMorph ].array[ i * 3 + 1 ];
-							d1 = morphAttributes[ nextMorph ].array[ i * 3 + 1 ];
+							d0 = morphAttributes[curMorph].array[i * 3 + 1];
+							d1 = morphAttributes[nextMorph].array[i * 3 + 1];
 
-							if ( d0 !== undefined && d1 !== undefined ) tData[ offset + i * 3 + 1 ] = this.lerp( d0, d1, lerpAmount );
+							if (d0 !== undefined && d1 !== undefined)
+								tData[offset + i * 3 + 1] = this.lerp(d0, d1, lerpAmount);
 
-							d0 = morphAttributes[ curMorph ].array[ i * 3 + 2 ];
-							d1 = morphAttributes[ nextMorph ].array[ i * 3 + 2 ];
+							d0 = morphAttributes[curMorph].array[i * 3 + 2];
+							d1 = morphAttributes[nextMorph].array[i * 3 + 2];
 
-							if ( d0 !== undefined && d1 !== undefined ) tData[ offset + i * 3 + 2 ] = this.lerp( d0, d1, lerpAmount );
-
+							if (d0 !== undefined && d1 !== undefined)
+								tData[offset + i * 3 + 2] = this.lerp(d0, d1, lerpAmount);
 						}
-
 					}
 				}
-				this.textureAnimation = new THREE.DataTexture( tData, tWidth, tHeight, THREE.RGBFormat, THREE.FloatType );
+				this.textureAnimation = new THREE.DataTexture(
+					tData,
+					tWidth,
+					tHeight,
+					THREE.RGBFormat,
+					THREE.FloatType
+				);
 				this.textureAnimation.needsUpdate = true;
 
-				const vertices = [], color = [], reference = [], seeds = [], indices = [];
-				const totalVertices = birdGeo.getAttribute( 'position' ).count * 3 * BIRDS;
-				for ( let i = 0; i < totalVertices; i ++ ) {
-
-					const bIndex = i % ( birdGeo.getAttribute( 'position' ).count * 3 );
-					vertices.push( birdGeo.getAttribute( 'position' ).array[ bIndex ] );
-					color.push( birdGeo.getAttribute( 'color' ).array[ bIndex ] );
-
+				const vertices = [],
+					color = [],
+					reference = [],
+					seeds = [],
+					indices = [];
+				const totalVertices =
+					birdGeo.getAttribute('position').count * 3 * BIRDS;
+				for (let i = 0; i < totalVertices; i++) {
+					const bIndex = i % (birdGeo.getAttribute('position').count * 3);
+					vertices.push(birdGeo.getAttribute('position').array[bIndex]);
+					color.push(birdGeo.getAttribute('color').array[bIndex]);
 				}
 
 				let r = Math.random();
-				for ( let i = 0; i < birdGeo.getAttribute( 'position' ).count * BIRDS; i ++ ) {
-
-					const bIndex = i % ( birdGeo.getAttribute( 'position' ).count );
-					const bird = Math.floor( i / birdGeo.getAttribute( 'position' ).count );
-					if ( bIndex == 0 ) r = Math.random();
-					const j = ~ ~ bird;
-					const x = ( j % WIDTH ) / WIDTH;
-					const y = ~ ~ ( j / WIDTH ) / WIDTH;
-					reference.push( x, y, bIndex / tWidth, durationAnimation / tHeight );
-					seeds.push( bird, r, Math.random(), Math.random() );
-
+				for (
+					let i = 0;
+					i < birdGeo.getAttribute('position').count * BIRDS;
+					i++
+				) {
+					const bIndex = i % birdGeo.getAttribute('position').count;
+					const bird = Math.floor(i / birdGeo.getAttribute('position').count);
+					if (bIndex == 0) r = Math.random();
+					const j = ~~bird;
+					const x = (j % WIDTH) / WIDTH;
+					const y = ~~(j / WIDTH) / WIDTH;
+					reference.push(x, y, bIndex / tWidth, durationAnimation / tHeight);
+					seeds.push(bird, r, Math.random(), Math.random());
 				}
 
-				for ( let i = 0; i < birdGeo.index.array.length * BIRDS; i ++ ) {
-
-					const offset = Math.floor( i / birdGeo.index.array.length ) * ( birdGeo.getAttribute( 'position' ).count );
-					indices.push( birdGeo.index.array[ i % birdGeo.index.array.length ] + offset );
-
+				for (let i = 0; i < birdGeo.index.array.length * BIRDS; i++) {
+					const offset =
+						Math.floor(i / birdGeo.index.array.length) *
+						birdGeo.getAttribute('position').count;
+					indices.push(
+						birdGeo.index.array[i % birdGeo.index.array.length] + offset
+					);
 				}
 
-				birdGeometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array( vertices ), 3 ) );
-				birdGeometry.setAttribute( 'birdColor', new THREE.BufferAttribute( new Float32Array( color ), 3 ) );
-				birdGeometry.setAttribute( 'color', new THREE.BufferAttribute( new Float32Array( color ), 3 ) );
-				birdGeometry.setAttribute( 'reference', new THREE.BufferAttribute( new Float32Array( reference ), 4 ) );
-				birdGeometry.setAttribute( 'seeds', new THREE.BufferAttribute( new Float32Array( seeds ), 4 ) );
+				birdGeometry.setAttribute(
+					'position',
+					new THREE.BufferAttribute(new Float32Array(vertices), 3)
+				);
+				birdGeometry.setAttribute(
+					'birdColor',
+					new THREE.BufferAttribute(new Float32Array(color), 3)
+				);
+				birdGeometry.setAttribute(
+					'color',
+					new THREE.BufferAttribute(new Float32Array(color), 3)
+				);
+				birdGeometry.setAttribute(
+					'reference',
+					new THREE.BufferAttribute(new Float32Array(reference), 4)
+				);
+				birdGeometry.setAttribute(
+					'seeds',
+					new THREE.BufferAttribute(new Float32Array(seeds), 4)
+				);
 
-				birdGeometry.setIndex( indices );
+				birdGeometry.setIndex(indices);
 				this.bird = birdGeometry;
 				this.valuesChanger();
 			}
@@ -522,7 +566,7 @@ export class WebglGpgpuBirdsGltfComponent extends NgxBaseComponent<{
 	}
 
 	bird: BufferGeometry = null;
-	textureAnimation : I3JS.DataTexture = null;
+	textureAnimation: I3JS.DataTexture = null;
 
 	isSafari(): boolean {
 		return (
@@ -563,39 +607,51 @@ export class WebglGpgpuBirdsGltfComponent extends NgxBaseComponent<{
 		const WIDTH = 32;
 		const BOUNDS = 800;
 
-		const gpuCompute = new GPUComputationRenderer( WIDTH, WIDTH, renderer );
+		const gpuCompute = new GPUComputationRenderer(WIDTH, WIDTH, renderer);
 
-		if ( this.isSafari() ) {
-
-			gpuCompute.setDataType( THREE.HalfFloatType );
-
+		if (this.isSafari()) {
+			gpuCompute.setDataType(THREE.HalfFloatType);
 		}
 
 		const dtPosition = gpuCompute.createTexture();
 		const dtVelocity = gpuCompute.createTexture();
-		this.fillPositionTexture( dtPosition );
-		this.fillVelocityTexture( dtVelocity );
+		this.fillPositionTexture(dtPosition);
+		this.fillVelocityTexture(dtVelocity);
 
-		const velocityVariable = gpuCompute.addVariable( "textureVelocity", this.fragmentShaderVelocity, dtVelocity );
-		const positionVariable = gpuCompute.addVariable( "texturePosition", this.fragmentShaderPosition, dtPosition );
+		const velocityVariable = gpuCompute.addVariable(
+			'textureVelocity',
+			this.fragmentShaderVelocity,
+			dtVelocity
+		);
+		const positionVariable = gpuCompute.addVariable(
+			'texturePosition',
+			this.fragmentShaderPosition,
+			dtPosition
+		);
 
-		gpuCompute.setVariableDependencies( velocityVariable, [ positionVariable, velocityVariable ] );
-		gpuCompute.setVariableDependencies( positionVariable, [ positionVariable, velocityVariable ] );
+		gpuCompute.setVariableDependencies(velocityVariable, [
+			positionVariable,
+			velocityVariable,
+		]);
+		gpuCompute.setVariableDependencies(positionVariable, [
+			positionVariable,
+			velocityVariable,
+		]);
 
 		const positionUniforms = positionVariable.material.uniforms;
 		const velocityUniforms = velocityVariable.material.uniforms;
 
-		positionUniforms[ "time" ] = { value: 0.0 };
-		positionUniforms[ "delta" ] = { value: 0.0 };
-		velocityUniforms[ "time" ] = { value: 1.0 };
-		velocityUniforms[ "delta" ] = { value: 0.0 };
-		velocityUniforms[ "testing" ] = { value: 1.0 };
-		velocityUniforms[ "separationDistance" ] = { value: 1.0 };
-		velocityUniforms[ "alignmentDistance" ] = { value: 1.0 };
-		velocityUniforms[ "cohesionDistance" ] = { value: 1.0 };
-		velocityUniforms[ "freedomFactor" ] = { value: 1.0 };
-		velocityUniforms[ "predator" ] = { value: new THREE.Vector3() };
-		velocityVariable.material.defines.BOUNDS = BOUNDS.toFixed( 2 );
+		positionUniforms['time'] = { value: 0.0 };
+		positionUniforms['delta'] = { value: 0.0 };
+		velocityUniforms['time'] = { value: 1.0 };
+		velocityUniforms['delta'] = { value: 0.0 };
+		velocityUniforms['testing'] = { value: 1.0 };
+		velocityUniforms['separationDistance'] = { value: 1.0 };
+		velocityUniforms['alignmentDistance'] = { value: 1.0 };
+		velocityUniforms['cohesionDistance'] = { value: 1.0 };
+		velocityUniforms['freedomFactor'] = { value: 1.0 };
+		velocityUniforms['predator'] = { value: new THREE.Vector3() };
+		velocityVariable.material.defines.BOUNDS = BOUNDS.toFixed(2);
 
 		velocityVariable.wrapS = THREE.RepeatWrapping;
 		velocityVariable.wrapT = THREE.RepeatWrapping;
@@ -604,10 +660,8 @@ export class WebglGpgpuBirdsGltfComponent extends NgxBaseComponent<{
 
 		const error = gpuCompute.init();
 
-		if ( error !== null ) {
-
-			console.error( error );
-
+		if (error !== null) {
+			console.error(error);
 		}
 
 		this.positionUniforms = positionUniforms;
@@ -640,22 +694,31 @@ export class WebglGpgpuBirdsGltfComponent extends NgxBaseComponent<{
 		if (this.gpuCompute !== null) {
 			const now = timer.elapsedTime;
 			const delta = timer.delta;
-			this.positionUniforms[ "time" ].value = now;
-			this.positionUniforms[ "delta" ].value = delta;
-			this.velocityUniforms[ "time" ].value = now;
-			this.velocityUniforms[ "delta" ].value = delta;
-			if ( this.materialShader ) this.materialShader.uniforms[ "time" ].value = now;
-			if ( this.materialShader ) this.materialShader.uniforms[ "delta" ].value = delta;
+			this.positionUniforms['time'].value = now;
+			this.positionUniforms['delta'].value = delta;
+			this.velocityUniforms['time'].value = now;
+			this.velocityUniforms['delta'].value = delta;
+			if (this.materialShader) this.materialShader.uniforms['time'].value = now;
+			if (this.materialShader)
+				this.materialShader.uniforms['delta'].value = delta;
 
-			this.velocityUniforms[ "predator" ].value.set( 0.5 * this.mouseX / this.windowHalfX, - 0.5 * this.mouseY / this.windowHalfY, 0 );
+			this.velocityUniforms['predator'].value.set(
+				(0.5 * this.mouseX) / this.windowHalfX,
+				(-0.5 * this.mouseY) / this.windowHalfY,
+				0
+			);
 
 			this.mouseX = 10000;
 			this.mouseY = 10000;
 
 			this.gpuCompute.compute();
 
-			if ( this.materialShader ) this.materialShader.uniforms[ "texturePosition" ].value = this.gpuCompute.getCurrentRenderTarget( this.positionVariable ).texture;
-			if ( this.materialShader ) this.materialShader.uniforms[ "textureVelocity" ].value = this.gpuCompute.getCurrentRenderTarget( this.velocityVariable ).texture;
+			if (this.materialShader)
+				this.materialShader.uniforms['texturePosition'].value =
+					this.gpuCompute.getCurrentRenderTarget(this.positionVariable).texture;
+			if (this.materialShader)
+				this.materialShader.uniforms['textureVelocity'].value =
+					this.gpuCompute.getCurrentRenderTarget(this.velocityVariable).texture;
 		}
 	}
 }
