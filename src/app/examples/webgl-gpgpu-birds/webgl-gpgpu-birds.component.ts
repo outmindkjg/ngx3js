@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GPUComputationRenderer, IRendererEvent, IRendererTimer, NgxBaseComponent, NgxMeshComponent, NgxRendererComponent, THREE, TWEEN } from 'ngx3js';
+import { GPUComputationRenderer, IRendererEvent, IRendererTimer, NgxBaseComponent, NgxMeshComponent, NgxRendererComponent, THREE, TWEEN, Interpolation } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-gpgpu-birds',
@@ -24,7 +24,7 @@ export class WebglGpgpuBirdsComponent extends NgxBaseComponent<{
       { type : 'number', name : 'cohesion', min : 0, max : 100, step : 0.025, change : () => { this.valuesChanger(); } },
       { type : 'number', name : 'freedom', min : 0, max : 1, step : 0.01, change : () => { this.valuesChanger(); } }
     ], false, false);
-    console.log(TWEEN);
+    console.log(Interpolation);
 	}
   
 
