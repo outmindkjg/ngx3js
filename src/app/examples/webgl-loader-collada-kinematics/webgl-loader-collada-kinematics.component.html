@@ -8,7 +8,7 @@
 		rel="noopener"
 		>collada robots</a
 	>
-	todo tween
+	tween
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -38,7 +38,7 @@
 			[color1]="'0x888888'"
 			[color2]="'0x444444'"
 		></ngx3js-helper>
-		<ngx3js-mesh>
+		<ngx3js-mesh (onLoad)="setPointLight($event)">
 			<ngx3js-position [x]="30" [y]="0" [z]="0"></ngx3js-position>
 			<ngx3js-geometry
 				[type]="'Sphere'"

@@ -1,0 +1,23 @@
+
+.bottom {
+    .lbl {
+        padding: 0 !important;
+        text-align: center !important;
+        width: 33%;
+        background-color: transparent !important;
+        >div {
+            display: block;
+            background-color: black;
+            padding: 6px;
+        }
+        &.left {
+            left: 0;
+        }
+        &.right {
+            right : 0;
+        }
+        &.center {
+            left : 33% !important;
+        }
+    }
+}

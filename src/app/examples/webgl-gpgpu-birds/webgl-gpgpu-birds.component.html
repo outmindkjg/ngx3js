@@ -1,7 +1,7 @@
 <div class="info dark">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
 	webgl gpgpu birds<br />
-	Move mouse to disturb birds. todo
+	Move mouse to disturb birds.
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -12,6 +12,9 @@
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
+	[useEvent]="'pointermove'"
+	(eventListener)="onPointerMove($event)"
+	(onLoad)="setRender($event)"
 	(onRender)="onRender($event)"
 >
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
@@ -21,7 +24,6 @@
 	<ngx3js-scene #scene [background]="'0xffffff'">
 		<ngx3js-fog [color]="'0xffffff'" [near]="100" [far]="1000"></ngx3js-fog>
 		<ngx3js-shared>
-			<ngx3js-geometry-bird #bird [scale]="0.2"></ngx3js-geometry-bird>
 			<ngx3js-material
 				#material
 				[type]="'ShaderMaterial'"
@@ -36,12 +38,14 @@
 				[side]="'double'"
 			></ngx3js-material>
 		</ngx3js-shared>
-		<ngx3js-mesh (onLoad)="setMesh($event)" [geometry]="bird">
+		<ngx3js-mesh (onLoad)="setMesh($event)" [geometry]="bird" [matrixAutoUpdate]="false">
 			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
 			<ngx3js-rotation [x]="0" [y]="90" [z]="0"></ngx3js-rotation>
 			<ngx3js-material
-				[type]="'meshlambert'"
-				[color]="'0xff0000'"
+				[type]="'ShaderMaterial'"
+				[uniforms]="birdUniforms"
+				[fragmentShader]="birdFS"
+				[vertexShader]="birdVS"
 			></ngx3js-material>
 		</ngx3js-mesh>
 	</ngx3js-scene>

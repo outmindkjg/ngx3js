@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { I3JS, NgxBaseComponent, NgxPassComponent, IRendererEvent } from 'ngx3js';
+import { I3JS, NgxBaseComponent, NgxPassComponent, IRendererEvent, THREE, IRendererTimer, NgxRendererComponent } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-postprocessing-outline',
@@ -23,7 +23,7 @@ export class WebglPostprocessingOutlineComponent extends NgxBaseComponent<{
 				edgeGlow: 0.0,
 				edgeThickness: 1.0,
 				pulsePeriod: 0,
-				rotate: false,
+				rotate: true,
 				usePatternTexture: false,
 				visibleEdgeColor: '#ffffff',
 				hiddenEdgeColor: '#190a05',
@@ -67,23 +67,53 @@ export class WebglPostprocessingOutlineComponent extends NgxBaseComponent<{
 		this.outlinePass.selectedObjects = this.selectedObjects;
 	}
 
-	onMouseDownEvent(event: IRendererEvent) {
-		if (this.camera !== null) {
-			const intersection = this.camera.getIntersection(
-				event.mouse,
-				this.mesh.getObject3d(),
-				true
-			);
-			if (intersection !== null && intersection.object !== null) {
-				if (this.selectedObjects.indexOf(intersection.object) === -1) {
-					this.selectedObjects = [intersection.object];
-					if (this.outlinePass !== null) {
-						this.outlinePass.selectedObjects = this.selectedObjects;
-					}
-				}
+	onPointerMove( event : IRendererEvent ) {
+		this.mouse = event.mouse;
+		this.checkIntersection();
+	}
+
+	mouse : I3JS.Vector2 = new THREE.Vector2();
+	addSelectedObject( object ) {
+		this.selectedObjects.length = 0;
+		this.selectedObjects.push( object );
+	}
+
+	setRender(render : NgxRendererComponent) {
+		super.setRender(render);
+		this.subscribeRefer('rederderSize',  this.renderer.sizeSubscribe().subscribe(size => {
+			if (this.shaderPass !== null) {
+				this.shaderPass.uniforms['resolution'].value.set(1/size.x, 1/size.y);
+			}
+		}));
+	}
+
+	setShaderPass(shaderPass : NgxPassComponent) {
+		this.shaderPass = shaderPass.getPass();
+	}
+
+	shaderPass : I3JS.ShaderPass = null;
+
+
+	checkIntersection() {
+		if (this.camera !== null ) {
+			const intersects = this.camera.getIntersections(this.mouse, this.meshObject3d , true );
+			if ( intersects.length > 0 ) {
+				const selectedObject = intersects[ 0 ].object;
+				this.addSelectedObject( selectedObject );
+				this.outlinePass.selectedObjects = this.selectedObjects;
+			} else {
+				// outlinePass.selectedObjects = [];
 			}
 		}
 	}
 
 	selectedObjects: I3JS.Object3D[] = [];
+
+	onRender(timer: IRendererTimer): void {
+		super.onRender(timer);
+		if ( this.meshObject3d && this.controls.rotate ) {
+			this.meshObject3d.rotation.y += timer.delta * 0.1;
+		}
+	}
+
 }

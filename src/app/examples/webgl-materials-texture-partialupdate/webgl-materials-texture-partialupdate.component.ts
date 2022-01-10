@@ -15,12 +15,11 @@ export class WebglMaterialsTexturePartialupdateComponent extends NgxBaseComponen
 		this.diffuseMap = texture.getTexture();
 		const width = 31;
 		const height = 31;
-		const data = new Uint8Array(width * height * 3).fill(0);
+		const data = new Uint8Array(width * height * 4).fill(0);
 		this.dataTexture = new THREE.DataTexture(
 			data,
 			width,
-			height,
-			THREE.RGBFormat
+			height
 		);
 	}
 	diffuseMap: I3JS.Texture = null;
@@ -55,7 +54,7 @@ export class WebglMaterialsTexturePartialupdateComponent extends NgxBaseComponen
 			timer.renderer instanceof THREE.WebGLRenderer
 		) {
 			const elapsedTime = timer.elapsedTime;
-			if (elapsedTime - this.last > 5.5) {
+			if (elapsedTime - this.last > 0.1) {
 				this.last = elapsedTime;
 				const position = this.position;
 				position.x = 32 * THREE.MathUtils.randInt(1, 16) - 32;

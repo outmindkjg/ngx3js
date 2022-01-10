@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-	CinematicCamera, NgxBaseComponent, NgxCameraComponent, IRendererTimer, THREE
+	CinematicCamera, NgxBaseComponent, NgxCameraComponent, IRendererTimer, THREE, IRendererEvent, Vector2, IRendererInfo, I3JS
 } from 'ngx3js';
 
 @Component({
@@ -68,12 +68,17 @@ export class WebglCameraCinematicComponent extends NgxBaseComponent<{
 		, false, false);
 	}
 
-	camera: NgxCameraComponent = null;
-
 	setCamera(camera: NgxCameraComponent) {
-		this.camera = camera;
+		super.setCamera(camera);
 		this.matChanger();
 	}
+
+	onDocumentMouseMove(event : IRendererEvent) {
+		this.mouse = event.mouse;
+	}
+
+	mouse : Vector2 = null;
+
 
 	matChanger() {
 		if (this.camera !== null) {
@@ -98,7 +103,23 @@ export class WebglCameraCinematicComponent extends NgxBaseComponent<{
 		z: number;
 	}[] = [];
 
+	beforeRender : (info: IRendererInfo) => boolean = null;
+
 	ngOnInit() {
+		this.beforeRender = (info: IRendererInfo) => {
+			const camera = info.cameras[0] as CinematicCamera;
+			const scene = info.scenes[0];
+			const renderer = info.renderer as I3JS.WebGL1Renderer;
+			if ( camera.postprocessing.enabled ) {
+				camera.renderCinematic( scene, renderer );
+			} else {
+				scene.overrideMaterial = null;
+				renderer.clear();
+				renderer.render( scene, camera );
+
+			}
+			return true;
+		}
 		this.boxes = [];
 		for (let i = 0; i < 500; i++) {
 			this.boxes.push({
@@ -109,6 +130,8 @@ export class WebglCameraCinematicComponent extends NgxBaseComponent<{
 			});
 		}
 	}
+
+	INTERSECTED : any = null;
 
 	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
@@ -121,6 +144,22 @@ export class WebglCameraCinematicComponent extends NgxBaseComponent<{
 				radius * Math.cos(THREE.MathUtils.degToRad(theta))
 			);
 			this.camera.setLookat(0, 0, 0);
+			const intersects = this.camera.getIntersections(this.mouse, this.meshChildren);
+
+			if ( intersects.length > 0 ) {
+				const targetDistance = intersects[ 0 ].distance;
+				const camera : CinematicCamera = this.cameraObject3d as any;
+				camera.focusAt( targetDistance ); // using Cinematic camera focusAt method
+				if ( this.INTERSECTED != intersects[ 0 ].object ) {
+					if ( this.INTERSECTED ) this.INTERSECTED.material.emissive.setHex( this.INTERSECTED.currentHex );
+					this.INTERSECTED = intersects[ 0 ].object;
+					this.INTERSECTED.currentHex = this.INTERSECTED.material.emissive.getHex();
+					this.INTERSECTED.material.emissive.setHex( 0xff0000 );
+				}
+			} else {
+				if ( this.INTERSECTED ) this.INTERSECTED.material.emissive.setHex( this.INTERSECTED.currentHex );
+				this.INTERSECTED = null;
+			}			
 		}
 	}
 }

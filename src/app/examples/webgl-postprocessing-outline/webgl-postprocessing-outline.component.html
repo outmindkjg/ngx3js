@@ -6,7 +6,6 @@
 	>
 	and <a href="https://clara.io" target="_blank" rel="noopener">Ben Houston</a
 	><br /><br />
-	todo
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -18,7 +17,8 @@
 	[guiParams]="controlsParams"
 	(onRender)="onRender($event)"
 	[useEvent]="'pointermove'"
-	(eventListener)="onMouseDownEvent($event)"
+	(onLoad)="setRender($event)"
+	(eventListener)="onPointerMove($event)"
 >
 	<ngx3js-effect [scene]="scene" [camera]="camera">
 		<ngx3js-pass [type]="'RenderPass'"></ngx3js-pass>
@@ -32,10 +32,11 @@
 			[usePatternTexture]="controls.usePatternTexture"
 			[visibleEdgeColor]="controls.visibleEdgeColor"
 			[hiddenEdgeColor]="controls.hiddenEdgeColor"
-			[selectedObjects]="[torus]"
+			[selectedObjects]="selectedObjects"
 			(onLoad)="setOutlinePass($event)"
 		></ngx3js-pass>
-		<ngx3js-pass [type]="'ShaderPass'" [shader]="'FXAAShader'"></ngx3js-pass>
+		<ngx3js-pass [type]="'ShaderPass'" [shader]="'FXAAShader'" [width]="1/1024" [height]="1/1024" (onLoad)="setShaderPass($event)">
+		</ngx3js-pass>
 	</ngx3js-effect>
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera

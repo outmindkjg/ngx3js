@@ -2,16 +2,17 @@
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
 	postprocessing - FXAA<br />
 	Left scene processed with FXAA, right scene is rendered without anti-aliasing.
-	todo
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
 	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }"
 	[statsMode]="0"
-	[antialias]="true"
+	[antialias]="false"
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
+	[beforeRender]="beforeRender"
+	(onLoad)="setRender($event)"
 	(onRender)="onRender($event)"
 >
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
@@ -24,33 +25,6 @@
 	>
 		<ngx3js-position [x]="0" [y]="0" [z]="500"></ngx3js-position>
 	</ngx3js-camera>
-	<!-- 
-	<ngx3js-effect
-		[scene]="scene"
-		[camera]="camera"
-		[scissorX]="0"
-		[scissorY]="0"
-		[scissorWidth]="'50%'"
-		[scissorHeight]="'100%'"
-		[scissorTest]="true"
-	>
-		<ngx3js-pass [refer]="renderPass"></ngx3js-pass>
-		<ngx3js-pass [type]="'ShaderPass'" [shader]="'FXAAShader'"></ngx3js-pass>
-	</ngx3js-effect>
-	<ngx3js-effect
-		[scene]="scene"
-		[camera]="camera"
-		[scissorX]="'50%'"
-		[scissorY]="0"
-		[scissorWidth]="'50%'"
-		[scissorHeight]="'100%'"
-		[scissorTest]="true"
-		[viewportAspect]="true"
-	>
-		<ngx3js-pass [refer]="renderPass"></ngx3js-pass>
-		<ngx3js-pass [type]="'ShaderPass'" [shader]="'CopyShader'"></ngx3js-pass>
-	</ngx3js-effect>
-	-->
 	<ngx3js-scene #scene [background]="'0xffffff'">
 		<ngx3js-fog [color]="'0xcccccc'" [near]="100" [far]="1500"></ngx3js-fog>
 		<ngx3js-light

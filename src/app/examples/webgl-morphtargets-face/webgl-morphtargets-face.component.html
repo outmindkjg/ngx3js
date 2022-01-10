@@ -5,11 +5,10 @@
 	<a href="https://www.bannaflak.com/face-cap" target="_blank" rel="noopener"
 		>Face Cap</a
 	>
-	todo
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
-	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true }"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate: true, minDistance : 2.5, maxDistance : 5, minAzimuthAngle : -90, maxAzimuthAngle : 90 }"
 	[statsMode]="0"
 	[antialias]="true"
 	[toneMapping]="'ACESFilmicToneMapping'"
@@ -17,6 +16,7 @@
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
+	(onLoad)="setRender($event)"
 	(onRender)="onRender($event)"
 >
 	<ngx3js-lookat [x]="0" [y]="0.15" [z]="-0.2"></ngx3js-lookat>

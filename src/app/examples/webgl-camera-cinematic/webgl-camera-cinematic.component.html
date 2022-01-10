@@ -1,6 +1,6 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-	webgl - interactive cubes / todo
+	webgl - interactive cubes
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -11,6 +11,9 @@
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
+	[useEvent]="'mousemove'"
+	[beforeRender]="beforeRender"
+	(eventListener)="onDocumentMouseMove($event)"
 	(onRender)="onRender($event)"
 >
 	<ngx3js-lookat [x]="0" [y]="1" [z]="0"></ngx3js-lookat>
