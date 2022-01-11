@@ -28,9 +28,9 @@ export class WebglPostprocessingPixelComponent extends NgxBaseComponent<{
 
 	setShared(shared: NgxSharedComponent) {
 		this.geometries = shared.getGeometryComponents();
-		setTimeout(() => {
+		this.getTimeout(100).then(() => {
 			this.setMeshInfos(25);
-		}, 100);
+		});
 	}
 
 	geometries: NgxAbstractGeometryComponent[] = null;

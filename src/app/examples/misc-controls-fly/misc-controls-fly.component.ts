@@ -71,7 +71,7 @@ export class MiscControlsFlyComponent extends NgxBaseComponent<{}> {
 	setShared(shared: NgxSharedComponent) {
 		const starsMaterials = shared.getMaterialComponents();
 		const starsGeometry = shared.getGeometryComponents();
-		setTimeout(() => {
+		this.getTimeout(500).then(() => {
 			this.starInfos = [];
 			for (let i = 10; i < 30; i++) {
 				this.starInfos.push({
@@ -83,7 +83,7 @@ export class MiscControlsFlyComponent extends NgxBaseComponent<{}> {
 					scale: i * 10,
 				});
 			}
-		}, 500);
+		});
 	}
 
 	starInfos: {

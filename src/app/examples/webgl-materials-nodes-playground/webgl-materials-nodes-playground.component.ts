@@ -266,7 +266,7 @@ export class WebglMaterialsNodesPlaygroundComponent extends NgxBaseComponent<{
 		this.map = this.orgMaterial.map;
 		this.envMap = this.orgMaterial.envMap;
 		this.normalMap = this.orgMaterial.normalMap;
-		setTimeout(() => {
+		this.getTimeout(100).then(() => {
 			this.changeMaterial('map');
 			this.changeMaterial('envMap');
 			this.changeMaterial('normalMap');
@@ -276,7 +276,7 @@ export class WebglMaterialsNodesPlaygroundComponent extends NgxBaseComponent<{
 			this.changeMaterial('normalY');
 			this.changeMaterial('sataturation');
 			this.changeMaterial('side');
-		}, 100);
+		});
 	}
 	orgMaterial: any = null;
 	material: any = null;

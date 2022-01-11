@@ -41,17 +41,22 @@
 				[easing]="'power4.easein'"
 				[targets]="'position'"
 				(onLoad)="setLightTween($event)"
+				[events]="'update'"
+				(onTweenEvent)="onTweenEvent(lightHelper)"
 			></ngx3js-tween>
 			<ngx3js-tween
 				[easing]="'power4.easein'"
 				(onLoad)="setLightTween($event)"
+				[events]="'update'"
+				(onTweenEvent)="onTweenEvent(lightHelper)"
 			></ngx3js-tween>
 			<ngx3js-helper
+				#lightHelper
 				[type]="'light'"
 				(onLoad)="setLightHelpers($event)"
 			></ngx3js-helper>
 		</ngx3js-light>
-		<ngx3js-mesh (onLoad)="setMesh($event)">
+		<ngx3js-mesh (onLoad)="setMesh($event)" [castShadow]="true">
 			<ngx3js-position [x]="0" [y]="5" [z]="0"></ngx3js-position>
 			<ngx3js-geometry
 				[type]="'box'"

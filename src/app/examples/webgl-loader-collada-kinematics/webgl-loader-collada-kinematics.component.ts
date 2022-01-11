@@ -61,9 +61,9 @@ export class WebglLoaderColladaKinematicsComponent extends NgxBaseComponent<{}> 
 			}
 		} );
 		this.kinematicsTween.start();
-		setTimeout( () => {
+		this.getTimeout(duration).then(() => {
 			this.setupTween()
-		}, duration );
+		});
 	}
 
 	onRender(timer: IRendererTimer): void {

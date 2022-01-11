@@ -63,9 +63,9 @@ export class Css3dSpritesComponent extends NgxBaseComponent<{}> {
 			);
 		}
 		this.positions = positions;
-		setTimeout(() => {
+		this.getTimeout(1000).then(() => {
 			this.transition();
-		}, 1000);
+		});
 	}
 
 	positions: number[] = [];
@@ -106,10 +106,9 @@ export class Css3dSpritesComponent extends NgxBaseComponent<{}> {
 				this.current = (this.current + 1) % 4;
 			}
 		}
-
-		setTimeout(() => {
+		this.getTimeout(6000).then(() => {
 			this.transition();
-		}, 6000);
+		});
 	}
 
 	onRender(timer: IRendererTimer) {

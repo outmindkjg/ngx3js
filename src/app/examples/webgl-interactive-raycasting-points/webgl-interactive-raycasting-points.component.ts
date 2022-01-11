@@ -94,20 +94,20 @@ export class WebglInteractiveRaycastingPointsComponent extends NgxBaseComponent<
 	sphereMesh: I3JS.Object3D = null;
 	setSphere(mesh: NgxMeshComponent) {
 		this.sphereMesh = mesh.getObject3d();
-		setTimeout(() => {
+		this.getTimeout(100).then(() => {
 			this.spheres = this.sphereMesh.children;
-		}, 1000);
+		});
 	}
 
 	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
 		this.meshObject3d.add;
-		setTimeout(() => {
+		this.getTimeout(1000).then(() => {
 			this.meshChildren = [];
 			mesh.getObject3d().children.forEach((child) => {
 				this.meshChildren.push(child);
 			});
-		}, 1000);
+		});
 	}
 
 	setCamera(camera: NgxCameraComponent) {

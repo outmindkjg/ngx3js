@@ -40,9 +40,9 @@ export class WebglMathOrientationTransformComponent extends NgxBaseComponent<{}>
 				this.corn.up
 			);
 			this.targetQuaternion.setFromRotationMatrix(this.rotationMatrix);
-			setTimeout(() => {
+			this.getTimeout(100).then(() => {
 				this.generateTarget();
-			}, 2000);
+			});
 		}
 	}
 

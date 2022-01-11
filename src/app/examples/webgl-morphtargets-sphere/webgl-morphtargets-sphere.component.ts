@@ -32,12 +32,12 @@ export class WebglMorphtargetsSphereComponent extends NgxBaseComponent<{}> {
 			this.points !== null &&
 			NgxThreeUtil.isNotNull(this.realMesh.morphTargetDictionary)
 		) {
-			setTimeout(() => {
+			this.getTimeout(100).then(() => {
 				this.points.geometry = this.realMesh.geometry;
 				this.points.updateMorphTargets();
 				this.points.morphTargetDictionary = this.realMesh.morphTargetDictionary;
 				this.points.morphTargetInfluences = this.realMesh.morphTargetInfluences;
-			}, 100);
+			});
 		}
 	}
 

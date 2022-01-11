@@ -154,7 +154,7 @@ export class WebglPostprocessingSsrrComponent extends NgxBaseComponent<{
 	setSSRrPass(pass: NgxPassComponent) {
 		this.pass = pass.getPass();
 		this.updatePass();
-		setTimeout(() => {
+		this.getTimeout(1000).then(() => {
 			if (this.sceneChildren !== null) {
 				this.selectableMesh = [];
 				const selectName = ['bunny', 'box', 'sphere', 'cone'];
@@ -173,7 +173,7 @@ export class WebglPostprocessingSsrrComponent extends NgxBaseComponent<{
 					}
 				});
 			}
-		}, 1000);
+		});
 	}
 
 	updatePass() {

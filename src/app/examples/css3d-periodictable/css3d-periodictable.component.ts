@@ -794,8 +794,8 @@ export class Css3dPeriodictableComponent extends NgxBaseComponent<{
 
 	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
-		setTimeout(() => {
+		this.getTimeout(500).then(() => {
 			this.changeTable();
-		}, 500);
+		});
 	}
 }

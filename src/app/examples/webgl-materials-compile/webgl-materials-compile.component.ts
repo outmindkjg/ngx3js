@@ -25,9 +25,9 @@ export class WebglMaterialsCompileComponent extends NgxBaseComponent<{}> {
 
 	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
-		setTimeout(() => {
+		this.getTimeout(1000).then(() => {
 			this.setMeshChild();
-		}, 1000);
+		});
 	}
 
 	setMeshChild() {

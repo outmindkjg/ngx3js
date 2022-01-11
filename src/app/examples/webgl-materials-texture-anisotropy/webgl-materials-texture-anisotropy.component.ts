@@ -13,11 +13,11 @@ export class WebglMaterialsTextureAnisotropyComponent extends NgxBaseComponent<{
 
 	setRender(render: NgxRendererComponent) {
 		super.setRender(render);
-		setTimeout(() => {
+		this.getTimeout(1000).then(() => {
 			this.anisotropy = (
 				render.getRenderer() as any 
 			).capabilities.getMaxAnisotropy();
-		}, 1000);
+		});
 	}
 	anisotropy: number = 1;
 }

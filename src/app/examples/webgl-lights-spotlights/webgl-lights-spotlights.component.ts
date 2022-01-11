@@ -51,6 +51,10 @@ export class WebglLightsSpotlightsComponent extends NgxBaseComponent<{}> {
 		}
 	}
 
+	onTweenEvent(lightHelper : NgxHelperComponent) {
+		lightHelper.setUpdate(0);
+	}
+
 	tweenPlay() {
 		if (this.tweens !== null && this.tweens.length > 0) {
 			this.tweens.forEach((tween) => {
@@ -61,7 +65,7 @@ export class WebglLightsSpotlightsComponent extends NgxBaseComponent<{}> {
 							y: Math.random() * 10 + 15,
 							z: Math.random() * 30 - 15,
 						},
-						Math.random() * 3 + 2
+						(Math.random() * 3 + 2)
 					);
 				} else {
 					tween.setTween(
@@ -74,11 +78,8 @@ export class WebglLightsSpotlightsComponent extends NgxBaseComponent<{}> {
 				}
 			});
 		}
-		this.lightHelpers.forEach((lightHelper) => {
-			lightHelper.setUpdate();
-		});
-		setTimeout(() => {
+		this.getTimeout(5000).then(() => {
 			this.tweenPlay();
-		}, 5000);
+		});
 	}
 }

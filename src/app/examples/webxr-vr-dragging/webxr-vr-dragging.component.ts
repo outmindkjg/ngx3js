@@ -41,7 +41,7 @@ export class WebxrVrDraggingComponent extends NgxBaseComponent<{
 
 	setShared(shared: NgxSharedComponent) {
 		const geometries = shared.getGeometryComponents();
-		setTimeout(() => {
+		this.getTimeout(100).then(() => {
 			this.geoInfos = [];
 			for (let i = 0; i < 50; i++) {
 				this.geoInfos.push({
@@ -60,7 +60,7 @@ export class WebxrVrDraggingComponent extends NgxBaseComponent<{
 					scale: Math.random() + 0.5,
 				});
 			}
-		}, 100);
+		});
 	}
 
 	geoInfos: {

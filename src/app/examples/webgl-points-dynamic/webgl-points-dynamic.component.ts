@@ -87,7 +87,7 @@ export class WebglPointsDynamicComponent extends NgxBaseComponent<{}> {
 
 	setGeometry(idx: number, mesh: NgxMeshComponent) {
 		const realMesh = mesh.getObject3d() as any ;
-		setTimeout(() => {
+		this.getTimeout(3000).then(() => {
 			const geometry = realMesh.geometry;
 			if (geometry == null && geometry == undefined) {
 				return;
@@ -118,7 +118,7 @@ export class WebglPointsDynamicComponent extends NgxBaseComponent<{}> {
 				}
 				info.mesh = realMesh;
 			}
-		}, 3000);
+		});
 	}
 
 	onRender(timer: IRendererTimer) {
