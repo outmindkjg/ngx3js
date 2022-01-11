@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import {
 	NgxBaseComponent,
-	NgxMeshComponent, IRendererEvent,
-	IRendererTimer, THREE
+	NgxMeshComponent,
+	IRendererEvent,
+	IRendererTimer,
+	THREE,
 } from 'ngx3js';
 
 @Component({
@@ -59,19 +61,17 @@ export class WebglGeometryHierarchy2Component extends NgxBaseComponent<{}> {
 				0
 			);
 			this.camera.setLookat(0, 0, 0);
-			if (!this.controls.meshRotate.autoRotate) {
-				this.elapsedTime += timer.delta;
-				const time = this.elapsedTime;
-				const rx = Math.sin(time * 0.7) * 0.2,
-					ry = Math.sin(time * 0.3) * 0.1,
-					rz = Math.sin(time * 0.2) * 0.1;
-				const mesh = this.mesh.getObject3d();
-				mesh.traverse((object) => {
-					object.rotation.x = rx;
-					object.rotation.y = ry;
-					object.rotation.z = rz;
-				});
-			}
+			this.elapsedTime += timer.delta;
+			const time = this.elapsedTime;
+			const rx = Math.sin(time * 0.7) * 0.2,
+				ry = Math.sin(time * 0.3) * 0.1,
+				rz = Math.sin(time * 0.2) * 0.1;
+			const mesh = this.mesh.getObject3d();
+			mesh.traverse((object) => {
+				object.rotation.x = rx;
+				object.rotation.y = ry;
+				object.rotation.z = rz;
+			});
 		}
 	}
 }

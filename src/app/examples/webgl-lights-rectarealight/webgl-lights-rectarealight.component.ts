@@ -13,7 +13,7 @@ export class WebglLightsRectarealightComponent extends NgxBaseComponent<{}> {
 
 	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
-		if (this.mesh !== null && !this.controls.meshRotate.autoRotate) {
+		if (this.mesh !== null) {
 			this.mesh.setRotation(null, timer.elapsedTime * 60, null);
 		}
 	}

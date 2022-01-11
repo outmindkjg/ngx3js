@@ -48,14 +48,12 @@ export class WebglGeometryHierarchyComponent extends NgxBaseComponent<{}> {
 				0
 			);
 			this.camera.setLookat(0, 0, 0);
-			if (!this.controls.meshRotate.autoRotate) {
-				this.elapsedTime += timer.delta;
-				const time = this.elapsedTime;
-				const rx = Math.sin(time * 0.7) * 30,
-					ry = Math.sin(time * 0.3) * 30,
-					rz = Math.sin(time * 0.2) * 30;
-				this.mesh.setRotation(rx, ry, rz);
-			}
+			this.elapsedTime += timer.delta;
+			const time = this.elapsedTime;
+			const rx = Math.sin(time * 0.7) * 30,
+				ry = Math.sin(time * 0.3) * 30,
+				rz = Math.sin(time * 0.2) * 30;
+			this.mesh.setRotation(rx, ry, rz);
 		}
 	}
 }
