@@ -476,7 +476,13 @@
 				"RoughnessMipmapper": "ngxapi/en/RoughnessMipmapper",
 				"SceneUtils": "ngxapi/en/SceneUtils",
 				"ShadowMapViewer": "ngxapi/en/ShadowMapViewer",
-				"SkeletonUtils": "ngxapi/en/SkeletonUtils"
+				"SkeletonUtils": "ngxapi/en/SkeletonUtils",
+				"GUI": "ngxapi/en/GUI",
+				"TWEEN": "ngxapi/en/TWEEN",
+				"Easing": "ngxapi/en/Easing",
+				"Interpolation": "ngxapi/en/Interpolation",
+				"TweenGroup": "ngxapi/en/TweenGroup",
+				"Tween": "ngxapi/en/Tween"
 			},
 			"Loaders & Exporters": {
 				"NgxLocalStorageService": "ngxapi/en/NgxLocalStorageService",
