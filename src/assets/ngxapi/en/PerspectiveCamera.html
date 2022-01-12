@@ -14,22 +14,17 @@
 		<p class="desc">
 			Camera that uses [link:https://en.wikipedia.org/wiki/Perspective_(graphical perspective projection]).<br />
 			This projection mode is designed to mimic the way the human eye sees. It is the most common projection mode used for rendering a 3D scene.<br />
-			<br />
 			<h3>Preview - ngx camera</h3><br />
 			<iframe src="#/viewer/ngx_camera/PerspectiveCamera"></iframe><br />
-			<br />
 			See the [page:PerspectiveCamera ngx3js docs] page for details.<br />
 			See the [example:ngx_camera/PerspectiveCamera ngx camera] page for a live demo.<br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_animation_skinning_blending animation / skinning / blending]<br />
 			[example:webgl_animation_skinning_morph animation / skinning / morph]<br />
 			[example:webgl_effects_stereo effects / stereo]<br />
 			[example:webgl_interactive_cubes interactive / cubes]<br />
 			[example:webgl_loader_collada_skinning loader / collada / skinning]<br />
-			<br />
 			<h2>Code Example</h2><br />
-			<br />
 			<code data-type="javascript"><br />
 			const camera = new THREE.PerspectiveCamera(<br />
 				45,<br />
@@ -39,9 +34,7 @@
 			);<br />
 			scene.add( camera );<br />
 			</code><br />
-			<br />
 			<h2>Ngx3Js Code Example</h2><br />
-			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-camera [type]="'PerspectiveCamera'" [fov]="45" [near]="1" [far]="1000"&gt;&lt;/ngx3js-camera&gt;<br />
 			</code>
@@ -471,7 +464,6 @@
 		</p>
 		<p>
 			(Note: A camera looks down its local, negative z-axis).<br />
-			<br />
 			Returns : Returns a [page:Vector3 Vector3] representing the world space direction in which the camera is looking.
 		</p>
 
@@ -717,14 +709,11 @@
 			+---+---+---+<br />
 			| D | E | F |<br />
 			+---+---+---+<br />
-			<br />
 			then for each monitor you would call it like this:<br />
-			<br />
 			const w = 1920;<br />
 			const h = 1080;<br />
 			const fullWidth = w * 3;<br />
 			const fullHeight = h * 2;<br />
-			<br />
 			// A<br />
 			camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 0, w, h ) : this;<br />
 			// B<br />
@@ -902,7 +891,7 @@
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/cameras.ts /threejs-library/types/three/cameras.ts]</p>
 	</body>

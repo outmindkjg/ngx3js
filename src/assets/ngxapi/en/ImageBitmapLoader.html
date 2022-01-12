@@ -15,19 +15,14 @@
 			A loader for loading an [page:Image Image] as an [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap].<br />
 			An ImageBitmap provides an asynchronous and resource efficient pathway to prepare textures for rendering in WebGL.<br />
 			Unlike [page:FileLoader FileLoader], ImageBitmapLoader does not avoid multiple concurrent requests to the same URL.<br />
-			<br />
 			<h3>Preview - WebGL / loader / ImageBitmap</h3><br />
 			<iframe src="#/viewer/webgl_loader_imagebitmap"></iframe><br />
-			<br />
 			Note that [page:Texture.flipY Texture.flipY] and [page:Texture.premultiplyAlpha Texture.premultiplyAlpha] with [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap] are ignored.<br />
 			[link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap] needs these configuration on bitmap creation unlike regular images need them on uploading to GPU. You need to set the equivalent options via [page:ImageBitmapLoader.setOptions ImageBitmapLoader.setOptions]<br />
 			instead. Refer to [link:https://www.khronos.org/registry/webgl/specs/latest/1.0/#6.10 WebGL specification] for the detail.<br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_loader_imagebitmap WebGL / loader / ImageBitmap]<br />
-			<br />
 			<h2>Code Example</h2><br />
-			<br />
 			<code data-type="javascript"><br />
 			// instantiate a loader<br />
 			const loader = new THREE.ImageBitmapLoader();<br />
@@ -193,7 +188,7 @@ Set the [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header r
 		</p>
 
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/loaders.ts /threejs-library/types/three/loaders.ts]</p>
 	</body>

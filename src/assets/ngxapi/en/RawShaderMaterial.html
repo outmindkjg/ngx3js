@@ -13,13 +13,10 @@
 
 		<p class="desc">
 			This class works just like [page:ShaderMaterial ShaderMaterial], except that definitions of built-in uniforms and attributes are not automatically prepended to the GLSL shader code.<br />
-			<br />
 			<h3>Preview - ngx material</h3><br />
 			<iframe src="#/viewer/ngx_material/RawShaderMaterial"></iframe><br />
-			<br />
 			See the [page:RawShaderMaterial ngx3js docs] page for details.<br />
 			See the [example:ngx_material/RawShaderMaterial ngx material] page for a live demo.<br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_buffergeometry_rawshader WebGL / buffergeometry / rawshader]<br />
 			[example:webgl_buffergeometry_instancing_billboards WebGL / buffergeometry / instancing / billboards]<br />
@@ -28,9 +25,7 @@
 			[example:webgl2_volume_cloud WebGL 2 / volume / cloud]<br />
 			[example:webgl2_volume_instancing WebGL 2 / volume / instancing]<br />
 			[example:webgl2_volume_perlin WebGL 2 / volume / perlin]<br />
-			<br />
 			<h2>Code Example</h2><br />
-			<br />
 			<code data-type="javascript"><br />
 			const material = new THREE.RawShaderMaterial( {<br />
 			     uniforms: {<br />
@@ -40,9 +35,7 @@
 			     fragmentShader: document.getElementById( 'fragmentShader' ).textContent,<br />
 			} );<br />
 			</code><br />
-			<br />
 			<h2>Ngx3Js Code Example</h2><br />
-			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-material [type]="'RawShaderMaterial'" [uniforms]="{ time : { value : 1.0 } }" [vertexShader]="..." [fragmentShader]="..."&gt;&lt;/ngx3js-material&gt;<br />
 			</code>
@@ -816,7 +809,7 @@
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/materials.ts /threejs-library/types/three/materials.ts]</p>
 	</body>

@@ -14,24 +14,18 @@
 		<p class="desc">
 			A sprite is a plane that always faces towards the camera, generally with a partially transparent texture applied.<br />
 			Sprites do not cast shadows, setting castShadow = true will have no effect.<br />
-			<br />
 			<h3>Preview - ngx mesh</h3><br />
 			<iframe src="#/viewer/ngx_mesh/Sprite"></iframe><br />
-			<br />
 			See the [page:Sprite ngx3js docs] page for details.<br />
 			See the [example:ngx_mesh/Sprite ngx mesh] page for a live demo.<br />
-			<br />
 			<h2>Code Example</h2><br />
-			<br />
 			<code data-type="javascript"><br />
 			const map = new THREE.TextureLoader().load( 'sprite.png' );<br />
 			const material = new THREE.SpriteMaterial( { map: map } );<br />
 			const sprite = new THREE.Sprite( material );<br />
 			scene.add( sprite );<br />
 			</code><br />
-			<br />
 			<h2>Ngx3Js Code Example</h2><br />
-			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-mesh [type]="'Sprite'"&gt;<br />
 				&lt;ngx3js-material [type]="'SpriteMaterial'"&gt;<br />
@@ -738,7 +732,7 @@
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/objects.ts /threejs-library/types/three/objects.ts]</p>
 	</body>

@@ -14,23 +14,17 @@
 		<p class="desc">
 			Creates a texture for use with a video texture.<br />
 			This is almost the same as the base [page:Texture Texture] class, except that it continuously sets [page:Texture.needsUpdate needsUpdate] to <i>true</i> so that the texture is updated as the video plays. Automatic creation of [page:Texture.mipmaps mipmaps] is also disabled.<br />
-			<br />
 			<h3>Preview - materials / video</h3><br />
 			<iframe src="#/viewer/webgl_materials_video"></iframe><br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_materials_video materials / video]<br />
-			<br />
 			<h2>Code Example</h2><br />
-			<br />
 			<code data-type="javascript"><br />
 			// assuming you have created a HTML video element with id="video"<br />
 			const video = document.getElementById( 'video' );<br />
 			const texture = new THREE.VideoTexture( video );<br />
 			</code><br />
-			<br />
 			<h2>Ngx3Js Code Example</h2><br />
-			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-texture [image]="video url"&gt;&lt;/ngx3js-texture&gt;<br />
 			</code>
@@ -509,7 +503,7 @@
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/textures.ts /threejs-library/types/three/textures.ts]</p>
 	</body>

@@ -14,7 +14,6 @@
 			<code data-type="javascript"><br />
 			const gui = new GUI();<br />
 			gui.add( document, 'title' );<br />
-			<br />
 			obj = {<br />
 				myBoolean: true,<br />
 				myString: 'lil-gui',<br />
@@ -101,7 +100,6 @@
 			gui.add( object, 'number', 0, 100, 1 );<br />
 			gui.add( object, 'options', [ 1, 2, 3 ] );<br />
 			</code><br />
-			<br />
 			Returns : add
 		</p>
 
@@ -124,7 +122,6 @@
 			gui.addColor( params, 'rgbColor' );<br />
 			gui.addColor( params, 'customRange', 255 );<br />
 			</code><br />
-			<br />
 			Returns : color
 		</p>
 
@@ -135,21 +132,18 @@
 		</p>
 		<p>
 			Adds a folder to the GUI, which is just another GUI. This method returns the nested GUI so you can add controllers to it.<br />
-			<br />
 			Returns : folder
 		</p>
 
 		<h3>[method:GUI close](  )</h3>
 		<p>
 			Closes the GUI.<br />
-			<br />
 			Returns : close
 		</p>
 
 		<h3>[method:GUIController[] controllersRecursive](  )</h3>
 		<p>
 			Returns an array of controllers contained by this GUI and its descendents.<br />
-			<br />
 			Returns : recursive
 		</p>
 
@@ -161,14 +155,12 @@
 		<h3>[method:GUI[] foldersRecursive](  )</h3>
 		<p>
 			Returns an array of folders contained by this GUI and its descendents.<br />
-			<br />
 			Returns : recursive
 		</p>
 
 		<h3>[method:GUI hide](  )</h3>
 		<p>
 			Hides the GUI.<br />
-			<br />
 			Returns : hide
 		</p>
 
@@ -180,7 +172,6 @@
 		</p>
 		<p>
 			Recalls values that were saved with gui.save().<br />
-			<br />
 			Returns : load
 		</p>
 
@@ -191,7 +182,6 @@
 		</p>
 		<p>
 			Pass a function to be called whenever a controller in this GUI changes.<br />
-			<br />
 			Returns : change
 		</p>
 
@@ -202,7 +192,6 @@
 		</p>
 		<p>
 			Pass a function to be called whenever a controller in this GUI has finished changing.<br />
-			<br />
 			Returns : finish change
 		</p>
 
@@ -218,7 +207,6 @@
 			gui.open( false ); // close<br />
 			gui.open( gui._closed ); // toggle<br />
 			</code><br />
-			<br />
 			Returns : open
 		</p>
 
@@ -229,7 +217,6 @@
 		</p>
 		<p>
 			Resets all controllers to their initial values.<br />
-			<br />
 			Returns : reset
 		</p>
 
@@ -240,7 +227,6 @@
 		</p>
 		<p>
 			Returns an object mapping controller names to values. The object can be passed to gui.load() to recall these values.<br />
-			<br />
 			Returns : save
 		</p>
 
@@ -251,7 +237,6 @@
 		</p>
 		<p>
 			Change the title of this GUI.<br />
-			<br />
 			Returns : title
 		</p>
 
@@ -280,7 +265,6 @@
 			controller.disable( false ); // enable<br />
 			controller.disable( !controller._disabled ); // toggle<br />
 			</code><br />
-			<br />
 			Returns : disable<br />
 			[method:GUIController enable](  [param:boolean enabled]? ) - Enables this controller.<br />
 			<code data-type="javascript"><br />
@@ -288,28 +272,20 @@
 			controller.enable( false ); // disable<br />
 			controller.enable( controller._disabled ); // toggle<br />
 			</code><br />
-			<br />
 			Returns : enable<br />
 			[method:any getValue](  ) - Returns object[ property ].<br />
-			<br />
 			Returns : value<br />
 			[method:GUIController listen](  [param:boolean listen]? ) - Calls updateDisplay() every animation frame. Pass false to stop listening.<br />
-			<br />
 			Returns : listen<br />
 			[method:GUIController max](  [param:number max] ) - Sets the maximum value. Only works on number controllers.<br />
-			<br />
 			Returns : max<br />
 			[method:GUIController min](  [param:number min] ) - Sets the minimum value. Only works on number controllers.<br />
-			<br />
 			Returns : min<br />
 			[method:GUIController name](  [param:string name] ) - Sets the name of the controller and its label in the GUI.<br />
-			<br />
 			Returns : name<br />
 			[method:GUIController onChange](  [param:GUICallBack callback] ) - Pass a function to be called whenever a controller in this GUI changes.<br />
-			<br />
 			Returns : change<br />
 			[method:GUIController onFinishChange](  [param:GUICallBack callback] ) - Pass a function to be called whenever a controller in this GUI has finished changing.<br />
-			<br />
 			Returns : finish change<br />
 			[method:GUIController options](  [param:object|any[] options] ) - Destroys this controller and replaces it with a new option controller. Provided as a more descriptive syntax for gui.add, but primarily for compatibility with dat.gui.<br />
 			Use caution, as this method will destroy old references to this controller. It will also change controller order if called out of sequence, moving the option controller to the end of the GUI.<br />
@@ -317,29 +293,22 @@
 			// safe usage<br />
 			gui.add( object1, 'property' ).options( [ 'a', 'b', 'c' ] );<br />
 			gui.add( object2, 'property' );<br />
-			<br />
 			// danger<br />
 			const c = gui.add( object1, 'property' );<br />
 			gui.add( object2, 'property' );<br />
 			c.options( [ 'a', 'b', 'c' ] );<br />
 			// controller is now at the end of the GUI even though it was added first<br />
-			<br />
 			assert( c.parent.children.indexOf( c ) === -1 )<br />
 			// c references a controller that no longer exists<br />
 			</code><br />
-			<br />
 			Returns : options<br />
 			[method:GUIController reset](  [param:boolean recursive]? ) - Resets all controllers to their initial values.<br />
-			<br />
 			Returns : reset<br />
 			[method:GUIController setValue](  [param:any value] ) - Sets the value of object[ property ], invokes any onChange handlers and updates the display.<br />
-			<br />
 			Returns : value<br />
 			[method:GUIController step](  [param:number step] ) - Sets the step. Only works on number controllers.<br />
-			<br />
 			Returns : step<br />
 			[method:GUIController updateDisplay](  ) - Updates the display to keep it in sync with the current value. Useful for updating your controllers when their values have been modified outside of the GUI.<br />
-			<br />
 			Returns : display
 		</p>
 
@@ -379,7 +348,7 @@
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/libs.ts /threejs-library/types/three/examples/libs.ts]</p>
 	</body>

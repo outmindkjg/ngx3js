@@ -13,13 +13,10 @@
 			Handles and keeps track of loaded and pending data. A default global instance of this class is created and used by loaders if not supplied manually - see [page:DefaultLoadingManager DefaultLoadingManager].<br />
 			In general that should be sufficient, however there are times when it can be useful to have separate loaders -<br />
 			for example if you want to show separate loading bars for objects and textures.<br />
-			<br />
 			<h3>Preview - WebGL / loader / fbx</h3><br />
 			<iframe src="#/viewer/webgl_loader_fbx"></iframe><br />
-			<br />
 			<h2>Code Example</h2><br />
 			This example shows how to use LoadingManager to track the progress of [page:OBJLoader OBJLoader].<br />
-			<br />
 			<code data-type="javascript"><br />
 			const manager = new THREE.LoadingManager();<br />
 			manager.onStart = function ( url, itemsLoaded, itemsTotal ) {<br />
@@ -39,9 +36,7 @@
 					console.log( object);<br />
 			});<br />
 			</code><br />
-			<br />
 			In addition to observing progress, a LoadingManager can be used to override resource URLs during loading. This may be helpful for assets coming from drag-and-drop events, WebSockets, WebRTC, or other APIs. An example showing how to load an in-memory model using Blob URLs is below.<br />
-			<br />
 			<code data-type="javascript"><br />
 			// Blob or File objects created when dragging files into the webpage.<br />
 			const blobs = {'fish.gltf': blob1, 'diffuse.png': blob2, 'normal.png': blob3};<br />
@@ -60,7 +55,6 @@
 				objectURLs.forEach( ( url ) =&gt; URL.revokeObjectURL( url ) );<br />
 			});<br />
 			</code><br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_loader_fbx WebGL / loader / fbx]<br />
 			[example:webgl_loader_obj WebGL / loader / obj]<br />
@@ -196,7 +190,7 @@
 		</p>
 
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/loaders.ts /threejs-library/types/three/loaders.ts]</p>
 	</body>

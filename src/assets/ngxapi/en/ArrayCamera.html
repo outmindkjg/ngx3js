@@ -14,13 +14,10 @@
 		<p class="desc">
 			ArrayCamera can be used in order to efficiently render a scene with a predefined set of cameras. This is an important performance aspect for rendering VR scenes.<br />
 			An instance of ArrayCamera always has an array of sub cameras. It's mandatory to define for each sub camera the <i>viewport</i> property which determines the part of the viewport that is rendered with this camera.<br />
-			<br />
 			<h3>Preview - camera / array</h3><br />
 			<iframe src="#/viewer/webgl_camera_array"></iframe><br />
-			<br />
 			See the [page:ArrayCamera ngx3js docs] page for details.<br />
 			See the [example:webgl_camera_array camera / array] page for a live demo.<br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_camera_array camera / array]
 		</p>
@@ -465,7 +462,6 @@
 		</p>
 		<p>
 			(Note: A camera looks down its local, negative z-axis).<br />
-			<br />
 			Returns : Returns a [page:Vector3 Vector3] representing the world space direction in which the camera is looking.
 		</p>
 
@@ -711,14 +707,11 @@
 			+---+---+---+<br />
 			| D | E | F |<br />
 			+---+---+---+<br />
-			<br />
 			then for each monitor you would call it like this:<br />
-			<br />
 			const w = 1920;<br />
 			const h = 1080;<br />
 			const fullWidth = w * 3;<br />
 			const fullHeight = h * 2;<br />
-			<br />
 			// A<br />
 			camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 0, w, h ) : this;<br />
 			// B<br />
@@ -896,7 +889,7 @@
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/cameras.ts /threejs-library/types/three/cameras.ts]</p>
 	</body>

@@ -15,25 +15,19 @@
 			Helper object to assist with visualizing a [page:DirectionalLight DirectionalLight]'s effect on the scene.<br />
 			This consists of plane and a line representing the light's position and direction.<br />
 			See the [page:DirectionalLightHelper ngx3js docs] page for details.<br />
-			<br />
 			<h3>Preview - webgl / lights / hemisphere</h3><br />
 			<iframe src="#/viewer/webgl_lights_hemisphere"></iframe><br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_lights_hemisphere webgl / lights / hemisphere]<br />
 			[example:webgl_pmrem_test webgl / pmrem / test]<br />
 			[example:webgl_shadowmap_pcss webgl / shadowmap / pcss]<br />
-			<br />
 			<h2>Code Example</h2><br />
-			<br />
 			<code data-type="javascript"><br />
 			const light = new THREE.DirectionalLight( 0xFFFFFF );<br />
 			const helper = new THREE.DirectionalLightHelper( light, 5 );<br />
 			scene.add( helper );<br />
 			</code><br />
-			<br />
 			<h2>Ngx3Js Code Example</h2><br />
-			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-light [type]="'DirectionalLight'" [color]="'0xffffff'"&gt;<br />
 				&lt;ngx3js-helper [type]="'DirectionalLightHelper'" [size]="5"&gt;&lt;/ngx3js-helper&gt;<br />
@@ -760,7 +754,7 @@
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/helpers.ts /threejs-library/types/three/helpers.ts]</p>
 	</body>

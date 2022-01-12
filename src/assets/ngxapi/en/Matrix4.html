@@ -20,16 +20,13 @@
 			[page:Object3D.matrixWorld Object3D.matrixWorld]: The global or world transform of the object. If the object has no parent, then this is identical to the local transform stored in [page:Object3D.matrix matrix].<br />
 			[page:Object3D.modelViewMatrix Object3D.modelViewMatrix]: This represents the object's transformation relative to the camera's coordinate system.<br />
 			An object's modelViewMatrix is the object's matrixWorld pre-multiplied by the camera's matrixWorldInverse.<br />
-			<br />
 			<h3>Preview - css3d / molecules</h3><br />
 			<iframe src="#/viewer/css3d_molecules"></iframe><br />
-			<br />
 			[page:Camera Cameras] have three additional Matrix4s:<br />
 			[page:Camera.matrixWorldInverse Camera.matrixWorldInverse]: The view matrix - the inverse of the Camera's [page:Object3D.matrixWorld matrixWorld].<br />
 			[page:Camera.projectionMatrix Camera.projectionMatrix]: Represents the information how to project the scene to clip space.<br />
 			[page:Camera.projectionMatrixInverse Camera.projectionMatrixInverse]: The inverse of projectionMatrix.<br />
 			Note: [page:Object3D.normalMatrix Object3D.normalMatrix] is not a Matrix4, but a [page:Matrix3 Matrix3].<br />
-			<br />
 			A Note on Row-Major and Column-Major Ordering<br />
 			The [page:set set]() method takes arguments in [link:https://en.wikipedia.org/wiki/Row-_and_column-major_order#Column-major_order row-major]<br />
 			order, while internally they are stored in the <i>.elements</i> array in column-major order.<br />
@@ -39,7 +36,6 @@
 			will result in the <i>.elements</i> array containing:<br />
 			m.elements = [ 11, 21, 31, 41, 12, 22, 32, 42, 13, 23, 33, 43, 14, 24, 34, 44 ];<br />
 			and internally all calculations are performed using column-major ordering. However, as the actual ordering makes no difference mathematically and most people are used to thinking about matrices in row-major order,g the three.js documentation shows matrices in row-major order. Just bear in mind that if you are reading the source code, you'll have to take the [link:https://en.wikipedia.org/wiki/Transpose transpose] of any matrices outlined here to make sense of the calculations.<br />
-			<br />
 			Extracting position, rotation and scale<br />
 			There are several options available for extracting position, rotation and scale from a Matrix4.<br />
 			[page:Vector3.setFromMatrixPosition Vector3.setFromMatrixPosition]: can be used to extract the translation component.<br />
@@ -47,7 +43,6 @@
 			[page:Quaternion.setFromRotationMatrix Quaternion.setFromRotationMatrix], [page:Euler.setFromRotationMatrix Euler.setFromRotationMatrix] or <i>.extractRotation</i> can be used to extract the rotation component from a pure (unscaled) matrix.<br />
 			<i>.decompose</i> can be used to extract position, rotation and scale all at once.<br />
 			See the [page:Matrix4 ngx3js docs] page for details.<br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:css3d_molecules css3d / molecules]<br />
 			[example:physics_ammo_instancing physics / ammo / instancing]<br />
@@ -152,11 +147,9 @@
 			Extracts the [link:https://en.wikipedia.org/wiki/Basis_(linear_algebra basis]) of this matrix into the three axis vectors provided. If this matrix is:<br />
 			a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p<br />
 			then the [page:Vector3 xAxis], [page:Vector3 yAxis], [page:Vector3 zAxis] will be set to:<br />
-			<br />
 			xAxis = (a, e, i)<br />
 			yAxis = (b, f, j)<br />
 			zAxis = (c, g, k)<br />
-			<br />
 			Returns : basis
 		</p>
 
@@ -489,7 +482,7 @@ Writes the elements of this matrix to an array in [link:https://en.wikipedia.org
 		</p>
 
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/math.ts /threejs-library/types/three/math.ts]</p>
 	</body>

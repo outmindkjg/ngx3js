@@ -14,10 +14,8 @@
 		<p class="desc">
 			Ifcloader<br />
 			See the [page:IFCLoader ngx3js docs] page for details.<br />
-			<br />
 			<h3>Preview - webgl / loader / ifc</h3><br />
 			<iframe src="#/viewer/webgl_loader_ifc"></iframe><br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_loader_ifc webgl / loader / ifc]
 		</p>
@@ -176,7 +174,6 @@ Set the [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header r
 			- If you will provide the properties as JSON.<br />
 			[method:any[] getAllItemsOfType](  [param:number modelID],  [param:number type],  [param:boolean verbose] ) - Returns all items of the specified type. You can import the types from <i>web-ifc</i>.<br />
 			Example to get all the standard walls of a project:<br />
-			<br />
 			<code data-type="javascript"><br />
 			import { IFCWALLSTANDARDCASE } from 'web-ifc';<br />
 			const walls = ifcLoader.getAllItemsOfType(IFCWALLSTANDARDCASE) : this;<br />
@@ -200,7 +197,6 @@ Set the [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header r
 			[method:void setWasmPath](  [param:string path] ) - Sets the relative path of web-ifc.wasm file in the project.<br />
 			Beware: you <i>*must*</i> serve this file in your page; this means that you have to copy this files from <i>node_modules/web-ifc</i> to your deployment directory.<br />
 			If you don't use this methods, IFC.js assumes that you are serving it in the root directory.<br />
-			<br />
 			Example if web-ifc.wasm is in dist/wasmDir:<br />
 			`ifcLoader.setWasmPath("dist/wasmDir/") : this;`<br />
 			[method:void setupThreeMeshBVH](  [param:any computeBoundsTree],  [param:any disposeBoundsTree],  [param:any acceleratedRaycast] ) - Makes object picking a lot faster<br />
@@ -218,7 +214,7 @@ Set the [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header r
 			Ifcmanager
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/loaders.ts /threejs-library/types/three/examples/loaders.ts]</p>
 	</body>

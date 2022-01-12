@@ -777,10 +777,8 @@
 			[method:boolean isRunning](  ) - In addition to being activated in the mixer (see <i>.isScheduled</i>) the following conditions must be fulfilled: <i>.paused</i> is equal to false, <i>.enabled</i> is equal to true, <i>.timeScale</i> is different from 0, and there is no scheduling for a delayed start (<i>.startAt</i>).<br />
 			Note: <i>isRunning</i> being true doesn’t necessarily mean that the animation can actually be seen.<br />
 			This is only the case, if <i>.weight</i> is additionally set to a non-zero value.<br />
-			<br />
 			Returns : Returns true if the action’s <i>.time</i> is currently running.<br />
 			[method:boolean isScheduled](  ) - Note: This doesn’t necessarily mean that the animation is actually running (compare the additional conditions for <i>.isRunning</i>).<br />
-			<br />
 			Returns : Returns true, if this action is activated in the mixer.<br />
 			[method:AnimationAction play](  ) - Tells the mixer to activate the action. This method can be chained.<br />
 			Note: Activating this action doesn’t necessarily mean that the animation starts immediately:<br />
@@ -863,7 +861,7 @@
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/misc.ts /threejs-library/types/three/examples/misc.ts]</p>
 	</body>

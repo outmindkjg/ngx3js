@@ -14,15 +14,11 @@
 		<p class="desc">
 			Level of Detail - show meshes with more or less geometry based on distance from the camera.<br />
 			Every level is associated with an object, and rendering can be switched between them at the distances specified. Typically you would create, say, three meshes, one for far away (low detail), one for mid range (medium detail) and one for close up (high detail).<br />
-			<br />
 			<h3>Preview - webgl / lod</h3><br />
 			<iframe src="#/viewer/webgl_lod"></iframe><br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_lod webgl / lod]<br />
-			<br />
 			<h2>Code Example</h2><br />
-			<br />
 			<code data-type="javascript"><br />
 			const lod = new THREE.LOD();<br />
 			// Create spheres with 3 levels of detail and create new LOD levels for them<br />
@@ -33,9 +29,7 @@
 			}<br />
 			scene.add( lod );<br />
 			</code><br />
-			<br />
 			<h2>Ngx3Js Code Example</h2><br />
-			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-mesh [type]="'LOD'"&gt;<br />
 				&lt;ngx3js-mesh [loDistance]="10"&gt;&lt;/ngx3js-mesh&gt;<br />
@@ -779,7 +773,7 @@ Adds a mesh that will display at a certain distance and greater. Typically the f
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/objects.ts /threejs-library/types/three/objects.ts]</p>
 	</body>

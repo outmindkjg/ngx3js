@@ -44,11 +44,9 @@
 			// Or, for an infinite chain, set tweenA to start once tweenB finishes:<br />
 			tweenA.chain(tweenB)<br />
 			tweenB.chain(tweenA)<br />
-			<br />
 			// In other cases, you may want to chain multiple tweens to another tween in a way that they (the chained tweens) all start animating at the same time:<br />
 			tweenA.chain(tweenB, tweenC)<br />
 			</code><br />
-			<br />
 			Returns : chain
 		</p>
 
@@ -64,7 +62,6 @@
 			tween.start()<br />
 			// will start executing 1 second after the start method has been called.<br />
 			</code><br />
-			<br />
 			Returns : delay
 		</p>
 
@@ -87,7 +84,6 @@
 			<code data-type="javascript"><br />
 			tween.easing(TWEEN.Easing.Quadratic.In)<br />
 			</code><br />
-			<br />
 			Returns : easing
 		</p>
 
@@ -117,7 +113,6 @@
 		</p>
 		<p>
 			For example, when the tween has just started (progress is 0), the interpolation function will return the first value in the array. When the tween is halfway, the interpolation function will return a value approximately in the middle of the array, and when the tween is at the end, the interpolation function will return the last value.<br />
-			<br />
 			Returns : interpolation
 		</p>
 
@@ -139,7 +134,6 @@
 		<p>
 			Executed when a tween is finished normally (i.e. not stopped).<br />
 			The tweened object is passed in as the first parameter.<br />
-			<br />
 			Returns : complete
 		</p>
 
@@ -160,7 +154,6 @@
 		<p>
 			Executed whenever a tween has just finished one repetition and will begin another.<br />
 			The tweened object is passed in as the first parameter.<br />
-			<br />
 			Returns : repeat
 		</p>
 
@@ -171,7 +164,6 @@
 		</p>
 		<p>
 			Executed right before the tween starts animating, after any delay time specified by the delay method. This will be executed only once per tween, i.e. it will not be run when the tween is repeated via repeat().<br />
-			<br />
 			Returns : start
 		</p>
 
@@ -182,7 +174,6 @@
 		</p>
 		<p>
 			Executed when a tween is explicitly stopped via stop(), but not when it is completed normally, and before stopping any possible chained tween.<br />
-			<br />
 			Returns : stop
 		</p>
 
@@ -194,7 +185,6 @@
 		<p>
 			Executed each time the tween is updated, after the values have been actually updated.<br />
 			The tweened object is passed in as the first parameter.<br />
-			<br />
 			Returns : update
 		</p>
 
@@ -218,7 +208,6 @@
 			tween.repeat(10) // repeats 10 times after the first tween and stops<br />
 			tween.repeat(Infinity) // repeats forever<br />
 			</code><br />
-			<br />
 			Returns : repeat
 		</p>
 
@@ -235,7 +224,6 @@
 			tween.start()<br />
 			// The first iteration of the tween will happen after one second, the second iteration will happen a half second after the first iteration ends, the third iteration will happen a half second after the second iteration ends, etc. If you want to delay the initial iteration but you don’t want any delay between iterations, then make sure to call tween.repeatDelay(0).<br />
 			</code><br />
-			<br />
 			Returns : delay
 		</p>
 
@@ -260,7 +248,6 @@
 		<h3>[method:Tween stop](  )</h3>
 		<p>
 			So far we’ve learnt about the Tween.start method, but there are more methods that control individual tweens. Probably the most important one is the start counterpart: stop. If you want to cancel a tween, just call this method over an individual tween:<br />
-			<br />
 			Returns : stop
 		</p>
 
@@ -298,7 +285,6 @@
 		</p>
 		<p>
 			This function only has effect if used along with repeat. When active, the behaviour of the tween will be like a yoyo, i.e. it will bounce to and from the start and end values, instead of just repeating the same sequence from the beginning.<br />
-			<br />
 			Returns : yoyo
 		</p>
 
@@ -337,7 +323,7 @@
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/libs.ts /threejs-library/types/three/examples/libs.ts]</p>
 	</body>

@@ -59,6 +59,10 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 	changeRouter(url: string) {
 		const menuId = url.substr(6).split('.')[0];
 		if (this.menuId !== menuId) {
+			if (this.docEle !== null) {
+				this.docEle.nativeElement.innerHTML = '';
+			}
+			this.links = null;
 			this.isLoaded = false;
 			this.menuId = url.substring(6).split('.')[0];
 			this.pageName = /[\-A-z0-9]+$/.exec(this.menuId).toString();
@@ -81,6 +85,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				});
 		} else {
 			this.tagName = url.indexOf('.') > 0 ? url.split('.')[1] : null;
+			console.log(this.tagName);
 			if (this.tagName !== null && this.tagName !== '') {
 				this.setFocus(this.tagName);
 			}
@@ -184,11 +189,11 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		); // [parameter:name|name|name title]
 
 		text = text.replace(
-			/\[(member|property|method|param|constructor):([\w\.]+)(\[\]|)\]/gi,
+			/\[(member|property|method|param|constructor):([\w\.\-]+)(\[\]|)\]/gi,
 			'[$1:$2$3 $2]'
 		); // [member:name] to [member:name title]
 		text = text.replace(
-			/\[(?:member|property|method):([\w\.]+)(\[\]|) ([\w\.\s]+)\]\s*(\(.*\)|\?)?/gi,
+			/\[(?:member|property|method):([\w\.]+)(\[\]|) ([\w\.\-\s]+)\]\s*(\(.*\)|\?)?/gi,
 			'<a href="#' +
 				name +
 				'.$3" title="' +
@@ -198,7 +203,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				'.$3" id="$3">$3</a> $4 : <a class="param" href="#$1">$1</a>$2'
 		);
 		text = text.replace(
-			/\[(?:member|property|method):([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]\s*(\(.*\)|\?)?/gi,
+			/\[(?:member|property|method):([\w\.]+)(\[\]|)\|([\w\.\-]+)(\[\]|) ([\w\.\-\s]+)\]\s*(\(.*\)|\?)?/gi,
 			'<a href="#' +
 				name +
 				'.$5" title="' +
@@ -208,7 +213,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				'.$5" id="$5">$5</a> $6 : <a class="param" href="#$1">$1</a>$2 | <a class="param" href="#$3">$3</a>$4'
 		);
 		text = text.replace(
-			/\[(?:member|property|method):([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]\s*(\(.*\)|\?)?/gi,
+			/\[(?:member|property|method):([\w\.]+)(\[\]|)\|([\w\.\-]+)(\[\]|)\|([\w\.\-]+)(\[\]|) ([\w\.\-\s]+)\]\s*(\(.*\)|\?)?/gi,
 			'<a href="#' +
 				name +
 				'.$7" title="' +
@@ -218,7 +223,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				'.$7" id="$7">$7</a> $8 : <a class="param" href="#$1">$1</a>$2 | <a class="param" href="#$3">$3</a>$4 | <a class="param" href="#$5">$5</a>$6'
 		);
 		text = text.replace(
-			/\[(?:member|property|method):([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]\s*(\(.*\)|\?)?/gi,
+			/\[(?:member|property|method):([\w\.]+)(\[\]|)\|([\w\.\-]+)(\[\]|)\|([\w\.\-]+)(\[\]|)\|([\w\.\-]+)(\[\]|) ([\w\.\s]+)\]\s*(\(.*\)|\?)?/gi,
 			'<a href="#' +
 				name +
 				'.$9" title="' +
@@ -228,7 +233,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				'.$9" id="$9">$9</a> $10 : <a class="param" href="#$1">$1</a>$2 | <a class="param" href="#$3">$3</a>$4 | <a class="param" href="#$5">$5</a>$6 | <a class="param" href="#$7">$7</a>$8'
 		);
 		text = text.replace(
-			/\[(?:member|property|method):([^ ]+) ([\w\.\s]+)\]\s*(\(.*\)|\?)?/gi,
+			/\[(?:member|property|method):([^ ]+) ([\w\.\-\s]+)\]\s*(\(.*\)|\?)?/gi,
 			'<a href="#' +
 				name +
 				'.$2" title="' +
@@ -494,35 +499,44 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 			}
 		}
 	}
+	private links : HTMLElement[] = null;
 
 	private setElementById(menuId: string, exceptParent : HTMLElement = null) {
-		const links = [];
-		const linksA: HTMLElement[] =
-			this.docEle.nativeElement.getElementsByTagName('a');
-		const linksH1: HTMLElement[] =
-			this.docEle.nativeElement.getElementsByTagName('h1');
-		const linksH2: HTMLElement[] =
-			this.docEle.nativeElement.getElementsByTagName('h2');
-		const linksH3: HTMLElement[] =
-			this.docEle.nativeElement.getElementsByTagName('h3');
-		for (let i = 0; i < linksA.length; i++) {
-			links.push(linksA[i]);
-		}
-		for (let i = 0; i < linksH1.length; i++) {
-			links.push(linksH1[i]);
-		}
-		for (let i = 0; i < linksH2.length; i++) {
-			links.push(linksH2[i]);
-		}
-		for (let i = 0; i < linksH3.length; i++) {
-			links.push(linksH3[i]);
+		if (this.links === null) {
+			const links = [];
+			const linksA: HTMLElement[] =
+				this.docEle.nativeElement.getElementsByTagName('a');
+			const linksH1: HTMLElement[] =
+				this.docEle.nativeElement.getElementsByTagName('h1');
+			const linksH2: HTMLElement[] =
+				this.docEle.nativeElement.getElementsByTagName('h2');
+			const linksH3: HTMLElement[] =
+				this.docEle.nativeElement.getElementsByTagName('h3');
+			for (let i = 0; i < linksA.length; i++) {
+				links.push(linksA[i]);
+			}
+			for (let i = 0; i < linksH1.length; i++) {
+				links.push(linksH1[i]);
+			}
+			for (let i = 0; i < linksH2.length; i++) {
+				links.push(linksH2[i]);
+			}
+			for (let i = 0; i < linksH3.length; i++) {
+				links.push(linksH3[i]);
+			}
+			this.links = [];
+			for (let i = 0; i < links.length; i++) {
+				const link: HTMLElement = links[i]; 
+				if (link.hasAttribute('id')) {
+					this.links.push(link);
+				}
+			}
 		}
 		let selected: HTMLElement = null;
-		for (let i = 0; i < links.length; i++) {
-			const link: HTMLElement = links[i]; 
-			console.log(link.getAttribute('id'))
+		for (let i = 0; i < this.links.length; i++) {
+			const link: HTMLElement = this.links[i]; 
 			if (link.getAttribute('id') === menuId && link.parentElement !== exceptParent) {
-				selected = links[i];
+				selected = this.links[i];
 				break;
 			}
 		}
@@ -537,6 +551,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		} else {
 			if (menuId !== null) {
 				let selected: HTMLElement = this.setElementById(menuId);
+				console.log(selected, menuId);
 				if (selected !== null) {
 					selected.scrollIntoView({ block: 'start', behavior: 'smooth' });
 				}

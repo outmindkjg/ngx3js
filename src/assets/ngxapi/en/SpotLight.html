@@ -14,19 +14,14 @@
 		<p class="desc">
 			This light gets emitted from a single point in one direction, along a cone that increases in size the further from the light it gets.<br />
 			This light can cast shadows - see the [page:SpotLightShadow SpotLightShadow] page for details.<br />
-			<br />
 			<h3>Preview - ngx light</h3><br />
 			<iframe src="#/viewer/ngx_light/SpotLight"></iframe><br />
-			<br />
 			See the [page:SpotLight ngx3js docs] page for details.<br />
 			See the [example:ngx_light/SpotLight ngx light] page for a live demo.<br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_lights_spotlight lights / spotlight]<br />
 			[example:webgl_lights_spotlights lights / spotlights]<br />
-			<br />
 			<h2>Code Example</h2><br />
-			<br />
 			<code data-type="javascript"><br />
 			//  white spotlight shining from the side, casting a shadow<br />
 			const spotLight = new THREE.SpotLight( 0xffffff );<br />
@@ -39,9 +34,7 @@
 			spotLight.shadow.camera.fov = 30;<br />
 			scene.add( spotLight );<br />
 			</code><br />
-			<br />
 			<h2>Ngx3Js Code Example</h2><br />
-			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-light [type]="'SpotLight'" [color]="'0xffffff'" [intensity]="1.5" [castShadow]="true"<br />
 				[shadowCameraNear]="500" [shadowCameraFar]="4000" [shadowCameraFov]="30" [shadowMapSize]="1024"<br />
@@ -277,13 +270,11 @@
 			This is so that the target's [page:Object3D.matrixWorld matrixWorld] gets automatically updated each frame.<br />
 			It is also possible to set the target to be another object in the scene (anything with a [page:Object3D.position position] property), like so:<br />
 			<h4>Code Example</h4><br />
-			<br />
 			<code data-type="javascript"><br />
 			const targetObject = new THREE.Object3D();<br />
 			scene.add(targetObject);<br />
 			light.target = targetObject;<br />
 			</code><br />
-			<br />
 			The spotlight will now track the target object.
 		</p>
 
@@ -856,7 +847,6 @@
 		<p class="desc">
 			This is used internally by [page:SpotLight SpotLights] for calculating shadows.<br />
 			<h4>Code Example</h4><br />
-			<br />
 			<code data-type="javascript"><br />
 			// Create a WebGLRenderer and turn on shadows in the renderer<br />
 			const renderer = new THREE.WebGLRenderer();<br />
@@ -908,7 +898,7 @@
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/lights.ts /threejs-library/types/three/lights.ts]</p>
 	</body>

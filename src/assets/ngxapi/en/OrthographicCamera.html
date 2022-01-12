@@ -15,13 +15,10 @@
 			Camera that uses [link:https://en.wikipedia.org/wiki/Orthographic_projection orthographic projection].<br />
 			In this projection mode, an object's size in the rendered image stays constant regardless of its distance from the camera.<br />
 			This can be useful for rendering 2D scenes and UI elements, amongst other things.<br />
-			<br />
 			<h3>Preview - ngx camera</h3><br />
 			<iframe src="#/viewer/ngx_camera/OrthographicCamera"></iframe><br />
-			<br />
 			See the [page:OrthographicCamera ngx3js docs] page for details.<br />
 			See the [example:ngx_camera/OrthographicCamera ngx camera] page for a live demo.<br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_camera camera]<br />
 			[example:webgl_interactive_cubes_ortho interactive / cubes / ortho]<br />
@@ -32,9 +29,7 @@
 			[example:webgl_rtt rtt]<br />
 			[example:webgl_shaders_tonemapping shaders / tonemapping]<br />
 			[example:webgl_shadowmap shadowmap]<br />
-			<br />
 			<h2>Code Example</h2><br />
-			<br />
 			<code data-type="javascript"><br />
 			const camera = new THREE.OrthographicCamera(<br />
 					width / - 2,<br />
@@ -46,9 +41,7 @@
 			);<br />
 			scene.add( camera );<br />
 			</code><br />
-			<br />
 			<h2>Ngx3Js Code Example</h2><br />
-			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-camera [type]="'OrthographicCamera'" [left]="-1" [right]="1" [top]="1" [bottom]="-1" [near]="1" [far]="1000"&gt;&lt;/ngx3js-camera&gt;<br />
 			</code>
@@ -453,7 +446,6 @@
 		</p>
 		<p>
 			(Note: A camera looks down its local, negative z-axis).<br />
-			<br />
 			Returns : Returns a [page:Vector3 Vector3] representing the world space direction in which the camera is looking.
 		</p>
 
@@ -694,7 +686,6 @@
 		</p>
 		<p>
 			Convert the camera to three.js [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].<br />
-			<br />
 			Returns : json
 		</p>
 
@@ -851,7 +842,7 @@
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/cameras.ts /threejs-library/types/three/cameras.ts]</p>
 	</body>

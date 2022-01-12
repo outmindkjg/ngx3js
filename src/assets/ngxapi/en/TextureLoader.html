@@ -14,23 +14,17 @@
 		<p class="desc">
 			Class for loading a [page:Texture texture].<br />
 			This uses the [page:ImageLoader ImageLoader] internally for loading files.<br />
-			<br />
 			<h3>Preview - geometry / cube</h3><br />
 			<iframe src="#/viewer/webgl_geometry_cube"></iframe><br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_geometry_cube geometry / cube]<br />
-			<br />
 			<h2>Code Example</h2><br />
-			<br />
 			<code data-type="javascript"><br />
 			const texture = new THREE.TextureLoader().load( 'textures/land_ocean_ice_cloud_2048.jpg' );<br />
 			// immediately use the texture for material creation<br />
 			const material = new THREE.MeshBasicMaterial( { map: texture } );<br />
 			</code><br />
-			<br />
 			<h2>Code Example with Callbacks</h2><br />
-			<br />
 			<code data-type="javascript"><br />
 			// instantiate a loader<br />
 			const loader = new THREE.TextureLoader();<br />
@@ -47,7 +41,6 @@
 				}<br />
 			);<br />
 			</code><br />
-			<br />
 			Please note three.js r84 dropped support for TextureLoader progress events. For a TextureLoader that supports progress events, see [link:https://github.com/mrdoob/three.js/issues/10439#issuecomment-293260145 this thread].
 		</p>
 
@@ -179,7 +172,7 @@ Set the [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header r
 		</p>
 
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/loaders.ts /threejs-library/types/three/loaders.ts]</p>
 	</body>

@@ -13,18 +13,14 @@
 
 		<p class="desc">
 			The Geometry component.<br />
-			<br />
 			<h3>Preview - ngx geometey</h3><br />
 			<iframe src="#/viewer/ngx_geometry"></iframe><br />
-			<br />
 			See the [page:NgxGeometryComponent ngx3js docs] page for details.<br />
 			See the [example:ngx_geometry ngx geometey] page for a live demo.<br />
 			See the [example:ngx_font ngx font] page for a live font demo.<br />
 			See the [example:ngx_curve ngx curve] page for a live curve demo.<br />
-			<br />
 			A representation of mesh, line, or point geometry. Includes vertex positions, face indices, normals, colors, UVs, and custom attributes within buffers, reducing the cost of passing all this data to the GPU.<br />
 			To read and edit data in BufferGeometry attributes, see [page:BufferAttribute BufferAttribute] documentation.<br />
-			<br />
 			<table><thead><tr></th><th>  Three Type        </th><th> Type Key           </th><th> Acceptable Input          </th><th></tr></thead><tbody> <tr></td><td> BufferGeometry </td><td> BufferGeometry, Buffer </td><td> attribute, points, curve, curveSegments  </td><td></tr> <tr></td><td> InstancedBufferGeometry </td><td> InstancedBufferGeometry, Instanced </td><td> instanceCount, instanced   </td><td></tr> <tr></td><td> TeapotGeometry </td><td> TeapotGeometry, Teapot </td><td> size, segments, bottom, lid, body, fitLid, blinn  </td><td></tr> <tr></td><td> PerlinGeometry </td><td> PerlinGeometry, Perlin </td><td> perlinType, width, height, depth, light, shadow  </td><td></tr> <tr></td><td> NgxRopeGeometry </td><td> RopeGeometry, Rope </td><td> width, widthSegments  </td><td></tr> <tr></td><td> NgxGridGeometry </td><td> GridGeometry, Grid </td><td> width, height, depth, widthSegments, heightSegments, color1, color2  </td><td></tr> <tr></td><td> NgxCapsuleGeometry </td><td> CapsuleGeometry, Capsule </td><td> radius, radiusSegments, height, heightSegments, phiStart, phiLength  </td><td></tr> <tr></td><td> LineGeometry </td><td> LineGeometry, Line </td><td> attrPosition, attrColor  </td><td></tr> <tr></td><td> RoundedBoxGeometry </td><td> RoundedBoxGeometry, RoundedBox </td><td> width, height, depth, segments, radius  </td><td></tr> <tr></td><td> BoxLineGeometry </td><td> BoxLineGeometry, BoxLine </td><td> width, height, depth, widthSegments, heightSegments, depthSegments  </td><td></tr> <tr></td><td> BoxBufferGeometry </td><td> BoxBufferGeometry, BoxGeometry, Box </td><td> width, height, depth, widthSegments, heightSegments, depthSegments  </td><td></tr> <tr></td><td> CircleBufferGeometry </td><td> CircleBufferGeometry, CircleGeometry, Circle </td><td> radius, segments, thetaStart, thetaLength  </td><td></tr> <tr></td><td> NgxCircleDepthGeometry </td><td> CircleDepthGeometry, CircleDepth </td><td> radius, depth, segments, thetaStart, thetaLength, depthRate  </td><td></tr> <tr></td><td> NgxStarGeometry </td><td> StarGeometry, Star </td><td> innerRadius, outerRadius, segments, thetaStart, thetaLength </td><td></tr> <tr></td><td> NgxStarDepthGeometry </td><td> StarDepthGeometry, StarDepth </td><td> innerRadius, outerRadius, segments, thetaStart, thetaLength, depthRate </td><td></tr> <tr></td><td> ConeBufferGeometry </td><td> ConeBufferGeometry, ConeGeometry, Cone </td><td> radius, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength </td><td></tr> <tr></td><td> CylinderBufferGeometry </td><td> CylinderBufferGeometry, CylinderGeometry, Cylinder </td><td> radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength </td><td></tr> <tr></td><td> DodecahedronBufferGeometry </td><td> DodecahedronBufferGeometry, DodecahedronGeometry, Dodecahedron </td><td> radius, detail </td><td></tr> <tr></td><td> mergeBufferGeometries </td><td> mergeBufferGeometries, merge </td><td> geometries </td><td></tr> <tr></td><td> ShapeBufferGeometry </td><td> ShapeBufferGeometry, ShapeGeometry, Shape </td><td> shapes, curveSegments </td><td></tr> <tr></td><td> ExtrudeBufferGeometry </td><td> ExtrudeBufferGeometry, ExtrudeGeometry, Extrude </td><td> shapes, curveSegments, steps, depth, bevelEnabled, bevelThickness, bevelSize, bevelOffset, bevelSegments, extrudePath </td><td></tr> <tr></td><td> IcosahedronBufferGeometry </td><td> IcosahedronBufferGeometry, IcosahedronGeometry, Icosahedron </td><td> radius, detail </td><td></tr> <tr></td><td> LatheBufferGeometry </td><td> LatheBufferGeometry, LatheGeometry, Lathe </td><td> points , segments, phiStart, phiLength </td><td></tr> <tr></td><td> OctahedronBufferGeometry </td><td> OctahedronBufferGeometry, OctahedronGeometry, Octahedron </td><td> radius, detail </td><td></tr> <tr></td><td> ParametricGeometry </td><td> ParametricGeometry, Parametric </td><td> slices, stacks </td><td></tr> <tr></td><td> ParametricGeometries.TorusKnotGeometry </td><td> ParametrictorusKnotGeometry, ParametrictorusKnot </td><td> radius, tube, radialSegments, tubularSegments, p, q </td><td></tr> <tr></td><td> ParametricGeometries.SphereGeometry </td><td> ParametrictorusSphereGeometry, ParametrictorusSphere </td><td> radius, widthSegments, heightSegments </td><td></tr> <tr></td><td> ParametricGeometries.TubeGeometry </td><td> ParametrictorusTubeGeometry, ParametrictorusTube </td><td> curve, tubularSegments, radius, radiusSegments, closed </td><td></tr> <tr></td><td> PlaneBufferGeometry </td><td> PlaneBufferGeometry, PlaneGeometry, Plane </td><td> width, height, widthSegments, heightSegments </td><td></tr> <tr></td><td> NgxPlaneDepthGeometry </td><td> PlaneDepthBufferGeometry, PlaneDepthGeometry, PlaneDepth </td><td> width, height, depth, widthSegments, heightSegments, depthRate </td><td></tr> <tr></td><td> PolyhedronBufferGeometry </td><td> PolyhedronBufferGeometry, PolyhedronGeometry, Polyhedron </td><td> radius, detail </td><td></tr> <tr></td><td> RingBufferGeometry </td><td> RingBufferGeometry, RingGeometry, Ring </td><td> innerRadius, outerRadius, thetaSegments, phiSegments, thetaStart, thetaLength </td><td></tr> <tr></td><td> NgxRingDepthGeometry </td><td> RingDepthGeometry, RingDepth </td><td> innerRadius, outerRadius, depth, thetaSegments, phiSegments, thetaStart, thetaLength, depthRate </td><td></tr> <tr></td><td> SphereBufferGeometry </td><td> SphereBufferGeometry, SphereGeometry, Sphere </td><td> radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength </td><td></tr> <tr></td><td> TetrahedronBufferGeometry </td><td> TetrahedronBufferGeometry, TetrahedronGeometry, Tetrahedron </td><td> radius, detail </td><td></tr> <tr></td><td> TextBufferGeometry </td><td> TextBufferGeometry, TextGeometry, Text </td><td> text, font, size, height, curveSegments, bevelEnabled, bevelThickness, bevelSize, bevelOffset, bevelSegments </td><td></tr> <tr></td><td> TorusBufferGeometry </td><td> TorusBufferGeometry, TorusGeometry, Torus </td><td> radius, tube, radialSegments, tubularSegments, arc </td><td></tr> <tr></td><td> TorusKnotBufferGeometry </td><td> TorusKnotBufferGeometry, TorusKnotGeometry, TorusKnot </td><td> radius, tube, radialSegments, tubularSegments, p, q </td><td></tr> <tr></td><td> TubeBufferGeometry </td><td> TubeBufferGeometry, TubeGeometry, Tube </td><td> curve, tubularSegments, radius, radiusSegments, closed </td><td></tr> <tr></td><td> ConvexGeometry </td><td> ConvexGeometry, Convex </td><td> points </td><td></tr> <tr></td><td> DecalGeometry </td><td> DecalGeometry, Decal </td><td> mesh, ... </td><td></tr> <tr></td><td> RollerCoasterTreesGeometry </td><td> TreesGeometry, Trees </td><td> mesh, ... </td><td></tr> <tr></td><td> RollerCoasterSkyGeometry </td><td> SkyGeometry, Sky </td><td>  </td><td></tr> <tr></td><td> RollerCoasterGeometry </td><td> RollerCoasterGeometry, RollerCoaster </td><td>  </td><td></tr> <tr></td><td> RollerCoasterLiftersGeometry </td><td> RollerCoasterLiftersGeometry, RollerCoasterLifters </td><td> curves, slices </td><td></tr> <tr></td><td> RollerCoasterShadowGeometry </td><td> RollerCoasterShadowGeometry, RollerCoasterShadow </td><td> curves, slices </td><td></tr> <tr></td><td> LightningStrike </td><td> LightningStrike, Lightning </td><td> rayParams </td><td></tr> </table><br />
 			<code data-type="html"><br />
 			&lt;ngx3js-geometry<br />
@@ -122,7 +118,6 @@
 				[radius]="75" [detail]="2"<br />
 			&gt;&lt;/ngx3js-geometry&gt;<br />
 			</code><br />
-			<br />
 			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry
 		</p>
 
@@ -351,7 +346,6 @@
 		<p>
 			The align of geometry<br />
 			left, center, right, top, bottom, front, back, double<br />
-			<br />
 			Notice - case insensitive. mixed
 		</p>
 
@@ -627,12 +621,10 @@
 			Make the input mesh.geometry's normal attribute encoded and compressed by 3 different methods.<br />
 			Also will change the mesh.material to `PackedPhongMaterial` which let the vertex shader program decode the normal data.<br />
 			"DEFAULT" || "OCT1Byte" || "OCT2Byte" || "ANGLES"<br />
-			<br />
 			"OCT1Byte"<br />
 			It is not recommended to use 1-byte octahedron normals encoding unless you want to extremely reduce the memory usage<br />
 			As it makes vertex data not aligned to a 4 byte boundary which may harm some WebGL implementations and sometimes the normal distortion is visible<br />
 			Please refer to @zeux 's comments in https://github.com/mrdoob/three.js/pull/18208<br />
-			<br />
 			"OCT2Byte"<br />
 			"ANGLES"
 		</p>
@@ -753,14 +745,12 @@
 		<h3>[property:number drawRangeCount]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			drawRangeCount of abstract geometry component<br />
-			<br />
 			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry setDrawRange
 		</p>
 
 		<h3>[property:number drawRangeStart]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			drawRangeStart of abstract geometry component<br />
-			<br />
 			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry setDrawRange
 		</p>
 
@@ -1303,7 +1293,6 @@
 		</p>
 		<p>
 			Checks changes<br />
-			<br />
 			Returns : changes
 		</p>
 
@@ -1359,7 +1348,6 @@
 		</p>
 		<p>
 			Gets attribute<br />
-			<br />
 			Returns : attribute
 		</p>
 
@@ -1370,49 +1358,42 @@
 		</p>
 		<p>
 			Gets attributes<br />
-			<br />
 			Returns : attributes
 		</p>
 
 		<h3>[method:string[] getChanges](  )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Gets changes<br />
-			<br />
 			Returns : changes
 		</p>
 
 		<h3>[method:T getGeometry](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			Gets geometry<br />
-			<br />
 			Returns : geometry
 		</p>
 
 		<h3>[method:string getId](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Gets id<br />
-			<br />
 			Returns : id
 		</p>
 
 		<h3>[method:void getMorphAttributes](  )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Gets morph attributes<br />
-			<br />
 			Returns : morph attributes
 		</p>
 
 		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Gets object<br />
-			<br />
 			Returns : object
 		</p>
 
 		<h3>[method:Observable getSubscribe](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Gets subscribe<br />
-			<br />
 			Returns : subscribe
 		</p>
 
@@ -1424,7 +1405,6 @@
 		<p>
 			Gets timeout<br />
 			특정 시간후에 이벤트 발생시키기<br />
-			<br />
 			Returns : timeout
 		</p>
 
@@ -1441,14 +1421,12 @@
 		</p>
 		<p>
 			Inits local component<br />
-			<br />
 			Returns : local component
 		</p>
 
 		<h3>[method:boolean isGeometryType](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Determines whether Geometry type is<br />
-			<br />
 			Returns : true if Geometry type
 		</p>
 
@@ -1459,7 +1437,6 @@
 		</p>
 		<p>
 			Determines whether id euals is<br />
-			<br />
 			Returns : true if id euals
 		</p>
 
@@ -1511,7 +1488,6 @@
 		</p>
 		<p>
 			Sets parent<br />
-			<br />
 			Returns : true if parent
 		</p>
 
@@ -1628,7 +1604,6 @@
 		</p>
 		<p>
 			subscription<br />
-			<br />
 			Returns : subscription
 		</p>
 
@@ -1732,7 +1707,7 @@
 			Ray parameters
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/geometry/geometry.component.ts /geometry/geometry.component.ts]</p>
 	</body>

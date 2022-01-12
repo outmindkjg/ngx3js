@@ -12,16 +12,13 @@
 		<p class="desc">
 			Represents an axis-aligned bounding box (AABB) in 3D space.<br />
 			See the [page:Box3 ngx3js docs] page for details.<br />
-			<br />
 			<h3>Preview - webgl / loader / 3mf</h3><br />
 			<iframe src="#/viewer/webgl_loader_3mf"></iframe><br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_loader_3mf webgl / loader / 3mf]<br />
 			[example:webgl_loader_ldraw webgl / loader / ldraw]<br />
 			[example:webgl_materials_normalmap_object_space webgl / materials / normalmap / object / space]<br />
 			[example:webxr_vr_haptics webxr / vr / haptics]<br />
-			<br />
 			<code data-type="javascript"><br />
 			const box = new THREE.Box3();<br />
 			const mesh = new THREE.Mesh(<br />
@@ -126,7 +123,6 @@
 		</p>
 		<p>
 			If the [page:Vector3 point] lies inside of this box, the distance will be 0.<br />
-			<br />
 			Returns : Returns the distance from any edge of this box to the specified point.
 		</p>
 
@@ -262,7 +258,6 @@
 		<h3>[method:boolean isEmpty](  )</h3>
 		<p>
 			Note that a box with equal lower and upper bounds still includes one point, the one both bounds share.<br />
-			<br />
 			Returns : Returns true if this box includes zero points within its bounds.
 		</p>
 
@@ -348,7 +343,7 @@
 		</p>
 
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/math.ts /threejs-library/types/three/math.ts]</p>
 	</body>

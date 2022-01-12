@@ -116,10 +116,8 @@
 			0 will store the data without compression.<br />
 			1 is fastest but compresses the worst, 9 is slowest but compresses the best.<br />
 			The default level is 6.<br />
-			<br />
 			Typically, binary data benefits much more from higher values than text data.<br />
 			In both cases, higher values usually take disproportionately longer than the reduction in final size that results.<br />
-			<br />
 			For example, a 1 MB text file could:<br />
 			- become 1.01 MB with level 0 in 1ms<br />
 			- become 400 kB with level 1 in 10ms<br />
@@ -128,7 +126,6 @@
 			Note that this is exponential: while level 0 uses 4 kB, level 4 uses 64 kB, level 8 uses 1 MB, and level 12 uses 16 MB.<br />
 			It is recommended not to lower the value below 4, since that tends to hurt performance.<br />
 			In addition, values above 8 tend to help very little on most data and can even hurt performance.<br />
-			<br />
 			The default value is automatically determined based on the size of the input data.
 		</p>
 
@@ -154,7 +151,7 @@
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/libs.ts /threejs-library/types/three/examples/libs.ts]</p>
 	</body>

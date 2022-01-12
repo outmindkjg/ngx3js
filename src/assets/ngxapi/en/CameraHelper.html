@@ -15,27 +15,21 @@
 			This helps with visualizing what a camera contains in its frustum.<br />
 			It visualizes the frustum of a camera using a [page:LineSegments LineSegments].<br />
 			See the [page:CameraHelper ngx3js docs] page for details.<br />
-			<br />
 			<h3>Preview - WebGL / camera</h3><br />
 			<iframe src="#/viewer/webgl_camera"></iframe><br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_camera WebGL / camera]<br />
 			[example:webgl_geometry_extrude_splines WebGL / extrude / splines]<br />
 			[example:webaudio_orientation webaudio / orientation]<br />
 			[example:webgl_animation_multiple webgl / animation / multiple]<br />
 			[example:webgl_animation_skinning_blending webgl / animation / skinning / blending]<br />
-			<br />
 			<h2>Code Example</h2><br />
-			<br />
 			<code data-type="javascript"><br />
 			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );<br />
 			const helper = new THREE.CameraHelper( camera );<br />
 			scene.add( helper );<br />
 			</code><br />
-			<br />
 			<h2>Ngx3Js Code Example</h2><br />
-			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-camera [type]="'perspective'" [fov]="75" [near]="0.1" [far]="1000"&gt;<br />
 				&lt;ngx3js-helper [type]="'CameraHelper'"&gt;&lt;/ngx3js-helper&gt;<br />
@@ -795,7 +789,7 @@
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/helpers.ts /threejs-library/types/three/helpers.ts]</p>
 	</body>

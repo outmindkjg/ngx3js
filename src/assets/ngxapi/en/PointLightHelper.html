@@ -14,15 +14,11 @@
 		<p class="desc">
 			This displays a helper object consisting of a spherical [page:Mesh Mesh] for visualizing  a [page:PointLight PointLight].<br />
 			See the [page:PointLightHelper ngx3js docs] page for details.<br />
-			<br />
 			<h3>Preview - WebGL /  helpers</h3><br />
 			<iframe src="#/viewer/webgl_helpers"></iframe><br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_helpers WebGL /  helpers]<br />
-			<br />
 			<h2>Code Example</h2><br />
-			<br />
 			<code data-type="javascript"><br />
 			const pointLight = new THREE.PointLight( 0xff0000, 1, 100 );<br />
 			pointLight.position.set( 10, 10, 10 );<br />
@@ -31,9 +27,7 @@
 			const pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );<br />
 			scene.add( pointLightHelper );<br />
 			</code><br />
-			<br />
 			<h2>Ngx3Js Code Example</h2><br />
-			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-light [type]="'PointLight'" [color]="'0xffffff'" [intensity]="1" [distance]="100"&gt;<br />
 				&lt;ngx3js-helper [type]="'PointLightHelper'"&gt;&lt;/ngx3js-helper&gt;<br />
@@ -750,7 +744,7 @@
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/helpers.ts /threejs-library/types/three/helpers.ts]</p>
 	</body>

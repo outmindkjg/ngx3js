@@ -9,24 +9,34 @@ div.loading {
 	bottom: 0;
 	opacity: 1;
 	background-color: rgba(0,0,0,0.7);
-	background-image: url(../../../assets/examples/files/loadiing.svg);
-	background-position:center;
-	background-repeat: no-repeat;
-	background-size: 100px 100px;
 	display: inline-block;
 	z-index: 1000;
-	animation: loadingAnni 2s normal forwards ease-in-out;
+	&::before {
+		position: absolute;
+		left:50%;
+		top:50%;
+		margin-top: -50px;
+		margin-left: -50px;
+		content: '';
+		display: inline-block;
+		width: 100px;
+		height: 100px;
+		background-image: url(../../../assets/examples/files/loadiing.svg);
+		background-position:center;
+		background-repeat: no-repeat;
+		background-size: 100px 100px;
+		animation: loadingAnni 2s normal forwards ease-in-out;
+		animation-iteration-count: infinite;
+	}
 }
 
 @keyframes loadingAnni {
     0% {
         opacity: 1;
-    }
-    70% {
-        opacity: 1;
+		transform: rotateZ(0deg) rotateY(0deg);
     }
     100% {
-        opacity: 0;
-        display: none;
+        opacity: 0.8;
+		transform: rotateZ(360deg) rotateY(360deg);
     }
 }

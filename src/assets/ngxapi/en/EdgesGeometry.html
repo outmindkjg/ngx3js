@@ -13,27 +13,20 @@
 
 		<p class="desc">
 			This can be used as a helper object to view the edges of a [page:BufferGeometry geometry].<br />
-			<br />
 			<h3>Preview - ngx geometey</h3><br />
 			<iframe src="#/viewer/ngx_geometry/EdgesGeometry"></iframe><br />
-			<br />
 			See the [page:EdgesGeometry ngx3js docs] page for details.<br />
 			See the [example:ngx_geometry/EdgesGeometry ngx geometey] page for a live demo.<br />
-			<br />
 			<h2>Examples</h2><br />
 			[example:webgl_helpers helpers]<br />
-			<br />
 			<h2>Code Example</h2><br />
-			<br />
 			<code data-type="javascript"><br />
 			const geometry = new THREE.BoxGeometry( 100, 100, 100 );<br />
 			const edges = new THREE.EdgesGeometry( geometry );<br />
 			const line = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0xffffff } ) );<br />
 			scene.add( line );<br />
 			</code><br />
-			<br />
 			<h2>Ngx3Js Code Example</h2><br />
-			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-mesh [type]="'LineSegments'"&gt;<br />
 				&lt;ngx3js-geometry [type]="'EdgesGeometry'"&gt;<br />
@@ -493,7 +486,7 @@
 			
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/geometries.ts /threejs-library/types/three/geometries.ts]</p>
 	</body>

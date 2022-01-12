@@ -14,11 +14,8 @@
 		<p class="desc">
 			The Clip component.<br />
 			See the [page:NgxClipComponent ngx3js docs] page for details.<br />
-			<br />
 			An AnimationClip is a reusable set of keyframe tracks which represent an animation.<br />
-			<br />
 			For an overview of the different elements of the three.js animation system see the "Animation System" article in the "Next Steps" section of the manual.<br />
-			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-mixer [action]="'base'"&gt;<br />
 				&lt;ngx3js-clip [name]="'base'" [index]="0"&gt;&lt;/ngx3js-clip&gt;<br />
@@ -89,7 +86,6 @@
 		<h3>[property:boolean additive] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			makeClipAdditive<br />
-			<br />
 			[page:AnimationUtils AnimationUtils] - THREE.AnimationUtils.makeClipAdditive
 		</p>
 
@@ -186,7 +182,6 @@
 		<h3>[property:boolean subclip] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			subclip<br />
-			<br />
 			[page:AnimationUtils AnimationUtils] - THREE.AnimationUtils.subclip
 		</p>
 
@@ -258,7 +253,6 @@
 		</p>
 		<p>
 			Checks changes<br />
-			<br />
 			Returns : changes
 		</p>
 
@@ -334,7 +328,6 @@
 		<h3>[method:string[] getChanges](  )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Gets changes<br />
-			<br />
 			Returns : changes
 		</p>
 
@@ -346,21 +339,18 @@
 		<h3>[method:string getId](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Gets id<br />
-			<br />
 			Returns : id
 		</p>
 
 		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
 			Gets object<br />
-			<br />
 			Returns : object
 		</p>
 
 		<h3>[method:Observable getSubscribe](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Gets subscribe<br />
-			<br />
 			Returns : subscribe
 		</p>
 
@@ -372,7 +362,6 @@
 		<p>
 			Gets timeout<br />
 			특정 시간후에 이벤트 발생시키기<br />
-			<br />
 			Returns : timeout
 		</p>
 
@@ -389,7 +378,6 @@
 		</p>
 		<p>
 			Inits local component<br />
-			<br />
 			Returns : local component
 		</p>
 
@@ -400,7 +388,6 @@
 		</p>
 		<p>
 			Determines whether id euals is<br />
-			<br />
 			Returns : true if id euals
 		</p>
 
@@ -469,7 +456,6 @@
 		</p>
 		<p>
 			Sets parent<br />
-			<br />
 			Returns : true if parent
 		</p>
 
@@ -591,7 +577,6 @@
 		</p>
 		<p>
 			subscription<br />
-			<br />
 			Returns : subscription
 		</p>
 
@@ -662,10 +647,8 @@
 			[method:boolean isRunning](  ) - In addition to being activated in the mixer (see <i>.isScheduled</i>) the following conditions must be fulfilled: <i>.paused</i> is equal to false, <i>.enabled</i> is equal to true, <i>.timeScale</i> is different from 0, and there is no scheduling for a delayed start (<i>.startAt</i>).<br />
 			Note: <i>isRunning</i> being true doesn’t necessarily mean that the animation can actually be seen.<br />
 			This is only the case, if <i>.weight</i> is additionally set to a non-zero value.<br />
-			<br />
 			Returns : Returns true if the action’s <i>.time</i> is currently running.<br />
 			[method:boolean isScheduled](  ) - Note: This doesn’t necessarily mean that the animation is actually running (compare the additional conditions for <i>.isRunning</i>).<br />
-			<br />
 			Returns : Returns true, if this action is activated in the mixer.<br />
 			[method:AnimationAction play](  ) - Tells the mixer to activate the action. This method can be chained.<br />
 			Note: Activating this action doesn’t necessarily mean that the animation starts immediately:<br />
@@ -703,7 +686,7 @@
 			mixer.addEventListener( 'loop', function( e ) { …} ); // properties of e: type, action and loopDelta mixer.addEventListener( 'finished', function( e ) { …} ); // properties of e: type, action and direction
 		</p>
 
-		<br /><br />
+		<br />
 		<h2>Source</h2>
 		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/clip/clip.component.ts /clip/clip.component.ts]</p>
 	</body>
