@@ -74,9 +74,9 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 	setFocus(menuId: string) {
 		if (this.ele.nativeElement) {
 			if (!this.isLoaded) {
-				setTimeout(() => {
+				NgxThreeUtil.getTimeout(500).then(() => {
 					this.setFocus(menuId);
-				}, 500);
+				});
 			} else if (this.lastFocus !== menuId){
 				this.lastFocus = menuId;
 				this.menu.closeMenu(true);
@@ -92,13 +92,13 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 				} 
 				if (selected !== null) {
 					selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-					setTimeout(() => {
+					NgxThreeUtil.getTimeout(1000).then(() => {
 						this.menu.closeMenu(false);
-					}, 1000);
+					});
 				} else {
-					setTimeout(() => {
+					NgxThreeUtil.getTimeout(1000).then(() => {
 						this.menu.closeMenu(false);
-					}, 1000);
+					});
 				}
 			}
 		}
@@ -156,10 +156,10 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 			this.files[key] = value as any;
 		});
 		if (this.menuId !== null) {
-			setTimeout(()=> {
+			NgxThreeUtil.getTimeout(1000).then(()=> {
 				this.isLoaded = true;
 				this.setFocus(this.menuId);
-			}, 1000);
+			});
 		}
 	}
 

@@ -762,9 +762,9 @@ export class Css3dPeriodictableComponent extends NgxBaseComponent<{
 						seqn++;
 					}
 				});
-				this.checkAutoPlayBind = setTimeout(() => {
+				this.checkAutoPlayBind = this.getTimeout(7000).then(() => {
 					this.checkAutoPlay();
-				}, 7000);
+				});
 			}
 		}
 	}

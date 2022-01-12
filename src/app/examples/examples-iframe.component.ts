@@ -3,6 +3,7 @@ import {
 	Component, ElementRef, ViewChild
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { NgxThreeUtil } from 'ngx3js';
 import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -54,12 +55,12 @@ export class ExamplesIframeComponent implements AfterViewInit{
 						iframe.className = 'iframe-unloaded';
 					}
 					this.lastIframeUrl = url;
-					setTimeout(() => {
+					NgxThreeUtil.getTimeout(1000).then(() => {
 						iframe.src = 'about:blank';
-						setTimeout(() => {
+						NgxThreeUtil.getTimeout(1000).then(() => {
 							iframe.src = url;
-						}, 1000);
-					}, 1000);
+						});
+					});
 				} else {
 					this.lastIframeUrl = url;
 					iframe.src = url;
