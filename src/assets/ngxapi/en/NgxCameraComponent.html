@@ -7,7 +7,7 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:NgxAbstractSubscribeComponent] &rarr; [page:NgxAbstractTweenComponent] &rarr; [page:NgxAbstractObject3dComponent] &rarr;
+		[page:NgxAbstractSubscribeComponent] &rarr; [page:NgxAbstractObject3dComponent] &rarr;
 
 		<h1>NgxCameraComponent</h1>
 
@@ -17,7 +17,7 @@
 			<h3>Preview - ngx camera</h3><br />
 			<iframe src="#/viewer/ngx_camera"></iframe><br />
 			<br />
-			See the [page:CameraComponent ngx3js docs] page for details.<br />
+			See the [page:NgxCameraComponent ngx3js docs] page for details.<br />
 			See the [example:ngx_camera ngx camera] page for a live demo.<br />
 			<br />
 			<table><thead><tr></th><th>  Three Type        </th><th> Type Key           </th><th> Acceptable Input          </th><th></tr></thead><tbody> <tr></td><td> OrthographicCamera </td><td> OrthographicCamera, Orthographic </td><td> left, right, top, bottom, near, far </td><td></tr> <tr></td><td> PerspectiveCamera </td><td> PerspectiveCamera, Perspective </td><td> fov, aspect , near, far </td><td></tr> <tr></td><td> NgxPingPongCamera </td><td> PingPong, CubePingPong, CubePingPongCamera, PingPongCamera </td><td> near, far </td><td></tr> <tr></td><td> ArrayCamera </td><td> ArrayCamera, Array </td><td> </td><td></tr> <tr></td><td> StereoCamera </td><td> StereoCamera, Stereo </td><td> </td><td></tr> <tr></td><td> CubeCamera </td><td> CubeCamera, Cube </td><td> near, far </td><td></tr> </table><br />
@@ -87,7 +87,6 @@
 			[ storageName ]="... string -- The storageName of camera "
 			[ top ]="... number -- Camera frustum top plane. "
 			[ tween ]="... any -- Tween animation params "
-			[ tweenStart ]="... boolean -- Start tween "
 			[ type ]="... string -- The type of camera "
 			[ userData ]="... any -- An object that can be used to ... "
 			[ viewport ]="... boolean -- The viewport of this render ta... "
@@ -114,9 +113,6 @@
 		<h2>Properties</h2>
 				<p>
 			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common properties.
-		</p>
-		<p>
-			See the base [page:NgxAbstractTweenComponent NgxAbstractTweenComponent] class for common properties.
 		</p>
 		<p>
 			See the base [page:NgxAbstractObject3dComponent NgxAbstractObject3dComponent] class for common properties.
@@ -453,11 +449,6 @@
 			Tween animation params
 		</p>
 
-		<h3>[property:boolean tweenStart] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
-		<p>
-			Start tween
-		</p>
-
 		<h3>[property:string type] &nbsp; = 'perspective' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of camera<br />
@@ -527,9 +518,6 @@
 		<h2>Methods</h2>
 				<p>
 			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common methods.
-		</p>
-		<p>
-			See the base [page:NgxAbstractTweenComponent NgxAbstractTweenComponent] class for common methods.
 		</p>
 		<p>
 			See the base [page:NgxAbstractObject3dComponent NgxAbstractObject3dComponent] class for common methods.

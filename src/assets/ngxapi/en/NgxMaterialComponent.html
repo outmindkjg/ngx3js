@@ -17,7 +17,7 @@
 			<h3>Preview - ngx material</h3><br />
 			<iframe src="#/viewer/ngx_material"></iframe><br />
 			<br />
-			See the [page:MaterialComponent ngx3js docs] page for details.<br />
+			See the [page:NgxMaterialComponent ngx3js docs] page for details.<br />
 			See the [example:ngx_material ngx material] page for a live demo.<br />
 			<br />
 			Abstract base class for materials.<br />
@@ -254,7 +254,7 @@
 			[ transparent ]="... boolean -- Defines whether this material ... "
 			[ tween ]="... any -- Tween animation params "
 			[ type ]="... string -- The type if matrial. "
-			[ uniforms ]="... INgxUniforms -- An object of the form: ```json... "
+			[ uniforms ]="... INgxUniforms -- An object of the form: "
 			[ userData ]="... any -- An object that can be used to ... "
 			[ vertexColors ]="... boolean -- Defines whether vertex colorin... "
 			[ vertexShader ]="... string -- Vertex shader GLSL code. This ... "
@@ -622,6 +622,7 @@
 				shaderTextureLOD: false // set to use shader texture LOD<br />
 			};<br />
 			</code><br />
+			<br />
 			Notice - case insensitive.
 		</p>
 
@@ -1093,10 +1094,13 @@
 			<code data-type="javascript">on<br />
 			{ "uniform1": { value: 1.0 }, "uniform2": { value: 2 } }<br />
 			</code><br />
+			<br />
 			specifying the uniforms to be passed to the shader code; keys are uniform names, values are definitions of the form<br />
+			<br />
 			<code data-type="javascript">on<br />
 			{ value: 1.0 }<br />
 			</code><br />
+			<br />
 			where <i>value</i> is the value of the uniform. Names must match the name of the uniform, as defined in the GLSL code. Note that uniforms are refreshed on every frame, so updating the value of the uniform will immediately update the value available to the GLSL code.
 		</p>
 
@@ -1381,6 +1385,11 @@
 			Returns : true if material type
 		</p>
 
+		<h3>[method:void resetTween](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Resets tween
+		</p>
+
 		<h3>[method:void runSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
@@ -1454,6 +1463,15 @@
 		</p>
 		<p>
 			Sets tween
+		</p>
+
+		<h3>[method:void setTweenTarget](  [param:any tweenTarget] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any tweenTarget] - The tween target.
+		</p>
+		<p>
+			Sets tween target
 		</p>
 
 		<h3>[method:void setUserData](  [param:string key],  [param:any value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>

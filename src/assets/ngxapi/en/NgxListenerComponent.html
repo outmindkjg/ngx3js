@@ -7,13 +7,13 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:NgxAbstractSubscribeComponent] &rarr; [page:NgxAbstractTweenComponent] &rarr; [page:NgxAbstractObject3dComponent] &rarr;
+		[page:NgxAbstractSubscribeComponent] &rarr; [page:NgxAbstractObject3dComponent] &rarr;
 
 		<h1>NgxListenerComponent</h1>
 
 		<p class="desc">
 			The Listener component.<br />
-			See the [page:ListenerComponent ngx3js docs] page for details.<br />
+			See the [page:NgxListenerComponent ngx3js docs] page for details.<br />
 			<br />
 			The [name] represents a virtual [link:https://developer.mozilla.org/de/docs/Web/API/AudioListener listener] of the all positional and non-positional audio effects in the scene.<br />
 			A three.js application usually creates a single instance of [name]. It is a mandatory construtor parameter for audios entities like [page:Audio Audio] and [page:PositionalAudio PositionalAudio].<br />
@@ -44,7 +44,6 @@
 			[ overrideParams ]="... any -- The override params "
 			[ receiveShadow ]="... boolean -- Whether the material receives ... "
 			[ tween ]="... any -- Tween animation params "
-			[ tweenStart ]="... boolean -- Start tween "
 			[ userData ]="... any -- An object that can be used to ... "
 			[ visible ]="... boolean -- Object gets rendered if *true*... "
 			[ volume ]="... number -- Set the volume. "
@@ -61,9 +60,6 @@
 		<h2>Properties</h2>
 				<p>
 			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common properties.
-		</p>
-		<p>
-			See the base [page:NgxAbstractTweenComponent NgxAbstractTweenComponent] class for common properties.
 		</p>
 		<p>
 			See the base [page:NgxAbstractObject3dComponent NgxAbstractObject3dComponent] class for common properties.
@@ -239,11 +235,6 @@
 			Tween animation params
 		</p>
 
-		<h3>[property:boolean tweenStart] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
-		<p>
-			Start tween
-		</p>
-
 		<h3>[property:any userData]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			An object that can be used to store custom data about the Object3D. It should not hold references to functions as these will not be cloned.
@@ -268,9 +259,6 @@
 		<h2>Methods</h2>
 				<p>
 			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common methods.
-		</p>
-		<p>
-			See the base [page:NgxAbstractTweenComponent NgxAbstractTweenComponent] class for common methods.
 		</p>
 		<p>
 			See the base [page:NgxAbstractObject3dComponent NgxAbstractObject3dComponent] class for common methods.

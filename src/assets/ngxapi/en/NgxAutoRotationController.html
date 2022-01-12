@@ -32,7 +32,7 @@
 			See the base [page:NgxAbstractThreeController NgxAbstractThreeController] class for common properties.
 		</p>
 
-		<h3>[property:TimelineLite|TimelineMax _tweenTimer]<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h3>[property:Tween _tweenTimer]<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Tween timer of abstract three controller
 		</p>
@@ -233,7 +233,7 @@
 			Returns : duration
 		</p>
 
-		<h3>[method:any getEasing](  [param:string def]?,  [param:boolean isTemplate]? )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h3>[method:EasingFunction getEasing](  [param:string def]?,  [param:boolean isTemplate]? )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string def] - (optional) The def.<br />
@@ -361,6 +361,15 @@
 			Gets steps<br />
 			<br />
 			Returns : steps
+		</p>
+
+		<h3>[method:Tween getTweenTimer](  [param:object object] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:object object] - The object.
+		</p>
+		<p>
+			Gets tween timer
 		</p>
 
 		<h3>[method:boolean getYoyo](  [param:boolean def]? )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>

@@ -17,7 +17,7 @@
 			<h3>Preview - ngx material</h3><br />
 			<iframe src="#/viewer/ngx_material"></iframe><br />
 			<br />
-			See the [page:AbstractMaterialComponent ngx3js docs] page for details.<br />
+			See the [page:NgxAbstractMaterialComponent ngx3js docs] page for details.<br />
 			See the [example:ngx_material ngx material] page for a live demo.<br />
 			<br />
 			<table><thead><tr></th><th>   Common Three Type        </th><th> Common Type Key           </th><th> Acceptable Input          </th><th></tr></thead><tbody> <tr></td><td> Boolean </td><td> alphaToCoverage </td><td> true, false </td><td></tr> <tr></td><td> THREE.Blending </td><td> blending </td><td> NoBlending, NormalBlending, AdditiveBlending, SubtractiveBlending, MultiplyBlending, CustomBlending </td><td></tr> <tr></td><td> THREE.BlendingDstFactor </td><td> blendDst </td><td> ZeroFactor, OneFactor, SrcColorFactor, OneMinusSrcColorFactor, SrcAlphaFactor, OneMinusSrcAlphaFactor, DstAlphaFactor, OneMinusDstAlphaFactor, DstColorFactor, OneMinusDstColorFactor </td><td></tr> <tr></td><td> Number </td><td> blendDstAlpha </td><td> 0.0~1.0 </td><td></tr> <tr></td><td> THREE.BlendingEquation </td><td> blendEquation </td><td> AddEquation, SubtractEquation, ReverseSubtractEquation, MinEquation, MaxEquation </td><td></tr> <tr></td><td> Number </td><td> blendEquationAlpha </td><td> 0.0~1.0 </td><td></tr> <tr></td><td> THREE.BlendingSrcFactor </td><td> blendSrc </td><td> SrcAlphaSaturateFactor </td><td></tr> <tr></td><td> Number </td><td> blendSrcAlpha </td><td> 0.0~1.0 </td><td></tr> <tr></td><td> Boolean </td><td> clipIntersection </td><td> true, false </td><td></tr> <tr></td><td> THREE.Plane[] clippingPlanes </td><td> Array </td><td></tr> <tr></td><td> Boolean </td><td> clipShadows </td><td> true, false </td><td></tr> <tr></td><td> Boolean </td><td> colorWrite </td><td> true, false </td><td></tr> <tr></td><td> Any </td><td> defines </td><td> any </td><td></tr> <tr></td><td> THREE.DepthModes </td><td> depthFunc </td><td> NeverDepth, AlwaysDepth, LessDepth, LessEqualDepth, EqualDepth, GreaterEqualDepth, NotEqualDepth </td><td></tr> <tr></td><td> Boolean </td><td> depthTest </td><td> true, false </td><td></tr> <tr></td><td> Boolean </td><td> depthWrite </td><td> true, false </td><td></tr> <tr></td><td> Boolean </td><td> fog </td><td> true, false </td><td></tr> <tr></td><td> Number </td><td> opacity </td><td> 0.0~1.0 </td><td></tr> <tr></td><td> Boolean </td><td> polygonOffset </td><td> true, false </td><td></tr> <tr></td><td> Number </td><td> polygonOffsetFactor </td><td> any </td><td></tr> <tr></td><td> Number </td><td> polygonOffsetUnits </td><td> any </td><td></tr> <tr></td><td> String </td><td> precision </td><td> highp, mediump, lowp </td><td></tr> <tr></td><td> Number </td><td> premultipliedAlpha </td><td> any </td><td></tr> <tr></td><td> Boolean </td><td> dithering </td><td> true, false </td><td></tr> <tr></td><td> THREE.Side </td><td> shadowSide </td><td> FrontSide, BackSide, DoubleSide </td><td></tr> <tr></td><td> Boolean </td><td> toneMapped </td><td> true, false </td><td></tr> <tr></td><td> Boolean </td><td> transparent </td><td> true, false </td><td></tr> <tr></td><td> Boolean </td><td> stencilWrite </td><td> true, false </td><td></tr> <tr></td><td> THREE.StencilFunc </td><td> stencilFunc </td><td> 	NeverStencilFunc, LessStencilFunc, EqualStencilFunc, LessEqualStencilFunc, GreaterStencilFunc, NotEqualStencilFunc, GreaterEqualStencilFunc, AlwaysStencilFunc </td><td></tr> <tr></td><td> Number </td><td> stencilRef </td><td> any </td><td></tr> <tr></td><td> Number </td><td> stencilWriteMask </td><td> any </td><td></tr> <tr></td><td> Number </td><td> stencilFuncMask </td><td> any </td><td></tr> <tr></td><td> THREE.StencilOp </td><td> stencilFail </td><td> ZeroStencilOp, KeepStencilOp, ReplaceStencilOp, IncrementStencilOp, DecrementStencilOp, IncrementWrapStencilOp, DecrementWrapStencilOp, InvertStencilOp </td><td></tr> <tr></td><td> THREE.StencilOp </td><td> stencilZFail </td><td> ZeroStencilOp, KeepStencilOp, ReplaceStencilOp, IncrementStencilOp, DecrementStencilOp, IncrementWrapStencilOp, DecrementWrapStencilOp, InvertStencilOp </td><td></tr> <tr></td><td> THREE.StencilOp </td><td> stencilZPass </td><td> ZeroStencilOp, KeepStencilOp, ReplaceStencilOp, IncrementStencilOp, DecrementStencilOp, IncrementWrapStencilOp, DecrementWrapStencilOp, InvertStencilOp </td><td></tr> <tr></td><td> Boolean </td><td> alphaTest </td><td> true, false </td><td></tr> <tr></td><td> THREE.Side </td><td> side </td><td> FrontSide, BackSide, DoubleSide </td><td></tr> <tr></td><td> Boolean </td><td> vertexColors </td><td> true, false </td><td></tr> <tr></td><td> Boolean </td><td> visible </td><td> true, false </td><td></tr> </table><br />
@@ -631,6 +631,11 @@
 			Returns : true if material type
 		</p>
 
+		<h3>[method:void resetTween](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Resets tween
+		</p>
+
 		<h3>[method:void runSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
@@ -704,6 +709,15 @@
 		</p>
 		<p>
 			Sets tween
+		</p>
+
+		<h3>[method:void setTweenTarget](  [param:any tweenTarget] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any tweenTarget] - The tween target.
+		</p>
+		<p>
+			Sets tween target
 		</p>
 
 		<h3>[method:void setUserData](  [param:string key],  [param:any value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>

@@ -7,13 +7,13 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:NgxAbstractSubscribeComponent] &rarr; [page:NgxAbstractTweenComponent] &rarr; [page:NgxAbstractObject3dComponent] &rarr;
+		[page:NgxAbstractSubscribeComponent] &rarr; [page:NgxAbstractObject3dComponent] &rarr;
 
 		<h1>NgxHelperComponent</h1>
 
 		<p class="desc">
 			The Helper component.<br />
-			See the [page:HelperComponent ngx3js docs] page for details.<br />
+			See the [page:NgxHelperComponent ngx3js docs] page for details.<br />
 			<br />
 			<table><thead><tr></th><th>  Three Type        </th><th> Type Key           </th><th> Acceptable Input          </th><th></tr></thead><tbody> <tr></td><td> Gyroscope </td><td> GyroscopeHelper, Gyroscope </td><td>  </td><td></tr> <tr></td><td> CSMHelper </td><td> CSMHelper, CSM </td><td> control </td><td></tr> <tr></td><td> ArrowHelper </td><td> ArrowHelper, Arrow </td><td> arrowTo, arrowFrom, dirX, dirY, dirZ , originX, originY, originZ, length, color, headLength, headWidth </td><td></tr> <tr></td><td> BoxHelper </td><td> BoxHelper, Box </td><td> target, color </td><td></tr> <tr></td><td> Box3Helper </td><td> Box3Helper, Box3 </td><td>  </td><td></tr> <tr></td><td> GridHelper </td><td> GridHelper, Grid </td><td> size, divisions, color1, color2 </td><td></tr> <tr></td><td> PolarGridHelper </td><td> PolarGridHelper, PolarGrid </td><td> radius, radials, circles, divisions, color1, color2  </td><td></tr> <tr></td><td> PositionalAudioHelper </td><td> PositionalAudioHelper, PositionalAudio </td><td> range, divisionsInnerAngle, divisionsOuterAngle </td><td></tr> <tr></td><td> CameraHelper </td><td> CameraHelper, Camera </td><td>  </td><td></tr> <tr></td><td> DirectionalLightHelper </td><td> DirectionalLightHelper, DirectionalLight </td><td> size, color </td><td></tr> <tr></td><td> HemisphereLightHelper </td><td> HemisphereLightHelper, HemisphereLight </td><td> size, color </td><td></tr> <tr></td><td> PointLightHelper </td><td> PointLightHelper, PointLight </td><td> size, color </td><td></tr> <tr></td><td> HemisphereLightHelper </td><td> HemisphereLightHelper, HemisphereLight </td><td> size, color </td><td></tr> <tr></td><td> SpotLightHelper </td><td> SpotLightHelper, SpotLight </td><td> color </td><td></tr> <tr></td><td> RectAreaLightHelper </td><td> RectAreaLightHelper, RectAreaLight </td><td> color </td><td></tr> <tr></td><td> LightProbeHelper </td><td> LightProbeHelper, LightProbe </td><td> size </td><td></tr> <tr></td><td> PlaneHelper </td><td> PlaneHelper, Plane </td><td> size, color </td><td></tr> <tr></td><td> VertexTangentsHelper </td><td> VertexTangentsHelper, VertexTangents </td><td> size, color </td><td></tr> <tr></td><td> VertexNormalsHelper </td><td> VertexNormalsHelper, VertexNormals </td><td> size, color </td><td></tr> <tr></td><td> SkeletonHelper </td><td> SkeletonHelper, Skeleton </td><td>  </td><td></tr> <tr></td><td> AxesHelper </td><td> AxesHelper, Axes </td><td> size </td><td></tr> </table><br />
 			<code data-type="html"><br />
@@ -87,7 +87,6 @@
 			[ size ]="... number -- size of the lines representing... "
 			[ target ]="... any -- The target object of helper "
 			[ tween ]="... any -- Tween animation params "
-			[ tweenStart ]="... boolean -- Start tween "
 			[ type ]="... string -- the type of helper "
 			[ userData ]="... any -- An object that can be used to ... "
 			[ visible ]="... boolean -- Object gets rendered if *true*... "
@@ -104,9 +103,6 @@
 		<h2>Properties</h2>
 				<p>
 			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common properties.
-		</p>
-		<p>
-			See the base [page:NgxAbstractTweenComponent NgxAbstractTweenComponent] class for common properties.
 		</p>
 		<p>
 			See the base [page:NgxAbstractObject3dComponent NgxAbstractObject3dComponent] class for common properties.
@@ -451,11 +447,6 @@
 			Tween animation params
 		</p>
 
-		<h3>[property:boolean tweenStart] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
-		<p>
-			Start tween
-		</p>
-
 		<h3>[property:string type] &nbsp; = 'axes' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			the type of helper<br />
@@ -481,9 +472,6 @@
 		<h2>Methods</h2>
 				<p>
 			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common methods.
-		</p>
-		<p>
-			See the base [page:NgxAbstractTweenComponent NgxAbstractTweenComponent] class for common methods.
 		</p>
 		<p>
 			See the base [page:NgxAbstractObject3dComponent NgxAbstractObject3dComponent] class for common methods.
@@ -1001,7 +989,11 @@
 			Sets tween target
 		</p>
 
-		<h3>[method:void setUpdate](  )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:void setUpdate](  [param:number delay] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number delay] - The delay.
+		</p>
 		<p>
 			Sets update
 		</p>

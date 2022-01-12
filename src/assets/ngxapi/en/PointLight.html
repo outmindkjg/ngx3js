@@ -28,6 +28,7 @@
 			[example:webgl_lensflares lensflares]<br />
 			<br />
 			<h2>Code Example</h2><br />
+			<br />
 			<code data-type="javascript"><br />
 			const light = new THREE.PointLight( 0xff0000, 1, 100 );<br />
 			light.position.set( 50, 50, 50 );<br />
@@ -35,6 +36,7 @@
 			</code><br />
 			<br />
 			<h2>Ngx3Js Code Example</h2><br />
+			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-light [type]="'PointLight'" [color]="'0xff0000'" [intensity]="0.5" [distance]="100"&gt;<br />
 				&lt;ngx3js-position [x]="50" [y]="50" [z]="50" &gt;&lt;/ngx3js-position&gt;<br />
@@ -115,8 +117,8 @@
 
 		<h3>[property:number distance]</h3>
 		<p>
-			&lt;em&gt;Default mode&lt;/em&gt; - When distance is zero, light does not attenuate. When distance is non-zero, light will attenuate linearly from maximum intensity at the light's position down to zero at this distance from the light.<br />
-			&lt;em&gt;[page:WebGLRenderer.physicallyCorrectLights Physically correct] mode&lt;/em&gt; - When distance is zero, light will attenuate according to inverse-square law to infinite distance. When distance is non-zero, light will attenuate according to inverse-square law until near the distance cutoff, where it will then attenuate quickly and smoothly to 0. Inherently, cutoffs are not physically correct.<br />
+			<em>Default mode</em> - When distance is zero, light does not attenuate. When distance is non-zero, light will attenuate linearly from maximum intensity at the light's position down to zero at this distance from the light.<br />
+			<em>[page:WebGLRenderer.physicallyCorrectLights Physically correct] mode</em> - When distance is zero, light will attenuate according to inverse-square law to infinite distance. When distance is non-zero, light will attenuate according to inverse-square law until near the distance cutoff, where it will then attenuate quickly and smoothly to 0. Inherently, cutoffs are not physically correct.<br />
 			Default is <i>0.0</i>.
 		</p>
 
@@ -815,6 +817,7 @@
 		<p class="desc">
 			This is used internally by [page:PointLight PointLights] for calculating shadows.<br />
 			<h4>Code Example</h4><br />
+			<br />
 			<code data-type="javascript"><br />
 			// Create a WebGLRenderer and turn on shadows in the renderer<br />
 			const renderer = new THREE.WebGLRenderer();<br />

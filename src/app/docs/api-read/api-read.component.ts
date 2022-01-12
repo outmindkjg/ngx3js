@@ -322,7 +322,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 					if (!hrefId.startsWith('THREE.') && hrefId.startsWith(this.pageName + '.')) {
 						hrefId = hrefId.substring(this.pageName.length + 1);
 					} 
-					if (this.setElementById(hrefId) !== null) {
+					if (this.setElementById(hrefId, htmlAnchorElement.parentElement) !== null) {
 						this.router.navigateByUrl('/docs/' + this.menuId + '.' + hrefId);
 					} else {
 						this.docsComponent.changePage(hrefId, this.menuId);
@@ -495,7 +495,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	private setElementById(menuId: string) {
+	private setElementById(menuId: string, exceptParent : HTMLElement = null) {
 		const links = [];
 		const linksA: HTMLElement[] =
 			this.docEle.nativeElement.getElementsByTagName('a');
@@ -519,7 +519,9 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		}
 		let selected: HTMLElement = null;
 		for (let i = 0; i < links.length; i++) {
-			if (links[i].getAttribute('id') === menuId) {
+			const link: HTMLElement = links[i]; 
+			console.log(link.getAttribute('id'))
+			if (link.getAttribute('id') === menuId && link.parentElement !== exceptParent) {
 				selected = links[i];
 				break;
 			}

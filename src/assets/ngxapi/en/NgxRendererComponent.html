@@ -17,7 +17,7 @@
 			<h3>Preview - ngx renderer</h3><br />
 			<iframe src="#/viewer/ngx_renderer"></iframe><br />
 			<br />
-			See the [page:RendererComponent ngx3js docs] page for details.<br />
+			See the [page:NgxRendererComponent ngx3js docs] page for details.<br />
 			See the [example:ngx_renderer ngx renderer] page for a live demo.<br />
 			<br />
 			<code data-type="html"><br />
@@ -147,7 +147,7 @@
 			whether to perform antialiasing. Default is <i>false</i>.
 		</p>
 
-		<h3>[property:boolean autoClear] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean autoClear]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Defines whether the renderer should automatically clear its output before rendering a frame.
 		</p>
@@ -216,7 +216,7 @@
 			Enabled or Not
 		</p>
 
-		<h3>[property:boolean globalClippingEnabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean globalClippingEnabled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			User-defined clipping planes specified as THREE.Plane objects in world space.
 		</p>
@@ -256,7 +256,7 @@
 			The Id of abstract subscribe component
 		</p>
 
-		<h3>[property:boolean localClippingEnabled] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:boolean localClippingEnabled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Defines whether the renderer respects object-level clipping planes. Default is <i>false</i>.
 		</p>
@@ -587,6 +587,17 @@
 			Returns : controls
 		</p>
 
+		<h3>[method:IRendererInfo getRenderInfo](  [param:IRendererTimer timer]? )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:IRendererTimer timer] - (optional) The timer.
+		</p>
+		<p>
+			Gets render info<br />
+			<br />
+			Returns : render info
+		</p>
+
 		<h3>[method:Renderer getRenderer](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Gets Renderer<br />
@@ -651,6 +662,11 @@
 		<h3>[method:void render](  )<i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Renders renderer component
+		</p>
+
+		<h3>[method:void resetTween](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Resets tween
 		</p>
 
 		<h3>[method:void resizeCanvas](  [param:number width],  [param:number height] )<i class="modifier modifier-public">Public</i></h3>
@@ -732,6 +748,15 @@
 		</p>
 		<p>
 			Sets tween
+		</p>
+
+		<h3>[method:void setTweenTarget](  [param:any tweenTarget] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any tweenTarget] - The tween target.
+		</p>
+		<p>
+			Sets tween target
 		</p>
 
 		<h3>[method:void setUserData](  [param:string key],  [param:any value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -880,10 +905,12 @@
 			[property:number lookSpeed]? - The lookSpeed of control<br />
 			[property:boolean lookVertical]? - The lookVertical of control<br />
 			[property:QueryList lookatList]? - The lookat list of control<br />
+			[property:number maxAzimuthAngle]? - The maxAzimuthAngle of control<br />
 			[property:number maxDistance]? - The maxDistance of control<br />
 			[property:number maxFar]? - The maxFar of control<br />
 			[property:number maxPolarAngle]? - The maxPolarAngle of control<br />
 			[property:number maxZoom]? - The maxZoom of control<br />
+			[property:number minAzimuthAngle]? - The minAzimuthAngle of control<br />
 			[property:number minDistance]? - The minDistance of control<br />
 			[property:number minPolarAngle]? - The minPolarAngle of control<br />
 			[property:number minZoom]? - The minZoom of control<br />
@@ -936,6 +963,19 @@
 
 		<p class="desc">
 			Gui control param
+		</p>
+
+		<h3 id="IRendererTimer" class="interface"> IRendererTimer <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number delta] -  The delta.<br />
+			[property:number elapsedTime] -  The elapsed time.<br />
+			[property:IRendererEvent event]? -  The event.<br />
+			[property:Renderer renderer]? -  The renderer.
+		</p>
+
+		<p class="desc">
+			Renderer timer
 		</p>
 
 		<h3 id="Renderer" class="interface"> Renderer <i class="modifier modifier-interface">Interface</i></h3>

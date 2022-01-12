@@ -7,7 +7,7 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:NgxAbstractSubscribeComponent] &rarr; [page:NgxAbstractTweenComponent] &rarr; [page:NgxAbstractObject3dComponent] &rarr;
+		[page:NgxAbstractSubscribeComponent] &rarr; [page:NgxAbstractObject3dComponent] &rarr;
 
 		<h1>NgxLightComponent</h1>
 
@@ -17,7 +17,7 @@
 			<h3>Preview - ngx light</h3><br />
 			<iframe src="#/viewer/ngx_light"></iframe><br />
 			<br />
-			See the [page:LightComponent ngx3js docs] page for details.<br />
+			See the [page:NgxLightComponent ngx3js docs] page for details.<br />
 			See the [example:ngx_light ngx light] page for a live demo.<br />
 			<br />
 			<table><thead><tr></th><th>  Three Type        </th><th> Type Key           </th><th> Acceptable Input          </th><th></tr></thead><tbody> <tr></td><td> DirectionalLight </td><td> DirectionalLight, Directional </td><td> color, intensity </td><td></tr> <tr></td><td> HemisphereLight </td><td> HemisphereLight, Hemisphere </td><td> skyColor, groundColor, intensity </td><td></tr> <tr></td><td> LightProbe </td><td> LightProbe, Probe </td><td> sh, intensity, texture </td><td></tr> <tr></td><td> PointLight </td><td> PointLight, Point </td><td> color, intensity, distance, decay </td><td></tr> <tr></td><td> RectAreaLight </td><td> RectAreaLight, RectArea </td><td> color, intensity, width, height </td><td></tr> <tr></td><td> SpotLight </td><td> SpotLight, Spot </td><td> color, intensity, distance, angle, penumbra, decay, shadowFocus </td><td></tr> <tr></td><td> AmbientLight </td><td> AmbientLight, Ambient </td><td> color, intensity </td><td></tr> </table><br />
@@ -106,7 +106,6 @@
 			[ targetZ ]="... number -- The targetZ of light component "
 			[ texture ]="... NgxAbstractTextureComponent -- The texture of light component "
 			[ tween ]="... any -- Tween animation params "
-			[ tweenStart ]="... boolean -- Start tween "
 			[ type ]="... string -- The type of light "
 			[ userData ]="... any -- An object that can be used to ... "
 			[ visible ]="... boolean -- Object gets rendered if *true*... "
@@ -124,9 +123,6 @@
 		<h2>Properties</h2>
 				<p>
 			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common properties.
-		</p>
-		<p>
-			See the base [page:NgxAbstractTweenComponent NgxAbstractTweenComponent] class for common properties.
 		</p>
 		<p>
 			See the base [page:NgxAbstractObject3dComponent NgxAbstractObject3dComponent] class for common properties.
@@ -464,11 +460,6 @@
 			Tween animation params
 		</p>
 
-		<h3>[property:boolean tweenStart] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
-		<p>
-			Start tween
-		</p>
-
 		<h3>[property:string type] &nbsp; = 'spot' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of light<br />
@@ -499,9 +490,6 @@
 		<h2>Methods</h2>
 				<p>
 			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common methods.
-		</p>
-		<p>
-			See the base [page:NgxAbstractTweenComponent NgxAbstractTweenComponent] class for common methods.
 		</p>
 		<p>
 			See the base [page:NgxAbstractObject3dComponent NgxAbstractObject3dComponent] class for common methods.

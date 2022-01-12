@@ -336,7 +336,6 @@
 				"Decompress": "ngxapi/en/Decompress",
 				"Deflate": "ngxapi/en/Deflate",
 				"EncodeUTF8": "ngxapi/en/EncodeUTF8",
-				"GUI": "ngxapi/en/GUI",
 				"Gunzip": "ngxapi/en/Gunzip",
 				"Gzip": "ngxapi/en/Gzip",
 				"Inflate": "ngxapi/en/Inflate",
@@ -348,7 +347,13 @@
 				"Zip": "ngxapi/en/Zip",
 				"ZipDeflate": "ngxapi/en/ZipDeflate",
 				"ZipPassThrough": "ngxapi/en/ZipPassThrough",
-				"Zlib": "ngxapi/en/Zlib"
+				"Zlib": "ngxapi/en/Zlib",
+				"GUI": "ngxapi/en/GUI",
+				"TWEEN": "ngxapi/en/TweenMain",
+				"Tween": "ngxapi/en/Tween",
+				"TweenGroup": "ngxapi/en/TweenGroup",
+				"Easing": "ngxapi/en/Easing",
+				"Interpolation": "ngxapi/en/Interpolation"
 			},
 			"Nodes": {
 				"AttributeNode": "ngxapi/en/AttributeNode",
@@ -476,13 +481,7 @@
 				"RoughnessMipmapper": "ngxapi/en/RoughnessMipmapper",
 				"SceneUtils": "ngxapi/en/SceneUtils",
 				"ShadowMapViewer": "ngxapi/en/ShadowMapViewer",
-				"SkeletonUtils": "ngxapi/en/SkeletonUtils",
-				"GUI": "ngxapi/en/GUI",
-				"TWEEN": "ngxapi/en/TWEEN",
-				"Easing": "ngxapi/en/Easing",
-				"Interpolation": "ngxapi/en/Interpolation",
-				"TweenGroup": "ngxapi/en/TweenGroup",
-				"Tween": "ngxapi/en/Tween"
+				"SkeletonUtils": "ngxapi/en/SkeletonUtils"
 			},
 			"Loaders & Exporters": {
 				"NgxLocalStorageService": "ngxapi/en/NgxLocalStorageService",

@@ -17,7 +17,7 @@
 			<h3>Preview - ngx control</h3><br />
 			<iframe src="#/viewer/ngx_control"></iframe><br />
 			<br />
-			See the [page:ControlComponent ngx3js docs] page for details.<br />
+			See the [page:NgxControlComponent ngx3js docs] page for details.<br />
 			See the [example:ngx_control ngx control] page for a live demo.<br />
 			<br />
 			<table><thead><tr></th><th>  Three Type        </th><th> Type Key           </th><th> Acceptable Input          </th><th></tr></thead><tbody> <tr></td><td> OrbitControls </td><td> OrbitControls, Orbit </td><td> autoRotate, autoRotateSpeed, enableDamping, dampingFactor, enablePan, enableKeys, screenSpacePanning, minDistance, maxDistance, enableZoom, minZoom, maxZoom, rotateSpeed, zoomSpeed, panSpeed, minPolarAngle, maxPolarAngle  </td><td></tr> <tr></td><td> TransformControls </td><td> TransformControls, Transform </td><td> eventListener(dragging-changed, objectChange) </td><td></tr> <tr></td><td> DragControls </td><td> DragControls, Drag </td><td> camera </td><td></tr> <tr></td><td> TrackballControls </td><td> TrackballControls, Trackball </td><td> staticMoving, keys  </td><td></tr> <tr></td><td> FlyControls </td><td> FlyControls, Fly </td><td> camera, movementSpeed, rollSpeed, dragToLook, autoForward </td><td></tr> <tr></td><td> PointerLockControls </td><td> PointerLockControls, PointerLock </td><td> objects </td><td></tr> <tr></td><td> FirstPersonControls </td><td> FirstPersonControls, FirstPerson </td><td> movementSpeed, lookSpeed, lookVertical, autoForward, activeLook, heightSpeed, heightCoef, heightMin, heightMax, verticalMin, verticalMax, mouseDragOn </td><td></tr> <tr></td><td> ArcballControls </td><td> ArcballControls, Arcball </td><td> camera, gizmoVisible  </td><td></tr> <tr></td><td> NgxSelectBoxControls </td><td> SelectBoxControls, SelectBox </td><td> camera  </td><td></tr> <tr></td><td> CsmControls </td><td> CsmControls, Csm </td><td> maxFar, cascades, mode, shadowMapSize, lightDirectionX, lightDirectionY, lightDirectionZ  </td><td></tr> <tr></td><td> NgxPlaneControls </td><td> PlaneControls, Plane </td><td> rotateSpeed, zoomSpeed, panSpeed, minDistance, maxDistance  </td><td></tr> </table><br />
@@ -112,10 +112,12 @@
 			[ lightDirectionZ ]="... number -- The lightDirectionZ of control "
 			[ lookSpeed ]="... number -- The lookSpeed of control "
 			[ lookVertical ]="... boolean -- The lookVertical of control "
+			[ maxAzimuthAngle ]="... number -- Input of ngx control component "
 			[ maxDistance ]="... number -- The maxDistance of control "
 			[ maxFar ]="... number -- The maxFar of control "
 			[ maxPolarAngle ]="... number -- The maxPolarAngle of control "
 			[ maxZoom ]="... number -- The maxZoom of control "
+			[ minAzimuthAngle ]="... number -- Input of ngx control component "
 			[ minDistance ]="... number -- The minDistance of control "
 			[ minPolarAngle ]="... number -- The minPolarAngle of control "
 			[ minZoom ]="... number -- The minZoom of control "
@@ -306,6 +308,11 @@
 			The lookVertical of control
 		</p>
 
+		<h3>[property:number maxAzimuthAngle]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Input  of ngx control component
+		</p>
+
 		<h3>[property:number maxDistance]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The maxDistance of control
@@ -324,6 +331,11 @@
 		<h3>[property:number maxZoom]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The maxZoom of control
+		</p>
+
+		<h3>[property:number minAzimuthAngle]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Input  of ngx control component
 		</p>
 
 		<h3>[property:number minDistance]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -642,6 +654,11 @@
 			Renders control component
 		</p>
 
+		<h3>[method:void resetTween](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Resets tween
+		</p>
+
 		<h3>[method:void runSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
@@ -709,6 +726,15 @@
 		</p>
 		<p>
 			Sets tween
+		</p>
+
+		<h3>[method:void setTweenTarget](  [param:any tweenTarget] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any tweenTarget] - The tween target.
+		</p>
+		<p>
+			Sets tween target
 		</p>
 
 		<h3>[method:void setUserData](  [param:string key],  [param:any value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>

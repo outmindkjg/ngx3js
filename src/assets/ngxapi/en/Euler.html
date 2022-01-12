@@ -25,6 +25,7 @@
 			[example:webgl_interactive_cubes_gpu webgl / interactive / cubes / gpu]<br />
 			<br />
 			<h2>Code Example</h2><br />
+			<br />
 			<code data-type="javascript"><br />
 			const a = new THREE.Euler( 0, 1, 1.57, 'XYZ' );<br />
 			const b = new THREE.Vector3( 1, 0, 1 );<br />
@@ -65,7 +66,7 @@
 		<p>
 			The order in which to apply rotations. Default is 'XYZ', which means that the object will first be rotated around its X axis, then its Y axis and finally its Z axis. Other possibilities are:<br />
 			'YZX', 'ZXY', 'XZY', 'YXZ' and 'ZYX'. These must be in upper case.<br />
-			Three.js uses &lt;em&gt;intrinsic&lt;/em&gt; Tait-Bryan angles. This means that rotations are performed with respect to the &lt;em&gt;local&lt;/em&gt; coordinate system. That is, for order 'XYZ', the rotation is first around the local-Xt axis (which is the same as the world-X axis), then around local-Y (which may now be different from the world Y-axis), then local-Z (which may be different from the world Z-axis).
+			Three.js uses <em>intrinsic</em> Tait-Bryan angles. This means that rotations are performed with respect to the <em>local</em> coordinate system. That is, for order 'XYZ', the rotation is first around the local-Xt axis (which is the same as the world-X axis), then around local-Y (which may now be different from the world Y-axis), then local-Z (which may be different from the world Z-axis).
 		</p>
 
 		<h3>[property:number x]</h3>
@@ -141,7 +142,7 @@
 		</p>
 		<p>
 			Resets the euler angle with a new order by creating a quaternion from this euler angle and then setting this euler angle with the quaternion and the new order.<br />
-			&lt;em&gt;WARNING&lt;/em&gt;: this discards revolution information.
+			<em>WARNING</em>: this discards revolution information.
 		</p>
 
 		<h3>[method:Euler set](  [param:number x],  [param:number y],  [param:number z],  [param:string order]? )</h3>

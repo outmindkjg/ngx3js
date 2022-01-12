@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>TWEEN</h1>
+
+		<p class="desc">
+			
+		</p>
+
+		<h2>Properties</h2>
+				<h3>[property:Easing Easing]</h3>
+		<p>
+			There are a few existing easing functions provided with tween.js. They are grouped by the type of equation they represent: Linear, Quadratic, Cubic, Quartic, Quintic, Sinusoidal, Exponential, Circular, Elastic, Back and Bounce, and then by the easing type: In, Out and InOut.<br />
+			So let’s suppose you wanted to use a custom easing function that eased the values but applied a Math.floor to the output, so only the integer part would be returned, resulting in a sort of step-ladder output:<br />
+			<br />
+			<code data-type="javascript"><br />
+			function tenStepEasing(k) {<br />
+				return Math.floor(k * 10) / 10<br />
+			}<br />
+			tween.easing(tenStepEasing)<br />
+			</code>
+		</p>
+
+		<h3>[property:TweenGroup Group]</h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:InterpolationFunction Interpolation]</h3>
+		<p>
+			You can change the interpolation function with the interpolation method. For example:<br />
+			<code data-type="javascript"><br />
+			tween.interpolation(TWEEN.Interpolation.Bezier)<br />
+			</code><br />
+			The following values are available:<br />
+			- TWEEN.Interpolation.Linear<br />
+			- TWEEN.Interpolation.Bezier<br />
+			- TWEEN.Interpolation.CatmullRom
+		</p>
+
+		<h3>[property:Tween Tween]</h3>
+		<p>
+			
+		</p>
+
+
+		<h2>Methods</h2>
+				<h3>[method:void add](  [param:Tween tween] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Tween tween] - The tween.
+		</p>
+		<p>
+			Used to add a tween to the list of active tweens
+		</p>
+
+		<h3>[method:Tween[] getAll](  )</h3>
+		<p>
+			Used to get a reference to the active tweens array<br />
+			<br />
+			Returns : all
+		</p>
+
+		<h3>[method:number nextId](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:number now](  )</h3>
+		<p>
+			
+		</p>
+
+		<h3>[method:void remove](  [param:Tween tween] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Tween tween] - The tween.
+		</p>
+		<p>
+			Used to remove a specific one from the list
+		</p>
+
+		<h3>[method:void removeAll](  )</h3>
+		<p>
+			Used to remove all of them from the array with just one call, respectively.
+		</p>
+
+		<h3>[method:boolean update](  [param:number time]?,  [param:boolean preserve]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number time] - (optional) The time.<br />
+			[parameter:boolean preserve] - (optional) The preserve.
+		</p>
+		<p>
+			We’ve already talked about this method. It is used to update all the active tweens. If time is not specified, it will use the current time.<br />
+			<br />
+			Returns : true if update
+		</p>
+
+
+		<h2>Interfaces</h2>
+		<h3 id="InterpolationFunction" class="interface"> InterpolationFunction <i class="modifier modifier-interface">Type alias</i></h3>
+		<h4>[method:number function](  [param:number[] v],  [param:number k] )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:number[] v] -  The v.<br />
+			[property:number k] -  The k.
+		</p>
+		<p>
+			
+		</p>
+
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br /><br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/threejs-library/types/three/examples/libs.ts /threejs-library/types/three/examples/libs.ts]</p>
+	</body>
+</html>

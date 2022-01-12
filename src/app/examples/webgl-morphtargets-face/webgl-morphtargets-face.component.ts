@@ -27,7 +27,7 @@ export class WebglMorphtargetsFaceComponent extends NgxBaseComponent<{}> {
 		const head = this.meshObject3d.getObjectByName( 'mesh_2' ) as any;
 		if (head !== null && head !== undefined && this.gui !== null) {
 			const influences = head.morphTargetInfluences;
-			const gui = this.gui.gui.folders[0];
+			const gui = this.gui.folders[0];
 			for ( const [ key, value ] of Object.entries( head.morphTargetDictionary ) ) {
 				gui.add( influences, value as any, 0, 1, 0.01 )
 					.name( key.replace( 'blendShape1.', '' ) )

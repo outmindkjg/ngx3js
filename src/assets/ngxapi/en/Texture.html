@@ -15,6 +15,7 @@
 			Create a texture to apply to a surface or as a reflection or refraction map.<br />
 			Note: After the initial use of a texture, its dimensions, format, and type cannot be changed. Instead, call <i>.dispose</i>() on the texture and instantiate a new one.<br />
 			<h2>Code Example</h2><br />
+			<br />
 			<code data-type="javascript"><br />
 			// load a texture, set wrap mode to repeat<br />
 			const texture = new THREE.TextureLoader().load( "textures/water.jpg" );<br />
@@ -24,6 +25,7 @@
 			</code><br />
 			<br />
 			<h2>Ngx3Js Code Example</h2><br />
+			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-texture [image]="'textures/water.jpg'" [wrapS]="'RepeatWrapping'" [wrapT]="'RepeatWrapping'" [repeatX]="4" [repeatY]="4"&gt;&lt;/ngx3js-texture&gt;<br />
 			</code>

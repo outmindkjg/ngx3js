@@ -36,6 +36,7 @@
 			[example:webgl_materials_bumpmap materials / bumpmap]<br />
 			<br />
 			<h2>Code Example</h2><br />
+			<br />
 			<code data-type="javascript"><br />
 			//  White directional light at half intensity shining from the top.<br />
 			const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );<br />
@@ -43,6 +44,7 @@
 			</code><br />
 			<br />
 			<h2>Ngx3Js Code Example</h2><br />
+			<br />
 			<code data-type="html"><br />
 			&lt;ngx3js-light [type]="'DirectionalLight'" [color]="'0xffffff'" [intensity]="0.5"&gt;&lt;/ngx3js-light&gt;<br />
 			</code>
@@ -246,11 +248,13 @@
 			It is also possible to set the target to be another object in the scene (anything with a [page:Object3D.position position] property), like so:<br />
 			<br />
 			<h4>Code Example</h4><br />
+			<br />
 			<code data-type="javascript"><br />
 			const targetObject = new THREE.Object3D();<br />
 			scene.add(targetObject);<br />
 			light.target = targetObject;<br />
 			</code><br />
+			<br />
 			The directionalLight will now track the target object.
 		</p>
 

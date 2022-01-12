@@ -10,16 +10,372 @@
 		<h1>GUI</h1>
 
 		<p class="desc">
-			
+			Gui<br />
+			<code data-type="javascript"><br />
+			const gui = new GUI();<br />
+			gui.add( document, 'title' );<br />
+			<br />
+			obj = {<br />
+				myBoolean: true,<br />
+				myString: 'lil-gui',<br />
+				myNumber: 1,<br />
+				myFunction: function() { alert( 'hi' ) }<br />
+			}<br />
+			gui.add( obj, 'myBoolean' ); // checkbox<br />
+			gui.add( obj, 'myString' ); // text field<br />
+			gui.add( obj, 'myNumber' ); // number field<br />
+			gui.add( obj, 'myFunction' ); // button<br />
+			</code>
 		</p>
 
 		<h2>Constructor</h2>
-				<h3>[constructor:GUI GUI](  [param:any param] )</h3>
+				<h3>[constructor:GUI GUI](  [param:GUIParameters param]? )</h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:any param] - The param.
+			[parameter:GUIParameters param] - (optional) The param.
 		</p>
 		<p>
+			Creates a panel that holds controllers.<br />
+			<code data-type="javascript"><br />
+			new GUI();<br />
+			new GUI( { container: document.getElementById( 'custom' ) } );<br />
+			</code>
+		</p>
+
+		<h2>Properties</h2>
+				<h3>[property:boolean _closed]</h3>
+		<p>
+			Used to determine if the GUI is closed. Use gui.open() or gui.close() to change this.
+		</p>
+
+		<h3>[property:boolean _hidden]</h3>
+		<p>
+			Used to determine if the GUI is hidden. Use gui.show() or gui.hide() to change this.
+		</p>
+
+		<h3>[property:any children]</h3>
+		<p>
+			The list of controllers and folders contained by this GUI.
+		</p>
+
+		<h3>[property:GUIController[] controllers]</h3>
+		<p>
+			The list of controllers contained by this GUI.
+		</p>
+
+		<h3>[property:HTMLElement domElement]</h3>
+		<p>
+			The outermost container element.
+		</p>
+
+		<h3>[property:GUI[] folders]</h3>
+		<p>
+			The list of folders contained by this GUI.
+		</p>
+
+		<h3>[property:GUI parent]</h3>
+		<p>
+			The GUI containing this folder, or undefined if this is the root GUI.
+		</p>
+
+		<h3>[property:GUI root]</h3>
+		<p>
+			The top level GUI containing this folder, or this if this is the root GUI.
+		</p>
+
+
+		<h2>Methods</h2>
+				<h3>[method:GUIController add](  [param:object object],  [param:string property],  [param:number|object|any[] min]?,  [param:number max]?,  [param:number step]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:object object] - The object the controller will modify.<br />
+			[parameter:string property] - Name of the property to control.<br />
+			[parameter:number|object|any[] min] - (optional) Minimum value for number controllers, or the set of selectable values for a dropdown.<br />
+			[parameter:number max] - (optional) Maximum value for number controllers.<br />
+			[parameter:number step] - (optional) Step value for number controllers.
+		</p>
+		<p>
+			Adds a controller to the GUI, inferring controller type using the typeof operator.<br />
+			<code data-type="javascript"><br />
+			gui.add( object, 'property' );<br />
+			gui.add( object, 'number', 0, 100, 1 );<br />
+			gui.add( object, 'options', [ 1, 2, 3 ] );<br />
+			</code><br />
+			<br />
+			Returns : add
+		</p>
+
+		<h3>[method:GUIController addColor](  [param:object object],  [param:string property],  [param:number rgbScale]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:object object] - The object the controller will modify.<br />
+			[parameter:string property] - Name of the property to control.<br />
+			[parameter:number rgbScale] - (optional) The rgb scale.
+		</p>
+		<p>
+			Adds a color controller to the GUI.<br />
+			<code data-type="javascript"><br />
+			params = {<br />
+				cssColor: '#ff00ff',<br />
+				rgbColor: { r: 0, g: 0.2, b: 0.4 },<br />
+				customRange: [ 0, 127, 255 ],<br />
+			};<br />
+			gui.addColor( params, 'cssColor' );<br />
+			gui.addColor( params, 'rgbColor' );<br />
+			gui.addColor( params, 'customRange', 255 );<br />
+			</code><br />
+			<br />
+			Returns : color
+		</p>
+
+		<h3>[method:GUI addFolder](  [param:string title] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string title] - Name to display in the folder's title bar.
+		</p>
+		<p>
+			Adds a folder to the GUI, which is just another GUI. This method returns the nested GUI so you can add controllers to it.<br />
+			<br />
+			Returns : folder
+		</p>
+
+		<h3>[method:GUI close](  )</h3>
+		<p>
+			Closes the GUI.<br />
+			<br />
+			Returns : close
+		</p>
+
+		<h3>[method:GUIController[] controllersRecursive](  )</h3>
+		<p>
+			Returns an array of controllers contained by this GUI and its descendents.<br />
+			<br />
+			Returns : recursive
+		</p>
+
+		<h3>[method:void destroy](  )</h3>
+		<p>
+			Destroys all DOM elements and event listeners associated with this GUI
+		</p>
+
+		<h3>[method:GUI[] foldersRecursive](  )</h3>
+		<p>
+			Returns an array of folders contained by this GUI and its descendents.<br />
+			<br />
+			Returns : recursive
+		</p>
+
+		<h3>[method:GUI hide](  )</h3>
+		<p>
+			Hides the GUI.<br />
+			<br />
+			Returns : hide
+		</p>
+
+		<h3>[method:GUI load](  [param:object obj],  [param:boolean recursive]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:object obj] - The obj.<br />
+			[parameter:boolean recursive] - (optional) The recursive.
+		</p>
+		<p>
+			Recalls values that were saved with gui.save().<br />
+			<br />
+			Returns : load
+		</p>
+
+		<h3>[method:GUI onChange](  [param:GUICallBack callback] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:GUICallBack callback] - The callback.
+		</p>
+		<p>
+			Pass a function to be called whenever a controller in this GUI changes.<br />
+			<br />
+			Returns : change
+		</p>
+
+		<h3>[method:GUI onFinishChange](  [param:GUICallBack callback] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:GUICallBack callback] - The callback.
+		</p>
+		<p>
+			Pass a function to be called whenever a controller in this GUI has finished changing.<br />
+			<br />
+			Returns : finish change
+		</p>
+
+		<h3>[method:GUI open](  [param:boolean open]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean open] - (optional) The open.
+		</p>
+		<p>
+			Opens a GUI or folder. GUI and folders are open by default.<br />
+			<code data-type="javascript"><br />
+			gui.open(); // open<br />
+			gui.open( false ); // close<br />
+			gui.open( gui._closed ); // toggle<br />
+			</code><br />
+			<br />
+			Returns : open
+		</p>
+
+		<h3>[method:GUI reset](  [param:boolean recursive]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean recursive] - (optional) The recursive.
+		</p>
+		<p>
+			Resets all controllers to their initial values.<br />
+			<br />
+			Returns : reset
+		</p>
+
+		<h3>[method:object save](  [param:boolean recursive]? )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:boolean recursive] - (optional) The recursive.
+		</p>
+		<p>
+			Returns an object mapping controller names to values. The object can be passed to gui.load() to recall these values.<br />
+			<br />
+			Returns : save
+		</p>
+
+		<h3>[method:GUI title](  [param:string title] )</h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string title] - The title.
+		</p>
+		<p>
+			Change the title of this GUI.<br />
+			<br />
+			Returns : title
+		</p>
+
+
+		<h2>Interfaces</h2>
+		<h3 id="GUIController" class="interface"> GUIController <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean _disabled] - Used to determine if the controller is disabled. Use controller.disable( true|false ) to modify this value<br />
+			[property:boolean _listening] - Used to determine if the controller is currently listening. Don't modify this value directly. Use the controller.listen( true|false ) method instead.<br />
+			[property:string _name] - The controller's name. Use controller.name( 'Name' ) to modify this value.<br />
+			[property:GUICallBack _onChange] - Used to access the function bound to onChange events. Don't modify this value directly. Use the controller.onChange( callback ) method instead.<br />
+			[property:GUICallBack _onFinishChange] - Used to access the function bound to onFinishChange events. Don't modify this value directly. Use the controller.onFinishChange( callback ) method instead.<br />
+			[property:HTMLElement domElement] - The outermost container DOM element for this controller.<br />
+			[property:any initialValue] - The value of object[ property ] when the controller was created.<br />
+			[property:object object] - The object this controller will modify.<br />
+			[property:GUI parent] - The GUI that contains this controller.<br />
+			[property:string property] - The name of the property to control.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void destroy](  ) - Destroys this controller and removes it from the parent GUI.<br />
+			[method:GUIController disable](  [param:boolean disabled]? ) - Disables this controller.<br />
+			<code data-type="javascript"><br />
+			controller.disable();<br />
+			controller.disable( false ); // enable<br />
+			controller.disable( !controller._disabled ); // toggle<br />
+			</code><br />
+			<br />
+			Returns : disable<br />
+			[method:GUIController enable](  [param:boolean enabled]? ) - Enables this controller.<br />
+			<code data-type="javascript"><br />
+			controller.enable();<br />
+			controller.enable( false ); // disable<br />
+			controller.enable( controller._disabled ); // toggle<br />
+			</code><br />
+			<br />
+			Returns : enable<br />
+			[method:any getValue](  ) - Returns object[ property ].<br />
+			<br />
+			Returns : value<br />
+			[method:GUIController listen](  [param:boolean listen]? ) - Calls updateDisplay() every animation frame. Pass false to stop listening.<br />
+			<br />
+			Returns : listen<br />
+			[method:GUIController max](  [param:number max] ) - Sets the maximum value. Only works on number controllers.<br />
+			<br />
+			Returns : max<br />
+			[method:GUIController min](  [param:number min] ) - Sets the minimum value. Only works on number controllers.<br />
+			<br />
+			Returns : min<br />
+			[method:GUIController name](  [param:string name] ) - Sets the name of the controller and its label in the GUI.<br />
+			<br />
+			Returns : name<br />
+			[method:GUIController onChange](  [param:GUICallBack callback] ) - Pass a function to be called whenever a controller in this GUI changes.<br />
+			<br />
+			Returns : change<br />
+			[method:GUIController onFinishChange](  [param:GUICallBack callback] ) - Pass a function to be called whenever a controller in this GUI has finished changing.<br />
+			<br />
+			Returns : finish change<br />
+			[method:GUIController options](  [param:object|any[] options] ) - Destroys this controller and replaces it with a new option controller. Provided as a more descriptive syntax for gui.add, but primarily for compatibility with dat.gui.<br />
+			Use caution, as this method will destroy old references to this controller. It will also change controller order if called out of sequence, moving the option controller to the end of the GUI.<br />
+			<code data-type="javascript"><br />
+			// safe usage<br />
+			gui.add( object1, 'property' ).options( [ 'a', 'b', 'c' ] );<br />
+			gui.add( object2, 'property' );<br />
+			<br />
+			// danger<br />
+			const c = gui.add( object1, 'property' );<br />
+			gui.add( object2, 'property' );<br />
+			c.options( [ 'a', 'b', 'c' ] );<br />
+			// controller is now at the end of the GUI even though it was added first<br />
+			<br />
+			assert( c.parent.children.indexOf( c ) === -1 )<br />
+			// c references a controller that no longer exists<br />
+			</code><br />
+			<br />
+			Returns : options<br />
+			[method:GUIController reset](  [param:boolean recursive]? ) - Resets all controllers to their initial values.<br />
+			<br />
+			Returns : reset<br />
+			[method:GUIController setValue](  [param:any value] ) - Sets the value of object[ property ], invokes any onChange handlers and updates the display.<br />
+			<br />
+			Returns : value<br />
+			[method:GUIController step](  [param:number step] ) - Sets the step. Only works on number controllers.<br />
+			<br />
+			Returns : step<br />
+			[method:GUIController updateDisplay](  ) - Updates the display to keep it in sync with the current value. Useful for updating your controllers when their values have been modified outside of the GUI.<br />
+			<br />
+			Returns : display
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="GUIParameters" class="interface"> GUIParameters <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean autoPlace]? - Adds the GUI to document.body and fixes it to the top right of the page<br />
+			[property:HTMLElement container]? - Adds the GUI to this DOM element. Overrides autoPlace<br />
+			[property:boolean injectStyles]? - Injects the default stylesheet into the page if this is the first GUI. Pass false to use your own stylesheet.<br />
+			[property:GUI parent]? - Adds this GUI as a child in another GUI. Usually this is done for you by addFolder<br />
+			[property:string title]? - Name to display in the title bar<br />
+			[property:boolean touchStyles]? - Makes controllers larger on touch devices. Pass false to disable touch styles<br />
+			[property:number width]? - Width of the GUI in pixels, usually set when name labels become too long. Note that you can make name labels wider in CSS with .lil‑gui { ‑‑name‑width: 55% }
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="GUICallBack" class="interface"> GUICallBack <i class="modifier modifier-interface">Type alias</i></h3>
+		<h4>[method:void function](  [param:any event] )</h4>
+		<h4>Parameters</h4>
+		<p>
+			[property:any event] -  The event.
+		</p>
+		<p>
+			
+		</p>
+
+
+
+		<p class="desc">
 			
 		</p>
 

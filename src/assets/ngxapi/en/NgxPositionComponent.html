@@ -7,7 +7,7 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
-		[page:NgxAbstractSubscribeComponent] &rarr; [page:NgxAbstractTweenComponent] &rarr;
+		[page:NgxAbstractSubscribeComponent] &rarr;
 
 		<h1>NgxPositionComponent</h1>
 
@@ -17,7 +17,7 @@
 			<h3>Preview - ngx position</h3><br />
 			<iframe src="#/viewer/ngx_position"></iframe><br />
 			<br />
-			See the [page:PositionComponent ngx3js docs] page for details.<br />
+			See the [page:NgxPositionComponent ngx3js docs] page for details.<br />
 			See the [example:ngx_position ngx position] page for a live demo.<br />
 			<br />
 			<code data-type="html"><br />
@@ -49,7 +49,6 @@
 			[ setfrom ]="... string -- The Input of position componen... "
 			[ theta ]="... number -- The theta of position componen... "
 			[ tween ]="... any -- Tween animation params "
-			[ tweenStart ]="... boolean -- Start tween "
 			[ type ]="... string -- The type of position component "
 			[ userData ]="... any -- An object that can be used to ... "
 			[ windowExport ]="... string -- Export this Object to window g... "
@@ -68,9 +67,6 @@
 		<h2>Properties</h2>
 				<p>
 			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common properties.
-		</p>
-		<p>
-			See the base [page:NgxAbstractTweenComponent NgxAbstractTweenComponent] class for common properties.
 		</p>
 
 		<h3>[property:string[] OBJECT_ATTR] &nbsp; = ... <i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -184,11 +180,6 @@
 			Tween animation params
 		</p>
 
-		<h3>[property:boolean tweenStart] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
-		<p>
-			Start tween
-		</p>
-
 		<h3>[property:string type] &nbsp; = 'position' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			The type of position component<br />
@@ -234,9 +225,6 @@
 		<h2>Methods</h2>
 				<p>
 			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common methods.
-		</p>
-		<p>
-			See the base [page:NgxAbstractTweenComponent NgxAbstractTweenComponent] class for common methods.
 		</p>
 
 		<h3>[method:void addChanges](  [param:string|string[]|SimpleChanges key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>

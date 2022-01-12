@@ -19,6 +19,7 @@
 			<br />
 			<h2>Code Example</h2><br />
 			This example shows how to use LoadingManager to track the progress of [page:OBJLoader OBJLoader].<br />
+			<br />
 			<code data-type="javascript"><br />
 			const manager = new THREE.LoadingManager();<br />
 			manager.onStart = function ( url, itemsLoaded, itemsTotal ) {<br />
@@ -38,7 +39,9 @@
 					console.log( object);<br />
 			});<br />
 			</code><br />
+			<br />
 			In addition to observing progress, a LoadingManager can be used to override resource URLs during loading. This may be helpful for assets coming from drag-and-drop events, WebSockets, WebRTC, or other APIs. An example showing how to load an in-memory model using Blob URLs is below.<br />
+			<br />
 			<code data-type="javascript"><br />
 			// Blob or File objects created when dragging files into the webpage.<br />
 			const blobs = {'fish.gltf': blob1, 'diffuse.png': blob2, 'normal.png': blob3};<br />

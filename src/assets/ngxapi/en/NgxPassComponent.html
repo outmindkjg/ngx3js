@@ -17,7 +17,7 @@
 			<h3>Preview - ngx effect</h3><br />
 			<iframe src="#/viewer/ngx_effect"></iframe><br />
 			<br />
-			See the [page:PassComponent ngx3js docs] page for details.<br />
+			See the [page:NgxPassComponent ngx3js docs] page for details.<br />
 			See the [example:ngx_effect ngx effect] page for a live demo.<br />
 			<br />
 			<table><thead><tr></th><th>  Three Type        </th><th> Type Key           </th><th> Acceptable Input          </th><th></tr></thead><tbody> <tr></td><td> AdaptiveToneMappingPass </td><td> AdaptiveToneMappingPass, AdaptiveToneMapping </td><td> adaptive, resolution  </td><td></tr> <tr></td><td> AfterimagePass </td><td> AfterimagePass, Afterimage </td><td> damp  </td><td></tr> <tr></td><td> BloomPass </td><td> BloomPass, Bloom </td><td> strength, kernelSize, sigma, resolution </td><td></tr> <tr></td><td> BokehPass </td><td> BokehPass, Bokeh </td><td> focus, aspect, aperture, maxblur, width, height </td><td></tr> <tr></td><td> CubeTexturePass </td><td> CubeTexturePass, CubeTexture </td><td> effectCamera, envMap, opacity </td><td></tr> <tr></td><td> DotScreenPass </td><td> DotScreenPass, DotScreen </td><td> centerX, centerY, angle, scale </td><td></tr> <tr></td><td> FilmPass </td><td> FilmPass, Film </td><td> noiseIntensity, scanlinesIntensity, scanlinesCount, grayscale </td><td></tr> <tr></td><td> GlitchPass </td><td> GlitchPass, Glitch </td><td> dtSize, goWild </td><td></tr> <tr></td><td> HalftonePass </td><td> HalftonePass, Halftone </td><td> size </td><td></tr> <tr></td><td> ClearMaskPass </td><td> ClearMaskPass, ClearMask </td><td>  </td><td></tr> <tr></td><td> MaskPass </td><td> MaskPass, Mask </td><td> effectScene, effectCamera, inverse </td><td></tr> <tr></td><td> OutlinePass </td><td> OutlinePass, Outline </td><td> effectScene, effectCamera, patternTexture, selectedObjects, visibleEdgeColor, hiddenEdgeColor, edgeGlow, usePatternTexture, edgeThickness, edgeStrength, downSampleRatio, pulsePeriod </td><td></tr> <tr></td><td> RenderPass </td><td> RenderPass, Render </td><td> effectScene, effectCamera </td><td></tr> <tr></td><td> SAOPass </td><td> SAOPass, SAO </td><td> effectScene, effectCamera, depthTexture, useNormals, width, height, output, saoBias, saoIntensity, saoScale, saoKernelRadius, saoMinResolution, saoBlur, saoBlurRadius, saoBlurStdDev, saoBlurDepthCutoff </td><td></tr> <tr></td><td> SavePass </td><td> SavePass, Save </td><td> renderTarget </td><td></tr> <tr></td><td> NgxShaderCopyPass </td><td> CopyPass, Copy </td><td> textureId </td><td></tr> <tr></td><td> NgxShaderRGBShiftPass </td><td> ShaderRGBShiftPass, RGBShift </td><td> textureId, uniforms </td><td></tr> <tr></td><td> NgxShaderBleachBypassPass </td><td> BleachBypassPass, BleachBypass </td><td> textureId, uniforms </td><td></tr> <tr></td><td> NgxShaderSepiaPass </td><td> SepiaPass, Sepia </td><td> textureId, uniforms </td><td></tr> <tr></td><td> NgxShaderVignettePass </td><td> VignettePass, Vignette </td><td> textureId, uniforms </td><td></tr> <tr></td><td> NgxShaderGammaCorrectionPass </td><td> GammaCorrectionPass, GammaCorrection </td><td> textureId, uniforms </td><td></tr> <tr></td><td> NgxShaderFXAAPass </td><td> FXAAPass, FXAA </td><td> textureId, uniforms </td><td></tr> <tr></td><td> NgxShaderPixelPass </td><td> PixelPass, Pixel </td><td> textureId, uniforms </td><td></tr> <tr></td><td> NgxShaderLuminosityPass </td><td> LuminosityPass, Luminosity </td><td> textureId, uniforms </td><td></tr> <tr></td><td> NgxShaderDotScreenPass </td><td> DotScreenPass, DotScreen </td><td> textureId, uniforms </td><td></tr> <tr></td><td> NgxShaderSobelOperatorPass </td><td> SobelOperatorPass, SobelOperator </td><td> textureId, uniforms </td><td></tr> <tr></td><td> NgxShaderMaterialPass </td><td> MaterialPass, Material </td><td> textureId, uniforms </td><td></tr> <tr></td><td> ShaderPass </td><td> ShaderPass, Shader </td><td> textureId, shader, uniforms </td><td></tr> <tr></td><td> SMAAPass </td><td> SMAAPass, SMAA </td><td> textureId, uniforms </td><td></tr> <tr></td><td> SSAARenderPass </td><td> SSAARenderPass, SSAARender </td><td> effectScene, effectCamera, clearColor, clearAlpha, sampleLevel, unbiased </td><td></tr> <tr></td><td> SSAOPass </td><td> SSAOPass, SSAO </td><td> effectScene, effectCamera, kernelRadius, minDistance, maxDistance </td><td></tr> <tr></td><td> TAARenderPass </td><td> TAARenderPass, TAARender </td><td> effectScene, effectCamera, clearColor, clearAlpha, sampleLevel, unbiased, accumulate </td><td></tr> <tr></td><td> TexturePass </td><td> TexturePass, Texture </td><td> effectCamera, effectScene, opacity </td><td></tr> <tr></td><td> UnrealBloomPass </td><td> UnrealBloomPass, UnrealBloom </td><td> width, height, strength, radius, threshold </td><td></tr> <tr></td><td> SSRPass </td><td> SSRPass, SSR </td><td> mesh, effectScene, effectCamera, selects,  </td><td></tr> <tr></td><td> SSRrPass </td><td> SSRrPass, SSRr </td><td> effectScene, effectCamera, selects </td><td></tr> <tr></td><td> LUTPass </td><td> LUTPass, LUT </td><td> intensity </td><td></tr> <tr></td><td> ClearPass </td><td> ClearPass, Clear </td><td> clearColor, clearAlpha </td><td></tr> </table><br />
@@ -920,6 +920,11 @@
 			Returns : true if id euals
 		</p>
 
+		<h3>[method:void resetTween](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Resets tween
+		</p>
+
 		<h3>[method:void runSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
@@ -995,6 +1000,15 @@
 		</p>
 		<p>
 			Sets tween
+		</p>
+
+		<h3>[method:void setTweenTarget](  [param:any tweenTarget] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any tweenTarget] - The tween target.
+		</p>
+		<p>
+			Sets tween target
 		</p>
 
 		<h3>[method:void setUserData](  [param:string key],  [param:any value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
