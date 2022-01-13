@@ -83,17 +83,20 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		this.searchFocused = false;
 		this.checkSearch('');
 	}
-	private lastKeyword : string = '';
-	private lastIndex : number = 0;
+	private lastKeyword: string = '';
+	private lastIndex: number = 0;
 	checkSearch(filter: string) {
-		const searchKeyword= this.getKeyWord(filter);
+		const searchKeyword = this.getKeyWord(filter);
 		this.unsetHighlight(this.docEle.nativeElement);
-		if (searchKeyword !== null && searchKeyword !== '' ) {
-			const keywordRegex = RegExp(searchKeyword.split(' ').join('|').replace(/#/gi,''), 'gi');
-			const collect : Element[] = [];
+		if (searchKeyword !== null && searchKeyword !== '') {
+			const keywordRegex = RegExp(
+				searchKeyword.split(' ').join('|').replace(/#/gi, ''),
+				'gi'
+			);
+			const collect: Element[] = [];
 			this.setHighlight(this.docEle.nativeElement, keywordRegex, collect);
 			if (collect.length > 0) {
-				let selectIndex : number = 0;
+				let selectIndex: number = 0;
 				if (this.lastKeyword === searchKeyword) {
 					selectIndex = (this.lastIndex + 1) % collect.length;
 				}
@@ -158,22 +161,25 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 
 	private unsetHighlight(ele: HTMLElement) {
 		const marks = ele.getElementsByTagName('MARK');
-		const markList : Element[] = [];
-		for(let i = 0; i < marks.length; i++) {
+		const markList: Element[] = [];
+		for (let i = 0; i < marks.length; i++) {
 			markList.push(marks[i]);
 		}
-		markList.forEach(mark => {
+		markList.forEach((mark) => {
 			const end = document.createTextNode(mark.textContent);
 			mark.parentNode.replaceChild(end, mark);
-		})
+		});
 	}
 
-	private setHighlight(ele: any , keywordRegex: RegExp, collect : any[]) {
+	private setHighlight(ele: any, keywordRegex: RegExp, collect: any[]) {
 		if (ele.childNodes) {
 			ele.childNodes.forEach((child) => {
 				if (child.nodeType !== 3 && child.tagName !== 'MARK') {
 					this.setHighlight(child, keywordRegex, collect);
-				} else if (keywordRegex.test(child.textContent) && child.tagName !== 'MARK') {
+				} else if (
+					keywordRegex.test(child.textContent) &&
+					child.tagName !== 'MARK'
+				) {
 					const frag = document.createDocumentFragment();
 					let lastIdx = 0;
 					child.textContent.replace(keywordRegex, (match, idx) => {
@@ -187,7 +193,10 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 						lastIdx = idx + match.length;
 					});
 					const end = document.createTextNode(child.textContent.slice(lastIdx));
-					if (!collect.includes(child.parentNode) && !collect.includes(child.parentNode?.parentNode)) {
+					if (
+						!collect.includes(child.parentNode) &&
+						!collect.includes(child.parentNode?.parentNode)
+					) {
 						collect.push(child.parentNode);
 					}
 					frag.appendChild(end);
@@ -200,6 +209,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 	changeRouter(url: string) {
 		const menuId = url.substr(6).split('.')[0];
 		if (this.menuId !== menuId) {
+			this.searchFocused = false;
 			if (this.docEle !== null) {
 				this.docEle.nativeElement.innerHTML = '';
 			}
