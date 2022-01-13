@@ -143,7 +143,7 @@ h1 a {
 	flex-direction: column;
 	transition: 0s 0s height;
 }
-
+.doc-wraper #inputWrapper #exitSearchButton,
 #panel #exitSearchButton {
 	width: 48px;
 	height: 48px;
@@ -159,20 +159,20 @@ h1 a {
 	cursor: pointer;
 	margin-right: 0px;
 }
-
-#panel.searchFocused #exitSearchButton {
-	display: block;
-}
-
-#panel.searchFocused #language {
-	display: none;
-}
-
-#panel.searchFocused #filterInput {
-	-webkit-mask-image: none;
-	mask-image: none;
-	background-color: inherit;
-	padding-left: 0;
+#inputWrapper.searchFocused,
+#panel.searchFocused {
+	#exitSearchButton {
+		display: block;
+	}
+	#language {
+		display: none;
+	}
+	#filterInput {
+		-webkit-mask-image: none;
+		mask-image: none;
+		background-color: inherit;
+		padding-left: 0;
+	}
 }
 
 #panel #expandButton {
@@ -225,7 +225,7 @@ h1 a {
 body.home #panel #sections {
 	display: none;
 }
-
+.doc-wraper #inputWrapper,
 #panel #inputWrapper {
 	display: flex;
 	align-items: center;
@@ -234,6 +234,16 @@ body.home #panel #sections {
 	position: relative;
 	background: var(--background-color);
 }
+.doc-wraper #inputWrapper {
+	position: fixed;
+	width: 400px;
+	right :20px;
+	top : 0;
+	z-index: 1000;
+	margin: 0;
+	background-color: transparent;
+}
+.doc-wraper #inputWrapper:after,
 #panel #inputWrapper:after {
 	position: absolute;
 	left: 0;
@@ -242,7 +252,7 @@ body.home #panel #sections {
 	border-bottom: var(--border-style);
 	content: '';
 }
-
+.doc-wraper #filterInput,
 #panel #filterInput {
 	flex: 1;
 	width: 100%;

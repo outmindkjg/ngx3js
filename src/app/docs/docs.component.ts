@@ -166,6 +166,7 @@ export class DocsComponent implements OnInit {
 
 	searchClear() {
 		this.search.nativeElement.value = '';
+		this.searchFocused = false;
 		this.checkSearch('');
 	}
 

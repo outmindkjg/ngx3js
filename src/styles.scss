@@ -2,14 +2,13 @@
 @import './page';
 @import './prettify';
 
-
 pre.prettyprint,
 code.prettyprint {
 	font-family: 'Roboto Mono', monospace;
 	border-width: 5px 0 2px 0;
 	border-style: solid none solid none;
-	background-color:var(--background-color);
-	border-color:var(--secondary-background-color);
+	background-color: var(--background-color);
+	border-color: var(--secondary-background-color);
 	transition: border-color 3s, background-color 1s;
 	&:hover {
 		background-color: var(--secondary-background-color);
@@ -18,18 +17,18 @@ code.prettyprint {
 }
 pre {
 	position: relative;
-	>span.language-type {
+	> span.language-type {
 		display: inline-block;
 		position: absolute;
-		right:-10px;
-		top : 10px;
+		right: -10px;
+		top: 10px;
 		padding: 2px 10px;
 		border-radius: 10px;
 		border-width: 2px;
 		border-style: solid;
 		transition: top 1s, opacity 1s;
 		border-color: var(--secondary-background-color);
-		background-color:var(--background-color);
+		background-color: var(--background-color);
 		font-size: 0.8em;
 		text-align: center;
 		min-width: 70px;
@@ -38,15 +37,13 @@ pre {
 		box-shadow: 3px 3px 3px 0px var(--background-color);
 	}
 	&:hover {
-		>span.language-type {
+		> span.language-type {
 			opacity: 0.1;
-			background-color:var(--background-color-rgba);
-			top : calc(100% - 10px);
+			background-color: var(--background-color-rgba);
+			top: calc(100% - 10px);
 		}
 	}
 }
-
-
 
 .lil-gui.root > div.children {
 	background-color: var(--background-color);
@@ -55,7 +52,6 @@ pre {
 
 #example-iframe #viewer-inner,
 #example #viewer-inner {
-
 	.debug {
 		display: block;
 		position: absolute;
@@ -68,21 +64,21 @@ pre {
 		div.debug-controls {
 			pointer-events: all;
 			position: absolute;
-			top:0;
+			top: 0;
 			opacity: 0.1;
-			transition: opacity 1s,left 1s,right 1s;
+			transition: opacity 1s, left 1s, right 1s;
 			&:hover {
 				opacity: 1;
 			}
 		}
 		div.debug-stats {
-			width:80px;
+			width: 80px;
 			height: 48px;
-			left:0;
+			left: 0;
 		}
 		div.debug-controls {
-			right : 0;
-			width:250px;
+			right: 0;
+			width: 250px;
 			height: 48px;
 		}
 	}
@@ -147,10 +143,10 @@ pre {
 		}
 		strong.shadow {
 			box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
-			border:1px solid #000000;
-			background-color: rgba(0,0,0,0.7);
+			border: 1px solid #000000;
+			background-color: rgba(0, 0, 0, 0.7);
 			display: inline-block;
-			padding:3px 10px;
+			padding: 3px 10px;
 			border-radius: 5px;
 		}
 		a {
@@ -244,28 +240,29 @@ div#docs {
 			content: 'Scroll window to view this example demo.';
 			position: absolute;
 			display: inline-block;
-			left : 50%;
-			top : 50%;
+			left: 50%;
+			top: 50%;
 			text-align: center;
 			width: 400px;
 			margin-left: -200px;
 			margin-top: -15px;
-		}		
+		}
 	}
 	#panel #content h2,
-	#panel #content h3{
+	#panel #content h3 {
 		position: sticky;
-		left:0;right:0;
+		left: 0;
+		right: 0;
 		padding: 3px 10px;
-		background-color:var(--background-color-rgba);
+		background-color: var(--background-color-rgba);
 		border-bottom: 1px solid var(--secondary-background-color);
 	}
 	#panel #content h2 {
 		z-index: 100;
-		top :0px;
+		top: 0px;
 	}
-	#panel #content h3{
-		top :33px;
+	#panel #content h3 {
+		top: 33px;
 		z-index: 99;
 	}
 
@@ -279,26 +276,26 @@ div#docs {
 			}
 		}
 		h1 {
-			top : 0;
-			padding : 4px 10px;
+			top: 0;
+			padding: 4px 10px;
 			line-height: 100%;
 			z-index: 100;
-			background-color:var(--background-color);
+			background-color: var(--background-color);
 			border-bottom: 1px solid var(--secondary-background-color);
 		}
 		h1 {
 			position: sticky;
-			left : 0;
-			right : 0;
+			left: 0;
+			right: 0;
 			text-shadow: 0px 0px 1px var(--secondary-background-color);
 			transition: background-color 1s, margin 1s, text-shadow 1s;
 		}
 		&.scrolled {
-			h1{
+			h1 {
 				text-shadow: 3px 3px 1px var(--secondary-background-color);
 			}
-			h1{
-				background-color:var(--background-color-rgba);
+			h1 {
+				background-color: var(--background-color-rgba);
 				margin-left: -1.3rem;
 				margin-right: -1.3rem;
 			}
@@ -306,7 +303,7 @@ div#docs {
 		div.dummy-iframe,
 		iframe {
 			max-height: calc(100vh - 100px);
-			border:2px solid var(--secondary-text-color);
+			border: 2px solid var(--secondary-text-color);
 			border-radius: 20px;
 			overflow: hidden;
 			transition: border-radius 0.5s;
@@ -330,9 +327,9 @@ div#docs {
 		}
 	}
 
-	#inputWrapper>input::placeholder {
+	#inputWrapper > input::placeholder {
 		padding-left: 10px;
-		color:var(--text-color);
+		color: var(--text-color);
 		opacity: 0.2;
 		font-style: italic;
 	}
@@ -343,6 +340,15 @@ div#docs {
 		h2[id],
 		h3[id],
 		h4[id] {
+			scroll-margin-top: 70px;
+		}
+		mark {
+			margin: 0;
+			padding: 0;
+			background-color: transparent;
+			color: var(--color-red);
+			border-radius: 2px;
+			text-shadow: 1px 1px 2px var(--text-color);
 			scroll-margin-top: 70px;
 		}
 	}
@@ -408,15 +414,15 @@ div#viewer {
 
 #example-iframe.view-screen #viewer-inner .debug {
 	div.debug-stats {
-		top : 5px;
-		left : -70px;
+		top: 5px;
+		left: -70px;
 		&:hover {
 			left: 5px;
 		}
 	}
 	div.debug-controls {
-		top : 5px;
-		right : -200px;
+		top: 5px;
+		right: -200px;
 		&:hover {
 			right: 5px;
 		}
@@ -433,8 +439,8 @@ div#viewer {
 				position: static;
 				div.debug-stats {
 					z-index: 10;
-					left : -70px;
-					top : 3px;
+					left: -70px;
+					top: 3px;
 					&:hover {
 						left: 3px;
 					}
@@ -442,17 +448,17 @@ div#viewer {
 				div.debug-controls {
 					overflow: hidden;
 					z-index: 10;
-					right : auto;
-					top : auto;
-					left : 3px;
-					bottom : 3px;
+					right: auto;
+					top: auto;
+					left: 3px;
+					bottom: 3px;
 					height: auto;
 					div.lil-gui.root {
 						position: relative !important;
 					}
 				}
 			}
-		}		
+		}
 		div#viewer {
 			height: calc(100% - var(--header-height));
 			padding-left: 0;
@@ -462,6 +468,6 @@ div#viewer {
 			&:hover {
 				border-radius: 0px;
 			}
-		}		
+		}
 	}
 }

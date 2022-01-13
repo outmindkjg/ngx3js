@@ -998,6 +998,17 @@
 			Returns : three component
 		</p>
 
+		<h3>[method:Promise getTimeout](  [param:number timeDelay] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number timeDelay] - The time delay.
+		</p>
+		<p>
+			Gets timeout<br />
+			특정 시간후에 이벤트 발생시키기<br />
+			Returns : timeout
+		</p>
+
 		<h3>[method:ToneMapping getToneMappingSafe](  [param:string baseToneMapping],  [param:string def]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
@@ -1264,10 +1275,10 @@
 			Gets store url
 		</p>
 
-		<h3>[method:void setGuiEnabled](  [param:INgxThreeGuiController control],  [param:boolean isEnable] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>[method:void setGuiEnabled](  [param:GUIController control],  [param:boolean isEnable] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:INgxThreeGuiController control] - The control.<br />
+			[parameter:GUIController control] - The control.<br />
 			[parameter:boolean isEnable] - The is enable.
 		</p>
 		<p>
@@ -1314,11 +1325,11 @@
 			Sets three component
 		</p>
 
-		<h3>[method:INgxThreeGuiController setupGui](  [param:any control],  [param:INgxThreeGuiController gui],  [param:IGuiControlParam[] params] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>[method:GUI|GUIController setupGui](  [param:any control],  [param:GUI|GUIController gui],  [param:IGuiControlParam[] params] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any control] - The control.<br />
-			[parameter:INgxThreeGuiController gui] - The gui.<br />
+			[parameter:GUI|GUIController gui] - The gui.<br />
 			[parameter:IGuiControlParam[] params] - The params.
 		</p>
 		<p>
@@ -1326,10 +1337,10 @@
 			Returns : gui
 		</p>
 
-		<h3>[method:INgxThreeGuiController setupGuiChange](  [param:INgxThreeGuiController control],  [param:any onFinishChange]?,  [param:any onChange]?,  [param:boolean listen]?,  [param:string title]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>[method:GUIController setupGuiChange](  [param:GUIController control],  [param:any onFinishChange]?,  [param:any onChange]?,  [param:boolean listen]?,  [param:string title]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:INgxThreeGuiController control] - The control.<br />
+			[parameter:GUIController control] - The control.<br />
 			[parameter:any onFinishChange] - (optional) The on finish change.<br />
 			[parameter:any onChange] - (optional) The on change.<br />
 			[parameter:boolean listen] - (optional) The listen.<br />
@@ -1465,7 +1476,7 @@
 		<p>
 			[property:IGuiControlParam[] children]? - The children of folder type<br />
 			[property:string control]? -  The control.<br />
-			[property:INgxThreeGuiController controller]? - The controller of gui<br />
+			[property:GUI|GUIController controller]? - The controller of gui<br />
 			[property:boolean isOpen]? - is opened in case folder<br />
 			[property:boolean listen]? -  The listen.<br />
 			[property:number max]? - The max value of number type<br />
@@ -1484,33 +1495,6 @@
 
 		<p class="desc">
 			Gui control param
-		</p>
-
-		<h3 id="INgxThreeGuiController" class="interface"> INgxThreeGuiController <i class="modifier modifier-interface">Interface</i></h3>
-		<h4>Properties</h4>
-		<p>
-			[property:HTMLElement domElement]? -  The dom element.
-		</p>
-		<h4>Methods</h4>
-		<p>
-			[method:INgxThreeGuiController add](  [param:any object],  [param:string property],  [param:any min]?,  [param:number max]?,  [param:number step]? ) <br />
-			[method:INgxThreeGuiController addColor](  [param:any object],  [param:string property] ) <br />
-			[method:INgxThreeGuiController addFolder](  [param:string name] ) <br />
-			[method:INgxThreeGuiController close](  ) <br />
-			[method:INgxThreeGuiController destroy](  ) <br />
-			[method:INgxThreeGuiController hide](  ) <br />
-			[method:INgxThreeGuiController listen](  [param:any obj]? ) <br />
-			[method:INgxThreeGuiController name](  [param:string name] ) <br />
-			[method:INgxThreeGuiController onChange](  [param:any callBack] ) <br />
-			[method:INgxThreeGuiController onFinishChange](  [param:any callBack] ) <br />
-			[method:INgxThreeGuiController open](  ) <br />
-			[method:INgxThreeGuiController remove](  [param:any controller] ) <br />
-			[method:INgxThreeGuiController removeFolder](  [param:any folder] ) <br />
-			[method:INgxThreeGuiController show](  ) 
-		</p>
-
-		<p class="desc">
-			Three gui controller
 		</p>
 
 		<h3 id="IRendererTimer" class="interface"> IRendererTimer <i class="modifier modifier-interface">Interface</i></h3>
@@ -1552,6 +1536,80 @@
 			string random<br />
 			number 0xffffff<br />
 			THREE.Color
+		</p>
+
+		<h3 id="GUIController" class="interface"> GUIController <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean _disabled] - Used to determine if the controller is disabled. Use controller.disable( true|false ) to modify this value<br />
+			[property:boolean _listening] - Used to determine if the controller is currently listening. Don't modify this value directly. Use the controller.listen( true|false ) method instead.<br />
+			[property:string _name] - The controller's name. Use controller.name( 'Name' ) to modify this value.<br />
+			[property:GUICallBack _onChange] - Used to access the function bound to onChange events. Don't modify this value directly. Use the controller.onChange( callback ) method instead.<br />
+			[property:GUICallBack _onFinishChange] - Used to access the function bound to onFinishChange events. Don't modify this value directly. Use the controller.onFinishChange( callback ) method instead.<br />
+			[property:HTMLElement domElement] - The outermost container DOM element for this controller.<br />
+			[property:any initialValue] - The value of object[ property ] when the controller was created.<br />
+			[property:object object] - The object this controller will modify.<br />
+			[property:GUI parent] - The GUI that contains this controller.<br />
+			[property:string property] - The name of the property to control.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void destroy](  ) - Destroys this controller and removes it from the parent GUI.<br />
+			[method:GUIController disable](  [param:boolean disabled]? ) - Disables this controller.<br />
+			<code data-type="javascript"><br />
+			controller.disable();<br />
+			controller.disable( false ); // enable<br />
+			controller.disable( !controller._disabled ); // toggle<br />
+			</code><br />
+			Returns : disable<br />
+			[method:GUIController enable](  [param:boolean enabled]? ) - Enables this controller.<br />
+			<code data-type="javascript"><br />
+			controller.enable();<br />
+			controller.enable( false ); // disable<br />
+			controller.enable( controller._disabled ); // toggle<br />
+			</code><br />
+			Returns : enable<br />
+			[method:any getValue](  ) - Returns object[ property ].<br />
+			Returns : value<br />
+			[method:GUIController listen](  [param:boolean listen]? ) - Calls updateDisplay() every animation frame. Pass false to stop listening.<br />
+			Returns : listen<br />
+			[method:GUIController max](  [param:number max] ) - Sets the maximum value. Only works on number controllers.<br />
+			Returns : max<br />
+			[method:GUIController min](  [param:number min] ) - Sets the minimum value. Only works on number controllers.<br />
+			Returns : min<br />
+			[method:GUIController name](  [param:string name] ) - Sets the name of the controller and its label in the GUI.<br />
+			Returns : name<br />
+			[method:GUIController onChange](  [param:GUICallBack callback] ) - Pass a function to be called whenever a controller in this GUI changes.<br />
+			Returns : change<br />
+			[method:GUIController onFinishChange](  [param:GUICallBack callback] ) - Pass a function to be called whenever a controller in this GUI has finished changing.<br />
+			Returns : finish change<br />
+			[method:GUIController options](  [param:object|any[] options] ) - Destroys this controller and replaces it with a new option controller. Provided as a more descriptive syntax for gui.add, but primarily for compatibility with dat.gui.<br />
+			Use caution, as this method will destroy old references to this controller. It will also change controller order if called out of sequence, moving the option controller to the end of the GUI.<br />
+			<code data-type="javascript"><br />
+			// safe usage<br />
+			gui.add( object1, 'property' ).options( [ 'a', 'b', 'c' ] );<br />
+			gui.add( object2, 'property' );<br />
+			// danger<br />
+			const c = gui.add( object1, 'property' );<br />
+			gui.add( object2, 'property' );<br />
+			c.options( [ 'a', 'b', 'c' ] );<br />
+			// controller is now at the end of the GUI even though it was added first<br />
+			assert( c.parent.children.indexOf( c ) === -1 )<br />
+			// c references a controller that no longer exists<br />
+			</code><br />
+			Returns : options<br />
+			[method:GUIController reset](  [param:boolean recursive]? ) - Resets all controllers to their initial values.<br />
+			Returns : reset<br />
+			[method:GUIController setValue](  [param:any value] ) - Sets the value of object[ property ], invokes any onChange handlers and updates the display.<br />
+			Returns : value<br />
+			[method:GUIController step](  [param:number step] ) - Sets the step. Only works on number controllers.<br />
+			Returns : step<br />
+			[method:GUIController updateDisplay](  ) - Updates the display to keep it in sync with the current value. Useful for updating your controllers when their values have been modified outside of the GUI.<br />
+			Returns : display
+		</p>
+
+		<p class="desc">
+			
 		</p>
 
 		<br />

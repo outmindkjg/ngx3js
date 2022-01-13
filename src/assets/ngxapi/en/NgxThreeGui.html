@@ -7,6 +7,8 @@
 		<link type="text/css" rel="stylesheet" href="page.css" />
 	</head>
 	<body>
+		[page:GUI] &rarr;
+
 		<h1>NgxThreeGui</h1>
 
 		<p class="desc">
@@ -15,25 +17,19 @@
 		</p>
 
 		<h2>Constructor</h2>
-				<h3>[constructor:NgxThreeGui NgxThreeGui](  [param:any style]?,  [param:any pars]? )</h3>
+				<h3>[constructor:NgxThreeGui NgxThreeGui](  [param:any style]?,  [param:GUIParameters params]? )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any style] - (optional) The style.<br />
-			[parameter:any pars] - (optional) The pars.
+			[parameter:GUIParameters params] - (optional) The params.
 		</p>
 		<p>
 			Creates an instance of three gui.
 		</p>
 
 		<h2>Properties</h2>
-				<h3>[property:HTMLElement domElement]<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Dom element of three gui
-		</p>
-
-		<h3>[property:any gui]<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The Gui of three gui
+				<p>
+			See the base [page:GUI GUI] class for common properties.
 		</p>
 
 		<h3>[property:string customCss] &nbsp; = '.no-pointer-events {pointer-events: none;}.control-disabled {color: #888;text-decoration: line-through;}' <i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
@@ -43,39 +39,8 @@
 
 
 		<h2>Methods</h2>
-				<h3>[method:INgxThreeGuiController add](  [param:any object],  [param:string property],  [param:any option1]?,  [param:any options2]?,  [param:any options3]? )<i class="modifier modifier-public">Public</i></h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:any object] - The object.<br />
-			[parameter:string property] - The property.<br />
-			[parameter:any option1] - (optional) The option1.<br />
-			[parameter:any options2] - (optional) The options2.<br />
-			[parameter:any options3] - (optional) The options3.
-		</p>
-		<p>
-			Adds three gui<br />
-			Returns : add
-		</p>
-
-		<h3>[method:INgxThreeGuiController addColor](  [param:any object],  [param:string property] )<i class="modifier modifier-public">Public</i></h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:any object] - The object.<br />
-			[parameter:string property] - The property.
-		</p>
-		<p>
-			Adds color<br />
-			Returns : color
-		</p>
-
-		<h3>[method:INgxThreeGuiController addFolder](  [param:string name] )<i class="modifier modifier-public">Public</i></h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:string name] - The name.
-		</p>
-		<p>
-			Adds folder<br />
-			Returns : folder
+				<p>
+			See the base [page:GUI GUI] class for common methods.
 		</p>
 
 		<h3>[method:NgxThreeGui setStyle](  [param:object style] )<i class="modifier modifier-public">Public</i></h3>
@@ -88,6 +53,23 @@
 			Returns : style
 		</p>
 
+
+		<h2>Interfaces</h2>
+		<h3 id="GUIParameters" class="interface"> GUIParameters <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean autoPlace]? - Adds the GUI to document.body and fixes it to the top right of the page<br />
+			[property:HTMLElement container]? - Adds the GUI to this DOM element. Overrides autoPlace<br />
+			[property:boolean injectStyles]? - Injects the default stylesheet into the page if this is the first GUI. Pass false to use your own stylesheet.<br />
+			[property:GUI parent]? - Adds this GUI as a child in another GUI. Usually this is done for you by addFolder<br />
+			[property:string title]? - Name to display in the title bar<br />
+			[property:boolean touchStyles]? - Makes controllers larger on touch devices. Pass false to disable touch styles<br />
+			[property:number width]? - Width of the GUI in pixels, usually set when name labels become too long. Note that you can make name labels wider in CSS with .lil‑gui { ‑‑name‑width: 55% }
+		</p>
+
+		<p class="desc">
+			
+		</p>
 
 		<br />
 		<h2>Source</h2>

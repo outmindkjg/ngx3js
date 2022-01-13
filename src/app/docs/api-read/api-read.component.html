@@ -1,6 +1,23 @@
 <div class="doc-wraper">
 	<div *ngIf="!isLoaded" class="loading"></div>
 	<a #apiTop class="doc-top"></a>
+	
+	<div id="inputWrapper" *ngIf="isLoaded" [ngClass]="searchFocused ? 'searchFocused' : 'searchUnFocused'">
+		<input
+			#search
+			type="text"
+			id="filterInput"
+			autocorrect="off"
+			autocapitalize="off"
+			spellcheck="false"
+			placeholder="keyword and press enter"
+			(keyup.enter)="searchKeyUp()"
+			(focus)="searchFocus()"
+			(blur)="searchBlur()"
+		/>
+		<div id="exitSearchButton" (click)="searchClear()"></div>
+	</div>
+
 	<div class="doc-body" *ngIf="errorPage">
 		<h1>404</h1>
 		<h3>File not found - {{errorPage}}</h3>
