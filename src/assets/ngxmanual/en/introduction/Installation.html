@@ -51,14 +51,8 @@
 			ng new my-app
 			cd my-app
 			npm install --save ngx3js 
-			npm install --save three@0.135.0
-			npm install --save-dev @types/three@0.134.0
-			npm install --save gsap
-			npm install --save lil-gui
-			npm install --save chroma-js
-			npm install --save-dev @types/chroma-js
-			npm install --save fs
-			npm install --save fs-web
+			npm install --save three@0.136.0
+			npm install --save-dev @types/three@0.136.1
 		</code>
 
 		<h3>angular.json - set asset options &amp; allowedCommonJsDependencies </h3>
@@ -69,9 +63,6 @@
 					"architect": {
 					  "build": {
 						"options": {
-						  "allowedCommonJsDependencies" : [
-							"fs"
-						  ],
 						  "assets": [
 							  {
 								  "glob": "**/*",
@@ -89,18 +80,6 @@
 				},
 			}
 		</code>
-
-		<h3>tsconfig.json - set fs compilerOptions </h3>
-		<code data-type="json">
-			{
-				"compilerOptions": {
-				  "paths": {
-					"fs": ["./node_modules/fs-web"]
-				  }
-				}
-			}
-		</code>
-
 		<p>
 			The package will be downloaded and installed. Then you're ready to import
 			it in your code:

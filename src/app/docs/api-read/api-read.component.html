@@ -2,13 +2,14 @@
 	<div *ngIf="!isLoaded" class="loading"></div>
 	<a #apiTop class="doc-top"></a>
 	
-	<div id="inputWrapper" *ngIf="isLoaded" [ngClass]="searchFocused ? 'searchFocused' : 'searchUnFocused'">
+	<div id="inputWrapper" *ngIf="isLoaded && errorPage == null" [ngClass]="searchFocused ? 'searchFocused' : 'searchUnFocused'">
 		<input
 			#search
 			type="text"
 			id="filterInput"
 			autocorrect="off"
 			autocapitalize="off"
+			autocomplete="off"
 			spellcheck="false"
 			placeholder="search press enter"
 			(keyup.enter)="searchKeyUp()"
@@ -23,7 +24,7 @@
 		<h3>File not found - {{errorPage}}</h3>
 		<p class="desc">
 			The site configured at this address does not contain the requested file. <br/>
-			<a *ngIf="altPage" href="#" [routerLink]="'/docs/' + altPage">
+			<a *ngIf="altPage" href="#" [routerLink]="altPage">
 				Try "{{altPage}}" Try this page instead.
 			</a>
 		</p>

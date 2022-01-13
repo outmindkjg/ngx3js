@@ -229,8 +229,9 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 						this.setBody(response, this.menuId);
 					},
 					() => {
-						this.errorPage = this.menuId;
-						this.altPage = this.menuId.replace(/\/(ko|ar|zh|ja)\//, '/en/');
+						this.isLoaded = true;
+						this.errorPage = '/docs/' + this.menuId;
+						this.altPage = this.errorPage.replace(/\/(ko|ar|zh|ja)\//, '/en/');
 						if (this.altPage === this.errorPage) {
 							this.altPage = null;
 						}

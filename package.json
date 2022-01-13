@@ -11,15 +11,7 @@
     "devbuild": "node --max_old_space_size=5000 ./node_modules/@angular/cli/bin/ng build",
     "doccopy": "rm -rf docs && cp -rf ../ngx3js-module/docs ./ &&  rm -rf ../ngx3js-doc/* && cp -rf dist/ngx3js-doc/* ../ngx3js-doc/ && cp -rf ../ngx3js-module/docs ../ngx3js-doc/ && cp ../ngx3js-module/README.md ../ngx3js-doc/ && cp ../ngx3js-module/LICENSE ../ngx3js-doc/ "
   },
-  "browser": {
-    "crypto": false,
-    "fs": false,
-    "path": false,
-    "os": false,
-    "net": false,
-    "stream": false,
-    "tls": false
-  },
+  "browser": {},
   "private": false,
   "dependencies": {
     "@angular/animations": "^13.0.1",
@@ -38,9 +30,7 @@
     "rxjs": "^6.6.7",
     "tslib": "^2.3.1",
     "webpack": "^5.58.2",
-    "zone.js": "~0.11.4",
-    "fs": "0.0.1-security",
-    "fs-web": "^1.0.1"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^13.0.2",

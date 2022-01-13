@@ -22,8 +22,7 @@
 				"NgxAbstractMaterialComponent": "ngxapi/en/NgxAbstractMaterialComponent",
 				"NgxAbstractObject3dComponent": "ngxapi/en/NgxAbstractObject3dComponent",
 				"NgxAbstractSubscribeComponent": "ngxapi/en/NgxAbstractSubscribeComponent",
-				"NgxAbstractTextureComponent": "ngxapi/en/NgxAbstractTextureComponent",
-				"NgxAbstractTweenComponent": "ngxapi/en/NgxAbstractTweenComponent"
+				"NgxAbstractTextureComponent": "ngxapi/en/NgxAbstractTextureComponent"
 			},
 			"Component": {
 				"NgxBackgroundComponent": "ngxapi/en/NgxBackgroundComponent",

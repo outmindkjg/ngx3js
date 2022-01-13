@@ -19,13 +19,7 @@
           "options": {
             "preserveSymlinks": true,
             "allowedCommonJsDependencies": [
-              "crypto",
-              "crypto-js",
-              "highlight.js",
-              "fs",
-              "fs",
-              "fs",
-              "fs"
+              "highlight.js"
             ],
             "outputPath": "dist/ngx3js-doc",
             "index": "src/index.html",
