@@ -473,3 +473,26 @@ div#viewer {
 		}
 	}
 }
+
+@media print {
+	a.button,
+	div#inputWrapper,
+	#panel {
+		display: none !important;
+	}
+	div#viewer,
+	div#viewer #viewer-inner,
+	div#example-iframe, 
+	div#example, 
+	div#docs {
+		position: relative;
+		height: auto;
+		margin: 0;
+	}
+	.doc-body {
+		h1 {
+			position: relative;
+		}
+	}
+
+}

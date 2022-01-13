@@ -269,16 +269,6 @@
 			left : var(--page-padding);
 			top :auto;
 			bottom: 10px;
-			&:after {
-				right: calc(100% - var(--header-height));
-				border-bottom-width: 2px;
-				transition: right 1s;
-			}
-			&:hover {
-				&:after {
-					right: 0;
-				}
-			}
 		}
 		.doc-body {
 			padding: var(--page-padding);

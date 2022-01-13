@@ -234,19 +234,6 @@ body.home #panel #sections {
 	position: relative;
 	background: var(--background-color);
 }
-.doc-wraper #inputWrapper {
-	position: fixed;
-	width: 400px;
-	max-width: 60vw;
-	right :20px;
-	top : 0;
-	z-index: 200;
-	margin: 0;
-	background-color: var(--background-color-rgba);
-	&:hover {
-		background-color: var(--background-color);
-	}
-}
 .doc-wraper #inputWrapper:after,
 #panel #inputWrapper:after {
 	position: absolute;
@@ -256,6 +243,29 @@ body.home #panel #sections {
 	border-bottom: var(--border-style);
 	content: '';
 }
+
+.doc-wraper #inputWrapper {
+	position: fixed;
+	width: 400px;
+	max-width: 60vw;
+	right :20px;
+	top : 0;
+	z-index: 200;
+	margin: 0;
+	background-color: var(--background-color-rgba);
+	&:after {
+		right: calc(100% - var(--header-height));
+		border-bottom-width: 2px;
+		transition: right 1s;
+	}
+	&:hover {
+		background-color: var(--background-color);
+		&:after {
+			right: 0;
+		}
+	}
+}
+
 .doc-wraper #filterInput,
 #panel #filterInput {
 	flex: 1;
