@@ -33,6 +33,7 @@
 				</select>
 			</div>
 			<div id="content">
+				<a #contentTop class="content-top"></a>
 				<div *ngFor="let item of searchMenu">
 					<h2>{{ item.name }}</h2>
 					<div *ngFor="let child of item.children">

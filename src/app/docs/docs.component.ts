@@ -144,9 +144,13 @@ export class DocsComponent implements OnInit {
 	ngAfterViewInit() {}
 
 	searchFocused: boolean = false;
+	@ViewChild('contentTop') private contentTop: ElementRef = null;
 
 	searchFocus() {
 		this.searchFocused = true;
+		if (this.contentTop !== null) {
+			this.contentTop.nativeElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+		}
 	}
 
 	searchKeyUp() {

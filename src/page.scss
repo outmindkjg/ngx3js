@@ -80,22 +80,22 @@
 		margin-top: 20px;
 		margin-bottom: -8px;
 	}
-	h1+p,
-	h1+p+p,
-	h1+p+p+p,
-	h2+p,
-	h2+p+p,
-	h2+p+p+p,
-	h3+p,
-	h3+p+p,
-	h3+p+p+p,
-	h4+p,
-	h4+p+p,
-	h4+p+p+p{
-		margin-left : 20px;
+	h1 + p,
+	h1 + p + p,
+	h1 + p + p + p,
+	h2 + p,
+	h2 + p + p,
+	h2 + p + p + p,
+	h3 + p,
+	h3 + p + p,
+	h3 + p + p + p,
+	h4 + p,
+	h4 + p + p,
+	h4 + p + p + p {
+		margin-left: 20px;
 		a.param {
 			display: inline-block;
-			margin-top : 0.5em;
+			margin-top: 0.5em;
 		}
 	}
 
@@ -264,8 +264,25 @@
 	@media all and (max-width: 640px) {
 		--page-padding: 16px;
 		--icon-size: 24px;
+		#inputWrapper {
+			right: auto;
+			left : var(--page-padding);
+			top :auto;
+			bottom: 10px;
+			&:after {
+				right: calc(100% - var(--header-height));
+				border-bottom-width: 2px;
+				transition: right 1s;
+			}
+			&:hover {
+				&:after {
+					right: 0;
+				}
+			}
+		}
 		.doc-body {
 			padding: var(--page-padding);
+			margin-bottom: 70px;
 		}
 
 		h1 {

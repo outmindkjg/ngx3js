@@ -237,11 +237,15 @@ body.home #panel #sections {
 .doc-wraper #inputWrapper {
 	position: fixed;
 	width: 400px;
+	max-width: 60vw;
 	right :20px;
 	top : 0;
-	z-index: 1000;
+	z-index: 200;
 	margin: 0;
-	background-color: transparent;
+	background-color: var(--background-color-rgba);
+	&:hover {
+		background-color: var(--background-color);
+	}
 }
 .doc-wraper #inputWrapper:after,
 #panel #inputWrapper:after {

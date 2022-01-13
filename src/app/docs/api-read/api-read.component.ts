@@ -66,17 +66,15 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 
 	searchKeyUp() {
 		const filter = this.search.nativeElement.value;
-		if (filter != '') {
-
+		if (filter !== '') {
 			this.checkSearch(filter);
 		}
 	}
 
 	searchBlur() {
-		if (this.search.nativeElement.value === '') {
+		const filter = this.search.nativeElement.value;
+		if (filter === '') {
 			this.searchFocused = false;
-		} else {
-			this.checkSearch(this.search.nativeElement.value);
 		}
 	}
 
@@ -85,7 +83,8 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		this.searchFocused = false;
 		this.checkSearch('');
 	}
-
+	private lastKeyword : string = '';
+	private lastIndex : number = 0;
 	checkSearch(filter: string) {
 		const searchKeyword= this.getKeyWord(filter);
 		this.unsetHighlight(this.docEle.nativeElement);
@@ -94,11 +93,17 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 			const collect : Element[] = [];
 			this.setHighlight(this.docEle.nativeElement, keywordRegex, collect);
 			if (collect.length > 0) {
-				collect[0].scrollIntoView({
+				let selectIndex : number = 0;
+				if (this.lastKeyword === searchKeyword) {
+					selectIndex = (this.lastIndex + 1) % collect.length;
+				}
+				this.lastIndex = selectIndex;
+				collect[selectIndex].scrollIntoView({
 					block: 'start',
 					behavior: 'smooth',
 				});
 			}
+			this.lastKeyword = searchKeyword;
 		}
 	}
 
@@ -153,7 +158,6 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 
 	private unsetHighlight(ele: HTMLElement) {
 		const marks = ele.getElementsByTagName('MARK');
-		console.log(marks);
 		const markList : Element[] = [];
 		for(let i = 0; i < marks.length; i++) {
 			markList.push(marks[i]);
@@ -164,12 +168,12 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		})
 	}
 
-	private setHighlight(ele: any , keywordRegex: RegExp, collect : Element[]) {
+	private setHighlight(ele: any , keywordRegex: RegExp, collect : any[]) {
 		if (ele.childNodes) {
 			ele.childNodes.forEach((child) => {
-				if (child.nodeType !== 3) {
+				if (child.nodeType !== 3 && child.tagName !== 'MARK') {
 					this.setHighlight(child, keywordRegex, collect);
-				} else if (keywordRegex.test(child.textContent)) {
+				} else if (keywordRegex.test(child.textContent) && child.tagName !== 'MARK') {
 					const frag = document.createDocumentFragment();
 					let lastIdx = 0;
 					child.textContent.replace(keywordRegex, (match, idx) => {
@@ -180,10 +184,12 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 						highlighted.textContent = match;
 						frag.appendChild(part);
 						frag.appendChild(highlighted);
-						collect.push(highlighted);
 						lastIdx = idx + match.length;
 					});
 					const end = document.createTextNode(child.textContent.slice(lastIdx));
+					if (!collect.includes(child.parentNode) && !collect.includes(child.parentNode?.parentNode)) {
+						collect.push(child.parentNode);
+					}
 					frag.appendChild(end);
 					child.parentNode.replaceChild(frag, child);
 				}
@@ -223,7 +229,6 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				);
 		} else {
 			this.tagName = url.indexOf('.') > 0 ? url.split('.')[1] : null;
-			console.log(this.tagName);
 			if (this.tagName !== null && this.tagName !== '') {
 				this.setFocus(this.tagName);
 			}
@@ -972,7 +977,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		for (let i = 0; i < links.length; i++) {
 			const link = links[i];
 			link.addEventListener('click', (e: Event) => {
-				const htmlAnchorElement = e.target as HTMLAnchorElement;
+				let htmlAnchorElement = link;
 				const href: string = htmlAnchorElement.getAttribute('href');
 				let hrefId = href.substring(href.indexOf('#') + 1);
 				if (
@@ -1234,7 +1239,6 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		} else {
 			if (menuId !== null) {
 				let selected: HTMLElement = this.setElementById(menuId);
-				console.log(selected, menuId);
 				if (selected !== null) {
 					selected.scrollIntoView({ block: 'start', behavior: 'smooth' });
 				}
