@@ -1,5 +1,6 @@
-<div id="example-iframe" [ngClass]="{'full-screen' : isFullScreen, 'view-screen' : !isFullScreen}">
+<div id="example-iframe" [ngClass]="{'full-screen' : isFullScreen , 'view-screen' : !isFullScreen, 'active-full-screen' : isfullScreenMode}">
 	<div *ngIf="!isLoaded" class="loading"></div>
+	<a id="fullScreen" href="#" (click)="toggleScreen()" >{{ isfullScreenMode ? 'Close Full Screen' : 'Active Full Screen'}}</a>
 	<a id="newWindow" [href]="fullUrl" target="_blank">Open in New Window</a>
 	<a
 		class="button download"

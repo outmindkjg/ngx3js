@@ -408,9 +408,13 @@ export class WebglGpgpuBirdsGltfComponent extends NgxBaseComponent<{
 				break;
 			case 'models/gltf/Horse.glb':
 				this.controls.size = 0.07;
-				this.backgroundColor = 0x1b631f;
+				this.backgroundColor = 0xa4cfa6;
 				break;
 			case 'models/gltf/fish.glb':
+				this.controls.size = 0.07;
+				this.backgroundColor = 0x1b631f;
+				break;
+			case 'models/gltf/shark.glb':
 				this.controls.size = 0.07;
 				this.backgroundColor = 0x1b631f;
 				break;
@@ -429,9 +433,19 @@ export class WebglGpgpuBirdsGltfComponent extends NgxBaseComponent<{
 			) => {
 				const gltf = source;
 				const animations = gltf.animations;
-				console.log(gltf)
 				const durationAnimation = Math.round(animations[0].duration * 60);
-				const birdGeo = gltf.scene.children[0].geometry;
+				let birdMesh : any = null;
+				switch (this.controls.bird) {
+					case 'models/gltf/shark.glb':
+						birdMesh = gltf.scene.children[0].children[0].children[0];
+						break;
+					default :
+						birdMesh = gltf.scene.children[0];
+						break;
+				}
+				const birdGeo = birdMesh.geometry;
+				birdGeo.getAttribute('position')
+
 				const morphAttributes = birdGeo?.morphAttributes?.position || [];
 				const tHeight = this.nextPowerOf2(durationAnimation);
 				const tWidth = this.nextPowerOf2(
@@ -439,41 +453,42 @@ export class WebglGpgpuBirdsGltfComponent extends NgxBaseComponent<{
 				);
 				this.vertexPerBird = birdGeo.getAttribute('position').count;
 				const tData = new Float32Array(3 * tWidth * tHeight);
+				if (morphAttributes.length > 0) {
+					for (let i = 0; i < tWidth; i++) {
+						for (let j = 0; j < tHeight; j++) {
+							const offset = j * tWidth * 3;
 
-				for (let i = 0; i < tWidth; i++) {
-					for (let j = 0; j < tHeight; j++) {
-						const offset = j * tWidth * 3;
+							const curMorph = Math.floor(
+								(j / durationAnimation) * morphAttributes.length
+							);
+							const nextMorph =
+								(Math.floor((j / durationAnimation) * morphAttributes.length) +
+									1) %
+								morphAttributes.length;
+							const lerpAmount =
+								((j / durationAnimation) * morphAttributes.length) % 1;
 
-						const curMorph = Math.floor(
-							(j / durationAnimation) * morphAttributes.length
-						);
-						const nextMorph =
-							(Math.floor((j / durationAnimation) * morphAttributes.length) +
-								1) %
-							morphAttributes.length;
-						const lerpAmount =
-							((j / durationAnimation) * morphAttributes.length) % 1;
+							if (j < durationAnimation) {
+								let d0, d1;
 
-						if (j < durationAnimation) {
-							let d0, d1;
+								d0 = morphAttributes[curMorph].array[i * 3];
+								d1 = morphAttributes[nextMorph].array[i * 3];
 
-							d0 = morphAttributes[curMorph].array[i * 3];
-							d1 = morphAttributes[nextMorph].array[i * 3];
+								if (d0 !== undefined && d1 !== undefined)
+									tData[offset + i * 3] = this.lerp(d0, d1, lerpAmount);
 
-							if (d0 !== undefined && d1 !== undefined)
-								tData[offset + i * 3] = this.lerp(d0, d1, lerpAmount);
+								d0 = morphAttributes[curMorph].array[i * 3 + 1];
+								d1 = morphAttributes[nextMorph].array[i * 3 + 1];
 
-							d0 = morphAttributes[curMorph].array[i * 3 + 1];
-							d1 = morphAttributes[nextMorph].array[i * 3 + 1];
+								if (d0 !== undefined && d1 !== undefined)
+									tData[offset + i * 3 + 1] = this.lerp(d0, d1, lerpAmount);
 
-							if (d0 !== undefined && d1 !== undefined)
-								tData[offset + i * 3 + 1] = this.lerp(d0, d1, lerpAmount);
+								d0 = morphAttributes[curMorph].array[i * 3 + 2];
+								d1 = morphAttributes[nextMorph].array[i * 3 + 2];
 
-							d0 = morphAttributes[curMorph].array[i * 3 + 2];
-							d1 = morphAttributes[nextMorph].array[i * 3 + 2];
-
-							if (d0 !== undefined && d1 !== undefined)
-								tData[offset + i * 3 + 2] = this.lerp(d0, d1, lerpAmount);
+								if (d0 !== undefined && d1 !== undefined)
+									tData[offset + i * 3 + 2] = this.lerp(d0, d1, lerpAmount);
+							}
 						}
 					}
 				}

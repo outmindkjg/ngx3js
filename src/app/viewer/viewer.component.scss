@@ -29,6 +29,7 @@ div#example-iframe {
             animation-iteration-count: infinite;
         }
     }
+    a#fullScreen,
     a#newWindow {
         position: absolute;
         display: block;
@@ -36,9 +37,14 @@ div#example-iframe {
         bottom: 0.3em;
         right: 0.5em;
         color: #fff;
+        border-radius: 0.5em;
         background-color: rgba(0,0,0,0.6);
         padding: 3px 10px;
         z-index: 100;
+    }
+    a#fullScreen {
+        bottom: 40px;
+        transition: bottom 1s;
     }
 	a.button {
 		position: absolute;
@@ -56,10 +62,19 @@ div#example-iframe {
 		cursor: pointer;
         display: none;
 	}
+    &.active-full-screen {
+        a#newWindow {
+            display: none;
+        }
+        a#fullScreen {
+            bottom : 0.3em;
+        }
+    }
     &.full-screen {
         div.loading {
             display: none;
         }
+        a#fullScreen,
         a#newWindow {
             display: none;
         }

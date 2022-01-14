@@ -61,7 +61,19 @@ export class ExampleViewerComponent implements OnInit, AfterViewInit {
 			this.isLoaded = true;
 		}, 4000);
 	}
-
+	isfullScreenMode : boolean = false;
+	toggleScreen() {
+		if (window.frameElement && window.frameElement.classList) {
+			this.isfullScreenMode = !this.isfullScreenMode;
+			const frameElement = window.frameElement;
+			if (this.isfullScreenMode) {
+				frameElement.classList.add('active-full-screen');
+			} else {
+				frameElement.classList.remove('active-full-screen');
+			}
+		}
+		return false;
+	}
 	downloadThumbFile() {
 		if (NgxThreeUtil.lastRenderer !== null) {
 			const lastRenderer = NgxThreeUtil.lastRenderer as NgxRendererComponent;

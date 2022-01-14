@@ -1,12 +1,13 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
-	WebGPU - Compute<br />(Chrome Canary with flag: --enable-unsafe-webgpu) todo
+	WebGPU - Compute<br />(Chrome Canary with flag: --enable-unsafe-webgpu)  -- not support webgpu
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
 	[controlOptions]="{ enablePan: false, enableDamping: true }"
 	[statsMode]="0"
 	[antialias]="true"
+	[requiredExtensions]="['webgpu']"
 	[clearColor]="'0xffffff'"
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
