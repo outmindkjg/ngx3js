@@ -251,7 +251,6 @@ export class WebglLightningstrikeComponent extends NgxBaseComponent<{
 						}
 						break;
 					default:
-						console.log(e.type);
 						break;
 				}
 				break;

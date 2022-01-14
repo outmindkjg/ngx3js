@@ -74,7 +74,6 @@ export class GamesFpsComponent extends NgxBaseComponent<{}> {
 				}
 				break;
 			default:
-				console.log(event.type);
 				break;
 		}
 	}

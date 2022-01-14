@@ -259,8 +259,6 @@ export class WebglGpgpuProtoplanetComponent extends NgxBaseComponent<{
 		this.particleUniforms['cameraConstant'].value = this.getCameraConstant(
 			this.cameraObject3d as I3JS.PerspectiveCamera
 		);
-
-		console.log(this.particleUniforms);
 	}
 
 	fillTextures(

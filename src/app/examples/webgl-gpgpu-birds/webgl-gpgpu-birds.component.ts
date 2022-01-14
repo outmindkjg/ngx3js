@@ -24,7 +24,6 @@ export class WebglGpgpuBirdsComponent extends NgxBaseComponent<{
       { type : 'number', name : 'cohesion', min : 0, max : 100, step : 0.025, change : () => { this.valuesChanger(); } },
       { type : 'number', name : 'freedom', min : 0, max : 1, step : 0.01, change : () => { this.valuesChanger(); } }
     ], false, false);
-    console.log(Interpolation);
 	}
   
 

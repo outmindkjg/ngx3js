@@ -886,7 +886,6 @@ export class NgxEffectComponent extends NgxBaseComponent<{
 	changeLuminosity() {
 		if (this.luminosityUniforms !== null) {
 			const uniforms = this.luminosityUniforms;
-			console.log('changeLuminosity', uniforms);
 		}
 	}
 

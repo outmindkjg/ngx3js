@@ -34,8 +34,6 @@ export class WebglMorphtargetsFaceComponent extends NgxBaseComponent<{}> {
 					.listen( influences );
 			}
 		} else {
-			console.log(head);
 		}
-
 	}
 }

@@ -3,24 +3,25 @@
 	Tiled forward lighting<br />
 	Created by
 	<a href="https://github.com/wizgrav" target="_blank" rel="noopener">wizgrav</a
-	>. todo
+	>.
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
 	[controlOptions]="{ enablePan: false, enableDamping: true }"
 	[statsMode]="0"
 	[antialias]="true"
-	[toneMapping]="'NoToneMapping'"
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
+	[beforeRender]="beforeRender"
+	(onLoad)="setRender($event)"
 	(onRender)="onRender($event)"
 >
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera [type]="'perspective'" [fov]="40" [near]="1" [far]="2000">
 		<ngx3js-position [x]="0" [y]="0" [z]="240.0"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-scene #scene [background]="'0x111111'">
+	<ngx3js-scene #scene [background]="'0x111111'" (onLoad)="setScene($event)">
 		<ngx3js-light
 			[type]="'AmbientLight'"
 			[color]="'0xffffff'"
@@ -37,24 +38,52 @@
 				#waltHead
 				[storageName]="'models/obj/walt/WaltHead.obj'"
 			></ngx3js-geometry>
+			<ngx3js-geometry
+				#sphereGeom
+				[type]="'SphereGeometry'"
+				[radius]="0.5"
+				[widthSegments]="32"
+				[heightSegments]="32"
+			></ngx3js-geometry>
+			
 		</ngx3js-shared>
 		<ngx3js-mesh (onLoad)="setMesh($event)">
 			<ngx3js-mesh *ngFor="let info of headInfos">
-				<ngx3js-position [x]="info.x" [y]="0" [z]="info.z"></ngx3js-position>
-				<ngx3js-rotation [x]="0" [y]="info.ry" [z]="0"></ngx3js-rotation>
-				<ngx3js-mesh>
-					<ngx3js-geometry [type]="'box'"></ngx3js-geometry>
+				<ngx3js-position [x]="info.positionX" [y]="0" [z]="info.positionZ"></ngx3js-position>
+				<ngx3js-rotation [x]="0" [y]="info.rotationY" [z]="0"></ngx3js-rotation>
+				<ngx3js-mesh [geometry]="waltHead">
 					<ngx3js-position [x]="0" [y]="-37" [z]="0"></ngx3js-position>
 					<ngx3js-material
 						[type]="'ShaderMaterial'"
 						[lights]="true"
-						[shader]="info.shader"
+						[fragmentShader]="info.fragmentShader"
+						[vertexShader]="info.vertexShader"
 						[uniforms]="info.uniforms"
 						[defines]="info.defines"
 						[transparent]="info.transparent"
 						[extensions]="'derivatives'"
+						[side]="info.side"
 					></ngx3js-material>
 				</ngx3js-mesh>
+				<ngx3js-mesh (onLoad)="setLights($event)">
+					<ngx3js-mesh *ngFor="let light of info.lightInfos" [userData]="light.userData">
+						<ngx3js-mesh [geometry]="sphereGeom">
+							<ngx3js-material
+								[type]="'MeshBasicMaterial'"
+								[color]="light.color"
+							></ngx3js-material>	
+						</ngx3js-mesh>
+						<ngx3js-mesh [geometry]="sphereGeom">
+							<ngx3js-scale [x]="6.66" [y]="6.66" [z]="6.66"></ngx3js-scale>
+							<ngx3js-material
+								[type]="'MeshBasicMaterial'"
+								[color]="light.color"
+								[opacity]="0.033"
+								[transparent]="true"
+							></ngx3js-material>	
+						</ngx3js-mesh>
+					</ngx3js-mesh>
+				</ngx3js-mesh>				
 			</ngx3js-mesh>
 		</ngx3js-mesh>
 	</ngx3js-scene>
