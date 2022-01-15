@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import {
-	NgxBaseComponent,
-	NgxMeshComponent,
-	NgxViewerComponent, IRendererTimer, THREE
+	I3JS, IRendererTimer, NgxBaseComponent, NgxControlComponent, NgxMeshComponent, NgxRendererComponent, THREE
 } from 'ngx3js';
 
 @Component({
@@ -56,59 +54,160 @@ export class WebglShadowmapProgressiveComponent extends NgxBaseComponent<{
 					step: 0.1,
 				},
 				{ name: 'enable', title: 'Debug Lightmap', type: 'checkbox' },
-			]
-			,false , false);
+			],
+			false,
+			false
+		);
 	}
 
-	ngOnInit() {}
+	ngOnInit() {
+	}
+
+	dirLights: I3JS.DirectionalLight[] = [];
+
+	setLightOrigin(mesh: NgxMeshComponent) {
+		this.lightOrigin = mesh.getObject3d();
+	}
+
+	private lightOrigin: I3JS.Object3D = null;
+
+	setLightTarget(mesh: NgxMeshComponent) {
+		this.lightTarget = mesh.getObject3d();
+	}
+
+	private lightTarget: I3JS.Object3D = null;
 
 	setMesh(mesh: NgxMeshComponent) {
 		super.setMesh(mesh);
-		this.lightmapObjects = [];
+		this.meshObject3d.traverse((child : any) => {
+			if (child.isMesh) {
+				child.material = new THREE.MeshPhongMaterial();
+			} else if (child.isLineSegments){
+				child.parent.remove(child);
+			}
+		})
+		this.meshTransformControl.attach(this.meshObject3d);
+	}
+
+	setGround(mesh: NgxMeshComponent) {
+		this.groundMesh = mesh.getObject3d();
+	}
+	
+	private groundMesh : I3JS.Object3D = null;
+
+	lightmapObjects: any[] = [];
+
+	private orbitControls: I3JS.OrbitControls = null;
+
+	setRender(renderer: NgxRendererComponent): void {
+		super.setRender(renderer);
+		this.progressiveSurfacemap = new THREE.ProgressiveLightMap(
+			this.renderer.renderer as any,
+			1024
+		);
 		this.dirLights = [];
-		const lightTarget = new THREE.Group();
-		lightTarget.position.set(0, 20, 0);
-		for (let l = 0; l < 8; l++) {
-			const dirLight = new THREE.DirectionalLight(0xffffff, 1.0 / 8);
+		for ( let l = 0; l < 8; l ++ ) {
+			const dirLight = new THREE.DirectionalLight( 0xffffff, 1.0 / 8 );
 			dirLight.name = 'Dir. Light ' + l;
-			dirLight.position.set(200, 200, 200);
+			dirLight.position.set( 200, 200, 200 );
 			dirLight.castShadow = true;
 			dirLight.shadow.camera.near = 100;
 			dirLight.shadow.camera.far = 5000;
 			dirLight.shadow.camera.right = 150;
-			dirLight.shadow.camera.left = -150;
+			dirLight.shadow.camera.left = - 150;
 			dirLight.shadow.camera.top = 150;
-			dirLight.shadow.camera.bottom = -150;
+			dirLight.shadow.camera.bottom = - 150;
 			dirLight.shadow.mapSize.width = 512;
 			dirLight.shadow.mapSize.height = 512;
-			// this.lightmapObjects.push( dirLight );
-			this.dirLights.push(dirLight);
-			dirLight.target = lightTarget;
+			this.dirLights.push( dirLight );
 		}
-		this.meshObject3d.traverse((child: any) => {
-			if (child.isMesh) {
-				child.name = 'Loaded Mesh';
-				child.castShadow = true;
-				child.receiveShadow = true;
-				child.material = new THREE.MeshPhongMaterial();
-				// This adds the model to the lightmap
-				// this.lightmapObjects.push( child );
-			} else {
-				child.layers.disableAll();
-			}
+
+		this.getTimeout(2000).then(() => {
+			this.orbitControls = this.renderer.getRenderControl().getControl();
+			this.IightOriginTransformControl.attach(this.lightOrigin);
+			this.dirLights.forEach((light) => {
+				light.target = this.lightTarget;
+			});
+			const lightmapObjects:I3JS.Object3D[] = [];
+			this.meshObject3d.traverse((child : any) => {
+				if (child.isMesh) {
+					lightmapObjects.push(child);
+				}
+			})
+			console.log(this.meshObject3d);
+			this.dirLights.forEach(light => {
+				lightmapObjects.push(light);
+			});
+			lightmapObjects.push(this.groundMesh);
+			this.progressiveSurfacemap.addObjectsToLightMap( lightmapObjects );
+
 		});
-		this.progressiveSurfacemap.addObjectsToLightMap(this.lightmapObjects);
-	}
-	dirLights: any[] = [];
-	lightmapObjects: any[] = [];
-
-	setProgressiveSurfacemap(viewer: NgxViewerComponent) {
-		this.progressiveSurfacemap = viewer.getViewer();
 	}
 
-	progressiveSurfacemap: any = null;
+	setTransformControl(control: NgxControlComponent, type: string) {
+		switch (type) {
+			case 'lightOrigin':
+				this.IightOriginTransformControl = control.getControl();
+				break;
+			case 'mesh':
+				this.meshTransformControl = control.getControl();
+				break;
+		}
+	}
+
+	private IightOriginTransformControl: I3JS.TransformControls = null;
+	private meshTransformControl: I3JS.TransformControls = null;
+
+	transformControlsEvent(event: any) {
+		switch (event.type) {
+			case 'dragging-changed':
+				this.orbitControls.enabled = !event.event.value;
+				break;
+		}
+	}
+
+	progressiveSurfacemap: I3JS.ProgressiveLightMap = null;
 
 	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
+		if (this.progressiveSurfacemap && this.lightOrigin && this.meshObject3d) {
+			if (this.controls.enable) {
+				const progressiveSurfacemap = this.progressiveSurfacemap;
+				progressiveSurfacemap.update(
+					this.cameraObject3d,
+					this.controls.blendWindow,
+					this.controls.blurEdges
+				);
+				if (!progressiveSurfacemap.firstUpdate) {
+					progressiveSurfacemap.showDebugLightmap(this.controls.debugLightmap);
+				}
+			}
+			// Manually Update the Directional Lights
+			const lightRadius = this.controls.lightRadius;
+			const lightOrigin = this.lightOrigin;
+			const meshPosition = this.meshObject3d.position;
+			this.dirLights.forEach((light) => {
+				// Sometimes they will be sampled from the target direction
+				// Sometimes they will be uniformly sampled from the upper hemisphere
+				if (Math.random() > this.controls.ambientWeight) {
+					light.position.set(
+						lightOrigin.position.x + Math.random() * lightRadius,
+						lightOrigin.position.y + Math.random() * lightRadius,
+						lightOrigin.position.z + Math.random() * lightRadius
+					);
+				} else {
+					// Uniform Hemispherical Surface Distribution for Ambient Occlusion
+					const lambda = Math.acos(2 * Math.random() - 1) - 3.14159 / 2.0;
+					const phi = 2 * 3.14159 * Math.random();
+					light.position.set(
+						Math.cos(lambda) * Math.cos(phi) * 300 + meshPosition.x,
+						Math.abs(Math.cos(lambda) * Math.sin(phi) * 300) +
+							meshPosition.y +
+							20,
+						Math.sin(lambda) * 300 + meshPosition.z
+					);
+				}
+			});
+		}
 	}
 }
