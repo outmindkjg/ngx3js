@@ -1,6 +1,7 @@
 
 div#example-iframe {
     position: relative;
+    overflow: hidden;
     div.loading {
         position: absolute;
         left:0;
@@ -39,16 +40,16 @@ div#example-iframe {
         color: #fff;
         border-radius: 0.5em;
         background-color: rgba(0,0,0,0.6);
-        padding: 3px 10px;
+        padding: 10px 10px;
         z-index: 100;
+        line-height: 100%;
     }
     a#fullScreen {
         bottom: 40px;
-        transition: bottom 1s;
+        transition: bottom 1s, right 1s;
     }
-	a.button {
+    a.button {
 		position: absolute;
-		opacity: 0.2;
 		right: 1rem;
 		bottom: 1rem;
 		z-index: 100;
@@ -62,12 +63,37 @@ div#example-iframe {
 		cursor: pointer;
         display: none;
 	}
+    a.button,
+    a#fullScreen,
+    a#newWindow {
+        opacity: 0.3;
+        &:hover {
+            opacity: 1;
+        }
+    }
+
     &.active-full-screen {
         a#newWindow {
             display: none;
         }
         a#fullScreen {
-            bottom : 0.3em;
+            bottom : calc(100% - 120px);
+            right: -2em;
+            border-radius: 50%;
+            &:hover {
+                right : 0.5em;
+            }
+            span {
+                display: none;
+            }
+            &::after {
+                content: '';
+                background-image: url(../../assets/examples/files/close.svg);
+                background-size: 50px 50px;
+                display: inline-block;
+                width : 50px;
+                height: 50px;
+            }
         }
     }
     &.full-screen {
