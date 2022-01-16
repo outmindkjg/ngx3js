@@ -63,9 +63,14 @@
 				[widthSegments]="32"
 				[heightSegments]="16"
 			></ngx3js-geometry>
+			<ngx3js-material
+				#material
+				[type]="'MeshStandardMaterial'"
+				(onLoad)="setMeshStandardMaterial($event)"
+			></ngx3js-material>
 		</ngx3js-shared>
 		<ngx3js-mesh (onLoad)="setMesh($event)">
-			<ngx3js-mesh *ngFor="let info of meshInfos" [geometry]="geometry">
+			<ngx3js-mesh *ngFor="let info of meshInfos" [geometry]="geometry" [material]="material" [userData]="{ color : info.color }">
 				<ngx3js-position
 					[x]="info.position.x"
 					[y]="info.position.y"
@@ -76,11 +81,6 @@
 					[y]="info.rotation.y"
 					[z]="info.rotation.z"
 				></ngx3js-rotation>
-				<ngx3js-material
-					#material
-					[type]="'MeshStandardMaterial'"
-					[color]="info.color"
-				></ngx3js-material>
 			</ngx3js-mesh>
 		</ngx3js-mesh>
 		<ngx3js-helper
