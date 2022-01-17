@@ -159,9 +159,9 @@ export class WebglSpritesNodesComponent extends NgxBaseComponent<{}> {
 		super.onRender(timer);
 		if (this.sprite1 !== null && this.sprite2 !== null && this.sprite3 !== null) {
 			this.frame.update( timer.delta )
-			.updateNode( this.sprite1.material )
-			.updateNode( this.sprite2.material )
-			.updateNode( this.sprite3.material );
+			this.frame.updateNode( this.sprite1.material )
+			this.frame.updateNode( this.sprite2.material )
+			this.frame.updateNode( this.sprite3.material );
 			// rotate sprite
 			this.sprite3.rotation.z -= Math.PI * .005;
 		}

@@ -67,7 +67,7 @@ export class WebglMaterialsInstanceUniformNodesComponent extends NgxBaseComponen
 		super.onRender(timer);
 		if (this.pointLight !== null) {
 			this.frame.update( timer.delta )
-			.updateNode( this.material );
+			this.frame.updateNode( this.material );
 			const elapsedTime = timer.elapsedTime * 0.1;
 			this.pointLight.position.x = Math.sin(elapsedTime * 7) * 300;
 			this.pointLight.position.y = Math.cos(elapsedTime * 5) * 400;
