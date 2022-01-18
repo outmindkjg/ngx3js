@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { I3JS, IRendererTimer, NgxBaseComponent, NgxMeshComponent, NgxRendererComponent, NODES, THREE } from 'ngx3js';
+import { I3JS, IRendererTimer, NgxBaseComponent, NgxMeshComponent, NgxRendererComponent, NODES } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-materials-nodes-playground',
@@ -17,6 +17,7 @@ export class WebglMaterialsNodesPlaygroundComponent extends NgxBaseComponent<{}>
 	frame : I3JS.NodeFrame = null;
 	ngOnInit() {
 		this.frame = new NODES.NodeFrame();
+		NODES.SetNodeAssetLibPath('assets/examples/');
 	}
 
 	setRender(renderer: NgxRendererComponent): void {
