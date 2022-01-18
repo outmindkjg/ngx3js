@@ -134,7 +134,6 @@ export class WebglShadowmapProgressiveComponent extends NgxBaseComponent<{
 					lightmapObjects.push(child);
 				}
 			})
-			console.log(this.meshObject3d);
 			this.dirLights.forEach(light => {
 				lightmapObjects.push(light);
 			});

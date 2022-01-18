@@ -117,18 +117,12 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 		scale: number;
 	}[] = [];
 
-	clearGui() {
-		const gui = this.renderer.gui.folders[0];
-		const domElement = gui.domElement;
-		gui.children.forEach((child) => {
-			child.domElement.parentNode.removeChild(child.domElement);
-		});
-		gui.children = [];
+	protected clearGui() {
+		super.clearGui('property');
 		this.property = {};
 	}
 
-	property: any = {};
-	addGui(
+	protected addGui(
 		name: string,
 		value: any,
 		callback?: (value: any) => void,
@@ -136,29 +130,11 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 		min?: number,
 		max?: number
 	): any {
-		let node;
-		const gui = this.renderer.gui.folders[0];
-		const param = this.property;
-		param[name] = value;
-
-		if (isColor) {
-			node = gui.addColor(param, name).onChange(() => {
-				callback(param[name]);
-			});
-		} else if (typeof value == 'object') {
-			param[name] = value[Object.keys(value)[0]];
-
-			node = gui.add(param, name, value).onChange(() => {
-				callback(param[name]);
-			});
-		} else {
-			node = gui.add(param, name, min, max).onChange(() => {
-				callback(param[name]);
-			});
-		}
-
-		return node;
+		return super.addGui(name, value, callback, isColor, min, max, this.property, 'property');
 	}
+
+	property: any = {};
+
 
 	updateMaterial() {
 		if (this.nodepass !== null) {

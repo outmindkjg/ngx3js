@@ -180,11 +180,6 @@ export class WebglBuffergeometryDrawrangeComponent extends NgxBaseComponent<{
 			this.linesMesh.geometry.attributes.position.needsUpdate = true;
 			this.linesMesh.geometry.attributes.color.needsUpdate = true;
 			this.pointCloud.geometry.attributes.position.needsUpdate = true;
-		} else {
-			this.consoleLogTime('render', {
-				linesMesh: this.linesMesh,
-				pointCloud: this.pointCloud,
-			});
 		}
 	}
 }

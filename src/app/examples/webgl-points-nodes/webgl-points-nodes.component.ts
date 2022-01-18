@@ -85,7 +85,7 @@ export class WebglPointsNodesComponent extends NgxBaseComponent<{
 
 		// material
 
-		const material = new THREE.PointsNodeMaterial( {
+		const material = new NODES.PointsNodeMaterial( {
 			depthWrite: false,
 			transparent: true,
 			sizeAttenuation: true,
@@ -97,7 +97,7 @@ export class WebglPointsNodesComponent extends NgxBaseComponent<{
 		material.positionNode = positionNode;
 		object3d.material = material;
 		this.material = material;
-		THREE.OnNodeBuildBeforeRender(this.frame, this.material);
+		NODES.OnNodeBuildBeforeRender(this.frame, this.material);
 	}
 
 	material : I3JS.PointsNodeMaterial = null;

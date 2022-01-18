@@ -6,7 +6,7 @@ import {
 	IRendererTimer,
 	THREE,
 	NgxMaterialComponent,
-	NodeFrame,
+	NODES,
 } from 'ngx3js';
 
 @Component({
@@ -22,7 +22,7 @@ export class WebglMaterialsInstanceUniformNodesComponent extends NgxBaseComponen
 	frame:I3JS.NodeFrame = null;
 
 	ngOnInit() {
-		this.frame  =  new THREE.NodeFrame();
+		this.frame  =  new NODES.NodeFrame();
 		this.meshInfos = [];
 		for (let i = 0, l = 12; i < l; i++) {
 			this.meshInfos.push({
@@ -44,9 +44,7 @@ export class WebglMaterialsInstanceUniformNodesComponent extends NgxBaseComponen
 	setMeshStandardMaterial(material : NgxMaterialComponent) {
 		this.material = material.getMaterial();
 		this.material.colorNode = new InstanceUniformNode();
-		this.material.updateFrame = (node : NodeFrame) => {
-			
-		}
+		NODES.OnNodeBuildBeforeRender(this.frame, this.material);
 	}
 
 	material : any = null;
@@ -65,27 +63,29 @@ export class WebglMaterialsInstanceUniformNodesComponent extends NgxBaseComponen
 
 	onRender(timer: IRendererTimer) {
 		super.onRender(timer);
-		if (this.pointLight !== null) {
+		if (this.pointLight !== null && this.meshChildren && this.meshChildren.length > 0) {
 			this.frame.update( timer.delta )
-			this.frame.updateNode( this.material );
 			const elapsedTime = timer.elapsedTime * 0.1;
 			this.pointLight.position.x = Math.sin(elapsedTime * 7) * 300;
 			this.pointLight.position.y = Math.cos(elapsedTime * 5) * 400;
 			this.pointLight.position.z = Math.cos(elapsedTime * 3) * 300;
+			this.meshChildren.forEach(child => {
+				child.rotation.x += 0.01;
+				child.rotation.y += 0.005;
+			});
 		}
 	}
 }
 
-class InstanceUniformNode extends THREE.NodeNode {
+class InstanceUniformNode extends NODES.Node {
 	updateType: any = null;
 	inputNode: any = null;
 
 	constructor() {
 		super('vec3');
 
-		this.updateType = THREE.NodeUpdateType.Object;
-
-		this.inputNode = new THREE.ColorNode();
+		this.updateType = NODES.NodeUpdateType.Object;
+		this.inputNode = new NODES.ColorNode();
 	}
 
 	update(frame) {
@@ -95,7 +95,6 @@ class InstanceUniformNode extends THREE.NodeNode {
 		const meshColor = mesh.userData.color;
 
 		this.inputNode.value.copy(meshColor);
-
 		// force refresh material uniforms
 		rendererState.useProgram(null);
 	}
