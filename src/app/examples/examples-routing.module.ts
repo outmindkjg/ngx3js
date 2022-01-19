@@ -431,7 +431,10 @@ import { WebxrVrRollercoasterComponent } from './webxr-vr-rollercoaster/webxr-vr
 import { WebxrVrSandboxComponent } from './webxr-vr-sandbox/webxr-vr-sandbox.component';
 import { WebxrVrSculptComponent } from './webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component';
-import { HelloWorldComponent } from './hello-world/hello-world.component';
+import { NgxHelloWorldComponent } from './ngx-hello-world/ngx-hello-world.component';
+import { NgxGeometryBrowserComponent } from './ngx-geometry-browser/ngx-geometry-browser.component';
+import { NgxBonesBrowserComponent } from './ngx-bones-browser/ngx-bones-browser.component';
+import { NgxMaterialBrowserComponent } from './ngx-material-browser/ngx-material-browser.component';
 import { NgxMeshComponent } from './ngx-mesh/ngx-mesh.component';
 import { WebglLoaderTextureLogluvComponent } from './webgl-loader-texture-logluv/webgl-loader-texture-logluv.component';
 import { WebglPerformanceShaderComponent } from './webgl-performance-shader/webgl-performance-shader.component';
@@ -1618,7 +1621,11 @@ const routes: Routes = [
 	{ path: 'ngx_curve/:type', component: NgxCurveComponent },
 	{ path: 'ngx_mesh', component: NgxMeshComponent },
 	{ path: 'ngx_mesh/:type', component: NgxMeshComponent },
-	{ path: 'ngx_hello_world', component: HelloWorldComponent },
+	{ path: 'ngx_hello_world', component: NgxHelloWorldComponent },
+	{ path: 'ngx_bones_browser', component: NgxBonesBrowserComponent },
+	{ path: 'ngx_geometry_browser', component: NgxGeometryBrowserComponent },
+	{ path: 'ngx_geometry_browser/:type', component: NgxGeometryBrowserComponent },
+	{ path: 'ngx_material_browser', component: NgxMaterialBrowserComponent },
 	{ path: '**', component: UnderConstructionComponent },
 ];
 

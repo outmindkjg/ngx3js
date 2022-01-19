@@ -1,0 +1,106 @@
+<div class="info">
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	Material Browser [{{ materialAttr.type }}]
+	<pre>
+	{{ materialMaps | json }}
+	</pre
+	>
+	<pre>
+	{{ materialAttr | json }}
+	</pre>
+</div>
+<ngx3js-renderer
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[guiOpen]="true"
+	(onLoad)="setRender($event)"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="70" [near]="10" [far]="100">
+		<ngx3js-position [x]="0" [y]="0" [z]="35"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene
+		#scene
+		[background]="'0x444444'"
+		[environment]="'environmentx0.04.room'"
+		(onLoad)="setScene($event)"
+	>
+		<ngx3js-fog
+			*ngIf="controls.fog.enabled"
+			[color]="controls.fog.color"
+		></ngx3js-fog>
+		<ngx3js-light
+			[type]="'AmbientLight'"
+			[color]="controls.ambientLight"
+		></ngx3js-light>
+		<ngx3js-light
+			[type]="'PointLight'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[distance]="0"
+		>
+			<ngx3js-position [x]="0" [y]="200" [z]="0"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'PointLight'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[distance]="0"
+		>
+			<ngx3js-position [x]="100" [y]="200" [z]="100"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'PointLight'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[distance]="0"
+		>
+			<ngx3js-position [x]="-100" [y]="-200" [z]="-100"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#geometry
+				[type]="'TorusKnotGeometry'"
+				[radius]="10"
+				[tube]="3"
+				[tubularSegments]="200"
+				[radialSegments]="32"
+				[toNonIndexed]="true"
+				[onInit]="generateVertexColors"
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)" [geometry]="geometry">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-material
+				[type]="materialAttr.type"
+				[transparent]="controls.material.transparent"
+				[opacity]="controls.material.opacity"
+				[depthTest]="controls.material.depthTest"
+				[depthWrite]="controls.material.depthWrite"
+				[alphaTest]="controls.material.alphaTest"
+				[visible]="controls.material.visible"
+				[side]="controls.material.side"
+				[color]="materialAttr.color"
+				[envMap]="materialMaps.envMap"
+				[map]="materialMaps.diffuseMap || materialMaps.map"
+				[roughnessMap]="materialMaps.roughnessMap"
+				[matcap]="materialMaps.matcap"
+				[alphaMap]="materialMaps.alphaMap"
+				[gradientMap]="materialMaps.gradientMap"
+
+				[wireframe]="materialAttr.wireframe"
+				[vertexColors]="materialAttr.vertexColors"
+				[combine]="materialAttr.combine"
+				[reflectivity]="materialAttr.reflectivity"
+				[refractionRatio]="materialAttr.refractionRatio"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>

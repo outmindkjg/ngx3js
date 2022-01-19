@@ -1,0 +1,111 @@
+<div class="info">
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	Geometry browser
+</div>
+<ngx3js-renderer
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, enableZoom : false }"
+	[statsMode]="0"
+	[antialias]="true"
+	[clearColor]="'0xffffff'"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onLoad)="setRender($event)"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="75" [near]="0.1" [far]="50">
+		<ngx3js-position [x]="0" [y]="0" [z]="30"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x444444'">
+		<ngx3js-light
+			[type]="'PointLight'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[distance]="0"
+		>
+			<ngx3js-position [x]="0" [y]="200" [z]="0"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'PointLight'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[distance]="0"
+		>
+			<ngx3js-position [x]="100" [y]="200" [z]="100"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-light
+			[type]="'PointLight'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[distance]="0"
+		>
+			<ngx3js-position [x]="-100" [y]="-200" [z]="-100"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-shared>
+			<ngx3js-geometry
+				#geometry
+				[type]="geometryAttr.type"
+				[width]="geometryAttr.width"
+				[height]="geometryAttr.height"
+				[depth]="geometryAttr.depth"
+				[radius]="geometryAttr.radius"
+				[outerRadius]="geometryAttr.outerRadius"
+				[innerRadius]="geometryAttr.innerRadius"
+				[segments]="geometryAttr.segments"
+				[detail]="geometryAttr.detail"
+				[widthSegments]="geometryAttr.widthSegments"
+				[heightSegments]="geometryAttr.heightSegments"
+				[depthSegments]="geometryAttr.depthSegments"
+				[radiusTop]="geometryAttr.radiusTop"
+				[radiusBottom]="geometryAttr.radiusBottom"
+				[radialSegments]="geometryAttr.radialSegments"
+				[thetaSegments]="geometryAttr.thetaSegments"
+				[phiSegments]="geometryAttr.phiSegments"
+				[openEnded]="geometryAttr.openEnded"
+				[closed]="geometryAttr.closed"
+				[thetaStart]="geometryAttr.thetaStart"
+				[thetaLength]="geometryAttr.thetaLength"
+				[phiStart]="geometryAttr.phiStart"
+				[phiLength]="geometryAttr.phiLength"
+				[points]="geometryAttr.points"
+				[curve]="geometryAttr.curve"
+				[tube]="geometryAttr.tube"
+				[tubularSegments]="geometryAttr.tubularSegments"
+				[arc]="geometryAttr.arc"
+				[p]="geometryAttr.p"
+				[q]="geometryAttr.q"
+				[shapes]="geometryAttr.shapes"
+				[steps]="geometryAttr.steps"
+				[bevelEnabled]="geometryAttr.bevelEnabled"
+				[bevelThickness]="geometryAttr.bevelThickness"
+				[bevelSize]="geometryAttr.bevelSize"
+				[bevelOffset]="geometryAttr.bevelOffset"
+				[bevelSegments]="geometryAttr.bevelSegments"
+				[center]="geometryAttr.center"
+
+			></ngx3js-geometry>
+		</ngx3js-shared>
+		<ngx3js-mesh (onLoad)="setMesh($event)">
+			<ngx3js-position [x]="0" [y]="0" [z]="0"></ngx3js-position>
+			<ngx3js-mesh [type]="'LineSegments'" [geometry]="geometry">
+				<ngx3js-material
+					[type]="'LineBasicMaterial'"
+					[color]="'0xffffff'"
+					[transparent]="true"
+					[opacity]="0.5"
+				></ngx3js-material>
+			</ngx3js-mesh>
+			<ngx3js-mesh [type]="'Mesh'" [geometry]="geometry">
+				<ngx3js-material
+					[type]="'MeshPhongMaterial'"
+					[color]="'0x156289'"
+					[emissive]="'0x072534'"
+					[side]="'DoubleSide'"
+					[flatShading]="true"
+				></ngx3js-material>
+			</ngx3js-mesh>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>

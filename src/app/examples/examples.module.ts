@@ -14,7 +14,10 @@ import { Css3dSpritesComponent } from './css3d-sprites/css3d-sprites.component';
 import { Css3dYoutubeComponent } from './css3d-youtube/css3d-youtube.component';
 import { ExamplesRoutingModule } from './examples-routing.module';
 import { GamesFpsComponent } from './games-fps/games-fps.component';
-import { HelloWorldComponent } from './hello-world/hello-world.component';
+import { NgxHelloWorldComponent } from './ngx-hello-world/ngx-hello-world.component';
+import { NgxGeometryBrowserComponent } from './ngx-geometry-browser/ngx-geometry-browser.component';
+import { NgxBonesBrowserComponent } from './ngx-bones-browser/ngx-bones-browser.component';
+import { NgxMaterialBrowserComponent } from './ngx-material-browser/ngx-material-browser.component';
 import { MiscAnimationGroupsComponent } from './misc-animation-groups/misc-animation-groups.component';
 import { MiscAnimationKeysComponent } from './misc-animation-keys/misc-animation-keys.component';
 import { MiscBoxselectionComponent } from './misc-boxselection/misc-boxselection.component';
@@ -872,7 +875,10 @@ import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component
 		NgxCurveComponent,
 		NgxEffectComponent,
 		NgxMeshComponent,
-		HelloWorldComponent,
+		NgxHelloWorldComponent,
+		NgxBonesBrowserComponent,
+		NgxMaterialBrowserComponent,
+		NgxGeometryBrowserComponent,
 		WebgpuInstanceUniformComponent,
 		WebgpuLightsCustomComponent,
 		WebgpuLightsSelectiveComponent,

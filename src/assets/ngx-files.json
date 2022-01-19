@@ -1,4 +1,10 @@
  {
+	"browser": [
+		"ngx_material_browser",
+		"ngx_geometry_browser",
+		"ngx_bones_browser",
+		"ngx_hello_world"
+	],
 	"ngx3js": [
 		"ngx_renderer",
 		"ngx_scene",
