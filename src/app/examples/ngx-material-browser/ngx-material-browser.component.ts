@@ -277,31 +277,49 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 				case 'MeshLambertMaterial':
 					this.materialAttr = {
 						type: this.controls.material.type,
+						color: 0x049ef4,
+						emissive: 0xffffff,
+						envMaps: this.envMaps[0],
+						map: this.diffuseMaps[0],
+						alphaMap: this.alphaMaps[0],
 					};
+					break;
 				case 'MeshMatcapMaterial':
 					this.materialAttr = {
 						type: this.controls.material.type,
+						color: 0x049ef4,
+						flatShading: true,
+						matcap: this.matcaps[0],
+						alphaMap: this.alphaMaps[0],
 					};
+					break;
 				case 'MeshPhongMaterial':
 					this.materialAttr = {
 						type: this.controls.material.type,
 					};
+					break;
 				case 'MeshToonMaterial':
 					this.materialAttr = {
 						type: this.controls.material.type,
 					};
+					break;
 				case 'MeshStandardMaterial':
 					this.materialAttr = {
 						type: this.controls.material.type,
 					};
+					break;
 				case 'MeshPhysicalMaterial':
 					this.materialAttr = {
 						type: this.controls.material.type,
 					};
+					break;
 				case 'MeshDepthMaterial':
 					this.materialAttr = {
 						type: this.controls.material.type,
+						wireframe: false,
+						alphaMap: this.alphaMaps[0],
 					};
+					break;
 				case 'MeshNormalMaterial':
 					this.materialAttr = {
 						type: this.controls.material.type,
@@ -326,7 +344,9 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 			super.clearGui('attribute');
 			Object.entries(this.materialAttr).forEach(([key, value]) => {
 				switch (key) {
+					case 'emissive':
 					case 'color':
+					case 'specular':
 						this.addGui(
 							key,
 							value,
@@ -338,6 +358,8 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 							'attribute'
 						);
 						break;
+					case 'fog':
+					case 'flatShading':
 					case 'wireframe':
 					case 'vertexColors':
 						this.addGui(

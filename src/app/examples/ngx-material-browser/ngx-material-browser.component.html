@@ -1,13 +1,6 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
 	Material Browser [{{ materialAttr.type }}]
-	<pre>
-	{{ materialMaps | json }}
-	</pre
-	>
-	<pre>
-	{{ materialAttr | json }}
-	</pre>
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -87,7 +80,11 @@
 				[alphaTest]="controls.material.alphaTest"
 				[visible]="controls.material.visible"
 				[side]="controls.material.side"
+
 				[color]="materialAttr.color"
+				[emissive]="materialAttr.emissive"
+				[specular]="materialAttr.specular"
+
 				[envMap]="materialMaps.envMap"
 				[map]="materialMaps.diffuseMap || materialMaps.map"
 				[roughnessMap]="materialMaps.roughnessMap"
@@ -100,6 +97,9 @@
 				[combine]="materialAttr.combine"
 				[reflectivity]="materialAttr.reflectivity"
 				[refractionRatio]="materialAttr.refractionRatio"
+				[flatShading]="materialAttr.flatShading"
+				[fog]="materialAttr.fog"
+
 			></ngx3js-material>
 		</ngx3js-mesh>
 	</ngx3js-scene>
