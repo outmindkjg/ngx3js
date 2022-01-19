@@ -1626,6 +1626,7 @@ const routes: Routes = [
 	{ path: 'ngx_geometry_browser', component: NgxGeometryBrowserComponent },
 	{ path: 'ngx_geometry_browser/:type', component: NgxGeometryBrowserComponent },
 	{ path: 'ngx_material_browser', component: NgxMaterialBrowserComponent },
+	{ path: 'ngx_material_browser/:type', component: NgxMaterialBrowserComponent },
 	{ path: '**', component: UnderConstructionComponent },
 ];
 

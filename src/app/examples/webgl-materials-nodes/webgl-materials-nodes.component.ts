@@ -206,24 +206,23 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 		this.subscribeRefer(
 			'renderSize',
 			this.renderer.sizeSubscribe().subscribe((size) => {
-				if ( this.rtTexture ) this.rtTexture.setSize( size.x, size.y );
+				if (this.rtTexture) this.rtTexture.setSize(size.x, size.y);
 			})
 		);
 		this.getTimeout(500).then(() => {
 			this.updateMaterial();
 		});
 	}
-	serialized : boolean = false;
+	serialized: boolean = false;
 	clickSerialize() {
-		if ( this.serialized ) this.reset();
+		if (this.serialized) this.reset();
 		else this.serialize();
 
-		this.serialized = ! this.serialized;
+		this.serialized = !this.serialized;
 		return false;
 	}
 
-	@ViewChild('serialize') serializeBtn : ElementRef = null;
-
+	@ViewChild('serialize') serializeBtn: ElementRef = null;
 
 	reset() {
 		this.updateMaterial();
@@ -237,20 +236,20 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 
 		// replace uuid to url (facilitates the load of textures using url otherside uuid) e.g:
 
-		const cloud = this.getTexture( 'cloud' );
+		const cloud = this.getTexture('cloud');
 
 		// THREE.NodeMaterialLoaderUtils.replaceUUID( json, cloud, 'cloud' );
 
-		this.library[ 'cloud' ] = cloud;
+		this.library['cloud'] = cloud;
 
 		// --
 
-		const jsonStr = JSON.stringify( json );
+		const jsonStr = JSON.stringify(json);
 
 		// console.log( jsonStr );
 
-		var loader : any = new THREE.NodeMaterialLoader( null, this.library ),
-			material = loader.parse( json );
+		var loader: any = new THREE.NodeMaterialLoader(null, this.library),
+			material = loader.parse(json);
 
 		this.mesh.material.dispose();
 
@@ -259,23 +258,15 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 		// gui
 
 		const div = this.serializeBtn.nativeElement;
-		div.textContent = 'Click to reset - JSON Generate: ' + ( jsonStr.length / 1024 ).toFixed( 3 ) + 'kB';
+		div.textContent =
+			'Click to reset - JSON Generate: ' +
+			(jsonStr.length / 1024).toFixed(3) +
+			'kB';
 		/*
 		if ( gui ) gui.destroy();
 
 		gui = null;
 		*/
-	}
-
-	protected addGui(
-		name: string,
-		value: any,
-		callback?: (value: any) => void,
-		isColor?: boolean,
-		min?: number,
-		max?: number
-	): any {
-		return super.addGui(name, value, callback, isColor, min, max, this.property, 'property');
 	}
 
 	property: any = {};
@@ -452,67 +443,85 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'color',
-						mtl.color.value.getHex(),
-						function (val) {
-							mtl.color.value.setHex(val);
+						{
+							name: 'color',
+							type: 'color',
+							value: mtl.color.value.getHex(),
+							change: (val) => {
+								mtl.color.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'roughnessA',
-						roughnessA.value,
-						function (val) {
-							roughnessA.value = val;
+						{
+							name: 'roughnessA',
+							type: 'number',
+							value: roughnessA.value,
+							change: (val) => {
+								roughnessA.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'metalnessA',
-						metalnessA.value,
-						function (val) {
-							metalnessA.value = val;
+						{
+							name: 'metalnessA',
+							type: 'number',
+							value: metalnessA.value,
+							change: (val) => {
+								metalnessA.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'roughnessB',
-						roughnessB.value,
-						function (val) {
-							roughnessB.value = val;
+						{
+							name: 'roughnessB',
+							type: 'number',
+							value: roughnessB.value,
+							change: (val) => {
+								roughnessB.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'metalnessB',
-						metalnessB.value,
-						function (val) {
-							metalnessB.value = val;
+						{
+							name: 'metalnessB',
+							type: 'number',
+							value: metalnessB.value,
+							change: (val) => {
+								metalnessB.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'normalScale',
-						normalScale.value,
-						function (val) {
-							normalScale.value = val;
+						{
+							name: 'normalScale',
+							type: 'number',
+							value: normalScale.value,
+							change: (val) => {
+								normalScale.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 				}
 				break;
@@ -591,78 +600,99 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'color',
-						mtl.color.value.getHex(),
-						function (val) {
-							mtl.color.value.setHex(val);
+						{
+							name: 'color',
+							type: 'color',
+							value: mtl.color.value.getHex(),
+							change: (val) => {
+								mtl.color.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'intensity',
-						intensity.value,
-						function (val) {
-							intensity.value = val;
+						{
+							name: 'intensity',
+							type: 'number',
+							value: intensity.value,
+							change: (val) => {
+								intensity.value = val;
+							},
+							min: 0,
+							max: 2,
 						},
-						false,
-						0,
-						2
+						'property'
 					);
 
 					this.addGui(
-						'roughnessA',
-						roughnessA.value,
-						function (val) {
-							roughnessA.value = val;
+						{
+							name: 'roughnessA',
+							type: 'number',
+							value: roughnessA.value,
+							change: (val) => {
+								roughnessA.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'metalnessA',
-						metalnessA.value,
-						function (val) {
-							metalnessA.value = val;
+						{
+							name: 'metalnessA',
+							type: 'number',
+							value: metalnessA.value,
+							change: (val) => {
+								metalnessA.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'roughnessB',
-						roughnessB.value,
-						function (val) {
-							roughnessB.value = val;
+						{
+							name: 'roughnessB',
+							type: 'number',
+							value: roughnessB.value,
+							change: (val) => {
+								roughnessB.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'metalnessB',
-						metalnessB.value,
-						function (val) {
-							metalnessB.value = val;
+						{
+							name: 'metalnessB',
+							type: 'number',
+							value: metalnessB.value,
+							change: (val) => {
+								metalnessB.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'normalScale',
-						normalScale.value,
-						function (val) {
-							normalScale.value = val;
+						{
+							name: 'normalScale',
+							type: 'number',
+							value: normalScale.value,
+							change: (val) => {
+								normalScale.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 				}
 				break;
@@ -716,58 +746,72 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'radiance',
-						radiance.value,
-						function (val) {
-							radiance.value = val;
+						{
+							name: 'radiance',
+							value: radiance.value,
+							change: (val) => {
+								radiance.value = val;
+							},
+							min: 0,
+							max: 2,
 						},
-						false,
-						0,
-						2
+						'property'
 					);
 
 					this.addGui(
-						'irradiance',
-						irradiance.value,
-						function (val) {
-							irradiance.value = val;
+						{
+							name: 'irradiance',
+							type: 'number',
+							value: irradiance.value,
+							change: (val) => {
+								irradiance.value = val;
+							},
+							min: 0,
+							max: 2,
 						},
-						false,
-						0,
-						2
+						'property'
 					);
 
 					this.addGui(
-						'roughness',
-						roughness.value,
-						function (val) {
-							roughness.value = val;
+						{
+							name: 'roughness',
+							type: 'number',
+							value: roughness.value,
+							change: (val) => {
+								roughness.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'metalness',
-						metalness.value,
-						function (val) {
-							metalness.value = val;
+						{
+							name: 'metalness',
+							type: 'number',
+							value: metalness.value,
+							change: (val) => {
+								metalness.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'normalScale',
-						normalScale.value,
-						function (val) {
-							normalScale.value = val;
+						{
+							name: 'normalScale',
+							type: 'number',
+							value: normalScale.value,
+							change: (val) => {
+								normalScale.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 				}
 
@@ -829,101 +873,130 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 
 					// GUI
 
-					this.addGui('use node material', useNodeMaterial, function (val) {
-						useNodeMaterial = val;
-
-						updateMaterial();
-					});
-
 					this.addGui(
-						'roughness',
-						mtl.roughness,
-						function (val) {
-							mtl.roughness = val;
-						},
-						false,
-						0,
-						1
-					);
-
-					this.addGui(
-						'metalness',
-						mtl.roughness,
-						function (val) {
-							mtl.metalness = val;
-						},
-						false,
-						0,
-						1
-					);
-
-					this.addGui(
-						'normalX',
-						mtl.normalScale.x,
-						function (val) {
-							mtl.normalScale.x = val;
-						},
-						false,
-						-1,
-						1
-					);
-
-					this.addGui(
-						'normalY',
-						mtl.normalScale.y,
-						function (val) {
-							mtl.normalScale.y = val;
-						},
-						false,
-						-1,
-						1
-					);
-
-					this.addGui(
-						'sat. (node)',
-						sataturation.value,
-						function (val) {
-							sataturation.value = val;
-						},
-						false,
-						0,
-						2
-					);
-
-					this.addGui(
-						'colors',
-						useMap,
-						function (val) {
-							useMap = val;
-
-							updateMaterial();
-						},
-						false
-					);
-
-					this.addGui(
-						'normals',
-						useNormals,
-						function (val) {
-							useNormals = val;
-
-							updateMaterial();
-						},
-						false
-					);
-
-					this.addGui(
-						'side',
 						{
-							DoubleSided: THREE.DoubleSide,
-							FrontSided: THREE.FrontSide,
-							BackSided: THREE.BackSide,
+							name: 'use node material',
+							type: 'checkbox',
+							value: useNodeMaterial,
+							change: (val) => {
+								useNodeMaterial = val;
+								updateMaterial();
+							},
 						},
-						function (val) {
-							defaultSide = Number(val);
+						'property'
+					);
 
-							updateMaterial();
-						}
+					this.addGui(
+						{
+							name: 'roughness',
+							type: 'number',
+							value: mtl.roughness,
+							change: (val) => {
+								mtl.roughness = val;
+							},
+							min: 0,
+							max: 1,
+						},
+						'property'
+					);
+
+					this.addGui(
+						{
+							name: 'metalness',
+							type: 'number',
+							value: mtl.roughness,
+							change: (val) => {
+								mtl.metalness = val;
+							},
+							min: 0,
+							max: 1,
+						},
+						'property'
+					);
+
+					this.addGui(
+						{
+							name: 'normalX',
+							type: 'number',
+							value: mtl.normalScale.x,
+							change: (val) => {
+								mtl.normalScale.x = val;
+							},
+							min: -1,
+							max: 1,
+						},
+						'property'
+					);
+
+					this.addGui(
+						{
+							name: 'normalY',
+							type: 'number',
+							value: mtl.normalScale.y,
+							change: (val) => {
+								mtl.normalScale.y = val;
+							},
+							min: -1,
+							max: 1,
+						},
+						'property'
+					);
+
+					this.addGui(
+						{
+							name: 'sat. (node)',
+							type: 'number',
+							value: sataturation.value,
+							change: (val) => {
+								sataturation.value = val;
+							},
+							min: 0,
+							max: 2,
+						},
+						'property'
+					);
+
+					this.addGui(
+						{
+							name: 'colors',
+							type: 'checkbox',
+							value: useMap,
+							change: (val) => {
+								useMap = val;
+								updateMaterial();
+							},
+						},
+						'property'
+					);
+
+					this.addGui(
+						{
+							name: 'normals',
+							type: 'checkbox',
+							value: useNormals,
+							change: (val) => {
+								useNormals = val;
+								updateMaterial();
+							},
+						},
+						'property'
+					);
+
+					this.addGui(
+						{
+							name: 'side',
+							type: 'select',
+							select: {
+								DoubleSided: THREE.DoubleSide,
+								FrontSided: THREE.FrontSide,
+								BackSided: THREE.BackSide,
+							},
+							change: (val) => {
+								defaultSide = Number(val);
+								updateMaterial();
+							},
+						},
+						'property'
 					);
 				}
 				break;
@@ -1014,111 +1087,141 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'color',
-						mtl.color.value.getHex(),
-						function (val) {
-							mtl.color.value.setHex(val);
+						{
+							name: 'color',
+							type: 'color',
+							value: mtl.color.value.getHex(),
+							change: (val) => {
+								mtl.color.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'reflectivity',
-						reflectivity.value,
-						function (val) {
-							reflectivity.value = val;
+						{
+							name: 'reflectivity',
+							type: 'number',
+							value: reflectivity.value,
+							change: (val) => {
+								reflectivity.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'clearcoat',
-						clearcoat.value,
-						function (val) {
-							clearcoat.value = val;
+						{
+							name: 'clearcoat',
+							type: 'number',
+							value: clearcoat.value,
+							change: (val) => {
+								clearcoat.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'clearcoatRoughness',
-						clearcoatRoughness.value,
-						function (val) {
-							clearcoatRoughness.value = val;
+						{
+							name: 'clearcoatRoughness',
+							type: 'number',
+							value: clearcoatRoughness.value,
+							change: (val) => {
+								clearcoatRoughness.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'clearcoatNormalScale',
-						clearcoatNormalScale.value,
-						function (val) {
-							clearcoatNormalScale.value = val;
+						{
+							name: 'clearcoatNormalScale',
+							type: 'number',
+							value: clearcoatNormalScale.value,
+							change: (val) => {
+								clearcoatNormalScale.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'roughnessA',
-						roughnessA.value,
-						function (val) {
-							roughnessA.value = val;
+						{
+							name: 'roughnessA',
+							type: 'number',
+							value: roughnessA.value,
+							change: (val) => {
+								roughnessA.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'metalnessA',
-						metalnessA.value,
-						function (val) {
-							metalnessA.value = val;
+						{
+							name: 'metalnessA',
+							type: 'number',
+							value: metalnessA.value,
+							change: (val) => {
+								metalnessA.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'roughnessB',
-						roughnessB.value,
-						function (val) {
-							roughnessB.value = val;
+						{
+							name: 'roughnessB',
+							type: 'number',
+							value: roughnessB.value,
+							change: (val) => {
+								roughnessB.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'metalnessB',
-						metalnessB.value,
-						function (val) {
-							metalnessB.value = val;
+						{
+							name: 'metalnessB',
+							type: 'number',
+							value: metalnessB.value,
+							change: (val) => {
+								metalnessB.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'normalScale',
-						normalScale.value,
-						function (val) {
-							normalScale.value = val;
+						{
+							name: 'normalScale',
+							type: 'number',
+							value: normalScale.value,
+							change: (val) => {
+								normalScale.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 				}
 				break;
@@ -1198,61 +1301,83 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'speed',
-						speed.value,
-						function (val) {
-							speed.value = val;
+						{
+							name: 'speed',
+							type: 'number',
+							value: speed.value,
+							change: (val) => {
+								speed.value = val;
+							},
+							min: 0,
+							max: 10,
 						},
-						false,
-						0,
-						10
+						'property'
 					);
 
 					this.addGui(
-						'scale',
-						scale.value,
-						function (val) {
-							scale.value = val;
+						{
+							name: 'scale',
+							type: 'number',
+							value: scale.value,
+							change: (val) => {
+								scale.value = val;
+							},
+							min: 0,
+							max: 3,
 						},
-						false,
-						0,
-						3
+						'property'
 					);
 
 					this.addGui(
-						'worldScale',
-						worldScale.value,
-						function (val) {
-							worldScale.value = val;
+						{
+							name: 'worldScale',
+							type: 'number',
+							value: worldScale.value,
+							change: (val) => {
+								worldScale.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'colorA',
-						colorA.value.getHex(),
-						function (val) {
-							colorA.value.setHex(val);
+						{
+							name: 'colorA',
+							type: 'color',
+							value: colorA.value.getHex(),
+							change: (val) => {
+								colorA.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'colorB',
-						colorB.value.getHex(),
-						function (val) {
-							colorB.value.setHex(val);
+						{
+							name: 'colorB',
+							type: 'color',
+							value: colorB.value.getHex(),
+							change: (val) => {
+								colorB.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
-					this.addGui('useNormals', false, function (val) {
-						blend.b = val ? displace : displaceY;
-
-						mtl.needsUpdate = true;
-					});
+					this.addGui(
+						{
+							name: 'useNormals',
+							type: 'checkbox',
+							value: false,
+							change: (val) => {
+								blend.b = val ? displace : displaceY;
+								mtl.needsUpdate = true;
+							},
+						},
+						'property'
+					);
 				}
 				break;
 
@@ -1294,54 +1419,70 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'color',
-						color.value.getHex(),
-						function (val) {
-							color.value.setHex(val);
+						{
+							name: 'color',
+							type: 'color',
+							value: color.value.getHex(),
+							change: (val) => {
+								color.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'intensity',
-						intensity,
-						function (val) {
-							intensity = val;
+						{
+							name: 'intensity',
+							type: 'number',
+							value: intensity,
+							change: (val) => {
+								intensity = val;
 
-							(viewZ.b as any).z = -intensity;
-							rim.b.value = intensity;
+								(viewZ.b as any).z = -intensity;
+								rim.b.value = intensity;
+							},
+							min: 0,
+							max: 3,
 						},
-						false,
-						0,
-						3
+						'property'
 					);
 
 					this.addGui(
-						'power',
-						power.value,
-						function (val) {
-							power.value = val;
+						{
+							name: 'power',
+							type: 'number',
+							value: power.value,
+							change: (val) => {
+								power.value = val;
+							},
+							min: 0,
+							max: 6,
 						},
-						false,
-						0,
-						6
+						'property'
 					);
 
-					this.addGui('xray', false, function (val) {
-						if (val) {
-							mtl.emissive = color;
-							mtl.alpha = rimPower;
-							mtl.blending = THREE.AdditiveBlending;
-							mtl.depthWrite = false;
-						} else {
-							mtl.emissive = rimColor;
-							mtl.alpha = null;
-							mtl.blending = THREE.NormalBlending;
-							mtl.depthWrite = true;
-						}
-
-						mtl.needsUpdate = true;
-					});
+					this.addGui(
+						{
+							name: 'xray',
+							type: 'checkbox',
+							value: false,
+							change: (val) => {
+								if (val) {
+									mtl.emissive = color;
+									mtl.alpha = rimPower;
+									mtl.blending = THREE.AdditiveBlending;
+									mtl.depthWrite = false;
+								} else {
+									mtl.emissive = rimColor;
+									mtl.alpha = null;
+									mtl.blending = THREE.NormalBlending;
+									mtl.depthWrite = true;
+								}
+								mtl.needsUpdate = true;
+							},
+						},
+						'property'
+					);
 				}
 				break;
 
@@ -1390,58 +1531,73 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'hue',
-						hue.value,
-						function (val) {
-							hue.value = val;
+						{
+							name: 'hue',
+							type: 'number',
+							value: hue.value,
+							change: (val) => {
+								hue.value = val;
+							},
+							min: 0,
+							max: Math.PI * 2,
 						},
-						false,
-						0,
-						Math.PI * 2
+						'property'
 					);
 
 					this.addGui(
-						'saturation',
-						sataturation.value,
-						function (val) {
-							sataturation.value = val;
+						{
+							name: 'saturation',
+							type: 'number',
+							value: sataturation.value,
+							change: (val) => {
+								sataturation.value = val;
+							},
+							min: 0,
+							max: 2,
 						},
-						false,
-						0,
-						2
+						'property'
 					);
 
 					this.addGui(
-						'vibrance',
-						vibrance.value,
-						function (val) {
-							vibrance.value = val;
+						{
+							name: 'vibrance',
+							type: 'number',
+							value: vibrance.value,
+							change: (val) => {
+								vibrance.value = val;
+							},
+							min: -1,
+							max: 1,
 						},
-						false,
-						-1,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'brightness',
-						brightness.value,
-						function (val) {
-							brightness.value = val;
+						{
+							name: 'brightness',
+							type: 'number',
+							value: brightness.value,
+							change: (val) => {
+								brightness.value = val;
+							},
+							min: 0,
+							max: 0.5,
 						},
-						false,
-						0,
-						0.5
+						'property'
 					);
 
 					this.addGui(
-						'contrast',
-						contrast.value,
-						function (val) {
-							contrast.value = val;
+						{
+							name: 'contrast',
+							type: 'number',
+							value: contrast.value,
+							change: (val) => {
+								contrast.value = val;
+							},
+							min: 0,
+							max: 2,
 						},
-						false,
-						0,
-						2
+						'property'
 					);
 				}
 				break;
@@ -1475,68 +1631,79 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					}
 
 					this.addGui(
-						'translateX',
-						translate.x,
-						function (val) {
-							translate.x = val;
+						{
+							name: 'translateX',
+							type: 'number',
+							value: translate.x,
+							change: (val) => {
+								translate.x = val;
 
-							updateUVTransform();
+								updateUVTransform();
+							},
+							min: 0,
+							max: 10,
 						},
-						false,
-						0,
-						10
+						'property'
 					);
 
 					this.addGui(
-						'translateY',
-						translate.y,
-						function (val) {
-							translate.y = val;
-
-							updateUVTransform();
+						{
+							name: 'translateY',
+							type: 'number',
+							value: translate.y,
+							change: (val) => {
+								translate.y = val;
+								updateUVTransform();
+							},
+							min: 0,
+							max: 10,
 						},
-						false,
-						0,
-						10
+						'property'
 					);
 
 					this.addGui(
-						'scaleX',
-						scale.x,
-						function (val) {
-							scale.x = val;
-
-							updateUVTransform();
+						{
+							name: 'scaleX',
+							type: 'number',
+							value: scale.x,
+							change: (val) => {
+								scale.x = val;
+								updateUVTransform();
+							},
+							min: 0.1,
+							max: 5,
 						},
-						false,
-						0.1,
-						5
+						'property'
 					);
 
 					this.addGui(
-						'scaleY',
-						scale.y,
-						function (val) {
-							scale.y = val;
-
-							updateUVTransform();
+						{
+							name: 'scaleY',
+							type: 'number',
+							value: scale.y,
+							change: (val) => {
+								scale.y = val;
+								updateUVTransform();
+							},
+							min: 0.1,
+							max: 5,
 						},
-						false,
-						0.1,
-						5
+						'property'
 					);
 
 					this.addGui(
-						'rotate',
-						rotate,
-						function (val) {
-							rotate = val;
-
-							updateUVTransform();
+						{
+							name: 'rotate',
+							type: 'number',
+							value: rotate,
+							change: (val) => {
+								rotate = val;
+								updateUVTransform();
+							},
+							min: 0,
+							max: 360,
 						},
-						false,
-						0,
-						360
+						'property'
 					);
 				}
 				break;
@@ -1564,21 +1731,30 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'scale',
-						bumpMap.scale.value,
-						function (val) {
-							bumpMap.scale.value = val;
+						{
+							name: 'scale',
+							value: bumpMap.scale.value,
+							change: (val) => {
+								bumpMap.scale.value = val;
+							},
+							min: -2,
+							max: 2,
 						},
-						false,
-						-2,
-						2
+						'property'
 					);
 
-					this.addGui('color', true, function (val) {
-						mtl.color = val ? diffuse : new THREE.ColorNode(0xeeeeee);
-
-						mtl.needsUpdate = true;
-					});
+					this.addGui(
+						{
+							name: 'color',
+							type: 'checkbox',
+							value: true,
+							change: (val) => {
+								mtl.color = val ? diffuse : new THREE.ColorNode(0xeeeeee);
+								mtl.needsUpdate = true;
+							},
+						},
+						'property'
+					);
 				}
 				break;
 
@@ -1600,25 +1776,31 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					const radius: any = blur.radius;
 
 					this.addGui(
-						'radiusX',
-						radius.x,
-						function (val) {
-							radius.x = val;
+						{
+							name: 'radiusX',
+							type: 'number',
+							value: radius.x,
+							change: (val) => {
+								radius.x = val;
+							},
+							min: 0,
+							max: 15,
 						},
-						false,
-						0,
-						15
+						'property'
 					);
 
 					this.addGui(
-						'radiusY',
-						radius.y,
-						function (val) {
-							radius.y = val;
+						{
+							name: 'radiusY',
+							type: 'number',
+							value: radius.y,
+							change: (val) => {
+								radius.y = val;
+							},
+							min: 0,
+							max: 15,
 						},
-						false,
-						0,
-						15
+						'property'
 					);
 				}
 				break;
@@ -1676,25 +1858,31 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'reflectance',
-						reflectance.value,
-						function (val) {
-							reflectance.value = val;
+						{
+							name: 'reflectance',
+							type: 'number',
+							value: reflectance.value,
+							change: (val) => {
+								reflectance.value = val;
+							},
+							min: 0,
+							max: 3,
 						},
-						false,
-						0,
-						3
+						'property'
 					);
 
 					this.addGui(
-						'power',
-						power.value,
-						function (val) {
-							power.value = val;
+						{
+							name: 'power',
+							type: 'number',
+							value: power.value,
+							change: (val) => {
+								power.value = val;
+							},
+							min: 0,
+							max: 5,
 						},
-						false,
-						0,
-						5
+						'property'
 					);
 				}
 				break;
@@ -1742,25 +1930,31 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'offset',
-						offset.value,
-						function (val) {
-							offset.value = val;
+						{
+							name: 'offset',
+							type: 'number',
+							value: offset.value,
+							change: (val) => {
+								offset.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'scale',
-						scale.value,
-						function (val) {
-							scale.value = val;
+						{
+							name: 'scale',
+							type: 'number',
+							value: scale.value,
+							change: (val) => {
+								scale.value = val;
+							},
+							min: 0,
+							max: 10,
 						},
-						false,
-						0,
-						10
+						'property'
 					);
 				}
 				break;
@@ -1799,14 +1993,17 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'saturation',
-						sat.value,
-						function (val) {
-							sat.value = val;
+						{
+							name: 'saturation',
+							type: 'number',
+							value: sat.value,
+							change: (val) => {
+								sat.value = val;
+							},
+							min: 0,
+							max: 2,
 						},
-						false,
-						0,
-						2
+						'property'
 					);
 				}
 				break;
@@ -1855,25 +2052,31 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'hard',
-						hard.value,
-						function (val) {
-							hard.value = val;
+						{
+							name: 'hard',
+							type: 'number',
+							value: hard.value,
+							change: (val) => {
+								hard.value = val;
+							},
+							min: 0,
+							max: 20,
 						},
-						false,
-						0,
-						20
+						'property'
 					);
 
 					this.addGui(
-						'offset',
-						offset.value,
-						function (val) {
-							offset.value = val;
+						{
+							name: 'offset',
+							type: 'number',
+							value: offset.value,
+							change: (val) => {
+								offset.value = val;
+							},
+							min: -10,
+							max: 10,
 						},
-						false,
-						-10,
-						10
+						'property'
 					);
 				}
 				break;
@@ -1946,43 +2149,55 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'speed',
-						speed.value,
-						function (val) {
-							speed.value = val;
+						{
+							name: 'speed',
+							type: 'number',
+							value: speed.value,
+							change: (val) => {
+								speed.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'scale',
-						scale.value,
-						function (val) {
-							scale.value = val;
+						{
+							name: 'scale',
+							type: 'number',
+							value: scale.value,
+							change: (val) => {
+								scale.value = val;
+							},
+							min: 0,
+							max: 10,
 						},
-						false,
-						0,
-						10
+						'property'
 					);
 
 					this.addGui(
-						'colorA',
-						colorA.value.getHex(),
-						function (val) {
-							colorA.value.setHex(val);
+						{
+							name: 'colorA',
+							type: 'color',
+							value: colorA.value.getHex(),
+							change: (val) => {
+								colorA.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'colorB',
-						colorB.value.getHex(),
-						function (val) {
-							colorB.value.setHex(val);
+						{
+							name: 'colorB',
+							type: 'color',
+							value: colorB.value.getHex(),
+							change: (val) => {
+								colorB.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 				}
 				break;
@@ -2031,43 +2246,55 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'threshold',
-						threshold.value,
-						function (val) {
-							threshold.value = val;
+						{
+							name: 'threshold',
+							type: 'number',
+							value: threshold.value,
+							change: (val) => {
+								threshold.value = val;
+							},
+							min: -0.3,
+							max: 1.3,
 						},
-						false,
-						-0.3,
-						1.3
+						'property'
 					);
 
 					this.addGui(
-						'borderSize',
-						borderSize.value,
-						function (val) {
-							borderSize.value = val;
+						{
+							name: 'borderSize',
+							type: 'number',
+							value: borderSize.value,
+							change: (val) => {
+								borderSize.value = val;
+							},
+							min: 0,
+							max: 0.5,
 						},
-						false,
-						0,
-						0.5
+						'property'
 					);
 
 					this.addGui(
-						'color',
-						color.value.getHex(),
-						function (val) {
-							color.value.setHex(val);
+						{
+							name: 'color',
+							type: 'color',
+							value: color.value.getHex(),
+							change: (val) => {
+								color.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'borderColor',
-						borderColor.value.getHex(),
-						function (val) {
-							borderColor.value.setHex(val);
+						{
+							name: 'borderColor',
+							type: 'color',
+							value: borderColor.value.getHex(),
+							change: (val) => {
+								borderColor.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 				}
 				break;
@@ -2183,83 +2410,106 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'threshold',
-						threshold.value,
-						function (val) {
-							threshold.value = val;
+						{
+							name: 'threshold',
+							type: 'number',
+							value: threshold.value,
+							change: (val) => {
+								threshold.value = val;
+							},
+							min: -0.5,
+							max: 1.5,
 						},
-						false,
-						-0.5,
-						1.5
+						'property'
 					);
 
 					this.addGui(
-						'fireSize',
-						fireSize.value,
-						function (val) {
-							fireSize.value = val;
+						{
+							name: 'fireSize',
+							type: 'number',
+							value: fireSize.value,
+							change: (val) => {
+								fireSize.value = val;
+							},
+							min: 0,
+							max: 0.5,
 						},
-						false,
-						0,
-						0.5
+						'property'
 					);
 
 					this.addGui(
-						'burnedSize',
-						burnedSize.value,
-						function (val) {
-							burnedSize.value = val;
+						{
+							name: 'burnedSize',
+							value: burnedSize.value,
+							change: (val) => {
+								burnedSize.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'color',
-						color.value.getHex(),
-						function (val) {
-							color.value.setHex(val);
+						{
+							name: 'color',
+							type: 'color',
+							value: color.value.getHex(),
+							change: (val) => {
+								color.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'fireStartColor',
-						fireStartColor.value.getHex(),
-						function (val) {
-							fireStartColor.value.setHex(val);
+						{
+							name: 'fireStartColor',
+							type: 'color',
+							value: fireStartColor.value.getHex(),
+							change: (val) => {
+								fireStartColor.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'fireEndColor',
-						fireEndColor.value.getHex(),
-						function (val) {
-							fireEndColor.value.setHex(val);
+						{
+							name: 'fireEndColor',
+							type: 'color',
+							value: fireEndColor.value.getHex(),
+							change: (val) => {
+								fireEndColor.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'burnedColor',
-						burnedColor.value.getHex(),
-						function (val) {
-							burnedColor.value.setHex(val);
+						{
+							name: 'burnedColor',
+							type: 'color',
+							value: burnedColor.value.getHex(),
+							change: (val) => {
+								burnedColor.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'timeScale',
-						timer.scale,
-						function (val) {
-							timer.scale = val;
+						{
+							name: 'timeScale',
+							type: 'number',
+							value: timer.scale,
+							change: (val) => {
+								timer.scale = val;
+							},
+							min: 0,
+							max: 2,
 						},
-						false,
-						0,
-						2
+						'property'
 					);
 				}
 				break;
@@ -2320,12 +2570,15 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'color',
-						mtl.environment.value.getHex(),
-						function (val) {
-							mtl.environment.value.setHex(val);
+						{
+							name: 'color',
+							type: 'color',
+							value: mtl.environment.value.getHex(),
+							change: (val) => {
+								mtl.environment.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 				}
 				break;
@@ -2354,43 +2607,55 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'near',
-						depth.near.value,
-						function (val) {
-							depth.near.value = val;
+						{
+							name: 'near',
+							type: 'number',
+							value: depth.near.value,
+							change: (val) => {
+								depth.near.value = val;
+							},
+							min: 1,
+							max: 1200,
 						},
-						false,
-						1,
-						1200
+						'property'
 					);
 
 					this.addGui(
-						'far',
-						depth.far.value,
-						function (val) {
-							depth.far.value = val;
+						{
+							name: 'far',
+							type: 'number',
+							value: depth.far.value,
+							change: (val) => {
+								depth.far.value = val;
+							},
+							min: 1,
+							max: 1200,
 						},
-						false,
-						1,
-						1200
+						'property'
 					);
 
 					this.addGui(
-						'nearColor',
-						colorA.value.getHex(),
-						function (val) {
-							colorA.value.setHex(val);
+						{
+							name: 'nearColor',
+							type: 'color',
+							value: colorA.value.getHex(),
+							change: (val) => {
+								colorA.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'farColor',
-						colorB.value.getHex(),
-						function (val) {
-							colorB.value.setHex(val);
+						{
+							name: 'farColor',
+							type: 'color',
+							value: colorB.value.getHex(),
+							change: (val) => {
+								colorB.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 				}
 				break;
@@ -2532,74 +2797,95 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'timeScale',
-						timeScale.value,
-						function (val) {
-							timeScale.value = val;
+						{
+							name: 'timeScale',
+							type: 'number',
+							value: timeScale.value,
+							change: (val) => {
+								timeScale.value = val;
+							},
+							min: 0,
+							max: 5,
 						},
-						false,
-						0,
-						5
+						'property'
 					);
 
 					this.addGui(
-						'intensity',
-						intensity.value,
-						function (val) {
-							intensity.value = val;
+						{
+							name: 'intensity',
+							type: 'number',
+							value: intensity.value,
+							change: (val) => {
+								intensity.value = val;
+							},
+							min: 0,
+							max: 3,
 						},
-						false,
-						0,
-						3
+						'property'
 					);
 
 					this.addGui(
-						'scale',
-						scale.value,
-						function (val) {
-							scale.value = val;
+						{
+							name: 'scale',
+							type: 'number',
+							value: scale.value,
+							change: (val) => {
+								scale.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'alpha',
-						alpha.value,
-						function (val) {
-							alpha.value = val;
+						{
+							name: 'alpha',
+							type: 'number',
+							value: alpha.value,
+							change: (val) => {
+								alpha.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'color',
-						color.value.getHex(),
-						function (val) {
-							color.value.setHex(val);
+						{
+							name: 'color',
+							type: 'color',
+							value: color.value.getHex(),
+							change: (val) => {
+								color.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'colorA',
-						colorA.value.getHex(),
-						function (val) {
-							colorA.value.setHex(val);
+						{
+							name: 'colorA',
+							type: 'color',
+							value: colorA.value.getHex(),
+							change: (val) => {
+								colorA.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'colorB',
-						colorB.value.getHex(),
-						function (val) {
-							colorB.value.setHex(val);
+						{
+							name: 'colorB',
+							type: 'color',
+							value: colorB.value.getHex(),
+							change: (val) => {
+								colorB.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 				}
 
@@ -2659,54 +2945,69 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'spring',
-						velocity.params.spring,
-						function (val) {
-							velocity.params.spring = val;
+						{
+							name: 'spring',
+							type: 'number',
+							value: velocity.params.spring,
+							change: (val) => {
+								velocity.params.spring = val;
+							},
+							min: 0,
+							max: 0.95,
 						},
-						false,
-						0,
-						0.95
+						'property'
 					);
 
 					this.addGui(
-						'damping',
-						velocity.params.damping,
-						function (val) {
-							velocity.params.damping = val;
+						{
+							name: 'damping',
+							type: 'number',
+							value: velocity.params.damping,
+							change: (val) => {
+								velocity.params.damping = val;
+							},
+							min: 0,
+							max: 0.95,
 						},
-						false,
-						0,
-						0.95
+						'property'
 					);
 
 					this.addGui(
-						'scale',
-						scale.value,
-						function (val) {
-							scale.value = val;
+						{
+							name: 'scale',
+							type: 'number',
+							value: scale.value,
+							change: (val) => {
+								scale.value = val;
+							},
+							min: 0,
+							max: 3,
 						},
-						false,
-						0,
-						3
+						'property'
 					);
 
 					this.addGui(
-						'softBody',
-						colorA.value.getHex(),
-						function (val) {
-							colorA.value.setHex(val);
+						{
+							name: 'softBody',
+							type: 'color',
+							value: colorA.value.getHex(),
+							change: (val) => {
+								colorA.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'rigidBody',
-						colorB.value.getHex(),
-						function (val) {
-							colorB.value.setHex(val);
+						{
+							name: 'rigidBody',
+							type: 'color',
+							value: colorB.value.getHex(),
+							change: (val) => {
+								colorB.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 				}
 				break;
@@ -2764,34 +3065,43 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'color',
-						color.value.getHex(),
-						function (val) {
-							color.value.setHex(val);
+						{
+							name: 'color',
+							type: 'color',
+							value: color.value.getHex(),
+							change: (val) => {
+								color.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'mildness',
-						mildness.value,
-						function (val) {
-							mildness.value = val;
+						{
+							name: 'mildness',
+							type: 'number',
+							value: mildness.value,
+							change: (val) => {
+								mildness.value = val;
+							},
+							min: 1,
+							max: 2,
 						},
-						false,
-						1,
-						2
+						'property'
 					);
 
 					this.addGui(
-						'fur',
-						fur.value,
-						function (val) {
-							fur.value = val;
+						{
+							name: 'fur',
+							type: 'color',
+							value: fur.value,
+							change: (val) => {
+								fur.value = val;
+							},
+							min: 0,
+							max: 2,
 						},
-						false,
-						0,
-						2
+						'property'
 					);
 				}
 				break;
@@ -2872,43 +3182,55 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'skinColor',
-						skinColor.value.getHex(),
-						function (val) {
-							skinColor.value.setHex(val);
+						{
+							name: 'skinColor',
+							type: 'color',
+							value: skinColor.value.getHex(),
+							change: (val) => {
+								skinColor.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'bloodColor',
-						bloodColor.value.getHex(),
-						function (val) {
-							bloodColor.value.setHex(val);
+						{
+							name: 'bloodColor',
+							type: 'color',
+							value: bloodColor.value.getHex(),
+							change: (val) => {
+								bloodColor.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'wrapLight',
-						wrapLight.value,
-						function (val) {
-							wrapLight.value = val;
+						{
+							name: 'wrapLight',
+							type: 'number',
+							value: wrapLight.value,
+							change: (val) => {
+								wrapLight.value = val;
+							},
+							min: 0,
+							max: 3,
 						},
-						false,
-						0,
-						3
+						'property'
 					);
 
 					this.addGui(
-						'wrapShadow',
-						wrapShadow.value,
-						function (val) {
-							wrapShadow.value = val;
+						{
+							name: 'wrapShadow',
+							type: 'number',
+							value: wrapShadow.value,
+							change: (val) => {
+								wrapShadow.value = val;
+							},
+							min: -1,
+							max: 0,
 						},
-						false,
-						-1,
-						0
+						'property'
 					);
 				}
 				break;
@@ -2994,61 +3316,83 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'color',
-						color.value.getHex(),
-						function (val) {
-							color.value.setHex(val);
+						{
+							name: 'color',
+							type: 'color',
+							value: color.value.getHex(),
+							change: (val) => {
+								color.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'lineColor',
-						lineColor.value.getHex(),
-						function (val) {
-							lineColor.value.setHex(val);
+						{
+							name: 'lineColor',
+							type: 'color',
+							value: lineColor.value.getHex(),
+							change: (val) => {
+								lineColor.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'count',
-						count.value,
-						function (val) {
-							count.value = val;
+						{
+							name: 'count',
+							type: 'number',
+							value: count.value,
+							change: (val) => {
+								count.value = val;
+							},
+							min: 1,
+							max: 8,
 						},
-						false,
-						1,
-						8
+						'property'
 					);
 
 					this.addGui(
-						'lineSize',
-						lineSize.value,
-						function (val) {
-							lineSize.value = val;
+						{
+							name: 'lineSize',
+							type: 'number',
+							value: lineSize.value,
+							change: (val) => {
+								lineSize.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'lineInner',
-						lineInner.value,
-						function (val) {
-							lineInner.value = val;
+						{
+							name: 'lineInner',
+							type: 'number',
+							value: lineInner.value,
+							change: (val) => {
+								lineInner.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
-					this.addGui('ignoreIndirectLight', false, function (val) {
-						mtl.ao = val ? new THREE.FloatNode() : undefined;
-
-						mtl.dispose();
-					});
+					this.addGui(
+						{
+							name: 'ignoreIndirectLight',
+							type: 'checkbox',
+							value: false,
+							change: (val) => {
+								mtl.ao = val ? new THREE.FloatNode() : undefined;
+								mtl.dispose();
+							},
+						},
+						'property'
+					);
 				}
 
 				break;
@@ -3103,14 +3447,17 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'speed',
-						speed.value,
-						function (val) {
-							speed.value = val;
+						{
+							name: 'speed',
+							type: 'number',
+							value: speed.value,
+							change: (val) => {
+								speed.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 				}
 
@@ -3225,24 +3572,30 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'scope',
 						{
-							PREM: 'prem',
-							LOD: 'lod',
-							BASIC: 'basic',
+							name: 'scope',
+							type: 'select',
+							select: {
+								PREM: 'prem',
+								LOD: 'lod',
+								BASIC: 'basic',
+							},
+							change: biasMode,
 						},
-						biasMode
+						'property'
 					);
 
 					this.addGui(
-						'bias',
-						bias.value,
-						function (val) {
-							bias.value = val;
+						{
+							name: 'bias',
+							value: bias.value,
+							change: (val) => {
+								bias.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 				}
 				break;
@@ -3259,17 +3612,20 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'scope',
 						{
-							local: THREE.PositionNode.LOCAL,
-							world: THREE.PositionNode.WORLD,
-							view: THREE.PositionNode.VIEW,
+							name: 'scope',
+							type: 'select',
+							select: {
+								local: THREE.PositionNode.LOCAL,
+								world: THREE.PositionNode.WORLD,
+								view: THREE.PositionNode.VIEW,
+							},
+							change: (val) => {
+								node.scope = val;
+								mtl.needsUpdate = true;
+							},
 						},
-						function (val) {
-							node.scope = val;
-
-							mtl.needsUpdate = true;
-						}
+						'property'
 					);
 				}
 				break;
@@ -3285,17 +3641,20 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 				// GUI
 
 				this.addGui(
-					'scope',
 					{
-						view: THREE.NormalNode.VIEW,
-						local: THREE.NormalNode.LOCAL,
-						world: THREE.NormalNode.WORLD,
+						name: 'scope',
+						type: 'select',
+						select: {
+							view: THREE.NormalNode.VIEW,
+							local: THREE.NormalNode.LOCAL,
+							world: THREE.NormalNode.WORLD,
+						},
+						change: (val) => {
+							node.scope = val;
+							mtl.needsUpdate = true;
+						},
 					},
-					function (val) {
-						node.scope = val;
-
-						mtl.needsUpdate = true;
-					}
+					'property'
 				);
 
 				break;
@@ -3326,21 +3685,32 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 
 					// GUI
 
-					this.addGui('node', true, function (val) {
-						mtl = val ? nodeMaterial : standardMaterial;
-						mesh.material = mtl;
-					});
+					this.addGui(
+						{
+							name: 'node',
+							type: 'checkbox',
+							value: true,
+							change: (val) => {
+								mtl = val ? nodeMaterial : standardMaterial;
+								mesh.material = mtl;
+							},
+						},
+						'property'
+					);
 
 					this.addGui(
-						'roughness',
-						nodeMaterial.roughness.value,
-						function (val) {
-							nodeMaterial.roughness.value = val;
-							standardMaterial.roughness = val;
+						{
+							name: 'roughness',
+							type: 'number',
+							value: nodeMaterial.roughness.value,
+							change: (val) => {
+								nodeMaterial.roughness.value = val;
+								standardMaterial.roughness = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 				}
 				break;
@@ -3490,60 +3860,75 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'a',
-						a.value,
-						function (val) {
-							a.value = val;
-						},
-						false,
-						0,
-						1
-					);
-
-					this.addGui(
-						'b',
-						b.value,
-						function (val) {
-							b.value = val;
-						},
-						false,
-						0,
-						1
-					);
-
-					this.addGui(
-						'a condition b',
 						{
-							EQUAL: THREE.CondNode.EQUAL,
-							NOT_EQUAL: THREE.CondNode.NOT_EQUAL,
-							GREATER: THREE.CondNode.GREATER,
-							GREATER_EQUAL: THREE.CondNode.GREATER_EQUAL,
-							LESS: THREE.CondNode.LESS,
-							LESS_EQUAL: THREE.CondNode.LESS_EQUAL,
+							name: 'a',
+							type: 'number',
+							value: a.value,
+							change: (val) => {
+								a.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						function (val) {
-							cond.op = val;
-
-							mtl.needsUpdate = true;
-						}
+						'property'
 					);
 
 					this.addGui(
-						'if color',
-						ifNode.value.getHex(),
-						function (val) {
-							ifNode.value.setHex(val);
+						{
+							name: 'b',
+							type: 'number',
+							value: b.value,
+							change: (val) => {
+								b.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'else color',
-						elseNode.value.getHex(),
-						function (val) {
-							elseNode.value.setHex(val);
+						{
+							name: 'a condition b',
+							type: 'select',
+							select: {
+								EQUAL: THREE.CondNode.EQUAL,
+								NOT_EQUAL: THREE.CondNode.NOT_EQUAL,
+								GREATER: THREE.CondNode.GREATER,
+								GREATER_EQUAL: THREE.CondNode.GREATER_EQUAL,
+								LESS: THREE.CondNode.LESS,
+								LESS_EQUAL: THREE.CondNode.LESS_EQUAL,
+							},
+							change: (val) => {
+								cond.op = val;
+								mtl.needsUpdate = true;
+							},
 						},
-						true
+						'property'
+					);
+
+					this.addGui(
+						{
+							name: 'if color',
+							type: 'color',
+							value: ifNode.value.getHex(),
+							change: (val) => {
+								ifNode.value.setHex(val);
+							},
+						},
+						'property'
+					);
+
+					this.addGui(
+						{
+							name: 'else color',
+							type: 'color',
+							value: elseNode.value.getHex(),
+							change: (val) => {
+								elseNode.value.setHex(val);
+							},
+						},
+						'property'
 					);
 				}
 				break;
@@ -3570,32 +3955,45 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'bump',
-						bumpMap.scale.value,
-						function (val) {
-							bumpMap.scale.value = val;
+						{
+							name: 'bump',
+							type: 'number',
+							value: bumpMap.scale.value,
+							change: (val) => {
+								bumpMap.scale.value = val;
+							},
+							min: -0.5,
+							max: 0.5,
 						},
-						false,
-						-0.5,
-						0.5
+						'property'
 					);
 
 					this.addGui(
-						'scale',
-						2,
-						function (val) {
-							uvTransform.setUvTransform(0, 0, val, val, 0);
+						{
+							name: 'scale',
+							type: 'number',
+							value: 2,
+							change: (val) => {
+								uvTransform.setUvTransform(0, 0, val, val, 0);
+							},
+							min: 0,
+							max: 8,
 						},
-						false,
-						0,
-						8
+						'property'
 					);
 
-					this.addGui('ignoreColor', false, function (val) {
-						mtl.color = val ? new THREE.ColorNode(0xffffff) : checker;
-
-						mtl.needsUpdate = true;
-					});
+					this.addGui(
+						{
+							name: 'ignoreColor',
+							type: 'checkbox',
+							value: false,
+							change: (val) => {
+								mtl.color = val ? new THREE.ColorNode(0xffffff) : checker;
+								mtl.needsUpdate = true;
+							},
+						},
+						'property'
+					);
 				}
 				break;
 
@@ -3628,15 +4026,20 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 
 					// GUI
 
-					this.addGui('click to reset', false, function () {
-						// render a single time
-
-						rttStore.render = true;
-
-						// reset time blur
-
-						timer.value = 0;
-					});
+					this.addGui(
+						{
+							name: 'click to reset',
+							type: 'checkbox',
+							value: false,
+							change: () => {
+								// render a single time
+								rttStore.render = true;
+								// reset time blur
+								timer.value = 0;
+							},
+						},
+						'property'
+					);
 				}
 				break;
 
@@ -3747,36 +4150,45 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'alpha',
-						alpha.value,
-						function (val) {
-							alpha.value = val;
+						{
+							name: 'alpha',
+							type: 'number',
+							value: alpha.value,
+							change: (val) => {
+								alpha.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'deltaX',
-						delta.x,
-						function (val) {
-							delta.x = val;
+						{
+							name: 'deltaX',
+							type: 'number',
+							value: delta.x,
+							change: (val) => {
+								delta.x = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'deltaY',
-						delta.x,
-						function (val) {
-							delta.y = val;
+						{
+							name: 'deltaY',
+							type: 'number',
+							value: delta.x,
+							change: (val) => {
+								delta.y = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 				}
 				break;
@@ -3829,14 +4241,17 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'scale',
-						scale.value,
-						function (val) {
-							scale.value = val;
+						{
+							name: 'scale',
+							type: 'number',
+							value: scale.value,
+							change: (val) => {
+								scale.value = val;
+							},
+							min: 0.001,
+							max: 0.1,
 						},
-						false,
-						0.001,
-						0.1
+						'property'
 					);
 				}
 				break;
@@ -3880,14 +4295,17 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'speed',
-						speed.value,
-						function (val) {
-							speed.value = val;
+						{
+							name: 'speed',
+							type: 'number',
+							value: speed.value,
+							change: (val) => {
+								speed.value = val;
+							},
+							min: 0,
+							max: 3,
 						},
-						false,
-						0,
-						3
+						'property'
 					);
 				}
 				break;
@@ -4027,32 +4445,41 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'frontColor',
-						frontColor.value.getHex(),
-						function (val) {
-							frontColor.value.setHex(val);
+						{
+							name: 'frontColor',
+							type: 'color',
+							value: frontColor.value.getHex(),
+							change: (val) => {
+								frontColor.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'backColor',
-						backColor.value.getHex(),
-						function (val) {
-							backColor.value.setHex(val);
+						{
+							name: 'backColor',
+							type: 'color',
+							value: backColor.value.getHex(),
+							change: (val) => {
+								backColor.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'area',
-						sss.b.value,
-						function (val) {
-							sss.b.value = val;
+						{
+							name: 'area',
+							type: 'number',
+							value: sss.b.value,
+							change: (val) => {
+								sss.b.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 				}
 				break;

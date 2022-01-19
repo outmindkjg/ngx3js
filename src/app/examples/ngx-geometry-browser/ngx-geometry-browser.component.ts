@@ -4,7 +4,7 @@ import {
 	IRendererTimer,
 	NgxBaseComponent,
 	NgxRendererComponent,
-	THREE
+	THREE,
 } from 'ngx3js';
 
 @Component({
@@ -299,25 +299,26 @@ export class NgxGeometryBrowserComponent extends NgxBaseComponent<{
 					case 'innerRadius':
 					case 'outerRadius':
 						this.addGui(
-							key,
-							value,
-							null,
-							false,
-							0,
-							30,
-							this.geometryAttr,
+							{
+								name: key,
+								type: 'number',
+								value: value,
+								min: 0,
+								max: 30,
+								control: this.geometryAttr,
+							},
 							'attribute'
 						);
 						break;
 					case 'height':
 						this.addGui(
-							key,
-							value,
-							null,
-							false,
-							1,
-							50,
-							this.geometryAttr,
+							{
+								name: key,
+								value: value,
+								min: 1,
+								max: 50,
+								control: this.geometryAttr,
+							},
 							'attribute'
 						);
 						break;
@@ -325,28 +326,29 @@ export class NgxGeometryBrowserComponent extends NgxBaseComponent<{
 					case 'widthSegments':
 					case 'heightSegments':
 					case 'depthSegments':
-						const depthSegments = this.addGui(
-							key,
-							value,
-							null,
-							false,
-							1,
-							10,
-							this.geometryAttr,
+						this.addGui(
+							{
+								name: key,
+								value: value,
+								min: 1,
+								max: 10,
+								step: 1,
+								control: this.geometryAttr,
+							},
 							'attribute'
 						);
-						depthSegments.step(1);
 						break;
 					case 'radiusTop':
 					case 'radiusBottom':
 						this.addGui(
-							key,
-							value,
-							null,
-							false,
-							0,
-							30,
-							this.geometryAttr,
+							{
+								name: key,
+								type: 'number',
+								value: value,
+								min: 0,
+								max: 30,
+								control: this.geometryAttr,
+							},
 							'attribute'
 						);
 						break;
@@ -355,84 +357,85 @@ export class NgxGeometryBrowserComponent extends NgxBaseComponent<{
 					case 'thetaSegments':
 					case 'phiSegments':
 					case 'radialSegments':
-						const radialSegments = this.addGui(
-							key,
-							value,
-							null,
-							false,
-							3,
-							64,
-							this.geometryAttr,
+						this.addGui(
+							{
+								name: key,
+								type: 'number',
+								value: value,
+								min: 3,
+								max: 64,
+								step: 1,
+								control: this.geometryAttr,
+							},
 							'attribute'
 						);
-						radialSegments.step(1);
 						break;
 					case 'detail':
-						const detail = this.addGui(
-							key,
-							value,
-							null,
-							false,
-							0,
-							5,
-							this.geometryAttr,
+						this.addGui(
+							{
+								name: key,
+								value: value,
+								min: 0,
+								max: 5,
+								step: 1,
+								control: this.geometryAttr,
+							},
 							'attribute'
 						);
-						detail.step(1);
 						break;
 					case 'p':
 					case 'q':
-						const pq = this.addGui(
-							key,
-							value,
-							null,
-							false,
-							1,
-							20,
-							this.geometryAttr,
+						this.addGui(
+							{
+								name: key,
+								type: 'number',
+								value: value,
+								min: 1,
+								max: 20,
+								step: 1,
+								control: this.geometryAttr,
+							},
 							'attribute'
 						);
-						pq.step(1);
 						break;
 					case 'bevelSegments':
 					case 'bevelThickness':
 					case 'bevelSize':
-						const bevelSize = this.addGui(
-							key,
-							value,
-							null,
-							false,
-							0,
-							5,
-							this.geometryAttr,
+						this.addGui(
+							{
+								name: key,
+								value: value,
+								min: 0,
+								max: 5,
+								step: 1,
+								control: this.geometryAttr,
+							},
 							'attribute'
 						);
-						bevelSize.step(1);
 						break;
 					case 'bevelOffset':
-						const bevelOffset = this.addGui(
-							key,
-							value,
-							null,
-							false,
-							-4,
-							5,
-							this.geometryAttr,
+						this.addGui(
+							{
+								name: key,
+								type: 'number',
+								value: value,
+								min: -4,
+								max: 5,
+								control: this.geometryAttr,
+							},
 							'attribute'
 						);
-						bevelOffset.step(1);
 						break;
 					case 'bevelEnabled':
 					case 'closed':
 					case 'openEnded':
 						this.addGui(
-							key,
-							value,
-							null,
-							undefined,
-							undefined,
-							undefined,
-							this.geometryAttr,
+							{
+								name: key,
+								type: 'checkbox',
+								value: value,
+								control: this.geometryAttr,
+							},
 							'attribute'
 						);
 						break;
@@ -442,13 +445,14 @@ export class NgxGeometryBrowserComponent extends NgxBaseComponent<{
 					case 'thetaStart':
 					case 'thetaLength':
 						this.addGui(
-							key,
-							value,
-							null,
-							false,
-							0,
-							360,
-							this.geometryAttr,
+							{
+								name: key,
+								type: 'number',
+								value: value,
+								min: 0,
+								max: 360,
+								control: this.geometryAttr,
+							},
 							'attribute'
 						);
 						break;

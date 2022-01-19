@@ -84,6 +84,9 @@
 				[color]="materialAttr.color"
 				[emissive]="materialAttr.emissive"
 				[specular]="materialAttr.specular"
+				[shininess]="materialAttr.shininess"
+				[roughness]="materialAttr.roughness"
+				[metalness]="materialAttr.metalness"
 
 				[envMap]="materialMaps.envMap"
 				[map]="materialMaps.diffuseMap || materialMaps.map"
@@ -100,6 +103,13 @@
 				[flatShading]="materialAttr.flatShading"
 				[fog]="materialAttr.fog"
 
+				[clearcoat]="materialAttr.clearcoat"
+				[clearcoatRoughness]="materialAttr.clearcoatRoughness"
+
+				[linewidth]="materialAttr.linewidth"
+				[linecap]="materialAttr.linecap"
+				[linejoin]="materialAttr.linejoin"
+				
 			></ngx3js-material>
 		</ngx3js-mesh>
 	</ngx3js-scene>

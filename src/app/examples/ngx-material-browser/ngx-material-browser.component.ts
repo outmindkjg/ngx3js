@@ -279,38 +279,89 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 						type: this.controls.material.type,
 						color: 0x049ef4,
 						emissive: 0x000000,
+						wireframe: false,
+						vertexColors: false,
+						fog: true,
 						envMaps: this.envMaps[0],
 						map: this.diffuseMaps[0],
 						alphaMap: this.alphaMaps[0],
+						combine: 'MultiplyOperation',
+						reflectivity: 1,
+						refractionRatio: 0.98,
 					};
 					break;
 				case 'MeshMatcapMaterial':
 					this.materialAttr = {
 						type: this.controls.material.type,
-						color: 0x049ef4,
-						flatShading: true,
-						matcap: this.matcaps[0],
+						color: 0xffffff,
+						flatShading: false,
+						matcap: this.matcaps[1],
 						alphaMap: this.alphaMaps[0],
 					};
 					break;
 				case 'MeshPhongMaterial':
 					this.materialAttr = {
 						type: this.controls.material.type,
+						color: 0x049ef4,
+						emissive: 0x00000,
+						specular: 0x111111,
+						shininess: 30,
+						flatShading: false,
+						wireframe: false,
+						vertexColors: false,
+						fog: true,
+						envMaps: this.envMaps[0],
+						map: this.diffuseMaps[0],
+						alphaMap: this.alphaMaps[0],
+						combine: 'MultiplyOperation',
+						reflectivity: 1,
+						refractionRatio: 0.98,
 					};
 					break;
 				case 'MeshToonMaterial':
 					this.materialAttr = {
 						type: this.controls.material.type,
+						color: 0x049ef4,
+						map: this.diffuseMaps[0],
+						gradientMap: this.gradientMaps[1],
+						alphaMap: this.alphaMaps[0],
 					};
 					break;
 				case 'MeshStandardMaterial':
 					this.materialAttr = {
 						type: this.controls.material.type,
+						color: 0x049ef4,
+						emissive: 0x000000,
+						roughness: 1,
+						metalness: 0,
+						flatShading: false,
+						wireframe: false,
+						vertexColors: false,
+						fog: true,
+						envMaps: this.envMaps[0],
+						map: this.diffuseMaps[0],
+						roughnessMap: this.roughnessMaps[0],
+						alphaMap: this.alphaMaps[0],
 					};
 					break;
 				case 'MeshPhysicalMaterial':
 					this.materialAttr = {
 						type: this.controls.material.type,
+						color: 0x049ef4,
+						emissive: 0x000000,
+						roughness: 1,
+						metalness: 0,
+						reflectivity: 1,
+						clearcoat: 0,
+						clearcoatRoughness: 0,
+						flatShading: false,
+						wireframe: false,
+						vertexColors: false,
+						fog: true,
+						envMaps: this.envMaps[0],
+						map: this.diffuseMaps[0],
+						roughnessMap: this.roughnessMaps[0],
+						alphaMap: this.alphaMaps[0],
 					};
 					break;
 				case 'MeshDepthMaterial':
@@ -323,11 +374,19 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 				case 'MeshNormalMaterial':
 					this.materialAttr = {
 						type: this.controls.material.type,
+						flatShading: false,
+						wireframe: false,
 					};
 					break;
 				case 'LineBasicMaterial':
 					this.materialAttr = {
 						type: this.controls.material.type,
+						color: 0x2194ce,
+						linewidth: 1,
+						linecap: 'round',
+						linejoin: 'round',
+						vertexColors: false,
+						fog: true,
 					};
 					break;
 			}
@@ -348,13 +407,12 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 					case 'color':
 					case 'specular':
 						this.addGui(
-							key,
-							value,
-							null,
-							true,
-							null,
-							null,
-							this.materialAttr,
+							{
+								name: key,
+								type: 'color',
+								value: value,
+								control: this.materialAttr,
+							},
 							'attribute'
 						);
 						break;
@@ -363,38 +421,88 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 					case 'wireframe':
 					case 'vertexColors':
 						this.addGui(
-							key,
-							value,
-							null,
-							false,
-							null,
-							null,
-							this.materialAttr,
+							{
+								name: key,
+								type: 'checkbox',
+								value: value,
+								control: this.materialAttr,
+							},
+							'attribute'
+						);
+						break;
+					case 'linecap':
+						this.addGui(
+							{
+								name: key,
+								type: 'select',
+								select: ['butt', 'round', 'square'],
+								control: this.materialAttr,
+							},
+							'attribute'
+						);
+						break;
+					case 'linejoin':
+						this.addGui(
+							{
+								name: key,
+								type: 'select',
+								select: ['round', 'bevel', 'miter'],
+								control: this.materialAttr,
+							},
 							'attribute'
 						);
 						break;
 					case 'combine':
 						this.addGui(
-							key,
-							['MultiplyOperation', 'MixOperation', 'AddOperation'],
-							null,
-							false,
-							null,
-							null,
-							this.materialAttr,
+							{
+								name: key,
+								type: 'select',
+								select: ['MultiplyOperation', 'MixOperation', 'AddOperation'],
+								control: this.materialAttr,
+							},
+							'attribute'
+						);
+						break;
+					case 'shininess':
+						this.addGui(
+							{
+								name: key,
+								type: 'number',
+								value: value,
+								min: 0,
+								max: 100,
+								control: this.materialAttr,
+							},
 							'attribute'
 						);
 						break;
 					case 'reflectivity':
 					case 'refractionRatio':
+					case 'roughness':
+					case 'metalness':
+					case 'clearcoat':
+					case 'clearcoatRoughness':
 						this.addGui(
-							key,
-							value,
-							null,
-							false,
-							0,
-							1,
-							this.materialAttr,
+							{
+								name: key,
+								value: value,
+								min: 0,
+								max: 1,
+								control: this.materialAttr,
+							},
+							'attribute'
+						);
+						break;
+					case 'linewidth':
+						this.addGui(
+							{
+								name: key,
+								type: 'number',
+								value: value,
+								min: 0,
+								max: 10,
+								control: this.materialAttr,
+							},
 							'attribute'
 						);
 						break;
@@ -428,15 +536,15 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 								break;
 						}
 						this.addGui(
-							key,
-							mapOptions,
-							() => {
-								this.changeMaps(key);
+							{
+								name: key,
+								type: 'select',
+								select: mapOptions,
+								change: () => {
+									this.changeMaps(key);
+								},
+								control: this.materialAttr,
 							},
-							false,
-							null,
-							null,
-							this.materialAttr,
 							'attribute'
 						);
 						break;

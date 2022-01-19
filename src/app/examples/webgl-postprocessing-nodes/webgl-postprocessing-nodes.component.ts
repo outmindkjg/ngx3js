@@ -125,19 +125,7 @@ export class WebglPostprocessingNodesComponent extends NgxBaseComponent<{
 		this.property = {};
 	}
 
-	protected addGui(
-		name: string,
-		value: any,
-		callback?: (value: any) => void,
-		isColor?: boolean,
-		min?: number,
-		max?: number
-	): any {
-		return super.addGui(name, value, callback, isColor, min, max, this.property, 'property');
-	}
-
 	property: any = {};
-
 
 	updateMaterial() {
 		if (this.nodepost !== null) {
@@ -190,58 +178,68 @@ export class WebglPostprocessingNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'hue',
-						hue.value,
-						(val) => {
-							hue.value = val;
+						{
+							name: 'hue',
+							value: hue.value,
+							change: (val) => {
+								hue.value = val;
+							},
+							min: 0,
+							max: Math.PI * 2,
 						},
-						false,
-						0,
-						Math.PI * 2
+						'property'
 					);
 
 					this.addGui(
-						'saturation',
-						sataturation.value,
-						(val) => {
-							sataturation.value = val;
+						{
+							name: 'saturation',
+							value: sataturation.value,
+							change: (val) => {
+								sataturation.value = val;
+							},
+							min: 0,
+							max: 2,
 						},
-						false,
-						0,
-						2
+						'property'
 					);
 
 					this.addGui(
-						'vibrance',
-						vibrance.value,
-						(val) => {
-							vibrance.value = val;
+						{
+							name: 'vibrance',
+							value: vibrance.value,
+							change: (val) => {
+								vibrance.value = val;
+							},
+							min: -1,
+							max: 1,
 						},
-						false,
-						-1,
-						1
+						'property'
 					);
 
 					this.addGui(
-						'brightness',
-						brightness.value,
-						(val) => {
-							brightness.value = val;
+						{
+							name: 'brightness',
+							value: brightness.value,
+							change: (val) => {
+								brightness.value = val;
+							},
+							min: 0,
+							max: 0.5,
 						},
-						false,
-						0,
-						0.5
+						'property'
 					);
 
 					this.addGui(
-						'contrast',
-						contrast.value,
-						(val) => {
-							contrast.value = val;
+						{
+							name: 'contrast',
+							value: contrast.value,
+							change: (val) => {
+								contrast.value = val;
+							},
+							min: 0,
+							max: 2,
 						},
-						false,
-						0,
-						2
+						'property'
 					);
 
 					break;
@@ -264,23 +262,27 @@ export class WebglPostprocessingNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'color',
-						color.value.getHex(),
-						(val) => {
-							color.value.setHex(val);
+						{
+							name: 'color',
+							value: color.value.getHex(),
+							change: (val) => {
+								color.value.setHex(val);
+							},
 						},
-						true
+						'property'
 					);
 
 					this.addGui(
-						'fade',
-						percent.value,
-						(val) => {
-							percent.value = val;
+						{
+							name: 'fade',
+							value: percent.value,
+							change: (val) => {
+								percent.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					break;
@@ -305,14 +307,16 @@ export class WebglPostprocessingNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'alpha',
-						alpha.value,
-						(val) => {
-							alpha.value = val;
+						{
+							name: 'alpha',
+							value: alpha.value,
+							change: (val) => {
+								alpha.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
 					break;
@@ -331,18 +335,21 @@ export class WebglPostprocessingNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'blend',
 						{
-							addition: THREE.OperatorNode.ADD,
-							subtract: THREE.OperatorNode.SUB,
-							multiply: THREE.OperatorNode.MUL,
-							division: THREE.OperatorNode.DIV,
-						},
-						(val) => {
-							multiply.op = val;
+							name: 'blend',
+							select: {
+								addition: THREE.OperatorNode.ADD,
+								subtract: THREE.OperatorNode.SUB,
+								multiply: THREE.OperatorNode.MUL,
+								division: THREE.OperatorNode.DIV,
+							},
+							change: (val) => {
+								multiply.op = val;
 
-							this.nodepost.needsUpdate = true;
-						}
+								this.nodepost.needsUpdate = true;
+							},
+						},
+						'property'
 					);
 
 					break;
@@ -374,16 +381,17 @@ export class WebglPostprocessingNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'saturation',
-						sat.value,
-						(val) => {
-							sat.value = val;
+						{
+							name: 'saturation',
+							value: sat.value,
+							change: (val) => {
+								sat.value = val;
+							},
+							min: 0,
+							max: 2,
 						},
-						false,
-						0,
-						2
+						'property'
 					);
-
 					break;
 
 				case 'refraction':
@@ -430,21 +438,29 @@ export class WebglPostprocessingNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'scale',
-						scale.value,
-						(val) => {
-							scale.value = val;
+						{
+							name: 'scale',
+							value: scale.value,
+							change: (val) => {
+								scale.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
-					this.addGui('invert', false, (val) => {
-						offsetNormal.a = val ? normalXYFlip : normalXY;
-
-						this.nodepost.needsUpdate = true;
-					});
+					this.addGui(
+						{
+							name: 'invert',
+							value: false,
+							change: (val) => {
+								offsetNormal.a = val ? normalXYFlip : normalXY;
+								this.nodepost.needsUpdate = true;
+							},
+						},
+						'property'
+					);
 
 					break;
 
@@ -514,32 +530,44 @@ export class WebglPostprocessingNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'scale',
-						scale.value,
-						(val) => {
-							scale.value = val;
+						{
+							name: 'scale',
+							value: scale.value,
+							change: (val) => {
+								scale.value = val;
+							},
+							min: 16,
+							max: 1024,
 						},
-						false,
-						16,
-						1024
+						'property'
 					);
 
 					this.addGui(
-						'fade',
-						fade.value,
-						(val) => {
-							fade.value = val;
+						{
+							name: 'fade',
+							value: fade.value,
+							change: (val) => {
+								fade.value = val;
+							},
+							min: 0,
+							max: 1,
 						},
-						false,
-						0,
-						1
+						'property'
 					);
 
-					this.addGui('mask', false, (val) => {
-						fadeScreen.c = val ? new THREE.TextureNode(this.lensflare2) : fade;
-
-						this.nodepost.needsUpdate = true;
-					});
+					this.addGui(
+						{
+							name: 'mask',
+							value: false,
+							change: (val) => {
+								fadeScreen.c = val
+									? new THREE.TextureNode(this.lensflare2)
+									: fade;
+								this.nodepost.needsUpdate = true;
+							},
+						},
+						'property'
+					);
 
 					break;
 
@@ -558,25 +586,29 @@ export class WebglPostprocessingNodesComponent extends NgxBaseComponent<{
 					// GUI
 
 					this.addGui(
-						'blurX',
-						blurScreen.radius.x,
-						(val) => {
-							blurScreen.radius.x = val;
+						{
+							name: 'blurX',
+							value: blurScreen.radius.x,
+							change: (val) => {
+								blurScreen.radius.x = val;
+							},
+							min: 0,
+							max: 15,
 						},
-						false,
-						0,
-						15
+						'property'
 					);
 
 					this.addGui(
-						'blurY',
-						blurScreen.radius.y,
-						(val) => {
-							blurScreen.radius.y = val;
+						{
+							name: 'blurY',
+							value: blurScreen.radius.y,
+							change: (val) => {
+								blurScreen.radius.y = val;
+							},
+							min: 0,
+							max: 15,
 						},
-						false,
-						0,
-						15
+						'property'
 					);
 
 					break;
