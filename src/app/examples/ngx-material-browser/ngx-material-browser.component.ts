@@ -278,7 +278,7 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 					this.materialAttr = {
 						type: this.controls.material.type,
 						color: 0x049ef4,
-						emissive: 0xffffff,
+						emissive: 0x000000,
 						envMaps: this.envMaps[0],
 						map: this.diffuseMaps[0],
 						alphaMap: this.alphaMaps[0],
