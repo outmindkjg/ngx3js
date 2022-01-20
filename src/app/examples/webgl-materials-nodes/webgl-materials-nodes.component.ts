@@ -450,6 +450,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								mtl.color.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -464,6 +465,8 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
+
 						},
 						'property'
 					);
@@ -478,6 +481,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -492,6 +496,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -506,6 +511,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -520,6 +526,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -607,6 +614,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								mtl.color.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -621,6 +629,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -635,6 +644,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -649,6 +659,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -663,6 +674,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -677,6 +689,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -691,6 +704,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -754,6 +768,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -768,6 +783,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -782,6 +798,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -796,6 +813,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -810,6 +828,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -882,6 +901,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 								useNodeMaterial = val;
 								updateMaterial();
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -896,6 +916,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -910,6 +931,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -924,6 +946,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: -1,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -938,6 +961,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: -1,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -952,6 +976,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -965,6 +990,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 								useMap = val;
 								updateMaterial();
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -978,6 +1004,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 								useNormals = val;
 								updateMaterial();
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -995,6 +1022,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 								defaultSide = Number(val);
 								updateMaterial();
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -1094,6 +1122,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								mtl.color.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -1108,6 +1137,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -1122,6 +1152,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -1136,6 +1167,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -1150,6 +1182,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -1164,6 +1197,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -1178,6 +1212,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -1192,6 +1227,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -1206,6 +1242,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -1220,6 +1257,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -1310,6 +1348,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 10,
+							control : this.property
 						},
 						'property'
 					);
@@ -1324,6 +1363,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 3,
+							control : this.property
 						},
 						'property'
 					);
@@ -1338,6 +1378,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -1350,6 +1391,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								colorA.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -1362,6 +1404,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								colorB.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -1375,6 +1418,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 								blend.b = val ? displace : displaceY;
 								mtl.needsUpdate = true;
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -1426,6 +1470,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								color.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -1443,6 +1488,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 3,
+							control : this.property
 						},
 						'property'
 					);
@@ -1457,6 +1503,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 6,
+							control : this.property
 						},
 						'property'
 					);
@@ -1480,6 +1527,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 								}
 								mtl.needsUpdate = true;
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -1540,6 +1588,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: Math.PI * 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -1554,6 +1603,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -1568,6 +1618,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: -1,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -1582,6 +1633,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 0.5,
+							control : this.property
 						},
 						'property'
 					);
@@ -1596,6 +1648,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -1637,11 +1690,11 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							value: translate.x,
 							change: (val) => {
 								translate.x = val;
-
 								updateUVTransform();
 							},
 							min: 0,
 							max: 10,
+							control : this.property
 						},
 						'property'
 					);
@@ -1657,6 +1710,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 10,
+							control : this.property
 						},
 						'property'
 					);
@@ -1672,6 +1726,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0.1,
 							max: 5,
+							control : this.property
 						},
 						'property'
 					);
@@ -1687,6 +1742,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0.1,
 							max: 5,
+							control : this.property
 						},
 						'property'
 					);
@@ -1702,6 +1758,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 360,
+							control : this.property
 						},
 						'property'
 					);
@@ -1739,6 +1796,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: -2,
 							max: 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -1752,6 +1810,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 								mtl.color = val ? diffuse : new THREE.ColorNode(0xeeeeee);
 								mtl.needsUpdate = true;
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -1785,6 +1844,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 15,
+							control : this.property
 						},
 						'property'
 					);
@@ -1799,6 +1859,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 15,
+							control : this.property
 						},
 						'property'
 					);
@@ -1867,6 +1928,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 3,
+							control : this.property
 						},
 						'property'
 					);
@@ -1881,6 +1943,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 5,
+							control : this.property
 						},
 						'property'
 					);
@@ -1939,6 +2002,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -1953,6 +2017,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 10,
+							control : this.property
 						},
 						'property'
 					);
@@ -2002,6 +2067,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -2061,6 +2127,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 20,
+							control : this.property
 						},
 						'property'
 					);
@@ -2075,6 +2142,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: -10,
 							max: 10,
+							control : this.property
 						},
 						'property'
 					);
@@ -2158,6 +2226,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -2172,6 +2241,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 10,
+							control : this.property
 						},
 						'property'
 					);
@@ -2184,6 +2254,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								colorA.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -2196,6 +2267,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								colorB.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -2255,6 +2327,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: -0.3,
 							max: 1.3,
+							control : this.property
 						},
 						'property'
 					);
@@ -2269,6 +2342,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 0.5,
+							control : this.property
 						},
 						'property'
 					);
@@ -2281,6 +2355,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								color.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -2293,6 +2368,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								borderColor.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -2419,6 +2495,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: -0.5,
 							max: 1.5,
+							control : this.property
 						},
 						'property'
 					);
@@ -2433,6 +2510,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 0.5,
+							control : this.property
 						},
 						'property'
 					);
@@ -2446,6 +2524,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -2458,6 +2537,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								color.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -2470,6 +2550,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								fireStartColor.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -2482,6 +2563,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								fireEndColor.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -2494,6 +2576,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								burnedColor.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -2508,6 +2591,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -2577,6 +2661,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								mtl.environment.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -2616,6 +2701,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 1,
 							max: 1200,
+							control : this.property
 						},
 						'property'
 					);
@@ -2630,6 +2716,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 1,
 							max: 1200,
+							control : this.property
 						},
 						'property'
 					);
@@ -2642,6 +2729,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								colorA.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -2654,6 +2742,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								colorB.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -2806,6 +2895,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 5,
+							control : this.property
 						},
 						'property'
 					);
@@ -2820,6 +2910,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 3,
+							control : this.property
 						},
 						'property'
 					);
@@ -2834,6 +2925,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -2848,6 +2940,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -2860,6 +2953,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								color.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -2872,6 +2966,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								colorA.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -2884,6 +2979,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								colorB.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -2954,6 +3050,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 0.95,
+							control : this.property
 						},
 						'property'
 					);
@@ -2968,6 +3065,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 0.95,
+							control : this.property
 						},
 						'property'
 					);
@@ -2982,6 +3080,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 3,
+							control : this.property
 						},
 						'property'
 					);
@@ -2994,6 +3093,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								colorA.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -3006,6 +3106,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								colorB.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -3072,6 +3173,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								color.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -3086,6 +3188,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 1,
 							max: 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -3100,6 +3203,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -3189,6 +3293,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								skinColor.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -3201,6 +3306,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								bloodColor.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -3215,6 +3321,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 3,
+							control : this.property
 						},
 						'property'
 					);
@@ -3229,6 +3336,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: -1,
 							max: 0,
+							control : this.property
 						},
 						'property'
 					);
@@ -3323,6 +3431,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								color.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -3335,6 +3444,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								lineColor.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -3349,6 +3459,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 1,
 							max: 8,
+							control : this.property
 						},
 						'property'
 					);
@@ -3363,6 +3474,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -3377,6 +3489,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -3390,6 +3503,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 								mtl.ao = val ? new THREE.FloatNode() : undefined;
 								mtl.dispose();
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -3456,6 +3570,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -3581,6 +3696,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 								BASIC: 'basic',
 							},
 							change: biasMode,
+							control : this.property
 						},
 						'property'
 					);
@@ -3594,6 +3710,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -3624,6 +3741,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 								node.scope = val;
 								mtl.needsUpdate = true;
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -3653,6 +3771,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							node.scope = val;
 							mtl.needsUpdate = true;
 						},
+						control : this.property
 					},
 					'property'
 				);
@@ -3694,6 +3813,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 								mtl = val ? nodeMaterial : standardMaterial;
 								mesh.material = mtl;
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -3709,6 +3829,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -3869,6 +3990,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -3883,6 +4005,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -3903,6 +4026,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 								cond.op = val;
 								mtl.needsUpdate = true;
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -3915,6 +4039,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								ifNode.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -3927,6 +4052,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								elseNode.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -3964,6 +4090,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: -0.5,
 							max: 0.5,
+							control : this.property
 						},
 						'property'
 					);
@@ -3978,6 +4105,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 8,
+							control : this.property
 						},
 						'property'
 					);
@@ -3991,6 +4119,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 								mtl.color = val ? new THREE.ColorNode(0xffffff) : checker;
 								mtl.needsUpdate = true;
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -4037,6 +4166,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 								// reset time blur
 								timer.value = 0;
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -4159,6 +4289,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -4173,6 +4304,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -4187,6 +4319,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -4250,6 +4383,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0.001,
 							max: 0.1,
+							control : this.property
 						},
 						'property'
 					);
@@ -4304,6 +4438,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 3,
+							control : this.property
 						},
 						'property'
 					);
@@ -4452,6 +4587,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								frontColor.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -4464,6 +4600,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							change: (val) => {
 								backColor.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -4478,6 +4615,7 @@ export class WebglMaterialsNodesComponent extends NgxBaseComponent<{
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);

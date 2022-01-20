@@ -1,13 +1,6 @@
 import { Component } from '@angular/core';
 import {
-	NgxBaseComponent,
-	NgxGeometryComponent,
-	THREE,
-	I3JS,
-	NgxMeshComponent,
-	NgxSceneComponent,
-	IRendererTimer,
-	NgxThreeUtil,
+	I3JS, IRendererTimer, NgxBaseComponent, NgxMeshComponent, NgxThreeUtil, THREE
 } from 'ngx3js';
 interface BoneControl {
 	positionX: number;
@@ -40,6 +33,7 @@ export class NgxBonesBrowserComponent extends NgxBaseComponent<{
 				pose: () => {
 					if (this.skeleton !== null) {
 						this.skeleton.pose();
+						this._lastTime = 0;
 					}
 				},
 				animateBones: false,
@@ -728,13 +722,14 @@ export class NgxBonesBrowserComponent extends NgxBaseComponent<{
 		skinnedMesh.bind(skeleton);
 	}
 
+	private _lastTime = 0;
 	onRender(timer: IRendererTimer): void {
 		super.onRender(timer);
 		if (this.controls.animateBones && this.meshObject3d !== null) {
-			const time = timer.elapsedTime;
+			this._lastTime += timer.delta;
 			for (let i = 0; i < this.skeleton.bones.length; i++) {
 				this.skeleton.bones[i].rotation.z =
-					(Math.sin(time) * 2) / this.skeleton.bones.length;
+					(Math.sin(this._lastTime) * 2) / this.skeleton.bones.length;
 			}
 		}
 	}

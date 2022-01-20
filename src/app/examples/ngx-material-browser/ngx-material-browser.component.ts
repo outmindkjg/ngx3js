@@ -4,8 +4,8 @@ import {
 	I3JS,
 	IRendererTimer,
 	NgxBaseComponent,
+	NgxLightComponent,
 	NgxRendererComponent,
-	NgxThreeUtil,
 	THREE,
 } from 'ngx3js';
 
@@ -107,6 +107,7 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 								'MeshNormalMaterial',
 								'LineBasicMaterial',
 							],
+							listen: true,
 							change: () => {
 								this.changeMaterial();
 							},
@@ -132,6 +133,24 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 		);
 		this.changeMaterial();
 	}
+
+	setLight(light: NgxLightComponent, type: string) {
+		switch (type) {
+			case 'light1':
+				this.light1 = light.getLight();
+				break;
+			case 'light2':
+				this.light2 = light.getLight();
+				break;
+			case 'light3':
+				this.light3 = light.getLight();
+				break;
+		}
+	}
+
+	light1: I3JS.Light = null;
+	light2: I3JS.Light = null;
+	light3: I3JS.Light = null;
 
 	setRender(renderer: NgxRendererComponent): void {
 		super.setRender(renderer);
@@ -271,7 +290,7 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 						alphaMap: this.alphaMaps[0],
 						combine: 'MultiplyOperation',
 						reflectivity: 1,
-						refractionRatio: 1,
+						refractionRatio: 0.98,
 					};
 					break;
 				case 'MeshLambertMaterial':
@@ -338,7 +357,7 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 						wireframe: false,
 						vertexColors: false,
 						fog: true,
-						envMaps: this.envMaps[0],
+						envMap: this.envMaps[0],
 						map: this.diffuseMaps[0],
 						roughnessMap: this.roughnessMaps[0],
 						alphaMap: this.alphaMaps[0],
@@ -351,14 +370,14 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 						emissive: 0x000000,
 						roughness: 1,
 						metalness: 0,
-						reflectivity: 1,
+						reflectivity: 0.5,
 						clearcoat: 0,
 						clearcoatRoughness: 0,
 						flatShading: false,
 						wireframe: false,
 						vertexColors: false,
 						fog: true,
-						envMaps: this.envMaps[0],
+						envMap: this.envMaps[0],
 						map: this.diffuseMaps[0],
 						roughnessMap: this.roughnessMaps[0],
 						alphaMap: this.alphaMaps[0],
@@ -485,6 +504,7 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 						this.addGui(
 							{
 								name: key,
+								type : 'number',
 								value: value,
 								min: 0,
 								max: 1,
@@ -548,6 +568,33 @@ export class NgxMaterialBrowserComponent extends NgxBaseComponent<{
 							'attribute'
 						);
 						break;
+				}
+			});
+			this.getTimeout().then(() => {
+				if (
+					this.light1 !== null &&
+					this.light2 !== null &&
+					this.light3 !== null
+				) {
+					switch (this.lastGuiMaterial) {
+						case 'MeshToonMaterial':
+							this.light1.visible = false;
+							this.light2.visible = true;
+							this.light3.visible = false;
+							break;
+						case 'MeshMatcapMaterial' :
+						case 'MeshPhysicalMaterial' :
+						case 'MeshStandardMaterial' :
+							this.light1.visible = false;
+							this.light2.visible = false;
+							this.light3.visible = false;
+							break;
+						default:
+							this.light1.visible = true;
+							this.light2.visible = true;
+							this.light3.visible = true;
+							break;
+					}
 				}
 			});
 		}

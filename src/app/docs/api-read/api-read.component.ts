@@ -268,7 +268,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				localizedPath = /\/api\/[A-z0-9\/]+/
 					.exec(pathname)
 					.toString()
-					.substr(5);
+					.substring(5);
 				path = localizedPath.replace(/^[A-z0-9-]+\//, '');
 				break;
 			case 'manual':
@@ -277,13 +277,13 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				path = localizedPath = /\/manual\/[-A-z0-9\/]+/
 					.exec(path)
 					.toString()
-					.substr(8);
+					.substring(8);
 				break;
 			case 'ngxapi':
 				localizedPath = /\/ngxapi\/[A-z0-9\/]+/
 					.exec(pathname)
 					.toString()
-					.substr(8);
+					.substring(8);
 				path = localizedPath.replace(/^[A-z0-9-]+\//, '');
 				break;
 			case 'ngxmanual':
@@ -292,19 +292,19 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				path = localizedPath = /\/ngxmanual\/[-A-z0-9\/]+/
 					.exec(path)
 					.toString()
-					.substr(11);
+					.substring(11);
 				break;
 			case 'examples':
 				path = localizedPath = /\/examples\/[A-z0-9\/]+/
 					.exec(pathname)
 					.toString()
-					.substr(10);
+					.substring(10);
 				break;
 			case 'samples':
 				path = localizedPath = /\/samples\/[A-z0-9\/]+/
 					.exec(pathname)
 					.toString()
-					.substr(9);
+					.substring(9);
 				break;
 		}
 		let text = html;
@@ -316,8 +316,21 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 			'[parameter:$1$2 $1]'
 		); // [parameter:name] to [parameter:name title]
 
-		text = text.replace(/src=\"scenes\/([^\"]+)\"/gi, 'src="assets/scenes/$1"'); // [page:name] to [page:name title]
-		text = text.replace(/src=\"viewer\/([^\"]+)\"/gi, 'src="#/viewer/$1"'); // [page:name] to [page:name title]
+		text = text.replace(/src=\"scenes\/([^"]+)\"/gi, function (_, src : string) {
+			if (src.includes('.html')) {
+				src = src.replace('.html', '');
+			}
+			if (src.includes('#')) {
+				src = src.replace('#', '/');
+			}
+			if (src.includes('-')) {
+				src = src.replace('-', '_');
+			}
+			console.log(src);
+			return 'src="#viewer/ngx_' + src + '"';
+		}); 
+		text = text.replace(/src=\"viewer\/([^\"]+)\"/gi, 'src="#/viewer/$1"');
+		// scenes/geometry-browser.html#BoxGeometry
 
 		text = text.replace(
 			/\[page:\.([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,

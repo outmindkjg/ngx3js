@@ -181,12 +181,14 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'hue',
+							type : 'number',
 							value: hue.value,
 							change: (val) => {
 								hue.value = val;
 							},
 							min: 0,
 							max: Math.PI * 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -194,12 +196,14 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'saturation',
+							type : 'number',
 							value: sataturation.value,
 							change: (val) => {
 								sataturation.value = val;
 							},
 							min: 0,
 							max: 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -207,12 +211,14 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'vibrance',
+							type : 'number',
 							value: vibrance.value,
 							change: (val) => {
 								vibrance.value = val;
 							},
 							min: -1,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -220,12 +226,14 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'brightness',
+							type : 'number',
 							value: brightness.value,
 							change: (val) => {
 								brightness.value = val;
 							},
 							min: 0,
 							max: 0.5,
+							control : this.property
 						},
 						'property'
 					);
@@ -233,12 +241,14 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'contrast',
+							type : 'number',
 							value: contrast.value,
 							change: (val) => {
 								contrast.value = val;
 							},
 							min: 0,
 							max: 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -265,10 +275,12 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'color',
+							type : 'color',
 							value: color.value.getHex(),
 							change: (val) => {
 								color.value.setHex(val);
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -276,12 +288,14 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'fade',
+							type : 'number',
 							value: percent.value,
 							change: (val) => {
 								percent.value = val;
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -310,12 +324,14 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'alpha',
+							type : 'number',
 							value: alpha.value,
 							change: (val) => {
 								alpha.value = val;
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -338,6 +354,7 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'blend',
+							type : 'select',
 							select: {
 								addition: THREE.OperatorNode.ADD,
 								subtract: THREE.OperatorNode.SUB,
@@ -346,9 +363,9 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 							},
 							change: (val) => {
 								multiply.op = val;
-
 								this.nodepass.needsUpdate = true;
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -384,12 +401,14 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'saturation',
+							type : 'number',
 							value: sat.value,
 							change: (val) => {
 								sat.value = val;
 							},
 							min: 0,
 							max: 2,
+							control : this.property
 						},
 						'property'
 					);
@@ -442,12 +461,14 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'scale',
+							type : 'number',
 							value: scale.value,
 							change: (val) => {
 								scale.value = val;
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -455,11 +476,13 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'invert',
+							type : 'checkbox',
 							value: false,
 							change: (val) => {
 								offsetNormal.a = val ? normalXYFlip : normalXY;
 								this.nodepass.needsUpdate = true;
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -501,12 +524,14 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'scale',
+							type : 'number',
 							value: scale.value,
 							change: (val) => {
 								scale.value = val;
 							},
 							min: 16,
 							max: 1024,
+							control : this.property
 						},
 						'property'
 					);
@@ -514,12 +539,14 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'fade',
+							type : 'number',
 							value: fade.value,
 							change: (val) => {
 								fade.value = val;
 							},
 							min: 0,
 							max: 1,
+							control : this.property
 						},
 						'property'
 					);
@@ -527,6 +554,7 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'mask',
+							type : 'checkbox',
 							value: false,
 							change: (val) => {
 								fadeScreen.c = val
@@ -534,6 +562,7 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 									: fade;
 								this.nodepass.needsUpdate = true;
 							},
+							control : this.property
 						},
 						'property'
 					);
@@ -557,12 +586,14 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'blurX',
+							type : 'number',
 							value: blurScreen.radius.x,
 							change: (val) => {
 								blurScreen.radius.x = val;
 							},
 							min: 0,
 							max: 15,
+							control : this.property
 						},
 						'property'
 					);
@@ -570,12 +601,14 @@ export class WebglPostprocessingNodesPassComponent extends NgxBaseComponent<{
 					this.addGui(
 						{
 							name: 'blurY',
+							type : 'number',
 							value: blurScreen.radius.y,
 							change: (val) => {
 								blurScreen.radius.y = val;
 							},
 							min: 0,
 							max: 15,
+							control : this.property
 						},
 						'property'
 					);

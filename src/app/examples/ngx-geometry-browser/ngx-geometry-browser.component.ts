@@ -314,6 +314,7 @@ export class NgxGeometryBrowserComponent extends NgxBaseComponent<{
 						this.addGui(
 							{
 								name: key,
+								type : 'number',
 								value: value,
 								min: 1,
 								max: 50,
@@ -329,6 +330,7 @@ export class NgxGeometryBrowserComponent extends NgxBaseComponent<{
 						this.addGui(
 							{
 								name: key,
+								type : 'number',
 								value: value,
 								min: 1,
 								max: 10,
@@ -374,6 +376,7 @@ export class NgxGeometryBrowserComponent extends NgxBaseComponent<{
 						this.addGui(
 							{
 								name: key,
+								type : 'number',
 								value: value,
 								min: 0,
 								max: 5,
@@ -404,6 +407,7 @@ export class NgxGeometryBrowserComponent extends NgxBaseComponent<{
 						this.addGui(
 							{
 								name: key,
+								type : 'number',
 								value: value,
 								min: 0,
 								max: 5,

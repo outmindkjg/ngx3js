@@ -538,7 +538,8 @@ body.home #panel #content h2 {
 
 .card .cover img {
 	position: absolute;
-	width: 100%;
+	width: 267px;
+	height: 167px;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -617,6 +618,10 @@ body.home #panel #content h2 {
 	#panel.open #contentWrapper {
 		transform: translate3d(-380px, 0, 0);
 	}
+	.card .cover img {
+		width : 322px;
+		height: 201px;
+	}	
 	#viewer {
 		left: 0;
 		top: var(--header-height);

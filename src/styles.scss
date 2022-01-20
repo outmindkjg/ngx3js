@@ -226,6 +226,10 @@ pre {
 		display: none;
 	}
 }
+#example-iframe.view-screen.active-full-screen #viewer-inner div.info {
+	display: block;
+}
+
 
 div#example-iframe,
 div#example,

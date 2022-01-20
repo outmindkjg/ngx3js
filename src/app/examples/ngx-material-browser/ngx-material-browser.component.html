@@ -1,6 +1,6 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-	Material Browser [{{ materialAttr.type }}]
+	Material Browser <strong class="shadow">{{ materialAttr.type }}</strong>
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -9,9 +9,9 @@
 	[antialias]="true"
 	[clearColor]="'0xffffff'"
 	[shadowMapEnabled]="true"
+	[outputEncoding]="'sRGBEncoding'"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
-	[guiOpen]="true"
 	(onLoad)="setRender($event)"
 	(onRender)="onRender($event)"
 >
@@ -38,6 +38,7 @@
 			[color]="'0xffffff'"
 			[intensity]="1"
 			[distance]="0"
+			(onLoad)="setLight($event,'light1')"
 		>
 			<ngx3js-position [x]="0" [y]="200" [z]="0"></ngx3js-position>
 		</ngx3js-light>
@@ -46,6 +47,7 @@
 			[color]="'0xffffff'"
 			[intensity]="1"
 			[distance]="0"
+			(onLoad)="setLight($event,'light2')"
 		>
 			<ngx3js-position [x]="100" [y]="200" [z]="100"></ngx3js-position>
 		</ngx3js-light>
@@ -54,6 +56,7 @@
 			[color]="'0xffffff'"
 			[intensity]="1"
 			[distance]="0"
+			(onLoad)="setLight($event,'light3')"
 		>
 			<ngx3js-position [x]="-100" [y]="-200" [z]="-100"></ngx3js-position>
 		</ngx3js-light>
@@ -63,8 +66,8 @@
 				[type]="'TorusKnotGeometry'"
 				[radius]="10"
 				[tube]="3"
-				[tubularSegments]="200"
-				[radialSegments]="32"
+				[radialSegments]="200"
+				[tubularSegments]="32"
 				[toNonIndexed]="true"
 				[onInit]="generateVertexColors"
 			></ngx3js-geometry>

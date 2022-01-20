@@ -4,7 +4,7 @@ import {
 	Component,
 	ElementRef,
 	OnInit,
-	ViewChild
+	ViewChild,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { NgxRendererComponent, NgxThreeUtil } from 'ngx3js';
@@ -60,7 +60,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 	}
 
 	private menuId: string = '';
-	
+
 	changeRouter(url: string) {
 		NgxThreeUtil.clear();
 		this.menuId = '/examples/' + url.split('/')[2];
@@ -70,14 +70,14 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	private lastFocus : string = null;
+	private lastFocus: string = null;
 	setFocus(menuId: string) {
 		if (this.ele.nativeElement) {
 			if (!this.isLoaded) {
 				NgxThreeUtil.getTimeout(500).then(() => {
 					this.setFocus(menuId);
 				});
-			} else if (this.lastFocus !== menuId){
+			} else if (this.lastFocus !== menuId) {
 				this.lastFocus = menuId;
 				this.menu.closeMenu(true);
 				const links: HTMLAnchorElement[] =
@@ -89,7 +89,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 						selected = links[i];
 						break;
 					}
-				} 
+				}
 				if (selected !== null) {
 					selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 					NgxThreeUtil.getTimeout(1000).then(() => {
@@ -126,7 +126,10 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 	searchFocus() {
 		this.searchFocused = true;
 		if (this.contentTop !== null) {
-			this.contentTop.nativeElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+			this.contentTop.nativeElement.scrollIntoView({
+				block: 'start',
+				behavior: 'smooth',
+			});
 		}
 	}
 
@@ -161,7 +164,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 			this.files[key] = value as any;
 		});
 		if (this.menuId !== null) {
-			NgxThreeUtil.getTimeout(1000).then(()=> {
+			NgxThreeUtil.getTimeout(1000).then(() => {
 				this.isLoaded = true;
 				this.setFocus(this.menuId);
 			});
@@ -286,6 +289,7 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 					image = NgxThreeUtil.getStoreUrl('screenshots/' + id + '.jpg');
 					url = '/examples/' + id;
 					break;
+				case 'browser':
 				case 'ngx3js':
 					image = NgxThreeUtil.getStoreUrl('screenshots/' + id + '.jpeg');
 					url = '/examples/' + id;
