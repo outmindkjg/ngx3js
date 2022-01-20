@@ -619,8 +619,10 @@ body.home #panel #content h2 {
 		transform: translate3d(-380px, 0, 0);
 	}
 	.card .cover img {
-		width : 322px;
-		height: 201px;
+		width : calc(100vw - 92px);
+		max-width: 328px;
+		height: calc((100vw - 92px) * 0.62 );
+		max-height: 203px;
 	}	
 	#viewer {
 		left: 0;

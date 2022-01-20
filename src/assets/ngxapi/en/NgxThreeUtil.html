@@ -1326,6 +1326,15 @@
 			Sets gui enabled
 		</p>
 
+		<h3>[method:void setLoadingDisplay](  [param:ILoadingProcess loadingProcess] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ILoadingProcess loadingProcess] - The loading process.
+		</p>
+		<p>
+			Sets loading process
+		</p>
+
 		<h3>[method:void setLoadingProcess](  [param:string url],  [param:number loaded],  [param:number total] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
@@ -1402,6 +1411,15 @@
 		<p>
 			Toggles css style<br />
 			Returns : true if css style
+		</p>
+
+		<h3>[method:void unsetLoadingDisplay](  [param:ILoadingProcess loadingProcess] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:ILoadingProcess loadingProcess] - The loading process.
+		</p>
+		<p>
+			Sets loading process
 		</p>
 
 
@@ -1526,7 +1544,8 @@
 			[property:string[] select]? - The select value of select type<br />
 			[property:number step]? - The step value of number type<br />
 			[property:string title]? - The title of gui name<br />
-			[property:'number'|'color'|'select'|'folder'|'button'|'checkbox'|'input'|'listen'|'auto' type]? - The type of gui control
+			[property:'number'|'color'|'select'|'folder'|'button'|'checkbox'|'input'|'listen'|'auto' type]? - The type of gui control<br />
+			[property:any value]? - The name of gui control
 		</p>
 		<h4>Methods</h4>
 		<p>
@@ -1536,6 +1555,16 @@
 
 		<p class="desc">
 			Gui control param
+		</p>
+
+		<h3 id="ILoadingProcess" class="interface"> ILoadingProcess <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Methods</h4>
+		<p>
+			[method:void setLoadingProcess](  [param:string url],  [param:number loaded],  [param:number total] ) 
+		</p>
+
+		<p class="desc">
+			Iloading process
 		</p>
 
 		<h3 id="IRendererTimer" class="interface"> IRendererTimer <i class="modifier modifier-interface">Interface</i></h3>

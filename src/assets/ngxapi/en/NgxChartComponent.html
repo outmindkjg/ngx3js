@@ -217,17 +217,11 @@
 			See the base [page:NgxBaseComponent NgxBaseComponent] class for common methods.
 		</p>
 
-		<h3>[method:GUIController addGui](  [param:string name],  [param:any value],  [param:any callback]?,  [param:boolean isColor]?,  [param:number min]?,  [param:number max]?,  [param:any param]?,  [param:string folder]? )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h3>[method:GUI|GUIController addGui](  [param:IGuiControlParam options],  [param:string|GUI folder]? )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:string name] - The name.<br />
-			[parameter:any value] - The value.<br />
-			[parameter:any callback] - (optional) The callback.<br />
-			[parameter:boolean isColor] - (optional) The is color.<br />
-			[parameter:number min] - (optional) The min.<br />
-			[parameter:number max] - (optional) The max.<br />
-			[parameter:any param] - (optional) The param.<br />
-			[parameter:string folder] - (optional) The folder.
+			[parameter:IGuiControlParam options] - The options.<br />
+			[parameter:string|GUI folder] - (optional) The folder.
 		</p>
 		<p>
 			
@@ -412,7 +406,8 @@
 			[property:string[] select]? - The select value of select type<br />
 			[property:number step]? - The step value of number type<br />
 			[property:string title]? - The title of gui name<br />
-			[property:'number'|'color'|'select'|'folder'|'button'|'checkbox'|'input'|'listen'|'auto' type]? - The type of gui control
+			[property:'number'|'color'|'select'|'folder'|'button'|'checkbox'|'input'|'listen'|'auto' type]? - The type of gui control<br />
+			[property:any value]? - The name of gui control
 		</p>
 		<h4>Methods</h4>
 		<p>

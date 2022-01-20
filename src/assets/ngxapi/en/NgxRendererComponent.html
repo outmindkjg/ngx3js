@@ -77,6 +77,7 @@
 			[ toneMappingExposure ]="... number -- Exposure level of tone mapping... "
 			[ tween ]="... any -- Tween animation params "
 			[ type ]="... string -- The type of renderer "
+			[ useAssetLoading ]="... boolean -- The useAssetLoading of GUI "
 			[ useEvent ]="... string -- The Input of renderer componen... "
 			[ userData ]="... any -- An object that can be used to ... "
 			[ width ]="... string|number -- The width of renderer "
@@ -252,6 +253,11 @@
 			The Id of abstract subscribe component
 		</p>
 
+		<h3>[property:ILoadingProcessInfo loadingProcess]<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
+		</p>
+
 		<h3>[property:boolean localClippingEnabled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			Defines whether the renderer respects object-level clipping planes. Default is <i>false</i>.
@@ -395,6 +401,11 @@
 		<p>
 			The type of renderer<br />
 			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> SVGRenderer </td><td> SVGRenderer, SVG </td></tr> <tr><td> THREE.WebGLRenderer </td><td> WebGLRenderer, WebGL, GL, WebGL2 </td></tr> </table>
+		</p>
+
+		<h3>[property:boolean useAssetLoading] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The useAssetLoading of GUI
 		</p>
 
 		<h3>[property:string useEvent]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
@@ -673,6 +684,17 @@
 			Runs subscribe next
 		</p>
 
+		<h3>[method:void setLoadingProcess](  [param:string url],  [param:number loaded],  [param:number total] )<i class="modifier modifier-public">Public</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string url] - The url.<br />
+			[parameter:number loaded] - The loaded.<br />
+			[parameter:number total] - The total.
+		</p>
+		<p>
+			Sets loading process
+		</p>
+
 		<h3>[method:void setObject](  [param:any obj] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
@@ -928,7 +950,8 @@
 			[property:string[] select]? - The select value of select type<br />
 			[property:number step]? - The step value of number type<br />
 			[property:string title]? - The title of gui name<br />
-			[property:'number'|'color'|'select'|'folder'|'button'|'checkbox'|'input'|'listen'|'auto' type]? - The type of gui control
+			[property:'number'|'color'|'select'|'folder'|'button'|'checkbox'|'input'|'listen'|'auto' type]? - The type of gui control<br />
+			[property:any value]? - The name of gui control
 		</p>
 		<h4>Methods</h4>
 		<p>
@@ -938,6 +961,20 @@
 
 		<p class="desc">
 			Gui control param
+		</p>
+
+		<h3 id="ILoadingProcessInfo" class="interface"> ILoadingProcessInfo <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number loaded] -  The loaded.<br />
+			[property:number percent] -  The percent.<br />
+			[property:number remindPercent] -  The remind percent.<br />
+			[property:number total] -  The total.<br />
+			[property:string url] -  The url.
+		</p>
+
+		<p class="desc">
+			Iloading process info
 		</p>
 
 		<h3 id="IRendererTimer" class="interface"> IRendererTimer <i class="modifier modifier-interface">Interface</i></h3>
