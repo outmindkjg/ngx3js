@@ -259,7 +259,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		const html = body.substring(start, end);
 		let path, localizedPath;
 		const pathname = '/' + pageId;
-		const section = /\/(api|manual|examples|samples|ngxapi|ngxmanual)\//
+		const section = /\/(api|manual|examples|samples|apiexamples|ngxapi|ngxmanual)\//
 			.exec(pathname)[1]
 			.toString();
 		let name = /[\-A-z0-9]+$/.exec(pathname).toString();
