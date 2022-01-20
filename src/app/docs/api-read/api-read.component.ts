@@ -1033,7 +1033,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 					) {
 						this.router.navigateByUrl('/docs/' + this.menuId + '.' + hrefId);
 					} else {
-						this.docsComponent.changePage(hrefId, this.menuId);
+						this.docsComponent.changePage(hrefId, this.menuId, e);
 					}
 				}
 				e.stopPropagation();

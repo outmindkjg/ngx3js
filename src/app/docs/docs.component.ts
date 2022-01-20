@@ -195,7 +195,7 @@ export class DocsComponent implements OnInit {
 	loadedPageInfo: { [key: string]: string } = {};
 	ngxLoadedPageInfo: { [key: string]: string } = {};
 
-	changePage(url: string, pageUrl: string = '') {
+	changePage(url: string, pageUrl: string = '', e: any) {
 		let pageName = '';
 		let hashTag = '';
 		if (url.indexOf('.') > 0) {
@@ -217,8 +217,14 @@ export class DocsComponent implements OnInit {
 			let viewUrl = this.loadedPageInfo[pageName];
 			this.router.navigateByUrl(viewUrl + (hashTag != '' ? '.' + hashTag : ''));
 			this.checkSearch('');
+		}  else if (pageName.startsWith('examples/')) {
+			if (e && e.metaKey) {
+				window.open('#' + pageName, '_blank');
+			} else {
+				this.router.navigateByUrl(pageName);
+			}
 		}
-	}
+}
 
 	subChildMenu : { id: string; name: string, element : HTMLElement, selected : boolean }[] = null;
 	changeSubPage(subMenuList: { id: string; name: string, element : HTMLElement, selected : boolean }[]) {
