@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { NgxThreeUtil } from 'ngx3js';
 import { Subscription } from 'rxjs';
 import { MenuComponent } from '../menu/menu.component';
 
@@ -97,9 +98,9 @@ export class DocsComponent implements OnInit {
 			if (menuId === null) {
 				this.apiTop.nativeElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
 			} else if (!this.isLoaded) {
-				setTimeout(() => {
+				NgxThreeUtil.getTimeout(500).then(() => {
 					this.setFocus(menuId);
-				}, 500);
+				});
 			} else if (this.lastFocus !== menuId) {
 				if (this.lastFocus === null || !this.lastFocus.startsWith(menuId)) {
 					this.menu.closeMenu(true);
@@ -115,14 +116,16 @@ export class DocsComponent implements OnInit {
 						}
 					}
 					if (selected !== null) {
-						selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-						setTimeout(() => {
-							this.menu.closeMenu(false);
-						}, 1000);
+						NgxThreeUtil.getTimeout(500).then(() => {
+							selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+							NgxThreeUtil.getTimeout(1000).then(() => {
+								this.menu.closeMenu(false);
+							});
+						});
 					} else {
-						setTimeout(() => {
+						NgxThreeUtil.getTimeout(1000).then(() => {
 							this.menu.closeMenu(false);
-						}, 1000);
+						});
 					}
 				}
 			} else if (this.subChildMenu !== null && this.subChildMenu.length > 0){
@@ -247,12 +250,12 @@ export class DocsComponent implements OnInit {
 			this.list['zh'],
 			this.list['ja'],
 		]);
-		setTimeout(() => {
+		NgxThreeUtil.getTimeout(1000).then(() => {
 			this.isLoaded = true;
 			if (this.menuId !== null) {
 				this.setFocus(this.menuId.split('.')[0]);
 			}
-		}, 1000);
+		});
 	}
 
 	docsAlias: { [key: string]: string[] } = {

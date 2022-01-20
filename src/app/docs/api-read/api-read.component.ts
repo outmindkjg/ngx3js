@@ -9,6 +9,7 @@ import {
 import { DomSanitizer } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 import { HighlightJS } from 'ngx-highlightjs';
+import { NgxThreeUtil } from 'ngx3js';
 import { Subscription } from 'rxjs';
 import { DocsComponent } from '../docs.component';
 
@@ -152,9 +153,9 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 			return false;
 		} else {
 			this.enterKeyValid = false;
-			setTimeout(() => {
+			NgxThreeUtil.getTimeout(500).then(() => {
 				this.enterKeyValid = true;
-			}, 500);
+			});
 		}
 		return true;
 	}
@@ -1108,7 +1109,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 				});
 		}
 		this.isLoaded = true;
-		setTimeout(() => {
+		NgxThreeUtil.getTimeout(2000).then(() => {
 			if (this.tagName !== null) {
 				this.setFocus(this.tagName);
 				this.tagName = null;
@@ -1118,7 +1119,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 			const docEle: HTMLDivElement =
 				this.docEle.nativeElement.parentElement.parentElement.parentElement;
 			this.checkScrollIframe(docEle);
-		}, 2000);
+		});
 	}
 
 	/**
@@ -1260,9 +1261,9 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 
 	setFocus(menuId: string) {
 		if (!this.isLoaded) {
-			setTimeout(() => {
+			NgxThreeUtil.getTimeout(500).then(() => {
 				this.setFocus(menuId);
-			}, 500);
+			});
 		} else {
 			if (menuId !== null) {
 				let selected: HTMLElement = this.setElementById(menuId);

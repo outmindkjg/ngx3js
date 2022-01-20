@@ -91,9 +91,11 @@ export class ExamplesComponent implements OnInit, AfterViewInit {
 					}
 				}
 				if (selected !== null) {
-					selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-					NgxThreeUtil.getTimeout(1000).then(() => {
-						this.menu.closeMenu(false);
+					NgxThreeUtil.getTimeout(500).then(() => {
+						selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+						NgxThreeUtil.getTimeout(1000).then(() => {
+							this.menu.closeMenu(false);
+						});
 					});
 				} else {
 					NgxThreeUtil.getTimeout(1000).then(() => {

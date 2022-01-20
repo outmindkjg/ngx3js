@@ -57,9 +57,9 @@ export class ExampleViewerComponent implements OnInit, AfterViewInit {
 		}
 		this.fullUrl = '#' + 'examples/' + this.safeId;
 		this.ngAfterViewInit();
-		setTimeout(() => {
+		NgxThreeUtil.getTimeout(2000).then(() => {
 			this.isLoaded = true;
-		}, 4000);
+		});
 	}
 	isfullScreenMode : boolean = false;
 	toggleScreen() {
