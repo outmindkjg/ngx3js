@@ -25,11 +25,11 @@
 		<p class="desc">
 			The site configured at this address does not contain the requested file. <br/>
 			<a *ngIf="altPage" href="#" [routerLink]="altPage">
-				Try "{{altPage}}" Try this page instead.
+				&quot;{{altPage}}&quot; Try this page instead.
 			</a>
 		</p>
 	</div>
-	<div #apiDoc class="doc-body" [class.scrolled]="isScrolled"></div>
+	<div #apiDoc class="doc-body" [ngClass]="{ scrolled : isScrolled, rtl : rtl }"></div>
 	<br />
 	<br />
 	<br />

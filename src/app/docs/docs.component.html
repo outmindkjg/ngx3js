@@ -33,7 +33,7 @@
 					</option>
 				</select>
 			</div>
-			<div id="content">
+			<div id="content" [ngClass]="{ rtl : language === 'ar' }">
 				<a #contentTop class="content-top"></a>
 				<div *ngFor="let item of searchMenu">
 					<h2>{{ item.name }}</h2>

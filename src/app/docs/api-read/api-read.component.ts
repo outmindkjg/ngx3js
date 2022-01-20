@@ -206,6 +206,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		}
 	}
 
+	rtl : boolean = false;
 	changeRouter(url: string) {
 		const menuId = url.substr(6).split('.')[0];
 		if (this.menuId !== menuId) {
@@ -254,7 +255,9 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 	}[] = [];
 
 	setBody(body: string, pageId: string) {
-		const start = body.indexOf('<body>') + 6;
+		this.rtl = pageId.includes('/ar/') ? true : false;
+
+		const start = body.indexOf('>', body.indexOf('<body')) + 1;
 		const end = body.lastIndexOf('</body>');
 		const html = body.substring(start, end);
 		let path, localizedPath;
