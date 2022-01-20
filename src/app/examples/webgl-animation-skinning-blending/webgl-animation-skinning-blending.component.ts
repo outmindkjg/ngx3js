@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgxBaseComponent, NgxMixerComponent } from 'ngx3js';
+import { NgxBaseComponent, NgxMixerComponent, NgxThreeUtil } from 'ngx3js';
 
 @Component({
 	selector: 'app-webgl-animation-skinning-blending',
@@ -148,19 +148,50 @@ export class WebglAnimationSkinningBlendingComponent extends NgxBaseComponent<{
 						},
 					],
 				},
-			]
-		, false, false);
+			],
+			false,
+			false
+		);
 	}
 
 	mixer: NgxMixerComponent = null;
 
 	setMixer(mixer: NgxMixerComponent) {
 		this.mixer = mixer;
+		this.getTimeout().then(() => {
+			this.controls.fromIdleToWalk();
+		})
 	}
 
-	fadeToAction(endAction: string, restoreAction?: string, duration?: number) {
+	fadeToAction(endAction?: string, restoreAction?: string, duration?: number) {
 		if (this.mixer !== null) {
-			this.mixer.fadeToAction(endAction, duration, restoreAction, duration);
+			this.mixer.fadeToAction(restoreAction, duration, endAction, duration);
+			const crossfading = NgxThreeUtil.getGuiFolder(
+				this.renderer.gui,
+				'Crossfading'
+			);
+			if (NgxThreeUtil.isNotNull(crossfading)) {
+				switch (restoreAction) {
+					case 'idle':
+						NgxThreeUtil.setGuiEnabled(crossfading.controllers[0], false);
+						NgxThreeUtil.setGuiEnabled(crossfading.controllers[1], true);
+						NgxThreeUtil.setGuiEnabled(crossfading.controllers[2], false);
+						NgxThreeUtil.setGuiEnabled(crossfading.controllers[3], false);
+						break;
+					case 'walk':
+						NgxThreeUtil.setGuiEnabled(crossfading.controllers[0], true);
+						NgxThreeUtil.setGuiEnabled(crossfading.controllers[1], false);
+						NgxThreeUtil.setGuiEnabled(crossfading.controllers[2], true);
+						NgxThreeUtil.setGuiEnabled(crossfading.controllers[3], false);
+						break;
+					case 'run':
+						NgxThreeUtil.setGuiEnabled(crossfading.controllers[0], false);
+						NgxThreeUtil.setGuiEnabled(crossfading.controllers[1], false);
+						NgxThreeUtil.setGuiEnabled(crossfading.controllers[2], false);
+						NgxThreeUtil.setGuiEnabled(crossfading.controllers[3], true);
+						break;
+				}
+			}
 		}
 	}
 }
