@@ -318,105 +318,101 @@
 
 		"Examples": {
 			"Animations": {
-				"CCDIKSolver": "samples/en/animations/CCDIKSolver",
-				"MMDAnimationHelper": "samples/en/animations/MMDAnimationHelper",
-				"MMDPhysics": "samples/en/animations/MMDPhysics"
+				"CCDIKSolver": "apiexamples/en/animations/CCDIKSolver",
+				"MMDAnimationHelper": "apiexamples/en/animations/MMDAnimationHelper",
+				"MMDPhysics": "apiexamples/en/animations/MMDPhysics"
 			},
 
 			"Controls": {
-				"ArcballControls": "samples/en/controls/ArcballControls",
-				"DragControls": "samples/en/controls/DragControls",
-				"FirstPersonControls": "samples/en/controls/FirstPersonControls",
-				"FlyControls": "samples/en/controls/FlyControls",
-				"OrbitControls": "samples/en/controls/OrbitControls",
-				"PointerLockControls": "samples/en/controls/PointerLockControls",
-				"TrackballControls": "samples/en/controls/TrackballControls",
-				"TransformControls": "samples/en/controls/TransformControls"
+				"ArcballControls": "apiexamples/en/controls/ArcballControls",
+				"DragControls": "apiexamples/en/controls/DragControls",
+				"FirstPersonControls": "apiexamples/en/controls/FirstPersonControls",
+				"FlyControls": "apiexamples/en/controls/FlyControls",
+				"OrbitControls": "apiexamples/en/controls/OrbitControls",
+				"PointerLockControls": "apiexamples/en/controls/PointerLockControls",
+				"TrackballControls": "apiexamples/en/controls/TrackballControls",
+				"TransformControls": "apiexamples/en/controls/TransformControls"
 			},
 
 			"Geometries": {
-				"ConvexGeometry": "samples/en/geometries/ConvexGeometry",
-				"DecalGeometry": "samples/en/geometries/DecalGeometry",
-				"ParametricGeometry": "samples/en/geometries/ParametricGeometry",
-				"TextGeometry": "samples/en/geometries/TextGeometry"
+				"ConvexGeometry": "apiexamples/en/geometries/ConvexGeometry",
+				"DecalGeometry": "apiexamples/en/geometries/DecalGeometry",
+				"ParametricGeometry": "apiexamples/en/geometries/ParametricGeometry",
+				"TextGeometry": "apiexamples/en/geometries/TextGeometry"
 			},
 
 			"Helpers": {
-				"LightProbeHelper": "samples/en/helpers/LightProbeHelper",
-				"PositionalAudioHelper": "samples/en/helpers/PositionalAudioHelper",
-				"RectAreaLightHelper": "samples/en/helpers/RectAreaLightHelper",
-				"VertexNormalsHelper": "samples/en/helpers/VertexNormalsHelper",
-				"VertexTangentsHelper": "samples/en/helpers/VertexTangentsHelper"
+				"LightProbeHelper": "apiexamples/en/helpers/LightProbeHelper",
+				"PositionalAudioHelper": "apiexamples/en/helpers/PositionalAudioHelper",
+				"RectAreaLightHelper": "apiexamples/en/helpers/RectAreaLightHelper",
+				"VertexNormalsHelper": "apiexamples/en/helpers/VertexNormalsHelper",
+				"VertexTangentsHelper": "apiexamples/en/helpers/VertexTangentsHelper"
 			},
 
 			"Lights": {
-				"LightProbeGenerator": "samples/en/lights/LightProbeGenerator"
+				"LightProbeGenerator": "apiexamples/en/lights/LightProbeGenerator"
 			},
 
 			"Loaders": {
-				"3DMLoader": "samples/en/loaders/3DMLoader",
-				"BasisTextureLoader": "samples/en/loaders/BasisTextureLoader",
-				"DRACOLoader": "samples/en/loaders/DRACOLoader",
-				"FontLoader": "samples/en/loaders/FontLoader",
-				"GLTFLoader": "samples/en/loaders/GLTFLoader",
-				"KTX2Loader": "samples/en/loaders/KTX2Loader",
-				"MMDLoader": "samples/en/loaders/MMDLoader",
-				"MTLLoader": "samples/en/loaders/MTLLoader",
-				"OBJLoader": "samples/en/loaders/OBJLoader",
-				"PCDLoader": "samples/en/loaders/PCDLoader",
-				"PDBLoader": "samples/en/loaders/PDBLoader",
-				"PRWMLoader": "samples/en/loaders/PRWMLoader",
-				"SVGLoader": "samples/en/loaders/SVGLoader",
-				"TGALoader": "samples/en/loaders/TGALoader"
+				"3DMLoader": "apiexamples/en/loaders/3DMLoader",
+				"DRACOLoader": "apiexamples/en/loaders/DRACOLoader",
+				"FontLoader": "apiexamples/en/loaders/FontLoader",
+				"GLTFLoader": "apiexamples/en/loaders/GLTFLoader",
+				"KTX2Loader": "apiexamples/en/loaders/KTX2Loader",
+				"LDrawLoader": "apiexamples/en/loaders/LDrawLoader",
+				"MMDLoader": "apiexamples/en/loaders/MMDLoader",
+				"MTLLoader": "apiexamples/en/loaders/MTLLoader",
+				"OBJLoader": "apiexamples/en/loaders/OBJLoader",
+				"PCDLoader": "apiexamples/en/loaders/PCDLoader",
+				"PDBLoader": "apiexamples/en/loaders/PDBLoader",
+				"PRWMLoader": "apiexamples/en/loaders/PRWMLoader",
+				"SVGLoader": "apiexamples/en/loaders/SVGLoader",
+				"TGALoader": "apiexamples/en/loaders/TGALoader"
 			},
 
 			"Objects": {
-				"Lensflare": "samples/en/objects/Lensflare"
+				"Lensflare": "apiexamples/en/objects/Lensflare"
 			},
 
 			"Post-Processing": {
-				"EffectComposer": "samples/en/postprocessing/EffectComposer"
+				"EffectComposer": "apiexamples/en/postprocessing/EffectComposer"
 			},
 
 			"Exporters": {
-				"GLTFExporter": "samples/en/exporters/GLTFExporter",
-				"PLYExporter": "samples/en/exporters/PLYExporter",
-				"ColladaExporter": "samples/en/exporters/ColladaExporter"
+				"GLTFExporter": "apiexamples/en/exporters/GLTFExporter",
+				"PLYExporter": "apiexamples/en/exporters/PLYExporter",
+				"ColladaExporter": "apiexamples/en/exporters/ColladaExporter"
 			},
 
 			"Math": {
-				"LookupTable": "samples/en/math/Lut",
-				"MeshSurfaceSampler": "samples/en/math/MeshSurfaceSampler",
-				"OBB": "samples/en/math/OBB"
+				"LookupTable": "apiexamples/en/math/Lut",
+				"MeshSurfaceSampler": "apiexamples/en/math/MeshSurfaceSampler",
+				"OBB": "apiexamples/en/math/OBB"
 			},
 
 			"ConvexHull": {
-				"Face": "samples/en/math/convexhull/Face",
-				"HalfEdge": "samples/en/math/convexhull/HalfEdge",
-				"ConvexHull": "samples/en/math/convexhull/ConvexHull",
-				"VertexNode": "samples/en/math/convexhull/VertexNode",
-				"VertexList": "samples/en/math/convexhull/VertexList"
+				"Face": "apiexamples/en/math/convexhull/Face",
+				"HalfEdge": "apiexamples/en/math/convexhull/HalfEdge",
+				"ConvexHull": "apiexamples/en/math/convexhull/ConvexHull",
+				"VertexNode": "apiexamples/en/math/convexhull/VertexNode",
+				"VertexList": "apiexamples/en/math/convexhull/VertexList"
 			},
 
 			"Renderers": {
-				"CSS2DRenderer": "samples/en/renderers/CSS2DRenderer",
-				"CSS3DRenderer": "samples/en/renderers/CSS3DRenderer",
-				"SVGRenderer": "samples/en/renderers/SVGRenderer"
+				"CSS2DRenderer": "apiexamples/en/renderers/CSS2DRenderer",
+				"CSS3DRenderer": "apiexamples/en/renderers/CSS3DRenderer",
+				"SVGRenderer": "apiexamples/en/renderers/SVGRenderer"
 			},
 
 			"Utils": {
-				"BufferGeometryUtils": "samples/en/utils/BufferGeometryUtils",
-				"CameraUtils": "samples/en/utils/CameraUtils",
-				"SceneUtils": "samples/en/utils/SceneUtils",
-				"SkeletonUtils": "samples/en/utils/SkeletonUtils"
+				"BufferGeometryUtils": "apiexamples/en/utils/BufferGeometryUtils",
+				"CameraUtils": "apiexamples/en/utils/CameraUtils",
+				"SceneUtils": "apiexamples/en/utils/SceneUtils",
+				"SkeletonUtils": "apiexamples/en/utils/SkeletonUtils"
 			}
 		},
 
 		"Developer Reference": {
-			"Polyfills": {
-				"Polyfills": "api/en/Polyfills"
-			},
-
 			"WebGLRenderer": {
 				"WebGLProgram": "api/en/renderers/webgl/WebGLProgram"
 			}
@@ -804,101 +800,96 @@
 
 		"示例": {
 			"动画": {
-				"CCDIKSolver": "samples/zh/animations/CCDIKSolver",
-				"MMDAnimationHelper": "samples/zh/animations/MMDAnimationHelper",
-				"MMDPhysics": "samples/zh/animations/MMDPhysics"
+				"CCDIKSolver": "apiexamples/zh/animations/CCDIKSolver",
+				"MMDAnimationHelper": "apiexamples/zh/animations/MMDAnimationHelper",
+				"MMDPhysics": "apiexamples/zh/animations/MMDPhysics"
 			},
 
 			"控制": {
-				"DragControls": "samples/zh/controls/DragControls",
-				"FirstPersonControls": "samples/zh/controls/FirstPersonControls",
-				"FlyControls": "samples/zh/controls/FlyControls",
-				"OrbitControls": "samples/zh/controls/OrbitControls",
-				"PointerLockControls": "samples/zh/controls/PointerLockControls",
-				"TrackballControls": "samples/zh/controls/TrackballControls",
-				"TransformControls": "samples/zh/controls/TransformControls"
+				"DragControls": "apiexamples/zh/controls/DragControls",
+				"FirstPersonControls": "apiexamples/zh/controls/FirstPersonControls",
+				"FlyControls": "apiexamples/zh/controls/FlyControls",
+				"OrbitControls": "apiexamples/zh/controls/OrbitControls",
+				"PointerLockControls": "apiexamples/zh/controls/PointerLockControls",
+				"TrackballControls": "apiexamples/zh/controls/TrackballControls",
+				"TransformControls": "apiexamples/zh/controls/TransformControls"
 			},
 
 			"几何体": {
-				"ConvexGeometry": "samples/zh/geometries/ConvexGeometry",
-				"DecalGeometry": "samples/zh/geometries/DecalGeometry",
-				"ParametricGeometry": "samples/zh/geometries/ParametricGeometry",
-				"TextGeometry": "samples/zh/geometries/TextGeometry"
+				"ConvexGeometry": "apiexamples/zh/geometries/ConvexGeometry",
+				"DecalGeometry": "apiexamples/zh/geometries/DecalGeometry",
+				"ParametricGeometry": "apiexamples/zh/geometries/ParametricGeometry",
+				"TextGeometry": "apiexamples/zh/geometries/TextGeometry"
 			},
 
 			"辅助对象": {
-				"LightProbeHelper": "samples/zh/helpers/LightProbeHelper",
-				"PositionalAudioHelper": "samples/zh/helpers/PositionalAudioHelper",
-				"RectAreaLightHelper": "samples/zh/helpers/RectAreaLightHelper",
-				"VertexNormalsHelper": "samples/zh/helpers/VertexNormalsHelper",
-				"VertexTangentsHelper": "samples/zh/helpers/VertexTangentsHelper"
+				"LightProbeHelper": "apiexamples/zh/helpers/LightProbeHelper",
+				"PositionalAudioHelper": "apiexamples/zh/helpers/PositionalAudioHelper",
+				"RectAreaLightHelper": "apiexamples/zh/helpers/RectAreaLightHelper",
+				"VertexNormalsHelper": "apiexamples/zh/helpers/VertexNormalsHelper",
+				"VertexTangentsHelper": "apiexamples/zh/helpers/VertexTangentsHelper"
 			},
 
 			"灯光": {
-				"LightProbeGenerator": "samples/zh/lights/LightProbeGenerator"
+				"LightProbeGenerator": "apiexamples/zh/lights/LightProbeGenerator"
 			},
 
 			"加载器": {
-				"BasisTextureLoader": "samples/zh/loaders/BasisTextureLoader",
-				"DRACOLoader": "samples/zh/loaders/DRACOLoader",
-				"FontLoader": "samples/zh/loaders/FontLoader",
-				"GLTFLoader": "samples/zh/loaders/GLTFLoader",
-				"MMDLoader": "samples/zh/loaders/MMDLoader",
-				"MTLLoader": "samples/zh/loaders/MTLLoader",
-				"OBJLoader": "samples/zh/loaders/OBJLoader",
-				"PCDLoader": "samples/zh/loaders/PCDLoader",
-				"PDBLoader": "samples/zh/loaders/PDBLoader",
-				"PRWMLoader": "samples/zh/loaders/PRWMLoader",
-				"SVGLoader": "samples/zh/loaders/SVGLoader",
-				"TGALoader": "samples/zh/loaders/TGALoader"
+				"DRACOLoader": "apiexamples/zh/loaders/DRACOLoader",
+				"FontLoader": "apiexamples/zh/loaders/FontLoader",
+				"GLTFLoader": "apiexamples/zh/loaders/GLTFLoader",
+				"MMDLoader": "apiexamples/zh/loaders/MMDLoader",
+				"MTLLoader": "apiexamples/zh/loaders/MTLLoader",
+				"OBJLoader": "apiexamples/zh/loaders/OBJLoader",
+				"PCDLoader": "apiexamples/zh/loaders/PCDLoader",
+				"PDBLoader": "apiexamples/zh/loaders/PDBLoader",
+				"PRWMLoader": "apiexamples/zh/loaders/PRWMLoader",
+				"SVGLoader": "apiexamples/zh/loaders/SVGLoader",
+				"TGALoader": "apiexamples/zh/loaders/TGALoader"
 			},
 
 			"物体": {
-				"Lensflare": "samples/zh/objects/Lensflare"
+				"Lensflare": "apiexamples/zh/objects/Lensflare"
 			},
 
 			"后期处理": {
-				"EffectComposer": "samples/zh/postprocessing/EffectComposer"
+				"EffectComposer": "apiexamples/zh/postprocessing/EffectComposer"
 			},
 
 			"导出器": {
-				"GLTFExporter": "samples/zh/exporters/GLTFExporter",
-				"PLYExporter": "samples/zh/exporters/PLYExporter",
-				"ColladaExporter": "samples/zh/exporters/ColladaExporter"
+				"GLTFExporter": "apiexamples/zh/exporters/GLTFExporter",
+				"PLYExporter": "apiexamples/zh/exporters/PLYExporter",
+				"ColladaExporter": "apiexamples/zh/exporters/ColladaExporter"
 			},
 
 			"数学库": {
-				"LookupTable": "samples/zh/math/Lut",
-				"MeshSurfaceSampler": "samples/zh/math/MeshSurfaceSampler",
-				"OBB": "samples/en/math/OBB"
+				"LookupTable": "apiexamples/zh/math/Lut",
+				"MeshSurfaceSampler": "apiexamples/zh/math/MeshSurfaceSampler",
+				"OBB": "apiexamples/en/math/OBB"
 			},
 
 			"QuickHull": {
-				"Face": "samples/zh/math/convexhull/Face",
-				"HalfEdge": "samples/zh/math/convexhull/HalfEdge",
-				"ConvexHull": "samples/zh/math/convexhull/ConvexHull",
-				"VertexNode": "samples/zh/math/convexhull/VertexNode",
-				"VertexList": "samples/zh/math/convexhull/VertexList"
+				"Face": "apiexamples/zh/math/convexhull/Face",
+				"HalfEdge": "apiexamples/zh/math/convexhull/HalfEdge",
+				"ConvexHull": "apiexamples/zh/math/convexhull/ConvexHull",
+				"VertexNode": "apiexamples/zh/math/convexhull/VertexNode",
+				"VertexList": "apiexamples/zh/math/convexhull/VertexList"
 			},
 
 			"渲染器": {
-				"CSS2DRenderer": "samples/zh/renderers/CSS2DRenderer",
-				"CSS3DRenderer": "samples/zh/renderers/CSS3DRenderer",
-				"SVGRenderer": "samples/zh/renderers/SVGRenderer"
+				"CSS2DRenderer": "apiexamples/zh/renderers/CSS2DRenderer",
+				"CSS3DRenderer": "apiexamples/zh/renderers/CSS3DRenderer",
+				"SVGRenderer": "apiexamples/zh/renderers/SVGRenderer"
 			},
 
 			"实用工具": {
-				"BufferGeometryUtils": "samples/zh/utils/BufferGeometryUtils",
-				"SceneUtils": "samples/zh/utils/SceneUtils",
-				"SkeletonUtils": "samples/zh/utils/SkeletonUtils"
+				"BufferGeometryUtils": "apiexamples/zh/utils/BufferGeometryUtils",
+				"SceneUtils": "apiexamples/zh/utils/SceneUtils",
+				"SkeletonUtils": "apiexamples/zh/utils/SkeletonUtils"
 			}
 		},
 
 		"开发者参考": {
-			"差异化支持": {
-				"Polyfills": "api/zh/Polyfills"
-			},
-
 			"WebGL渲染器": {
 				"WebGLProgram": "api/zh/renderers/webgl/WebGLProgram"
 			}
@@ -983,13 +974,13 @@
 
 		"예제": {
 			"컨트롤": {
-				"DragControls": "samples/ko/controls/DragControls",
-				"FirstPersonControls": "samples/ko/controls/FirstPersonControls",
-				"FlyControls": "samples/ko/controls/FlyControls",
-				"OrbitControls": "samples/ko/controls/OrbitControls",
-				"PointerLockControls": "samples/ko/controls/PointerLockControls",
-				"TrackballControls": "samples/ko/controls/TrackballControls",
-				"TransformControls": "samples/ko/controls/TransformControls"
+				"DragControls": "apiexamples/ko/controls/DragControls",
+				"FirstPersonControls": "apiexamples/ko/controls/FirstPersonControls",
+				"FlyControls": "apiexamples/ko/controls/FlyControls",
+				"OrbitControls": "apiexamples/ko/controls/OrbitControls",
+				"PointerLockControls": "apiexamples/ko/controls/PointerLockControls",
+				"TrackballControls": "apiexamples/ko/controls/TrackballControls",
+				"TransformControls": "apiexamples/ko/controls/TransformControls"
 			}
 		}
 	},

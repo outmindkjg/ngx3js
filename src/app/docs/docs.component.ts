@@ -214,14 +214,6 @@ export class DocsComponent implements OnInit {
 			let viewUrl = this.loadedPageInfo[pageName];
 			this.router.navigateByUrl(viewUrl + (hashTag != '' ? '.' + hashTag : ''));
 			this.checkSearch('');
-		} else {
-			switch (pageName) {
-				default:
-					if (pageName.startsWith('examples/')) {
-						this.router.navigateByUrl(pageName);
-					}
-					break;
-			}
 		}
 	}
 
@@ -486,7 +478,7 @@ export class DocsComponent implements OnInit {
 				url = url.substr(6);
 			}
 			if (
-				url.startsWith('samples/') ||
+				url.startsWith('apiexamples/') ||
 				url.startsWith('manual/') ||
 				url.startsWith('api/') ||
 				url.startsWith('ngxmanual/') ||
