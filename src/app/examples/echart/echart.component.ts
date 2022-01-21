@@ -159,19 +159,23 @@ export class NgxEchartComponent
 	}
 
 	private loadEchart() {
-		const mapCanvas = this._mapCanvas = document.createElement('canvas');
-		this._mapCanvasSize = new N3JS.Vector2(this.canvasSize, Math.round((this.canvasSize * this.height) / this.width));
-		mapCanvas.width = this._mapCanvasSize.x;
-		mapCanvas.height = this._mapCanvasSize.y;
-		mapCanvas.style.position = 'absolute';
-		mapCanvas.style.left = '0';
-		mapCanvas.style.top = '0';
-		mapCanvas.style.bottom = '0';
-		mapCanvas.style.right = '0';
-		mapCanvas.style.zIndex = '1000';
-		mapCanvas.style.pointerEvents = 'none';
-		// mapCanvas.style.display = 'none';
-		document.body.append(mapCanvas);
+		if (this._mapCanvas === null) {
+			const mapCanvas = this._mapCanvas = document.createElement('canvas');
+			this._mapCanvasSize = new N3JS.Vector2(this.canvasSize, Math.round((this.canvasSize * this.height) / this.width));
+			mapCanvas.width = this._mapCanvasSize.x;
+			mapCanvas.height = this._mapCanvasSize.y;
+			mapCanvas.style.position = 'absolute';
+			mapCanvas.style.left = '0';
+			mapCanvas.style.top = '0';
+			mapCanvas.style.bottom = '0';
+			mapCanvas.style.right = '0';
+			mapCanvas.style.zIndex = '-1';
+			mapCanvas.style.pointerEvents = 'none';
+			mapCanvas.style.visibility = 'none';
+			document.body.append(mapCanvas);
+			this._mapTexture = new N3JS.CanvasTexture(this._mapCanvas);
+			this._material.map = this._mapTexture;
+		}
 		const chartjs = this.chartjs;
 		this._chartOption = {
 			type: 'bar',
@@ -226,10 +230,13 @@ export class NgxEchartComponent
 				},
 			},
 		};
-		chartjs.Chart.register(...chartjs.registerables);
-		this._chart = new chartjs.Chart(mapCanvas, this._chartOption);
-		this._mapTexture = new N3JS.CanvasTexture(mapCanvas);
-		this._material.map = this._mapTexture;
+		if (this._chart === null) {
+			chartjs.Chart.register(...chartjs.registerables);
+			this._chart = new chartjs.Chart(this._mapCanvas, this._chartOption);
+		} else {
+			this._chart.destroy();
+			this._chart = new chartjs.Chart(this._mapCanvas, this._chartOption);
+		}
 		this._material.needsUpdate = true;
 		this._mapTexture.needsUpdate = true;
 	}
@@ -250,7 +257,9 @@ export class NgxEchartComponent
 			});
 			const echart: I3JS.Mesh = new N3JS.Mesh(this._geometry, this._material);
 			if (NgxThreeUtil.isNotNull(this.chartjs)) {
-				this.loadEchart();
+				this.getTimeout(2000).then(() => {
+					this.loadEchart();
+				})
 				/*
 				const fileLoader: I3JS.FileLoader = NgxThreeUtil.getLoader(
 					'fileLoader',
@@ -386,6 +395,7 @@ export class NgxEchartComponent
 			case 'pointerleave':
 				const virtualEventClick = this.getVirtualEvent(renderEvent);
 				if (virtualEventClick !== null) {
+					// this.loadEchart();
 					this._mapCanvas.dispatchEvent(virtualEventClick);
 					console.log(virtualEventClick);
 				}
