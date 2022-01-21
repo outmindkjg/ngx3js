@@ -1,5 +1,18 @@
 import { Component } from '@angular/core';
-import { NgxBaseComponent } from 'ngx3js';
+import { NgxBaseComponent, NgxSceneComponent } from 'ngx3js';
+import * as chartjs from 'chart.js';
+import {
+  DatasetComponent,
+  TooltipComponent,
+  VisualMapComponent
+} from 'echarts/components';
+import { CanvasRenderer } from 'echarts/renderers';
+import { Bar3DChart } from 'echarts-gl/charts';
+import { Grid3DComponent } from 'echarts-gl/components';
+
+// this.echarts.registerMap('world', world);
+
+console.log(chartjs);
 
 @Component({
 	selector: 'app-ngx-chart-line',
@@ -22,5 +35,11 @@ export class NgxChartLineComponent extends NgxBaseComponent<{
 				},
 			]
 			,false , false);
+	}
+
+	chartjs : any = chartjs;
+
+	setScene(scene: NgxSceneComponent): void {
+		console.log((scene as any).object3dList);
 	}
 }

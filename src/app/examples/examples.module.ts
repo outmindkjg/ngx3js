@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ngx3JsModule } from 'ngx3js';
 import { Css2dLabelComponent } from './css2d-label/css2d-label.component';
 import { Css3dMoleculesComponent } from './css3d-molecules/css3d-molecules.component';
@@ -12,12 +10,9 @@ import { Css3dPeriodictableComponent } from './css3d-periodictable/css3d-periodi
 import { Css3dSandboxComponent } from './css3d-sandbox/css3d-sandbox.component';
 import { Css3dSpritesComponent } from './css3d-sprites/css3d-sprites.component';
 import { Css3dYoutubeComponent } from './css3d-youtube/css3d-youtube.component';
+import { NgxEchartComponent } from './echart/echart.component';
 import { ExamplesRoutingModule } from './examples-routing.module';
 import { GamesFpsComponent } from './games-fps/games-fps.component';
-import { NgxHelloWorldComponent } from './ngx-hello-world/ngx-hello-world.component';
-import { NgxGeometryBrowserComponent } from './ngx-geometry-browser/ngx-geometry-browser.component';
-import { NgxBonesBrowserComponent } from './ngx-bones-browser/ngx-bones-browser.component';
-import { NgxMaterialBrowserComponent } from './ngx-material-browser/ngx-material-browser.component';
 import { MiscAnimationGroupsComponent } from './misc-animation-groups/misc-animation-groups.component';
 import { MiscAnimationKeysComponent } from './misc-animation-keys/misc-animation-keys.component';
 import { MiscBoxselectionComponent } from './misc-boxselection/misc-boxselection.component';
@@ -40,6 +35,7 @@ import { MiscExporterUsdzComponent } from './misc-exporter-usdz/misc-exporter-us
 import { MiscLegacyComponent } from './misc-legacy/misc-legacy.component';
 import { MiscLookatComponent } from './misc-lookat/misc-lookat.component';
 import { MiscUvTestsComponent } from './misc-uv-tests/misc-uv-tests.component';
+import { NgxBonesBrowserComponent } from './ngx-bones-browser/ngx-bones-browser.component';
 import { NgxCameraComponent } from './ngx-camera/ngx-camera.component';
 import { NgxChartAreaComponent } from './ngx-chart-area/ngx-chart-area.component';
 import { NgxChartBarComponent } from './ngx-chart-bar/ngx-chart-bar.component';
@@ -54,9 +50,12 @@ import { NgxCurveComponent } from './ngx-curve/ngx-curve.component';
 import { NgxDirectivesComponent } from './ngx-directives/ngx-directives.component';
 import { NgxEffectComponent } from './ngx-effect/ngx-effect.component';
 import { NgxFontComponent } from './ngx-font/ngx-font.component';
+import { NgxGeometryBrowserComponent } from './ngx-geometry-browser/ngx-geometry-browser.component';
 import { NgxGeometryComponent } from './ngx-geometry/ngx-geometry.component';
+import { NgxHelloWorldComponent } from './ngx-hello-world/ngx-hello-world.component';
 import { NgxHudComponent } from './ngx-hud/ngx-hud.component';
 import { NgxLightComponent } from './ngx-light/ngx-light.component';
+import { NgxMaterialBrowserComponent } from './ngx-material-browser/ngx-material-browser.component';
 import { NgxMaterialComponent } from './ngx-material/ngx-material.component';
 import { NgxMeshComponent } from './ngx-mesh/ngx-mesh.component';
 import { NgxPhysicsComponent } from './ngx-physics/ngx-physics.component';
@@ -888,6 +887,7 @@ import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component
 		WebxrVrHandinputPointerdragComponent,
 		WebxrVrHandinputPressbuttonComponent,
 		WebxrVrLayersComponent,
+		NgxEchartComponent
 	],
 	imports: [CommonModule, ExamplesRoutingModule, Ngx3JsModule],
 	providers: [],
