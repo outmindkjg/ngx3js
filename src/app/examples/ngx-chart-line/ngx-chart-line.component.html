@@ -38,7 +38,17 @@
 		>
 			<ngx3js-position [x]="3" [y]="5" [z]="10"></ngx3js-position>
 		</ngx3js-light>
-		<ngx3js-echart [chartjs]="chartjs" [width]="3" [height]="2"></ngx3js-echart>
+		<ngx3js-mesh>
+			<ngx3js-event-proxy></ngx3js-event-proxy>
+			<ngx3js-geometry 
+				[type]="'plane'"
+				[width]="2"
+				[height]="2"
+			></ngx3js-geometry>
+			<ngx3js-material [type]="'MeshStandardMaterial'" [side]="'double'">
+				<ngx3js-texture-chartjs  [repeatX]="1" [repeatY]="1"  [wrap]="'RepeatWrapping'" [type]="'map'" [chartjs]="chartjs" [width]="1" [height]="1"></ngx3js-texture-chartjs>
+			</ngx3js-material>
+		</ngx3js-mesh>
 		<ngx3js-mesh>
 			<ngx3js-position [x]="2" [y]="0" [z]="0"></ngx3js-position>
 			<ngx3js-geometry [type]="'box'" [width]="0.5" [height]="0.5" [depth]="0.5"></ngx3js-geometry>

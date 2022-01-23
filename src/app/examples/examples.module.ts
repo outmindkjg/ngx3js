@@ -10,7 +10,7 @@ import { Css3dPeriodictableComponent } from './css3d-periodictable/css3d-periodi
 import { Css3dSandboxComponent } from './css3d-sandbox/css3d-sandbox.component';
 import { Css3dSpritesComponent } from './css3d-sprites/css3d-sprites.component';
 import { Css3dYoutubeComponent } from './css3d-youtube/css3d-youtube.component';
-import { NgxEchartComponent } from './echart/echart.component';
+import { NgxTextureChartJsComponent } from './chart/chartjs/chartjs.component';
 import { ExamplesRoutingModule } from './examples-routing.module';
 import { GamesFpsComponent } from './games-fps/games-fps.component';
 import { MiscAnimationGroupsComponent } from './misc-animation-groups/misc-animation-groups.component';
@@ -444,6 +444,7 @@ import { WebxrVrRollercoasterComponent } from './webxr-vr-rollercoaster/webxr-vr
 import { WebxrVrSandboxComponent } from './webxr-vr-sandbox/webxr-vr-sandbox.component';
 import { WebxrVrSculptComponent } from './webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component';
+import { NgxEventProxyComponent } from './chart/event-proxy/event-proxy.component';
 @NgModule({
 	declarations: [
 		WebglAnimationClothComponent,
@@ -887,7 +888,8 @@ import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component
 		WebxrVrHandinputPointerdragComponent,
 		WebxrVrHandinputPressbuttonComponent,
 		WebxrVrLayersComponent,
-		NgxEchartComponent
+		NgxTextureChartJsComponent,
+		NgxEventProxyComponent
 	],
 	imports: [CommonModule, ExamplesRoutingModule, Ngx3JsModule],
 	providers: [],

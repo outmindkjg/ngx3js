@@ -12,7 +12,7 @@ import { Grid3DComponent } from 'echarts-gl/components';
 
 // this.echarts.registerMap('world', world);
 
-console.log(chartjs);
+chartjs.Chart.register(...chartjs.registerables)
 
 @Component({
 	selector: 'app-ngx-chart-line',
@@ -37,9 +37,10 @@ export class NgxChartLineComponent extends NgxBaseComponent<{
 			,false , false);
 	}
 
-	chartjs : any = chartjs;
+	chartjs : any = chartjs.Chart;
 
 	setScene(scene: NgxSceneComponent): void {
-		console.log((scene as any).object3dList);
+		super.setScene(scene);
+		// console.log((scene as any).object3dList);
 	}
 }
