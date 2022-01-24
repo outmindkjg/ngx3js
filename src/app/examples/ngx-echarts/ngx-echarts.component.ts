@@ -32,7 +32,7 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 	constructor(private route: ActivatedRoute) {
 		super(
 			{
-				geometry: 'PlaneGeometry',
+				geometry: 'BoxGeometry',
 				chartType: 'bar',
 				width: 2,
 				height: 2,
