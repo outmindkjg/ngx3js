@@ -1,0 +1,75 @@
+<div class="info">
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	ngx3js - ECharts
+	<strong class="shadow">{{ controls.chartType }}</strong>
+</div>
+<ngx3js-renderer
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate : true }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	[guiOpen]="true"
+	(onLoad)="setRender($event)"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.001" [far]="1000">
+		<ngx3js-position [x]="3" [y]="2" [z]="3"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene [background]="'0x000000'" (onLoad)="setScene($event)">
+		<ngx3js-light
+			[type]="'AmbientLight'"
+			[color]="'0xffffff'"
+			[intensity]="0.3"
+		></ngx3js-light>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[castShadow]="true"
+			[shadowCameraTop]="1"
+			[shadowCameraBottom]="-1"
+			[shadowCameraLeft]="-1"
+			[shadowCameraRight]="1"
+			[shadowCameraNear]="0.01"
+			[shadowCameraFar]="40"
+			[shadowMapSize]="1024"
+			[shadowRadius]="5"
+		>
+			<ngx3js-position [x]="3" [y]="5" [z]="10"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh>
+			<ngx3js-event-proxy></ngx3js-event-proxy>
+			<ngx3js-geometry 
+				[type]="controls.geometry"
+				[width]="controls.width"
+				[height]="controls.height"
+				[depth]="controls.height"
+				[radius]="controls.width / 2"
+				[widthSegments]="50"
+				[depthSegments]="50"
+				[heightSegments]="50"
+			></ngx3js-geometry>
+			<ngx3js-material [type]="controls.materialType" [color]="controls.materialColor" [side]="controls.materialSide" [transparent]="true" [opacity]="controls.materialOpacity">
+				<ngx3js-texture-echarts  
+					[repeatX]="1" [repeatY]="1"  [wrap]="'RepeatWrapping'" [type]="'map'" [echarts]="echarts" 
+					[width]="controls.width" [height]="controls.height" [canvasSize]="controls.canvasSize"
+					[requiredMaps]="requiredMaps"
+					[chartSeries]="chartSeries"
+					[title]="title"
+					[legend]="legend"
+					[grid]="grid"
+					[tooltip]="tooltip"
+					[radar]="radar"
+					[xAxis]="xAxis"
+					[yAxis]="yAxis"
+					[canvasBackground]="canvasBackground"
+					[canvasBackgroundOpacity]="canvasBackgroundOpacity"
+				></ngx3js-texture-echarts>
+			</ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>

@@ -101,14 +101,22 @@ export class NgxEventProxyComponent
 			this._parentMesh = parent as I3JS.Mesh;
 			this._parentMaterial = this._parentMesh.material as any;
 			this._parentGeometry = this._parentMesh.geometry;
-			this._parentTexture = this._parentMaterial['map'];
-			this._parentTextureCanvas = this._parentTexture.image;
-			const width = parseInt(this._parentTextureCanvas.style.width) || this._parentTextureCanvas.width;
-			const height = parseInt(this._parentTextureCanvas.style.height) || this._parentTextureCanvas.height;
-			this._mapCanvasSize = new N3JS.Vector2(width,height);
+			const canvasMap = this._parentMaterial['map'];
+			this.setCanvasTexture(canvasMap);
+			this.subscribeRefer('canvasMap', NgxThreeUtil.getSubscribe(canvasMap, () => {
+				this.setCanvasTexture(this._parentMaterial['map']);
+			}, 'loaded'))
 			return true;
 		}
 		return false;
+	}
+
+	private setCanvasTexture(map : I3JS.CanvasTexture) {
+		this._parentTexture = map;
+		this._parentTextureCanvas = this._parentTexture.image;
+		const width = parseInt(this._parentTextureCanvas.style.width) || this._parentTextureCanvas.width;
+		const height = parseInt(this._parentTextureCanvas.style.height) || this._parentTextureCanvas.height;
+		this._mapCanvasSize = new N3JS.Vector2(width,height);
 	}
 
 	private _parentMesh: I3JS.Mesh = null;

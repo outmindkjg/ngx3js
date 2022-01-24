@@ -33,14 +33,8 @@ import { MiscLegacyComponent } from './misc-legacy/misc-legacy.component';
 import { MiscLookatComponent } from './misc-lookat/misc-lookat.component';
 import { MiscUvTestsComponent } from './misc-uv-tests/misc-uv-tests.component';
 import { NgxCameraComponent } from './ngx-camera/ngx-camera.component';
-import { NgxChartAreaComponent } from './ngx-chart-area/ngx-chart-area.component';
-import { NgxChartBarComponent } from './ngx-chart-bar/ngx-chart-bar.component';
-import { NgxChartBubbleComponent } from './ngx-chart-bubble/ngx-chart-bubble.component';
-import { NgxChartLineComponent } from './ngx-chart-line/ngx-chart-line.component';
-import { NgxChartMixedComponent } from './ngx-chart-mixed/ngx-chart-mixed.component';
-import { NgxChartPolarComponent } from './ngx-chart-polar/ngx-chart-polar.component';
-import { NgxChartRadarComponent } from './ngx-chart-radar/ngx-chart-radar.component';
-import { NgxChartScatterComponent } from './ngx-chart-scatter/ngx-chart-scatter.component';
+import { NgxChartJsComponent } from './ngx-chartjs/ngx-chartjs.component';
+import { NgxEChartsComponent } from './ngx-echarts/ngx-echarts.component';
 import { NgxEffectComponent } from './ngx-effect/ngx-effect.component';
 import { NgxControlComponent } from './ngx-control/ngx-control.component';
 import { NgxCurveComponent } from './ngx-curve/ngx-curve.component';
@@ -1592,14 +1586,10 @@ const routes: Routes = [
 	{ path: 'ngx_geometry', component: NgxGeometryComponent },
 	{ path: 'ngx_geometry/:type', component: NgxGeometryComponent },
 	{ path: 'ngx_font', component: NgxFontComponent },
-	{ path: 'ngx_chart_bar', component: NgxChartBarComponent },
-	{ path: 'ngx_chart_line', component: NgxChartLineComponent },
-	{ path: 'ngx_chart_radar', component: NgxChartRadarComponent },
-	{ path: 'ngx_chart_scatter', component: NgxChartScatterComponent },
-	{ path: 'ngx_chart_area', component: NgxChartAreaComponent },
-	{ path: 'ngx_chart_bubble', component: NgxChartBubbleComponent },
-	{ path: 'ngx_chart_polar', component: NgxChartPolarComponent },
-	{ path: 'ngx_chart_mixed', component: NgxChartMixedComponent },
+	{ path: 'ngx_chartjs', component: NgxChartJsComponent },
+	{ path: 'ngx_chartjs/:type', component: NgxChartJsComponent },
+	{ path: 'ngx_echarts', component: NgxEChartsComponent },
+	{ path: 'ngx_echarts/:type', component: NgxEChartsComponent },
 	{ path: 'ngx_hud', component: NgxHudComponent },
 	{ path: 'ngx_light', component: NgxLightComponent },
 	{ path: 'ngx_light/:type', component: NgxLightComponent },

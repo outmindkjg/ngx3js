@@ -1,10 +1,11 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-	ngx3js - eChart
+	ngx3js - ChartJs 
+	<strong class="shadow">{{ controls.chartType }}</strong>
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
-	[controlOptions]="{ enablePan: false, enableDamping: true }"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate : true }"
 	[statsMode]="0"
 	[antialias]="true"
 	[shadowMapEnabled]="true"
@@ -14,7 +15,7 @@
 >
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.001" [far]="1000">
-		<ngx3js-position [x]="0" [y]="2" [z]="3"></ngx3js-position>
+		<ngx3js-position [x]="3" [y]="2" [z]="3"></ngx3js-position>
 	</ngx3js-camera>
 	<ngx3js-scene #scene [background]="'0x000000'" (onLoad)="setScene($event)">
 		<ngx3js-light
@@ -41,18 +42,27 @@
 		<ngx3js-mesh>
 			<ngx3js-event-proxy></ngx3js-event-proxy>
 			<ngx3js-geometry 
-				[type]="'plane'"
-				[width]="2"
-				[height]="2"
+				[type]="controls.geometry"
+				[width]="controls.width"
+				[height]="controls.height"
+				[depth]="controls.height"
+				[radius]="controls.width / 2"
+				[widthSegments]="50"
+				[depthSegments]="50"
+				[heightSegments]="50"
 			></ngx3js-geometry>
-			<ngx3js-material [type]="'MeshStandardMaterial'" [side]="'double'">
-				<ngx3js-texture-chartjs  [repeatX]="1" [repeatY]="1"  [wrap]="'RepeatWrapping'" [type]="'map'" [chartjs]="chartjs" [width]="1" [height]="1"></ngx3js-texture-chartjs>
+			<ngx3js-material [type]="controls.materialType" [color]="controls.materialColor" [side]="controls.materialSide" [transparent]="true" [opacity]="controls.materialOpacity">
+				<ngx3js-texture-chartjs  
+					[repeatX]="1" [repeatY]="1"  [wrap]="'RepeatWrapping'" [type]="'map'" [chartjs]="chartjs" 
+					[width]="controls.width" [height]="controls.height" [canvasSize]="controls.canvasSize"
+					[canvasBackground]="canvasBackground"
+					[canvasBackgroundOpacity]="canvasBackgroundOpacity"
+					[chartType]="chartType"
+					[chartData]="chartData"
+					[chartOptions]="chartOptions"
+					[chartPlugins]="chartPlugins"
+				></ngx3js-texture-chartjs>
 			</ngx3js-material>
-		</ngx3js-mesh>
-		<ngx3js-mesh>
-			<ngx3js-position [x]="2" [y]="0" [z]="0"></ngx3js-position>
-			<ngx3js-geometry [type]="'box'" [width]="0.5" [height]="0.5" [depth]="0.5"></ngx3js-geometry>
-			<ngx3js-material [color]="'0x00ff00'"></ngx3js-material>
 		</ngx3js-mesh>
 	</ngx3js-scene>
 </ngx3js-renderer>

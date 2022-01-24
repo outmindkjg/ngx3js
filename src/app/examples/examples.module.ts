@@ -11,6 +11,8 @@ import { Css3dSandboxComponent } from './css3d-sandbox/css3d-sandbox.component';
 import { Css3dSpritesComponent } from './css3d-sprites/css3d-sprites.component';
 import { Css3dYoutubeComponent } from './css3d-youtube/css3d-youtube.component';
 import { NgxTextureChartJsComponent } from './chart/chartjs/chartjs.component';
+import { NgxTextureEChartsComponent } from './chart/echarts/echarts.component';
+
 import { ExamplesRoutingModule } from './examples-routing.module';
 import { GamesFpsComponent } from './games-fps/games-fps.component';
 import { MiscAnimationGroupsComponent } from './misc-animation-groups/misc-animation-groups.component';
@@ -37,14 +39,8 @@ import { MiscLookatComponent } from './misc-lookat/misc-lookat.component';
 import { MiscUvTestsComponent } from './misc-uv-tests/misc-uv-tests.component';
 import { NgxBonesBrowserComponent } from './ngx-bones-browser/ngx-bones-browser.component';
 import { NgxCameraComponent } from './ngx-camera/ngx-camera.component';
-import { NgxChartAreaComponent } from './ngx-chart-area/ngx-chart-area.component';
-import { NgxChartBarComponent } from './ngx-chart-bar/ngx-chart-bar.component';
-import { NgxChartBubbleComponent } from './ngx-chart-bubble/ngx-chart-bubble.component';
-import { NgxChartLineComponent } from './ngx-chart-line/ngx-chart-line.component';
-import { NgxChartMixedComponent } from './ngx-chart-mixed/ngx-chart-mixed.component';
-import { NgxChartPolarComponent } from './ngx-chart-polar/ngx-chart-polar.component';
-import { NgxChartRadarComponent } from './ngx-chart-radar/ngx-chart-radar.component';
-import { NgxChartScatterComponent } from './ngx-chart-scatter/ngx-chart-scatter.component';
+import { NgxChartJsComponent } from './ngx-chartjs/ngx-chartjs.component';
+import { NgxEChartsComponent } from './ngx-echarts/ngx-echarts.component';
 import { NgxControlComponent } from './ngx-control/ngx-control.component';
 import { NgxCurveComponent } from './ngx-curve/ngx-curve.component';
 import { NgxDirectivesComponent } from './ngx-directives/ngx-directives.component';
@@ -852,14 +848,8 @@ import { NgxEventProxyComponent } from './chart/event-proxy/event-proxy.componen
 		NgxMaterialComponent,
 		NgxGeometryComponent,
 		NgxFontComponent,
-		NgxChartBarComponent,
-		NgxChartLineComponent,
-		NgxChartRadarComponent,
-		NgxChartScatterComponent,
-		NgxChartAreaComponent,
-		NgxChartBubbleComponent,
-		NgxChartPolarComponent,
-		NgxChartMixedComponent,
+		NgxChartJsComponent,
+		NgxEChartsComponent,
 		NgxHudComponent,
 		NgxControlComponent,
 		NgxLightComponent,
@@ -889,6 +879,7 @@ import { NgxEventProxyComponent } from './chart/event-proxy/event-proxy.componen
 		WebxrVrHandinputPressbuttonComponent,
 		WebxrVrLayersComponent,
 		NgxTextureChartJsComponent,
+		NgxTextureEChartsComponent,
 		NgxEventProxyComponent
 	],
 	imports: [CommonModule, ExamplesRoutingModule, Ngx3JsModule],

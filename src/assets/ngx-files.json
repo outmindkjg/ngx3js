@@ -24,6 +24,7 @@
 		"ngx_pipes",
 		"ngx_directives",
 		"ngx_physics",
-		"ngx_chart_line"
+		"ngx_chartjs",
+		"ngx_echarts"
 	]
 }

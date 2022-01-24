@@ -3,19 +3,18 @@ import {
 	forwardRef,
 	Input,
 	OnInit,
-	SimpleChanges,
+	SimpleChanges
 } from '@angular/core';
 import {
 	I3JS,
-	INgxColor,
-	IRendererTimer,
-	N3JS,
+	INgxColor, N3JS,
 	NgxAbstractRendererUpdateComponent,
 	NgxAbstractSubscribeComponent,
 	NgxAbstractTextureComponent,
-	NgxThreeUtil,
+	NgxThreeUtil
 } from 'ngx3js';
-import * as CHARTJS from './chartjs.interface';
+import * as ECHARTS from './echarts.interface';
+
 
 /**
  * The Mesh component.
@@ -30,37 +29,47 @@ import * as CHARTJS from './chartjs.interface';
  * @see THREE.Group
  */
 @Component({
-	selector: 'ngx3js-texture-chartjs',
-	templateUrl: './chartjs.component.html',
-	styleUrls: ['./chartjs.component.scss'],
+	selector: 'ngx3js-texture-echarts',
+	templateUrl: './echarts.component.html',
+	styleUrls: ['./echarts.component.scss'],
 	providers: [
 		{
 			provide: NgxAbstractTextureComponent,
-			useExisting: forwardRef(() => NgxTextureChartJsComponent),
+			useExisting: forwardRef(() => NgxTextureEChartsComponent),
 		},
 		{
 			provide: NgxAbstractSubscribeComponent,
-			useExisting: forwardRef(() => NgxTextureChartJsComponent),
+			useExisting: forwardRef(() => NgxTextureEChartsComponent),
 		},
 		{
 			provide: NgxAbstractRendererUpdateComponent,
-			useExisting: forwardRef(() => NgxTextureChartJsComponent),
+			useExisting: forwardRef(() => NgxTextureEChartsComponent),
 		},
 	],
 })
-export class NgxTextureChartJsComponent
+export class NgxTextureEChartsComponent
 	extends NgxAbstractTextureComponent
 	implements OnInit
 {
-	@Input() public chartjs: any = null;
+	@Input() public echarts: ECHARTS.echarts = null;
 
-	@Input() public chartType: string = 'bar';
+	@Input() public title: any = null;
 
-	@Input() public chartData: CHARTJS.ChartData = null;
+	@Input() public legend: any = null;
 
-	@Input() public chartOptions: CHARTJS.ChartOptions = null;
+	@Input() public grid: any = null;
+	
+	@Input() public radar: any = null;
 
-	@Input() public chartPlugins: CHARTJS.Plugin[] = null;
+	@Input() public tooltip: any = null;
+
+	@Input() public xAxis: any = null;
+
+	@Input() public yAxis: any = null;
+
+	@Input() public chartSeries: any[] = null;
+
+	@Input() public requiredMaps: { [key : string] : any } = null;
 
 	@Input() public width: number = 1;
 
@@ -84,7 +93,7 @@ export class NgxTextureChartJsComponent
 	 * It is invoked only once when the directive is instantiated.
 	 */
 	ngOnInit(): void {
-		super.ngOnInit('texture-chartjs');
+		super.ngOnInit('texture-echarts');
 	}
 
 	/**
@@ -95,7 +104,7 @@ export class NgxTextureChartJsComponent
 			this._mapCanvas.parentNode.removeChild(this._mapCanvas);
 		}
 		if (this._chart !== null) {
-			this._chart.destroy();
+			this.echarts.dispose(this._chart);
 		}
 		super.ngOnDestroy();
 	}
@@ -129,6 +138,7 @@ export class NgxTextureChartJsComponent
 	 */
 	public applyChanges(changes: string[]) {
 		if (this.texture !== null) {
+			console.log(changes);
 			if (NgxThreeUtil.isIndexOf(changes, 'clearinit')) {
 				this.getTexture();
 				return;
@@ -152,26 +162,16 @@ export class NgxTextureChartJsComponent
 					'chartdata',
 					'chartoptions',
 					'chartplugins',
-				])
-			) {
-				changes = NgxThreeUtil.pushUniq(changes, ['initchart']);
-			}
-			if (
-				!NgxThreeUtil.isIndexOf(changes, 'initchart') &&
-				NgxThreeUtil.isIndexOf(changes, [
 					'canvasbackground',
 					'canvasbackgroundopacity',
 				])
 			) {
-				changes = NgxThreeUtil.pushUniq(changes, ['background']);
+				changes = NgxThreeUtil.pushUniq(changes, ['initchart']);
 			}
 			changes.forEach((change) => {
 				switch (change.toLowerCase()) {
 					case 'initchart':
 						this.initChart();
-						break;
-					case 'background' :
-						this.changeCanvasBackground();
 						break;
 				}
 			});
@@ -179,81 +179,112 @@ export class NgxTextureChartJsComponent
 		}
 	}
 
-	private initChart() {
-		if (NgxThreeUtil.isNull(this.chartjs)) {
-			return;
-		}
-		const chartjs = this.chartjs;
-		this._chartOption.type = this.chartType as any;
-		this._chartOption.data = this.chartData;
-		this._chartOption.options = Object.assign({}, this.chartOptions, {
-			responsive: false,
+	private jsonFileLoad(url : string, callBack : (data : any) => void) {
+		const fileLoader : I3JS.FileLoader = NgxThreeUtil.getLoader('fileLoader', N3JS.FileLoader);
+		fileLoader.load(NgxThreeUtil.getStoreUrl(url), (text : string) => {
+			try {
+				callBack(JSON.parse( text ))
+			} catch ( error ) {
+				return;
+			}			
 		});
-		this._chartOption.plugins = Object.assign([], this.chartPlugins);
-		this.changeCanvasBackground();
-		if (this._chart === null) {
-			this._chart = new chartjs(this._mapCanvas, this._chartOption);
-		} else {
-			this._chart.destroy();
-			this._chart = new chartjs(this._mapCanvas, this._chartOption);
-		}
-		this.texture.needsUpdate = true;
 	}
 
-	private changeCanvasBackground() {
-		const id = 'custom_canvas_background_color';
-		let customBackgroundColor: CHARTJS.Plugin = null;
-		const plugins = this._chartOption.plugins;
-		plugins.forEach((plugin) => {
-			if (plugin.id === id) {
-				customBackgroundColor = plugin;
+	private initChart() {
+		if (NgxThreeUtil.isNull(this.echarts)) {
+			return;
+		}
+		const echarts = this.echarts;
+		if (NgxThreeUtil.isNotNull(this.requiredMaps)) {
+			const requiredMapKeyUrl:{ key : string, url : string} = { key : null, url : null};
+			Object.entries(this.requiredMaps).forEach(([key, value]) => {
+				if (echarts.getMap(key) === null) {
+					if (typeof value === 'string') {
+						if (requiredMapKeyUrl.key === null) {
+							requiredMapKeyUrl.key = key;
+							requiredMapKeyUrl.url = value;
+						}
+					} else {
+						echarts.registerMap(key, value);
+					}
+				}
+			})
+			if (requiredMapKeyUrl.key !== null && requiredMapKeyUrl.url) {
+				this.jsonFileLoad(requiredMapKeyUrl.url, (geoJson) => {
+					echarts.registerMap(requiredMapKeyUrl.key, geoJson);
+					this.initChart();
+				});
+				return ;
 			}
-		});
+		}
+		if (NgxThreeUtil.isNotNull(this.chartSeries)) {
+			for(let i = 0; i < this.chartSeries.length ; i++) {
+				const chartSeries = this.chartSeries[i];
+				if (typeof chartSeries.data === 'string') {
+					this.jsonFileLoad(chartSeries.data, (data) => {
+						chartSeries.data = data;
+						this.initChart();
+					});
+					return ;
+				}
+			}
+		}
+		let backgroundColorRgb : string = 'transparent';
 		if (NgxThreeUtil.isNotNull(this.canvasBackground)) {
 			const backgroundColor = NgxThreeUtil.getColorAlphaSafe(this.canvasBackground, this.canvasBackgroundOpacity);
-			let backgroundColorRgb : string = '#ffffff';
 			if (NgxThreeUtil.isNotNull(backgroundColor)) {
 				if (backgroundColor instanceof N3JS.Color) {
-					backgroundColorRgb = 'rgb('+(backgroundColor.r * 255)+','+(backgroundColor.g * 255)+','+(backgroundColor.b * 255)+')'
+					backgroundColorRgb = 'rgb( '+(backgroundColor.r * 255)+', '+(backgroundColor.g * 255)+', '+(backgroundColor.b * 255)+')'
 				} else {
-					backgroundColorRgb = 'rgba('+(backgroundColor.x * 255)+','+(backgroundColor.y * 255)+','+(backgroundColor.z * 255)+','+backgroundColor.w+')'
+					backgroundColorRgb = 'rgba( '+(backgroundColor.x * 255)+', '+(backgroundColor.y * 255)+', '+(backgroundColor.z * 255)+', '+backgroundColor.w+')'
 				}
 			}
-			if (customBackgroundColor === null) {
-				customBackgroundColor = {
-					id: id,
-					beforeDraw: (chart) => {
-						const ctx = chart.canvas.getContext('2d');
-						ctx.save();
-						ctx.globalCompositeOperation = 'destination-over';
-						ctx.fillStyle = backgroundColorRgb;
-						ctx.fillRect(0, 0, chart.width, chart.height);
-						ctx.restore();
-					},
-				};
-				plugins.push(customBackgroundColor);
-			} else {
-				customBackgroundColor.beforeDraw = (chart) => {
-					const ctx = chart.canvas.getContext('2d');
-					ctx.save();
-					ctx.globalCompositeOperation = 'destination-over';
-					ctx.fillStyle = backgroundColorRgb;
-					ctx.fillRect(0, 0, chart.width, chart.height);
-					ctx.restore();
-				};
-			}
+		}
+		if (NgxThreeUtil.isNotNull(this.title)) {
+			this._chartOption.title = this.title;
 		} else {
-			if (customBackgroundColor !== null) {
-				const idx = plugins.indexOf(customBackgroundColor);
-				if (idx > -1) {
-					plugins.splice(idx, 1);
-				}
-				console.log(this._chartOption);
-			}
+			delete this._chartOption.title;
 		}
-		if (this._chart !== null) {
-			this._chart.update();
+		if (NgxThreeUtil.isNotNull(this.legend)) {
+			this._chartOption.legend = this.legend;
+		} else {
+			delete this._chartOption.legend;
 		}
+		if (NgxThreeUtil.isNotNull(this.grid)) {
+			this._chartOption.grid = this.grid;
+		} else {
+			delete this._chartOption.grid;
+		}
+		if (NgxThreeUtil.isNotNull(this.radar)) {
+			this._chartOption.radar = this.radar;
+		} else {
+			delete this._chartOption.radar;
+		}
+		
+
+		if (NgxThreeUtil.isNotNull(this.tooltip)) {
+			this._chartOption.tooltip = this.tooltip;
+		} else {
+			delete this._chartOption.tooltip;
+		}
+
+		if (NgxThreeUtil.isNotNull(this.xAxis)) {
+			this._chartOption.xAxis = this.xAxis;
+		} else {
+			delete this._chartOption.xAxis;
+		}
+		if (NgxThreeUtil.isNotNull(this.yAxis)) {
+			this._chartOption.yAxis = this.yAxis;
+		} else {
+			delete this._chartOption.yAxis;
+		}
+		this._chartOption.backgroundColor = backgroundColorRgb;
+		this._chartOption.series = this.chartSeries;
+		if (this._chart === null) {
+			this._chart = echarts.init ( this._mapCanvas );
+		} 
+		this._chart.setOption(this._chartOption);
+		this.texture.needsUpdate = true;
 	}
 
 	/**
@@ -277,6 +308,7 @@ export class NgxTextureChartJsComponent
 			mapCanvas.style.pointerEvents = 'none';
 			mapCanvas.style.display = 'none';
 			document.body.append(mapCanvas);
+			this._chart = null;
 			this.texture = new N3JS.CanvasTexture(this._mapCanvas);
 			this.synkMaterial(this.texture);
 			super.setObject(this.texture);
@@ -284,20 +316,12 @@ export class NgxTextureChartJsComponent
 		return this.texture as T;
 	}
 
-	private _chart: CHARTJS.Chart = null;
-	private _chartOption: CHARTJS.ChartConfiguration = {
-		type: 'bar',
-		data: {
-			labels: [],
-			datasets: [],
-		},
-		options: {},
-		plugins: [],
-	};
+	private _chart: ECHARTS.ECharts = null;
+	private _chartOption: any = {};
 	private _mapCanvasSize: I3JS.Vector2 = null;
 	private _mapCanvas: HTMLCanvasElement = null;
 
-	public update(renderTimer: IRendererTimer) {
+	public update() {
 		if (this.texture !== null) {
 			this.texture.needsUpdate = true;
 		}
