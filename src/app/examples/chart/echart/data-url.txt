@@ -1,0 +1,3 @@
+https://echarts.apache.org/examples/examples/js/line-simple.js?_v_1641520500142
+
+https://echarts.apache.org/examples/examples/js/gl/flowGL-noise.js?_v_1641520500142
