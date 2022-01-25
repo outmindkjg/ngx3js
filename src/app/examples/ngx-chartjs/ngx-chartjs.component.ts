@@ -145,6 +145,7 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 	}
 
 	ngOnInit(): void {
+		chartjs.Chart
 		chartjs.Chart.register(...chartjs.registerables);
 		this.chartjs = chartjs.Chart;
 		this.subscribeRefer(
