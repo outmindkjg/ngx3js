@@ -1,0 +1,578 @@
+{
+  "darkMode": "auto",
+  "colorBy": "series",
+  "color": [
+    "#5470c6",
+    "#91cc75",
+    "#fac858",
+    "#ee6666",
+    "#73c0de",
+    "#3ba272",
+    "#fc8452",
+    "#9a60b4",
+    "#ea7ccc"
+  ],
+  "gradientColor": [
+    "#f6efa6",
+    "#d88273",
+    "#bf444c"
+  ],
+  "aria": {
+    "decal": {
+      "decals": [
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            1,
+            0
+          ],
+          "dashArrayY": [
+            2,
+            5
+          ],
+          "symbolSize": 1,
+          "rotation": 0.5235987755982988
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "symbol": "circle",
+          "dashArrayX": [
+            [
+              8,
+              8
+            ],
+            [
+              0,
+              8,
+              8,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            6,
+            0
+          ],
+          "symbolSize": 0.8
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            1,
+            0
+          ],
+          "dashArrayY": [
+            4,
+            3
+          ],
+          "rotation": -0.7853981633974483
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            [
+              6,
+              6
+            ],
+            [
+              0,
+              6,
+              6,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            6,
+            0
+          ]
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              6
+            ]
+          ],
+          "dashArrayY": [
+            1,
+            0,
+            6,
+            0
+          ],
+          "rotation": 0.7853981633974483
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "symbol": "triangle",
+          "dashArrayX": [
+            [
+              9,
+              9
+            ],
+            [
+              0,
+              9,
+              9,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            7,
+            2
+          ],
+          "symbolSize": 0.75
+        }
+      ]
+    }
+  },
+  "textStyle": {
+    "fontFamily": "sans-serif",
+    "fontSize": 12,
+    "fontStyle": "normal",
+    "fontWeight": "normal"
+  },
+  "stateAnimation": {
+    "duration": 300,
+    "easing": "cubicOut"
+  },
+  "animation": "auto",
+  "animationDuration": 1000,
+  "animationDurationUpdate": 500,
+  "animationEasing": "cubicInOut",
+  "animationEasingUpdate": "cubicInOut",
+  "animationThreshold": 2000,
+  "progressiveThreshold": 3000,
+  "progressive": 400,
+  "hoverLayerThreshold": 3000,
+  "useUTC": false,
+  "title": [
+    {
+      "text": "阅读书籍分布",
+      "left": "center",
+      "textStyle": {
+        "color": "#999",
+        "fontWeight": "normal",
+        "fontSize": 14
+      },
+      "zlevel": 0,
+      "z": 6,
+      "show": true,
+      "target": "blank",
+      "subtext": "",
+      "subtarget": "blank",
+      "top": 0,
+      "backgroundColor": "rgba(0,0,0,0)",
+      "borderColor": "#ccc",
+      "borderWidth": 0,
+      "padding": 5,
+      "itemGap": 10,
+      "subtextStyle": {
+        "fontSize": 12,
+        "color": "#6E7079"
+      },
+      "right": null
+    }
+  ],
+  "axisPointer": [
+    {
+      "show": "auto",
+      "zlevel": 0,
+      "z": 50,
+      "type": "line",
+      "snap": false,
+      "triggerTooltip": true,
+      "value": null,
+      "status": null,
+      "link": [],
+      "animation": null,
+      "animationDurationUpdate": 200,
+      "lineStyle": {
+        "color": "#B9BEC9",
+        "width": 1,
+        "type": "dashed"
+      },
+      "shadowStyle": {
+        "color": "rgba(210,219,238,0.2)"
+      },
+      "label": {
+        "show": true,
+        "formatter": null,
+        "precision": "auto",
+        "margin": 3,
+        "color": "#fff",
+        "padding": [
+          5,
+          7,
+          5,
+          7
+        ],
+        "backgroundColor": "auto",
+        "borderColor": null,
+        "borderWidth": 0,
+        "borderRadius": 3
+      },
+      "handle": {
+        "show": false,
+        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
+        "size": 45,
+        "margin": 50,
+        "color": "#333",
+        "shadowBlur": 3,
+        "shadowColor": "#aaa",
+        "shadowOffsetX": 0,
+        "shadowOffsetY": 2,
+        "throttle": 40
+      }
+    }
+  ],
+  "tooltip": [],
+  "series": [
+    {
+      "type": "pie",
+      "radius": [
+        20,
+        60
+      ],
+      "top": "0%",
+      "height": "33.33%",
+      "left": "center",
+      "width": 400,
+      "itemStyle": {
+        "borderColor": "#fff",
+        "borderWidth": 1,
+        "borderJoin": "round"
+      },
+      "label": {
+        "alignTo": "edge",
+        "formatter": "{name|{b}}\n{time|{c} 小时}",
+        "minMargin": 5,
+        "edgeDistance": 10,
+        "lineHeight": 15,
+        "rich": {
+          "time": {
+            "fontSize": 10,
+            "color": "#999"
+          }
+        },
+        "rotate": 0,
+        "show": true,
+        "overflow": "truncate",
+        "position": "outer",
+        "bleedMargin": 10,
+        "distanceToLabelLine": 5
+      },
+      "labelLine": {
+        "length": 15,
+        "length2": 0,
+        "maxSurfaceAngle": 80,
+        "show": true,
+        "smooth": false,
+        "minTurnAngle": 90,
+        "lineStyle": {
+          "width": 1,
+          "type": "solid"
+        }
+      },
+      "data": [
+        {
+          "name": "圣彼得堡来客",
+          "value": 5.6
+        },
+        {
+          "name": "陀思妥耶夫斯基全集",
+          "value": 1
+        },
+        {
+          "name": "史记精注全译（全6册）",
+          "value": 0.8
+        },
+        {
+          "name": "加德纳艺术通史",
+          "value": 0.5
+        },
+        {
+          "name": "表象与本质",
+          "value": 0.5
+        },
+        {
+          "name": "其它",
+          "value": 3.8
+        }
+      ],
+      "zlevel": 0,
+      "z": 2,
+      "legendHoverLink": true,
+      "colorBy": "data",
+      "center": [
+        "50%",
+        "50%"
+      ],
+      "clockwise": true,
+      "startAngle": 90,
+      "minAngle": 0,
+      "minShowLabelAngle": 0,
+      "selectedOffset": 10,
+      "percentPrecision": 2,
+      "stillShowZeroSum": true,
+      "right": 0,
+      "bottom": 0,
+      "showEmptyCircle": true,
+      "emptyCircleStyle": {
+        "color": "lightgray",
+        "opacity": 1
+      },
+      "emphasis": {
+        "scale": true,
+        "scaleSize": 5,
+        "label": {
+          "show": true
+        },
+        "labelLine": {
+          "show": true
+        }
+      },
+      "avoidLabelOverlap": true,
+      "animationType": "expansion",
+      "animationDuration": 1000,
+      "animationTypeUpdate": "transition",
+      "animationEasingUpdate": "cubicInOut",
+      "animationDurationUpdate": 500,
+      "animationEasing": "cubicInOut"
+    },
+    {
+      "type": "pie",
+      "radius": [
+        20,
+        60
+      ],
+      "top": "33.3%",
+      "height": "33.33%",
+      "left": "center",
+      "width": 400,
+      "itemStyle": {
+        "borderColor": "#fff",
+        "borderWidth": 1,
+        "borderJoin": "round"
+      },
+      "label": {
+        "alignTo": "edge",
+        "formatter": "{name|{b}}\n{time|{c} 小时}",
+        "minMargin": 5,
+        "edgeDistance": 10,
+        "lineHeight": 15,
+        "rich": {
+          "time": {
+            "fontSize": 10,
+            "color": "#999"
+          }
+        },
+        "rotate": 0,
+        "show": true,
+        "overflow": "truncate",
+        "position": "outer",
+        "bleedMargin": 10,
+        "distanceToLabelLine": 5
+      },
+      "labelLine": {
+        "length": 15,
+        "length2": 0,
+        "maxSurfaceAngle": 80,
+        "show": true,
+        "smooth": false,
+        "minTurnAngle": 90,
+        "lineStyle": {
+          "width": 1,
+          "type": "solid"
+        }
+      },
+      "data": [
+        {
+          "name": "银河帝国5：迈向基地",
+          "value": 3.8
+        },
+        {
+          "name": "俞军产品方法论",
+          "value": 2.3
+        },
+        {
+          "name": "艺术的逃难",
+          "value": 2.2
+        },
+        {
+          "name": "第一次世界大战回忆录（全五卷）",
+          "value": 1.3
+        },
+        {
+          "name": "Scrum 精髓",
+          "value": 1.2
+        },
+        {
+          "name": "其它",
+          "value": 5.7
+        }
+      ],
+      "zlevel": 0,
+      "z": 2,
+      "legendHoverLink": true,
+      "colorBy": "data",
+      "center": [
+        "50%",
+        "50%"
+      ],
+      "clockwise": true,
+      "startAngle": 90,
+      "minAngle": 0,
+      "minShowLabelAngle": 0,
+      "selectedOffset": 10,
+      "percentPrecision": 2,
+      "stillShowZeroSum": true,
+      "right": 0,
+      "bottom": 0,
+      "showEmptyCircle": true,
+      "emptyCircleStyle": {
+        "color": "lightgray",
+        "opacity": 1
+      },
+      "emphasis": {
+        "scale": true,
+        "scaleSize": 5,
+        "label": {
+          "show": true
+        },
+        "labelLine": {
+          "show": true
+        }
+      },
+      "avoidLabelOverlap": true,
+      "animationType": "expansion",
+      "animationDuration": 1000,
+      "animationTypeUpdate": "transition",
+      "animationEasingUpdate": "cubicInOut",
+      "animationDurationUpdate": 500,
+      "animationEasing": "cubicInOut"
+    },
+    {
+      "type": "pie",
+      "radius": [
+        20,
+        60
+      ],
+      "top": "66.6%",
+      "height": "33.33%",
+      "left": "center",
+      "width": 400,
+      "itemStyle": {
+        "borderColor": "#fff",
+        "borderWidth": 1,
+        "borderJoin": "round"
+      },
+      "label": {
+        "alignTo": "edge",
+        "formatter": "{name|{b}}\n{time|{c} 小时}",
+        "minMargin": 5,
+        "edgeDistance": 10,
+        "lineHeight": 15,
+        "rich": {
+          "time": {
+            "fontSize": 10,
+            "color": "#999"
+          }
+        },
+        "rotate": 0,
+        "show": true,
+        "overflow": "truncate",
+        "position": "outer",
+        "bleedMargin": 10,
+        "distanceToLabelLine": 5
+      },
+      "labelLine": {
+        "length": 15,
+        "length2": 0,
+        "maxSurfaceAngle": 80,
+        "show": true,
+        "smooth": false,
+        "minTurnAngle": 90,
+        "lineStyle": {
+          "width": 1,
+          "type": "solid"
+        }
+      },
+      "data": [
+        {
+          "name": "克莱因壶",
+          "value": 3.5
+        },
+        {
+          "name": "投资最重要的事",
+          "value": 2.8
+        },
+        {
+          "name": "简读中国史",
+          "value": 1.7
+        },
+        {
+          "name": "你当像鸟飞往你的山",
+          "value": 1.4
+        },
+        {
+          "name": "表象与本质",
+          "value": 0.5
+        },
+        {
+          "name": "其它",
+          "value": 3.8
+        }
+      ],
+      "zlevel": 0,
+      "z": 2,
+      "legendHoverLink": true,
+      "colorBy": "data",
+      "center": [
+        "50%",
+        "50%"
+      ],
+      "clockwise": true,
+      "startAngle": 90,
+      "minAngle": 0,
+      "minShowLabelAngle": 0,
+      "selectedOffset": 10,
+      "percentPrecision": 2,
+      "stillShowZeroSum": true,
+      "right": 0,
+      "bottom": 0,
+      "showEmptyCircle": true,
+      "emptyCircleStyle": {
+        "color": "lightgray",
+        "opacity": 1
+      },
+      "emphasis": {
+        "scale": true,
+        "scaleSize": 5,
+        "label": {
+          "show": true
+        },
+        "labelLine": {
+          "show": true
+        }
+      },
+      "avoidLabelOverlap": true,
+      "animationType": "expansion",
+      "animationDuration": 1000,
+      "animationTypeUpdate": "transition",
+      "animationEasingUpdate": "cubicInOut",
+      "animationDurationUpdate": 500,
+      "animationEasing": "cubicInOut"
+    }
+  ],
+  "visualMap": [],
+  "legend": [],
+  "markArea": [],
+  "markLine": [],
+  "markPoint": [],
+  "brush": [],
+  "dataZoom": []
+}

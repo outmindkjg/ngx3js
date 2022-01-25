@@ -1,0 +1,1038 @@
+{
+  "darkMode": "auto",
+  "colorBy": "series",
+  "color": [
+    "#5470c6",
+    "#91cc75",
+    "#fac858",
+    "#ee6666",
+    "#73c0de",
+    "#3ba272",
+    "#fc8452",
+    "#9a60b4",
+    "#ea7ccc"
+  ],
+  "gradientColor": [
+    "#f6efa6",
+    "#d88273",
+    "#bf444c"
+  ],
+  "aria": {
+    "decal": {
+      "decals": [
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            1,
+            0
+          ],
+          "dashArrayY": [
+            2,
+            5
+          ],
+          "symbolSize": 1,
+          "rotation": 0.5235987755982988
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "symbol": "circle",
+          "dashArrayX": [
+            [
+              8,
+              8
+            ],
+            [
+              0,
+              8,
+              8,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            6,
+            0
+          ],
+          "symbolSize": 0.8
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            1,
+            0
+          ],
+          "dashArrayY": [
+            4,
+            3
+          ],
+          "rotation": -0.7853981633974483
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            [
+              6,
+              6
+            ],
+            [
+              0,
+              6,
+              6,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            6,
+            0
+          ]
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              6
+            ]
+          ],
+          "dashArrayY": [
+            1,
+            0,
+            6,
+            0
+          ],
+          "rotation": 0.7853981633974483
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "symbol": "triangle",
+          "dashArrayX": [
+            [
+              9,
+              9
+            ],
+            [
+              0,
+              9,
+              9,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            7,
+            2
+          ],
+          "symbolSize": 0.75
+        }
+      ]
+    }
+  },
+  "textStyle": {
+    "fontFamily": "sans-serif",
+    "fontSize": 12,
+    "fontStyle": "normal",
+    "fontWeight": "normal"
+  },
+  "stateAnimation": {
+    "duration": 300,
+    "easing": "cubicOut"
+  },
+  "animation": "auto",
+  "animationDuration": 1000,
+  "animationDurationUpdate": 500,
+  "animationEasing": "cubicInOut",
+  "animationEasingUpdate": "cubicInOut",
+  "animationThreshold": 2000,
+  "progressiveThreshold": 3000,
+  "progressive": 400,
+  "hoverLayerThreshold": 3000,
+  "useUTC": false,
+  "title": [
+    {
+      "text": "Two Value-Axes in Polar",
+      "zlevel": 0,
+      "z": 6,
+      "show": true,
+      "target": "blank",
+      "subtext": "",
+      "subtarget": "blank",
+      "left": 0,
+      "top": 0,
+      "backgroundColor": "rgba(0,0,0,0)",
+      "borderColor": "#ccc",
+      "borderWidth": 0,
+      "padding": 5,
+      "itemGap": 10,
+      "textStyle": {
+        "fontSize": 18,
+        "fontWeight": "bold",
+        "color": "#464646"
+      },
+      "subtextStyle": {
+        "fontSize": 12,
+        "color": "#6E7079"
+      }
+    }
+  ],
+  "radiusAxis": [
+    {
+      "boundaryGap": [
+        0,
+        0
+      ],
+      "axisLine": {
+        "show": "auto",
+        "onZero": true,
+        "onZeroAxisIndex": null,
+        "lineStyle": {
+          "color": "#6E7079",
+          "width": 1,
+          "type": "solid"
+        },
+        "symbol": [
+          "none",
+          "none"
+        ],
+        "symbolSize": [
+          10,
+          15
+        ]
+      },
+      "axisTick": {
+        "show": "auto",
+        "inside": false,
+        "length": 5,
+        "lineStyle": {
+          "width": 1
+        }
+      },
+      "splitNumber": 5,
+      "minorTick": {
+        "show": false,
+        "splitNumber": 5,
+        "length": 3,
+        "lineStyle": {}
+      },
+      "minorSplitLine": {
+        "show": false,
+        "lineStyle": {
+          "color": "#F4F7FD",
+          "width": 1
+        }
+      },
+      "show": true,
+      "zlevel": 0,
+      "z": 0,
+      "inverse": false,
+      "name": "",
+      "nameLocation": "end",
+      "nameRotate": null,
+      "nameTruncate": {
+        "maxWidth": null,
+        "ellipsis": "...",
+        "placeholder": "."
+      },
+      "nameTextStyle": {},
+      "nameGap": 15,
+      "silent": false,
+      "triggerEvent": false,
+      "tooltip": {
+        "show": false
+      },
+      "axisPointer": {
+        "status": "hide",
+        "value": 9.694873482310122,
+        "seriesDataIndices": []
+      },
+      "axisLabel": {
+        "show": true,
+        "inside": false,
+        "rotate": 0,
+        "showMinLabel": null,
+        "showMaxLabel": null,
+        "margin": 8,
+        "fontSize": 12
+      },
+      "splitLine": {
+        "show": true,
+        "lineStyle": {
+          "color": [
+            "#E0E6F1"
+          ],
+          "width": 1,
+          "type": "solid"
+        }
+      },
+      "splitArea": {
+        "show": false,
+        "areaStyle": {
+          "color": [
+            "rgba(250,250,250,0.2)",
+            "rgba(210,219,238,0.2)"
+          ]
+        }
+      },
+      "type": "value"
+    }
+  ],
+  "angleAxis": [
+    {
+      "type": "value",
+      "startAngle": 0,
+      "boundaryGap": [
+        0,
+        0
+      ],
+      "axisLine": {
+        "show": "auto",
+        "onZero": true,
+        "onZeroAxisIndex": null,
+        "lineStyle": {
+          "color": "#6E7079",
+          "width": 1,
+          "type": "solid"
+        },
+        "symbol": [
+          "none",
+          "none"
+        ],
+        "symbolSize": [
+          10,
+          15
+        ]
+      },
+      "axisTick": {
+        "show": "auto",
+        "inside": false,
+        "length": 5,
+        "lineStyle": {
+          "width": 1
+        }
+      },
+      "splitNumber": 12,
+      "minorTick": {
+        "show": false,
+        "splitNumber": 5,
+        "length": 3,
+        "lineStyle": {}
+      },
+      "minorSplitLine": {
+        "show": false,
+        "lineStyle": {
+          "color": "#F4F7FD",
+          "width": 1
+        }
+      },
+      "show": true,
+      "zlevel": 0,
+      "z": 0,
+      "inverse": false,
+      "name": "",
+      "nameLocation": "end",
+      "nameRotate": null,
+      "nameTruncate": {
+        "maxWidth": null,
+        "ellipsis": "...",
+        "placeholder": "."
+      },
+      "nameTextStyle": {},
+      "nameGap": 15,
+      "silent": false,
+      "triggerEvent": false,
+      "tooltip": {
+        "show": false
+      },
+      "axisPointer": {
+        "status": "hide",
+        "value": 28.8,
+        "seriesDataIndices": [
+          {
+            "seriesIndex": 0,
+            "dataIndexInside": 8,
+            "dataIndex": 8
+          }
+        ]
+      },
+      "axisLabel": {
+        "show": true,
+        "inside": false,
+        "rotate": 0,
+        "showMinLabel": null,
+        "showMaxLabel": null,
+        "margin": 8,
+        "fontSize": 12
+      },
+      "splitLine": {
+        "show": true,
+        "lineStyle": {
+          "color": [
+            "#E0E6F1"
+          ],
+          "width": 1,
+          "type": "solid"
+        }
+      },
+      "splitArea": {
+        "show": false,
+        "areaStyle": {
+          "color": [
+            "rgba(250,250,250,0.2)",
+            "rgba(210,219,238,0.2)"
+          ]
+        }
+      },
+      "clockwise": true
+    }
+  ],
+  "polar": [
+    {
+      "zlevel": 0,
+      "z": 0,
+      "center": [
+        "50%",
+        "50%"
+      ],
+      "radius": "80%"
+    }
+  ],
+  "axisPointer": [
+    {
+      "show": "auto",
+      "zlevel": 0,
+      "z": 50,
+      "type": "line",
+      "snap": false,
+      "triggerTooltip": true,
+      "value": null,
+      "status": null,
+      "link": [],
+      "animation": null,
+      "animationDurationUpdate": 200,
+      "lineStyle": {
+        "color": "#B9BEC9",
+        "width": 1,
+        "type": "dashed"
+      },
+      "shadowStyle": {
+        "color": "rgba(210,219,238,0.2)"
+      },
+      "label": {
+        "show": true,
+        "formatter": null,
+        "precision": "auto",
+        "margin": 3,
+        "color": "#fff",
+        "padding": [
+          5,
+          7,
+          5,
+          7
+        ],
+        "backgroundColor": "auto",
+        "borderColor": null,
+        "borderWidth": 0,
+        "borderRadius": 3
+      },
+      "handle": {
+        "show": false,
+        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
+        "size": 45,
+        "margin": 50,
+        "color": "#333",
+        "shadowBlur": 3,
+        "shadowColor": "#aaa",
+        "shadowOffsetX": 0,
+        "shadowOffsetY": 2,
+        "throttle": 40
+      }
+    }
+  ],
+  "tooltip": [
+    {
+      "trigger": "axis",
+      "axisPointer": {
+        "type": "cross",
+        "axis": "auto",
+        "animation": "auto",
+        "animationDurationUpdate": 200,
+        "animationEasingUpdate": "exponentialOut",
+        "crossStyle": {
+          "color": "#999",
+          "width": 1,
+          "type": "dashed",
+          "textStyle": {}
+        }
+      },
+      "zlevel": 0,
+      "z": 60,
+      "show": true,
+      "showContent": true,
+      "triggerOn": "mousemove|click",
+      "alwaysShowContent": false,
+      "displayMode": "single",
+      "renderMode": "auto",
+      "confine": null,
+      "showDelay": 0,
+      "hideDelay": 100,
+      "transitionDuration": 0.4,
+      "enterable": false,
+      "backgroundColor": "#fff",
+      "shadowBlur": 10,
+      "shadowColor": "rgba(0, 0, 0, .2)",
+      "shadowOffsetX": 1,
+      "shadowOffsetY": 2,
+      "borderRadius": 4,
+      "borderWidth": 1,
+      "padding": null,
+      "extraCssText": "",
+      "textStyle": {
+        "color": "#666",
+        "fontSize": 14
+      }
+    }
+  ],
+  "series": [
+    {
+      "coordinateSystem": "polar",
+      "name": "line",
+      "type": "line",
+      "data": [
+        [
+          5,
+          0
+        ],
+        [
+          5.313952597646567,
+          3.6
+        ],
+        [
+          5.626666167821521,
+          7.2
+        ],
+        [
+          5.936906572928623,
+          10.799999999999999
+        ],
+        [
+          6.2434494358242745,
+          14.4
+        ],
+        [
+          6.545084971874737,
+          18
+        ],
+        [
+          6.84062276342339,
+          21.599999999999998
+        ],
+        [
+          7.1288964578253635,
+          25.200000000000003
+        ],
+        [
+          7.408768370508576,
+          28.8
+        ],
+        [
+          7.679133974894983,
+          32.4
+        ],
+        [
+          7.938926261462366,
+          36
+        ],
+        [
+          8.18711994874345,
+          39.6
+        ],
+        [
+          8.422735529643443,
+          43.199999999999996
+        ],
+        [
+          8.644843137107058,
+          46.800000000000004
+        ],
+        [
+          8.852566213878946,
+          50.400000000000006
+        ],
+        [
+          9.045084971874736,
+          54
+        ],
+        [
+          9.221639627510076,
+          57.6
+        ],
+        [
+          9.381533400219318,
+          61.2
+        ],
+        [
+          9.524135262330098,
+          64.8
+        ],
+        [
+          9.648882429441256,
+          68.4
+        ],
+        [
+          9.755282581475768,
+          72
+        ],
+        [
+          9.842915805643155,
+          75.6
+        ],
+        [
+          9.911436253643442,
+          79.2
+        ],
+        [
+          9.96057350657239,
+          82.8
+        ],
+        [
+          9.990133642141357,
+          86.39999999999999
+        ],
+        [
+          10,
+          90
+        ],
+        [
+          9.990133642141357,
+          93.60000000000001
+        ],
+        [
+          9.96057350657239,
+          97.2
+        ],
+        [
+          9.911436253643442,
+          100.80000000000001
+        ],
+        [
+          9.842915805643155,
+          104.39999999999999
+        ],
+        [
+          9.755282581475768,
+          108
+        ],
+        [
+          9.648882429441256,
+          111.6
+        ],
+        [
+          9.524135262330098,
+          115.2
+        ],
+        [
+          9.381533400219318,
+          118.80000000000001
+        ],
+        [
+          9.221639627510074,
+          122.4
+        ],
+        [
+          9.045084971874736,
+          125.99999999999999
+        ],
+        [
+          8.852566213878946,
+          129.6
+        ],
+        [
+          8.644843137107056,
+          133.2
+        ],
+        [
+          8.422735529643443,
+          136.8
+        ],
+        [
+          8.18711994874345,
+          140.4
+        ],
+        [
+          7.938926261462367,
+          144
+        ],
+        [
+          7.6791339748949845,
+          147.6
+        ],
+        [
+          7.408768370508579,
+          151.2
+        ],
+        [
+          7.128896457825363,
+          154.8
+        ],
+        [
+          6.840622763423391,
+          158.4
+        ],
+        [
+          6.545084971874737,
+          162
+        ],
+        [
+          6.243449435824276,
+          165.6
+        ],
+        [
+          5.936906572928625,
+          169.2
+        ],
+        [
+          5.626666167821525,
+          172.79999999999998
+        ],
+        [
+          5.313952597646567,
+          176.4
+        ],
+        [
+          5.000000000000001,
+          180
+        ],
+        [
+          4.6860474023534335,
+          183.6
+        ],
+        [
+          4.373333832178479,
+          187.20000000000002
+        ],
+        [
+          4.063093427071376,
+          190.8
+        ],
+        [
+          3.7565505641757246,
+          194.4
+        ],
+        [
+          3.454915028125262,
+          198.00000000000003
+        ],
+        [
+          3.159377236576608,
+          201.60000000000002
+        ],
+        [
+          2.871103542174639,
+          205.2
+        ],
+        [
+          2.591231629491425,
+          208.79999999999998
+        ],
+        [
+          2.3208660251050177,
+          212.39999999999998
+        ],
+        [
+          2.061073738537635,
+          216
+        ],
+        [
+          1.8128800512565517,
+          219.6
+        ],
+        [
+          1.5772644703565564,
+          223.2
+        ],
+        [
+          1.3551568628929433,
+          226.8
+        ],
+        [
+          1.147433786121053,
+          230.4
+        ],
+        [
+          0.9549150281252633,
+          234
+        ],
+        [
+          0.7783603724899235,
+          237.60000000000002
+        ],
+        [
+          0.6184665997806821,
+          241.20000000000002
+        ],
+        [
+          0.475864737669901,
+          244.8
+        ],
+        [
+          0.3511175705587444,
+          248.39999999999998
+        ],
+        [
+          0.24471741852423234,
+          251.99999999999997
+        ],
+        [
+          0.15708419435684517,
+          255.6
+        ],
+        [
+          0.0885637463565564,
+          259.2
+        ],
+        [
+          0.039426493427611176,
+          262.8
+        ],
+        [
+          0.009866357858642205,
+          266.4
+        ],
+        [
+          0,
+          270
+        ],
+        [
+          0.009866357858642205,
+          273.6
+        ],
+        [
+          0.03942649342761062,
+          277.2
+        ],
+        [
+          0.0885637463565564,
+          280.8
+        ],
+        [
+          0.15708419435684573,
+          284.40000000000003
+        ],
+        [
+          0.2447174185242318,
+          288
+        ],
+        [
+          0.3511175705587438,
+          291.6
+        ],
+        [
+          0.47586473766990045,
+          295.2
+        ],
+        [
+          0.6184665997806832,
+          298.8
+        ],
+        [
+          0.7783603724899224,
+          302.4
+        ],
+        [
+          0.9549150281252622,
+          306
+        ],
+        [
+          1.1474337861210548,
+          309.6
+        ],
+        [
+          1.3551568628929422,
+          313.2
+        ],
+        [
+          1.5772644703565553,
+          316.8
+        ],
+        [
+          1.8128800512565486,
+          320.4
+        ],
+        [
+          2.061073738537633,
+          324
+        ],
+        [
+          2.320866025105018,
+          327.6
+        ],
+        [
+          2.5912316294914195,
+          331.2
+        ],
+        [
+          2.871103542174639,
+          334.8
+        ],
+        [
+          3.1593772365766064,
+          338.4
+        ],
+        [
+          3.454915028125262,
+          342
+        ],
+        [
+          3.7565505641757193,
+          345.59999999999997
+        ],
+        [
+          4.063093427071377,
+          349.2
+        ],
+        [
+          4.373333832178476,
+          352.8
+        ],
+        [
+          4.6860474023534335,
+          356.4
+        ],
+        [
+          4.999999999999999,
+          360
+        ]
+      ],
+      "zlevel": 0,
+      "z": 3,
+      "legendHoverLink": true,
+      "clip": true,
+      "label": {
+        "position": "top"
+      },
+      "endLabel": {
+        "show": false,
+        "valueAnimation": true,
+        "distance": 8
+      },
+      "lineStyle": {
+        "width": 2,
+        "type": "solid"
+      },
+      "emphasis": {
+        "scale": true,
+        "lineStyle": {
+          "width": "bolder"
+        },
+        "label": {}
+      },
+      "step": false,
+      "smooth": false,
+      "smoothMonotone": null,
+      "symbol": "emptyCircle",
+      "symbolSize": 4,
+      "symbolRotate": null,
+      "showSymbol": true,
+      "showAllSymbol": "auto",
+      "connectNulls": false,
+      "sampling": "none",
+      "animationEasing": "linear",
+      "progressive": 0,
+      "hoverLayerThreshold": null,
+      "universalTransition": {
+        "divideShape": "clone"
+      },
+      "triggerLineEvent": false
+    }
+  ],
+  "visualMap": [],
+  "legend": [
+    {
+      "data": [
+        "line"
+      ],
+      "zlevel": 0,
+      "z": 4,
+      "show": true,
+      "orient": "horizontal",
+      "left": "center",
+      "top": 0,
+      "align": "auto",
+      "backgroundColor": "rgba(0,0,0,0)",
+      "borderColor": "#ccc",
+      "borderRadius": 0,
+      "borderWidth": 0,
+      "padding": 5,
+      "itemGap": 10,
+      "itemWidth": 25,
+      "itemHeight": 14,
+      "symbolRotate": "inherit",
+      "symbolKeepAspect": true,
+      "inactiveColor": "#ccc",
+      "inactiveBorderColor": "#ccc",
+      "inactiveBorderWidth": "auto",
+      "itemStyle": {
+        "color": "inherit",
+        "opacity": "inherit",
+        "borderColor": "inherit",
+        "borderWidth": "auto",
+        "borderCap": "inherit",
+        "borderJoin": "inherit",
+        "borderDashOffset": "inherit",
+        "borderMiterLimit": "inherit"
+      },
+      "lineStyle": {
+        "width": "auto",
+        "color": "inherit",
+        "inactiveColor": "#ccc",
+        "inactiveWidth": 2,
+        "opacity": "inherit",
+        "type": "inherit",
+        "cap": "inherit",
+        "join": "inherit",
+        "dashOffset": "inherit",
+        "miterLimit": "inherit"
+      },
+      "textStyle": {
+        "color": "#333"
+      },
+      "selectedMode": true,
+      "selector": false,
+      "selectorLabel": {
+        "show": true,
+        "borderRadius": 10,
+        "padding": [
+          3,
+          5,
+          3,
+          5
+        ],
+        "fontSize": 12,
+        "fontFamily": "sans-serif",
+        "color": "#666",
+        "borderWidth": 1,
+        "borderColor": "#666"
+      },
+      "emphasis": {
+        "selectorLabel": {
+          "show": true,
+          "color": "#eee",
+          "backgroundColor": "#666"
+        }
+      },
+      "selectorPosition": "auto",
+      "selectorItemGap": 7,
+      "selectorButtonGap": 10,
+      "tooltip": {
+        "show": false
+      },
+      "selected": {}
+    }
+  ],
+  "markArea": [],
+  "markLine": [],
+  "markPoint": [],
+  "brush": [],
+  "dataZoom": []
+}

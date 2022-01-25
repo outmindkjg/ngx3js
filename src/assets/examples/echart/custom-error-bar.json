@@ -1,0 +1,1442 @@
+{
+  "darkMode": "auto",
+  "colorBy": "series",
+  "color": [
+    "#5470c6",
+    "#91cc75",
+    "#fac858",
+    "#ee6666",
+    "#73c0de",
+    "#3ba272",
+    "#fc8452",
+    "#9a60b4",
+    "#ea7ccc"
+  ],
+  "gradientColor": [
+    "#f6efa6",
+    "#d88273",
+    "#bf444c"
+  ],
+  "aria": {
+    "decal": {
+      "decals": [
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            1,
+            0
+          ],
+          "dashArrayY": [
+            2,
+            5
+          ],
+          "symbolSize": 1,
+          "rotation": 0.5235987755982988
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "symbol": "circle",
+          "dashArrayX": [
+            [
+              8,
+              8
+            ],
+            [
+              0,
+              8,
+              8,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            6,
+            0
+          ],
+          "symbolSize": 0.8
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            1,
+            0
+          ],
+          "dashArrayY": [
+            4,
+            3
+          ],
+          "rotation": -0.7853981633974483
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            [
+              6,
+              6
+            ],
+            [
+              0,
+              6,
+              6,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            6,
+            0
+          ]
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              6
+            ]
+          ],
+          "dashArrayY": [
+            1,
+            0,
+            6,
+            0
+          ],
+          "rotation": 0.7853981633974483
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "symbol": "triangle",
+          "dashArrayX": [
+            [
+              9,
+              9
+            ],
+            [
+              0,
+              9,
+              9,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            7,
+            2
+          ],
+          "symbolSize": 0.75
+        }
+      ]
+    }
+  },
+  "textStyle": {
+    "fontFamily": "sans-serif",
+    "fontSize": 12,
+    "fontStyle": "normal",
+    "fontWeight": "normal"
+  },
+  "stateAnimation": {
+    "duration": 300,
+    "easing": "cubicOut"
+  },
+  "animation": "auto",
+  "animationDuration": 1000,
+  "animationDurationUpdate": 500,
+  "animationEasing": "cubicInOut",
+  "animationEasingUpdate": "cubicInOut",
+  "animationThreshold": 2000,
+  "progressiveThreshold": 3000,
+  "progressive": 400,
+  "hoverLayerThreshold": 3000,
+  "useUTC": false,
+  "title": [
+    {
+      "text": "Error bar chart",
+      "zlevel": 0,
+      "z": 6,
+      "show": true,
+      "target": "blank",
+      "subtext": "",
+      "subtarget": "blank",
+      "left": 0,
+      "top": 0,
+      "backgroundColor": "rgba(0,0,0,0)",
+      "borderColor": "#ccc",
+      "borderWidth": 0,
+      "padding": 5,
+      "itemGap": 10,
+      "textStyle": {
+        "fontSize": 18,
+        "fontWeight": "bold",
+        "color": "#464646"
+      },
+      "subtextStyle": {
+        "fontSize": 12,
+        "color": "#6E7079"
+      }
+    }
+  ],
+  "axisPointer": [
+    {
+      "show": "auto",
+      "zlevel": 0,
+      "z": 50,
+      "type": "line",
+      "snap": false,
+      "triggerTooltip": true,
+      "value": null,
+      "status": null,
+      "link": [],
+      "animation": null,
+      "animationDurationUpdate": 200,
+      "lineStyle": {
+        "color": "#B9BEC9",
+        "width": 1,
+        "type": "dashed"
+      },
+      "shadowStyle": {
+        "color": "rgba(210,219,238,0.2)"
+      },
+      "label": {
+        "show": true,
+        "formatter": null,
+        "precision": "auto",
+        "margin": 3,
+        "color": "#fff",
+        "padding": [
+          5,
+          7,
+          5,
+          7
+        ],
+        "backgroundColor": "auto",
+        "borderColor": null,
+        "borderWidth": 0,
+        "borderRadius": 3
+      },
+      "handle": {
+        "show": false,
+        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
+        "size": 45,
+        "margin": 50,
+        "color": "#333",
+        "shadowBlur": 3,
+        "shadowColor": "#aaa",
+        "shadowOffsetX": 0,
+        "shadowOffsetY": 2,
+        "throttle": 40
+      }
+    }
+  ],
+  "tooltip": [
+    {
+      "trigger": "axis",
+      "axisPointer": {
+        "type": "shadow",
+        "axis": "auto",
+        "animation": "auto",
+        "animationDurationUpdate": 200,
+        "animationEasingUpdate": "exponentialOut",
+        "crossStyle": {
+          "color": "#999",
+          "width": 1,
+          "type": "dashed",
+          "textStyle": {}
+        }
+      },
+      "zlevel": 0,
+      "z": 60,
+      "show": true,
+      "showContent": true,
+      "triggerOn": "mousemove|click",
+      "alwaysShowContent": false,
+      "displayMode": "single",
+      "renderMode": "auto",
+      "confine": null,
+      "showDelay": 0,
+      "hideDelay": 100,
+      "transitionDuration": 0.4,
+      "enterable": false,
+      "backgroundColor": "#fff",
+      "shadowBlur": 10,
+      "shadowColor": "rgba(0, 0, 0, .2)",
+      "shadowOffsetX": 1,
+      "shadowOffsetY": 2,
+      "borderRadius": 4,
+      "borderWidth": 1,
+      "padding": null,
+      "extraCssText": "",
+      "textStyle": {
+        "color": "#666",
+        "fontSize": 14
+      }
+    }
+  ],
+  "yAxis": [
+    {
+      "boundaryGap": [
+        0,
+        0
+      ],
+      "axisLine": {
+        "show": "auto",
+        "onZero": true,
+        "onZeroAxisIndex": null,
+        "lineStyle": {
+          "color": "#6E7079",
+          "width": 1,
+          "type": "solid"
+        },
+        "symbol": [
+          "none",
+          "none"
+        ],
+        "symbolSize": [
+          10,
+          15
+        ]
+      },
+      "axisTick": {
+        "show": "auto",
+        "inside": false,
+        "length": 5,
+        "lineStyle": {
+          "width": 1
+        }
+      },
+      "splitNumber": 5,
+      "minorTick": {
+        "show": false,
+        "splitNumber": 5,
+        "length": 3,
+        "lineStyle": {}
+      },
+      "minorSplitLine": {
+        "show": false,
+        "lineStyle": {
+          "color": "#F4F7FD",
+          "width": 1
+        }
+      },
+      "show": true,
+      "zlevel": 0,
+      "z": 0,
+      "inverse": false,
+      "name": "",
+      "nameLocation": "end",
+      "nameRotate": null,
+      "nameTruncate": {
+        "maxWidth": null,
+        "ellipsis": "...",
+        "placeholder": "."
+      },
+      "nameTextStyle": {},
+      "nameGap": 15,
+      "silent": false,
+      "triggerEvent": false,
+      "tooltip": {
+        "show": false
+      },
+      "axisPointer": {},
+      "axisLabel": {
+        "show": true,
+        "inside": false,
+        "rotate": 0,
+        "showMinLabel": null,
+        "showMaxLabel": null,
+        "margin": 8,
+        "fontSize": 12
+      },
+      "splitLine": {
+        "show": true,
+        "lineStyle": {
+          "color": [
+            "#E0E6F1"
+          ],
+          "width": 1,
+          "type": "solid"
+        }
+      },
+      "splitArea": {
+        "show": false,
+        "areaStyle": {
+          "color": [
+            "rgba(250,250,250,0.2)",
+            "rgba(210,219,238,0.2)"
+          ]
+        }
+      },
+      "offset": 0,
+      "type": "value"
+    }
+  ],
+  "xAxis": [
+    {
+      "data": [
+        "category0",
+        "category1",
+        "category2",
+        "category3",
+        "category4",
+        "category5",
+        "category6",
+        "category7",
+        "category8",
+        "category9",
+        "category10",
+        "category11",
+        "category12",
+        "category13",
+        "category14",
+        "category15",
+        "category16",
+        "category17",
+        "category18",
+        "category19",
+        "category20",
+        "category21",
+        "category22",
+        "category23",
+        "category24",
+        "category25",
+        "category26",
+        "category27",
+        "category28",
+        "category29",
+        "category30",
+        "category31",
+        "category32",
+        "category33",
+        "category34",
+        "category35",
+        "category36",
+        "category37",
+        "category38",
+        "category39",
+        "category40",
+        "category41",
+        "category42",
+        "category43",
+        "category44",
+        "category45",
+        "category46",
+        "category47",
+        "category48",
+        "category49",
+        "category50",
+        "category51",
+        "category52",
+        "category53",
+        "category54",
+        "category55",
+        "category56",
+        "category57",
+        "category58",
+        "category59",
+        "category60",
+        "category61",
+        "category62",
+        "category63",
+        "category64",
+        "category65",
+        "category66",
+        "category67",
+        "category68",
+        "category69",
+        "category70",
+        "category71",
+        "category72",
+        "category73",
+        "category74",
+        "category75",
+        "category76",
+        "category77",
+        "category78",
+        "category79",
+        "category80",
+        "category81",
+        "category82",
+        "category83",
+        "category84",
+        "category85",
+        "category86",
+        "category87",
+        "category88",
+        "category89",
+        "category90",
+        "category91",
+        "category92",
+        "category93",
+        "category94",
+        "category95",
+        "category96",
+        "category97",
+        "category98",
+        "category99"
+      ],
+      "boundaryGap": true,
+      "deduplication": null,
+      "splitLine": {
+        "show": false,
+        "lineStyle": {
+          "color": [
+            "#E0E6F1"
+          ],
+          "width": 1,
+          "type": "solid"
+        }
+      },
+      "axisTick": {
+        "alignWithLabel": false,
+        "interval": "auto",
+        "show": true,
+        "inside": false,
+        "length": 5,
+        "lineStyle": {
+          "width": 1
+        }
+      },
+      "axisLabel": {
+        "interval": "auto",
+        "show": true,
+        "inside": false,
+        "rotate": 0,
+        "showMinLabel": null,
+        "showMaxLabel": null,
+        "margin": 8,
+        "fontSize": 12
+      },
+      "show": true,
+      "zlevel": 0,
+      "z": 0,
+      "inverse": false,
+      "name": "",
+      "nameLocation": "end",
+      "nameRotate": null,
+      "nameTruncate": {
+        "maxWidth": null,
+        "ellipsis": "...",
+        "placeholder": "."
+      },
+      "nameTextStyle": {},
+      "nameGap": 15,
+      "silent": false,
+      "triggerEvent": false,
+      "tooltip": {
+        "show": false
+      },
+      "axisPointer": {
+        "status": "hide",
+        "value": 67,
+        "seriesDataIndices": [
+          {
+            "seriesIndex": 0,
+            "dataIndexInside": 17,
+            "dataIndex": 67
+          },
+          {
+            "seriesIndex": 1,
+            "dataIndexInside": 17,
+            "dataIndex": 67
+          }
+        ]
+      },
+      "axisLine": {
+        "show": true,
+        "onZero": true,
+        "onZeroAxisIndex": null,
+        "lineStyle": {
+          "color": "#6E7079",
+          "width": 1,
+          "type": "solid"
+        },
+        "symbol": [
+          "none",
+          "none"
+        ],
+        "symbolSize": [
+          10,
+          15
+        ]
+      },
+      "splitArea": {
+        "show": false,
+        "areaStyle": {
+          "color": [
+            "rgba(250,250,250,0.2)",
+            "rgba(210,219,238,0.2)"
+          ]
+        }
+      },
+      "offset": 0,
+      "type": "category"
+    }
+  ],
+  "grid": [
+    {
+      "show": false,
+      "zlevel": 0,
+      "z": 0,
+      "left": "10%",
+      "top": 60,
+      "right": "10%",
+      "bottom": 70,
+      "containLabel": false,
+      "backgroundColor": "rgba(0,0,0,0)",
+      "borderWidth": 1,
+      "borderColor": "#ccc"
+    }
+  ],
+  "series": [
+    {
+      "type": "bar",
+      "name": "bar",
+      "data": [
+        402.01,
+        189.27,
+        230.7,
+        686.62,
+        856.4,
+        817.09,
+        772.22,
+        648.18,
+        169.4,
+        226.77,
+        455.66,
+        535.92,
+        431.29,
+        515.56,
+        518.79,
+        919.68,
+        908.34,
+        554.07,
+        711.46,
+        163.68,
+        941.39,
+        928.9,
+        743.39,
+        921.44,
+        530.36,
+        957.92,
+        737.17,
+        471.07,
+        423.69,
+        232.36,
+        341,
+        133.86,
+        971.8,
+        975.71,
+        442.27,
+        799.73,
+        502.45,
+        726.4,
+        171.75,
+        859.6,
+        2.45,
+        76.25,
+        614.54,
+        852.99,
+        521.41,
+        470.99,
+        92.26,
+        444.71,
+        306.83,
+        53.1,
+        913.29,
+        304.73,
+        106.89,
+        979.22,
+        673.71,
+        301.99,
+        935.99,
+        222.85,
+        443.34,
+        687.47,
+        719.84,
+        785.59,
+        308.47,
+        487.79,
+        806.87,
+        134.01,
+        814.88,
+        371.42,
+        843.41,
+        266.72,
+        871.4,
+        99.93,
+        28.53,
+        558.81,
+        515.73,
+        242.7,
+        94.2,
+        292.52,
+        322.13,
+        253.17,
+        115.13,
+        363.35,
+        340.73,
+        214.16,
+        187.07,
+        222.75,
+        604.56,
+        501.47,
+        324.49,
+        851.83,
+        261.36,
+        513.65,
+        264.84,
+        739.26,
+        609.91,
+        147.81,
+        898.14,
+        201.28,
+        613.61,
+        348.33
+      ],
+      "itemStyle": {
+        "color": "#77bef7"
+      },
+      "zlevel": 0,
+      "z": 2,
+      "coordinateSystem": "cartesian2d",
+      "legendHoverLink": true,
+      "barMinHeight": 0,
+      "barMinAngle": 0,
+      "large": false,
+      "largeThreshold": 400,
+      "progressive": 3000,
+      "progressiveChunkMode": "mod",
+      "clip": true,
+      "roundCap": false,
+      "showBackground": false,
+      "backgroundStyle": {
+        "color": "rgba(180, 180, 180, 0.2)",
+        "borderColor": null,
+        "borderWidth": 0,
+        "borderType": "solid",
+        "borderRadius": 0,
+        "shadowBlur": 0,
+        "shadowColor": null,
+        "shadowOffsetX": 0,
+        "shadowOffsetY": 0,
+        "opacity": 1
+      },
+      "select": {
+        "itemStyle": {
+          "borderColor": "#212121"
+        }
+      },
+      "realtimeSort": false,
+      "label": {},
+      "emphasis": {
+        "label": {}
+      }
+    },
+    {
+      "type": "custom",
+      "name": "error",
+      "itemStyle": {
+        "borderWidth": 1.5
+      },
+      "encode": {
+        "x": 0,
+        "y": [
+          1,
+          2
+        ]
+      },
+      "data": [
+        [
+          0,
+          350.2638224423,
+          456.5988026859
+        ],
+        [
+          1,
+          169.8839858247,
+          199.8648538495
+        ],
+        [
+          2,
+          193.6608735356,
+          232.906943118
+        ],
+        [
+          3,
+          646.8875832975,
+          728.7133289016
+        ],
+        [
+          4,
+          839.2283586772,
+          894.5061138368
+        ],
+        [
+          5,
+          759.0299479248,
+          821.1465014909
+        ],
+        [
+          6,
+          745.1564587593,
+          778.7329316663
+        ],
+        [
+          7,
+          577.6072018007,
+          661.6743714388
+        ],
+        [
+          8,
+          84.1028419604,
+          193.5390356714
+        ],
+        [
+          9,
+          128.7003100257,
+          232.5938872243
+        ],
+        [
+          10,
+          440.7843006983,
+          512.8006425287
+        ],
+        [
+          11,
+          492.5688353087,
+          553.5709132831
+        ],
+        [
+          12,
+          366.8234551751,
+          453.2450721377
+        ],
+        [
+          13,
+          427.3535046753,
+          553.8314346812
+        ],
+        [
+          14,
+          429.7515545328,
+          573.9681544804
+        ],
+        [
+          15,
+          872.7345696598,
+          966.9056084714
+        ],
+        [
+          16,
+          856.981353226,
+          969.4942666798
+        ],
+        [
+          17,
+          505.5708131112,
+          622.8924411389
+        ],
+        [
+          18,
+          708.2479181149,
+          782.7718425325
+        ],
+        [
+          19,
+          128.1738123335,
+          178.9720168045
+        ],
+        [
+          20,
+          844.4683649104,
+          962.5333713313
+        ],
+        [
+          21,
+          840.3710061869,
+          951.2692126303
+        ],
+        [
+          22,
+          668.4320874701,
+          820.1554747124
+        ],
+        [
+          23,
+          889.5151424651,
+          952.3125591201
+        ],
+        [
+          24,
+          484.8516489372,
+          604.042247709
+        ],
+        [
+          25,
+          890.1168705207,
+          1001.9760135959
+        ],
+        [
+          26,
+          713.6399130035,
+          772.6253052767
+        ],
+        [
+          27,
+          392.7797629835,
+          495.9548415219
+        ],
+        [
+          28,
+          420.8334685381,
+          494.8549069335
+        ],
+        [
+          29,
+          211.9488247726,
+          279.5113414646
+        ],
+        [
+          30,
+          279.3130491319,
+          374.587687777
+        ],
+        [
+          31,
+          81.81331206,
+          168.9310884703
+        ],
+        [
+          32,
+          960.6635995074,
+          1040.6811494426
+        ],
+        [
+          33,
+          961.1096308942,
+          1051.0278509096
+        ],
+        [
+          34,
+          402.586426983,
+          493.627624023
+        ],
+        [
+          35,
+          797.8818718679,
+          809.919188478
+        ],
+        [
+          36,
+          495.3482849453,
+          553.9082930023
+        ],
+        [
+          37,
+          719.8582266631,
+          781.5757123227
+        ],
+        [
+          38,
+          127.0375932911,
+          202.2052933399
+        ],
+        [
+          39,
+          832.5483718187,
+          887.5268844231
+        ],
+        [
+          40,
+          0,
+          31.7723455067
+        ],
+        [
+          41,
+          48.9315244184,
+          97.6300528064
+        ],
+        [
+          42,
+          528.2814263705,
+          681.7354746346
+        ],
+        [
+          43,
+          838.0225021146,
+          914.3691635591
+        ],
+        [
+          44,
+          476.2999982694,
+          531.0010161394
+        ],
+        [
+          45,
+          451.853420149,
+          549.311888446
+        ],
+        [
+          46,
+          85.547450346,
+          124.9909107421
+        ],
+        [
+          47,
+          396.8289206208,
+          515.866926327
+        ],
+        [
+          48,
+          289.8498885435,
+          326.647834998
+        ],
+        [
+          49,
+          18.3401218008,
+          118.8005052354
+        ],
+        [
+          50,
+          855.1366798795,
+          981.3375218988
+        ],
+        [
+          51,
+          264.0486097101,
+          321.8070672038
+        ],
+        [
+          52,
+          75.7693668672,
+          128.5067983105
+        ],
+        [
+          53,
+          882.0149536826,
+          1035.2198197757
+        ],
+        [
+          54,
+          592.0572944704,
+          736.2706789389
+        ],
+        [
+          55,
+          214.625920576,
+          334.1084025511
+        ],
+        [
+          56,
+          873.2475618097,
+          981.0923277791
+        ],
+        [
+          57,
+          150.5055326155,
+          254.0608244162
+        ],
+        [
+          58,
+          384.5549312392,
+          447.0869716009
+        ],
+        [
+          59,
+          677.3443728474,
+          719.6830897252
+        ],
+        [
+          60,
+          640.4516491714,
+          756.3160924904
+        ],
+        [
+          61,
+          700.6889268451,
+          822.1012639975
+        ],
+        [
+          62,
+          248.8399916307,
+          324.5436194315
+        ],
+        [
+          63,
+          481.5423207936,
+          517.0921931149
+        ],
+        [
+          64,
+          802.1421450358,
+          847.6899244525
+        ],
+        [
+          65,
+          128.133900731,
+          149.450267879
+        ],
+        [
+          66,
+          764.1233844427,
+          861.9135868456
+        ],
+        [
+          67,
+          328.9669191894,
+          427.3112654661
+        ],
+        [
+          68,
+          832.6124946415,
+          856.7572925313
+        ],
+        [
+          69,
+          198.4557849191,
+          277.5310272921
+        ],
+        [
+          70,
+          870.6220012278,
+          879.5085064315
+        ],
+        [
+          71,
+          57.0018631461,
+          140.4546661153
+        ],
+        [
+          72,
+          20.3715522395,
+          56.9215426408
+        ],
+        [
+          73,
+          546.9817653605,
+          565.3595926825
+        ],
+        [
+          74,
+          427.9668712824,
+          559.9191038022
+        ],
+        [
+          75,
+          163.9998748741,
+          313.3791355709
+        ],
+        [
+          76,
+          58.3253808891,
+          156.0642622383
+        ],
+        [
+          77,
+          262.6968081629,
+          307.5544979389
+        ],
+        [
+          78,
+          231.7207116667,
+          383.7233398252
+        ],
+        [
+          79,
+          167.0636294073,
+          314.6541707732
+        ],
+        [
+          80,
+          102.6476819491,
+          175.6393538659
+        ],
+        [
+          81,
+          302.7144205973,
+          415.3793552568
+        ],
+        [
+          82,
+          283.9635427694,
+          415.702959327
+        ],
+        [
+          83,
+          165.1543410545,
+          227.6212617153
+        ],
+        [
+          84,
+          118.0386195332,
+          266.6714833077
+        ],
+        [
+          85,
+          174.2006083851,
+          259.6545270657
+        ],
+        [
+          86,
+          510.8315082334,
+          676.124035556
+        ],
+        [
+          87,
+          442.6991432111,
+          581.1328773898
+        ],
+        [
+          88,
+          225.5184935084,
+          346.9846407012
+        ],
+        [
+          89,
+          809.7104909785,
+          865.2815490043
+        ],
+        [
+          90,
+          254.3192454984,
+          272.6281329598
+        ],
+        [
+          91,
+          459.6871661029,
+          525.5059879547
+        ],
+        [
+          92,
+          220.9598471095,
+          335.531835212
+        ],
+        [
+          93,
+          722.2845838465,
+          801.3894821011
+        ],
+        [
+          94,
+          546.7164391693,
+          646.2972103445
+        ],
+        [
+          95,
+          57.6263193176,
+          197.657512283
+        ],
+        [
+          96,
+          810.7056452048,
+          939.2840463835
+        ],
+        [
+          97,
+          123.9177113671,
+          248.9218282642
+        ],
+        [
+          98,
+          595.3458506583,
+          628.75648847
+        ],
+        [
+          99,
+          322.9389380003,
+          393.3801900977
+        ]
+      ],
+      "z": 100,
+      "coordinateSystem": "cartesian2d",
+      "zlevel": 0,
+      "legendHoverLink": true,
+      "clip": false,
+      "label": {},
+      "emphasis": {
+        "label": {}
+      }
+    }
+  ],
+  "visualMap": [],
+  "legend": [
+    {
+      "data": [
+        "bar",
+        "error"
+      ],
+      "zlevel": 0,
+      "z": 4,
+      "show": true,
+      "orient": "horizontal",
+      "left": "center",
+      "top": 0,
+      "align": "auto",
+      "backgroundColor": "rgba(0,0,0,0)",
+      "borderColor": "#ccc",
+      "borderRadius": 0,
+      "borderWidth": 0,
+      "padding": 5,
+      "itemGap": 10,
+      "itemWidth": 25,
+      "itemHeight": 14,
+      "symbolRotate": "inherit",
+      "symbolKeepAspect": true,
+      "inactiveColor": "#ccc",
+      "inactiveBorderColor": "#ccc",
+      "inactiveBorderWidth": "auto",
+      "itemStyle": {
+        "color": "inherit",
+        "opacity": "inherit",
+        "borderColor": "inherit",
+        "borderWidth": "auto",
+        "borderCap": "inherit",
+        "borderJoin": "inherit",
+        "borderDashOffset": "inherit",
+        "borderMiterLimit": "inherit"
+      },
+      "lineStyle": {
+        "width": "auto",
+        "color": "inherit",
+        "inactiveColor": "#ccc",
+        "inactiveWidth": 2,
+        "opacity": "inherit",
+        "type": "inherit",
+        "cap": "inherit",
+        "join": "inherit",
+        "dashOffset": "inherit",
+        "miterLimit": "inherit"
+      },
+      "textStyle": {
+        "color": "#333"
+      },
+      "selectedMode": true,
+      "selector": false,
+      "selectorLabel": {
+        "show": true,
+        "borderRadius": 10,
+        "padding": [
+          3,
+          5,
+          3,
+          5
+        ],
+        "fontSize": 12,
+        "fontFamily": "sans-serif",
+        "color": "#666",
+        "borderWidth": 1,
+        "borderColor": "#666"
+      },
+      "emphasis": {
+        "selectorLabel": {
+          "show": true,
+          "color": "#eee",
+          "backgroundColor": "#666"
+        }
+      },
+      "selectorPosition": "auto",
+      "selectorItemGap": 7,
+      "selectorButtonGap": 10,
+      "tooltip": {
+        "show": false
+      },
+      "selected": {}
+    }
+  ],
+  "markArea": [],
+  "markLine": [],
+  "markPoint": [],
+  "brush": [],
+  "dataZoom": [
+    {
+      "type": "slider",
+      "start": 50,
+      "end": 70,
+      "zlevel": 0,
+      "z": 4,
+      "filterMode": "filter",
+      "show": true,
+      "right": "ph",
+      "top": "ph",
+      "width": "ph",
+      "height": "ph",
+      "left": null,
+      "bottom": null,
+      "borderColor": "#d2dbee",
+      "borderRadius": 3,
+      "backgroundColor": "rgba(47,69,84,0)",
+      "dataBackground": {
+        "lineStyle": {
+          "color": "#d2dbee",
+          "width": 0.5
+        },
+        "areaStyle": {
+          "color": "#d2dbee",
+          "opacity": 0.2
+        }
+      },
+      "selectedDataBackground": {
+        "lineStyle": {
+          "color": "#8fb0f7",
+          "width": 0.5
+        },
+        "areaStyle": {
+          "color": "#8fb0f7",
+          "opacity": 0.2
+        }
+      },
+      "fillerColor": "rgba(135,175,274,0.2)",
+      "handleIcon": "path://M-9.35,34.56V42m0-40V9.5m-2,0h4a2,2,0,0,1,2,2v21a2,2,0,0,1-2,2h-4a2,2,0,0,1-2-2v-21A2,2,0,0,1-11.35,9.5Z",
+      "handleSize": "100%",
+      "handleStyle": {
+        "color": "#fff",
+        "borderColor": "#ACB8D1"
+      },
+      "moveHandleSize": 7,
+      "moveHandleIcon": "path://M-320.9-50L-320.9-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-348-41-339-50-320.9-50z M-212.3-50L-212.3-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-239.4-41-230.4-50-212.3-50z M-103.7-50L-103.7-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-130.9-41-121.8-50-103.7-50z",
+      "moveHandleStyle": {
+        "color": "#D2DBEE",
+        "opacity": 0.7
+      },
+      "showDetail": true,
+      "showDataShadow": "auto",
+      "realtime": true,
+      "zoomLock": false,
+      "textStyle": {
+        "color": "#6E7079"
+      },
+      "brushSelect": true,
+      "brushStyle": {
+        "color": "rgba(135,175,274,0.15)"
+      },
+      "emphasis": {
+        "handleStyle": {
+          "borderColor": "#8FB0F7"
+        },
+        "moveHandleStyle": {
+          "color": "#8FB0F7"
+        }
+      },
+      "throttle": 100,
+      "startValue": 50,
+      "endValue": 69
+    },
+    {
+      "type": "inside",
+      "start": 50,
+      "end": 70,
+      "zlevel": 0,
+      "z": 4,
+      "filterMode": "filter",
+      "disabled": false,
+      "zoomLock": false,
+      "zoomOnMouseWheel": true,
+      "moveOnMouseMove": true,
+      "moveOnMouseWheel": false,
+      "preventDefaultMouseMove": true,
+      "throttle": 100,
+      "startValue": 50,
+      "endValue": 69
+    }
+  ]
+}

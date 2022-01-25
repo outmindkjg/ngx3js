@@ -1,0 +1,1567 @@
+{
+  "darkMode": "auto",
+  "colorBy": "series",
+  "color": [
+    "#5470c6",
+    "#91cc75",
+    "#fac858",
+    "#ee6666",
+    "#73c0de",
+    "#3ba272",
+    "#fc8452",
+    "#9a60b4",
+    "#ea7ccc"
+  ],
+  "gradientColor": [
+    "#f6efa6",
+    "#d88273",
+    "#bf444c"
+  ],
+  "aria": {
+    "decal": {
+      "decals": [
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            1,
+            0
+          ],
+          "dashArrayY": [
+            2,
+            5
+          ],
+          "symbolSize": 1,
+          "rotation": 0.5235987755982988
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "symbol": "circle",
+          "dashArrayX": [
+            [
+              8,
+              8
+            ],
+            [
+              0,
+              8,
+              8,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            6,
+            0
+          ],
+          "symbolSize": 0.8
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            1,
+            0
+          ],
+          "dashArrayY": [
+            4,
+            3
+          ],
+          "rotation": -0.7853981633974483
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            [
+              6,
+              6
+            ],
+            [
+              0,
+              6,
+              6,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            6,
+            0
+          ]
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              6
+            ]
+          ],
+          "dashArrayY": [
+            1,
+            0,
+            6,
+            0
+          ],
+          "rotation": 0.7853981633974483
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "symbol": "triangle",
+          "dashArrayX": [
+            [
+              9,
+              9
+            ],
+            [
+              0,
+              9,
+              9,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            7,
+            2
+          ],
+          "symbolSize": 0.75
+        }
+      ]
+    }
+  },
+  "textStyle": {
+    "fontFamily": "sans-serif",
+    "fontSize": 12,
+    "fontStyle": "normal",
+    "fontWeight": "normal"
+  },
+  "stateAnimation": {
+    "duration": 300,
+    "easing": "cubicOut"
+  },
+  "animation": "auto",
+  "animationDuration": 1000,
+  "animationDurationUpdate": 500,
+  "animationEasing": "cubicInOut",
+  "animationEasingUpdate": "cubicInOut",
+  "animationThreshold": 2000,
+  "progressiveThreshold": 3000,
+  "progressive": 400,
+  "hoverLayerThreshold": 3000,
+  "useUTC": false,
+  "axisPointer": [
+    {
+      "show": "auto",
+      "zlevel": 0,
+      "z": 50,
+      "type": "line",
+      "snap": false,
+      "triggerTooltip": true,
+      "value": null,
+      "status": null,
+      "link": [],
+      "animation": null,
+      "animationDurationUpdate": 200,
+      "lineStyle": {
+        "color": "#B9BEC9",
+        "width": 1,
+        "type": "dashed"
+      },
+      "shadowStyle": {
+        "color": "rgba(210,219,238,0.2)"
+      },
+      "label": {
+        "show": true,
+        "formatter": null,
+        "precision": "auto",
+        "margin": 3,
+        "color": "#fff",
+        "padding": [
+          5,
+          7,
+          5,
+          7
+        ],
+        "backgroundColor": "auto",
+        "borderColor": null,
+        "borderWidth": 0,
+        "borderRadius": 3
+      },
+      "handle": {
+        "show": false,
+        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
+        "size": 45,
+        "margin": 50,
+        "color": "#333",
+        "shadowBlur": 3,
+        "shadowColor": "#aaa",
+        "shadowOffsetX": 0,
+        "shadowOffsetY": 2,
+        "throttle": 40
+      }
+    }
+  ],
+  "tooltip": [
+    {
+      "trigger": "axis",
+      "zlevel": 0,
+      "z": 60,
+      "show": true,
+      "showContent": true,
+      "triggerOn": "mousemove|click",
+      "alwaysShowContent": false,
+      "displayMode": "single",
+      "renderMode": "auto",
+      "confine": null,
+      "showDelay": 0,
+      "hideDelay": 100,
+      "transitionDuration": 0.4,
+      "enterable": false,
+      "backgroundColor": "#fff",
+      "shadowBlur": 10,
+      "shadowColor": "rgba(0, 0, 0, .2)",
+      "shadowOffsetX": 1,
+      "shadowOffsetY": 2,
+      "borderRadius": 4,
+      "borderWidth": 1,
+      "padding": null,
+      "extraCssText": "",
+      "axisPointer": {
+        "type": "line",
+        "axis": "auto",
+        "animation": "auto",
+        "animationDurationUpdate": 200,
+        "animationEasingUpdate": "exponentialOut",
+        "crossStyle": {
+          "color": "#999",
+          "width": 1,
+          "type": "dashed",
+          "textStyle": {}
+        }
+      },
+      "textStyle": {
+        "color": "#666",
+        "fontSize": 14
+      }
+    }
+  ],
+  "yAxis": [
+    {
+      "boundaryGap": [
+        0,
+        0
+      ],
+      "axisLine": {
+        "show": "auto",
+        "onZero": true,
+        "onZeroAxisIndex": null,
+        "lineStyle": {
+          "color": "#6E7079",
+          "width": 1,
+          "type": "solid"
+        },
+        "symbol": [
+          "none",
+          "none"
+        ],
+        "symbolSize": [
+          10,
+          15
+        ]
+      },
+      "axisTick": {
+        "show": "auto",
+        "inside": false,
+        "length": 5,
+        "lineStyle": {
+          "width": 1
+        }
+      },
+      "splitNumber": 5,
+      "minorTick": {
+        "show": false,
+        "splitNumber": 5,
+        "length": 3,
+        "lineStyle": {}
+      },
+      "minorSplitLine": {
+        "show": false,
+        "lineStyle": {
+          "color": "#F4F7FD",
+          "width": 1
+        }
+      },
+      "show": true,
+      "zlevel": 0,
+      "z": 0,
+      "inverse": false,
+      "name": "",
+      "nameLocation": "end",
+      "nameRotate": null,
+      "nameTruncate": {
+        "maxWidth": null,
+        "ellipsis": "...",
+        "placeholder": "."
+      },
+      "nameTextStyle": {},
+      "nameGap": 15,
+      "silent": false,
+      "triggerEvent": false,
+      "tooltip": {
+        "show": false
+      },
+      "axisPointer": {},
+      "axisLabel": {
+        "show": true,
+        "inside": false,
+        "rotate": 0,
+        "showMinLabel": null,
+        "showMaxLabel": null,
+        "margin": 8,
+        "fontSize": 12
+      },
+      "splitLine": {
+        "show": true,
+        "lineStyle": {
+          "color": [
+            "#E0E6F1"
+          ],
+          "width": 1,
+          "type": "solid"
+        }
+      },
+      "splitArea": {
+        "show": false,
+        "areaStyle": {
+          "color": [
+            "rgba(250,250,250,0.2)",
+            "rgba(210,219,238,0.2)"
+          ]
+        }
+      },
+      "offset": 0,
+      "type": "value"
+    }
+  ],
+  "xAxis": [
+    {
+      "data": [
+        "category0",
+        "category1",
+        "category2",
+        "category3",
+        "category4",
+        "category5",
+        "category6",
+        "category7",
+        "category8",
+        "category9",
+        "category10",
+        "category11",
+        "category12",
+        "category13",
+        "category14",
+        "category15",
+        "category16",
+        "category17",
+        "category18",
+        "category19",
+        "category20",
+        "category21",
+        "category22",
+        "category23",
+        "category24",
+        "category25",
+        "category26",
+        "category27",
+        "category28",
+        "category29"
+      ],
+      "boundaryGap": true,
+      "deduplication": null,
+      "splitLine": {
+        "show": false,
+        "lineStyle": {
+          "color": [
+            "#E0E6F1"
+          ],
+          "width": 1,
+          "type": "solid"
+        }
+      },
+      "axisTick": {
+        "alignWithLabel": false,
+        "interval": "auto",
+        "show": true,
+        "inside": false,
+        "length": 5,
+        "lineStyle": {
+          "width": 1
+        }
+      },
+      "axisLabel": {
+        "interval": "auto",
+        "show": true,
+        "inside": false,
+        "rotate": 0,
+        "showMinLabel": null,
+        "showMaxLabel": null,
+        "margin": 8,
+        "fontSize": 12
+      },
+      "show": true,
+      "zlevel": 0,
+      "z": 0,
+      "inverse": false,
+      "name": "",
+      "nameLocation": "end",
+      "nameRotate": null,
+      "nameTruncate": {
+        "maxWidth": null,
+        "ellipsis": "...",
+        "placeholder": "."
+      },
+      "nameTextStyle": {},
+      "nameGap": 15,
+      "silent": false,
+      "triggerEvent": false,
+      "tooltip": {
+        "show": false
+      },
+      "axisPointer": {
+        "status": "hide",
+        "value": 20,
+        "seriesDataIndices": [
+          {
+            "seriesIndex": 0,
+            "dataIndexInside": 5,
+            "dataIndex": 20
+          },
+          {
+            "seriesIndex": 1,
+            "dataIndexInside": 5,
+            "dataIndex": 20
+          },
+          {
+            "seriesIndex": 2,
+            "dataIndexInside": 5,
+            "dataIndex": 20
+          },
+          {
+            "seriesIndex": 3,
+            "dataIndexInside": 5,
+            "dataIndex": 20
+          },
+          {
+            "seriesIndex": 4,
+            "dataIndexInside": 5,
+            "dataIndex": 20
+          },
+          {
+            "seriesIndex": 5,
+            "dataIndexInside": 5,
+            "dataIndex": 20
+          },
+          {
+            "seriesIndex": 6,
+            "dataIndexInside": 5,
+            "dataIndex": 20
+          },
+          {
+            "seriesIndex": 7,
+            "dataIndexInside": 5,
+            "dataIndex": 20
+          }
+        ]
+      },
+      "axisLine": {
+        "show": true,
+        "onZero": true,
+        "onZeroAxisIndex": null,
+        "lineStyle": {
+          "color": "#6E7079",
+          "width": 1,
+          "type": "solid"
+        },
+        "symbol": [
+          "none",
+          "none"
+        ],
+        "symbolSize": [
+          10,
+          15
+        ]
+      },
+      "splitArea": {
+        "show": false,
+        "areaStyle": {
+          "color": [
+            "rgba(250,250,250,0.2)",
+            "rgba(210,219,238,0.2)"
+          ]
+        }
+      },
+      "offset": 0,
+      "type": "category"
+    }
+  ],
+  "grid": [
+    {
+      "show": false,
+      "zlevel": 0,
+      "z": 0,
+      "left": "10%",
+      "top": 60,
+      "right": "10%",
+      "bottom": 70,
+      "containLabel": false,
+      "backgroundColor": "rgba(0,0,0,0)",
+      "borderWidth": 1,
+      "borderColor": "#ccc"
+    }
+  ],
+  "series": [
+    {
+      "type": "custom",
+      "name": "trend",
+      "itemStyle": {
+        "borderWidth": 2
+      },
+      "encode": {
+        "x": 0,
+        "y": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "data": [
+        [
+          0,
+          402.01,
+          405.51,
+          441.98,
+          379.83,
+          318.6,
+          245.09,
+          191.23
+        ],
+        [
+          1,
+          370.43,
+          275.94,
+          313.26,
+          292.73,
+          297.96,
+          369.24,
+          303.58
+        ],
+        [
+          2,
+          476.34,
+          539.76,
+          555.89,
+          466.02,
+          520.46,
+          474.59,
+          390.87
+        ],
+        [
+          3,
+          648.18,
+          689.33,
+          623.06,
+          556.94,
+          627.53,
+          587.88,
+          533.23
+        ],
+        [
+          4,
+          980.72,
+          895.27,
+          886.4,
+          816.15,
+          859,
+          866.18,
+          852.89
+        ],
+        [
+          5,
+          220.6,
+          206.86,
+          235.8,
+          190.68,
+          193.79,
+          270.21,
+          265.88
+        ],
+        [
+          6,
+          518.79,
+          596.87,
+          634.81,
+          718.75,
+          712.64,
+          730.71,
+          812.38
+        ],
+        [
+          7,
+          513.54,
+          566.44,
+          577.25,
+          574.25,
+          646.31,
+          688.6,
+          595.02
+        ],
+        [
+          8,
+          891.39,
+          824.13,
+          795.15,
+          733.37,
+          821.65,
+          915.5,
+          868.35
+        ],
+        [
+          9,
+          928.9,
+          1005.96,
+          961.89,
+          1010.57,
+          1060.48,
+          1152.4,
+          1236.69
+        ],
+        [
+          10,
+          319.22,
+          296.41,
+          302.48,
+          293.5,
+          377.7,
+          469.28,
+          504.88
+        ],
+        [
+          11,
+          550.75,
+          598.18,
+          545.25,
+          533.88,
+          528.09,
+          584.66,
+          546.88
+        ],
+        [
+          12,
+          423.69,
+          329.39,
+          407.31,
+          353.78,
+          294.61,
+          312.48,
+          280.68
+        ],
+        [
+          13,
+          616.86,
+          600.83,
+          527.6,
+          531.7,
+          519.37,
+          613.73,
+          536.01
+        ],
+        [
+          14,
+          861,
+          956.14,
+          885.34,
+          973.63,
+          962.08,
+          941.45,
+          969.85
+        ],
+        [
+          15,
+          799.73,
+          703.42,
+          628.9,
+          629.39,
+          543.6,
+          572.24,
+          617.52
+        ],
+        [
+          16,
+          65.45,
+          103.38,
+          37.73,
+          27.15,
+          3.29,
+          75.21,
+          29.32
+        ],
+        [
+          17,
+          349.07,
+          249.56,
+          219.05,
+          192.36,
+          107.61,
+          62.25,
+          15.69
+        ],
+        [
+          18,
+          614.54,
+          687.06,
+          755.05,
+          825.65,
+          755.58,
+          809.04,
+          813.32
+        ],
+        [
+          19,
+          451.06,
+          375.05,
+          369.25,
+          307.53,
+          403.33,
+          321.78,
+          235.2
+        ],
+        [
+          20,
+          409.14,
+          398.08,
+          393.85,
+          471.73,
+          433.1,
+          367.05,
+          316.6
+        ],
+        [
+          21,
+          53.1,
+          22.63,
+          86.87,
+          169.53,
+          185.83,
+          255.96,
+          216.91
+        ],
+        [
+          22,
+          406.8,
+          349.5,
+          270.88,
+          233.13,
+          187.16,
+          283,
+          377.41
+        ],
+        [
+          23,
+          700,
+          734.74,
+          798.04,
+          854.45,
+          814.85,
+          889.57,
+          869.87
+        ],
+        [
+          24,
+          935.99,
+          961.48,
+          974.23,
+          918.8,
+          963.5,
+          941.52,
+          930.19
+        ],
+        [
+          25,
+          587.86,
+          497.23,
+          534.72,
+          454.98,
+          435.5,
+          479.47,
+          538.25
+        ],
+        [
+          26,
+          455.92,
+          513.04,
+          582.83,
+          574.12,
+          535.81,
+          555.08,
+          495.25
+        ],
+        [
+          27,
+          487.79,
+          400.28,
+          373.54,
+          434.91,
+          344.36,
+          346.42,
+          273.22
+        ],
+        [
+          28,
+          58.79,
+          0,
+          62.98,
+          64.49,
+          82.08,
+          56.36,
+          41.26
+        ],
+        [
+          29,
+          698.69,
+          767.37,
+          688.97,
+          622.33,
+          575.67,
+          612.19,
+          539.23
+        ]
+      ],
+      "z": 100,
+      "coordinateSystem": "cartesian2d",
+      "zlevel": 0,
+      "legendHoverLink": true,
+      "clip": false,
+      "label": {},
+      "emphasis": {
+        "label": {}
+      }
+    },
+    {
+      "type": "bar",
+      "animation": false,
+      "name": "2010",
+      "itemStyle": {
+        "opacity": 0.5
+      },
+      "data": [
+        402.01,
+        370.43,
+        476.34,
+        648.18,
+        980.72,
+        220.6,
+        518.79,
+        513.54,
+        891.39,
+        928.9,
+        319.22,
+        550.75,
+        423.69,
+        616.86,
+        861,
+        799.73,
+        65.45,
+        349.07,
+        614.54,
+        451.06,
+        409.14,
+        53.1,
+        406.8,
+        700,
+        935.99,
+        587.86,
+        455.92,
+        487.79,
+        58.79,
+        698.69
+      ],
+      "zlevel": 0,
+      "z": 2,
+      "coordinateSystem": "cartesian2d",
+      "legendHoverLink": true,
+      "barMinHeight": 0,
+      "barMinAngle": 0,
+      "large": false,
+      "largeThreshold": 400,
+      "progressive": 3000,
+      "progressiveChunkMode": "mod",
+      "clip": true,
+      "roundCap": false,
+      "showBackground": false,
+      "backgroundStyle": {
+        "color": "rgba(180, 180, 180, 0.2)",
+        "borderColor": null,
+        "borderWidth": 0,
+        "borderType": "solid",
+        "borderRadius": 0,
+        "shadowBlur": 0,
+        "shadowColor": null,
+        "shadowOffsetX": 0,
+        "shadowOffsetY": 0,
+        "opacity": 1
+      },
+      "select": {
+        "itemStyle": {
+          "borderColor": "#212121"
+        }
+      },
+      "realtimeSort": false,
+      "label": {},
+      "emphasis": {
+        "label": {}
+      }
+    },
+    {
+      "type": "bar",
+      "animation": false,
+      "name": "2011",
+      "itemStyle": {
+        "opacity": 0.5
+      },
+      "data": [
+        405.51,
+        275.94,
+        539.76,
+        689.33,
+        895.27,
+        206.86,
+        596.87,
+        566.44,
+        824.13,
+        1005.96,
+        296.41,
+        598.18,
+        329.39,
+        600.83,
+        956.14,
+        703.42,
+        103.38,
+        249.56,
+        687.06,
+        375.05,
+        398.08,
+        22.63,
+        349.5,
+        734.74,
+        961.48,
+        497.23,
+        513.04,
+        400.28,
+        0,
+        767.37
+      ],
+      "zlevel": 0,
+      "z": 2,
+      "coordinateSystem": "cartesian2d",
+      "legendHoverLink": true,
+      "barMinHeight": 0,
+      "barMinAngle": 0,
+      "large": false,
+      "largeThreshold": 400,
+      "progressive": 3000,
+      "progressiveChunkMode": "mod",
+      "clip": true,
+      "roundCap": false,
+      "showBackground": false,
+      "backgroundStyle": {
+        "color": "rgba(180, 180, 180, 0.2)",
+        "borderColor": null,
+        "borderWidth": 0,
+        "borderType": "solid",
+        "borderRadius": 0,
+        "shadowBlur": 0,
+        "shadowColor": null,
+        "shadowOffsetX": 0,
+        "shadowOffsetY": 0,
+        "opacity": 1
+      },
+      "select": {
+        "itemStyle": {
+          "borderColor": "#212121"
+        }
+      },
+      "realtimeSort": false,
+      "label": {},
+      "emphasis": {
+        "label": {}
+      }
+    },
+    {
+      "type": "bar",
+      "animation": false,
+      "name": "2012",
+      "itemStyle": {
+        "opacity": 0.5
+      },
+      "data": [
+        441.98,
+        313.26,
+        555.89,
+        623.06,
+        886.4,
+        235.8,
+        634.81,
+        577.25,
+        795.15,
+        961.89,
+        302.48,
+        545.25,
+        407.31,
+        527.6,
+        885.34,
+        628.9,
+        37.73,
+        219.05,
+        755.05,
+        369.25,
+        393.85,
+        86.87,
+        270.88,
+        798.04,
+        974.23,
+        534.72,
+        582.83,
+        373.54,
+        62.98,
+        688.97
+      ],
+      "zlevel": 0,
+      "z": 2,
+      "coordinateSystem": "cartesian2d",
+      "legendHoverLink": true,
+      "barMinHeight": 0,
+      "barMinAngle": 0,
+      "large": false,
+      "largeThreshold": 400,
+      "progressive": 3000,
+      "progressiveChunkMode": "mod",
+      "clip": true,
+      "roundCap": false,
+      "showBackground": false,
+      "backgroundStyle": {
+        "color": "rgba(180, 180, 180, 0.2)",
+        "borderColor": null,
+        "borderWidth": 0,
+        "borderType": "solid",
+        "borderRadius": 0,
+        "shadowBlur": 0,
+        "shadowColor": null,
+        "shadowOffsetX": 0,
+        "shadowOffsetY": 0,
+        "opacity": 1
+      },
+      "select": {
+        "itemStyle": {
+          "borderColor": "#212121"
+        }
+      },
+      "realtimeSort": false,
+      "label": {},
+      "emphasis": {
+        "label": {}
+      }
+    },
+    {
+      "type": "bar",
+      "animation": false,
+      "name": "2013",
+      "itemStyle": {
+        "opacity": 0.5
+      },
+      "data": [
+        379.83,
+        292.73,
+        466.02,
+        556.94,
+        816.15,
+        190.68,
+        718.75,
+        574.25,
+        733.37,
+        1010.57,
+        293.5,
+        533.88,
+        353.78,
+        531.7,
+        973.63,
+        629.39,
+        27.15,
+        192.36,
+        825.65,
+        307.53,
+        471.73,
+        169.53,
+        233.13,
+        854.45,
+        918.8,
+        454.98,
+        574.12,
+        434.91,
+        64.49,
+        622.33
+      ],
+      "zlevel": 0,
+      "z": 2,
+      "coordinateSystem": "cartesian2d",
+      "legendHoverLink": true,
+      "barMinHeight": 0,
+      "barMinAngle": 0,
+      "large": false,
+      "largeThreshold": 400,
+      "progressive": 3000,
+      "progressiveChunkMode": "mod",
+      "clip": true,
+      "roundCap": false,
+      "showBackground": false,
+      "backgroundStyle": {
+        "color": "rgba(180, 180, 180, 0.2)",
+        "borderColor": null,
+        "borderWidth": 0,
+        "borderType": "solid",
+        "borderRadius": 0,
+        "shadowBlur": 0,
+        "shadowColor": null,
+        "shadowOffsetX": 0,
+        "shadowOffsetY": 0,
+        "opacity": 1
+      },
+      "select": {
+        "itemStyle": {
+          "borderColor": "#212121"
+        }
+      },
+      "realtimeSort": false,
+      "label": {},
+      "emphasis": {
+        "label": {}
+      }
+    },
+    {
+      "type": "bar",
+      "animation": false,
+      "name": "2014",
+      "itemStyle": {
+        "opacity": 0.5
+      },
+      "data": [
+        318.6,
+        297.96,
+        520.46,
+        627.53,
+        859,
+        193.79,
+        712.64,
+        646.31,
+        821.65,
+        1060.48,
+        377.7,
+        528.09,
+        294.61,
+        519.37,
+        962.08,
+        543.6,
+        3.29,
+        107.61,
+        755.58,
+        403.33,
+        433.1,
+        185.83,
+        187.16,
+        814.85,
+        963.5,
+        435.5,
+        535.81,
+        344.36,
+        82.08,
+        575.67
+      ],
+      "zlevel": 0,
+      "z": 2,
+      "coordinateSystem": "cartesian2d",
+      "legendHoverLink": true,
+      "barMinHeight": 0,
+      "barMinAngle": 0,
+      "large": false,
+      "largeThreshold": 400,
+      "progressive": 3000,
+      "progressiveChunkMode": "mod",
+      "clip": true,
+      "roundCap": false,
+      "showBackground": false,
+      "backgroundStyle": {
+        "color": "rgba(180, 180, 180, 0.2)",
+        "borderColor": null,
+        "borderWidth": 0,
+        "borderType": "solid",
+        "borderRadius": 0,
+        "shadowBlur": 0,
+        "shadowColor": null,
+        "shadowOffsetX": 0,
+        "shadowOffsetY": 0,
+        "opacity": 1
+      },
+      "select": {
+        "itemStyle": {
+          "borderColor": "#212121"
+        }
+      },
+      "realtimeSort": false,
+      "label": {},
+      "emphasis": {
+        "label": {}
+      }
+    },
+    {
+      "type": "bar",
+      "animation": false,
+      "name": "2015",
+      "itemStyle": {
+        "opacity": 0.5
+      },
+      "data": [
+        245.09,
+        369.24,
+        474.59,
+        587.88,
+        866.18,
+        270.21,
+        730.71,
+        688.6,
+        915.5,
+        1152.4,
+        469.28,
+        584.66,
+        312.48,
+        613.73,
+        941.45,
+        572.24,
+        75.21,
+        62.25,
+        809.04,
+        321.78,
+        367.05,
+        255.96,
+        283,
+        889.57,
+        941.52,
+        479.47,
+        555.08,
+        346.42,
+        56.36,
+        612.19
+      ],
+      "zlevel": 0,
+      "z": 2,
+      "coordinateSystem": "cartesian2d",
+      "legendHoverLink": true,
+      "barMinHeight": 0,
+      "barMinAngle": 0,
+      "large": false,
+      "largeThreshold": 400,
+      "progressive": 3000,
+      "progressiveChunkMode": "mod",
+      "clip": true,
+      "roundCap": false,
+      "showBackground": false,
+      "backgroundStyle": {
+        "color": "rgba(180, 180, 180, 0.2)",
+        "borderColor": null,
+        "borderWidth": 0,
+        "borderType": "solid",
+        "borderRadius": 0,
+        "shadowBlur": 0,
+        "shadowColor": null,
+        "shadowOffsetX": 0,
+        "shadowOffsetY": 0,
+        "opacity": 1
+      },
+      "select": {
+        "itemStyle": {
+          "borderColor": "#212121"
+        }
+      },
+      "realtimeSort": false,
+      "label": {},
+      "emphasis": {
+        "label": {}
+      }
+    },
+    {
+      "type": "bar",
+      "animation": false,
+      "name": "2016",
+      "itemStyle": {
+        "opacity": 0.5
+      },
+      "data": [
+        191.23,
+        303.58,
+        390.87,
+        533.23,
+        852.89,
+        265.88,
+        812.38,
+        595.02,
+        868.35,
+        1236.69,
+        504.88,
+        546.88,
+        280.68,
+        536.01,
+        969.85,
+        617.52,
+        29.32,
+        15.69,
+        813.32,
+        235.2,
+        316.6,
+        216.91,
+        377.41,
+        869.87,
+        930.19,
+        538.25,
+        495.25,
+        273.22,
+        41.26,
+        539.23
+      ],
+      "zlevel": 0,
+      "z": 2,
+      "coordinateSystem": "cartesian2d",
+      "legendHoverLink": true,
+      "barMinHeight": 0,
+      "barMinAngle": 0,
+      "large": false,
+      "largeThreshold": 400,
+      "progressive": 3000,
+      "progressiveChunkMode": "mod",
+      "clip": true,
+      "roundCap": false,
+      "showBackground": false,
+      "backgroundStyle": {
+        "color": "rgba(180, 180, 180, 0.2)",
+        "borderColor": null,
+        "borderWidth": 0,
+        "borderType": "solid",
+        "borderRadius": 0,
+        "shadowBlur": 0,
+        "shadowColor": null,
+        "shadowOffsetX": 0,
+        "shadowOffsetY": 0,
+        "opacity": 1
+      },
+      "select": {
+        "itemStyle": {
+          "borderColor": "#212121"
+        }
+      },
+      "realtimeSort": false,
+      "label": {},
+      "emphasis": {
+        "label": {}
+      }
+    }
+  ],
+  "visualMap": [],
+  "legend": [
+    {
+      "data": [
+        "trend",
+        "2010",
+        "2011",
+        "2012",
+        "2013",
+        "2014",
+        "2015",
+        "2016"
+      ],
+      "zlevel": 0,
+      "z": 4,
+      "show": true,
+      "orient": "horizontal",
+      "left": "center",
+      "top": 0,
+      "align": "auto",
+      "backgroundColor": "rgba(0,0,0,0)",
+      "borderColor": "#ccc",
+      "borderRadius": 0,
+      "borderWidth": 0,
+      "padding": 5,
+      "itemGap": 10,
+      "itemWidth": 25,
+      "itemHeight": 14,
+      "symbolRotate": "inherit",
+      "symbolKeepAspect": true,
+      "inactiveColor": "#ccc",
+      "inactiveBorderColor": "#ccc",
+      "inactiveBorderWidth": "auto",
+      "itemStyle": {
+        "color": "inherit",
+        "opacity": "inherit",
+        "borderColor": "inherit",
+        "borderWidth": "auto",
+        "borderCap": "inherit",
+        "borderJoin": "inherit",
+        "borderDashOffset": "inherit",
+        "borderMiterLimit": "inherit"
+      },
+      "lineStyle": {
+        "width": "auto",
+        "color": "inherit",
+        "inactiveColor": "#ccc",
+        "inactiveWidth": 2,
+        "opacity": "inherit",
+        "type": "inherit",
+        "cap": "inherit",
+        "join": "inherit",
+        "dashOffset": "inherit",
+        "miterLimit": "inherit"
+      },
+      "textStyle": {
+        "color": "#333"
+      },
+      "selectedMode": true,
+      "selector": false,
+      "selectorLabel": {
+        "show": true,
+        "borderRadius": 10,
+        "padding": [
+          3,
+          5,
+          3,
+          5
+        ],
+        "fontSize": 12,
+        "fontFamily": "sans-serif",
+        "color": "#666",
+        "borderWidth": 1,
+        "borderColor": "#666"
+      },
+      "emphasis": {
+        "selectorLabel": {
+          "show": true,
+          "color": "#eee",
+          "backgroundColor": "#666"
+        }
+      },
+      "selectorPosition": "auto",
+      "selectorItemGap": 7,
+      "selectorButtonGap": 10,
+      "tooltip": {
+        "show": false
+      },
+      "selected": {}
+    }
+  ],
+  "markArea": [],
+  "markLine": [],
+  "markPoint": [],
+  "brush": [],
+  "dataZoom": [
+    {
+      "type": "slider",
+      "start": 50,
+      "end": 70,
+      "zlevel": 0,
+      "z": 4,
+      "filterMode": "filter",
+      "show": true,
+      "right": "ph",
+      "top": "ph",
+      "width": "ph",
+      "height": "ph",
+      "left": null,
+      "bottom": null,
+      "borderColor": "#d2dbee",
+      "borderRadius": 3,
+      "backgroundColor": "rgba(47,69,84,0)",
+      "dataBackground": {
+        "lineStyle": {
+          "color": "#d2dbee",
+          "width": 0.5
+        },
+        "areaStyle": {
+          "color": "#d2dbee",
+          "opacity": 0.2
+        }
+      },
+      "selectedDataBackground": {
+        "lineStyle": {
+          "color": "#8fb0f7",
+          "width": 0.5
+        },
+        "areaStyle": {
+          "color": "#8fb0f7",
+          "opacity": 0.2
+        }
+      },
+      "fillerColor": "rgba(135,175,274,0.2)",
+      "handleIcon": "path://M-9.35,34.56V42m0-40V9.5m-2,0h4a2,2,0,0,1,2,2v21a2,2,0,0,1-2,2h-4a2,2,0,0,1-2-2v-21A2,2,0,0,1-11.35,9.5Z",
+      "handleSize": "100%",
+      "handleStyle": {
+        "color": "#fff",
+        "borderColor": "#ACB8D1"
+      },
+      "moveHandleSize": 7,
+      "moveHandleIcon": "path://M-320.9-50L-320.9-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-348-41-339-50-320.9-50z M-212.3-50L-212.3-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-239.4-41-230.4-50-212.3-50z M-103.7-50L-103.7-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-130.9-41-121.8-50-103.7-50z",
+      "moveHandleStyle": {
+        "color": "#D2DBEE",
+        "opacity": 0.7
+      },
+      "showDetail": true,
+      "showDataShadow": "auto",
+      "realtime": true,
+      "zoomLock": false,
+      "textStyle": {
+        "color": "#6E7079"
+      },
+      "brushSelect": true,
+      "brushStyle": {
+        "color": "rgba(135,175,274,0.15)"
+      },
+      "emphasis": {
+        "handleStyle": {
+          "borderColor": "#8FB0F7"
+        },
+        "moveHandleStyle": {
+          "color": "#8FB0F7"
+        }
+      },
+      "throttle": 100,
+      "startValue": 15,
+      "endValue": 20
+    },
+    {
+      "type": "inside",
+      "start": 50,
+      "end": 70,
+      "zlevel": 0,
+      "z": 4,
+      "filterMode": "filter",
+      "disabled": false,
+      "zoomLock": false,
+      "zoomOnMouseWheel": true,
+      "moveOnMouseMove": true,
+      "moveOnMouseWheel": false,
+      "preventDefaultMouseMove": true,
+      "throttle": 100,
+      "startValue": 15,
+      "endValue": 20
+    }
+  ]
+}

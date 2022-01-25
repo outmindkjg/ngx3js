@@ -1,0 +1,966 @@
+{
+  "darkMode": "auto",
+  "colorBy": "series",
+  "color": [
+    "#5470c6",
+    "#91cc75",
+    "#fac858",
+    "#ee6666",
+    "#73c0de",
+    "#3ba272",
+    "#fc8452",
+    "#9a60b4",
+    "#ea7ccc"
+  ],
+  "gradientColor": [
+    "#f6efa6",
+    "#d88273",
+    "#bf444c"
+  ],
+  "aria": {
+    "decal": {
+      "decals": [
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            1,
+            0
+          ],
+          "dashArrayY": [
+            2,
+            5
+          ],
+          "symbolSize": 1,
+          "rotation": 0.5235987755982988
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "symbol": "circle",
+          "dashArrayX": [
+            [
+              8,
+              8
+            ],
+            [
+              0,
+              8,
+              8,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            6,
+            0
+          ],
+          "symbolSize": 0.8
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            1,
+            0
+          ],
+          "dashArrayY": [
+            4,
+            3
+          ],
+          "rotation": -0.7853981633974483
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            [
+              6,
+              6
+            ],
+            [
+              0,
+              6,
+              6,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            6,
+            0
+          ]
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              6
+            ]
+          ],
+          "dashArrayY": [
+            1,
+            0,
+            6,
+            0
+          ],
+          "rotation": 0.7853981633974483
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "symbol": "triangle",
+          "dashArrayX": [
+            [
+              9,
+              9
+            ],
+            [
+              0,
+              9,
+              9,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            7,
+            2
+          ],
+          "symbolSize": 0.75
+        }
+      ]
+    }
+  },
+  "textStyle": {
+    "fontFamily": "sans-serif",
+    "fontSize": 12,
+    "fontStyle": "normal",
+    "fontWeight": "normal"
+  },
+  "stateAnimation": {
+    "duration": 300,
+    "easing": "cubicOut"
+  },
+  "animation": "auto",
+  "animationDuration": 1000,
+  "animationDurationUpdate": 500,
+  "animationEasing": "cubicInOut",
+  "animationEasingUpdate": "cubicInOut",
+  "animationThreshold": 2000,
+  "progressiveThreshold": 3000,
+  "progressive": 400,
+  "hoverLayerThreshold": 3000,
+  "useUTC": false,
+  "title": [
+    {
+      "text": "Profile",
+      "left": "center",
+      "zlevel": 0,
+      "z": 6,
+      "show": true,
+      "target": "blank",
+      "subtext": "",
+      "subtarget": "blank",
+      "top": 0,
+      "backgroundColor": "rgba(0,0,0,0)",
+      "borderColor": "#ccc",
+      "borderWidth": 0,
+      "padding": 5,
+      "itemGap": 10,
+      "textStyle": {
+        "fontSize": 18,
+        "fontWeight": "bold",
+        "color": "#464646"
+      },
+      "subtextStyle": {
+        "fontSize": 12,
+        "color": "#6E7079"
+      },
+      "right": null
+    }
+  ],
+  "axisPointer": [
+    {
+      "show": "auto",
+      "zlevel": 0,
+      "z": 50,
+      "type": "line",
+      "snap": false,
+      "triggerTooltip": true,
+      "value": null,
+      "status": null,
+      "link": [],
+      "animation": null,
+      "animationDurationUpdate": 200,
+      "lineStyle": {
+        "color": "#B9BEC9",
+        "width": 1,
+        "type": "dashed"
+      },
+      "shadowStyle": {
+        "color": "rgba(210,219,238,0.2)"
+      },
+      "label": {
+        "show": true,
+        "formatter": null,
+        "precision": "auto",
+        "margin": 3,
+        "color": "#fff",
+        "padding": [
+          5,
+          7,
+          5,
+          7
+        ],
+        "backgroundColor": "auto",
+        "borderColor": null,
+        "borderWidth": 0,
+        "borderRadius": 3
+      },
+      "handle": {
+        "show": false,
+        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
+        "size": 45,
+        "margin": 50,
+        "color": "#333",
+        "shadowBlur": 3,
+        "shadowColor": "#aaa",
+        "shadowOffsetX": 0,
+        "shadowOffsetY": 2,
+        "throttle": 40
+      }
+    }
+  ],
+  "tooltip": [
+    {
+      "zlevel": 0,
+      "z": 60,
+      "show": true,
+      "showContent": true,
+      "trigger": "item",
+      "triggerOn": "mousemove|click",
+      "alwaysShowContent": false,
+      "displayMode": "single",
+      "renderMode": "auto",
+      "confine": null,
+      "showDelay": 0,
+      "hideDelay": 100,
+      "transitionDuration": 0.4,
+      "enterable": false,
+      "backgroundColor": "#fff",
+      "shadowBlur": 10,
+      "shadowColor": "rgba(0, 0, 0, .2)",
+      "shadowOffsetX": 1,
+      "shadowOffsetY": 2,
+      "borderRadius": 4,
+      "borderWidth": 1,
+      "padding": null,
+      "extraCssText": "",
+      "axisPointer": {
+        "type": "line",
+        "axis": "auto",
+        "animation": "auto",
+        "animationDurationUpdate": 200,
+        "animationEasingUpdate": "exponentialOut",
+        "crossStyle": {
+          "color": "#999",
+          "width": 1,
+          "type": "dashed",
+          "textStyle": {}
+        }
+      },
+      "textStyle": {
+        "color": "#666",
+        "fontSize": 14
+      }
+    }
+  ],
+  "yAxis": [
+    {
+      "data": [
+        "categoryA",
+        "categoryB",
+        "categoryC"
+      ],
+      "boundaryGap": true,
+      "deduplication": null,
+      "splitLine": {
+        "show": false,
+        "lineStyle": {
+          "color": [
+            "#E0E6F1"
+          ],
+          "width": 1,
+          "type": "solid"
+        }
+      },
+      "axisTick": {
+        "alignWithLabel": false,
+        "interval": "auto",
+        "show": true,
+        "inside": false,
+        "length": 5,
+        "lineStyle": {
+          "width": 1
+        }
+      },
+      "axisLabel": {
+        "interval": "auto",
+        "show": true,
+        "inside": false,
+        "rotate": 0,
+        "showMinLabel": null,
+        "showMaxLabel": null,
+        "margin": 8,
+        "fontSize": 12
+      },
+      "show": true,
+      "zlevel": 0,
+      "z": 0,
+      "inverse": false,
+      "name": "",
+      "nameLocation": "end",
+      "nameRotate": null,
+      "nameTruncate": {
+        "maxWidth": null,
+        "ellipsis": "...",
+        "placeholder": "."
+      },
+      "nameTextStyle": {},
+      "nameGap": 15,
+      "silent": false,
+      "triggerEvent": false,
+      "tooltip": {
+        "show": false
+      },
+      "axisPointer": {},
+      "axisLine": {
+        "show": true,
+        "onZero": true,
+        "onZeroAxisIndex": null,
+        "lineStyle": {
+          "color": "#6E7079",
+          "width": 1,
+          "type": "solid"
+        },
+        "symbol": [
+          "none",
+          "none"
+        ],
+        "symbolSize": [
+          10,
+          15
+        ]
+      },
+      "splitArea": {
+        "show": false,
+        "areaStyle": {
+          "color": [
+            "rgba(250,250,250,0.2)",
+            "rgba(210,219,238,0.2)"
+          ]
+        }
+      },
+      "offset": 0,
+      "type": "category"
+    }
+  ],
+  "xAxis": [
+    {
+      "min": 1643070667021,
+      "scale": true,
+      "axisLabel": {
+        "show": true,
+        "inside": false,
+        "rotate": 0,
+        "showMinLabel": null,
+        "showMaxLabel": null,
+        "margin": 8,
+        "fontSize": 12
+      },
+      "boundaryGap": [
+        0,
+        0
+      ],
+      "axisLine": {
+        "show": "auto",
+        "onZero": true,
+        "onZeroAxisIndex": null,
+        "lineStyle": {
+          "color": "#6E7079",
+          "width": 1,
+          "type": "solid"
+        },
+        "symbol": [
+          "none",
+          "none"
+        ],
+        "symbolSize": [
+          10,
+          15
+        ]
+      },
+      "axisTick": {
+        "show": "auto",
+        "inside": false,
+        "length": 5,
+        "lineStyle": {
+          "width": 1
+        }
+      },
+      "splitNumber": 5,
+      "minorTick": {
+        "show": false,
+        "splitNumber": 5,
+        "length": 3,
+        "lineStyle": {}
+      },
+      "minorSplitLine": {
+        "show": false,
+        "lineStyle": {
+          "color": "#F4F7FD",
+          "width": 1
+        }
+      },
+      "show": true,
+      "zlevel": 0,
+      "z": 0,
+      "inverse": false,
+      "name": "",
+      "nameLocation": "end",
+      "nameRotate": null,
+      "nameTruncate": {
+        "maxWidth": null,
+        "ellipsis": "...",
+        "placeholder": "."
+      },
+      "nameTextStyle": {},
+      "nameGap": 15,
+      "silent": false,
+      "triggerEvent": false,
+      "tooltip": {
+        "show": false
+      },
+      "axisPointer": {},
+      "splitLine": {
+        "show": true,
+        "lineStyle": {
+          "color": [
+            "#E0E6F1"
+          ],
+          "width": 1,
+          "type": "solid"
+        }
+      },
+      "splitArea": {
+        "show": false,
+        "areaStyle": {
+          "color": [
+            "rgba(250,250,250,0.2)",
+            "rgba(210,219,238,0.2)"
+          ]
+        }
+      },
+      "offset": 0,
+      "type": "value"
+    }
+  ],
+  "grid": [
+    {
+      "height": 300,
+      "show": false,
+      "zlevel": 0,
+      "z": 0,
+      "left": "10%",
+      "top": 60,
+      "right": "10%",
+      "containLabel": false,
+      "backgroundColor": "rgba(0,0,0,0)",
+      "borderWidth": 1,
+      "borderColor": "#ccc"
+    }
+  ],
+  "series": [
+    {
+      "type": "custom",
+      "itemStyle": {
+        "opacity": 0.8
+      },
+      "encode": {
+        "x": [
+          1,
+          2
+        ],
+        "y": 0
+      },
+      "data": [
+        {
+          "name": "Nodes",
+          "value": [
+            0,
+            1643070667021,
+            1643070672196,
+            5175
+          ],
+          "itemStyle": {
+            "color": "#75d874"
+          }
+        },
+        {
+          "name": "Documents",
+          "value": [
+            0,
+            1643070673561,
+            1643070675500,
+            1939
+          ],
+          "itemStyle": {
+            "color": "#bd6d6c"
+          }
+        },
+        {
+          "name": "Documents",
+          "value": [
+            0,
+            1643070675765,
+            1643070679469,
+            3704
+          ],
+          "itemStyle": {
+            "color": "#bd6d6c"
+          }
+        },
+        {
+          "name": "Listeners",
+          "value": [
+            0,
+            1643070679524,
+            1643070683497,
+            3973
+          ],
+          "itemStyle": {
+            "color": "#e0bc78"
+          }
+        },
+        {
+          "name": "GPU Memory",
+          "value": [
+            0,
+            1643070684549,
+            1643070686266,
+            1717
+          ],
+          "itemStyle": {
+            "color": "#dc77dc"
+          }
+        },
+        {
+          "name": "GPU Memory",
+          "value": [
+            0,
+            1643070687219,
+            1643070693025,
+            5806
+          ],
+          "itemStyle": {
+            "color": "#dc77dc"
+          }
+        },
+        {
+          "name": "GPU Memory",
+          "value": [
+            0,
+            1643070693126,
+            1643070695832,
+            2706
+          ],
+          "itemStyle": {
+            "color": "#dc77dc"
+          }
+        },
+        {
+          "name": "Listeners",
+          "value": [
+            0,
+            1643070695995,
+            1643070703053,
+            7058
+          ],
+          "itemStyle": {
+            "color": "#e0bc78"
+          }
+        },
+        {
+          "name": "Documents",
+          "value": [
+            0,
+            1643070703390,
+            1643070711919,
+            8529
+          ],
+          "itemStyle": {
+            "color": "#bd6d6c"
+          }
+        },
+        {
+          "name": "Documents",
+          "value": [
+            0,
+            1643070712523,
+            1643070722330,
+            9807
+          ],
+          "itemStyle": {
+            "color": "#bd6d6c"
+          }
+        },
+        {
+          "name": "Nodes",
+          "value": [
+            1,
+            1643070667021,
+            1643070668509,
+            1488
+          ],
+          "itemStyle": {
+            "color": "#75d874"
+          }
+        },
+        {
+          "name": "Listeners",
+          "value": [
+            1,
+            1643070669938,
+            1643070674273,
+            4335
+          ],
+          "itemStyle": {
+            "color": "#e0bc78"
+          }
+        },
+        {
+          "name": "Nodes",
+          "value": [
+            1,
+            1643070674714,
+            1643070681161,
+            6447
+          ],
+          "itemStyle": {
+            "color": "#75d874"
+          }
+        },
+        {
+          "name": "Listeners",
+          "value": [
+            1,
+            1643070681710,
+            1643070690531,
+            8821
+          ],
+          "itemStyle": {
+            "color": "#e0bc78"
+          }
+        },
+        {
+          "name": "Listeners",
+          "value": [
+            1,
+            1643070691488,
+            1643070700392,
+            8904
+          ],
+          "itemStyle": {
+            "color": "#e0bc78"
+          }
+        },
+        {
+          "name": "GPU",
+          "value": [
+            1,
+            1643070701771,
+            1643070706465,
+            4694
+          ],
+          "itemStyle": {
+            "color": "#72b362"
+          }
+        },
+        {
+          "name": "GPU",
+          "value": [
+            1,
+            1643070707646,
+            1643070712781,
+            5135
+          ],
+          "itemStyle": {
+            "color": "#72b362"
+          }
+        },
+        {
+          "name": "Listeners",
+          "value": [
+            1,
+            1643070714310,
+            1643070719160,
+            4850
+          ],
+          "itemStyle": {
+            "color": "#e0bc78"
+          }
+        },
+        {
+          "name": "GPU Memory",
+          "value": [
+            1,
+            1643070720881,
+            1643070721202,
+            321
+          ],
+          "itemStyle": {
+            "color": "#dc77dc"
+          }
+        },
+        {
+          "name": "Documents",
+          "value": [
+            1,
+            1643070722985,
+            1643070726536,
+            3551
+          ],
+          "itemStyle": {
+            "color": "#bd6d6c"
+          }
+        },
+        {
+          "name": "GPU",
+          "value": [
+            2,
+            1643070667021,
+            1643070676714,
+            9693
+          ],
+          "itemStyle": {
+            "color": "#72b362"
+          }
+        },
+        {
+          "name": "GPU",
+          "value": [
+            2,
+            1643070677242,
+            1643070686095,
+            8853
+          ],
+          "itemStyle": {
+            "color": "#72b362"
+          }
+        },
+        {
+          "name": "GPU Memory",
+          "value": [
+            2,
+            1643070686654,
+            1643070694149,
+            7495
+          ],
+          "itemStyle": {
+            "color": "#dc77dc"
+          }
+        },
+        {
+          "name": "GPU",
+          "value": [
+            2,
+            1643070696068,
+            1643070699260,
+            3192
+          ],
+          "itemStyle": {
+            "color": "#72b362"
+          }
+        },
+        {
+          "name": "Listeners",
+          "value": [
+            2,
+            1643070700032,
+            1643070704583,
+            4551
+          ],
+          "itemStyle": {
+            "color": "#e0bc78"
+          }
+        },
+        {
+          "name": "GPU",
+          "value": [
+            2,
+            1643070706425,
+            1643070713205,
+            6780
+          ],
+          "itemStyle": {
+            "color": "#72b362"
+          }
+        },
+        {
+          "name": "GPU Memory",
+          "value": [
+            2,
+            1643070714306,
+            1643070716659,
+            2353
+          ],
+          "itemStyle": {
+            "color": "#dc77dc"
+          }
+        },
+        {
+          "name": "Nodes",
+          "value": [
+            2,
+            1643070717545,
+            1643070725374,
+            7829
+          ],
+          "itemStyle": {
+            "color": "#75d874"
+          }
+        },
+        {
+          "name": "Nodes",
+          "value": [
+            2,
+            1643070725996,
+            1643070726281,
+            285
+          ],
+          "itemStyle": {
+            "color": "#75d874"
+          }
+        },
+        {
+          "name": "Documents",
+          "value": [
+            2,
+            1643070728060,
+            1643070730101,
+            2041
+          ],
+          "itemStyle": {
+            "color": "#bd6d6c"
+          }
+        }
+      ],
+      "coordinateSystem": "cartesian2d",
+      "zlevel": 0,
+      "z": 2,
+      "legendHoverLink": true,
+      "clip": false,
+      "label": {},
+      "emphasis": {
+        "label": {}
+      }
+    }
+  ],
+  "visualMap": [],
+  "legend": [],
+  "markArea": [],
+  "markLine": [],
+  "markPoint": [],
+  "brush": [],
+  "dataZoom": [
+    {
+      "type": "slider",
+      "filterMode": "weakFilter",
+      "showDataShadow": false,
+      "top": 400,
+      "labelFormatter": "",
+      "zlevel": 0,
+      "z": 4,
+      "start": 0,
+      "end": 100,
+      "show": true,
+      "right": "ph",
+      "width": "ph",
+      "height": "ph",
+      "left": null,
+      "bottom": null,
+      "borderColor": "#d2dbee",
+      "borderRadius": 3,
+      "backgroundColor": "rgba(47,69,84,0)",
+      "dataBackground": {
+        "lineStyle": {
+          "color": "#d2dbee",
+          "width": 0.5
+        },
+        "areaStyle": {
+          "color": "#d2dbee",
+          "opacity": 0.2
+        }
+      },
+      "selectedDataBackground": {
+        "lineStyle": {
+          "color": "#8fb0f7",
+          "width": 0.5
+        },
+        "areaStyle": {
+          "color": "#8fb0f7",
+          "opacity": 0.2
+        }
+      },
+      "fillerColor": "rgba(135,175,274,0.2)",
+      "handleIcon": "path://M-9.35,34.56V42m0-40V9.5m-2,0h4a2,2,0,0,1,2,2v21a2,2,0,0,1-2,2h-4a2,2,0,0,1-2-2v-21A2,2,0,0,1-11.35,9.5Z",
+      "handleSize": "100%",
+      "handleStyle": {
+        "color": "#fff",
+        "borderColor": "#ACB8D1"
+      },
+      "moveHandleSize": 7,
+      "moveHandleIcon": "path://M-320.9-50L-320.9-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-348-41-339-50-320.9-50z M-212.3-50L-212.3-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-239.4-41-230.4-50-212.3-50z M-103.7-50L-103.7-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-130.9-41-121.8-50-103.7-50z",
+      "moveHandleStyle": {
+        "color": "#D2DBEE",
+        "opacity": 0.7
+      },
+      "showDetail": true,
+      "realtime": true,
+      "zoomLock": false,
+      "textStyle": {
+        "color": "#6E7079"
+      },
+      "brushSelect": true,
+      "brushStyle": {
+        "color": "rgba(135,175,274,0.15)"
+      },
+      "emphasis": {
+        "handleStyle": {
+          "borderColor": "#8FB0F7"
+        },
+        "moveHandleStyle": {
+          "color": "#8FB0F7"
+        }
+      },
+      "throttle": 100,
+      "startValue": 1643070667021,
+      "endValue": 1643070730101
+    },
+    {
+      "type": "inside",
+      "filterMode": "weakFilter",
+      "zlevel": 0,
+      "z": 4,
+      "start": 0,
+      "end": 100,
+      "disabled": false,
+      "zoomLock": false,
+      "zoomOnMouseWheel": true,
+      "moveOnMouseMove": true,
+      "moveOnMouseWheel": false,
+      "preventDefaultMouseMove": true,
+      "throttle": 100,
+      "startValue": 1643070667021,
+      "endValue": 1643070730101
+    }
+  ]
+}
