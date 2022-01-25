@@ -41,7 +41,7 @@
 		>
 			<ngx3js-position [x]="3" [y]="5" [z]="10"></ngx3js-position>
 		</ngx3js-light>
-		<ngx3js-mesh>
+		<ngx3js-mesh *ngIf="option">
 			<ngx3js-event-proxy></ngx3js-event-proxy>
 			<ngx3js-geometry 
 				[type]="controls.geometry"
@@ -57,17 +57,11 @@
 				<ngx3js-texture-echarts  
 					[repeatX]="1" [repeatY]="1"  [wrap]="'RepeatWrapping'" [type]="'map'" [echarts]="echarts" 
 					[width]="controls.width" [height]="controls.height" [canvasSize]="controls.canvasSize"
-					[requiredMaps]="requiredMaps"
-					[chartSeries]="chartSeries"
-					[title]="title"
-					[legend]="legend"
-					[grid]="grid"
-					[tooltip]="tooltip"
-					[radar]="radar"
-					[xAxis]="xAxis"
-					[yAxis]="yAxis"
+					[option]="option"
+					[optionSeqn]="optionSeqn"
 					[canvasBackground]="canvasBackground"
 					[canvasBackgroundOpacity]="canvasBackgroundOpacity"
+					(onInitChart)="setChart($event)"
 				></ngx3js-texture-echarts>
 			</ngx3js-material>
 		</ngx3js-mesh>

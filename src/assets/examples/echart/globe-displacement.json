@@ -151,7 +151,7 @@
   "useUTC": false,
   "globe": [
     {
-      "displacementTexture": "https://echarts.apache.org/examples/data-gl/asset/bathymetry_bw_composite_4k.jpg",
+      "displacementTexture": "echart/files/bathymetry_bw_composite_4k.jpeg",
       "displacementScale": 0.1,
       "displacementQuality": "ultra",
       "shading": "realistic",
@@ -226,7 +226,7 @@
           "beta": 0
         },
         "ambientCubemap": {
-          "texture": "https://echarts.apache.org/examples/data-gl/asset/pisa.hdr",
+          "texture": "echart/files/pisa.hdr",
           "exposure": 1,
           "diffuseIntensity": 0.2,
           "specularIntensity": 0.5

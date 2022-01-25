@@ -210,7 +210,7 @@
       "realisticMaterial": {
         "roughness": 0.6,
         "textureTiling": 20,
-        "detailTexture": "https://echarts.apache.org/examples/data-gl/asset/woods.jpg",
+        "detailTexture": "echart/files/woods.jpeg",
         "textureOffset": 0
       },
       "postEffect": {
@@ -277,7 +277,7 @@
           "color": "#fff"
         },
         "ambientCubemap": {
-          "texture": "https://echarts.apache.org/examples/data-gl/asset/canyon.hdr",
+          "texture": "echart/files/canyon.hdr",
           "exposure": 2,
           "diffuseIntensity": 1,
           "specularIntensity": 1

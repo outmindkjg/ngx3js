@@ -233,7 +233,7 @@
   "tooltip": [],
   "geo": [
     {
-      "map": "world",
+      "map": {"name" : "world", "url" : "echart/files/world.json"},
       "roam": true,
       "label": {
         "emphasis": {

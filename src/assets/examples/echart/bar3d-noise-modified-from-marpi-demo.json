@@ -320,7 +320,7 @@
           "color": "#fff"
         },
         "ambientCubemap": {
-          "texture": "https://echarts.apache.org/examples/data-gl/asset/pisa.hdr",
+          "texture": "echart/files/pisa.hdr",
           "exposure": 2,
           "diffuseIntensity": 1,
           "specularIntensity": 1

@@ -152,9 +152,9 @@
   "useUTC": false,
   "globe": [
     {
-      "baseTexture": "https://echarts.apache.org/examples/data-gl/asset/earth.jpg",
+      "baseTexture": "echart/files/earth.jpeg",
       "shading": "lambert",
-      "environment": "https://echarts.apache.org/examples/data-gl/asset/starfield.jpg",
+      "environment": "echart/files/starfield.jpeg",
       "atmosphere": {
         "show": true,
         "offset": 5,

@@ -151,8 +151,8 @@
   "useUTC": false,
   "globe": [
     {
-      "environment": "https://echarts.apache.org/examples/data-gl/asset/starfield.jpg",
-      "heightTexture": "https://echarts.apache.org/examples/data-gl/asset/bathymetry_bw_composite_4k.jpg",
+      "environment": "echart/files/starfield.jpeg",
+      "heightTexture": "echart/files/bathymetry_bw_composite_4k.jpeg",
       "displacementScale": 0.05,
       "displacementQuality": "high",
       "globeOuterRadius": 100,
@@ -223,7 +223,7 @@
           "beta": 0
         },
         "ambientCubemap": {
-          "texture": "https://echarts.apache.org/examples/data-gl/asset/lake.hdr",
+          "texture": "echart/files/lake.hdr",
           "exposure": 1,
           "diffuseIntensity": 0.5,
           "specularIntensity": 2

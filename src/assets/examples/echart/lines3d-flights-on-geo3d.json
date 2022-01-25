@@ -151,9 +151,9 @@
   "useUTC": false,
   "geo3D": [
     {
-      "map": "world",
+      "map": {"name" : "world", "url" : "echart/files/world.json"},
       "shading": "color",
-      "environment": "https://echarts.apache.org/examples/data-gl/asset/starfield.jpg",
+      "environment": "echart/files/starfield.jpeg",
       "silent": true,
       "groundPlane": {
         "show": false,

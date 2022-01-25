@@ -210,7 +210,7 @@
         40.86737600240287
       ],
       "zoom": 360,
-      "map": "world",
+      "map": {"name" : "world", "url" : "echart/files/world.json"},
       "roam": true,
       "silent": true,
       "itemStyle": {

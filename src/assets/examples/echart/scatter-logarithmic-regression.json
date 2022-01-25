@@ -456,7 +456,7 @@
     {
       "text": "1990 and 2015 per capita life expectancy and GDP",
       "subtext": "By ecStat.regression",
-      "sublink": "https://github.com/ecomfe/echarts-stat",
+      "sublink": "echart/files/echarts-stat",
       "left": "center",
       "zlevel": 0,
       "z": 6,

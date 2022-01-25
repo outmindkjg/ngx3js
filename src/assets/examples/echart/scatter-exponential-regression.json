@@ -242,7 +242,7 @@
     {
       "text": "1981 - 1998 gross domestic product GDP (trillion yuan)",
       "subtext": "By ecStat.regression",
-      "sublink": "https://github.com/ecomfe/echarts-stat",
+      "sublink": "echart/files/echarts-stat",
       "left": "center",
       "zlevel": 0,
       "z": 6,

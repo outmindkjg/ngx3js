@@ -967,7 +967,7 @@
     {
       "text": "Linear Regression",
       "subtext": "By ecStat.regression",
-      "sublink": "https://github.com/ecomfe/echarts-stat",
+      "sublink": "echart/files/echarts-stat",
       "left": "center",
       "zlevel": 0,
       "z": 6,

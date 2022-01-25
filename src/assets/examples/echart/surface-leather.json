@@ -313,7 +313,7 @@
           "color": "#fff"
         },
         "ambientCubemap": {
-          "texture": "https://echarts.apache.org/examples/data-gl/asset/pisa.hdr",
+          "texture": "echart/files/pisa.hdr",
           "exposure": 1,
           "diffuseIntensity": 1,
           "specularIntensity": 2
@@ -468,8 +468,8 @@
         }
       },
       "realisticMaterial": {
-        "roughness": "https://echarts.apache.org/examples/data-gl/asset/leather/leather_roughness.jpg",
-        "normalTexture": "https://echarts.apache.org/examples/data-gl/asset/leather/leather_normal.jpg",
+        "roughness": "echart/files/leather_roughness.jpeg",
+        "normalTexture": "echart/files/leather_normal.jpeg",
         "textureTiling": [
           4,
           2

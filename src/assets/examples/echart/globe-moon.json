@@ -151,11 +151,11 @@
   "useUTC": false,
   "globe": [
     {
-      "baseTexture": "https://echarts.apache.org/examples/data-gl/asset/moon-base.jpg",
-      "heightTexture": "https://echarts.apache.org/examples/data-gl/asset/moon-bump.jpg",
+      "baseTexture": "echart/files/moon-base.jpeg",
+      "heightTexture": "echart/files/moon-bump.jpeg",
       "displacementScale": 0.05,
       "displacementQuality": "medium",
-      "environment": "https://echarts.apache.org/examples/data-gl/asset/starfield.jpg",
+      "environment": "echart/files/starfield.jpeg",
       "shading": "realistic",
       "realisticMaterial": {
         "roughness": 0.8,
@@ -228,7 +228,7 @@
           "beta": 0
         },
         "ambientCubemap": {
-          "texture": "https://echarts.apache.org/examples/data-gl/asset/pisa.hdr",
+          "texture": "echart/files/pisa.hdr",
           "exposure": 0,
           "diffuseIntensity": 0.02,
           "specularIntensity": 0.5

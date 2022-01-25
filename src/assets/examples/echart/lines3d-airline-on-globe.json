@@ -152,8 +152,8 @@
   "useUTC": false,
   "globe": [
     {
-      "baseTexture": "https://echarts.apache.org/examples/data-gl/asset/world.topo.bathy.200401.jpg",
-      "heightTexture": "https://echarts.apache.org/examples/data-gl/asset/bathymetry_bw_composite_4k.jpg",
+      "baseTexture": "echart/files/world.topo.bathy.200401.jpg",
+      "heightTexture": "echart/files/bathymetry_bw_composite_4k.jpeg",
       "shading": "lambert",
       "light": {
         "ambient": {

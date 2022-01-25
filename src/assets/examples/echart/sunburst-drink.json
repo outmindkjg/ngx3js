@@ -152,7 +152,7 @@
   "title": [
     {
       "text": "WORLD COFFEE RESEARCH SENSORY LEXICON",
-      "subtext": "Source: https://worldcoffeeresearch.org/work/sensory-lexicon/",
+      "subtext": "Source: echart/files/sensory-lexicon/",
       "textStyle": {
         "fontSize": 14,
         "align": "center",
@@ -164,7 +164,7 @@
         "fontSize": 12,
         "color": "#6E7079"
       },
-      "sublink": "https://worldcoffeeresearch.org/work/sensory-lexicon/",
+      "sublink": "echart/files/sensory-lexicon/",
       "zlevel": 0,
       "z": 6,
       "show": true,

@@ -319,7 +319,7 @@
           "color": "#fff"
         },
         "ambientCubemap": {
-          "texture": "https://echarts.apache.org/examples/data-gl/asset/canyon.hdr",
+          "texture": "echart/files/canyon.hdr",
           "exposure": 0,
           "diffuseIntensity": 1,
           "specularIntensity": 0.5
@@ -516,7 +516,7 @@
         }
       },
       "realisticMaterial": {
-        "baseTexture": "https://echarts.apache.org/examples/asset/get/s/data-1494250104909-SkZtfeAyZ.jpg",
+        "baseTexture": "echart/files/data-1494250104909-SkZtfeAyZ.jpeg",
         "roughness": 0.7,
         "metalness": 0,
         "textureTiling": [

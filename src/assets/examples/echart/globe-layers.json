@@ -152,11 +152,11 @@
   "useUTC": false,
   "globe": [
     {
-      "baseTexture": "https://echarts.apache.org/examples/data-gl/asset/earth.jpg",
-      "heightTexture": "https://echarts.apache.org/examples/data-gl/asset/bathymetry_bw_composite_4k.jpg",
+      "baseTexture": "echart/files/earth.jpeg",
+      "heightTexture": "echart/files/bathymetry_bw_composite_4k.jpeg",
       "displacementScale": 0.1,
       "shading": "lambert",
-      "environment": "https://echarts.apache.org/examples/data-gl/asset/starfield.jpg",
+      "environment": "echart/files/starfield.jpeg",
       "light": {
         "ambient": {
           "intensity": 0.1,
@@ -182,13 +182,13 @@
         {
           "type": "blend",
           "blendTo": "emission",
-          "texture": "https://echarts.apache.org/examples/data-gl/asset/night.jpg",
+          "texture": "echart/files/night.jpeg",
           "show": true,
           "id": "0"
         },
         {
           "type": "overlay",
-          "texture": "https://echarts.apache.org/examples/data-gl/asset/clouds.png",
+          "texture": "echart/files/clouds.png",
           "shading": "lambert",
           "distance": 5,
           "show": true,

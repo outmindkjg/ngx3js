@@ -711,8 +711,10 @@ export interface EChartOption {
 	 *
 	 * @see https://echarts.apache.org/en/option.html#geo
 	 */
-	geo?: object | undefined;
+	geo?: object[] | undefined;
 
+	geo3D? : object[] | undefined;
+	
 	/**
 	 * `Parallel Coordinates` is a common way of visualizing high-dimensional
 	 * geometry and analyzing multivariate data.
@@ -970,6 +972,8 @@ export interface EChartOption {
 	 * @see https://echarts.apache.org/en/option.html#useUTC
 	 */
 	useUTC?: boolean | undefined;
+
+	globe? : any;
 }
 
 export interface Graphic {
@@ -1012,7 +1016,16 @@ export type EChartsMediaOption = {
 	option: EChartOption;
 };
 
-export interface EChartsResponsiveOption {
+export interface EChartsMapResource{
+	url?: string;
+	name? : string;
+	parent? : object;
+	key? : string;
+	type? : string;
+	loaded ? : boolean;
+}
+
+export interface EChartsResponsiveOption extends EChartOption{
 	baseOption?: EChartOption | undefined;
 	media?: EChartsMediaOption[] | undefined;
 }
@@ -1656,10 +1669,6 @@ export interface PointerLabel {
 	textShadowBlur?: number | undefined;
 	textShadowOffsetX?: number | undefined;
 	textShadowOffsetY?: number | undefined;
-}
-
-export interface EChartOption {
-	Series: any;
 }
 
 export interface MapObj {

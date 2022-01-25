@@ -2980,49 +2980,49 @@
         [
           "2017-06-28",
           0,
-          "https://echarts.apache.org/examples/data/asset/img/weather/cloudy_128.png",
+          "echart/files/cloudy_128.png",
           4,
           13
         ],
         [
           "2017-06-29",
           0,
-          "https://echarts.apache.org/examples/data/asset/img/weather/showers_128.png",
+          "echart/files/showers_128.png",
           5,
           11
         ],
         [
           "2017-06-30",
           0,
-          "https://echarts.apache.org/examples/data/asset/img/weather/showers_128.png",
+          "echart/files/showers_128.png",
           3,
           11
         ],
         [
           "2017-07-01",
           0,
-          "https://echarts.apache.org/examples/data/asset/img/weather/sunny_128.png",
+          "echart/files/sunny_128.png",
           1,
           11
         ],
         [
           "2017-07-02",
           0,
-          "https://echarts.apache.org/examples/data/asset/img/weather/sunny_128.png",
+          "echart/files/sunny_128.png",
           2,
           13
         ],
         [
           "2017-07-03",
           0,
-          "https://echarts.apache.org/examples/data/asset/img/weather/sunny_128.png",
+          "echart/files/sunny_128.png",
           3,
           12
         ],
         [
           "2017-07-04",
           0,
-          "https://echarts.apache.org/examples/data/asset/img/weather/showers_128.png",
+          "echart/files/showers_128.png",
           5,
           12
         ]

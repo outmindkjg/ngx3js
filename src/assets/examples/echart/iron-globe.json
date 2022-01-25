@@ -152,14 +152,14 @@
   "useUTC": false,
   "globe": [
     {
-      "baseTexture": "https://echarts.apache.org/examples/data-gl/asset/world.topo.bathy.200401.jpg",
-      "heightTexture": "https://echarts.apache.org/examples/data-gl/asset/bathymetry_bw_composite_4k.jpg",
+      "baseTexture": "echart/files/world.topo.bathy.200401.jpg",
+      "heightTexture": "echart/files/bathymetry_bw_composite_4k.jpeg",
       "displacementScale": 0.2,
       "shading": "realistic",
-      "environment": "https://echarts.apache.org/examples/data-gl/asset/starfield.jpg",
+      "environment": "echart/files/starfield.jpeg",
       "realisticMaterial": {
-        "roughness": "https://echarts.apache.org/examples/asset/get/s/data-1497599804873-H1SHkG-mZ.jpg",
-        "metalness": "https://echarts.apache.org/examples/asset/get/s/data-1497599800643-BJbHyGWQW.jpg",
+        "roughness": "echart/files/data-1497599804873-H1SHkG-mZ.jpeg",
+        "metalness": "echart/files/data-1497599800643-BJbHyGWQW.jpeg",
         "textureTiling": [
           8,
           4
@@ -247,7 +247,7 @@
           "beta": 0
         },
         "ambientCubemap": {
-          "texture": "https://echarts.apache.org/examples/data-gl/asset/pisa.hdr",
+          "texture": "echart/files/pisa.hdr",
           "exposure": 2,
           "diffuseIntensity": 2,
           "specularIntensity": 2

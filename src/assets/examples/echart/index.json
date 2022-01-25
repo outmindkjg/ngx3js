@@ -199,10 +199,6 @@
 	{
 		"title": "Boxplot",
 		"children": [
-			{
-				"url": "data-transform-aggregate",
-				"name": "Data Transform Simple Aggregate"
-			},
 			{ "url": "boxplot-light-velocity", "name": "Boxplot Light Velocity" },
 			{ "url": "boxplot-light-velocity2", "name": "Boxplot Light Velocity2" },
 			{ "url": "boxplot-multi", "name": "Multiple Categories" }

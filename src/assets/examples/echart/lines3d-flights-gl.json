@@ -151,7 +151,7 @@
   "useUTC": false,
   "geo3D": [
     {
-      "map": "world",
+      "map": {"name" : "world", "url" : "echart/files/world.json"},
       "shading": "realistic",
       "silent": true,
       "environment": "#333",

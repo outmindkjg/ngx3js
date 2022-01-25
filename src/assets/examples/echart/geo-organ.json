@@ -249,7 +249,7 @@
     {
       "left": 10,
       "right": "50%",
-      "map": "organ_diagram",
+      "map": {"name" : "organ_diagram", "url" : "echart/files/Veins_Medical_Diagram_clip_art.svg"},
       "selectedMode": "multiple",
       "emphasis": {
         "focus": "self",

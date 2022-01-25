@@ -314,21 +314,21 @@
                 "height": 30,
                 "align": "left",
                 "backgroundColor": {
-                  "image": "https://echarts.apache.org/examples/data/asset/img/weather/sunny_128.png"
+                  "image": "echart/files/sunny_128.png"
                 }
               },
               "Cloudy": {
                 "height": 30,
                 "align": "left",
                 "backgroundColor": {
-                  "image": "https://echarts.apache.org/examples/data/asset/img/weather/cloudy_128.png"
+                  "image": "echart/files/cloudy_128.png"
                 }
               },
               "Showers": {
                 "height": 30,
                 "align": "left",
                 "backgroundColor": {
-                  "image": "https://echarts.apache.org/examples/data/asset/img/weather/showers_128.png"
+                  "image": "echart/files/showers_128.png"
                 }
               },
               "weatherHead": {

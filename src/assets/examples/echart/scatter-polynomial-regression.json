@@ -243,7 +243,7 @@
     {
       "text": "18 companies net profit and main business income (million)",
       "subtext": "By ecStat.regression",
-      "sublink": "https://github.com/ecomfe/echarts-stat",
+      "sublink": "echart/files/echarts-stat",
       "left": "center",
       "top": 16,
       "zlevel": 0,
