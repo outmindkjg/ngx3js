@@ -974,6 +974,9 @@ export interface EChartOption {
 	useUTC?: boolean | undefined;
 
 	globe? : any;
+
+	url ? : string;
+	
 }
 
 export interface Graphic {

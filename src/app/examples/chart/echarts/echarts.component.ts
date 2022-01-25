@@ -54,7 +54,7 @@ export class NgxTextureEChartsComponent
 {
 	@Input() public echarts: ECHARTS.echarts = null;
 
-	@Input() public option: ECHARTS.EChartOption | ECHARTS.EChartsResponsiveOption | string = {};
+	@Input() public option: ECHARTS.EChartOption | ECHARTS.EChartsResponsiveOption = {};
 
 	@Input() public optionSeqn: string = null;
 
@@ -226,18 +226,20 @@ export class NgxTextureEChartsComponent
 		}
 	}
 
+	private _lastChartUrl : string = null;
+
 	private initChart() {
 		if (NgxThreeUtil.isNull(this.echarts)) {
 			return;
 		}
-		if (typeof this.option === 'string') {
-			this.jsonFileLoad(this.option , (json) => {
-				this.option = json;
+		this._chartOption = this.option || {};
+		if (NgxThreeUtil.isNotNull(this._chartOption.url) && this._chartOption.url !== '' && this._chartOption.url !== this._lastChartUrl) {
+			this.jsonFileLoad(this._chartOption.url , (json) => {
+				this._lastChartUrl = this._chartOption.url;
+				Object.assign(this._chartOption, json);
 				this.initChart();
 			})
 			return ;
-		} else {
-			this._chartOption = this.option || {};
 		}
 		if (NgxThreeUtil.isNotNull(this.title)) {
 			this._chartOption.title = this.title;

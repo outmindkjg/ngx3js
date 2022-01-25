@@ -55,14 +55,33 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 				backgroundColor: 0xffffff,
 				backgroundOpacity: 0.1,
 				refresh: () => {
-					this.changeChart();
+					this.refreshChart();
 				},
 			},
 			[
 				{
-					name: 'geometry',
-					type: 'select',
-					select: ['PlaneGeometry', 'BoxGeometry', 'SphereGeometry'],
+					name: 'Geometry',
+					type: 'folder',
+					children: [
+						{
+							name: 'geometry',
+							title: 'type',
+							type: 'select',
+							select: ['PlaneGeometry', 'BoxGeometry', 'SphereGeometry'],
+						},
+						{
+							name: 'width',
+							type: 'number',
+							min: 1,
+							max: 3,
+						},
+						{
+							name: 'height',
+							type: 'number',
+							min: 1,
+							max: 3,
+						},
+					],
 				},
 				{
 					name: 'Chart',
@@ -70,94 +89,79 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 					children: [],
 				},
 				{
-					name: 'chartType',
-					type: 'select',
-					listen: true,
-					select: [
-						'bar',
-						'line',
-						'bubble',
-						'scatter',
-						'doughnut',
-						'pie',
-						'polarArea',
-						'radar',
-						'mixed',
+					name: 'Chart Size & Color',
+					type: 'folder',
+					children: [
+						{
+							name: 'canvasSize',
+							title: 'Size',
+							type: 'number',
+							min: 512,
+							max: 2048,
+							step: 1,
+						},
+						{
+							name: 'backgroundTransparent',
+							title: 'Transparent',
+							type: 'checkbox',
+							change: () => {
+								this.changeColor();
+							},
+						},
+						{
+							name: 'backgroundColor',
+							title: 'Background',
+							type: 'color',
+							change: () => {
+								this.changeColor();
+							},
+						},
+						{
+							name: 'backgroundOpacity',
+							title: 'Opacity',
+							type: 'number',
+							min: 0,
+							max: 1,
+							change: () => {
+								this.changeColor();
+							},
+						},
 					],
-					change: () => {
-						this.changeChart();
-					},
 				},
 				{
-					name: 'Attribute',
+					name: 'Chart Attribute',
 					type: 'folder',
 					children: [],
 				},
 				{
-					name: 'width',
-					type: 'number',
-					min: 1,
-					max: 3,
-				},
-				{
-					name: 'height',
-					type: 'number',
-					min: 1,
-					max: 3,
-				},
-				{
-					name: 'canvasSize',
-					type: 'number',
-					min: 512,
-					max: 2048,
-					step: 1,
-				},
-				{
-					name: 'materialType',
-					type: 'select',
-					select: [
-						'MeshStandardMaterial',
-						'MeshPhongMaterial',
-						'MeshLambertMaterial',
+					name: 'Materia',
+					type: 'folder',
+					children: [
+						{
+							name: 'materialType',
+							type: 'select',
+							select: [
+								'MeshStandardMaterial',
+								'MeshPhongMaterial',
+								'MeshLambertMaterial',
+							],
+						},
+						{
+							name: 'materialSide',
+							type: 'select',
+							select: ['double', 'front', 'back'],
+						},
+						{
+							name: 'materialOpacity',
+							type: 'number',
+							min: 0,
+							max: 1,
+						},
+						{
+							name: 'materialColor',
+							type: 'color',
+						},
 					],
-				},
-				{
-					name: 'materialSide',
-					type: 'select',
-					select: ['double', 'front', 'back'],
-				},
-				{
-					name: 'materialOpacity',
-					type: 'number',
-					min: 0,
-					max: 1,
-				},
-				{
-					name: 'materialColor',
-					type: 'color',
-				},
-				{
-					name: 'backgroundTransparent',
-					type: 'checkbox',
-					change: () => {
-						this.changeColor();
-					},
-				},
-				{
-					name: 'backgroundColor',
-					type: 'color',
-					change: () => {
-						this.changeColor();
-					},
-				},
-				{
-					name: 'backgroundOpacity',
-					type: 'number',
-					min: 0,
-					max: 1,
-					change: () => {
-						this.changeColor();
-					},
 				},
 				{
 					name: 'refresh',
@@ -213,23 +217,44 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 
 	public option: any = null;
 	public optionSeqn: string = null;
-	
-	private lastLoadedExample: string = null;
-	private chart : ECHARTS.ECharts = null;
 
-	public setChart(chart : ECHARTS.ECharts) {
+	private lastLoadedExample: string = null;
+	private chart: ECHARTS.ECharts = null;
+
+	public setChart(chart: ECHARTS.ECharts) {
 		this.chart = chart;
 		console.log(this.chart.getOption());
+	}
+
+	private refreshChart() {
+		if (this.chart !== null) {
+			const option = this.chart.getOption();
+			if (option.series.length > 0) {
+				option.series.forEach(series => {
+					if (series.data && series.data.length > 0 && typeof series.data[0] === 'number') {
+						const max = Math.max(...series.data);
+						const min = Math.min(...series.data);
+						const step = (max - min) * Math.random() * 0.3;
+						series.data = ChartUtils.numbers({ count : series.data.length, min : min - step, max : max + step});
+					}
+				})
+				this.option = option;
+				this.optionSeqn = NgxThreeUtil.getUUID();
+			}
+		} 
 	}
 
 	private changeExample() {
 		if (this.lastLoadedExample !== this.controls.example) {
 			this.lastLoadedExample = this.controls.example;
-			this.option = 'echart/' + this.lastLoadedExample + '.json';
+			this.option = {
+				url : 'echart/' + this.lastLoadedExample + '.json'
+			}
+			this.optionSeqn = NgxThreeUtil.getUUID();
 			this.getTimeout().then(() => {
 				console.log(this.option);
-			})
-			return ;
+			});
+			return;
 			this.jsonFileLoad(
 				'echart/' + this.lastLoadedExample + '.json',
 				(option: any) => {
@@ -306,7 +331,6 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 	public setRender(renderer: NgxRendererComponent): void {
 		super.setRender(renderer);
 		this.getTimeout().then(() => {
-			this.checkAttribute();
 			this.jsonFileLoad('echart/index.json', (data: any[]) => {
 				this.exampleList = [];
 				const chartFolder = NgxThreeUtil.getGuiFolder(
@@ -375,269 +399,6 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 		if (options.radar) {
 			this.radar = options.radar;
 		}
-	}
-
-	private changeChart() {
-		this.requiredMaps = null;
-		switch (this.controls.chartType) {
-			case 'bar':
-				{
-					this.setChartOptions({
-						tooltip: {
-							trigger: 'axis',
-							axisPointer: {
-								type: 'shadow',
-							},
-						},
-						grid: {
-							left: '3%',
-							right: '4%',
-							bottom: '3%',
-							containLabel: true,
-						},
-						xAxis: {
-							type: 'category',
-							data: ChartUtils.dayofweek(),
-							axisTick: {
-								alignWithLabel: true,
-							},
-						},
-						yAxis: {
-							type: 'value',
-						},
-						series: [
-							{
-								type: 'bar',
-								barWidth: '60%',
-								name: 'Direct',
-								data: ChartUtils.numbers({ count: 7, min: 100, max: 250 }),
-							},
-						],
-					});
-				}
-				break;
-			case 'line':
-				{
-					this.setChartOptions({
-						xAxis: {
-							type: 'category',
-							data: ChartUtils.dayofweek(),
-						},
-						yAxis: {
-							type: 'value',
-						},
-						series: [
-							{
-								type: 'line',
-								data: ChartUtils.numbers({ count: 7, min: 100, max: 250 }),
-								smooth: false,
-								areaStyle: null,
-							},
-						],
-					});
-				}
-				break;
-			case 'bubble':
-				{
-				}
-				break;
-			case 'scatter':
-				{
-				}
-				break;
-			case 'doughnut':
-				{
-				}
-				break;
-			case 'pie':
-				{
-					this.setChartOptions({
-						title: {
-							text: 'Referer of a Website',
-							subtext: 'Fake Data',
-							left: 'center',
-						},
-						tooltip: {
-							trigger: 'item',
-						},
-						legend: {
-							orient: 'vertical',
-							left: 'left',
-						},
-						series: [
-							{
-								name: 'Access From',
-								type: 'pie',
-								radius: '50%',
-								data: [
-									{ value: 1048, name: 'Search Engine' },
-									{ value: 735, name: 'Direct' },
-									{ value: 580, name: 'Email' },
-									{ value: 484, name: 'Union Ads' },
-									{ value: 300, name: 'Video Ads' },
-								],
-								emphasis: {
-									itemStyle: {
-										shadowBlur: 10,
-										shadowOffsetX: 0,
-										shadowColor: 'rgba(0, 0, 0, 0.5)',
-									},
-								},
-							},
-						],
-					});
-				}
-				break;
-			case 'polarArea':
-				{
-					this.setChartOptions({
-						title: {
-							text: 'Basic Radar Chart',
-						},
-						legend: {
-							data: ['Allocated Budget', 'Actual Spending'],
-						},
-						radar: {
-							// shape: 'circle',
-							indicator: [
-								{ name: 'Sales', max: 6500 },
-								{ name: 'Administration', max: 16000 },
-								{ name: 'Information Technology', max: 30000 },
-								{ name: 'Customer Support', max: 38000 },
-								{ name: 'Development', max: 52000 },
-								{ name: 'Marketing', max: 25000 },
-							],
-						},
-						series: [
-							{
-								name: 'Budget vs spending',
-								type: 'radar',
-								data: [
-									{
-										value: [4200, 3000, 20000, 35000, 50000, 18000],
-										name: 'Allocated Budget',
-									},
-									{
-										value: [5000, 14000, 28000, 26000, 42000, 21000],
-										name: 'Actual Spending',
-									},
-								],
-							},
-						],
-					});
-				}
-				break;
-			case 'radar':
-				{
-					this.setChartOptions({
-						title: {
-							text: 'Basic Radar Chart',
-						},
-						legend: {
-							data: ['Allocated Budget', 'Actual Spending'],
-						},
-						radar: {
-							// shape: 'circle',
-							indicator: [
-								{ name: 'Sales', max: 6500 },
-								{ name: 'Administration', max: 16000 },
-								{ name: 'Information Technology', max: 30000 },
-								{ name: 'Customer Support', max: 38000 },
-								{ name: 'Development', max: 52000 },
-								{ name: 'Marketing', max: 25000 },
-							],
-						},
-						series: [
-							{
-								name: 'Budget vs spending',
-								type: 'radar',
-								data: [
-									{
-										value: [4200, 3000, 20000, 35000, 50000, 18000],
-										name: 'Allocated Budget',
-									},
-									{
-										value: [5000, 14000, 28000, 26000, 42000, 21000],
-										name: 'Actual Spending',
-									},
-								],
-							},
-						],
-					});
-				}
-				break;
-			case 'mixed':
-				{
-				}
-				break;
-		}
-		this.checkAttribute();
-	}
-
-	private checkAttribute() {
-		if (this.renderer !== null) {
-			this.clearGui('Attribute');
-			const firstChartSeries: any = this.chartSeries[0];
-			if (firstChartSeries !== undefined && firstChartSeries !== null) {
-				Object.entries(firstChartSeries).forEach(([key, value]) => {
-					switch (key) {
-						case 'smooth':
-							this.addGui(
-								{
-									name: key,
-									value: value,
-									type: 'checkbox',
-									control: firstChartSeries,
-									change: () => {
-										this.redrawAttribute(key);
-									},
-								},
-								'Attribute'
-							);
-							break;
-						case 'areaStyle':
-							this.addGui(
-								{
-									name: key,
-									value: value,
-									type: 'select',
-									select: {
-										none: null,
-										red: { color: '#f00' },
-										blue: { color: '#00f' },
-									},
-									control: firstChartSeries,
-									change: () => {
-										this.redrawAttribute(key);
-									},
-								},
-								'Attribute'
-							);
-							break;
-						default:
-							console.log(key, value);
-							break;
-					}
-				});
-			}
-		}
-	}
-
-	private redrawAttribute(name: string) {
-		const firstChartSeries: any = this.chartSeries[0];
-		if (
-			firstChartSeries !== null &&
-			firstChartSeries !== undefined &&
-			firstChartSeries[name] !== undefined
-		) {
-			const value = firstChartSeries[name];
-			this.chartSeries.forEach((item) => {
-				item[name] = value;
-			});
-		}
-		this.getTimeout().then(() => {
-			this.chartSeries = Object.assign([], this.chartSeries);
-		});
 	}
 
 	echarts: any = echarts;
