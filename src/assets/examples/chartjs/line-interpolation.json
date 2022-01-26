@@ -1,0 +1,113 @@
+{
+  "type": "line",
+  "data": {
+    "labels": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11"
+    ],
+    "datasets": [
+      {
+        "label": "Cubic interpolation (monotone)",
+        "data": [
+          0,
+          20,
+          20,
+          60,
+          60,
+          120,
+          null,
+          180,
+          120,
+          125,
+          105,
+          110,
+          170
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "fill": false,
+        "cubicInterpolationMode": "monotone",
+        "tension": 0.4
+      },
+      {
+        "label": "Cubic interpolation",
+        "data": [
+          0,
+          20,
+          20,
+          60,
+          60,
+          120,
+          null,
+          180,
+          120,
+          125,
+          105,
+          110,
+          170
+        ],
+        "borderColor": "rgb(54, 162, 235)",
+        "fill": false,
+        "tension": 0.4
+      },
+      {
+        "label": "Linear interpolation (default)",
+        "data": [
+          0,
+          20,
+          20,
+          60,
+          60,
+          120,
+          null,
+          180,
+          120,
+          125,
+          105,
+          110,
+          170
+        ],
+        "borderColor": "rgb(75, 192, 192)",
+        "fill": false
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Chart.js Line Chart - Cubic interpolation mode"
+      }
+    },
+    "interaction": {
+      "intersect": false
+    },
+    "scales": {
+      "x": {
+        "display": true,
+        "title": {
+          "display": true
+        }
+      },
+      "y": {
+        "display": true,
+        "title": {
+          "display": true,
+          "text": "Value"
+        },
+        "suggestedMin": -10,
+        "suggestedMax": 200
+      }
+    }
+  }
+}

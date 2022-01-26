@@ -1,0 +1,73 @@
+{
+  "type": "pie",
+  "data": {
+    "labels": [
+      "Overall Yay",
+      "Overall Nay",
+      "Group A Yay",
+      "Group A Nay",
+      "Group B Yay",
+      "Group B Nay",
+      "Group C Yay",
+      "Group C Nay"
+    ],
+    "datasets": [
+      {
+        "backgroundColor": [
+          "#AAA",
+          "#777"
+        ],
+        "data": [
+          21,
+          79
+        ]
+      },
+      {
+        "backgroundColor": [
+          "hsl(0, 100%, 60%)",
+          "hsl(0, 100%, 35%)"
+        ],
+        "data": [
+          33,
+          67
+        ]
+      },
+      {
+        "backgroundColor": [
+          "hsl(100, 100%, 60%)",
+          "hsl(100, 100%, 35%)"
+        ],
+        "data": [
+          20,
+          80
+        ]
+      },
+      {
+        "backgroundColor": [
+          "hsl(180, 100%, 60%)",
+          "hsl(180, 100%, 35%)"
+        ],
+        "data": [
+          10,
+          90
+        ]
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "plugins": {
+      "legend": {
+        "labels": {
+          "generateLabels": "function (chart) {\n                                            // Get the default label list\n                                            const original = Chart.overrides.pie.plugins.legend.labels.generateLabels;\n                                            const labelsOriginal = original.call(this, chart);\n                                            // Build an array of colors used in the datasets of the chart\n                                            let datasetColors = chart.data.datasets.map(function (e) {\n                                                return e.backgroundColor;\n                                            });\n                                            datasetColors = datasetColors.flat();\n                                            // Modify the color and hide state of each label\n                                            labelsOriginal.forEach(label => {\n                                                // There are twice as many labels as there are datasets. This converts the label index into the corresponding dataset index\n                                                label.datasetIndex = (label.index - label.index % 2) / 2;\n                                                // The hidden state must match the dataset's hidden state\n                                                label.hidden = !chart.isDatasetVisible(label.datasetIndex);\n                                                // Change the color to match the dataset\n                                                label.fillStyle = datasetColors[label.index];\n                                            });\n                                            return labelsOriginal;\n                                        }"
+        },
+        "onClick": "function (mouseEvent, legendItem, legend) {\n                                        // toggle the visibility of the dataset from what it currently is\n                                        legend.chart.getDatasetMeta(legendItem.datasetIndex).hidden = legend.chart.isDatasetVisible(legendItem.datasetIndex);\n                                        legend.chart.update();\n                                    }"
+      },
+      "tooltip": {
+        "callbacks": {
+          "label": "function (context) {\n                                            const labelIndex = (context.datasetIndex * 2) + context.dataIndex;\n                                            return context.chart.data.labels[labelIndex] + ': ' + context.formattedValue;\n                                        }"
+        }
+      }
+    }
+  }
+}

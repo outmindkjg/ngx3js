@@ -1,0 +1,2 @@
+/** Legend / legend-title */
+null

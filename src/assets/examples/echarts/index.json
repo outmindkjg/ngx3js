@@ -1,50 +1,4 @@
-#!/usr/bin/env node
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- */
-
-'use strict';
-
-var request = require('request');
-const fs = require('fs');
-const cwd = process.cwd();
-const colors = require('colors');
-
-function readUrl(url, isGl, callBack) {
-	let remoteUrl =
-		'https://echarts.apache.org/examples/examples/js/' +
-		(isGl ? 'gl/' : '') +
-		url +
-		'.js';
-	request.get(remoteUrl, function (error, response, body) {
-		if (!error && response.statusCode == 200) {
-			console.log(remoteUrl);
-			callBack(body);
-		} else {
-			console.log(remoteUrl, error, response);
-		}
-	});
-}
-
-function writeJson(fileName, jsonData, comment, callBack) {
-	let data = JSON.stringify(jsonData, null, 2);
-	if (comment !== undefined && comment !== null && comment !== '') {
-		data = '/** ' + comment + ' */\n' + data;
-	}
-	fs.writeFile(
-		cwd + '/src/assets/examples/echarts/' + fileName + (jsonData !== null ? '.json' : '.txt'),
-		data,
-		(err) => {
-			if (err) throw err;
-			if (callBack !== undefined && callBack !== null) {
-				callBack();
-			}
-		}
-	);
-}
-
-const jsonList =[
+[
 	{
 		"title": "Line",
 		"children": [
@@ -144,7 +98,10 @@ const jsonList =[
 		"title": "Pie",
 		"children": [
 			{ "url": "pie-simple", "name": "Referer of a Website" },
-			{ "url": "pie-borderRadius", "name": "Doughnut Chart with Rounded Corner" },
+			{
+				"url": "pie-borderRadius",
+				"name": "Doughnut Chart with Rounded Corner"
+			},
 			{ "url": "pie-doughnut", "name": "Doughnut Chart" },
 			{ "url": "pie-custom", "name": "Customized Pie" },
 			{ "url": "pie-pattern", "name": "Texture on Pie Chart" },
@@ -174,7 +131,10 @@ const jsonList =[
 			{ "url": "scatter-label-align-right", "name": "Align Label on the Top" },
 			{ "url": "scatter-label-align-top", "name": "Align Label on the Top" },
 			{ "url": "scatter-symbol-morph", "name": "Symbol Shape Morph" },
-			{ "url": "scatter-stream-visual", "name": "Visual interaction with stream" },
+			{
+				"url": "scatter-stream-visual",
+				"name": "Visual interaction with stream"
+			},
 			{ "url": "bubble-gradient", "name": "Bubble Chart" },
 			{ "url": "scatter-aqi-color", "name": "Scatter Aqi Color" },
 			{ "url": "scatter-nutrients", "name": "Scatter Nutrients" },
@@ -283,7 +243,10 @@ const jsonList =[
 		"title": "Sunburst",
 		"children": [
 			{ "url": "sunburst-simple", "name": "Basic Sunburst" },
-			{ "url": "sunburst-borderRadius", "name": "Sunburst with Rounded Corner" },
+			{
+				"url": "sunburst-borderRadius",
+				"name": "Sunburst with Rounded Corner"
+			},
 			{ "url": "sunburst-label-rotate", "name": "Sunburst Label Rotate" },
 			{ "url": "sunburst-monochrome", "name": "Monochrome Sunburst" },
 			{ "url": "sunburst-visualMap", "name": "Sunburst VisualMap" },
@@ -354,7 +317,10 @@ const jsonList =[
 			{ "url": "pictorialBar-hill", "name": "Wish List and Mountain Height" },
 			{ "url": "pictorialBar-spirit", "name": "Spirits" },
 			{ "url": "pictorialBar-vehicle", "name": "Vehicles" },
-			{ "url": "pictorialBar-velocity", "name": "Velocity of Christmas Reindeers" }
+			{
+				"url": "pictorialBar-velocity",
+				"name": "Velocity of Christmas Reindeers"
+			}
 		]
 	},
 	{
@@ -410,7 +376,10 @@ const jsonList =[
 			{ "url": "scatter3d-scatter", "name": "3D Scatter with Scatter Matrix" },
 			{ "url": "scatter3d", "name": "Scatter3D" },
 			{ "url": "globe-displacement", "name": "Globe Displacement" },
-			{ "url": "globe-echarts-gl-hello-world", "name": "ECharts-GL Hello World" },
+			{
+				"url": "globe-echarts-gl-hello-world",
+				"name": "ECharts-GL Hello World"
+			},
 			{ "url": "globe-layers", "name": "Globe Layers" },
 			{ "url": "globe-moon", "name": "Moon" },
 			{
@@ -421,46 +390,4 @@ const jsonList =[
 			{ "url": "graphgl-gpu-layout", "name": "GraphGL GPU Layout" }
 		]
 	}
-];
-
-// jsonList.forEach(info => {
-//     console.log(info.title);
-//     let title = info.title;
-//     info.children.forEach(child => {
-//         let url = child.url;
-//         let name = child.name;
-//         readUrl(url, title.endsWith(' GL') || title.startsWith('3D '), (body) => {
-//             body = body
-//                 .replace(/\/\*(.*\n|)(.*\n|)(.*\n|)(.*\n|)(.*\n|)(.*\n|)\*\//m, '')
-//                 .trim();
-//             body = body.replace(/option *= */m, '').trim();
-//             body = body.replace(/};/m, '}').trim();
-//             let json = null;
-//             try {
-//                 eval('json = ' + body);
-//                 // console.log(JSON.stringify(json, null, '\t'));
-//                 writeJson(url, json, null, () => {
-//                     console.log('Json file modified -> ' + (url + '.json').red  + '('+name+')');
-//                 });
-//             } catch(ex) {
-//                 writeJson(url, null, body, () => {
-//                     console.log('Json Error : ' + (url + '.json').red );
-//                 });
-//             }
-//         });
-//     })
-// });
-
-const allList = [];
-jsonList.forEach(info => {
-     console.log(info.title);
-     let title = info.title;
-     info.children.forEach(child => {
-		 const fileName = child.url + '.json';
-		fs.copyFile(cwd + '/src/assets/examples/echart/' + fileName, cwd + '/src/assets/examples/echarts/' + fileName , (err) => {
-			if (err) throw err;
-			console.log(fileName);
-		});
-		allList.push(child.url);
-	 })
-})
+]

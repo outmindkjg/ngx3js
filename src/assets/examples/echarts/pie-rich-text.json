@@ -1,0 +1,580 @@
+{
+  "darkMode": "auto",
+  "colorBy": "series",
+  "color": [
+    "#5470c6",
+    "#91cc75",
+    "#fac858",
+    "#ee6666",
+    "#73c0de",
+    "#3ba272",
+    "#fc8452",
+    "#9a60b4",
+    "#ea7ccc"
+  ],
+  "gradientColor": [
+    "#f6efa6",
+    "#d88273",
+    "#bf444c"
+  ],
+  "aria": {
+    "decal": {
+      "decals": [
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            1,
+            0
+          ],
+          "dashArrayY": [
+            2,
+            5
+          ],
+          "symbolSize": 1,
+          "rotation": 0.5235987755982988
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "symbol": "circle",
+          "dashArrayX": [
+            [
+              8,
+              8
+            ],
+            [
+              0,
+              8,
+              8,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            6,
+            0
+          ],
+          "symbolSize": 0.8
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            1,
+            0
+          ],
+          "dashArrayY": [
+            4,
+            3
+          ],
+          "rotation": -0.7853981633974483
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            [
+              6,
+              6
+            ],
+            [
+              0,
+              6,
+              6,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            6,
+            0
+          ]
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              6
+            ]
+          ],
+          "dashArrayY": [
+            1,
+            0,
+            6,
+            0
+          ],
+          "rotation": 0.7853981633974483
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "symbol": "triangle",
+          "dashArrayX": [
+            [
+              9,
+              9
+            ],
+            [
+              0,
+              9,
+              9,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            7,
+            2
+          ],
+          "symbolSize": 0.75
+        }
+      ]
+    }
+  },
+  "textStyle": {
+    "fontFamily": "sans-serif",
+    "fontSize": 12,
+    "fontStyle": "normal",
+    "fontWeight": "normal"
+  },
+  "stateAnimation": {
+    "duration": 300,
+    "easing": "cubicOut"
+  },
+  "animation": "auto",
+  "animationDuration": 1000,
+  "animationDurationUpdate": 500,
+  "animationEasing": "cubicInOut",
+  "animationEasingUpdate": "cubicInOut",
+  "animationThreshold": 2000,
+  "progressiveThreshold": 3000,
+  "progressive": 400,
+  "hoverLayerThreshold": 3000,
+  "useUTC": false,
+  "title": [
+    {
+      "text": "Weather Statistics",
+      "subtext": "Fake Data",
+      "left": "center",
+      "zlevel": 0,
+      "z": 6,
+      "show": true,
+      "target": "blank",
+      "subtarget": "blank",
+      "top": 0,
+      "backgroundColor": "rgba(0,0,0,0)",
+      "borderColor": "#ccc",
+      "borderWidth": 0,
+      "padding": 5,
+      "itemGap": 10,
+      "textStyle": {
+        "fontSize": 18,
+        "fontWeight": "bold",
+        "color": "#464646"
+      },
+      "subtextStyle": {
+        "fontSize": 12,
+        "color": "#6E7079"
+      },
+      "right": null
+    }
+  ],
+  "axisPointer": [
+    {
+      "show": "auto",
+      "zlevel": 0,
+      "z": 50,
+      "type": "line",
+      "snap": false,
+      "triggerTooltip": true,
+      "value": null,
+      "status": null,
+      "link": [],
+      "animation": null,
+      "animationDurationUpdate": 200,
+      "lineStyle": {
+        "color": "#B9BEC9",
+        "width": 1,
+        "type": "dashed"
+      },
+      "shadowStyle": {
+        "color": "rgba(210,219,238,0.2)"
+      },
+      "label": {
+        "show": true,
+        "formatter": null,
+        "precision": "auto",
+        "margin": 3,
+        "color": "#fff",
+        "padding": [
+          5,
+          7,
+          5,
+          7
+        ],
+        "backgroundColor": "auto",
+        "borderColor": null,
+        "borderWidth": 0,
+        "borderRadius": 3
+      },
+      "handle": {
+        "show": false,
+        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
+        "size": 45,
+        "margin": 50,
+        "color": "#333",
+        "shadowBlur": 3,
+        "shadowColor": "#aaa",
+        "shadowOffsetX": 0,
+        "shadowOffsetY": 2,
+        "throttle": 40
+      }
+    }
+  ],
+  "tooltip": [
+    {
+      "trigger": "item",
+      "formatter": "{a} <br/>{b} : {c} ({d}%)",
+      "zlevel": 0,
+      "z": 60,
+      "show": true,
+      "showContent": true,
+      "triggerOn": "mousemove|click",
+      "alwaysShowContent": false,
+      "displayMode": "single",
+      "renderMode": "auto",
+      "confine": null,
+      "showDelay": 0,
+      "hideDelay": 100,
+      "transitionDuration": 0.4,
+      "enterable": false,
+      "backgroundColor": "#fff",
+      "shadowBlur": 10,
+      "shadowColor": "rgba(0, 0, 0, .2)",
+      "shadowOffsetX": 1,
+      "shadowOffsetY": 2,
+      "borderRadius": 4,
+      "borderWidth": 1,
+      "padding": null,
+      "extraCssText": "",
+      "axisPointer": {
+        "type": "line",
+        "axis": "auto",
+        "animation": "auto",
+        "animationDurationUpdate": 200,
+        "animationEasingUpdate": "exponentialOut",
+        "crossStyle": {
+          "color": "#999",
+          "width": 1,
+          "type": "dashed",
+          "textStyle": {}
+        }
+      },
+      "textStyle": {
+        "color": "#666",
+        "fontSize": 14
+      }
+    }
+  ],
+  "series": [
+    {
+      "type": "pie",
+      "radius": "65%",
+      "center": [
+        "50%",
+        "50%"
+      ],
+      "selectedMode": "single",
+      "data": [
+        {
+          "value": 1548,
+          "name": "CityE",
+          "label": {
+            "formatter": "{title|{b}}{abg|}\n  {weatherHead|Weather}{valueHead|Days}{rateHead|Percent}\n{hr|}\n  {Sunny|}{value|202}{rate|55.3%}\n  {Cloudy|}{value|142}{rate|38.9%}\n  {Showers|}{value|21}{rate|5.8%}",
+            "backgroundColor": "#eee",
+            "borderColor": "#777",
+            "borderWidth": 1,
+            "borderRadius": 4,
+            "rich": {
+              "title": {
+                "color": "#eee",
+                "align": "center"
+              },
+              "abg": {
+                "backgroundColor": "#333",
+                "width": "100%",
+                "align": "right",
+                "height": 25,
+                "borderRadius": [
+                  4,
+                  4,
+                  0,
+                  0
+                ]
+              },
+              "Sunny": {
+                "height": 30,
+                "align": "left",
+                "backgroundColor": {
+                  "image": "echarts/files/sunny_128.png"
+                }
+              },
+              "Cloudy": {
+                "height": 30,
+                "align": "left",
+                "backgroundColor": {
+                  "image": "echarts/files/cloudy_128.png"
+                }
+              },
+              "Showers": {
+                "height": 30,
+                "align": "left",
+                "backgroundColor": {
+                  "image": "echarts/files/showers_128.png"
+                }
+              },
+              "weatherHead": {
+                "color": "#333",
+                "height": 24,
+                "align": "left"
+              },
+              "hr": {
+                "borderColor": "#777",
+                "width": "100%",
+                "borderWidth": 0.5,
+                "height": 0
+              },
+              "value": {
+                "width": 20,
+                "padding": [
+                  0,
+                  20,
+                  0,
+                  30
+                ],
+                "align": "left"
+              },
+              "valueHead": {
+                "color": "#333",
+                "width": 20,
+                "padding": [
+                  0,
+                  20,
+                  0,
+                  30
+                ],
+                "align": "center"
+              },
+              "rate": {
+                "width": 40,
+                "align": "right",
+                "padding": [
+                  0,
+                  10,
+                  0,
+                  0
+                ]
+              },
+              "rateHead": {
+                "color": "#333",
+                "width": 40,
+                "align": "center",
+                "padding": [
+                  0,
+                  10,
+                  0,
+                  0
+                ]
+              }
+            }
+          },
+          "emphasis": {
+            "label": {}
+          }
+        },
+        {
+          "value": 735,
+          "name": "CityC"
+        },
+        {
+          "value": 510,
+          "name": "CityD"
+        },
+        {
+          "value": 434,
+          "name": "CityB"
+        },
+        {
+          "value": 335,
+          "name": "CityA"
+        }
+      ],
+      "emphasis": {
+        "itemStyle": {
+          "shadowBlur": 10,
+          "shadowOffsetX": 0,
+          "shadowColor": "rgba(0, 0, 0, 0.5)"
+        },
+        "scale": true,
+        "scaleSize": 5,
+        "label": {
+          "show": true
+        },
+        "labelLine": {
+          "show": true
+        }
+      },
+      "zlevel": 0,
+      "z": 2,
+      "legendHoverLink": true,
+      "colorBy": "data",
+      "clockwise": true,
+      "startAngle": 90,
+      "minAngle": 0,
+      "minShowLabelAngle": 0,
+      "selectedOffset": 10,
+      "percentPrecision": 2,
+      "stillShowZeroSum": true,
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0,
+      "width": null,
+      "height": null,
+      "label": {
+        "rotate": 0,
+        "show": true,
+        "overflow": "truncate",
+        "position": "outer",
+        "alignTo": "none",
+        "edgeDistance": "25%",
+        "bleedMargin": 10,
+        "distanceToLabelLine": 5
+      },
+      "labelLine": {
+        "show": true,
+        "length": 15,
+        "length2": 15,
+        "smooth": false,
+        "minTurnAngle": 90,
+        "maxSurfaceAngle": 90,
+        "lineStyle": {
+          "width": 1,
+          "type": "solid"
+        }
+      },
+      "itemStyle": {
+        "borderWidth": 1,
+        "borderJoin": "round"
+      },
+      "showEmptyCircle": true,
+      "emptyCircleStyle": {
+        "color": "lightgray",
+        "opacity": 1
+      },
+      "labelLayout": {
+        "hideOverlap": true
+      },
+      "avoidLabelOverlap": true,
+      "animationType": "expansion",
+      "animationDuration": 1000,
+      "animationTypeUpdate": "transition",
+      "animationEasingUpdate": "cubicInOut",
+      "animationDurationUpdate": 500,
+      "animationEasing": "cubicInOut"
+    }
+  ],
+  "visualMap": [],
+  "legend": [
+    {
+      "bottom": 10,
+      "left": "center",
+      "data": [
+        "CityA",
+        "CityB",
+        "CityD",
+        "CityC",
+        "CityE"
+      ],
+      "zlevel": 0,
+      "z": 4,
+      "show": true,
+      "orient": "horizontal",
+      "top": null,
+      "align": "auto",
+      "backgroundColor": "rgba(0,0,0,0)",
+      "borderColor": "#ccc",
+      "borderRadius": 0,
+      "borderWidth": 0,
+      "padding": 5,
+      "itemGap": 10,
+      "itemWidth": 25,
+      "itemHeight": 14,
+      "symbolRotate": "inherit",
+      "symbolKeepAspect": true,
+      "inactiveColor": "#ccc",
+      "inactiveBorderColor": "#ccc",
+      "inactiveBorderWidth": "auto",
+      "itemStyle": {
+        "color": "inherit",
+        "opacity": "inherit",
+        "borderColor": "inherit",
+        "borderWidth": "auto",
+        "borderCap": "inherit",
+        "borderJoin": "inherit",
+        "borderDashOffset": "inherit",
+        "borderMiterLimit": "inherit"
+      },
+      "lineStyle": {
+        "width": "auto",
+        "color": "inherit",
+        "inactiveColor": "#ccc",
+        "inactiveWidth": 2,
+        "opacity": "inherit",
+        "type": "inherit",
+        "cap": "inherit",
+        "join": "inherit",
+        "dashOffset": "inherit",
+        "miterLimit": "inherit"
+      },
+      "textStyle": {
+        "color": "#333"
+      },
+      "selectedMode": true,
+      "selector": false,
+      "selectorLabel": {
+        "show": true,
+        "borderRadius": 10,
+        "padding": [
+          3,
+          5,
+          3,
+          5
+        ],
+        "fontSize": 12,
+        "fontFamily": "sans-serif",
+        "color": "#666",
+        "borderWidth": 1,
+        "borderColor": "#666"
+      },
+      "emphasis": {
+        "selectorLabel": {
+          "show": true,
+          "color": "#eee",
+          "backgroundColor": "#666"
+        }
+      },
+      "selectorPosition": "auto",
+      "selectorItemGap": 7,
+      "selectorButtonGap": 10,
+      "tooltip": {
+        "show": false
+      },
+      "right": null,
+      "selected": {}
+    }
+  ],
+  "markArea": [],
+  "markLine": [],
+  "markPoint": [],
+  "brush": [],
+  "dataZoom": []
+}

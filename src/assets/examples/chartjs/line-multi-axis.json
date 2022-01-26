@@ -1,0 +1,75 @@
+{
+  "type": "line",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          -73.59053498,
+          -86.02709191,
+          -27.06447188,
+          -57.19650206,
+          -33.2133059,
+          -85.97908093,
+          -64.87654321
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255, 99, 132, 0.5)",
+        "yAxisID": "y"
+      },
+      {
+        "label": "Dataset 2",
+        "data": [
+          -48.91803841,
+          75.47668038,
+          -29.96399177,
+          -66.47462277,
+          -76.03052126,
+          -85.79218107,
+          -19.21639232
+        ],
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgba(54, 162, 235, 0.5)",
+        "yAxisID": "y1"
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "interaction": {
+      "mode": "index",
+      "intersect": false
+    },
+    "stacked": false,
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Chart.js Line Chart - Multi Axis"
+      }
+    },
+    "scales": {
+      "y": {
+        "type": "linear",
+        "display": true,
+        "position": "left"
+      },
+      "y1": {
+        "type": "linear",
+        "display": true,
+        "position": "right",
+        "grid": {
+          "drawOnChartArea": false
+        }
+      }
+    }
+  }
+}

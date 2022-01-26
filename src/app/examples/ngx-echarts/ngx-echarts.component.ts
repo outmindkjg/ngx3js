@@ -81,10 +81,18 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 							name: 'geometry',
 							title: 'type',
 							type: 'select',
-							select: ['PlaneGeometry', 'BoxGeometry', 'SphereGeometry'],
+							select: [
+								'PlaneGeometry',
+								'BoxGeometry',
+								'SphereGeometry',
+								'CapsuleGeometry',
+								'CylinderGeometry',
+							],
 							change: () => {
 								switch (this.controls.geometry) {
+									case 'CapsuleGeometry':
 									case 'SphereGeometry':
+									case 'CylinderGeometry':
 										this.controls.repeatX = 2;
 										this.controls.repeatY = 1;
 										break;
@@ -481,13 +489,13 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 		if (this.lastLoadedExample !== this.controls.example) {
 			this.lastLoadedExample = this.controls.example;
 			this.chartTypeName = 'No Name';
-			this.exampleList.forEach(example => {
+			this.exampleList.forEach((example) => {
 				if (example.url === this.lastLoadedExample) {
 					this.chartTypeName = example.name;
 				}
-			})			
+			});
 			this.jsonFileLoad(
-				'echart/' + this.lastLoadedExample + '.json',
+				'echarts/' + this.lastLoadedExample + '.json',
 				(option: any) => {
 					this.option = option;
 					this.optionSeqn = NgxThreeUtil.getUUID();
@@ -557,7 +565,7 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 	public setRender(renderer: NgxRendererComponent): void {
 		super.setRender(renderer);
 		this.getTimeout().then(() => {
-			this.jsonFileLoad('echart/index.json', (data: any[]) => {
+			this.jsonFileLoad('echarts/index.json', (data: any[]) => {
 				this.exampleList = [];
 				const chartFolder = NgxThreeUtil.getGuiFolder(
 					this.renderer.gui,

@@ -187,12 +187,15 @@ export class NgxTextureChartJsComponent
 
 	/**
 	 * Checks texture option
-	 * @param textureOptions 
+	 * @param textureOptions
 	 */
 	private checkTextureOption(textureOptions: any) {
 		if (NgxThreeUtil.isNotNullEmpty(textureOptions)) {
-			if (typeof textureOptions === 'object' && typeof textureOptions.image === 'string') {
-				const imageSrc : string = textureOptions.image;
+			if (
+				typeof textureOptions === 'object' &&
+				typeof textureOptions.image === 'string'
+			) {
+				const imageSrc: string = textureOptions.image;
 				if (imageSrc.startsWith('data:')) {
 					const image = new Image();
 					image.src = imageSrc;
@@ -207,14 +210,44 @@ export class NgxTextureChartJsComponent
 		return textureOptions;
 	}
 
+	/**
+	 * Checks function option
+	 * 
+	 * @param functionOptions 
+	 * @returns function option 
+	 */
+	private checkFunctionOption(functionOptions: any): Function {
+		let functionItem = null;
+		if (NgxThreeUtil.isNotNullEmpty(functionOptions)) {
+			if (typeof functionOptions === 'string') {
+				try {
+					const Chart = this.chartjs; // with eval function 
+					eval('functionItem = ' + functionOptions + '');
+					console.log(functionItem);
+					if (typeof functionItem === 'function') {
+						return functionItem;
+					} else {
+						functionItem = null;
+					}
+				} catch (ex) {
+					this.consoleLog('functionItem', ex, 'error');
+					functionItem = null;
+				}
+			} else if (typeof functionOptions === 'function') {
+				functionItem = functionOptions;
+			}
+		}
+		return functionItem;
+	}
+
 	private _lastChartInfo: {
 		url: string;
 		seqn: string;
-		background : any;
+		background: any;
 	} = {
 		url: null,
 		seqn: null,
-		background : null
+		background: null,
 	};
 
 	private changeCanvasBackground() {
@@ -230,13 +263,32 @@ export class NgxTextureChartJsComponent
 			}
 		});
 		if (NgxThreeUtil.isNotNull(this.canvasBackground)) {
-			const backgroundColor = NgxThreeUtil.getColorAlphaSafe(this.canvasBackground, this.canvasBackgroundOpacity);
-			let backgroundColorRgb : string = '#ffffff';
+			const backgroundColor = NgxThreeUtil.getColorAlphaSafe(
+				this.canvasBackground,
+				this.canvasBackgroundOpacity
+			);
+			let backgroundColorRgb: string = '#ffffff';
 			if (NgxThreeUtil.isNotNull(backgroundColor)) {
 				if (backgroundColor instanceof N3JS.Color) {
-					backgroundColorRgb = 'rgb('+(backgroundColor.r * 255)+','+(backgroundColor.g * 255)+','+(backgroundColor.b * 255)+')'
+					backgroundColorRgb =
+						'rgb(' +
+						backgroundColor.r * 255 +
+						',' +
+						backgroundColor.g * 255 +
+						',' +
+						backgroundColor.b * 255 +
+						')';
 				} else {
-					backgroundColorRgb = 'rgba('+(backgroundColor.x * 255)+','+(backgroundColor.y * 255)+','+(backgroundColor.z * 255)+','+backgroundColor.w+')'
+					backgroundColorRgb =
+						'rgba(' +
+						backgroundColor.x * 255 +
+						',' +
+						backgroundColor.y * 255 +
+						',' +
+						backgroundColor.z * 255 +
+						',' +
+						backgroundColor.w +
+						')';
 				}
 			}
 			if (customBackgroundColor === null) {
@@ -302,8 +354,66 @@ export class NgxTextureChartJsComponent
 			this._chart = null;
 		}
 		this.changeCanvasBackground();
+		this._chartOption.options = Object.assign(this._chartOption.options || {}, {
+			responsive: false,
+		});
+
+		if (NgxThreeUtil.isNotNull(this._chartOption.data?.datasets)) {
+			if (Array.isArray(this._chartOption.data?.datasets)) {
+				const datasets = this._chartOption.data?.datasets;
+				datasets.forEach((dataset: any) => {
+					if (NgxThreeUtil.isNotNull(dataset.segment)) {
+						const segment = dataset.segment;
+						if (NgxThreeUtil.isNotNullEmpty(segment?.backgroundColor)) {
+							segment.backgroundColor = this.checkFunctionOption(segment.backgroundColor);
+						}
+						if (NgxThreeUtil.isNotNullEmpty(segment?.borderColor)) {
+							segment.borderColor = this.checkFunctionOption(segment.borderColor);
+						}
+						if (NgxThreeUtil.isNotNullEmpty(segment?.borderDash)) {
+							segment.borderDash = this.checkFunctionOption(segment.borderDash);
+						}
+						if (NgxThreeUtil.isNotNullEmpty(segment?.borderJoinStyle)) {
+							segment.borderJoinStyle = this.checkFunctionOption(segment.borderJoinStyle);
+						}
+						if (NgxThreeUtil.isNotNullEmpty(segment?.borderWidth)) {
+							segment.borderWidth = this.checkFunctionOption(segment.borderWidth);
+						}
+					}
+				});
+			}
+		}
+		if (NgxThreeUtil.isNotNull(this._chartOption.options)) {
+			const options = this._chartOption.options;
+			if (NgxThreeUtil.isNotNull(options.plugins)) {
+				const plugins = options.plugins;
+				if (NgxThreeUtil.isNotNull(plugins.legend)) {
+					const legend : any = plugins.legend;
+					if (NgxThreeUtil.isNotNullEmpty(legend?.labels)) {
+						const labels : any = legend.labels;
+						if (NgxThreeUtil.isNotNullEmpty(labels?.generateLabels)) {
+							labels.generateLabels = this.checkFunctionOption(labels.generateLabels);
+						}
+					}
+					if (NgxThreeUtil.isNotNullEmpty(legend?.onClick)) {
+						legend.onClick = this.checkFunctionOption(legend.onClick);
+					}
+				}
+				if (NgxThreeUtil.isNotNull(plugins.tooltip)) {
+					const tooltip : any = plugins.tooltip;
+					if (NgxThreeUtil.isNotNull(tooltip.callbacks)) {
+						const callbacks : any = tooltip.callbacks;
+						if (NgxThreeUtil.isNotNullEmpty(callbacks?.label)) {
+							callbacks.label = this.checkFunctionOption(callbacks.label);
+						}
+					}
+					
+				}
+			}
+		}
+
 		if (this._chart === null) {
-			const Chart : any = this.chartjs;
+			const Chart: any = this.chartjs;
 			this._chart = new Chart(this._mapCanvas, this._chartOption);
 		} else {
 			this._chart.update();
@@ -349,6 +459,8 @@ export class NgxTextureChartJsComponent
 			);
 			mapCanvas.width = this._mapCanvasSize.x;
 			mapCanvas.height = this._mapCanvasSize.y;
+			mapCanvas.style.width = this._mapCanvasSize.x + 'px';
+			mapCanvas.style.height = this._mapCanvasSize.y + 'px';
 			mapCanvas.style.pointerEvents = 'none';
 			mapCanvas.style.display = 'none';
 			document.body.append(mapCanvas);
@@ -364,5 +476,4 @@ export class NgxTextureChartJsComponent
 	private _chartOption: CHARTJS.ChartConfiguration = {};
 	private _mapCanvasSize: I3JS.Vector2 = null;
 	private _mapCanvas: HTMLCanvasElement = null;
-
 }

@@ -1,0 +1,56 @@
+{
+  "type": "line",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          92.78806584,
+          -92.48799726,
+          89.93141289,
+          57.33024691,
+          -2.63717421,
+          90.2760631,
+          64.46502058
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255, 99, 132, 0.5)"
+      },
+      {
+        "label": "Dataset 2",
+        "data": [
+          85.36179698,
+          -22.34224966,
+          -19.1409465,
+          38.17558299,
+          18.74314129,
+          73.17901235,
+          -77.52914952
+        ],
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgba(54, 162, 235, 0.5)"
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "plugins": {
+      "legend": {
+        "position": "top"
+      },
+      "title": {
+        "display": true,
+        "text": "Chart.js Line Chart"
+      }
+    }
+  }
+}

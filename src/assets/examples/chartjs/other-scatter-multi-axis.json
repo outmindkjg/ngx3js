@@ -1,0 +1,134 @@
+{
+  "type": "scatter",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          {
+            "x": 55.07544582,
+            "y": 62.05246914,
+            "r": 1
+          },
+          {
+            "x": -91.10596708,
+            "y": 35.41838134,
+            "r": 1
+          },
+          {
+            "x": -12.80178326,
+            "y": -38.33504801,
+            "r": 1
+          },
+          {
+            "x": -18.65397805,
+            "y": -30.8127572,
+            "r": 1
+          },
+          {
+            "x": -2.48971193,
+            "y": 23.41735254,
+            "r": 1
+          },
+          {
+            "x": 45.5675583,
+            "y": -50.95336077,
+            "r": 1
+          },
+          {
+            "x": 61.32030178,
+            "y": -14.41872428,
+            "r": 1
+          }
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255, 99, 132, 0.5)",
+        "yAxisID": "y"
+      },
+      {
+        "label": "Dataset 2",
+        "data": [
+          {
+            "x": -1.63323045,
+            "y": -78.50394376,
+            "r": 1
+          },
+          {
+            "x": 60.31292867,
+            "y": -5.65243484,
+            "r": 1
+          },
+          {
+            "x": 23.28789438,
+            "y": -88.5622428,
+            "r": 1
+          },
+          {
+            "x": -95.42438272,
+            "y": 15.97650892,
+            "r": 1
+          },
+          {
+            "x": 91.83041838,
+            "y": -22.90037723,
+            "r": 1
+          },
+          {
+            "x": -34.70078875,
+            "y": -54.57561728,
+            "r": 1
+          },
+          {
+            "x": 53.37705761,
+            "y": 41.93844307,
+            "r": 1
+          }
+        ],
+        "borderColor": "rgb(255, 159, 64)",
+        "backgroundColor": "rgba(255, 159, 64, 0.5)",
+        "yAxisID": "y2"
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "plugins": {
+      "legend": {
+        "position": "top"
+      },
+      "title": {
+        "display": true,
+        "text": "Chart.js Scatter Multi Axis Chart"
+      }
+    },
+    "scales": {
+      "y": {
+        "type": "linear",
+        "position": "left",
+        "ticks": {
+          "color": "rgb(255, 99, 132)"
+        }
+      },
+      "y2": {
+        "type": "linear",
+        "position": "right",
+        "reverse": true,
+        "ticks": {
+          "color": "rgb(54, 162, 235)"
+        },
+        "grid": {
+          "drawOnChartArea": false
+        }
+      }
+    }
+  }
+}

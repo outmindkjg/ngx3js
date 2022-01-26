@@ -1,0 +1,999 @@
+{
+  "darkMode": "auto",
+  "colorBy": "series",
+  "color": [
+    "#5470c6",
+    "#91cc75",
+    "#fac858",
+    "#ee6666",
+    "#73c0de",
+    "#3ba272",
+    "#fc8452",
+    "#9a60b4",
+    "#ea7ccc"
+  ],
+  "gradientColor": [
+    "#f6efa6",
+    "#d88273",
+    "#bf444c"
+  ],
+  "aria": {
+    "decal": {
+      "decals": [
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            1,
+            0
+          ],
+          "dashArrayY": [
+            2,
+            5
+          ],
+          "symbolSize": 1,
+          "rotation": 0.5235987755982988
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "symbol": "circle",
+          "dashArrayX": [
+            [
+              8,
+              8
+            ],
+            [
+              0,
+              8,
+              8,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            6,
+            0
+          ],
+          "symbolSize": 0.8
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            1,
+            0
+          ],
+          "dashArrayY": [
+            4,
+            3
+          ],
+          "rotation": -0.7853981633974483
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            [
+              6,
+              6
+            ],
+            [
+              0,
+              6,
+              6,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            6,
+            0
+          ]
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "dashArrayX": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              6
+            ]
+          ],
+          "dashArrayY": [
+            1,
+            0,
+            6,
+            0
+          ],
+          "rotation": 0.7853981633974483
+        },
+        {
+          "color": "rgba(0, 0, 0, 0.2)",
+          "symbol": "triangle",
+          "dashArrayX": [
+            [
+              9,
+              9
+            ],
+            [
+              0,
+              9,
+              9,
+              0
+            ]
+          ],
+          "dashArrayY": [
+            7,
+            2
+          ],
+          "symbolSize": 0.75
+        }
+      ]
+    }
+  },
+  "textStyle": {
+    "fontFamily": "sans-serif",
+    "fontSize": 12,
+    "fontStyle": "normal",
+    "fontWeight": "normal"
+  },
+  "stateAnimation": {
+    "duration": 300,
+    "easing": "cubicOut"
+  },
+  "animation": "auto",
+  "animationDuration": 1000,
+  "animationDurationUpdate": 500,
+  "animationEasing": "cubicInOut",
+  "animationEasingUpdate": "cubicInOut",
+  "animationThreshold": 2000,
+  "progressiveThreshold": 3000,
+  "progressive": 400,
+  "hoverLayerThreshold": 3000,
+  "useUTC": false,
+  "axisPointer": [
+    {
+      "show": "auto",
+      "zlevel": 0,
+      "z": 50,
+      "type": "line",
+      "snap": false,
+      "triggerTooltip": true,
+      "value": null,
+      "status": null,
+      "link": [],
+      "animation": null,
+      "animationDurationUpdate": 200,
+      "lineStyle": {
+        "color": "#B9BEC9",
+        "width": 1,
+        "type": "dashed"
+      },
+      "shadowStyle": {
+        "color": "rgba(210,219,238,0.2)"
+      },
+      "label": {
+        "show": true,
+        "formatter": null,
+        "precision": "auto",
+        "margin": 3,
+        "color": "#fff",
+        "padding": [
+          5,
+          7,
+          5,
+          7
+        ],
+        "backgroundColor": "auto",
+        "borderColor": null,
+        "borderWidth": 0,
+        "borderRadius": 3
+      },
+      "handle": {
+        "show": false,
+        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
+        "size": 45,
+        "margin": 50,
+        "color": "#333",
+        "shadowBlur": 3,
+        "shadowColor": "#aaa",
+        "shadowOffsetX": 0,
+        "shadowOffsetY": 2,
+        "throttle": 40
+      }
+    }
+  ],
+  "tooltip": [
+    {
+      "zlevel": 0,
+      "z": 60,
+      "show": true,
+      "showContent": true,
+      "trigger": "item",
+      "triggerOn": "mousemove|click",
+      "alwaysShowContent": false,
+      "displayMode": "single",
+      "renderMode": "auto",
+      "confine": null,
+      "showDelay": 0,
+      "hideDelay": 100,
+      "transitionDuration": 0.4,
+      "enterable": false,
+      "backgroundColor": "#fff",
+      "shadowBlur": 10,
+      "shadowColor": "rgba(0, 0, 0, .2)",
+      "shadowOffsetX": 1,
+      "shadowOffsetY": 2,
+      "borderRadius": 4,
+      "borderWidth": 1,
+      "padding": null,
+      "extraCssText": "",
+      "axisPointer": {
+        "type": "line",
+        "axis": "auto",
+        "animation": "auto",
+        "animationDurationUpdate": 200,
+        "animationEasingUpdate": "exponentialOut",
+        "crossStyle": {
+          "color": "#999",
+          "width": 1,
+          "type": "dashed",
+          "textStyle": {}
+        }
+      },
+      "textStyle": {
+        "color": "#666",
+        "fontSize": 14
+      }
+    }
+  ],
+  "geo": [
+    {
+      "map": {"name" : "flight-seats", "url" : "echarts/files/flight-seats.svg" },
+      "roam": true,
+      "selectedMode": "multiple",
+      "layoutCenter": [
+        "50%",
+        "50%"
+      ],
+      "layoutSize": "95%",
+      "tooltip": {
+        "show": true
+      },
+      "itemStyle": {
+        "color": "#fff",
+        "borderWidth": 0.5,
+        "borderColor": "#444"
+      },
+      "emphasis": {
+        "itemStyle": {
+          "borderColor": "green",
+          "borderWidth": 2
+        },
+        "label": {
+          "show": false,
+          "color": "rgb(100,0,0)"
+        }
+      },
+      "select": {
+        "itemStyle": {
+          "color": "green"
+        },
+        "label": {
+          "show": false,
+          "textBorderColor": "#fff",
+          "textBorderWidth": 2,
+          "color": "rgb(100,0,0)"
+        }
+      },
+      "regions": [
+        {
+          "name": "26E",
+          "silent": true,
+          "itemStyle": {
+            "color": "#bf0e08"
+          },
+          "emphasis": {
+            "itemStyle": {
+              "borderColor": "#aaa",
+              "borderWidth": 1
+            }
+          },
+          "select": {
+            "itemStyle": {
+              "color": "#bf0e08"
+            }
+          }
+        },
+        {
+          "name": "26D",
+          "silent": true,
+          "itemStyle": {
+            "color": "#bf0e08"
+          },
+          "emphasis": {
+            "itemStyle": {
+              "borderColor": "#aaa",
+              "borderWidth": 1
+            }
+          },
+          "select": {
+            "itemStyle": {
+              "color": "#bf0e08"
+            }
+          }
+        },
+        {
+          "name": "26C",
+          "silent": true,
+          "itemStyle": {
+            "color": "#bf0e08"
+          },
+          "emphasis": {
+            "itemStyle": {
+              "borderColor": "#aaa",
+              "borderWidth": 1
+            }
+          },
+          "select": {
+            "itemStyle": {
+              "color": "#bf0e08"
+            }
+          }
+        },
+        {
+          "name": "25D",
+          "silent": true,
+          "itemStyle": {
+            "color": "#bf0e08"
+          },
+          "emphasis": {
+            "itemStyle": {
+              "borderColor": "#aaa",
+              "borderWidth": 1
+            }
+          },
+          "select": {
+            "itemStyle": {
+              "color": "#bf0e08"
+            }
+          }
+        },
+        {
+          "name": "23C",
+          "silent": true,
+          "itemStyle": {
+            "color": "#bf0e08"
+          },
+          "emphasis": {
+            "itemStyle": {
+              "borderColor": "#aaa",
+              "borderWidth": 1
+            }
+          },
+          "select": {
+            "itemStyle": {
+              "color": "#bf0e08"
+            }
+          }
+        },
+        {
+          "name": "21A",
+          "silent": true,
+          "itemStyle": {
+            "color": "#bf0e08"
+          },
+          "emphasis": {
+            "itemStyle": {
+              "borderColor": "#aaa",
+              "borderWidth": 1
+            }
+          },
+          "select": {
+            "itemStyle": {
+              "color": "#bf0e08"
+            }
+          }
+        },
+        {
+          "name": "20F",
+          "silent": true,
+          "itemStyle": {
+            "color": "#bf0e08"
+          },
+          "emphasis": {
+            "itemStyle": {
+              "borderColor": "#aaa",
+              "borderWidth": 1
+            }
+          },
+          "select": {
+            "itemStyle": {
+              "color": "#bf0e08"
+            }
+          }
+        },
+        {
+          "name": "7G"
+        },
+        {
+          "name": "8G"
+        },
+        {
+          "name": "9G"
+        },
+        {
+          "name": "10G"
+        },
+        {
+          "name": "7F"
+        },
+        {
+          "name": "8F"
+        },
+        {
+          "name": "9F"
+        },
+        {
+          "name": "10F"
+        },
+        {
+          "name": "7E"
+        },
+        {
+          "name": "8E"
+        },
+        {
+          "name": "9E"
+        },
+        {
+          "name": "10E"
+        },
+        {
+          "name": "7A"
+        },
+        {
+          "name": "8A"
+        },
+        {
+          "name": "9A"
+        },
+        {
+          "name": "10A"
+        },
+        {
+          "name": "7B"
+        },
+        {
+          "name": "8B"
+        },
+        {
+          "name": "9B"
+        },
+        {
+          "name": "10B"
+        },
+        {
+          "name": "7C"
+        },
+        {
+          "name": "8C"
+        },
+        {
+          "name": "9C"
+        },
+        {
+          "name": "10C"
+        },
+        {
+          "name": "1G"
+        },
+        {
+          "name": "2G"
+        },
+        {
+          "name": "1F"
+        },
+        {
+          "name": "2F"
+        },
+        {
+          "name": "1A"
+        },
+        {
+          "name": "2A"
+        },
+        {
+          "name": "1B"
+        },
+        {
+          "name": "2B"
+        },
+        {
+          "name": "1E"
+        },
+        {
+          "name": "2E"
+        },
+        {
+          "name": "1C"
+        },
+        {
+          "name": "2C"
+        },
+        {
+          "name": "11G"
+        },
+        {
+          "name": "11F"
+        },
+        {
+          "name": "12G"
+        },
+        {
+          "name": "12F"
+        },
+        {
+          "name": "13G"
+        },
+        {
+          "name": "13F"
+        },
+        {
+          "name": "14G"
+        },
+        {
+          "name": "14F"
+        },
+        {
+          "name": "11A"
+        },
+        {
+          "name": "11B"
+        },
+        {
+          "name": "12A"
+        },
+        {
+          "name": "12B"
+        },
+        {
+          "name": "13A"
+        },
+        {
+          "name": "13B"
+        },
+        {
+          "name": "14A"
+        },
+        {
+          "name": "14B"
+        },
+        {
+          "name": "11C"
+        },
+        {
+          "name": "11E"
+        },
+        {
+          "name": "11D"
+        },
+        {
+          "name": "17C"
+        },
+        {
+          "name": "17E"
+        },
+        {
+          "name": "17D"
+        },
+        {
+          "name": "18C"
+        },
+        {
+          "name": "18E"
+        },
+        {
+          "name": "18D"
+        },
+        {
+          "name": "19C"
+        },
+        {
+          "name": "19E"
+        },
+        {
+          "name": "19D"
+        },
+        {
+          "name": "20C"
+        },
+        {
+          "name": "20E"
+        },
+        {
+          "name": "20D"
+        },
+        {
+          "name": "28C"
+        },
+        {
+          "name": "28E"
+        },
+        {
+          "name": "28D"
+        },
+        {
+          "name": "seat_351_"
+        },
+        {
+          "name": "seat_350_"
+        },
+        {
+          "name": "seat_349_"
+        },
+        {
+          "name": "30C"
+        },
+        {
+          "name": "30E"
+        },
+        {
+          "name": "30D"
+        },
+        {
+          "name": "31C"
+        },
+        {
+          "name": "31E"
+        },
+        {
+          "name": "31D"
+        },
+        {
+          "name": "33C"
+        },
+        {
+          "name": "33E"
+        },
+        {
+          "name": "33D"
+        },
+        {
+          "name": "34C"
+        },
+        {
+          "name": "34E"
+        },
+        {
+          "name": "34D"
+        },
+        {
+          "name": "32C"
+        },
+        {
+          "name": "32E"
+        },
+        {
+          "name": "32D"
+        },
+        {
+          "name": "21C"
+        },
+        {
+          "name": "21E"
+        },
+        {
+          "name": "21D"
+        },
+        {
+          "name": "23E"
+        },
+        {
+          "name": "23D"
+        },
+        {
+          "name": "24C"
+        },
+        {
+          "name": "24E"
+        },
+        {
+          "name": "24D"
+        },
+        {
+          "name": "25C"
+        },
+        {
+          "name": "25E"
+        },
+        {
+          "name": "27C"
+        },
+        {
+          "name": "27E"
+        },
+        {
+          "name": "27D"
+        },
+        {
+          "name": "22C"
+        },
+        {
+          "name": "22E"
+        },
+        {
+          "name": "22D"
+        },
+        {
+          "name": "29C"
+        },
+        {
+          "name": "29E"
+        },
+        {
+          "name": "29D"
+        },
+        {
+          "name": "12C"
+        },
+        {
+          "name": "12E"
+        },
+        {
+          "name": "12D"
+        },
+        {
+          "name": "13C"
+        },
+        {
+          "name": "13E"
+        },
+        {
+          "name": "13D"
+        },
+        {
+          "name": "14C"
+        },
+        {
+          "name": "14E"
+        },
+        {
+          "name": "14D"
+        },
+        {
+          "name": "17G"
+        },
+        {
+          "name": "17F"
+        },
+        {
+          "name": "18G"
+        },
+        {
+          "name": "18F"
+        },
+        {
+          "name": "19G"
+        },
+        {
+          "name": "19F"
+        },
+        {
+          "name": "20G"
+        },
+        {
+          "name": "21G"
+        },
+        {
+          "name": "21F"
+        },
+        {
+          "name": "22G"
+        },
+        {
+          "name": "22F"
+        },
+        {
+          "name": "23G"
+        },
+        {
+          "name": "23F"
+        },
+        {
+          "name": "24G"
+        },
+        {
+          "name": "24F"
+        },
+        {
+          "name": "25G"
+        },
+        {
+          "name": "25F"
+        },
+        {
+          "name": "26G"
+        },
+        {
+          "name": "26F"
+        },
+        {
+          "name": "27G"
+        },
+        {
+          "name": "27F"
+        },
+        {
+          "name": "28G"
+        },
+        {
+          "name": "28F"
+        },
+        {
+          "name": "29G"
+        },
+        {
+          "name": "29F"
+        },
+        {
+          "name": "30G"
+        },
+        {
+          "name": "30F"
+        },
+        {
+          "name": "31G"
+        },
+        {
+          "name": "31F"
+        },
+        {
+          "name": "32G"
+        },
+        {
+          "name": "32F"
+        },
+        {
+          "name": "seat_225_"
+        },
+        {
+          "name": "34F"
+        },
+        {
+          "name": "33G"
+        },
+        {
+          "name": "33F"
+        },
+        {
+          "name": "17A"
+        },
+        {
+          "name": "17B"
+        },
+        {
+          "name": "18A"
+        },
+        {
+          "name": "18B"
+        },
+        {
+          "name": "19A"
+        },
+        {
+          "name": "19B"
+        },
+        {
+          "name": "20A"
+        },
+        {
+          "name": "20B"
+        },
+        {
+          "name": "21B"
+        },
+        {
+          "name": "22A"
+        },
+        {
+          "name": "22B"
+        },
+        {
+          "name": "23A"
+        },
+        {
+          "name": "23B"
+        },
+        {
+          "name": "24A"
+        },
+        {
+          "name": "24B"
+        },
+        {
+          "name": "25A"
+        },
+        {
+          "name": "25B"
+        },
+        {
+          "name": "26A"
+        },
+        {
+          "name": "26B"
+        },
+        {
+          "name": "27A"
+        },
+        {
+          "name": "27B"
+        },
+        {
+          "name": "28A"
+        },
+        {
+          "name": "28B"
+        },
+        {
+          "name": "29A"
+        },
+        {
+          "name": "29B"
+        },
+        {
+          "name": "30A"
+        },
+        {
+          "name": "30B"
+        },
+        {
+          "name": "31A"
+        },
+        {
+          "name": "31B"
+        },
+        {
+          "name": "32A"
+        },
+        {
+          "name": "32B"
+        },
+        {
+          "name": "34A"
+        },
+        {
+          "name": "34B"
+        },
+        {
+          "name": "33A"
+        },
+        {
+          "name": "33B"
+        }
+      ],
+      "zlevel": 0,
+      "z": 0,
+      "show": true,
+      "left": "center",
+      "top": "center",
+      "aspectScale": null,
+      "silent": false,
+      "boundingCoords": null,
+      "center": null,
+      "zoom": 1,
+      "scaleLimit": null,
+      "label": {
+        "show": false,
+        "color": "#000"
+      },
+      "selectedMap": {}
+    }
+  ],
+  "series": [],
+  "visualMap": [],
+  "legend": [],
+  "markArea": [],
+  "markLine": [],
+  "markPoint": [],
+  "brush": [],
+  "dataZoom": []
+}

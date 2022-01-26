@@ -83,11 +83,13 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 								'BoxGeometry',
 								'SphereGeometry',
 								'CapsuleGeometry',
+								'CylinderGeometry',
 							],
 							change: () => {
 								switch (this.controls.geometry) {
 									case 'CapsuleGeometry':
 									case 'SphereGeometry':
+									case 'CylinderGeometry':
 										this.controls.repeatX = 2;
 										this.controls.repeatY = 1;
 										break;
@@ -463,6 +465,75 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 			switch (this.lastLoadedExample) {
 				case 'bar-vertical':
 				case 'bar-horizontal':
+				case 'bar-stacked':
+				case 'bar-stacked-groups':
+				case 'bar-floating':
+				case 'bar-border-radius ':
+				case 'line-line':
+				case 'line-multi-axis':
+				case 'line-stepped':
+				case 'line-interpolation':
+				case 'line-styling':
+				case 'line-segments':
+				case 'other-bubble':
+				case 'other-scatter':
+				case 'other-scatter-multi-axis':
+				case 'other-doughnut':
+				case 'other-pie':
+				case 'other-multi-series-pie':
+				case 'other-polar-area ':
+				case 'other-polar-area-center-labels ':
+				case 'other-radar ':
+				case 'other-radar-skip-points ':
+				case 'other-combo-bar-line ':
+				case 'other-stacked-bar-line ':
+				case 'area-line-boundaries ':
+				case 'area-line-datasets ':
+				case 'area-line-drawtime ':
+				case 'area-line-stacked ':
+				case 'area-radar ':
+				case 'scales-linear-min-max ':
+				case 'scales-linear-min-max-suggested ':
+				case 'scales-linear-step-size ':
+				case 'scales-log ':
+				case 'scales-time-line ':
+				case 'scales-time-max-span ':
+				case 'scales-time-combo ':
+				case 'scales-stacked ':
+				case 'scales-grid-options ':
+				case 'scales-ticks-options ':
+				case 'scales-titles-options ':
+				case 'scales-center-options ':
+				case 'legend-position ':
+				case 'legend-title ':
+				case 'legend-point-style ':
+				case 'legend-events ':
+				case 'legend-html ':
+				case 'title-alignment ':
+				case 'title-subtitle ':
+				case 'tooltip-position ':
+				case 'tooltip-interactions ':
+				case 'tooltip-point-style ':
+				case 'tooltip-content ':
+				case 'tooltip-html ':
+				case 'scriptable-bar ':
+				case 'scriptable-bubble ':
+				case 'scriptable-pie ':
+				case 'scriptable-line ':
+				case 'scriptable-polar ':
+				case 'scriptable-radar ':
+				case 'animations-delay ':
+				case 'animations-drop ':
+				case 'animations-loop ':
+				case 'animations-progressive-line ':
+				case 'animations-progressive-line-easing ':
+				case 'advanced-data-decimation ':
+				case 'advanced-progress-bar ':
+				case 'advanced-radial-gradient ':
+				case 'advanced-linear-gradient ':
+				case 'advanced-programmatic-events ':
+				case 'advanced-derived-axis-type ':
+				case 'advanced-derived-chart-type ':
 					this.jsonFileLoad(
 						'chartjs/' + this.lastLoadedExample + '.json',
 						(option: any) => {
@@ -503,61 +574,97 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 				default:
 					console.log(this.lastLoadedExample + '.json');
 					const Utils = ChartUtils;
+					const Chart = chartjs.Chart;
 
-					const DATA_COUNT = 7;
-					const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
-
-					const labels = Utils.months({ count: 7 });
+					const DATA_COUNT = 5;
+					const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};
+					
+					const labels = Utils.months({count: 7});
 					const data = {
-						labels: labels,
-						datasets: [
-							{
-								label: 'Dataset 1',
-								data: Utils.numbers(NUMBER_CFG),
-								borderColor: Utils.CHART_COLORS.red,
-								backgroundColor: Utils.transparentize(
-									Utils.CHART_COLORS.red,
-									0.5
-								),
-							},
-							{
-								label: 'Dataset 2',
-								data: Utils.numbers(NUMBER_CFG),
-								borderColor: Utils.CHART_COLORS.blue,
-								backgroundColor: Utils.transparentize(
-									Utils.CHART_COLORS.blue,
-									0.5
-								),
-							},
-						],
+					  labels: ['Overall Yay', 'Overall Nay', 'Group A Yay', 'Group A Nay', 'Group B Yay', 'Group B Nay', 'Group C Yay', 'Group C Nay'],
+					  datasets: [
+						{
+						  backgroundColor: ['#AAA', '#777'],
+						  data: [21, 79]
+						},
+						{
+						  backgroundColor: ['hsl(0, 100%, 60%)', 'hsl(0, 100%, 35%)'],
+						  data: [33, 67]
+						},
+						{
+						  backgroundColor: ['hsl(100, 100%, 60%)', 'hsl(100, 100%, 35%)'],
+						  data: [20, 80]
+						},
+						{
+						  backgroundColor: ['hsl(180, 100%, 60%)', 'hsl(180, 100%, 35%)'],
+						  data: [10, 90]
+						}
+					  ]
 					};
-
-					this.option = {
-						type: 'bar',
+					const config = {
+						type: 'pie',
 						data: data,
 						options: {
-							indexAxis: 'y',
-							// Elements options apply to all of the options unless overridden in a dataset
-							// In this case, we are setting the border of each horizontal bar to be 2px wide
-							elements: {
-								bar: {
-									borderWidth: 2,
-								},
+						  responsive: true,
+						  plugins: {
+							legend: {
+							  labels: {
+								generateLabels: function(chart) {
+								  // Get the default label list
+								  const original = Chart.overrides.pie.plugins.legend.labels.generateLabels;
+								  const labelsOriginal = original.call(this, chart);
+					  
+								  // Build an array of colors used in the datasets of the chart
+								  let datasetColors = chart.data.datasets.map(function(e) {
+									return e.backgroundColor;
+								  });
+								  datasetColors = datasetColors.flat();
+					  
+								  // Modify the color and hide state of each label
+								  labelsOriginal.forEach(label => {
+									// There are twice as many labels as there are datasets. This converts the label index into the corresponding dataset index
+									label.datasetIndex = (label.index - label.index % 2) / 2;
+					  
+									// The hidden state must match the dataset's hidden state
+									label.hidden = !chart.isDatasetVisible(label.datasetIndex);
+					  
+									// Change the color to match the dataset
+									label.fillStyle = datasetColors[label.index];
+								  });
+					  
+								  return labelsOriginal;
+								}
+							  },
+							  onClick: function(mouseEvent, legendItem, legend) {
+								// toggle the visibility of the dataset from what it currently is
+								legend.chart.getDatasetMeta(
+								  legendItem.datasetIndex
+								).hidden = legend.chart.isDatasetVisible(legendItem.datasetIndex);
+								legend.chart.update();
+							  }
 							},
-							responsive: true,
-							plugins: {
-								legend: {
-									position: 'right',
-								},
-								title: {
-									display: true,
-									text: 'Chart.js Horizontal Bar Chart',
-								},
-							},
+							tooltip: {
+							  callbacks: {
+								label: function(context) {
+								  const labelIndex = (context.datasetIndex * 2) + context.dataIndex;
+								  return context.chart.data.labels[labelIndex] + ': ' + context.formattedValue;
+								}
+							  }
+							}
+						  }
 						},
-					};
+					  };
 
-					console.log(JSON.stringify(this.option, null, 2));
+					this.option = config;
+
+					function replacer(key, value) {
+						if (typeof value === 'function') {
+							return value.toString();
+						}
+						return value;
+					}
+
+					console.log(JSON.stringify(this.option, replacer, 2));
 
 					break;
 			}
