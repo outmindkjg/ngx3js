@@ -36856,6 +36856,7 @@
         "x": 0,
         "y": 0
       },
+      "renderItem" : "function (params, api) { var x = api.value(0), y = api.value(1), dx = api.value(2), dy = api.value(3); var start = api.coord([x - dx / 2, y - dy / 2]); var end = api.coord([x + dx / 2, y + dy / 2]); return { type: 'line', shape: { x1: start[0], y1: start[1], x2: end[0], y2: end[1]}, style: { lineWidth: 2, stroke: '#fff', opacity: 0.2 } } }",
       "coordinateSystem": "cartesian2d",
       "zlevel": 0,
       "z": 2,

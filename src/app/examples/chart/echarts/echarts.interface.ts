@@ -802,7 +802,7 @@ export interface EChartOption {
 	/**
 	 * @see https://echarts.apache.org/en/option.html#series
 	 */
-	series?: any[] | undefined;
+	series?: any[] | any;
 
 	/**
 	 * The color list of palette.
@@ -973,9 +973,11 @@ export interface EChartOption {
 	 */
 	useUTC?: boolean | undefined;
 
-	globe? : any;
+	globe? : any[];
 
 	url ? : string;
+
+	grid3D? : any[];
 	
 }
 

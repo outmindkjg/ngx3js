@@ -247,7 +247,7 @@
   ],
   "geo": [
     {
-      "map": "sicily",
+      "map": { "name" : "sicily", "url" : "echart/files/Sicily_prehellenic_topographic_map.svg"},
       "roam": true,
       "layoutCenter": [
         "50%",

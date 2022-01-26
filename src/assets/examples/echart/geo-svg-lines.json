@@ -276,7 +276,7 @@
   ],
   "geo": [
     {
-      "map": "MacOdrum-LV5-floorplan-web",
+      "map": { "name" : "MacOdrum-LV5-floorplan-web", "url" : "echart/files/MacOdrum-LV5-floorplan-web.svg"},
       "roam": true,
       "emphasis": {
         "itemStyle": {},

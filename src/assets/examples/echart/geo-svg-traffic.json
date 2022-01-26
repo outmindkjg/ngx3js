@@ -247,7 +247,7 @@
   ],
   "geo": [
     {
-      "map": "ksia-ext-plan",
+      "map": { "name" : "ksia-ext-plan", "url" : "echart/files/ksia-ext-plan-min.svg"},
       "roam": true,
       "layoutCenter": [
         "50%",

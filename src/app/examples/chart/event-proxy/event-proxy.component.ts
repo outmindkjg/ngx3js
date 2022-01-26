@@ -1,10 +1,12 @@
-import { Component, forwardRef, OnInit, SimpleChanges } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, SimpleChanges } from '@angular/core';
 import {
 	I3JS,
 	IRendererEvent,
+	IRendererTimer,
 	N3JS,
 	NgxAbstractObject3dComponent,
 	NgxAbstractRendererEventComponent,
+	NgxAbstractRendererUpdateComponent,
 	NgxAbstractSubscribeComponent,
 	NgxThreeUtil,
 } from 'ngx3js';
@@ -38,6 +40,10 @@ import {
 			provide: NgxAbstractRendererEventComponent,
 			useExisting: forwardRef(() => NgxEventProxyComponent),
 		},
+		{
+			provide: NgxAbstractRendererUpdateComponent,
+			useExisting: forwardRef(() => NgxEventProxyComponent),
+		},
 	],
 })
 export class NgxEventProxyComponent
@@ -45,6 +51,8 @@ export class NgxEventProxyComponent
 	implements OnInit
 {
 	public eventTypes: string[] = ['pointermove', 'click'];
+
+	@Input() public lookatCamera : boolean = false;
 
 	/**
 	 * Creates an instance of mesh component.
@@ -111,6 +119,11 @@ export class NgxEventProxyComponent
 		return false;
 	}
 
+	/**
+	 * Sets canvas texture
+	 * 
+	 * @param map 
+	 */
 	private setCanvasTexture(map : I3JS.CanvasTexture) {
 		this._parentTexture = map;
 		this._parentTextureCanvas = this._parentTexture.image;
@@ -125,6 +138,7 @@ export class NgxEventProxyComponent
 	private _parentTexture: I3JS.Texture = null;
 	private _parentTextureCanvas: HTMLCanvasElement = null;
 	private _mapCanvasSize : I3JS.Vector2 = null;
+
 	/**
 	 * Applys changes3d
 	 * @param changes
@@ -231,6 +245,12 @@ export class NgxEventProxyComponent
 		}
 	}
 
+	/**
+	 * Gets virtual event
+	 * 
+	 * @param renderEvent 
+	 * @returns virtual event 
+	 */
 	protected getVirtualEvent(renderEvent: IRendererEvent): MouseEvent {
 		const intersectMove = this.getIntersection(
 			renderEvent.mouse,
@@ -259,6 +279,11 @@ export class NgxEventProxyComponent
 		return null;
 	}
 
+	/**
+	 * Updates event
+	 * 
+	 * @param renderEvent 
+	 */
 	public updateEvent(renderEvent: IRendererEvent) {
 		if (this._parentTextureCanvas !== null) {
 			switch (renderEvent.type) {
@@ -267,17 +292,29 @@ export class NgxEventProxyComponent
 					const virtualEventClick = this.getVirtualEvent(renderEvent);
 					if (virtualEventClick !== null) {
 						this._parentTextureCanvas.dispatchEvent(virtualEventClick);
-						console.log(virtualEventClick);
 					}
 					break;
 				case 'pointermove':
 					const virtualEventMove = this.getVirtualEvent(renderEvent);
 					if (virtualEventMove !== null) {
 						this._parentTextureCanvas.dispatchEvent(virtualEventMove);
-						this.consoleLogTime('event', virtualEventMove, 500);
 					}
 					break;
 			}
+		}
+	}
+
+	/**
+	 * Updates ngx event proxy component
+	 * 
+	 * @param renderTimer 
+	 */
+	public update(renderTimer: IRendererTimer) {
+		if (this._parentTexture !== null) {
+			this._parentTexture.needsUpdate = true;
+		}
+		if (this._parentMesh !== null && this.lookatCamera && renderTimer.event.mainCamera !== null) {
+			this._parentMesh.lookAt(renderTimer.event.mainCamera.position);
 		}
 	}
 }

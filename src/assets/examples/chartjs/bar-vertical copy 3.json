@@ -1,0 +1,56 @@
+{
+    "type": "bar",
+    "data": {
+      "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July"
+      ],
+      "datasets": [
+        {
+          "label": "Dataset 1",
+          "data": [
+            -13.87860082,
+            0.84533608,
+            -16.73525377,
+            -49.33641975,
+            90.69615912,
+            -16.39060357,
+            -42.20164609
+          ],
+          "borderColor": "rgb(255, 99, 132)",
+          "backgroundColor": "rgba(255, 99, 132, 0.5)"
+        },
+        {
+          "label": "Dataset 2",
+          "data": [
+            -21.30486968,
+            70.99108368,
+            74.19238683,
+            -68.49108368,
+            -87.92352538,
+            -33.48765432,
+            15.80418381
+          ],
+          "borderColor": "rgb(54, 162, 235)",
+          "backgroundColor": "rgba(54, 162, 235, 0.5)"
+        }
+      ]
+    },
+    "options": {
+      "responsive": true,
+      "plugins": {
+        "legend": {
+          "position": "top"
+        },
+        "title": {
+          "display": true,
+          "text": "Chart.js Bar Chart"
+        }
+      }
+    }
+  }

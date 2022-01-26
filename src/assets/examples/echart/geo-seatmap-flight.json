@@ -247,7 +247,7 @@
   ],
   "geo": [
     {
-      "map": "flight-seats",
+      "map": {"name" : "flight-seats", "url" : "echart/files/flight-seats.svg" },
       "roam": true,
       "selectedMode": "multiple",
       "layoutCenter": [

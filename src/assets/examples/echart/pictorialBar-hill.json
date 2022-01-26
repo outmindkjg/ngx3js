@@ -489,7 +489,7 @@
         },
         {
           "value": 8844,
-          "symbol": "image://echart/files/hill-Qomolangma.png",
+          "symbol": "image://assets/examples/echart/files/hill-Qomolangma.png",
           "symbolSize": [
             "200%",
             "105%"
@@ -499,7 +499,7 @@
         },
         {
           "value": 5895,
-          "symbol": "image://echart/files/hill-Kilimanjaro.png",
+          "symbol": "image://assets/examples/echart/files/hill-Kilimanjaro.png",
           "symbolSize": [
             "200%",
             "105%"

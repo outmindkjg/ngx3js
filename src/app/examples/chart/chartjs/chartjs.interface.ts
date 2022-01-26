@@ -4134,8 +4134,9 @@ export interface ChartConfiguration<
 	TData = DefaultDataPoint<TType>,
 	TLabel = unknown
 > {
-	type: TType;
-	data: ChartData<TType, TData, TLabel>;
+	type?: TType;
+	url? : string;
+	data?: ChartData<TType, TData, TLabel>;
 	options?: ChartOptions<TType>;
 	plugins?: Plugin<TType>[];
 }

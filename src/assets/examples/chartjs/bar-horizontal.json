@@ -1,0 +1,62 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          -8.33333333,
+          -66.44890261,
+          -60.57270233,
+          4.35699588,
+          -39.56104252,
+          99.03120713,
+          -73.69341564
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255, 99, 132, 0.5)"
+      },
+      {
+        "label": "Dataset 2",
+        "data": [
+          52.14163237,
+          12.3388203,
+          24.18209877,
+          75.32578875,
+          -53.98319616,
+          -35.34979424,
+          96.65809328
+        ],
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgba(54, 162, 235, 0.5)"
+      }
+    ]
+  },
+  "options": {
+    "indexAxis": "y",
+    "elements": {
+      "bar": {
+        "borderWidth": 2
+      }
+    },
+    "responsive": true,
+    "plugins": {
+      "legend": {
+        "position": "right"
+      },
+      "title": {
+        "display": true,
+        "text": "Chart.js Horizontal Bar Chart"
+      }
+    }
+  }
+}

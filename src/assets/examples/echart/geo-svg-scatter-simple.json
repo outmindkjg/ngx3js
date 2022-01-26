@@ -250,7 +250,7 @@
       "tooltip": {
         "show": true
       },
-      "map": "iceland_svg",
+      "map": { "name" : "iceland_svg", "url" : "echart/files/Map_of_Iceland.svg"},
       "roam": true,
       "zlevel": 0,
       "z": 0,

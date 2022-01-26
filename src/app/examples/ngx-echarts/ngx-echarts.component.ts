@@ -15,6 +15,14 @@ import {
 	NgxThreeUtil,
 } from 'ngx3js';
 
+interface SeriesDataTypes {
+	count: number;
+	min: number;
+	max: number;
+	decimals: number;
+	type: string;
+}
+
 @Component({
 	selector: 'app-ngx-echarts',
 	templateUrl: './ngx-echarts.component.html',
@@ -22,9 +30,9 @@ import {
 })
 export class NgxEChartsComponent extends NgxBaseComponent<{
 	geometry: string;
+	autoLookat: boolean;
 	type: number;
 	example: string;
-	chartType: string;
 	width: number;
 	height: number;
 	canvasSize: number;
@@ -35,15 +43,18 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 	backgroundTransparent: boolean;
 	backgroundColor: number;
 	backgroundOpacity: number;
-	refresh: () => void;
+	repeatX: number;
+	repeatY: number;
+	wrap: string;
+	randomData: () => void;
 }> {
 	constructor(private route: ActivatedRoute) {
 		super(
 			{
 				geometry: 'BoxGeometry',
+				autoLookat: false,
 				type: 0,
-				example: 'line-smooth',
-				chartType: 'bar',
+				example: 'pie-simple',
 				width: 2,
 				height: 2,
 				canvasSize: 512,
@@ -52,9 +63,12 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 				materialOpacity: 1,
 				materialColor: 0xffffff,
 				backgroundTransparent: false,
-				backgroundColor: 0xffffff,
-				backgroundOpacity: 0.1,
-				refresh: () => {
+				backgroundColor: 0x111111,
+				backgroundOpacity: 0.6,
+				repeatX: 1,
+				repeatY: 1,
+				wrap: 'ClampToEdgeWrapping',
+				randomData: () => {
 					this.refreshChart();
 				},
 			},
@@ -68,6 +82,23 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 							title: 'type',
 							type: 'select',
 							select: ['PlaneGeometry', 'BoxGeometry', 'SphereGeometry'],
+							change: () => {
+								switch (this.controls.geometry) {
+									case 'SphereGeometry':
+										this.controls.repeatX = 2;
+										this.controls.repeatY = 1;
+										break;
+									default:
+										this.controls.repeatX = 1;
+										this.controls.repeatY = 1;
+										break;
+								}
+							},
+						},
+						{
+							name: 'autoLookat',
+							title: 'Lookat Camera',
+							type: 'checkbox',
 						},
 						{
 							name: 'width',
@@ -96,9 +127,37 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 							name: 'canvasSize',
 							title: 'Size',
 							type: 'number',
-							min: 512,
-							max: 2048,
+							min: 212,
+							max: 1024,
 							step: 1,
+						},
+						{
+							name: 'repeatX',
+							title: 'repeat-X',
+							type: 'number',
+							listen: true,
+							min: 0.5,
+							max: 3,
+							step: 0.5,
+						},
+						{
+							name: 'repeatY',
+							title: 'repeat-Y',
+							type: 'number',
+							listen: true,
+							min: 0.5,
+							max: 3,
+							step: 0.5,
+						},
+						{
+							name: 'wrap',
+							title: 'Wrapping Modes',
+							type: 'select',
+							select: [
+								'RepeatWrapping',
+								'ClampToEdgeWrapping',
+								'MirroredRepeatWrapping',
+							],
 						},
 						{
 							name: 'backgroundTransparent',
@@ -144,6 +203,9 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 								'MeshStandardMaterial',
 								'MeshPhongMaterial',
 								'MeshLambertMaterial',
+								'MeshBasicMaterial',
+								'MeshPhysicalMaterial',
+								'MeshToonMaterial',
 							],
 						},
 						{
@@ -164,7 +226,8 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 					],
 				},
 				{
-					name: 'refresh',
+					name: 'randomData',
+					title: 'Data Randomize',
 					type: 'button',
 				},
 			],
@@ -221,69 +284,241 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 	private lastLoadedExample: string = null;
 	private chart: ECHARTS.ECharts = null;
 
+	private intervalRunTimer: any = null;
 	public setChart(chart: ECHARTS.ECharts) {
 		this.chart = chart;
-		console.log(this.chart.getOption());
+		if (this.intervalRunTimer !== null) {
+			window.clearInterval(this.intervalRunTimer);
+			this.intervalRunTimer = null;
+		}
+		switch (this.lastLoadedExample) {
+			case 'gauge-clock':
+				this.intervalRunTimer = window.setInterval(() => {
+					var date = new Date();
+					var second = date.getSeconds();
+					var minute = date.getMinutes() + second / 60;
+					var hour = (date.getHours() % 12) + minute / 60;
+					this.chart.setOption({
+						series: [
+							{
+								name: 'hour',
+								animation: hour !== 0,
+								data: [{ value: hour }],
+							},
+							{
+								name: 'minute',
+								animation: minute !== 0,
+								data: [{ value: minute }],
+							},
+							{
+								animation: second !== 0,
+								name: 'second',
+								data: [{ value: second }],
+							},
+						],
+					});
+				}, 1000);
+				break;
+		}
 	}
 
 	private refreshChart() {
 		if (this.chart !== null) {
 			const option = this.chart.getOption();
-			if (option.series.length > 0) {
-				option.series.forEach(series => {
-					if (series.data && series.data.length > 0 && typeof series.data[0] === 'number') {
-						const max = Math.max(...series.data);
-						const min = Math.min(...series.data);
-						const step = (max - min) * Math.random() * 0.3;
-						series.data = ChartUtils.numbers({ count : series.data.length, min : min - step, max : max + step});
-					}
-				})
-				this.option = option;
-				this.optionSeqn = NgxThreeUtil.getUUID();
+			if (NgxThreeUtil.isNotNull(option.series)) {
+				if (Array.isArray(option.series)) {
+					this.seriesDataTypes.forEach((dataType, idx) => {
+						option.series[idx].data = this.getRandomSeriesData(
+							dataType,
+							option.series[idx].data
+						);
+					});
+				} else if (this.seriesDataTypes.length > 0) {
+					const dataType = this.seriesDataTypes[0];
+					option.series.data = this.getRandomSeriesData(
+						dataType,
+						option.series.data
+					);
+				}
+				this.option = Object.assign({}, option);
 			}
-		} 
+		}
+	}
+
+	private getRandomSeriesData(
+		dataType: SeriesDataTypes,
+		oldData: any[]
+	): any[] {
+		switch (dataType.type) {
+			case 'number':
+				oldData = ChartUtils.numbers(dataType);
+				break;
+			case 'value':
+				const valueList = ChartUtils.numbers(dataType);
+				oldData.forEach((obj, idx) => {
+					obj.value = valueList[idx];
+				});
+				break;
+			case 'xy':
+				const valueListX = ChartUtils.numbers(dataType);
+				const valueListY = ChartUtils.numbers(dataType);
+				oldData.forEach((obj, idx) => {
+					obj.x = valueListX[idx];
+					obj.y = valueListY[idx];
+				});
+				break;
+			case 'array':
+				{
+					const valuePairList: number[][] = [];
+					for (let i = 0; i < oldData[0].length; i++) {
+						if (typeof oldData[0][i] === 'number') {
+							valuePairList.push(ChartUtils.numbers(dataType));
+						} else {
+							break;
+						}
+					}
+					valuePairList[0].forEach((_, idx) => {
+						const data: number[] = oldData[idx];
+						valuePairList.forEach((value, seq) => {
+							data[seq] = value[idx];
+						});
+					});
+				}
+				break;
+			case 'valuearray':
+				{
+					const valuePairList: number[][] = [];
+					for (let i = 0; i < oldData[0]['value'].length; i++) {
+						if (typeof oldData[0]['value'][i] === 'number') {
+							valuePairList.push(ChartUtils.numbers(dataType));
+						} else {
+							break;
+						}
+					}
+					if (valuePairList.length > 0) {
+						valuePairList[0].forEach((_, idx) => {
+							const data: number[] = oldData[idx]['value'] || [];
+							valuePairList.forEach((value, seq) => {
+								data[seq] = value[idx];
+							});
+						});
+					}
+				}
+				break;
+		}
+		return oldData;
+	}
+
+	private seriesDataTypes: SeriesDataTypes[] = [];
+
+	private getSeriesDataTypes(data: any[]): SeriesDataTypes {
+		const seriesDataTypes = {
+			count: data.length,
+			min: 0,
+			max: 0,
+			decimals: 2,
+			type: 'none',
+		};
+		if (data.length > 0) {
+			const firstData = data[0];
+			if (typeof firstData === 'number') {
+				seriesDataTypes.max = Math.max(...data);
+				seriesDataTypes.min = Math.min(...data);
+				seriesDataTypes.type = 'number';
+			} else if (NgxThreeUtil.isNotNull(firstData.value)) {
+				if (typeof firstData.value === 'number') {
+					const valueList: number[] = [];
+					data.forEach((obj) => {
+						valueList.push(obj.value);
+					});
+					seriesDataTypes.max = Math.max(...valueList);
+					seriesDataTypes.min = Math.min(...valueList);
+					seriesDataTypes.type = 'value';
+				} else if (
+					Array.isArray(firstData.value) &&
+					typeof firstData.value[0] === 'number'
+				) {
+					const valueList: number[] = [];
+					data.forEach((obj) => {
+						valueList.push(...obj.value);
+					});
+					seriesDataTypes.max = Math.max(...valueList);
+					seriesDataTypes.min = Math.min(...valueList);
+					seriesDataTypes.type = 'valuearray';
+				}
+			} else if (
+				NgxThreeUtil.isNotNull(firstData.x) &&
+				NgxThreeUtil.isNotNull(firstData.y)
+			) {
+				const valueList: number[] = [];
+				data.forEach((obj) => {
+					valueList.push(obj.x, obj.y);
+				});
+				seriesDataTypes.max = Math.max(...valueList);
+				seriesDataTypes.min = Math.min(...valueList);
+				seriesDataTypes.type = 'xy';
+			} else if (Array.isArray(firstData) && typeof firstData[0] === 'number') {
+				const valueList: number[] = [];
+				data.forEach((obj) => {
+					obj.forEach((value) => {
+						if (typeof value === 'number') {
+							valueList.push(value);
+						}
+					});
+				});
+				seriesDataTypes.max = Math.max(...valueList);
+				seriesDataTypes.min = Math.min(...valueList);
+				seriesDataTypes.type = 'array';
+			}
+		}
+		if (seriesDataTypes.max > 0 && seriesDataTypes.max <= seriesDataTypes.min) {
+			seriesDataTypes.min = seriesDataTypes.max * 0.2;
+		}
+		return seriesDataTypes;
 	}
 
 	private changeExample() {
 		if (this.lastLoadedExample !== this.controls.example) {
 			this.lastLoadedExample = this.controls.example;
-			this.option = {
-				url : 'echart/' + this.lastLoadedExample + '.json'
-			}
-			this.optionSeqn = NgxThreeUtil.getUUID();
-			this.getTimeout().then(() => {
-				console.log(this.option);
-			});
-			return;
+			this.chartTypeName = 'No Name';
+			this.exampleList.forEach(example => {
+				if (example.url === this.lastLoadedExample) {
+					this.chartTypeName = example.name;
+				}
+			})			
 			this.jsonFileLoad(
 				'echart/' + this.lastLoadedExample + '.json',
 				(option: any) => {
 					this.option = option;
-					switch (this.lastLoadedExample) {
-						case 'flowGL-noise':
-							this.option.series[1].renderItem = (params, api) => {
-								var x = api.value(0),
-									y = api.value(1),
-									dx = api.value(2),
-									dy = api.value(3);
-								var start = api.coord([x - dx / 2, y - dy / 2]);
-								var end = api.coord([x + dx / 2, y + dy / 2]);
-								return {
-									type: 'line',
-									shape: {
-										x1: start[0],
-										y1: start[1],
-										x2: end[0],
-										y2: end[1],
-									},
-									style: {
-										lineWidth: 2,
-										stroke: '#fff',
-										opacity: 0.2,
-									},
-								};
-							};
-							break;
+					this.optionSeqn = NgxThreeUtil.getUUID();
+					this.seriesDataTypes = [];
+					if (NgxThreeUtil.isNotNull(option.series)) {
+						if (Array.isArray(option.series)) {
+							option.series.forEach((series) => {
+								if (Array.isArray(series.data)) {
+									this.seriesDataTypes.push(
+										this.getSeriesDataTypes(series.data)
+									);
+								}
+							});
+						} else if (Array.isArray(option.series.data)) {
+							this.seriesDataTypes.push(
+								this.getSeriesDataTypes(option.series.data)
+							);
+						}
+					}
+					const guiController = NgxThreeUtil.getGuiController(
+						this.renderer.gui,
+						'randomData'
+					);
+					if (guiController) {
+						let hasRandom: boolean = false;
+						this.seriesDataTypes.forEach((type) => {
+							if (type.type !== 'none') {
+								hasRandom = true;
+							}
+						});
+						NgxThreeUtil.setGuiEnabled(guiController, hasRandom);
 					}
 				}
 			);
@@ -301,16 +536,7 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 
 	canvasBackground: number = null;
 	canvasBackgroundOpacity: number = null;
-	requiredMaps: { [key: string]: any } = {};
-	chartType: string = null;
-	chartSeries: any[] = [];
-	xAxis: any = null;
-	yAxis: any = null;
-	tooltip: any = null;
-	grid: any = null;
-	title: any = null;
-	legend: any = null;
-	radar: any = null;
+	chartTypeName: string = null;
 
 	private jsonFileLoad(url: string, callBack: (data: any) => void) {
 		const fileLoader: I3JS.FileLoader = NgxThreeUtil.getLoader(
@@ -366,45 +592,9 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 		});
 	}
 
-	private setChartOptions(options: any) {
-		this.chartSeries = null;
-		this.xAxis = null;
-		this.yAxis = null;
-		this.tooltip = null;
-		this.grid = null;
-		this.title = null;
-		this.legend = null;
-		this.radar = null;
-		if (options.title) {
-			this.title = options.title;
-		}
-		if (options.xAxis) {
-			this.xAxis = options.xAxis;
-		}
-		if (options.yAxis) {
-			this.yAxis = options.yAxis;
-		}
-		if (options.tooltip) {
-			this.tooltip = options.tooltip;
-		}
-		if (options.grid) {
-			this.grid = options.grid;
-		}
-		if (options.legend) {
-			this.legend = options.legend;
-		}
-		if (options.series) {
-			this.chartSeries = options.series;
-		}
-		if (options.radar) {
-			this.radar = options.radar;
-		}
-	}
-
 	echarts: any = echarts;
 
 	setScene(scene: NgxSceneComponent): void {
 		super.setScene(scene);
-		// console.log((scene as any).object3dList);
 	}
 }
