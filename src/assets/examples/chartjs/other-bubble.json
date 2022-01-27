@@ -15,85 +15,85 @@
         "label": "Dataset 1",
         "data": [
           {
-            "x": 48.1515775,
-            "y": 89.08864883,
-            "r": 5.646604938271605
+            "x": 57.81550069,
+            "y": 27.97067901,
+            "r": 5.172668038408779
           },
           {
-            "x": 76.70696159,
-            "y": 46.55349794,
-            "r": 11.185742455418382
+            "x": 51.39146091,
+            "y": 81.32030178,
+            "r": 13.098636831275721
           },
           {
-            "x": 5.15946502,
-            "y": 49.59447874,
-            "r": 10.703789437585733
+            "x": 57.21021948,
+            "y": 11.11025377,
+            "r": 12.5343792866941
           },
           {
-            "x": 71.78069273,
-            "y": 43.89060357,
-            "r": 8.058770576131687
+            "x": 20.95078875,
+            "y": 81.53806584,
+            "r": 14.374957133058984
           },
           {
-            "x": 77.80521262,
-            "y": 82.52829218,
-            "r": 6.7383401920438954
+            "x": 95.69958848,
+            "y": 75.31978738,
+            "r": 13.589506172839506
           },
           {
-            "x": 65.20833333,
-            "y": 70.44581619,
-            "r": 5.415337791495199
+            "x": 86.39489026,
+            "y": 4.80109739,
+            "r": 8.110125171467764
           },
           {
-            "x": 61.1505487,
-            "y": 75.54441015,
-            "r": 10.170010288065843
+            "x": 60.93792867,
+            "y": 89.7350823,
+            "r": 14.387431412894376
           }
         ],
         "borderColor": "rgb(255, 99, 132)",
-        "backgroundColor": "rgba(255, 99, 132, 0.5)"
+        "backgroundColor": "rgba(255,99,132,0.5)"
       },
       {
         "label": "Dataset 2",
         "data": [
           {
-            "x": 83.78900892,
-            "y": 70.45653292,
-            "r": 12.924339849108367
+            "x": 46.12782922,
+            "y": 74.35913923,
+            "r": 12.038880315500686
           },
           {
-            "x": 11.46990741,
-            "y": 65.31850137,
-            "r": 11.398148148148149
+            "x": 43.76757545,
+            "y": 77.45156036,
+            "r": 5.7390260631001375
           },
           {
-            "x": 14.35656722,
-            "y": 44.02820645,
-            "r": 6.289137517146776
+            "x": 91.92172497,
+            "y": 2.66332305,
+            "r": 10.794624485596707
           },
           {
-            "x": 15.90577846,
-            "y": 15.22762346,
-            "r": 7.3812585733882035
+            "x": 99.23225309,
+            "y": 21.59936557,
+            "r": 12.915552126200275
           },
           {
-            "x": 13.64840535,
-            "y": 72.74391289,
-            "r": 5.199202674897119
+            "x": 59.5263203,
+            "y": 68.82758916,
+            "r": 9.663537379972565
           },
           {
-            "x": 23.63383059,
-            "y": 6.70053155,
-            "r": 9.897290809327846
+            "x": 62.9273834,
+            "y": 19.6566358,
+            "r": 12.674382716049383
           },
           {
-            "x": 91.54106653,
-            "y": 81.29501029,
-            "r": 6.815029149519891
+            "x": 73.63297325,
+            "y": 34.58033265,
+            "r": 6.546853566529492
           }
         ],
         "borderColor": "rgb(255, 159, 64)",
-        "backgroundColor": "rgba(255, 159, 64, 0.5)"
+        "backgroundColor": "rgba(255,159,64,0.5)"
       }
     ]
   },
@@ -108,5 +108,27 @@
         "text": "Chart.js Bubble Chart"
       }
     }
-  }
+  },
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "handler(chart) { chart.data.datasets.forEach(dataset => { dataset.data = Utils.bubbles({count: chart.data.labels.length, rmin: 5, rmax: 15, min: 0, max: 100}); }); chart.update(); }"
+    },
+    {
+      "name": "Add Dataset",
+      "handler": "handler(chart) { const data = chart.data; const dsColor = Utils.namedColor(chart.data.datasets.length); const newDataset = { label: 'Dataset ' + (data.datasets.length + 1), backgroundColor: Utils.transparentize(dsColor, 0.5), borderColor: dsColor, data: Utils.bubbles({count: data.labels.length, rmin: 5, rmax: 15, min: 0, max: 100}), }; chart.data.datasets.push(newDataset); chart.update(); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "handler(chart) { const data = chart.data; if (data.datasets.length > 0) {  for (let index = 0; index < data.datasets.length; ++index) { data.datasets[index].data.push(Utils.bubbles({count: 1, rmin: 5, rmax: 15, min: 0, max: 100})[0]); }  chart.update(); } }"
+    },
+    {
+      "name": "Remove Dataset",
+      "handler": "handler(chart) { chart.data.datasets.pop(); chart.update(); }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "handler(chart) { chart.data.labels.splice(-1, 1); /**  remove the label first */  chart.data.datasets.forEach(dataset => { dataset.data.pop(); });  chart.update(); }"
+    }
+  ]
 }

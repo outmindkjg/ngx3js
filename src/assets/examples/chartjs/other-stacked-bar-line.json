@@ -1,60 +1,82 @@
 {
-    "type": "line",
-    "data": {
-      "labels": [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July"
-      ],
-      "datasets": [
-        {
-          "label": "Dataset 1",
-          "data": [
-            66.25857339,
-            59.01148834,
-            70.18004115,
-            49.14694787,
-            74.92455418,
-            33.93261317,
-            64.44272977
-          ],
-          "borderColor": "rgb(255, 99, 132)",
-          "backgroundColor": "rgba(255, 99, 132, 0.5)",
-          "stack": "combined",
-          "type": "bar"
-        },
-        {
-          "label": "Dataset 2",
-          "data": [
-            67.68947188,
-            85.64814815,
-            45.4792524,
-            70.63957476,
-            58.65997942,
-            25.58984911,
-            17.10819616
-          ],
-          "borderColor": "rgb(54, 162, 235)",
-          "backgroundColor": "rgba(54, 162, 235, 0.5)",
-          "stack": "combined"
-        }
-      ]
-    },
-    "options": {
-      "plugins": {
-        "title": {
-          "display": true,
-          "text": "Chart.js Stacked Line/Bar Chart"
-        }
+  "type": "line",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          50.48696845,
+          80.27692044,
+          50.70473251,
+          44.48645405,
+          73.96776406,
+          58.90174897,
+          70.89334705
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255,99,132,0.5)",
+        "stack": "combined",
+        "type": "bar"
       },
-      "scales": {
-        "y": {
-          "stacked": true
-        }
+      {
+        "label": "Dataset 2",
+        "data": [
+          44.51045953,
+          55.0617284,
+          63.0409808,
+          25.23834019,
+          72.51800412,
+          54.26268861,
+          49.48473937
+        ],
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgba(54,162,235,0.5)",
+        "stack": "combined"
+      }
+    ]
+  },
+  "options": {
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Chart.js Stacked Line/Bar Chart"
+      }
+    },
+    "scales": {
+      "y": {
+        "stacked": true
       }
     }
-  }
+  },
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "handler(chart) { chart.data.datasets.forEach(dataset => { dataset.data = Utils.numbers({count: chart.data.labels.length, min: 0, max: 100}); }); chart.update(); }"
+    },
+    {
+      "name": "Add Dataset",
+      "handler": "handler(chart) { const data = chart.data; const dsColor = Utils.namedColor(chart.data.datasets.length); const newDataset = { label: 'Dataset ' + (data.datasets.length + 1), backgroundColor: Utils.transparentize(dsColor, 0.5), borderColor: dsColor, borderWidth: 1, stack: 'combined', data: Utils.numbers({count: data.labels.length, min: 0, max: 100}), }; chart.data.datasets.push(newDataset); chart.update(); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "handler(chart) { const data = chart.data; if (data.datasets.length > 0) { data.labels = Utils.months({count: data.labels.length + 1});  for (let index = 0; index < data.datasets.length; ++index) { data.datasets[index].data.push(Utils.rand(0, 100)); }  chart.update(); } }"
+    },
+    {
+      "name": "Remove Dataset",
+      "handler": "handler(chart) { chart.data.datasets.pop(); chart.update(); }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "handler(chart) { chart.data.labels.splice(-1, 1); /**  remove the label first */  chart.data.datasets.forEach(dataset => { dataset.data.pop(); });  chart.update(); }"
+    }
+  ]
+}

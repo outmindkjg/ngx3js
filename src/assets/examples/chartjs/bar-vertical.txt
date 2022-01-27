@@ -1,2 +1,0 @@
-/** Bar Charts / bar-vertical */
-null

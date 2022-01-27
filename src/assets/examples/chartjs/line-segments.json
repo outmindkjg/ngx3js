@@ -24,8 +24,8 @@
         ],
         "borderColor": "rgb(75, 192, 192)",
         "segment": {
-          "borderColor": "ctx => (ctx.p0.skip || ctx.p1.skip ? 'rgb(0,0,0,0.2)' : undefined) || (ctx.p0.parsed.y > ctx.p1.parsed.y ? 'rgb(192,75,75)' : undefined)",
-          "borderDash": "ctx => ctx.p0.skip || ctx.p1.skip ? [6, 6] : undefined"
+          "borderColor": "ctx => { const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined; const down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined; return skipped(ctx, 'rgb(0,0,0,0.2)') || down(ctx, 'rgb(192,75,75)'); }",
+          "borderDash": "ctx => { const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined; return skipped(ctx, [6, 6]); }"
         },
         "spanGaps": true
       }
@@ -37,5 +37,6 @@
       "intersect": false
     },
     "radius": 0
-  }
+  },
+  "actions": null
 }

@@ -14,16 +14,16 @@
       {
         "label": "Fully Rounded",
         "data": [
-          65.94650206,
-          -24.26783265,
-          90.25034294,
-          49.00720165,
-          -4.78737997,
-          -1.99759945,
-          7.99382716
+          50.7133059,
+          87.24794239,
+          -22.10219479,
+          -8.20130316,
+          79.56790123,
+          -37.8069273,
+          -46.74554184
         ],
         "borderColor": "rgb(255, 99, 132)",
-        "backgroundColor": "rgba(255, 99, 132, 0.5)",
+        "backgroundColor": "rgba(255,99,132,0.5)",
         "borderWidth": 2,
         "borderRadius": 1.7976931348623157e+308,
         "borderSkipped": false
@@ -31,16 +31,16 @@
       {
         "label": "Small Radius",
         "data": [
-          -53.82544582,
-          -73.87517147,
-          9.57304527,
-          95.28463649,
-          -58.71570645,
-          -79.58847737,
-          -90.79046639
+          -85.51954733,
+          -55.36351166,
+          1.74725652,
+          58.65226337,
+          -8.10528121,
+          3.94375857,
+          -21.25
         ],
         "borderColor": "rgb(54, 162, 235)",
-        "backgroundColor": "rgba(54, 162, 235, 0.5)",
+        "backgroundColor": "rgba(54,162,235,0.5)",
         "borderWidth": 2,
         "borderRadius": 5,
         "borderSkipped": false
@@ -58,5 +58,11 @@
         "text": "Chart.js Bar Chart"
       }
     }
-  }
+  },
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "handler(chart) { chart.data.datasets.forEach(dataset => { dataset.data = Utils.numbers({count: chart.data.labels.length, min: -100, max: 100}); }); chart.update(); }"
+    }
+  ]
 }

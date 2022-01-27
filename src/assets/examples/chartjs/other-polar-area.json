@@ -12,18 +12,18 @@
       {
         "label": "Dataset 1",
         "data": [
-          43.51165981,
-          88.11642661,
-          62.24794239,
-          81.95558985,
-          92.91838134
+          73.32990398,
+          75.54783951,
+          75.19375857,
+          29.05778464,
+          68.00411523
         ],
         "backgroundColor": [
-          "rgba(255, 99, 132, 0.5)",
-          "rgba(255, 159, 64, 0.5)",
-          "rgba(255, 205, 86, 0.5)",
-          "rgba(75, 192, 192, 0.5)",
-          "rgba(54, 162, 235, 0.5)"
+          "rgba(255,99,132,0.5)",
+          "rgba(255,159,64,0.5)",
+          "rgba(255,205,86,0.5)",
+          "rgba(75,192,192,0.5)",
+          "rgba(54,162,235,0.5)"
         ]
       }
     ]
@@ -39,5 +39,19 @@
         "text": "Chart.js Polar Area Chart"
       }
     }
-  }
+  },
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "handler(chart) { chart.data.datasets.forEach(dataset => { dataset.data = Utils.numbers({count: chart.data.labels.length, min: 0, max: 100}); }); chart.update(); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "handler(chart) { const data = chart.data; if (data.datasets.length > 0) { data.labels.push('data #' + (data.labels.length + 1));  for (let index = 0; index < data.datasets.length; ++index) { data.datasets[index].data.push(Utils.rand(0, 100)); }  chart.update(); } }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "handler(chart) { chart.data.labels.splice(-1, 1); /**  remove the label first */  chart.data.datasets.forEach(dataset => { dataset.data.pop(); });  chart.update(); }"
+    }
+  ]
 }

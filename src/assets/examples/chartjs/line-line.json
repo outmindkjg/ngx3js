@@ -14,30 +14,30 @@
       {
         "label": "Dataset 1",
         "data": [
-          92.78806584,
-          -92.48799726,
-          89.93141289,
-          57.33024691,
-          -2.63717421,
-          90.2760631,
-          64.46502058
+          80.9122085,
+          -96.54492455,
+          -14.94855967,
+          -42.19993141,
+          -86.94101509,
+          -42.99897119,
+          99.50274348
         ],
         "borderColor": "rgb(255, 99, 132)",
-        "backgroundColor": "rgba(255, 99, 132, 0.5)"
+        "backgroundColor": "rgba(255,99,132,0.5)"
       },
       {
         "label": "Dataset 2",
         "data": [
-          85.36179698,
-          -22.34224966,
-          -19.1409465,
-          38.17558299,
-          18.74314129,
-          73.17901235,
-          -77.52914952
+          76.36659808,
+          -95.12345679,
+          -27.31310014,
+          60.04458162,
+          95.34465021,
+          44.01920439,
+          -69.24039781
         ],
         "borderColor": "rgb(54, 162, 235)",
-        "backgroundColor": "rgba(54, 162, 235, 0.5)"
+        "backgroundColor": "rgba(54,162,235,0.5)"
       }
     ]
   },
@@ -52,5 +52,27 @@
         "text": "Chart.js Line Chart"
       }
     }
-  }
+  },
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "handler(chart) { chart.data.datasets.forEach(dataset => { dataset.data = Utils.numbers({count: chart.data.labels.length, min: -100, max: 100}); }); chart.update(); }"
+    },
+    {
+      "name": "Add Dataset",
+      "handler": "handler(chart) { const data = chart.data; const dsColor = Utils.namedColor(chart.data.datasets.length); const newDataset = { label: 'Dataset ' + (data.datasets.length + 1), backgroundColor: Utils.transparentize(dsColor, 0.5), borderColor: dsColor, data: Utils.numbers({count: data.labels.length, min: -100, max: 100}), }; chart.data.datasets.push(newDataset); chart.update(); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "handler(chart) { const data = chart.data; if (data.datasets.length > 0) { data.labels = Utils.months({count: data.labels.length + 1});  for (let index = 0; index < data.datasets.length; ++index) { data.datasets[index].data.push(Utils.rand(-100, 100)); }  chart.update(); } }"
+    },
+    {
+      "name": "Remove Dataset",
+      "handler": "handler(chart) { chart.data.datasets.pop(); chart.update(); }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "handler(chart) { chart.data.labels.splice(-1, 1); /**  remove the label first */  chart.data.datasets.forEach(dataset => { dataset.data.pop(); });  chart.update(); }"
+    }
+  ]
 }

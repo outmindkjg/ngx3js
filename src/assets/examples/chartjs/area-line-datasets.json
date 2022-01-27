@@ -25,7 +25,7 @@
           79.6
         ],
         "borderColor": "rgb(255, 99, 132)",
-        "backgroundColor": "rgba(255, 99, 132, 0.5)",
+        "backgroundColor": "rgba(255,99,132,0.5)",
         "hidden": true
       },
       {
@@ -41,7 +41,7 @@
           27.28
         ],
         "borderColor": "rgb(255, 159, 64)",
-        "backgroundColor": "rgba(255, 159, 64, 0.5)",
+        "backgroundColor": "rgba(255,159,64,0.5)",
         "fill": "-1"
       },
       {
@@ -57,7 +57,7 @@
           24.35
         ],
         "borderColor": "rgb(255, 205, 86)",
-        "backgroundColor": "rgba(255, 205, 86, 0.5)",
+        "backgroundColor": "rgba(255,205,86,0.5)",
         "hidden": true,
         "fill": 1
       },
@@ -74,7 +74,7 @@
           78.94
         ],
         "borderColor": "rgb(75, 192, 192)",
-        "backgroundColor": "rgba(75, 192, 192, 0.5)",
+        "backgroundColor": "rgba(75,192,192,0.5)",
         "fill": "-1"
       },
       {
@@ -90,7 +90,7 @@
           43.66
         ],
         "borderColor": "rgb(54, 162, 235)",
-        "backgroundColor": "rgba(54, 162, 235, 0.5)",
+        "backgroundColor": "rgba(54,162,235,0.5)",
         "fill": "-1"
       },
       {
@@ -106,7 +106,7 @@
           48.88
         ],
         "borderColor": "rgb(201, 203, 207)",
-        "backgroundColor": "rgba(201, 203, 207, 0.5)",
+        "backgroundColor": "rgba(201,203,207,0.5)",
         "fill": "+2"
       },
       {
@@ -122,7 +122,7 @@
           76.07
         ],
         "borderColor": "rgb(153, 102, 255)",
-        "backgroundColor": "rgba(153, 102, 255, 0.5)",
+        "backgroundColor": "rgba(153,102,255,0.5)",
         "fill": false
       },
       {
@@ -138,7 +138,7 @@
           51.16
         ],
         "borderColor": "rgb(255, 99, 132)",
-        "backgroundColor": "rgba(255, 99, 132, 0.5)",
+        "backgroundColor": "rgba(255,99,132,0.5)",
         "fill": 8
       },
       {
@@ -154,7 +154,7 @@
           37.85
         ],
         "borderColor": "rgb(255, 159, 64)",
-        "backgroundColor": "rgba(255, 159, 64, 0.5)",
+        "backgroundColor": "rgba(255,159,64,0.5)",
         "fill": "end",
         "hidden": true
       },
@@ -171,7 +171,7 @@
           50.97
         ],
         "borderColor": "rgb(255, 205, 86)",
-        "backgroundColor": "rgba(255, 205, 86, 0.5)",
+        "backgroundColor": "rgba(255,205,86,0.5)",
         "fill": {
           "above": "blue",
           "below": "red",
@@ -199,5 +199,19 @@
     "interaction": {
       "intersect": false
     }
-  }
+  },
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "handler(chart) { const inputs = { min: 20, max: 80, count: 8, decimals: 2, continuity: 1 }; const generateData = () => (Utils.numbers(inputs)); chart.data.datasets.forEach(dataset => { dataset.data = generateData(); }); chart.update(); }"
+    },
+    {
+      "name": "Propagate",
+      "handler": "handler(chart) { sharedVar.propagate = !sharedVar.propagate; chart.options.plugins.filler.propagate = sharedVar.propagate; chart.update(); }"
+    },
+    {
+      "name": "Smooth",
+      "handler": "handler(chart) { sharedVar.smooth = !sharedVar.smooth; chart.options.elements.line.tension = sharedVar.smooth ? 0.4 : 0; chart.update(); }"
+    }
+  ]
 }

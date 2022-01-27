@@ -15,86 +15,86 @@
         "label": "Dataset 1",
         "data": [
           {
-            "x": 55.07544582,
-            "y": 62.05246914,
+            "x": -96.15569273,
+            "y": -52.55315501,
             "r": 1
           },
           {
-            "x": -91.10596708,
-            "y": 35.41838134,
+            "x": 85.64643347,
+            "y": 24.10493827,
             "r": 1
           },
           {
-            "x": -12.80178326,
-            "y": -38.33504801,
+            "x": 82.05761317,
+            "y": 28.95233196,
             "r": 1
           },
           {
-            "x": -18.65397805,
-            "y": -30.8127572,
+            "x": 58.50994513,
+            "y": 75.56927298,
             "r": 1
           },
           {
-            "x": -2.48971193,
-            "y": 23.41735254,
+            "x": 39.69478738,
+            "y": 25.68415638,
             "r": 1
           },
           {
-            "x": 45.5675583,
-            "y": -50.95336077,
+            "x": 65.11831276,
+            "y": -21.93758573,
             "r": 1
           },
           {
-            "x": 61.32030178,
-            "y": -14.41872428,
+            "x": 77.99039781,
+            "y": 90.728738,
             "r": 1
           }
         ],
         "borderColor": "rgb(255, 99, 132)",
-        "backgroundColor": "rgba(255, 99, 132, 0.5)",
+        "backgroundColor": "rgba(255,99,132,0.5)",
         "yAxisID": "y"
       },
       {
         "label": "Dataset 2",
         "data": [
           {
-            "x": -1.63323045,
-            "y": -78.50394376,
+            "x": 34.99571331,
+            "y": -15.12602881,
             "r": 1
           },
           {
-            "x": 60.31292867,
-            "y": -5.65243484,
+            "x": -59.02520576,
+            "y": -48.85888203,
             "r": 1
           },
           {
-            "x": 23.28789438,
-            "y": -88.5622428,
+            "x": -32.26423182,
+            "y": 11.02966392,
             "r": 1
           },
           {
-            "x": -95.42438272,
-            "y": 15.97650892,
+            "x": -15.58556241,
+            "y": -62.62088477,
             "r": 1
           },
           {
-            "x": 91.83041838,
-            "y": -22.90037723,
+            "x": -58.37191358,
+            "y": 6.73268176,
             "r": 1
           },
           {
-            "x": -34.70078875,
-            "y": -54.57561728,
+            "x": -39.635631,
+            "y": 21.55949931,
             "r": 1
           },
           {
-            "x": 53.37705761,
-            "y": 41.93844307,
+            "x": -45.79646776,
+            "y": 65.81018519,
             "r": 1
           }
         ],
         "borderColor": "rgb(255, 159, 64)",
-        "backgroundColor": "rgba(255, 159, 64, 0.5)",
+        "backgroundColor": "rgba(255,159,64,0.5)",
         "yAxisID": "y2"
       }
     ]
@@ -130,5 +130,27 @@
         }
       }
     }
-  }
+  },
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "handler(chart) { chart.data.datasets.forEach(dataset => { dataset.data = Utils.bubbles({count: chart.data.labels.length, rmin: 1, rmax: 1, min: -100, max: 100}); }); chart.update(); }"
+    },
+    {
+      "name": "Add Dataset",
+      "handler": "handler(chart) { const data = chart.data; const dsColor = Utils.namedColor(chart.data.datasets.length); const newDataset = { label: 'Dataset ' + (data.datasets.length + 1), backgroundColor: Utils.transparentize(dsColor, 0.5), borderColor: dsColor, data: Utils.bubbles({count: data.labels.length, rmin: 1, rmax: 1, min: -100, max: 100}), }; chart.data.datasets.push(newDataset); chart.update(); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "handler(chart) { const data = chart.data; if (data.datasets.length > 0) {  for (let index = 0; index < data.datasets.length; ++index) { data.datasets[index].data.push(Utils.bubbles({count: 1, rmin: 1, rmax: 1, min: -100, max: 100})[0]); }  chart.update(); } }"
+    },
+    {
+      "name": "Remove Dataset",
+      "handler": "handler(chart) { chart.data.datasets.pop(); chart.update(); }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "handler(chart) { chart.data.labels.splice(-1, 1); /**  remove the label first */  chart.data.datasets.forEach(dataset => { dataset.data.pop(); });  chart.update(); }"
+    }
+  ]
 }

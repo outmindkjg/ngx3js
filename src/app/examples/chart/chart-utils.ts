@@ -293,4 +293,17 @@ export class ChartUtils {
 	static newDateString(days) {
 		return this.newDate(days).toISOString();
 	}
+
+	static stringify(option) : string{
+		return JSON.stringify(option, (_, value) =>{
+			if (typeof value === 'function') {
+				return value
+					.toString()
+					.split('\n')
+					.map((line) => line.trim())
+					.join(' ');
+			}
+			return value;
+		}, 2);
+	}
 }

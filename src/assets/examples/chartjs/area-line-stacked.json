@@ -14,13 +14,13 @@
       {
         "label": "My First dataset",
         "data": [
-          66.32030178,
-          67.05246914,
-          40.41838134,
-          -33.33504801,
-          -25.8127572,
-          28.41735254,
-          -45.95336077
+          -86.04252401,
+          -36.33916324,
+          -31.28600823,
+          -61.00651578,
+          10.30178326,
+          -0.07716049,
+          95.51097394
         ],
         "borderColor": "rgb(255, 99, 132)",
         "backgroundColor": "rgb(255, 99, 132)",
@@ -29,13 +29,13 @@
       {
         "label": "My Second dataset",
         "data": [
-          -9.41872428,
-          81.23113855,
-          95.13203018,
-          -17.09876543,
-          65.52640604,
-          56.5877915,
-          17.81378601
+          77.31310014,
+          73.72427984,
+          50.1766118,
+          31.36145405,
+          56.78497942,
+          69.65706447,
+          -60.88648834
         ],
         "borderColor": "rgb(54, 162, 235)",
         "backgroundColor": "rgb(54, 162, 235)",
@@ -44,13 +44,13 @@
       {
         "label": "My Third dataset",
         "data": [
-          47.96982167,
-          -94.91941015,
-          -38.01440329,
-          95.22805213,
-          -92.72290809,
-          82.08333333,
-          73.96776406
+          15.77160494,
+          20.61899863,
+          67.23593964,
+          17.35082305,
+          -30.27091907,
+          82.39540466,
+          -71.81069959
         ],
         "borderColor": "rgb(75, 192, 192)",
         "backgroundColor": "rgb(75, 192, 192)",
@@ -59,13 +59,13 @@
       {
         "label": "My Fourth dataset",
         "data": [
-          -70.15603567,
-          44.77366255,
-          50.85562414,
-          39.4478738,
-          -83.27674897,
-          92.55829904,
-          -97.24451303
+          -16.34602195,
+          51.25857339,
+          14.9537037,
+          -70.93964335,
+          40.49211248,
+          -55.68930041,
+          72.6148834
         ],
         "borderColor": "rgb(255, 205, 86)",
         "backgroundColor": "rgb(255, 205, 86)",
@@ -108,35 +108,35 @@
   "actions": [
     {
       "name": "Stacked: true",
-      "handler": "(chart) => {\n                                chart.options.scales.y.stacked = true;\n                                chart.update();\n                            }"
+      "handler": "(chart) => { chart.options.scales.y.stacked = true; chart.update(); }"
     },
     {
       "name": "Stacked: false (default)",
-      "handler": "(chart) => {\n                                chart.options.scales.y.stacked = false;\n                                chart.update();\n                            }"
+      "handler": "(chart) => { chart.options.scales.y.stacked = false; chart.update(); }"
     },
     {
       "name": "Stacked Single",
-      "handler": "(chart) => {\n                                chart.options.scales.y.stacked = 'single';\n                                chart.update();\n                            }"
+      "handler": "(chart) => { chart.options.scales.y.stacked = 'single'; chart.update(); }"
     },
     {
       "name": "Randomize",
-      "handler": "handler(chart) {\n                                chart.data.datasets.forEach(dataset => {\n                                    dataset.data = Utils.numbers({ count: chart.data.labels.length, min: -100, max: 100 });\n                                });\n                                chart.update();\n                            }"
+      "handler": "handler(chart) { chart.data.datasets.forEach(dataset => { dataset.data = Utils.numbers({count: chart.data.labels.length, min: -100, max: 100}); }); chart.update(); }"
     },
     {
       "name": "Add Dataset",
-      "handler": "handler(chart) {\n                                const data = chart.data;\n                                const dsColor = Utils.namedColor(chart.data.datasets.length);\n                                const newDataset = {\n                                    label: 'Dataset ' + (data.datasets.length + 1),\n                                    backgroundColor: dsColor,\n                                    borderColor: dsColor,\n                                    fill: true,\n                                    data: Utils.numbers({ count: data.labels.length, min: -100, max: 100 }),\n                                };\n                                chart.data.datasets.push(newDataset);\n                                chart.update();\n                            }"
+      "handler": "handler(chart) { const data = chart.data; const dsColor = Utils.namedColor(chart.data.datasets.length); const newDataset = { label: 'Dataset ' + (data.datasets.length + 1), backgroundColor: dsColor, borderColor: dsColor, fill: true, data: Utils.numbers({count: data.labels.length, min: -100, max: 100}), }; chart.data.datasets.push(newDataset); chart.update(); }"
     },
     {
       "name": "Add Data",
-      "handler": "handler(chart) {\n                                const data = chart.data;\n                                if (data.datasets.length > 0) {\n                                    data.labels = Utils.months({ count: data.labels.length + 1 });\n                                    for (let index = 0; index < data.datasets.length; ++index) {\n                                        data.datasets[index].data.push(Utils.rand(-100, 100));\n                                    }\n                                    chart.update();\n                                }\n                            }"
+      "handler": "handler(chart) { const data = chart.data; if (data.datasets.length > 0) { data.labels = Utils.months({count: data.labels.length + 1});  for (let index = 0; index < data.datasets.length; ++index) { data.datasets[index].data.push(Utils.rand(-100, 100)); }  chart.update(); } }"
     },
     {
       "name": "Remove Dataset",
-      "handler": "handler(chart) {\n                                chart.data.datasets.pop();\n                                chart.update();\n                            }"
+      "handler": "handler(chart) { chart.data.datasets.pop(); chart.update(); }"
     },
     {
       "name": "Remove Data",
-      "handler": "handler(chart) {\n                                chart.data.labels.splice(-1, 1); // remove the label first\n                                chart.data.datasets.forEach(dataset => {\n                                    dataset.data.pop();\n                                });\n                                chart.update();\n                            }"
+      "handler": "handler(chart) { chart.data.labels.splice(-1, 1); /**  remove the label first */  chart.data.datasets.forEach(dataset => { dataset.data.pop(); });  chart.update(); }"
     }
   ]
 }

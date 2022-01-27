@@ -337,13 +337,11 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 				try {
 					const Chart = this.chartjs; // with eval function
 					const Utils = ChartUtils;
-					let smooth = false;
-					let propagate = false;
+					const sharedVar = (this.chart as any).sharedVar || null;
 					if (
 						Chart !== null &&
 						Utils !== null &&
-						smooth !== null &&
-						propagate !== null
+						sharedVar !== null
 					) {
 						functionOptions = functionOptions.replace('handler(', 'function(');
 						eval('functionItem = ' + functionOptions + '');

@@ -1,78 +1,84 @@
 {
-    "type": "bar",
-    "data": {
-      "labels": [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July"
-      ],
-      "datasets": [
-        {
-          "label": "Dataset 1",
-          "data": [
-            -3.86831276,
-            17.02846365,
-            -90.67558299,
-            -87.47427984,
-            -30.15775034,
-            -49.59019204,
-            4.84567901
-          ],
-          "backgroundColor": "rgb(255, 99, 132)",
-          "stack": "Stack 0"
-        },
-        {
-          "label": "Dataset 2",
-          "data": [
-            54.13751715,
-            11.86556927,
-            -60.24176955,
-            -63.41906722,
-            -39.64163237,
-            -16.06995885,
-            83.83916324
-          ],
-          "backgroundColor": "rgb(54, 162, 235)",
-          "stack": "Stack 0"
-        },
-        {
-          "label": "Dataset 3",
-          "data": [
-            62.55486968,
-            4.02777778,
-            -37.42112483,
-            -14.87825789,
-            66.718107,
-            39.46673525,
-            -5.27434842
-          ],
-          "backgroundColor": "rgb(75, 192, 192)",
-          "stack": "Stack 1"
-        }
-      ]
+  "type": "bar",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          52.70233196,
+          -50.68072702,
+          -50.56584362,
+          -48.18758573,
+          -85.521262,
+          10.27263374,
+          -84.26268861
+        ],
+        "backgroundColor": "rgb(255, 99, 132)",
+        "stack": "Stack 0"
+      },
+      {
+        "label": "Dataset 2",
+        "data": [
+          33.34190672,
+          47.03703704,
+          11.14368999,
+          -27.42455418,
+          -73.60596708,
+          -95.30178326,
+          -1.15397805
+        ],
+        "backgroundColor": "rgb(54, 162, 235)",
+        "stack": "Stack 0"
+      },
+      {
+        "label": "Dataset 3",
+        "data": [
+          -84.98971193,
+          63.0675583,
+          -21.17969822,
+          79.55246914,
+          -47.08161866,
+          -20.83504801,
+          86.6872428
+        ],
+        "backgroundColor": "rgb(75, 192, 192)",
+        "stack": "Stack 1"
+      }
+    ]
+  },
+  "options": {
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Chart.js Bar Chart - Stacked"
+      }
     },
-    "options": {
-      "plugins": {
-        "title": {
-          "display": true,
-          "text": "Chart.js Bar Chart - Stacked"
-        }
+    "responsive": true,
+    "interaction": {
+      "intersect": false
+    },
+    "scales": {
+      "x": {
+        "stacked": true
       },
-      "responsive": true,
-      "interaction": {
-        "intersect": false
-      },
-      "scales": {
-        "x": {
-          "stacked": true
-        },
-        "y": {
-          "stacked": true
-        }
+      "y": {
+        "stacked": true
       }
     }
-  }
+  },
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "handler(chart) { chart.data.datasets.forEach(dataset => { dataset.data = Utils.numbers({count: chart.data.labels.length, min: -100, max: 100}); }); chart.update(); }"
+    }
+  ]
+}

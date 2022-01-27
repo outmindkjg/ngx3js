@@ -59,15 +59,16 @@
     "plugins": {
       "legend": {
         "labels": {
-          "generateLabels": "function (chart) {\n                                            // Get the default label list\n                                            const original = Chart.overrides.pie.plugins.legend.labels.generateLabels;\n                                            const labelsOriginal = original.call(this, chart);\n                                            // Build an array of colors used in the datasets of the chart\n                                            let datasetColors = chart.data.datasets.map(function (e) {\n                                                return e.backgroundColor;\n                                            });\n                                            datasetColors = datasetColors.flat();\n                                            // Modify the color and hide state of each label\n                                            labelsOriginal.forEach(label => {\n                                                // There are twice as many labels as there are datasets. This converts the label index into the corresponding dataset index\n                                                label.datasetIndex = (label.index - label.index % 2) / 2;\n                                                // The hidden state must match the dataset's hidden state\n                                                label.hidden = !chart.isDatasetVisible(label.datasetIndex);\n                                                // Change the color to match the dataset\n                                                label.fillStyle = datasetColors[label.index];\n                                            });\n                                            return labelsOriginal;\n                                        }"
+          "generateLabels": "function(chart) { /**  Get the default label list */ const original = Chart.overrides.pie.plugins.legend.labels.generateLabels; const labelsOriginal = original.call(this, chart);  /**  Build an array of colors used in the datasets of the chart */ let datasetColors = chart.data.datasets.map(function(e) { return e.backgroundColor; }); datasetColors = datasetColors.flat();  /**  Modify the color and hide state of each label */ labelsOriginal.forEach(label => { /**  There are twice as many labels as there are datasets. This converts the label index into the corresponding dataset index */ label.datasetIndex = (label.index - label.index % 2) / 2;  /**  The hidden state must match the dataset's hidden state */ label.hidden = !chart.isDatasetVisible(label.datasetIndex);  /**  Change the color to match the dataset */ label.fillStyle = datasetColors[label.index]; });  return labelsOriginal; }"
         },
-        "onClick": "function (mouseEvent, legendItem, legend) {\n                                        // toggle the visibility of the dataset from what it currently is\n                                        legend.chart.getDatasetMeta(legendItem.datasetIndex).hidden = legend.chart.isDatasetVisible(legendItem.datasetIndex);\n                                        legend.chart.update();\n                                    }"
+        "onClick": "function(mouseEvent, legendItem, legend) { /**  toggle the visibility of the dataset from what it currently is */ legend.chart.getDatasetMeta( legendItem.datasetIndex ).hidden = legend.chart.isDatasetVisible(legendItem.datasetIndex); legend.chart.update(); }"
       },
       "tooltip": {
         "callbacks": {
-          "label": "function (context) {\n                                            const labelIndex = (context.datasetIndex * 2) + context.dataIndex;\n                                            return context.chart.data.labels[labelIndex] + ': ' + context.formattedValue;\n                                        }"
+          "label": "function(context) { const labelIndex = (context.datasetIndex * 2) + context.dataIndex; return context.chart.data.labels[labelIndex] + ': ' + context.formattedValue; }"
         }
       }
     }
-  }
+  },
+  "actions": null
 }

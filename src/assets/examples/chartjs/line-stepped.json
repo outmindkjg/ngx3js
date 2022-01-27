@@ -13,12 +13,12 @@
       {
         "label": "Dataset",
         "data": [
-          -22.62688615,
-          76.45919067,
-          -39.47530864,
-          17.2239369,
-          26.80384088,
-          -82.34053498
+          -83.97462277,
+          6.46947874,
+          96.70781893,
+          63.28360768,
+          -91.3340192,
+          -83.19444444
         ],
         "borderColor": "rgb(255, 99, 132)",
         "fill": false,
@@ -34,8 +34,31 @@
     },
     "plugins": {
       "title": {
-        "display": true
+        "display": true,
+        "text": "(ctx) => 'Step ' + ctx.chart.data.datasets[0].stepped + ' Interpolation'"
       }
     }
-  }
+  },
+  "actions": [
+    {
+      "name": "Step: false (default)",
+      "handler": "(chart) => { chart.data.datasets.forEach(dataset => { dataset.stepped = false; }); chart.update(); }"
+    },
+    {
+      "name": "Step: true",
+      "handler": "(chart) => { chart.data.datasets.forEach(dataset => { dataset.stepped = true; }); chart.update(); }"
+    },
+    {
+      "name": "Step: before",
+      "handler": "(chart) => { chart.data.datasets.forEach(dataset => { dataset.stepped = 'before'; }); chart.update(); }"
+    },
+    {
+      "name": "Step: after",
+      "handler": "(chart) => { chart.data.datasets.forEach(dataset => { dataset.stepped = 'after'; }); chart.update(); }"
+    },
+    {
+      "name": "Step: middle",
+      "handler": "(chart) => { chart.data.datasets.forEach(dataset => { dataset.stepped = 'middle'; }); chart.update(); }"
+    }
+  ]
 }
