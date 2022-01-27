@@ -1,2 +1,0 @@
-/** Scales / scales-ticks-options */
-null

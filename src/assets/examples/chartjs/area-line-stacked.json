@@ -1,0 +1,142 @@
+{
+  "type": "line",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "My First dataset",
+        "data": [
+          66.32030178,
+          67.05246914,
+          40.41838134,
+          -33.33504801,
+          -25.8127572,
+          28.41735254,
+          -45.95336077
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgb(255, 99, 132)",
+        "fill": true
+      },
+      {
+        "label": "My Second dataset",
+        "data": [
+          -9.41872428,
+          81.23113855,
+          95.13203018,
+          -17.09876543,
+          65.52640604,
+          56.5877915,
+          17.81378601
+        ],
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgb(54, 162, 235)",
+        "fill": true
+      },
+      {
+        "label": "My Third dataset",
+        "data": [
+          47.96982167,
+          -94.91941015,
+          -38.01440329,
+          95.22805213,
+          -92.72290809,
+          82.08333333,
+          73.96776406
+        ],
+        "borderColor": "rgb(75, 192, 192)",
+        "backgroundColor": "rgb(75, 192, 192)",
+        "fill": true
+      },
+      {
+        "label": "My Fourth dataset",
+        "data": [
+          -70.15603567,
+          44.77366255,
+          50.85562414,
+          39.4478738,
+          -83.27674897,
+          92.55829904,
+          -97.24451303
+        ],
+        "borderColor": "rgb(255, 205, 86)",
+        "backgroundColor": "rgb(255, 205, 86)",
+        "fill": true
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "(ctx) => 'Chart.js Line Chart - stacked=' + ctx.chart.options.scales.y.stacked"
+      },
+      "tooltip": {
+        "mode": "index"
+      }
+    },
+    "interaction": {
+      "mode": "nearest",
+      "axis": "x",
+      "intersect": false
+    },
+    "scales": {
+      "x": {
+        "title": {
+          "display": true,
+          "text": "Month"
+        }
+      },
+      "y": {
+        "stacked": true,
+        "title": {
+          "display": true,
+          "text": "Value"
+        }
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "Stacked: true",
+      "handler": "(chart) => {\n                                chart.options.scales.y.stacked = true;\n                                chart.update();\n                            }"
+    },
+    {
+      "name": "Stacked: false (default)",
+      "handler": "(chart) => {\n                                chart.options.scales.y.stacked = false;\n                                chart.update();\n                            }"
+    },
+    {
+      "name": "Stacked Single",
+      "handler": "(chart) => {\n                                chart.options.scales.y.stacked = 'single';\n                                chart.update();\n                            }"
+    },
+    {
+      "name": "Randomize",
+      "handler": "handler(chart) {\n                                chart.data.datasets.forEach(dataset => {\n                                    dataset.data = Utils.numbers({ count: chart.data.labels.length, min: -100, max: 100 });\n                                });\n                                chart.update();\n                            }"
+    },
+    {
+      "name": "Add Dataset",
+      "handler": "handler(chart) {\n                                const data = chart.data;\n                                const dsColor = Utils.namedColor(chart.data.datasets.length);\n                                const newDataset = {\n                                    label: 'Dataset ' + (data.datasets.length + 1),\n                                    backgroundColor: dsColor,\n                                    borderColor: dsColor,\n                                    fill: true,\n                                    data: Utils.numbers({ count: data.labels.length, min: -100, max: 100 }),\n                                };\n                                chart.data.datasets.push(newDataset);\n                                chart.update();\n                            }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "handler(chart) {\n                                const data = chart.data;\n                                if (data.datasets.length > 0) {\n                                    data.labels = Utils.months({ count: data.labels.length + 1 });\n                                    for (let index = 0; index < data.datasets.length; ++index) {\n                                        data.datasets[index].data.push(Utils.rand(-100, 100));\n                                    }\n                                    chart.update();\n                                }\n                            }"
+    },
+    {
+      "name": "Remove Dataset",
+      "handler": "handler(chart) {\n                                chart.data.datasets.pop();\n                                chart.update();\n                            }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "handler(chart) {\n                                chart.data.labels.splice(-1, 1); // remove the label first\n                                chart.data.datasets.forEach(dataset => {\n                                    dataset.data.pop();\n                                });\n                                chart.update();\n                            }"
+    }
+  ]
+}

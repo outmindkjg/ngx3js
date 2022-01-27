@@ -1,0 +1,61 @@
+{
+    "type": "radar",
+    "data": {
+      "labels": [
+        [
+          "Eating",
+          "Dinner"
+        ],
+        [
+          "Drinking",
+          "Water"
+        ],
+        "Sleeping",
+        [
+          "Designing",
+          "Graphics"
+        ],
+        "Coding",
+        "Cycling",
+        "Running"
+      ],
+      "datasets": [
+        {
+          "data": [
+            59.70807613,
+            5.49597051,
+            90.68715706,
+            57.25694444,
+            32.36582647,
+            39.47059328,
+            76.10210905
+          ]
+        }
+      ]
+    },
+    "options": {
+      "plugins": {
+        "legend": false,
+        "tooltip": false
+      },
+      "elements": {
+        "line": {
+          "backgroundColor": "(ctx) => { function getLineColor(ctx) { return Utils.color(ctx.datasetIndex); } return Utils.transparentize(getLineColor(ctx), 0.8); }",
+          "borderColor": "(ctx) => { return Utils.color(ctx.datasetIndex); }"
+        },
+        "point": {
+          "backgroundColor": "(ctx) => { return Utils.color(ctx.datasetIndex); }",
+          "hoverBackgroundColor": "(ctx) => { function getLineColor(ctx) { return Utils.color(ctx.datasetIndex); } return Utils.transparentize(getLineColor(ctx)); }",
+          "radius": "(ctx) => { const v = ctx.parsed.y; return v < 10 ? 5 : v < 25 ? 7 : v < 50 ? 9 : v < 75 ? 11 : 15; }",
+          "pointStyle": "(ctx) => { const index = ctx.dataIndex; return index % 2 === 0 ? 'circle' : 'rect'; }",
+          "hoverRadius": 15
+        }
+      }
+    },
+    "actions": [
+      {
+        "name": "Randomize",
+        "handler": "handler(chart) { const DATA_COUNT = 7; function generateData() { return Utils.numbers({ count: DATA_COUNT, min: 0, max: 100 }); } chart.data.datasets.forEach(dataset => { dataset.data = generateData(); }); chart.update(); }"
+      }
+    ]
+  }

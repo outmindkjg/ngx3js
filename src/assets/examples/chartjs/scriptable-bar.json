@@ -1,0 +1,58 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+      "January",
+      "February",
+      "March",
+      "April"
+    ],
+    "datasets": [
+      {
+        "data": [
+          19.41615226,
+          -89.00805898,
+          81.37431413,
+          14.51388889,
+          -35.26834705,
+          -21.05881344,
+          52.20421811,
+          16.61951303,
+          -36.45490398,
+          -0.84619342,
+          -66.67781207,
+          -98.14729081,
+          -77.97067901,
+          -18.49365569,
+          60.53069273,
+          87.49742798
+        ]
+      }
+    ]
+  },
+  "options": {
+    "plugins": {
+      "legend": false
+    },
+    "elements": {
+      "bar": {
+        "backgroundColor": "(ctx) => { const v = ctx.parsed.y; const c = v < -50 ? '#D60000' : v < 0 ? '#F46300' : v < 50 ? '#0358B6' : '#44DE28'; return Utils.transparentize(c, 1 - Math.abs(v / 150)); }",
+        "borderColor": "(ctx) => { const v = ctx.parsed.y; const c = v < -50 ? '#D60000' : v < 0 ? '#F46300' : v < 50 ? '#0358B6' : '#44DE28'; return c; }",
+        "borderWidth": 2
+      }
+    }
+  },
+  "actions": null
+}

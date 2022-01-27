@@ -1,0 +1,77 @@
+{
+    "type": "line",
+    "data": {
+      "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July"
+      ],
+      "datasets": [
+        {
+          "label": "Dataset 1",
+          "data": [
+            10,
+            30,
+            39,
+            20,
+            25,
+            34,
+            -10
+          ],
+          "fill": false,
+          "borderColor": "rgb(255, 99, 132)",
+          "backgroundColor": "rgba(255, 99, 132, 0.5)"
+        },
+        {
+          "label": "Dataset 2",
+          "data": [
+            18,
+            33,
+            22,
+            19,
+            11,
+            -39,
+            30
+          ],
+          "fill": false,
+          "borderColor": "rgb(54, 162, 235)",
+          "backgroundColor": "rgba(54, 162, 235, 0.5)"
+        }
+      ]
+    },
+    "options": {
+      "responsive": true,
+      "plugins": {
+        "title": {
+          "display": true,
+          "text": "Grid Line Settings"
+        }
+      },
+      "scales": {
+        "x": {
+          "grid": {
+            "display": true,
+            "drawBorder": true,
+            "drawOnChartArea": true,
+            "drawTicks": true
+          }
+        },
+        "y": {
+          "grid": {
+            "drawBorder": false,
+            "color": "function (context) {if (context.tick.value > 0) {return Utils.CHART_COLORS.green;}else if (context.tick.value < 0) {return Utils.CHART_COLORS.red;}return '#000000';}"
+          }
+        }
+      }
+    },
+    "actions": [
+      {
+        "name": "Randomize",
+        "handler": "handler(chart) {chart.data.datasets.forEach(dataset => {dataset.data = Utils.numbers({ count: chart.data.labels.length, min: -100, max: 100 });});chart.update();}"
+      }
+    ]
+  }

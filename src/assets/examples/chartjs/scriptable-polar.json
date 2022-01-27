@@ -1,0 +1,45 @@
+{
+    "type": "polarArea",
+    "data": {
+      "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July"
+      ],
+      "datasets": [
+        {
+          "data": [
+            59.70807613,
+            5.49597051,
+            90.68715706,
+            57.25694444,
+            32.36582647,
+            39.47059328,
+            76.10210905
+          ]
+        }
+      ]
+    },
+    "options": {
+      "plugins": {
+        "legend": false,
+        "tooltip": false
+      },
+      "elements": {
+        "arc": {
+          "backgroundColor": "(ctx) => { const v = ctx.raw; const c = v < 35 ? '#D60000' : v < 55 ? '#F46300' : v < 75 ? '#0358B6' : '#44DE28'; const opacity = 1 - Math.abs(v / 150); return Utils.transparentize(c, opacity); }",
+          "hoverBackgroundColor": "(ctx) => { const v = ctx.raw; const c = v < 35 ? '#D60000' : v < 55 ? '#F46300' : v < 75 ? '#0358B6' : '#44DE28'; const opacity = 1 - Math.abs(v / 150) - 0.2; return Utils.transparentize(c, opacity); }"
+        }
+      }
+    },
+    "actions": [
+      {
+        "name": "Randomize",
+        "handler": "handler(chart) { const DATA_COUNT = 7; function generateData() { return Utils.numbers({ count: DATA_COUNT, min: 0, max: 100 }); } chart.data.datasets.forEach(dataset => { dataset.data = generateData(); }); chart.update(); }"
+      }
+    ]
+  }

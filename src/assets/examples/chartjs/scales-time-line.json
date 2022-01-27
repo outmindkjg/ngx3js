@@ -1,0 +1,102 @@
+{
+  "type": "line",
+  "data": {
+    "labels": [
+      "2022-01-27T03:23:53.415Z",
+      "2022-01-28T03:23:53.415Z",
+      "2022-01-29T03:23:53.415Z",
+      "2022-01-30T03:23:53.415Z",
+      "2022-01-31T03:23:53.415Z",
+      "2022-02-01T03:23:53.415Z",
+      "2022-02-02T03:23:53.415Z"
+    ],
+    "datasets": [
+      {
+        "label": "My First dataset",
+        "backgroundColor": "rgba(255, 99, 132, 0.5)",
+        "borderColor": "rgb(255, 99, 132)",
+        "fill": false,
+        "data": [
+          74.87139918,
+          68.65312071,
+          98.13443073,
+          83.06841564,
+          95.06001372,
+          68.6771262,
+          79.22839506
+        ]
+      },
+      {
+        "label": "My Second dataset",
+        "backgroundColor": "rgba(54, 162, 235, 0.5)",
+        "borderColor": "rgb(54, 162, 235)",
+        "fill": false,
+        "data": [
+          87.20764746,
+          49.40500686,
+          96.68467078,
+          78.42935528,
+          73.65140604,
+          68.77057613,
+          2.05847051
+        ]
+      },
+      {
+        "label": "Dataset with point data",
+        "backgroundColor": "rgba(75, 192, 192, 0.5)",
+        "borderColor": "rgb(75, 192, 192)",
+        "fill": false,
+        "data": [
+          {
+            "x": "2022-01-27T03:23:53.416Z",
+            "y": 74.74965706447188
+          },
+          {
+            "x": "2022-02-01T03:23:53.416Z",
+            "y": 67.69247256515774
+          },
+          {
+            "x": "2022-02-03T03:23:53.416Z",
+            "y": 28.819444444444443
+          },
+          {
+            "x": "2022-02-11T03:23:53.416Z",
+            "y": 70.78489368998629
+          }
+        ]
+      }
+    ]
+  },
+  "options": {
+    "plugins": {
+      "title": {
+        "text": "Chart.js Time Scale",
+        "display": true
+      }
+    },
+    "scales": {
+      "x": {
+        "type": "time",
+        "time": {
+          "tooltipFormat": "DD T"
+        },
+        "title": {
+          "display": true,
+          "text": "Date"
+        }
+      },
+      "y": {
+        "title": {
+          "display": true,
+          "text": "value"
+        }
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "handler(chart) {chart.data.datasets.forEach(dataset => {dataset.data.forEach(function (dataObj, j) {const newVal = Utils.rand(0, 100);if (typeof dataObj === 'object') {dataObj.y = newVal;}else {dataset.data[j] = newVal;}});});chart.update();}"
+    }
+  ]
+}

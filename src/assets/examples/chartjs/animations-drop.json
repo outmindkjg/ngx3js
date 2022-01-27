@@ -1,0 +1,82 @@
+{
+    "type": "line",
+    "data": {
+      "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July"
+      ],
+      "datasets": [
+        {
+          "label": "Dataset 1",
+          "animations": {
+            "y": {
+              "duration": 2000,
+              "delay": 500
+            }
+          },
+          "data": [
+            1.73182442,
+            49.37757202,
+            17.80521262,
+            -23.8494513,
+            75.0308642,
+            35.43381344,
+            -29.06035665
+          ],
+          "borderColor": "rgb(255, 99, 132)",
+          "backgroundColor": "rgba(255,99,132,0.5)",
+          "fill": 1,
+          "tension": 0.5
+        },
+        {
+          "label": "Dataset 2",
+          "data": [
+            -56.72325103,
+            51.21056241,
+            52.76577503,
+            -79.218107,
+            -68.1978738,
+            88.29561043,
+            74.21296296
+          ],
+          "borderColor": "rgb(54, 162, 235)",
+          "backgroundColor": "rgba(54,162,235,0.5)"
+        }
+      ]
+    },
+    "options": {
+      "animations": {
+        "y": {
+          "easing": "easeInOutElastic",
+          "from": "(ctx) => { if (ctx.type === 'data') { if (ctx.mode === 'default' && !ctx.dropped) { ctx.dropped = true; return 0; } } }"
+        }
+      }
+    },
+    "actions": [
+      {
+        "name": "Randomize",
+        "handler": "handler(chart) { chart.data.datasets.forEach((dataset) => { dataset.data = Utils.numbers({ count: chart.data.labels.length, min: -100, max: 100, }); }); chart.update(); }"
+      },
+      {
+        "name": "Add Dataset",
+        "handler": "handler(chart) { const data = chart.data; const dsColor = Utils.namedColor(chart.data.datasets.length); const newDataset = { label: 'Dataset ' + (data.datasets.length + 1), backgroundColor: Utils.transparentize(dsColor, 0.5), borderColor: dsColor, data: Utils.numbers({ count: data.labels.length, min: -100, max: 100, }), }; chart.data.datasets.push(newDataset); chart.update(); }"
+      },
+      {
+        "name": "Add Data",
+        "handler": "handler(chart) { const data = chart.data; if (data.datasets.length > 0) { data.labels = Utils.months({ count: data.labels.length + 1 }); for (let index = 0; index < data.datasets.length; ++index) { data.datasets[index].data.push(Utils.rand(-100, 100)); } chart.update(); } }"
+      },
+      {
+        "name": "Remove Dataset",
+        "handler": "handler(chart) { chart.data.datasets.pop(); chart.update(); }"
+      },
+      {
+        "name": "Remove Data",
+        "handler": "handler(chart) { chart.data.labels.splice(-1, 1); /* remove the label first */ chart.data.datasets.forEach((dataset) => { dataset.data.pop(); }); chart.update(); }"
+      }
+    ]
+  }

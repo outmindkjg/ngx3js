@@ -1,0 +1,53 @@
+{
+  "type": "radar",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          8.6042524,
+          8.76457476,
+          71.78497942,
+          13.71484911,
+          80.23319616,
+          24.42644033,
+          51.23285322
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255, 99, 132, 0.5)"
+      },
+      {
+        "label": "Dataset 2",
+        "data": [
+          28.55366941,
+          65.0308642,
+          54.49159808,
+          87.05932785,
+          26.93158436,
+          56.82441701,
+          89.0835048
+        ],
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgba(54, 162, 235, 0.5)"
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Chart.js Radar Chart"
+      }
+    }
+  }
+}

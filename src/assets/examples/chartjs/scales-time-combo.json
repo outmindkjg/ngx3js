@@ -1,0 +1,86 @@
+{
+    "type": "line",
+    "data": {
+      "labels": [
+        "2022-01-27T04:24:56.455Z",
+        "2022-01-28T04:24:56.455Z",
+        "2022-01-29T04:24:56.455Z",
+        "2022-01-30T04:24:56.455Z",
+        "2022-01-31T04:24:56.455Z",
+        "2022-02-01T04:24:56.455Z",
+        "2022-02-02T04:24:56.455Z"
+      ],
+      "datasets": [
+        {
+          "type": "bar",
+          "label": "Dataset 1",
+          "backgroundColor": "rgba(255, 99, 132, 0.5)",
+          "borderColor": "rgb(255, 99, 132)",
+          "data": [
+            25.02572016,
+            11.40003429,
+            89.02949246,
+            11.0005144,
+            82.25137174,
+            70.68329904,
+            84.9382716
+          ]
+        },
+        {
+          "type": "bar",
+          "label": "Dataset 2",
+          "backgroundColor": "rgba(54, 162, 235, 0.5)",
+          "borderColor": "rgb(54, 162, 235)",
+          "data": [
+            18.84344993,
+            62.52229081,
+            80.1723251,
+            54.50960219,
+            97.8798011,
+            30.03600823,
+            22.58316187
+          ]
+        },
+        {
+          "type": "line",
+          "label": "Dataset 3",
+          "backgroundColor": "rgba(75, 192, 192, 0.5)",
+          "borderColor": "rgb(75, 192, 192)",
+          "fill": false,
+          "data": [
+            10.08916324,
+            67.86265432,
+            56.39746228,
+            32.48371056,
+            26.98559671,
+            89.28583676,
+            98.39677641
+          ]
+        }
+      ]
+    },
+    "options": {
+      "plugins": {
+        "title": {
+          "text": "Chart.js Combo Time Scale",
+          "display": true
+        }
+      },
+      "scales": {
+        "x": {
+          "type": "time",
+          "display": true,
+          "offset": true,
+          "time": {
+            "unit": "day"
+          }
+        }
+      }
+    },
+    "actions": [
+      {
+        "name": "Randomize",
+        "handler": "handler(chart) {chart.data.datasets.forEach(dataset => {dataset.data = Utils.numbers({ count: chart.data.labels.length, min: 0, max: 100 });});chart.update();}"
+      }
+    ]
+  }

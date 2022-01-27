@@ -1,0 +1,54 @@
+{
+  "type": "polarArea",
+  "data": {
+    "labels": [
+      "Red",
+      "Orange",
+      "Yellow",
+      "Green",
+      "Blue"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          16.14197531,
+          72.26937586,
+          71.50377229,
+          78.04269547,
+          74.60219479
+        ],
+        "backgroundColor": [
+          "rgba(255, 99, 132, 0.5)",
+          "rgba(255, 159, 64, 0.5)",
+          "rgba(255, 205, 86, 0.5)",
+          "rgba(75, 192, 192, 0.5)",
+          "rgba(54, 162, 235, 0.5)"
+        ]
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "scales": {
+      "r": {
+        "pointLabels": {
+          "display": true,
+          "centerPointLabels": true,
+          "font": {
+            "size": 18
+          }
+        }
+      }
+    },
+    "plugins": {
+      "legend": {
+        "position": "top"
+      },
+      "title": {
+        "display": true,
+        "text": "Chart.js Polar Area Chart With Centered Point Labels"
+      }
+    }
+  }
+}

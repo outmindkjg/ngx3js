@@ -1,0 +1,59 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          97.25651578,
+          59.71707819,
+          31.8484225,
+          16.1196845,
+          96.48148148,
+          -72.7451989,
+          -44.64677641
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255, 99, 132, 0.5)",
+        "order": 1
+      },
+      {
+        "label": "Dataset 2",
+        "data": [
+          -24.16152263,
+          20.80932785,
+          -18.37620027,
+          -35.54526749,
+          -20.82133059,
+          -38.40192044,
+          -71.00308642
+        ],
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgba(54, 162, 235, 0.5)",
+        "type": "line",
+        "order": 0
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "plugins": {
+      "legend": {
+        "position": "top"
+      },
+      "title": {
+        "display": true,
+        "text": "Chart.js Combined Line/Bar Chart"
+      }
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+    "type": "scatter",
+    "data": {
+      "datasets": [
+        {
+          "label": "Dataset 1",
+          "data": [
+            {
+              "x": 25.54869684,
+              "y": -64.50274348
+            },
+            {
+              "x": -36.68209877,
+              "y": 42.40226337
+            },
+            {
+              "x": 95.9430727,
+              "y": 25.64471879
+            },
+            {
+              "x": -62.99554184,
+              "y": 87.69375857
+            },
+            {
+              "x": -51.76954733,
+              "y": -87.5
+            },
+            {
+              "x": 28.38648834,
+              "y": -45.61556927
+            }
+          ],
+          "fill": false,
+          "borderColor": "rgb(255, 99, 132)",
+          "backgroundColor": "rgba(255, 99, 132, 0.5)"
+        },
+        {
+          "label": "Dataset 2",
+          "data": [
+            {
+              "x": 60.260631,
+              "y": -66.82784636
+            },
+            {
+              "x": 25.19032922,
+              "y": 45.0154321
+            },
+            {
+              "x": 81.27229081,
+              "y": -3.84087791
+            },
+            {
+              "x": -80.13545953,
+              "y": -33.14986283
+            },
+            {
+              "x": 47.1399177,
+              "y": 85.48353909
+            },
+            {
+              "x": 72.97496571,
+              "y": -82.50857339
+            }
+          ],
+          "fill": false,
+          "borderColor": "rgb(54, 162, 235)",
+          "backgroundColor": "rgba(54, 162, 235, 0.5)"
+        }
+      ]
+    },
+    "options": {
+      "responsive": true,
+      "plugins": {
+        "title": {
+          "display": true,
+          "text": "Axis Center Positioning"
+        }
+      },
+      "scales": {
+        "x": {
+          "min": -100,
+          "max": 100
+        },
+        "y": {
+          "min": -100,
+          "max": 100
+        }
+      }
+    },
+    "actions": [
+      {
+        "name": "Default Positions",
+        "handler": "handler(chart) {chart.options.scales.x.position = 'bottom';chart.options.scales.y.position = 'left';chart.update();}"
+      },
+      {
+        "name": "Position: center",
+        "handler": "handler(chart) {chart.options.scales.x.position = 'center';chart.options.scales.y.position = 'center';chart.update();}"
+      },
+      {
+        "name": "Position: Vertical: x=-60, Horizontal: y=30",
+        "handler": "handler(chart) {chart.options.scales.x.position = { y: 30 };chart.options.scales.y.position = { x: -60 };chart.update();}"
+      }
+    ]
+  }

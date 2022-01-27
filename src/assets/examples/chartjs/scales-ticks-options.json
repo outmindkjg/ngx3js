@@ -1,0 +1,98 @@
+{
+    "type": "line",
+    "data": {
+      "labels": [
+        [
+          "June",
+          "2015"
+        ],
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+        [
+          "January",
+          "2016"
+        ],
+        "February",
+        "March",
+        "April",
+        "May"
+      ],
+      "datasets": [
+        {
+          "label": "Dataset 1",
+          "data": [
+            44.87825789,
+            76.10853909,
+            12.17421125,
+            54.30984225,
+            44.49074074,
+            9.87740055,
+            73.9266118,
+            34.16923868,
+            6.65466392,
+            37.06189986,
+            78.47736626,
+            35.83933471
+          ],
+          "fill": false,
+          "borderColor": "rgb(255, 99, 132)",
+          "backgroundColor": "rgba(255, 99, 132, 0.5)"
+        },
+        {
+          "label": "Dataset 2",
+          "data": [
+            77.04903978,
+            10.74845679,
+            30.76474623,
+            27.22136488,
+            64.31584362,
+            24.76423182,
+            20.9122085,
+            72.51286008,
+            51.17112483,
+            91.45490398,
+            68.67283951,
+            43.31875857
+          ],
+          "fill": false,
+          "borderColor": "rgb(54, 162, 235)",
+          "backgroundColor": "rgba(54, 162, 235, 0.5)"
+        }
+      ]
+    },
+    "options": {
+      "responsive": true,
+      "plugins": {
+        "title": {
+          "display": true,
+          "text": "Chart with Tick Configuration"
+        }
+      },
+      "scales": {
+        "x": {
+          "ticks": {
+            "callback": "function (val, index) { return index % 2 === 0 ? this.getLabelForValue(val) : '';}",
+            "color": "red"
+          }
+        }
+      }
+    },
+    "actions": [
+      {
+        "name": "Alignment: start",
+        "handler": "handler(chart) {chart.options.scales.x.ticks.align = 'start';chart.update();}"
+      },
+      {
+        "name": "Alignment: center (default)",
+        "handler": "handler(chart) {chart.options.scales.x.ticks.align = 'center';chart.update();}"
+      },
+      {
+        "name": "Alignment: end",
+        "handler": "handler(chart) {chart.options.scales.x.ticks.align = 'end';chart.update();}"
+      }
+    ]
+  }

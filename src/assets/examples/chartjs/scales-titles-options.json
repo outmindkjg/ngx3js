@@ -1,0 +1,92 @@
+{
+  "type": "line",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          67.28052126,
+          39.86882716,
+          32.10733882,
+          34.11951303,
+          10.10288066,
+          42.77349108,
+          44.47702332
+        ],
+        "fill": false,
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255, 99, 132, 0.5)"
+      },
+      {
+        "label": "Dataset 2",
+        "data": [
+          34.96656379,
+          85.84705075,
+          31.68638546,
+          47.79320988,
+          94.66135117,
+          29.08093278,
+          81.91615226
+        ],
+        "fill": false,
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgba(54, 162, 235, 0.5)"
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "scales": {
+      "x": {
+        "display": true,
+        "title": {
+          "display": true,
+          "text": "Month",
+          "color": "#911",
+          "font": {
+            "family": "Comic Sans MS",
+            "size": 20,
+            "weight": "bold",
+            "lineHeight": 1.2
+          },
+          "padding": {
+            "top": 20,
+            "left": 0,
+            "right": 0,
+            "bottom": 0
+          }
+        }
+      },
+      "y": {
+        "display": true,
+        "title": {
+          "display": true,
+          "text": "Value",
+          "color": "#191",
+          "font": {
+            "family": "Times",
+            "size": 20,
+            "style": "normal",
+            "lineHeight": 1.2
+          },
+          "padding": {
+            "top": 30,
+            "left": 0,
+            "right": 0,
+            "bottom": 0
+          }
+        }
+      }
+    }
+  },
+  "actions": null
+}

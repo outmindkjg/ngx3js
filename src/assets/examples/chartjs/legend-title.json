@@ -1,0 +1,55 @@
+{
+    "type": "line",
+    "data": {
+      "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July"
+      ],
+      "datasets": [
+        {
+          "label": "Dataset 1",
+          "data": [
+            -26.32030178,
+            56.71639232,
+            95.10288066,
+            98.71570645,
+            3.35733882,
+            26.3117284,
+            -44.76680384
+          ],
+          "fill": false,
+          "borderColor": "rgb(255, 99, 132)",
+          "backgroundColor": "rgba(255, 99, 132, 0.5)"
+        }
+      ]
+    },
+    "options": {
+      "plugins": {
+        "legend": {
+          "title": {
+            "display": true,
+            "text": "Legend Title"
+          }
+        }
+      }
+    },
+    "actions": [
+      {
+        "name": "Title Position: start",
+        "handler": "handler(chart) {chart.options.plugins.legend.align = 'start';chart.options.plugins.legend.title.position = 'start';chart.update();}"
+      },
+      {
+        "name": "Title Position: center (default)",
+        "handler": "handler(chart) {chart.options.plugins.legend.align = 'center';chart.options.plugins.legend.title.position = 'center';chart.update();}"
+      },
+      {
+        "name": "Title Position: end",
+        "handler": "handler(chart) {chart.options.plugins.legend.align = 'end';chart.options.plugins.legend.title.position = 'end';chart.update();}"
+      }
+    ]
+  }

@@ -1,0 +1,87 @@
+{
+    "type": "line",
+    "data": {
+      "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July"
+      ],
+      "datasets": [
+        {
+          "label": "Triangles",
+          "data": [
+            63.5733882,
+            16.15740741,
+            52.48628258,
+            19.47359396,
+            -87.81893004,
+            -37.29252401,
+            62.41083676
+          ],
+          "fill": false,
+          "borderColor": "rgb(255, 99, 132)",
+          "backgroundColor": "rgba(255, 99, 132, 0.5)",
+          "pointStyle": "triangle",
+          "pointRadius": 6
+        },
+        {
+          "label": "Circles",
+          "data": [
+            -82.53600823,
+            -62.25651578,
+            59.05178326,
+            98.67283951,
+            44.26097394,
+            76.06310014,
+            -77.52572016
+          ],
+          "fill": false,
+          "borderColor": "rgb(54, 162, 235)",
+          "backgroundColor": "rgba(54, 162, 235, 0.5)",
+          "pointStyle": "circle",
+          "pointRadius": 6
+        },
+        {
+          "label": "Stars",
+          "data": [
+            -51.0733882,
+            -19.88854595,
+            55.53497942,
+            -81.59293553,
+            37.86351166,
+            -35.47839506,
+            19.36899863
+          ],
+          "fill": false,
+          "borderColor": "rgb(75, 192, 192)",
+          "backgroundColor": "rgba(75, 192, 192, 0.5)",
+          "pointStyle": "star",
+          "pointRadius": 6
+        }
+      ]
+    },
+    "options": {
+      "interaction": {
+        "mode": "index"
+      },
+      "plugins": {
+        "title": {
+          "display": true,
+          "text": "(ctx) => 'Tooltip point style: ' + ctx.chart.options.plugins.tooltip.usePointStyle"
+        },
+        "tooltip": {
+          "usePointStyle": true
+        }
+      }
+    },
+    "actions": [
+      {
+        "name": "Toggle Tooltip Point Style",
+        "handler": "handler(chart) {chart.options.plugins.tooltip.usePointStyle = !chart.options.plugins.tooltip.usePointStyle;chart.update();}"
+      }
+    ]
+  }

@@ -1,0 +1,75 @@
+{
+    "type": "bar",
+    "data": {
+      "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July"
+      ],
+      "datasets": [
+        {
+          "label": "Dataset 1",
+          "data": [
+            -97.9218107,
+            90.87620027,
+            91.81412894,
+            -11.15740741,
+            36.28257888,
+            81.04766804,
+            -81.80041152
+          ],
+          "backgroundColor": "rgb(255, 99, 132)"
+        },
+        {
+          "label": "Dataset 2",
+          "data": [
+            -20.16289438,
+            -42.68175583,
+            -43.18415638,
+            -11.79355281,
+            -12.70747599,
+            -28.64197531,
+            -71.94272977
+          ],
+          "backgroundColor": "rgb(54, 162, 235)"
+        },
+        {
+          "label": "Dataset 3",
+          "data": [
+            37.63717421,
+            28.49279835,
+            66.05624143,
+            -24.98113855,
+            -5.11316872,
+            68.87002743,
+            66.1042524
+          ],
+          "backgroundColor": "rgb(75, 192, 192)"
+        }
+      ]
+    },
+    "options": {
+      "animation": {
+        "onComplete": "() => { sharedVar.delayed = true; }",
+        "delay": "(context) => { let delay = 0; if (context.type === 'data' && context.mode === 'default' && !sharedVar.delayed) { delay = context.dataIndex * 300 + context.datasetIndex * 100; } return delay; }"
+      },
+      "scales": {
+        "x": {
+          "stacked": true
+        },
+        "y": {
+          "stacked": true
+        }
+      }
+    },
+    "actions": [
+      {
+        "name": "Randomize",
+        "handler": "handler(chart) { chart.data.datasets.forEach(dataset => { dataset.data = Utils.numbers({ count: chart.data.labels.length, min: -100, max: 100 }); }); chart.sharedVar.delayed = false; chart.update(); }"
+      }
+    ]
+  }

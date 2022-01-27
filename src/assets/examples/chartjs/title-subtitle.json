@@ -1,0 +1,54 @@
+{
+    "type": "line",
+    "data": {
+      "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July"
+      ],
+      "datasets": [
+        {
+          "label": "Dataset 1",
+          "data": [
+            -78.68998628,
+            -84.13065844,
+            -20.64128944,
+            69.80281207,
+            -39.95884774,
+            -73.38305898,
+            -28.00068587
+          ],
+          "fill": false,
+          "borderColor": "rgb(255, 99, 132)",
+          "backgroundColor": "rgba(255, 99, 132, 0.5)"
+        }
+      ]
+    },
+    "options": {
+      "plugins": {
+        "title": {
+          "display": true,
+          "text": "Chart Title"
+        },
+        "subtitle": {
+          "display": true,
+          "text": "Chart Subtitle",
+          "color": "blue",
+          "font": {
+            "size": 12,
+            "family": "tahoma",
+            "weight": "normal",
+            "style": "italic"
+          },
+          "padding": {
+            "bottom": 10
+          }
+        }
+      }
+    },
+    "actions": null
+  }

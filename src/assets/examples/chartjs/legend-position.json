@@ -1,0 +1,49 @@
+{
+    "type": "line",
+    "data": {
+      "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July"
+      ],
+      "datasets": [
+        {
+          "label": "Dataset 1",
+          "data": [
+            -41.41632373,
+            -82.65946502,
+            63.54595336,
+            66.33573388,
+            76.32716049,
+            14.50788752,
+            -5.54183813
+          ],
+          "fill": false,
+          "borderColor": "rgb(255, 99, 132)",
+          "backgroundColor": "rgba(255, 99, 132, 0.5)"
+        }
+      ]
+    },
+    "actions": [
+      {
+        "name": "Position: top",
+        "handler": "handler(chart) {chart.options.plugins.legend.position = 'top';chart.update();}"
+      },
+      {
+        "name": "Position: right",
+        "handler": "handler(chart) {chart.options.plugins.legend.position = 'right';chart.update();}"
+      },
+      {
+        "name": "Position: bottom",
+        "handler": "handler(chart) {chart.options.plugins.legend.position = 'bottom';chart.update();}"
+      },
+      {
+        "name": "Position: left",
+        "handler": "handler(chart) {chart.options.plugins.legend.position = 'left';chart.update();}"
+      }
+    ]
+  }

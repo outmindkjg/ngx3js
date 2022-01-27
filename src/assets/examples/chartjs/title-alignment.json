@@ -1,0 +1,53 @@
+{
+  "type": "line",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          -99.93141289,
+          16.43861454,
+          88.15843621,
+          -74.89540466,
+          63.07956104,
+          -80.63271605,
+          81.62208505
+        ],
+        "fill": false,
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255, 99, 132, 0.5)"
+      }
+    ]
+  },
+  "options": {
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Chart Title"
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "Title Alignment: start",
+      "handler": "handler(chart) {chart.options.plugins.title.align = 'start';chart.update();}"
+    },
+    {
+      "name": "Title Alignment: center (default)",
+      "handler": "handler(chart) {chart.options.plugins.title.align = 'center';chart.update();}"
+    },
+    {
+      "name": "Title Alignment: end",
+      "handler": "handler(chart) {chart.options.plugins.title.align = 'end';chart.update();}"
+    }
+  ]
+}

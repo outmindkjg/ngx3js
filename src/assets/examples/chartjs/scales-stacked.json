@@ -1,0 +1,81 @@
+{
+  "type": "line",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          10,
+          30,
+          50,
+          20,
+          25,
+          44,
+          -10
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgb(255, 99, 132)"
+      },
+      {
+        "label": "Dataset 2",
+        "data": [
+          "ON",
+          "ON",
+          "OFF",
+          "ON",
+          "OFF",
+          "OFF",
+          "ON"
+        ],
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgb(54, 162, 235)",
+        "stepped": true,
+        "yAxisID": "y2"
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Stacked scales"
+      }
+    },
+    "scales": {
+      "y": {
+        "type": "linear",
+        "position": "left",
+        "stack": "demo",
+        "stackWeight": 2,
+        "grid": {
+          "borderColor": "rgb(255, 99, 132)"
+        }
+      },
+      "y2": {
+        "type": "category",
+        "labels": [
+          "ON",
+          "OFF"
+        ],
+        "offset": true,
+        "position": "left",
+        "stack": "demo",
+        "stackWeight": 1,
+        "grid": {
+          "borderColor": "rgb(54, 162, 235)"
+        }
+      }
+    }
+  },
+  "actions": null
+}

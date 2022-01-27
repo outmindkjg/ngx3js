@@ -1,0 +1,38 @@
+{
+  "type": "pie",
+  "data": {
+    "datasets": [
+      {
+        "data": [
+          19.41615226,
+          -89.00805898,
+          81.37431413,
+          14.51388889,
+          -35.26834705
+        ]
+      }
+    ]
+  },
+  "options": {
+    "plugins": {
+      "legend": false,
+      "tooltip": false
+    },
+    "elements": {
+      "arc": {
+        "backgroundColor": "(ctx) => { const v = ctx.parsed; const c = v < -50 ? '#D60000' : v < 0 ? '#F46300' : v < 50 ? '#0358B6' : '#44DE28'; const opacity = 1 - Math.abs(v / 150); return Utils.transparentize(c, opacity); }",
+        "hoverBackgroundColor": "(ctx) => { const v = ctx.parsed; const c = v < -50 ? '#D60000' : v < 0 ? '#F46300' : v < 50 ? '#0358B6' : '#44DE28'; const opacity = 1 - Math.abs(v / 150) - 0.2; return Utils.transparentize(c, opacity); }"
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "handler(chart) { const DATA_COUNT = 5; function generateData() { return Utils.numbers({ count: DATA_COUNT, min: -100, max: 100 }); } chart.data.datasets.forEach(dataset => { dataset.data = generateData(); }); chart.update(); }"
+    },
+    {
+      "name": "Toggle Doughnut View",
+      "handler": "handler(chart) { if (chart.options.cutout) { chart.options.cutout = 0; } else { chart.options.cutout = '50%'; } chart.update(); }"
+    }
+  ]
+}

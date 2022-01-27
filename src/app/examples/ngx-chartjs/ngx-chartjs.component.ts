@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as chartjs from 'chart.js';
+
+import 'chartjs-adapter-luxon';
 import {
 	I3JS,
 	N3JS,
@@ -16,8 +18,9 @@ interface SeriesDataTypes {
 	count: number;
 	min: number;
 	max: number;
-	decimals: number;
 	type: string;
+	decimals?: number;
+	continuity?: number;
 }
 
 @Component({
@@ -43,7 +46,6 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 	repeatX: number;
 	repeatY: number;
 	wrap: string;
-	randomData: () => void;
 }> {
 	constructor(private route: ActivatedRoute) {
 		super(
@@ -65,9 +67,6 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 				repeatX: 1,
 				repeatY: 1,
 				wrap: 'ClampToEdgeWrapping',
-				randomData: () => {
-					this.refreshChart();
-				},
 			},
 			[
 				{
@@ -193,7 +192,7 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 					],
 				},
 				{
-					name: 'Chart Attribute',
+					name: 'Chart Action',
 					type: 'folder',
 					children: [],
 				},
@@ -229,11 +228,6 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 							type: 'color',
 						},
 					],
-				},
-				{
-					name: 'randomData',
-					title: 'Data Randomize',
-					type: 'button',
 				},
 			],
 			false,
@@ -301,157 +295,79 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 			case 'gauge-clock':
 				break;
 		}
-	}
-
-	private refreshChart() {
-		if (this.chart !== null) {
-			const option = this.chart.config;
-			if (NgxThreeUtil.isNotNull(option.data?.datasets)) {
-				if (Array.isArray(option.data?.datasets)) {
-					this.seriesDataTypes.forEach((dataType, idx) => {
-						option.data.datasets[idx].data = this.getRandomSeriesData(
-							dataType,
-							option.data.datasets[idx].data
-						);
-					});
-				}
-				this.option = Object.assign({}, this.option);
-				this.option.data.datasets = option.data.datasets;
+		if (this.lastActions !== this.option.actions) {
+			this.lastActions = this.option.actions;
+			const actionFolder = NgxThreeUtil.getGuiFolder(
+				this.renderer.gui,
+				'Chart Action'
+			);
+			NgxThreeUtil.clearGui(actionFolder);
+			if (this.lastActions !== null && this.lastActions !== undefined) {
+				this.lastActions.forEach((action) => {
+					action.callFunction = this.getFunctionOption(action.handler);
+					action.callBack = () => {
+						try {
+							action.callFunction(this.chart);
+						} catch (ex) {
+							console.log(ex);
+						}
+					};
+					actionFolder.add(action, 'callBack').name(action.name);
+				});
 			}
 		}
 	}
 
-	private getRandomSeriesData(
-		dataType: SeriesDataTypes,
-		oldData: any[]
-	): any[] {
-		switch (dataType.type) {
-			case 'number':
-				oldData = ChartUtils.numbers(dataType);
-				break;
-			case 'value':
-				const valueList = ChartUtils.numbers(dataType);
-				oldData.forEach((obj, idx) => {
-					obj.value = valueList[idx];
-				});
-				break;
-			case 'xy':
-				const valueListX = ChartUtils.numbers(dataType);
-				const valueListY = ChartUtils.numbers(dataType);
-				oldData.forEach((obj, idx) => {
-					obj.x = valueListX[idx];
-					obj.y = valueListY[idx];
-				});
-				break;
-			case 'array':
-				{
-					const valuePairList: number[][] = [];
-					for (let i = 0; i < oldData[0].length; i++) {
-						if (typeof oldData[0][i] === 'number') {
-							valuePairList.push(ChartUtils.numbers(dataType));
-						} else {
-							break;
-						}
-					}
-					valuePairList[0].forEach((_, idx) => {
-						const data: number[] = oldData[idx];
-						valuePairList.forEach((value, seq) => {
-							data[seq] = value[idx];
-						});
-					});
-				}
-				break;
-			case 'valuearray':
-				{
-					const valuePairList: number[][] = [];
-					for (let i = 0; i < oldData[0]['value'].length; i++) {
-						if (typeof oldData[0]['value'][i] === 'number') {
-							valuePairList.push(ChartUtils.numbers(dataType));
-						} else {
-							break;
-						}
-					}
-					if (valuePairList.length > 0) {
-						valuePairList[0].forEach((_, idx) => {
-							const data: number[] = oldData[idx]['value'] || [];
-							valuePairList.forEach((value, seq) => {
-								data[seq] = value[idx];
-							});
-						});
-					}
-				}
-				break;
-		}
-		return oldData;
-	}
-
-	private seriesDataTypes: SeriesDataTypes[] = [];
-
-	private getSeriesDataTypes(data: any[]): SeriesDataTypes {
-		const seriesDataTypes = {
-			count: data.length,
-			min: 0,
-			max: 0,
-			decimals: 2,
-			type: 'none',
-		};
-		if (data.length > 0) {
-			const firstData = data[0];
-			if (typeof firstData === 'number') {
-				seriesDataTypes.max = Math.max(...data);
-				seriesDataTypes.min = Math.min(...data);
-				seriesDataTypes.type = 'number';
-			} else if (NgxThreeUtil.isNotNull(firstData.value)) {
-				if (typeof firstData.value === 'number') {
-					const valueList: number[] = [];
-					data.forEach((obj) => {
-						valueList.push(obj.value);
-					});
-					seriesDataTypes.max = Math.max(...valueList);
-					seriesDataTypes.min = Math.min(...valueList);
-					seriesDataTypes.type = 'value';
-				} else if (
-					Array.isArray(firstData.value) &&
-					typeof firstData.value[0] === 'number'
-				) {
-					const valueList: number[] = [];
-					data.forEach((obj) => {
-						valueList.push(...obj.value);
-					});
-					seriesDataTypes.max = Math.max(...valueList);
-					seriesDataTypes.min = Math.min(...valueList);
-					seriesDataTypes.type = 'valuearray';
-				}
-			} else if (
-				NgxThreeUtil.isNotNull(firstData.x) &&
-				NgxThreeUtil.isNotNull(firstData.y)
+	/**
+	 * Checks function option
+	 *
+	 * @param functionOptions
+	 * @returns function option
+	 */
+	private getFunctionOption(functionOptions: any): (chart) => void {
+		let functionItem = (chart: any) => {};
+		if (NgxThreeUtil.isNotNullEmpty(functionOptions)) {
+			if (
+				typeof functionOptions === 'string' &&
+				(functionOptions.indexOf('=>') !== -1 ||
+					functionOptions.indexOf('function(') === 0 ||
+					functionOptions.indexOf('function (') === 0 ||
+					functionOptions.indexOf('handler(') === 0)
 			) {
-				const valueList: number[] = [];
-				data.forEach((obj) => {
-					valueList.push(obj.x, obj.y);
-				});
-				seriesDataTypes.max = Math.max(...valueList);
-				seriesDataTypes.min = Math.min(...valueList);
-				seriesDataTypes.type = 'xy';
-			} else if (Array.isArray(firstData) && typeof firstData[0] === 'number') {
-				const valueList: number[] = [];
-				data.forEach((obj) => {
-					obj.forEach((value) => {
-						if (typeof value === 'number') {
-							valueList.push(value);
+				try {
+					const Chart = this.chartjs; // with eval function
+					const Utils = ChartUtils;
+					let smooth = false;
+					let propagate = false;
+					if (
+						Chart !== null &&
+						Utils !== null &&
+						smooth !== null &&
+						propagate !== null
+					) {
+						functionOptions = functionOptions.replace('handler(', 'function(');
+						eval('functionItem = ' + functionOptions + '');
+						if (typeof functionItem === 'function') {
+							return functionItem;
 						}
-					});
-				});
-				seriesDataTypes.max = Math.max(...valueList);
-				seriesDataTypes.min = Math.min(...valueList);
-				seriesDataTypes.type = 'array';
+					}
+				} catch (ex) {
+					this.consoleLog('functionItem', ex, 'error');
+				}
+			} else if (typeof functionOptions === 'function') {
+				console.log(functionOptions);
+				return functionOptions;
 			}
 		}
-		if (seriesDataTypes.max > 0 && seriesDataTypes.max <= seriesDataTypes.min) {
-			seriesDataTypes.min = seriesDataTypes.max * 0.2;
-		}
-		return seriesDataTypes;
+		return functionItem;
 	}
+
+	private lastActions: {
+		name: string;
+		handler: string;
+		callFunction: (chart) => void;
+		callBack: () => void;
+	}[] = [];
 
 	private changeExample() {
 		if (this.lastLoadedExample !== this.controls.example) {
@@ -468,7 +384,7 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 				case 'bar-stacked':
 				case 'bar-stacked-groups':
 				case 'bar-floating':
-				case 'bar-border-radius ':
+				case 'bar-border-radius':
 				case 'line-line':
 				case 'line-multi-axis':
 				case 'line-stepped':
@@ -481,49 +397,49 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 				case 'other-doughnut':
 				case 'other-pie':
 				case 'other-multi-series-pie':
-				case 'other-polar-area ':
-				case 'other-polar-area-center-labels ':
-				case 'other-radar ':
-				case 'other-radar-skip-points ':
-				case 'other-combo-bar-line ':
-				case 'other-stacked-bar-line ':
-				case 'area-line-boundaries ':
-				case 'area-line-datasets ':
-				case 'area-line-drawtime ':
-				case 'area-line-stacked ':
-				case 'area-radar ':
-				case 'scales-linear-min-max ':
-				case 'scales-linear-min-max-suggested ':
-				case 'scales-linear-step-size ':
-				case 'scales-log ':
-				case 'scales-time-line ':
-				case 'scales-time-max-span ':
-				case 'scales-time-combo ':
-				case 'scales-stacked ':
-				case 'scales-grid-options ':
-				case 'scales-ticks-options ':
-				case 'scales-titles-options ':
-				case 'scales-center-options ':
-				case 'legend-position ':
-				case 'legend-title ':
-				case 'legend-point-style ':
-				case 'legend-events ':
+				case 'other-polar-area':
+				case 'other-polar-area-center-labels':
+				case 'other-radar':
+				case 'other-radar-skip-points':
+				case 'other-combo-bar-line':
+				case 'other-stacked-bar-line':
+				case 'area-line-boundaries':
+				case 'area-line-datasets':
+				case 'area-line-drawtime':
+				case 'area-line-stacked':
+				case 'area-radar':
+				case 'scales-linear-min-max':
+				case 'scales-linear-min-max-suggested':
+				case 'scales-linear-step-size':
+				case 'scales-log':
+				case 'scales-time-line':
+				case 'scales-time-max-span':
+				case 'scales-time-combo':
+				case 'scales-stacked':
+				case 'scales-grid-options':
+				case 'scales-ticks-options':
+				case 'scales-titles-options':
+				case 'scales-center-options':
+				case 'legend-position':
+				case 'legend-title':
+				case 'legend-point-style':
+				case 'legend-events':
 				case 'legend-html ':
-				case 'title-alignment ':
-				case 'title-subtitle ':
-				case 'tooltip-position ':
-				case 'tooltip-interactions ':
-				case 'tooltip-point-style ':
-				case 'tooltip-content ':
-				case 'tooltip-html ':
-				case 'scriptable-bar ':
-				case 'scriptable-bubble ':
-				case 'scriptable-pie ':
-				case 'scriptable-line ':
-				case 'scriptable-polar ':
-				case 'scriptable-radar ':
-				case 'animations-delay ':
-				case 'animations-drop ':
+				case 'title-alignment':
+				case 'title-subtitle':
+				case 'tooltip-position':
+				case 'tooltip-interactions':
+				case 'tooltip-point-style':
+				case 'tooltip-content':
+				case 'tooltip-html':
+				case 'scriptable-bar':
+				case 'scriptable-bubble':
+				case 'scriptable-pie':
+				case 'scriptable-line':
+				case 'scriptable-polar':
+				case 'scriptable-radar':
+				case 'animations-delay':
+				case 'animations-drop':
 				case 'animations-loop ':
 				case 'animations-progressive-line ':
 				case 'animations-progressive-line-easing ':
@@ -537,37 +453,100 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 					this.jsonFileLoad(
 						'chartjs/' + this.lastLoadedExample + '.json',
 						(option: any) => {
-							this.option = option;
-							this.optionSeqn = NgxThreeUtil.getUUID();
-							this.seriesDataTypes = [];
-							if (NgxThreeUtil.isNotNull(option.data?.datasets)) {
-								if (Array.isArray(option.data.datasets)) {
-									option.data.datasets.forEach((datasets) => {
-										if (Array.isArray(datasets.data)) {
-											this.seriesDataTypes.push(
-												this.getSeriesDataTypes(datasets.data)
-											);
+							switch (this.lastLoadedExample) {
+								case 'scales-time-line':
+									{
+										const labels: any = [];
+										option.data.labels.forEach((_, idx) => {
+											labels.push(ChartUtils.newDate(idx));
+										});
+										option.data.labels = labels;
+										option.data.datasets[2].data.forEach((data, idx) => {
+											switch (idx) {
+												case 0:
+													data.x = ChartUtils.newDateString(0);
+													break;
+												case 1:
+													data.x = ChartUtils.newDateString(5);
+													break;
+												case 2:
+													data.x = ChartUtils.newDateString(7);
+													break;
+												case 3:
+													data.x = ChartUtils.newDateString(15);
+													break;
+											}
+										});
+									}
+									break;
+								case 'scales-time-max-span':
+									option.data.datasets[0].data.forEach((data, idx) => {
+										switch (idx) {
+											case 0:
+												data.x = ChartUtils.newDateString(0);
+												break;
+											case 1:
+												data.x = ChartUtils.newDateString(2);
+												break;
+											case 2:
+												data.x = ChartUtils.newDateString(4);
+												break;
+											case 3:
+												data.x = ChartUtils.newDateString(6);
+												break;
 										}
 									});
-								} else if (Array.isArray(option.data?.datasets?.data)) {
-									this.seriesDataTypes.push(
-										this.getSeriesDataTypes(option.datasets.data)
-									);
-								}
-							}
-							const guiController = NgxThreeUtil.getGuiController(
-								this.renderer.gui,
-								'randomData'
-							);
-							if (guiController) {
-								let hasRandom: boolean = false;
-								this.seriesDataTypes.forEach((type) => {
-									if (type.type !== 'none') {
-										hasRandom = true;
+									option.data.datasets[1].data.forEach((data, idx) => {
+										switch (idx) {
+											case 0:
+												data.x = ChartUtils.newDate(0);
+												break;
+											case 1:
+												data.x = ChartUtils.newDate(2);
+												break;
+											case 2:
+												data.x = ChartUtils.newDate(5);
+												break;
+											case 3:
+												data.x = ChartUtils.newDate(6);
+												break;
+										}
+									});
+									break;
+								case 'scales-time-combo':
+									{
+										const labels: any = [];
+										option.data.labels.forEach((_, idx) => {
+											labels.push(ChartUtils.newDate(idx));
+										});
+										option.data.labels = labels;
 									}
-								});
-								NgxThreeUtil.setGuiEnabled(guiController, hasRandom);
+									break;
+								case 'tooltip-position':
+									(chartjs.Tooltip.positioners as any).bottom = function (
+										items
+									) {
+										const pos = (chartjs.Tooltip.positioners as any).average(
+											items,
+											null
+										);
+										if (pos === false) {
+											return false;
+										}
+
+										const chart = this.chart;
+
+										return {
+											x: pos.x,
+											y: chart.chartArea.bottom,
+											xAlign: 'center',
+											yAlign: 'bottom',
+										};
+									};
+									break;
 							}
+							this.option = option;
+							this.optionSeqn = NgxThreeUtil.getUUID();
 						}
 					);
 					break;
@@ -576,90 +555,141 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 					const Utils = ChartUtils;
 					const Chart = chartjs.Chart;
 
-					const DATA_COUNT = 5;
-					const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};
-					
-					const labels = Utils.months({count: 7});
+					const DATA_COUNT = 7;
+					const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
+
+					const labels = Utils.months({ count: 7 });
 					const data = {
-					  labels: ['Overall Yay', 'Overall Nay', 'Group A Yay', 'Group A Nay', 'Group B Yay', 'Group B Nay', 'Group C Yay', 'Group C Nay'],
-					  datasets: [
-						{
-						  backgroundColor: ['#AAA', '#777'],
-						  data: [21, 79]
-						},
-						{
-						  backgroundColor: ['hsl(0, 100%, 60%)', 'hsl(0, 100%, 35%)'],
-						  data: [33, 67]
-						},
-						{
-						  backgroundColor: ['hsl(100, 100%, 60%)', 'hsl(100, 100%, 35%)'],
-						  data: [20, 80]
-						},
-						{
-						  backgroundColor: ['hsl(180, 100%, 60%)', 'hsl(180, 100%, 35%)'],
-						  data: [10, 90]
-						}
-					  ]
+						labels: labels,
+						datasets: [
+							{
+								label: 'Dataset 1',
+								animations: {
+									y: {
+										duration: 2000,
+										delay: 500,
+									},
+								},
+								data: Utils.numbers(NUMBER_CFG),
+								borderColor: Utils.CHART_COLORS.red,
+								backgroundColor: Utils.transparentize(
+									Utils.CHART_COLORS.red,
+									0.5
+								),
+								fill: 1,
+								tension: 0.5,
+							},
+							{
+								label: 'Dataset 2',
+								data: Utils.numbers(NUMBER_CFG),
+								borderColor: Utils.CHART_COLORS.blue,
+								backgroundColor: Utils.transparentize(
+									Utils.CHART_COLORS.blue,
+									0.5
+								),
+							},
+						],
 					};
+
 					const config = {
-						type: 'pie',
+						type: 'line',
 						data: data,
 						options: {
-						  responsive: true,
-						  plugins: {
-							legend: {
-							  labels: {
-								generateLabels: function(chart) {
-								  // Get the default label list
-								  const original = Chart.overrides.pie.plugins.legend.labels.generateLabels;
-								  const labelsOriginal = original.call(this, chart);
-					  
-								  // Build an array of colors used in the datasets of the chart
-								  let datasetColors = chart.data.datasets.map(function(e) {
-									return e.backgroundColor;
-								  });
-								  datasetColors = datasetColors.flat();
-					  
-								  // Modify the color and hide state of each label
-								  labelsOriginal.forEach(label => {
-									// There are twice as many labels as there are datasets. This converts the label index into the corresponding dataset index
-									label.datasetIndex = (label.index - label.index % 2) / 2;
-					  
-									// The hidden state must match the dataset's hidden state
-									label.hidden = !chart.isDatasetVisible(label.datasetIndex);
-					  
-									// Change the color to match the dataset
-									label.fillStyle = datasetColors[label.index];
-								  });
-					  
-								  return labelsOriginal;
-								}
-							  },
-							  onClick: function(mouseEvent, legendItem, legend) {
-								// toggle the visibility of the dataset from what it currently is
-								legend.chart.getDatasetMeta(
-								  legendItem.datasetIndex
-								).hidden = legend.chart.isDatasetVisible(legendItem.datasetIndex);
-								legend.chart.update();
-							  }
+							animations: {
+								y: {
+									easing: 'easeInOutElastic',
+									from: (ctx) => {
+										if (ctx.type === 'data') {
+											if (ctx.mode === 'default' && !ctx.dropped) {
+												ctx.dropped = true;
+												return 0;
+											}
+										}
+									},
+								},
 							},
-							tooltip: {
-							  callbacks: {
-								label: function(context) {
-								  const labelIndex = (context.datasetIndex * 2) + context.dataIndex;
-								  return context.chart.data.labels[labelIndex] + ': ' + context.formattedValue;
-								}
-							  }
-							}
-						  }
 						},
-					  };
+					};
+
+					const actions = [
+						{
+							name: 'Randomize',
+							handler(chart) {
+								chart.data.datasets.forEach((dataset) => {
+									dataset.data = Utils.numbers({
+										count: chart.data.labels.length,
+										min: -100,
+										max: 100,
+									});
+								});
+								chart.update();
+							},
+						},
+						{
+							name: 'Add Dataset',
+							handler(chart) {
+								const data = chart.data;
+								const dsColor = Utils.namedColor(chart.data.datasets.length);
+								const newDataset = {
+									label: 'Dataset ' + (data.datasets.length + 1),
+									backgroundColor: Utils.transparentize(dsColor, 0.5),
+									borderColor: dsColor,
+									data: Utils.numbers({
+										count: data.labels.length,
+										min: -100,
+										max: 100,
+									}),
+								};
+								chart.data.datasets.push(newDataset);
+								chart.update();
+							},
+						},
+						{
+							name: 'Add Data',
+							handler(chart) {
+								const data = chart.data;
+								if (data.datasets.length > 0) {
+									data.labels = Utils.months({ count: data.labels.length + 1 });
+
+									for (let index = 0; index < data.datasets.length; ++index) {
+										data.datasets[index].data.push(Utils.rand(-100, 100));
+									}
+
+									chart.update();
+								}
+							},
+						},
+						{
+							name: 'Remove Dataset',
+							handler(chart) {
+								chart.data.datasets.pop();
+								chart.update();
+							},
+						},
+						{
+							name: 'Remove Data',
+							handler(chart) {
+								chart.data.labels.splice(-1, 1); // remove the label first
+
+								chart.data.datasets.forEach((dataset) => {
+									dataset.data.pop();
+								});
+
+								chart.update();
+							},
+						},
+					];
 
 					this.option = config;
+					this.option.actions = actions;
 
 					function replacer(key, value) {
 						if (typeof value === 'function') {
-							return value.toString();
+							return value
+								.toString()
+								.split('\n')
+								.map((line) => line.trim())
+								.join(' ');
 						}
 						return value;
 					}

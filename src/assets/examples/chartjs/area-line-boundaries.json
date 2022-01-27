@@ -1,0 +1,47 @@
+{
+    "type": "line",
+    "data": {
+      "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August"
+      ],
+      "datasets": [
+        {
+          "label": "Dataset",
+          "data": [
+            -69.5,
+            -25.14,
+            -35.32,
+            -16.06,
+            86.93,
+            -79.42,
+            79.96,
+            -2.85
+          ],
+          "borderColor": "rgb(255, 99, 132)",
+          "backgroundColor": "rgba(255, 99, 132, 0.5)",
+          "fill": false
+        }
+      ]
+    },
+    "options": {
+      "plugins": {
+        "filler": {
+          "propagate": false
+        },
+        "title": {
+          "display": true,
+          "text": "(ctx) => 'Fill: ' + ctx.chart.data.datasets[0].fill"
+        }
+      },
+      "interaction": {
+        "intersect": false
+      }
+    }
+  }

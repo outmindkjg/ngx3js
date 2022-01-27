@@ -1,0 +1,96 @@
+{
+    "type": "line",
+    "data": {
+      "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July"
+      ],
+      "datasets": [
+        {
+          "label": "Dataset 1",
+          "data": [
+            -99.51646091,
+            -67.50857339,
+            -97.43484225,
+            50.21090535,
+            -81.36145405,
+            -23.01611797,
+            -24.13580247
+          ],
+          "fill": false,
+          "borderColor": "rgb(255, 99, 132)",
+          "backgroundColor": "rgba(255, 99, 132, 0.5)"
+        },
+        {
+          "label": "Dataset 2",
+          "data": [
+            36.26714678,
+            71.77297668,
+            -55.8899177,
+            -47.95610425,
+            53.59910837,
+            21.61522634,
+            -67.36454047
+          ],
+          "fill": false,
+          "borderColor": "rgb(54, 162, 235)",
+          "backgroundColor": "rgba(54, 162, 235, 0.5)"
+        }
+      ]
+    },
+    "options": {
+      "interaction": {
+        "intersect": false,
+        "mode": "index"
+      },
+      "plugins": {
+        "title": {
+          "display": true,
+          "text": "(ctx) => {const { axis = 'xy', intersect, mode } = ctx.chart.options.interaction;return 'Mode: ' + mode + ', axis: ' + axis + ', intersect: ' + intersect;}"
+        }
+      }
+    },
+    "actions": [
+      {
+        "name": "Mode: index",
+        "handler": "handler(chart) {chart.options.interaction.axis = 'xy';chart.options.interaction.mode = 'index';chart.update();}"
+      },
+      {
+        "name": "Mode: dataset",
+        "handler": "handler(chart) {chart.options.interaction.axis = 'xy';chart.options.interaction.mode = 'dataset';chart.update();}"
+      },
+      {
+        "name": "Mode: point",
+        "handler": "handler(chart) {chart.options.interaction.axis = 'xy';chart.options.interaction.mode = 'point';chart.update();}"
+      },
+      {
+        "name": "Mode: nearest, axis: xy",
+        "handler": "handler(chart) {chart.options.interaction.axis = 'xy';chart.options.interaction.mode = 'nearest';chart.update();}"
+      },
+      {
+        "name": "Mode: nearest, axis: x",
+        "handler": "handler(chart) {chart.options.interaction.axis = 'x';chart.options.interaction.mode = 'nearest';chart.update();}"
+      },
+      {
+        "name": "Mode: nearest, axis: y",
+        "handler": "handler(chart) {chart.options.interaction.axis = 'y';chart.options.interaction.mode = 'nearest';chart.update();}"
+      },
+      {
+        "name": "Mode: x",
+        "handler": "handler(chart) {chart.options.interaction.mode = 'x';chart.update();}"
+      },
+      {
+        "name": "Mode: y",
+        "handler": "handler(chart) {chart.options.interaction.mode = 'y';chart.update();}"
+      },
+      {
+        "name": "Toggle Intersect",
+        "handler": "handler(chart) {chart.options.interaction.intersect = !chart.options.interaction.intersect;chart.update();}"
+      }
+    ]
+  }

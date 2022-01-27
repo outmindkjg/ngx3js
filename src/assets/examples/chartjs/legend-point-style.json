@@ -1,0 +1,50 @@
+{
+    "type": "line",
+    "data": {
+      "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July"
+      ],
+      "datasets": [
+        {
+          "label": "Dataset 1",
+          "data": [
+            -54.91769547,
+            -63.6505487,
+            21.23799726,
+            -27.41255144,
+            66.94101509,
+            -93.23216735,
+            -23.98148148
+          ],
+          "fill": false,
+          "borderColor": "rgb(255, 99, 132)",
+          "backgroundColor": "rgba(255, 99, 132, 0.5)",
+          "borderWidth": 1,
+          "pointStyle": "rectRot",
+          "pointRadius": 5,
+          "pointBorderColor": "rgb(0, 0, 0)"
+        }
+      ]
+    },
+    "options": {
+      "plugins": {
+        "legend": {
+          "labels": {
+            "usePointStyle": true
+          }
+        }
+      }
+    },
+    "actions": [
+      {
+        "name": "Toggle Point Style",
+        "handler": "handler(chart) {chart.options.plugins.legend.labels.usePointStyle = !chart.options.plugins.legend.labels.usePointStyle;chart.update();}"
+      }
+    ]
+  }

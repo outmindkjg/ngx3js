@@ -1,0 +1,60 @@
+{
+  "type": "line",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          10,
+          30,
+          39,
+          20,
+          25,
+          34,
+          -10
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgb(255, 99, 132)"
+      },
+      {
+        "label": "Dataset 2",
+        "data": [
+          18,
+          33,
+          22,
+          19,
+          11,
+          39,
+          30
+        ],
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgb(54, 162, 235)"
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Suggested Min and Max Settings"
+      }
+    },
+    "scales": {
+      "y": {
+        "suggestedMin": 30,
+        "suggestedMax": 50
+      }
+    }
+  },
+  "actions": null
+}

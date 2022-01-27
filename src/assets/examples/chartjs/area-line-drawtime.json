@@ -1,0 +1,65 @@
+{
+    "type": "line",
+    "data": {
+      "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August"
+      ],
+      "datasets": [
+        {
+          "label": "Dataset 1",
+          "data": [
+            -33.81,
+            86.67,
+            31.64,
+            92.46,
+            -24.71,
+            90.01,
+            -27.57,
+            39.83
+          ],
+          "borderColor": "rgb(255, 99, 132)",
+          "backgroundColor": "rgb(255, 99, 132)",
+          "fill": true
+        },
+        {
+          "label": "Dataset 2",
+          "data": [
+            79.86,
+            72.78,
+            -53.03,
+            67.86,
+            60.16,
+            -36.64,
+            -79.32,
+            1.24
+          ],
+          "borderColor": "rgb(54, 162, 235)",
+          "backgroundColor": "rgba(54, 162, 235, 0.5)",
+          "fill": true
+        }
+      ]
+    },
+    "options": {
+      "plugins": {
+        "filler": {
+          "propagate": false
+        },
+        "title": {
+          "display": true,
+          "text": "(ctx) => 'drawTime: ' + ctx.chart.options.plugins.filler.drawTime"
+        }
+      },
+      "pointBackgroundColor": "#fff",
+      "radius": 10,
+      "interaction": {
+        "intersect": false
+      }
+    }
+  }

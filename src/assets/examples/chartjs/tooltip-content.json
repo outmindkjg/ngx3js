@@ -1,0 +1,60 @@
+{
+    "type": "line",
+    "data": {
+      "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July"
+      ],
+      "datasets": [
+        {
+          "label": "Dataset 1",
+          "data": [
+            14,
+            -89,
+            -89,
+            -87,
+            76,
+            -28,
+            77
+          ],
+          "fill": false,
+          "borderColor": "rgb(255, 99, 132)",
+          "backgroundColor": "rgba(255, 99, 132, 0.5)"
+        },
+        {
+          "label": "Dataset 2",
+          "data": [
+            -5,
+            9,
+            -27,
+            -66,
+            88,
+            66,
+            -39
+          ],
+          "fill": false,
+          "borderColor": "rgb(54, 162, 235)",
+          "backgroundColor": "rgba(54, 162, 235, 0.5)"
+        }
+      ]
+    },
+    "options": {
+      "interaction": {
+        "intersect": false,
+        "mode": "index"
+      },
+      "plugins": {
+        "tooltip": {
+          "callbacks": {
+            "footer": "(tooltipItems) => {let sum = 0;tooltipItems.forEach(function (tooltipItem) {sum += tooltipItem.parsed.y;});return 'Sum: ' + sum;}"
+          }
+        }
+      }
+    },
+    "actions": null
+  }

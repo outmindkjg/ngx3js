@@ -28,8 +28,16 @@ export class ChartUtils {
 		'November',
 		'December',
 	];
-	
-	static DAYOFWEEK: string[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+	static DAYOFWEEK: string[] = [
+		'Mon',
+		'Tue',
+		'Wed',
+		'Thu',
+		'Fri',
+		'Sat',
+		'Sun',
+	];
 
 	static COLORS: string[] = [
 		'#4dc9f6',
@@ -40,11 +48,11 @@ export class ChartUtils {
 		'#166a8f',
 		'#00a950',
 		'#58595b',
-		'#8549ba'
+		'#8549ba',
 	];
 
-	static CHART_COLORS: { 
-		[ key : string ] : string;
+	static CHART_COLORS: {
+		[key: string]: string;
 		red: string;
 		orange: string;
 		yellow: string;
@@ -59,7 +67,7 @@ export class ChartUtils {
 		green: 'rgb(75, 192, 192)',
 		blue: 'rgb(54, 162, 235)',
 		purple: 'rgb(153, 102, 255)',
-		grey: 'rgb(201, 203, 207)'
+		grey: 'rgb(201, 203, 207)',
 	};
 
 	static NAMED_COLORS: string[] = [
@@ -69,7 +77,7 @@ export class ChartUtils {
 		'rgb(75, 192, 192)',
 		'rgb(54, 162, 235)',
 		'rgb(153, 102, 255)',
-		'rgb(201, 203, 207)'
+		'rgb(201, 203, 207)',
 	];
 
 	static valueOrDefault(value: any, defaultValue: any): any {
@@ -169,9 +177,107 @@ export class ChartUtils {
 		return this.COLORS[index % this.COLORS.length];
 	}
 
-	static transparentize(value, opacity) {
+	static colorHexParse(str) {
+		let len = str.length;
+		let ret;
+		if (str[0] === '#') {
+			const map = {
+				0: 0,
+				1: 1,
+				2: 2,
+				3: 3,
+				4: 4,
+				5: 5,
+				6: 6,
+				7: 7,
+				8: 8,
+				9: 9,
+				A: 10,
+				B: 11,
+				C: 12,
+				D: 13,
+				E: 14,
+				F: 15,
+				a: 10,
+				b: 11,
+				c: 12,
+				d: 13,
+				e: 14,
+				f: 15,
+			};
+			if (len === 4 || len === 5) {
+				ret = {
+					r: 255 & (map[str[1]] * 17),
+					g: 255 & (map[str[2]] * 17),
+					b: 255 & (map[str[3]] * 17),
+					a: len === 5 ? map[str[4]] * 17 : 255,
+				};
+			} else if (len === 7 || len === 9) {
+				ret = {
+					r: (map[str[1]] << 4) | map[str[2]],
+					g: (map[str[3]] << 4) | map[str[4]],
+					b: (map[str[5]] << 4) | map[str[6]],
+					a: len === 9 ? (map[str[7]] << 4) | map[str[8]] : 255,
+				};
+			}
+		}
+		return ret;
+	}
+
+	/**
+	 * Parse rgb(a) string to RGBA
+	 * @param {string} str - the rgb string
+	 * @returns {RGBA} - the parsed color
+	 */
+	static colorRgbParse(str) {
+		function round(v) {
+			return (v + 0.5) | 0;
+		}
+		const lim = (v, l, h) => Math.max(Math.min(v, h), l);
+		/**
+		 * convert percent to byte 0..255
+		 * @param {number} v - 0..100
+		 */
+		function p2b(v) {
+			return lim(round(v * 2.55), 0, 255);
+		}
+
+		const m =
+			/^rgba?\(\s*([-+.\d]+)(%)?[\s,]+([-+.e\d]+)(%)?[\s,]+([-+.e\d]+)(%)?(?:[\s,/]+([-+.e\d]+)(%)?)?\s*\)$/.exec(
+				str
+			);
+		let a = 255;
+		let r, g, b;
+
+		if (!m) {
+			return;
+		}
+
+		// r is undefined
+		if (m[7] !== r) {
+			const v = +m[7];
+			a = 255 & (m[8] ? p2b(v) : v * 255);
+		}
+
+		r = +m[1];
+		g = +m[3];
+		b = +m[5];
+		r = 255 & (m[2] ? p2b(r) : r);
+		g = 255 & (m[4] ? p2b(g) : g);
+		b = 255 & (m[6] ? p2b(b) : b);
+
+		return {
+			r: r,
+			g: g,
+			b: b,
+			a: a,
+		};
+	}
+
+	static transparentize(value, opacity?: number) {
 		var alpha = opacity === undefined ? 0.5 : 1 - opacity;
-		return value.replace(')', ', ' + alpha + ')').replace('rgb', 'rgba');
+		const colorRgb = this.colorHexParse(value) || this.colorRgbParse(value) ;
+		return 'rgba(' + colorRgb.r + ',' + colorRgb.g + ','  + colorRgb.b + ',' + alpha + ')';
 	}
 
 	static namedColor(index) {

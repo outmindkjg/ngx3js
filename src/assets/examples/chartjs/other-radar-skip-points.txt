@@ -1,2 +1,0 @@
-/** Other charts / other-radar-skip-points */
-null

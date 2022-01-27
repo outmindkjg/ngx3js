@@ -1,0 +1,72 @@
+{
+  "type": "line",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          16.38545953,
+          -77.12105624,
+          58.7962963,
+          78.4585048,
+          28.77914952,
+          -95.18004115,
+          -61.32030178
+        ],
+        "fill": false,
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255, 99, 132, 0.5)"
+      },
+      {
+        "label": "Dataset 2",
+        "data": [
+          21.71639232,
+          60.10288066,
+          63.71570645,
+          -31.64266118,
+          -8.6882716,
+          -79.76680384,
+          -64.63134431
+        ],
+        "fill": false,
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgba(54, 162, 235, 0.5)"
+      }
+    ]
+  },
+  "options": {
+    "interaction": {
+      "intersect": false,
+      "mode": "index"
+    },
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "(ctx) => 'Tooltip position mode: ' + ctx.chart.options.plugins.tooltip.position"
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "Position: average",
+      "handler": "handler(chart) {chart.options.plugins.tooltip.position = 'average';chart.update();}"
+    },
+    {
+      "name": "Position: nearest",
+      "handler": "handler(chart) {chart.options.plugins.tooltip.position = 'nearest';chart.update();}"
+    },
+    {
+      "name": "Position: bottom (custom)",
+      "handler": "handler(chart) {chart.options.plugins.tooltip.position = 'bottom';chart.update();}"
+    }
+  ]
+}

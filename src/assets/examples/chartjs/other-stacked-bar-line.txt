@@ -1,2 +1,0 @@
-/** Other charts / other-stacked-bar-line */
-null

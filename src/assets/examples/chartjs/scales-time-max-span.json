@@ -1,0 +1,99 @@
+{
+  "type": "line",
+  "data": {
+    "datasets": [
+      {
+        "label": "Dataset with string point data",
+        "backgroundColor": "rgba(255, 99, 132, 0.5)",
+        "borderColor": "rgb(255, 99, 132)",
+        "fill": false,
+        "data": [
+          {
+            "x": "2022-01-27T03:50:26.007Z",
+            "y": 31.383744855967077
+          },
+          {
+            "x": "2022-01-29T03:50:26.007Z",
+            "y": 21.343021262002743
+          },
+          {
+            "x": "2022-01-31T03:50:26.007Z",
+            "y": 32.57287379972565
+          },
+          {
+            "x": "2022-02-02T03:50:26.007Z",
+            "y": 81.43132716049382
+          }
+        ]
+      },
+      {
+        "label": "Dataset with date object point data",
+        "backgroundColor": "rgba(54, 162, 235, 0.5)",
+        "borderColor": "rgb(54, 162, 235)",
+        "fill": false,
+        "data": [
+          {
+            "x": "2022-01-27T03:50:26.007Z",
+            "y": 13.906035665294924
+          },
+          {
+            "x": "2022-01-29T03:50:26.007Z",
+            "y": 61.16983882030178
+          },
+          {
+            "x": "2022-02-01T03:50:26.007Z",
+            "y": 61.80298353909465
+          },
+          {
+            "x": "2022-02-02T03:50:26.007Z",
+            "y": 50.68201303155006
+          }
+        ]
+      }
+    ]
+  },
+  "options": {
+    "spanGaps": 172800000,
+    "responsive": true,
+    "interaction": {
+      "mode": "nearest"
+    },
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Chart.js Time - spanGaps: 172800000 (2 days in ms)"
+      }
+    },
+    "scales": {
+      "x": {
+        "type": "time",
+        "display": true,
+        "title": {
+          "display": true,
+          "text": "Date"
+        },
+        "ticks": {
+          "autoSkip": false,
+          "maxRotation": 0,
+          "major": {
+            "enabled": true
+          },
+          "font": "function (context) {if (context.tick && context.tick.major) {return {weight: 'bolder', color : 'red'};}}"
+        }
+      },
+      "y": {
+        "display": true,
+        "title": {
+          "display": true,
+          "text": "value"
+        }
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => {chart.data.datasets.forEach(dataset => {dataset.data.forEach(function (dataObj, j) {const newVal = Utils.rand(0, 100);if (typeof dataObj === 'object') {dataObj.y = newVal;}else {dataset.data[j] = newVal;}});});chart.update();console.log(chart.data.datasets);}"
+    }
+  ]
+}
