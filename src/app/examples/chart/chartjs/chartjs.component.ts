@@ -226,7 +226,7 @@ export class NgxTextureChartJsComponent
 		if (NgxThreeUtil.isNotNullEmpty(functionOptions)) {
 			if (typeof functionOptions === 'string') {
 				let functionOptionsTrim = functionOptions.trim();
-				if (/\)[ ]*=>[ ]*\(/.test(functionOptionsTrim) || /^(function|function [a-zA-Z][a-zA-Z_0-9]+|[a-zA-Z][a-zA-Z_0-9]+)(| )\([^\)]*\)[ \t\n]*\{/.test(functionOptionsTrim) || /^new [a-zA-Z][a-zA-Z\.]+\(/.test(functionOptionsTrim)) {
+				if (/\)[ \t\n]*=>[ \t\n]*\{/.test(functionOptionsTrim) || /^(function|function [a-zA-Z][a-zA-Z_0-9]+|[a-zA-Z][a-zA-Z_0-9]+)(| )\([^\)]*\)[ \t\n]*\{/.test(functionOptionsTrim) || /^new [a-zA-Z][a-zA-Z\.]+\(/.test(functionOptionsTrim)) {
 					try {
 						const Chart = this.chartjs; // with eval function 
 						const Utils = ChartUtils;
