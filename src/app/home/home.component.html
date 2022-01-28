@@ -102,6 +102,28 @@ node ./node_modules/ngx3js/bin/patch.js</code><span class="language-type">#shell
 						><br />
 					</ngx3js-viewport-in>
 
+					<h3>Preview - chartjs</h3>
+					<br />
+					<ngx3js-viewport-in [scrollEle]="vierInner" #scrollChecker7>
+						<div class="dummy-iframe" *ngIf="!scrollChecker7.isVisible"></div>
+						<iframe
+							*ngIf="scrollChecker7.isVisible"
+							src="#/viewer/ngx_chartjs"
+						></iframe
+						><br />
+					</ngx3js-viewport-in>
+
+					<h3>Preview - echarts</h3>
+					<br />
+					<ngx3js-viewport-in [scrollEle]="vierInner" #scrollChecker8>
+						<div class="dummy-iframe" *ngIf="!scrollChecker8.isVisible"></div>
+						<iframe
+							*ngIf="scrollChecker8.isVisible"
+							src="#/viewer/ngx_echarts"
+						></iframe
+						><br />
+					</ngx3js-viewport-in>
+
 					<h3>Preview - ngx curve</h3>
 					<br />
 					<ngx3js-viewport-in [scrollEle]="vierInner" #scrollChecker6>
