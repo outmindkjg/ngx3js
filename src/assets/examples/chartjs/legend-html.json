@@ -1,0 +1,67 @@
+{
+  "type": "line",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset: 1",
+        "data": [
+          38.06927298,
+          17.24194102,
+          66.68209877,
+          46.88357339,
+          14.63648834,
+          0.80504115,
+          54.77194787
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255,99,132,0.5)",
+        "fill": false
+      },
+      {
+        "label": "Dataset: 1",
+        "data": [
+          55.54955418,
+          89.55761317,
+          95.06772977,
+          73.31447188,
+          66.27314815,
+          1.1042524,
+          1.26457476
+        ],
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgba(54,162,235,0.5)",
+        "fill": false
+      }
+    ]
+  },
+  "options": {
+    "plugins": {
+      "htmlLegend": {
+        "containerID": "legend-container"
+      },
+      "legend": {
+        "display": false
+      }
+    }
+  },
+  "plugins": [
+    {
+      "id": "htmlLegend",
+      "afterDestroy": "afterDestroy(chart, args, options) { const ul = sharedVar.getOrCreateLegendList(chart, options.containerID); if (ul !== null) { ul.parentNode.parentNode.removeChild(ul.parentNode); } }",
+      "afterUpdate": "afterUpdate(chart, args, options) { const ul = sharedVar.getOrCreateLegendList(chart, options.containerID);  /**  Remove old legend items */ while (ul.firstChild) { ul.firstChild.remove(); }  /**  Reuse the built-in legendItems generator */ const items = chart.options.plugins.legend.labels.generateLabels(chart);  items.forEach(item => { const li = document.createElement('li'); li.style.alignItems = 'center'; li.style.cursor = 'pointer'; li.style.display = 'flex'; li.style.flexDirection = 'row'; li.style.marginLeft = '10px';  li.onclick = () => { const {type} = chart.config; if (type === 'pie' || type === 'doughnut') { /**  Pie and doughnut charts only have a single dataset and visibility is per item */ chart.toggleDataVisibility(item.index); } else { chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex)); } chart.update(); };  /**  Color box */ const boxSpan = document.createElement('span'); boxSpan.style.background = item.fillStyle; boxSpan.style.borderColor = item.strokeStyle; boxSpan.style.borderWidth = item.lineWidth + 'px'; boxSpan.style.display = 'inline-block'; boxSpan.style.height = '20px'; boxSpan.style.marginRight = '10px'; boxSpan.style.width = '20px';  /**  Text */ const textContainer = document.createElement('p'); textContainer.style.color = item.fontColor; textContainer.style.margin = 0; textContainer.style.padding = 0; textContainer.style.textDecoration = item.hidden ? 'line-through' : '';  const text = document.createTextNode(item.text); textContainer.appendChild(text);  li.appendChild(boxSpan); li.appendChild(textContainer); ul.appendChild(li); }); }"
+    }
+  ],
+  "actions": [],
+  "sharedVar": {
+    "getOrCreateLegendList": "(chart, id) => { let legendContainer = document.getElementById(id); if (!legendContainer) { const info = document.getElementById('viewer-inner').querySelector(' div.info'); legendContainer = document.createElement('div'); legendContainer.id = id; info.appendChild(legendContainer); } let listContainer = legendContainer.querySelector('ul'); if (!listContainer) { listContainer = document.createElement('ul'); listContainer.style.display = 'flex'; listContainer.style.flexDirection = 'row'; listContainer.style.margin = 0; listContainer.style.padding = 0;  legendContainer.appendChild(listContainer); } return listContainer; }"
+  }
+}

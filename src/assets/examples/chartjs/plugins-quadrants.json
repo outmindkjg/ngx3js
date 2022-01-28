@@ -1,0 +1,95 @@
+{
+  "type": "scatter",
+  "data": {
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          {
+            "x": 48.76886145,
+            "y": -54.13065844
+          },
+          {
+            "x": -81.36316872,
+            "y": 9.35871056
+          },
+          {
+            "x": 42.62002743,
+            "y": 99.80281207
+          },
+          {
+            "x": 89.8542524,
+            "y": -9.95884774
+          },
+          {
+            "x": 10.95679012,
+            "y": -43.38305898
+          },
+          {
+            "x": -73.08470508,
+            "y": 1.99931413
+          },
+          {
+            "x": -48.68998628,
+            "y": 10.13888889
+          }
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255,99,132,0.5)"
+      },
+      {
+        "label": "Dataset 2",
+        "data": [
+          {
+            "x": 35.35665295,
+            "y": 97.47770919
+          },
+          {
+            "x": -75.43381344,
+            "y": -7.34567901
+          },
+          {
+            "x": 72.82921811,
+            "y": -72.86865569
+          },
+          {
+            "x": -87.75548697,
+            "y": 81.15569273
+          },
+          {
+            "x": -65.82990398,
+            "y": -16.87757202
+          },
+          {
+            "x": 44.77880658,
+            "y": -1.53635117
+          },
+          {
+            "x": 53.94718793,
+            "y": -48.12928669
+          }
+        ],
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgba(54,162,235,0.5)"
+      }
+    ]
+  },
+  "options": {
+    "plugins": {
+      "quadrants": {
+        "topLeft": "rgb(255, 99, 132)",
+        "topRight": "rgb(54, 162, 235)",
+        "bottomRight": "rgb(75, 192, 192)",
+        "bottomLeft": "rgb(255, 205, 86)"
+      }
+    }
+  },
+  "plugins": [
+    {
+      "id": "quadrants",
+      "beforeDraw": "beforeDraw(chart, args, options) { const {ctx, chartArea: {left, top, right, bottom}, scales: {x, y}} = chart; const midX = x.getPixelForValue(0); const midY = y.getPixelForValue(0); ctx.save(); ctx.fillStyle = options.topLeft; ctx.fillRect(left, top, midX - left, midY - top); ctx.fillStyle = options.topRight; ctx.fillRect(midX, top, right - midX, midY - top); ctx.fillStyle = options.bottomRight; ctx.fillRect(midX, midY, right - midX, bottom - midY); ctx.fillStyle = options.bottomLeft; ctx.fillRect(left, midY, midX - left, bottom - midY); ctx.restore(); }"
+    }
+  ],
+  "actions": [],
+  "sharedVar": {}
+}

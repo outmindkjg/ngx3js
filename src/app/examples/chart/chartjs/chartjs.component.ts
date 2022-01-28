@@ -226,16 +226,16 @@ export class NgxTextureChartJsComponent
 		if (NgxThreeUtil.isNotNullEmpty(functionOptions)) {
 			if (typeof functionOptions === 'string') {
 				let functionOptionsTrim = functionOptions.trim();
-				if (/\)[ \t\n]*=>[ \t\n]*\{/.test(functionOptionsTrim) || /^(function|function [a-zA-Z][a-zA-Z_0-9]+|[a-zA-Z][a-zA-Z_0-9]+)(| )\([^\)]*\)[ \t\n]*\{/.test(functionOptionsTrim) || /^new [a-zA-Z][a-zA-Z\.]+\(/.test(functionOptionsTrim)) {
+				if (/\)[ \t\n]*=>[ \t\n]*/.test(functionOptionsTrim) || /^(function|function [a-zA-Z][a-zA-Z_0-9]+|[a-zA-Z][a-zA-Z_0-9]+)(| )\([^\)]*\)[ \t\n]*\{/.test(functionOptionsTrim)) {
 					try {
-						const Chart = this.chartjs; // with eval function 
+						const Chart = this.chartjs;
+						const THREE = N3JS;
 						const Utils = ChartUtils;
 						const sharedVar = this._sharedVar || {};
 						const helpers = this.helpers || {};
 						functionOptionsTrim = functionOptionsTrim.replace(/^(function|function [a-zA-Z][a-zA-Z_0-9]+|[a-zA-Z][a-zA-Z_0-9]+)(| )\(/,'function(');
-						if (Chart !== null && Utils !== null && sharedVar !== null && helpers !== null) {
+						if (Chart !== null && THREE !== null && Utils !== null && sharedVar !== null && helpers !== null) {
 							eval('functionItem = ' + functionOptionsTrim + '');
-							console.log(functionItem, functionOptionsTrim);
 							if (typeof functionItem === 'function' || typeof functionItem === 'object') {
 								return functionItem;
 							} else {
@@ -244,12 +244,25 @@ export class NgxTextureChartJsComponent
 						}
 					} catch (ex) {
 						this.consoleLog('functionItem', ex, 'error');
-						console.log(functionItem, functionOptionsTrim);
 						functionItem = null;
 					}
 				} else if (/^\{/.test(functionOptionsTrim) && /\}$/.test(functionOptionsTrim)){
 					try {
 						functionItem = JSON.parse(functionOptionsTrim);	
+					} catch (ex) {
+						this.consoleLog('jsonItem', ex, 'error');
+						functionItem = null;
+					}
+				} else if (/^(new |)(map|Date|[a-zA-Z][a-zA-Z0-9]+\.[a-zA-Z][a-zA-Z0-9_\.]+)(|\(.*\))$/.test(functionOptionsTrim)){
+					try {
+						const Chart = this.chartjs;
+						const THREE = N3JS;
+						const Utils = ChartUtils;
+						const sharedVar = this._sharedVar || {};
+						const helpers = this.helpers || {};
+						if (Chart !== null && Utils !== null && sharedVar !== null && helpers !== null && THREE !== null) {
+							eval('functionItem = ' + functionOptionsTrim + '');
+						}
 					} catch (ex) {
 						this.consoleLog('jsonItem', ex, 'error');
 						functionItem = null;
@@ -272,7 +285,6 @@ export class NgxTextureChartJsComponent
 	 * @returns scriptable and array options 
 	 */
 	private checkScriptableAndArrayOptions(elements: any): any {
-		console.log(elements);
 		if (NgxThreeUtil.isNotNull(elements.backgroundColor)) {
 			elements.backgroundColor = this.checkFunctionOption(elements.backgroundColor);
 		}
@@ -310,7 +322,7 @@ export class NgxTextureChartJsComponent
 	  * @returns animations options 
 	  */
 	 private checkAnimationsOptions(elements: any): any {
-		if (NgxThreeUtil.isNotNull(elements.from)) {
+		if (elements.from != undefined) {
 			elements.from = this.checkFunctionOption(elements.from);
 		}
 		if (NgxThreeUtil.isNotNull(elements.to)) {
@@ -318,6 +330,9 @@ export class NgxTextureChartJsComponent
 		}
 		if (NgxThreeUtil.isNotNull(elements.loop)) {
 			elements.loop = this.checkFunctionOption(elements.loop);
+		}
+		if (NgxThreeUtil.isNotNull(elements.duration)) {
+			elements.duration = this.checkFunctionOption(elements.duration);
 		}
 		if (NgxThreeUtil.isNotNull(elements.delay)) {
 			elements.delay = this.checkFunctionOption(elements.delay);
@@ -571,14 +586,17 @@ export class NgxTextureChartJsComponent
 				if (NgxThreeUtil.isNotNull(animation.onComplete)) {
 					animation.onComplete = this.checkFunctionOption(animation.onComplete);
 				}
+				if (NgxThreeUtil.isNotNull(animation.duration)) {
+					animation.duration = this.checkFunctionOption(animation.duration);
+				}
 				if (NgxThreeUtil.isNotNull(animation.delay)) {
 					animation.delay = this.checkFunctionOption(animation.delay);
 				}
-				if (NgxThreeUtil.isNotNull(animation.y)) {
-					animation.y = this.checkAnimationsOptions(animation.y);
-				}
 				if (NgxThreeUtil.isNotNull(animation.x)) {
 					animation.x = this.checkAnimationsOptions(animation.x);
+				}
+				if (NgxThreeUtil.isNotNull(animation.y)) {
+					animation.y = this.checkAnimationsOptions(animation.y);
 				}
 				if (NgxThreeUtil.isNotNull(animation.radius)) {
 					animation.radius = this.checkAnimationsOptions(animation.radius);
@@ -597,14 +615,42 @@ export class NgxTextureChartJsComponent
 				}
 			}
 		}
+		if (NgxThreeUtil.isNotNull(this._chartOption.plugins) && Array.isArray(this._chartOption.plugins)) {
+			const plugins = this._chartOption.plugins;
+			plugins.forEach(plugin => {
+				if (typeof plugin.beforeDraw === 'string') {
+					plugin.beforeDraw = this.checkFunctionOption(plugin.beforeDraw);
+				}
+				if (typeof plugin.afterDraw === 'string') {
+					plugin.afterDraw = this.checkFunctionOption(plugin.afterDraw);
+				}
+				if (typeof plugin.beforeRender === 'string') {
+					plugin.beforeRender = this.checkFunctionOption(plugin.beforeRender);
+				}
+				if (typeof plugin.afterRender === 'string') {
+					plugin.afterRender = this.checkFunctionOption(plugin.afterRender);
+				}
+				if (typeof plugin.beforeUpdate === 'string') {
+					plugin.beforeUpdate = this.checkFunctionOption(plugin.beforeUpdate);
+				}
+				if (typeof plugin.afterUpdate === 'string') {
+					plugin.afterUpdate = this.checkFunctionOption(plugin.afterUpdate);
+				}
+				if (typeof plugin.beforeDestroy === 'string') {
+					plugin.beforeDestroy = this.checkFunctionOption(plugin.beforeDestroy);
+				}
+				if (typeof plugin.afterDestroy === 'string') {
+					plugin.afterDestroy = this.checkFunctionOption(plugin.afterDestroy);
+				}
+			})
+		}
+			
 		if (NgxThreeUtil.isNotNull(this._chartOption.actions) && Array.isArray(this._chartOption.actions)) {
 			this._chartOption.actions.forEach(actions => {
 				if (typeof actions.handler === 'string') {
 					actions.handler = this.checkFunctionOption(actions.handler);
-					console.log(actions.handler)
 					if (typeof actions.handler === 'string' && actions.handler.startsWith('sharedVar')) {
 						const [_, sharedKey] =  (actions.handler + ".").split(".");
-						console.log(sharedKey);
 						if (sharedKey !== null && sharedKey.length > 0) {
 							actions.handler = this._sharedVar[sharedKey] || {};
 						} else {

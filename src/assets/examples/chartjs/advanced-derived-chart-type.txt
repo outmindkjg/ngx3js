@@ -1,2 +1,0 @@
-/** Advanced / advanced-derived-chart-type */
-null

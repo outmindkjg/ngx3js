@@ -124,5 +124,16 @@
 			{ "url": "advanced-derived-axis-type", "name": "Derived Axis Type" },
 			{ "url": "advanced-derived-chart-type", "name": "Derived Chart Type" }
 		]
+	},
+	{
+		"title": "Plugins",
+		"children": [
+			{ "url": "plugins-chart-area-border", "name": "Chart Area Border" },
+			{ "url": "plugins-quadrants", "name": "Quadrants" }
+		]
 	}
+	
+	
+	
+
 ]

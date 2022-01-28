@@ -264,7 +264,6 @@ export class NgxEventProxyComponent
 			let eventType: string = renderEvent.type;
 			switch (renderEvent.type) {
 				case 'click':
-					console.log(uv, this._mapCanvasSize);
 					break;
 				case 'pointermove':
 					eventType = 'mousemove';

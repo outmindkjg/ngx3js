@@ -14,15 +14,6 @@ import {
 import { ChartUtils } from '../chart/chart-utils';
 import * as CHARTJS from '../chart/chartjs/chartjs.interface';
 
-interface SeriesDataTypes {
-	count: number;
-	min: number;
-	max: number;
-	type: string;
-	decimals?: number;
-	continuity?: number;
-}
-
 @Component({
 	selector: 'app-ngx-chartjs',
 	templateUrl: './ngx-chartjs.component.html',
@@ -45,6 +36,8 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 	backgroundOpacity: number;
 	repeatX: number;
 	repeatY: number;
+	offsetX: number;
+	offsetY: number;
 	wrap: string;
 }> {
 	constructor(private route: ActivatedRoute) {
@@ -66,6 +59,8 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 				backgroundOpacity: 0.6,
 				repeatX: 1,
 				repeatY: 1,
+				offsetX: 0,
+				offsetY: 0,
 				wrap: 'ClampToEdgeWrapping',
 			},
 			[
@@ -142,7 +137,7 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 							listen: true,
 							min: 0.5,
 							max: 3,
-							step: 0.5,
+							step: 0.2,
 						},
 						{
 							name: 'repeatY',
@@ -151,7 +146,25 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 							listen: true,
 							min: 0.5,
 							max: 3,
-							step: 0.5,
+							step: 0.2,
+						},
+						{
+							name: 'offsetX',
+							title: 'offset-X',
+							type: 'number',
+							listen: true,
+							min: -1,
+							max: 1,
+							step: 0.1,
+						},
+						{
+							name: 'offsetY',
+							title: 'offset-Y',
+							type: 'number',
+							listen: true,
+							min: -1,
+							max: 1,
+							step: 0.1,
 						},
 						{
 							name: 'wrap',
@@ -392,7 +405,7 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 				case 'legend-title':
 				case 'legend-point-style':
 				case 'legend-events':
-				case 'legend-html ':
+				case 'legend-html':
 				case 'title-alignment':
 				case 'title-subtitle':
 				case 'tooltip-position':
@@ -418,6 +431,8 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 				case 'advanced-programmatic-events':
 				case 'advanced-derived-axis-type':
 				case 'advanced-derived-chart-type':
+				case 'plugins-chart-area-border':
+				case 'plugins-quadrants':
 					this.jsonFileLoad(
 						'chartjs/' + this.lastLoadedExample + '.json',
 						(option: any) => {

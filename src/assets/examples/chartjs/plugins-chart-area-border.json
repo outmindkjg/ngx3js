@@ -1,0 +1,65 @@
+{
+  "type": "line",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          4.07750343,
+          59.13065844,
+          79.41015089,
+          0.71844993,
+          40.33950617,
+          -14.0723594,
+          17.7297668
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255,99,132,0.5)"
+      },
+      {
+        "label": "Dataset 2",
+        "data": [
+          64.1409465,
+          90.59327846,
+          -78.22187929,
+          -2.79835391,
+          60.07373114,
+          -20.46982167,
+          -93.8117284
+        ],
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgba(54,162,235,0.5)"
+      }
+    ]
+  },
+  "options": {
+    "plugins": {
+      "chartAreaBorder": {
+        "borderColor": "red",
+        "borderWidth": 2,
+        "borderDash": [
+          5,
+          5
+        ],
+        "borderDashOffset": 2
+      }
+    }
+  },
+  "plugins": [
+    {
+      "id": "chartAreaBorder",
+      "beforeDraw": "beforeDraw(chart, args, options) { const {ctx, chartArea: {left, top, width, height}} = chart; ctx.save(); ctx.strokeStyle = options.borderColor; ctx.lineWidth = options.borderWidth; ctx.setLineDash(options.borderDash || []); ctx.lineDashOffset = options.borderDashOffset; ctx.strokeRect(left, top, width, height); ctx.restore(); }"
+    }
+  ],
+  "actions": [],
+  "sharedVar": {}
+}
