@@ -4139,4 +4139,11 @@ export interface ChartConfiguration<
 	data?: ChartData<TType, TData, TLabel>;
 	options?: ChartOptions<TType>;
 	plugins?: Plugin<TType>[];
+	sharedVar? : any;
+	actions?: {
+		name? : string;
+		handler? : string | Function | Object;
+		onclick? : Function;
+		property? : string;
+	}[]
 }

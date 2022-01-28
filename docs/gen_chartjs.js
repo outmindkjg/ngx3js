@@ -49,150 +49,44 @@ function writeJson(fileName, jsonData, comment, callBack) {
 
 const Utils = ChartUtils;
 
-const inputs = {
-	min: 8,
-	max: 16,
-	count: 8,
-	decimals: 2,
-	continuity: 1
-  };
-  
-  const generateLabels = () => {
-	return Utils.months({count: inputs.count});
-  };
-  
-  const generateData = () => {
-	const values = Utils.numbers(inputs);
-	inputs.from = values;
-	return values;
-  };
-  
-  const labels = Utils.months({count: 8});
-  const data = {
-	labels: generateLabels(),
-	datasets: [
-	  {
-		label: 'D0',
-		data: generateData(),
-		borderColor: Utils.CHART_COLORS.red,
-		backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red),
-	  },
-	  {
-		label: 'D1',
-		data: generateData(),
-		borderColor: Utils.CHART_COLORS.orange,
-		hidden: true,
-		backgroundColor: Utils.transparentize(Utils.CHART_COLORS.orange),
-		fill: '-1'
-	  },
-	  {
-		label: 'D2',
-		data: generateData(),
-		borderColor: Utils.CHART_COLORS.yellow,
-		backgroundColor: Utils.transparentize(Utils.CHART_COLORS.yellow),
-		fill: 1
-	  },
-	  {
-		label: 'D3',
-		data: generateData(),
-		borderColor: Utils.CHART_COLORS.green,
-		backgroundColor: Utils.transparentize(Utils.CHART_COLORS.green),
-		fill: false
-	  },
-	  {
-		label: 'D4',
-		data: generateData(),
-		borderColor: Utils.CHART_COLORS.blue,
-		backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue),
-		fill: '-1'
-	  },
-	  {
-		label: 'D5',
-		data: generateData(),
-		borderColor: Utils.CHART_COLORS.purple,
-		backgroundColor: Utils.transparentize(Utils.CHART_COLORS.purple),
-		fill: '-1'
-	  },
-	  {
-		label: 'D6',
-		data: generateData(),
-		borderColor: Utils.CHART_COLORS.grey,
-		backgroundColor: Utils.transparentize(Utils.CHART_COLORS.grey),
-		fill: {value: 85}
-	  }
-	]
-  };
-
-  const sharedVar = {}
-
-  const actions = [
-	{
-	  name: 'Randomize',
-	  handler(chart) {
-		const inputs = {
-			min: 8,
-			max: 16,
-			count: 8,
-			decimals: 2,
-			continuity: 1
-		  };
-		  const generateLabels = () => {
-			return Utils.months({count: inputs.count});
-		  };
-		  
-		  const generateData = () => {
-			const values = Utils.numbers(inputs);
-			inputs.from = values;
-			return values;
-		  };
-		
-		inputs.from = [];
-		chart.data.datasets.forEach(dataset => {
-		  dataset.data = generateData();
-		});
-		chart.update();
-	  }
-	},
-	{
-	  name: 'Propagate',
-	  handler(chart) {
-		sharedVar.propagate = !sharedVar.propagate;
-		chart.options.plugins.filler.propagate = sharedVar.propagate;
-		chart.update();
-	  }
-	},
-	{
-	  name: 'Smooth',
-	  handler(chart) {
-		sharedVar.smooth = !sharedVar.smooth;
-		chart.options.elements.line.tension = sharedVar.smooth ? 0.4 : 0;
-		chart.update();
-	  }
-	}
-  ];
+const DATA_COUNT = 7;
+const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100, rmin: 1, rmax: 20};
+const data = {
+  datasets: [
+    {
+      label: 'My First dataset',
+      backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
+      borderColor: Utils.CHART_COLORS.blue,
+      borderWidth: 1,
+      boxStrokeStyle: 'red',
+      data: Utils.bubbles(NUMBER_CFG)
+    }
+  ],
+};
 
 const config = {
-	type: 'radar',
+	type: 'derivedBubble',
 	data: data,
 	options: {
+	  responsive: true,
 	  plugins: {
-		filler: {
-		  propagate: false
+		title: {
+		  display: true,
+		  text: 'Derived Chart Type'
 		},
-		'samples-filler-analyser': {
-		  target: 'chart-analyser'
-		}
-	  },
-	  interaction: {
-		intersect: false
 	  }
 	}
-  };
+};
 
-const fileName = 'area-radar';
+const sharedVar = {}
+
+const actions = [];
+
+const fileName = 'advanced-derived-chart-type';
 
 const chartConfig = config;
 chartConfig.actions = actions;
+chartConfig.sharedVar = sharedVar;
 
 writeJson(fileName, chartConfig);
 
@@ -257,14 +151,14 @@ writeJson(fileName, chartConfig);
 				case 'scriptable-polar':
 				case 'scriptable-radar':
 				case 'animations-delay':
-				case 'animations-drop':
-				case 'animations-loop ':
-				case 'animations-progressive-line ':
-				case 'animations-progressive-line-easing ':
-				case 'advanced-data-decimation ':
-				case 'advanced-progress-bar ':
-				case 'advanced-radial-gradient ':
-				case 'advanced-linear-gradient ':
+			//	case 'animations-drop':
+			//	case 'animations-loop ':
+			//	case 'animations-progressive-line ':
+			//	case 'animations-progressive-line-easing ':
+			//	case 'advanced-data-decimation ':
+			//	case 'advanced-progress-bar ':
+			//	case 'advanced-radial-gradient ':
+			//	case 'advanced-linear-gradient ':
 				case 'advanced-programmatic-events ':
 				case 'advanced-derived-axis-type ':
 				case 'advanced-derived-chart-type ':

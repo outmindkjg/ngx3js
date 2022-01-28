@@ -1,0 +1,57 @@
+{
+  "type": "line",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          -94.50960219,
+          74.94684499,
+          51.60493827,
+          -43.54766804,
+          -96.93072702,
+          -46.81584362,
+          5.56241427
+        ],
+        "borderColor": "function(context) { const chart = context.chart; const {ctx, chartArea} = chart;  if (!chartArea) { /**  This case happens on initial chart load */ return; } return sharedVar.getGradient(ctx, chartArea); }"
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "plugins": {
+      "legend": {
+        "position": "top"
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "handler(chart) { chart.data.datasets.forEach(dataset => { dataset.data = Utils.numbers({count: chart.data.labels.length, min: -100, max: 100}); }); chart.update(); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "handler(chart) { const data = chart.data; if (data.datasets.length > 0) { data.labels = Utils.months({count: data.labels.length + 1});  for (let index = 0; index < data.datasets.length; ++index) { data.datasets[index].data.push(Utils.rand(-100, 100)); }  chart.update(); } }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "handler(chart) { chart.data.labels.splice(-1, 1); /**  remove the label first */  chart.data.datasets.forEach(dataset => { dataset.data.pop(); });  chart.update(); }"
+    }
+  ],
+  "sharedVar": {
+    "width": null,
+    "height": null,
+    "gradient": null,
+    "getGradient": "function getGradient(ctx, chartArea) { const chartWidth = chartArea.right - chartArea.left; const chartHeight = chartArea.bottom - chartArea.top; if (!sharedVar.gradient || sharedVar.width !== chartWidth || sharedVar.height !== chartHeight) { /**  Create the gradient because this is either the first render */ /**  or the size of the chart has changed */ sharedVar.width = chartWidth; sharedVar.height = chartHeight; sharedVar.gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top); sharedVar.gradient.addColorStop(0, Utils.CHART_COLORS.blue); sharedVar.gradient.addColorStop(0.5, Utils.CHART_COLORS.yellow); sharedVar.gradient.addColorStop(1, Utils.CHART_COLORS.red); } return sharedVar.gradient; }"
+  }
+}

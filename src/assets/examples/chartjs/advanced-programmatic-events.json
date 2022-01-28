@@ -1,0 +1,60 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          94.95884774,
+          12.15192044,
+          -21.47805213,
+          -99.75823045,
+          -12.81207133,
+          -24.83710562,
+          81.45061728
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255,99,132,0.5)",
+        "hoverBorderWidth": 5,
+        "hoverBorderColor": "green"
+      },
+      {
+        "label": "Dataset 2",
+        "data": [
+          93.70541838,
+          -7.82578875,
+          -94.74794239,
+          -1.62894376,
+          96.22256516,
+          38.3127572,
+          -32.14849108
+        ],
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgba(54,162,235,0.5)",
+        "hoverBorderWidth": 5,
+        "hoverBorderColor": "green"
+      }
+    ]
+  },
+  "options": {},
+  "actions": [
+    {
+      "name": "Trigger Hover",
+      "handler": "function triggerHover(chart) { if (chart.getActiveElements().length > 0) { chart.setActiveElements([]); } else { chart.setActiveElements([ { datasetIndex: 0, index: 0, }, { datasetIndex: 1, index: 0, } ]); } chart.update(); }"
+    },
+    {
+      "name": "Trigger Tooltip",
+      "handler": "function triggerTooltip(chart) { const tooltip = chart.tooltip; if (tooltip.getActiveElements().length > 0) { tooltip.setActiveElements([], {x: 0, y: 0}); } else { const chartArea = chart.chartArea; tooltip.setActiveElements([ { datasetIndex: 0, index: 2, }, { datasetIndex: 1, index: 2, } ], { x: (chartArea.left + chartArea.right) / 2, y: (chartArea.top + chartArea.bottom) / 2, }); }  chart.update(); }"
+    }
+  ],
+  "sharedVar": {}
+}

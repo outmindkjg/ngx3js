@@ -1,0 +1,89 @@
+{
+    "type": "line",
+    "data": {
+      "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July"
+      ],
+      "datasets": [
+        {
+          "label": "Dataset 1",
+          "data": [
+            -82.7914952,
+            -82.47085048,
+            43.56995885,
+            -72.57030178,
+            60.46639232,
+            -51.14711934,
+            2.46570645
+          ],
+          "borderColor": "rgb(255, 99, 132)",
+          "backgroundColor": "rgba(255,99,132,0.5)",
+          "tension": 0.4
+        },
+        {
+          "label": "Dataset 2",
+          "data": [
+            -42.89266118,
+            30.0617284,
+            8.98319616,
+            74.11865569,
+            -46.13683128,
+            13.64883402,
+            78.1670096
+          ],
+          "borderColor": "rgb(54, 162, 235)",
+          "backgroundColor": "rgba(54,162,235,0.5)",
+          "tension": 0.2
+        }
+      ]
+    },
+    "options": {
+      "animations": {
+        "radius": {
+          "duration": 400,
+          "easing": "linear",
+          "loop": "(context) => context.active"
+        }
+      },
+      "hoverRadius": 12,
+      "hoverBackgroundColor": "yellow",
+      "interaction": {
+        "mode": "nearest",
+        "intersect": false,
+        "axis": "x"
+      },
+      "plugins": {
+        "tooltip": {
+          "enabled": false
+        }
+      }
+    },
+    "actions": [
+      {
+        "name": "Randomize",
+        "handler": "handler(chart) { chart.data.datasets.forEach(dataset => { dataset.data = Utils.numbers({count: chart.data.labels.length, min: -100, max: 100}); }); chart.update(); }"
+      },
+      {
+        "name": "Add Dataset",
+        "handler": "handler(chart) { const data = chart.data; const dsColor = Utils.namedColor(chart.data.datasets.length); const newDataset = { label: 'Dataset ' + (data.datasets.length + 1), backgroundColor: Utils.transparentize(dsColor, 0.5), borderColor: dsColor, data: Utils.numbers({count: data.labels.length, min: -100, max: 100}), }; chart.data.datasets.push(newDataset); chart.update(); }"
+      },
+      {
+        "name": "Add Data",
+        "handler": "handler(chart) { const data = chart.data; if (data.datasets.length > 0) { data.labels = Utils.months({count: data.labels.length + 1});  for (let index = 0; index < data.datasets.length; ++index) { data.datasets[index].data.push(Utils.rand(-100, 100)); }  chart.update(); } }"
+      },
+      {
+        "name": "Remove Dataset",
+        "handler": "handler(chart) { chart.data.datasets.pop(); chart.update(); }"
+      },
+      {
+        "name": "Remove Data",
+        "handler": "handler(chart) { chart.data.labels.splice(-1, 1); /**  remove the label first */  chart.data.datasets.forEach(dataset => { dataset.data.pop(); });  chart.update(); }"
+      }
+    ]
+  }

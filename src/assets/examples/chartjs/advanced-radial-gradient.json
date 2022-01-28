@@ -1,0 +1,54 @@
+{
+  "type": "polarArea",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May"
+    ],
+    "datasets": [
+      {
+        "data": [
+          59.70807613,
+          5.49597051,
+          90.68715706,
+          57.25694444,
+          32.36582647
+        ]
+      }
+    ]
+  },
+  "options": {
+    "plugins": {
+      "legend": false,
+      "tooltip": false
+    },
+    "elements": {
+      "arc": {
+        "backgroundColor": "function(context) { let c = sharedVar.colors[context.dataIndex]; if (!c) { return; } if (context.active) { c = helpers.getHoverColor(c); } const mid = helpers.color(c).desaturate(0.2).darken(0.2).rgbString(); const start = helpers.color(c).lighten(0.2).rotate(270).rgbString(); const end = helpers.color(c).lighten(0.1).rgbString(); return sharedVar.createRadialGradient3(context, start, mid, end); }"
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "handler(chart) { chart.data.datasets.forEach(dataset => { dataset.data = sharedVar.generateData(); }); chart.update(); }"
+    }
+  ],
+  "sharedVar": {
+    "createRadialGradient3": "function createRadialGradient3(context, c1, c2, c3) { const chartArea = context.chart.chartArea; if (!chartArea) { /**  This case happens on initial chart load */ return; }  const chartWidth = chartArea.right - chartArea.left; const chartHeight = chartArea.bottom - chartArea.top; if (sharedVar.width !== chartWidth || sharedVar.height !== chartHeight) { sharedVar.cache.clear(); } let gradient = sharedVar.cache.get(c1 + c2 + c3); if (!gradient) { /**  Create the gradient because this is either the first render */ /**  or the size of the chart has changed */ sharedVar.width = chartWidth; sharedVar.height = chartHeight; const centerX = (chartArea.left + chartArea.right) / 2; const centerY = (chartArea.top + chartArea.bottom) / 2; const r = Math.min( (chartArea.right - chartArea.left) / 2, (chartArea.bottom - chartArea.top) / 2 ); const ctx = context.chart.ctx; gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, r); gradient.addColorStop(0, c1); gradient.addColorStop(0.5, c2); gradient.addColorStop(1, c3); sharedVar.cache.set(c1 + c2 + c3, gradient); }  return gradient; }",
+    "generateData": "function generateData() { return Utils.numbers({ count: 5, min: 0, max: 100 }); }",
+    "cache": "new Map()",
+    "width": null,
+    "height": null,
+    "colors": [
+      "rgb(255, 99, 132)",
+      "rgb(255, 159, 64)",
+      "rgb(255, 205, 86)",
+      "rgb(75, 192, 192)",
+      "rgb(54, 162, 235)"
+    ]
+  }
+}

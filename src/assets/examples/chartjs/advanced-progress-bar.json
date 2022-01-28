@@ -1,0 +1,102 @@
+{
+  "type": "line",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July"
+    ],
+    "datasets": [
+      {
+        "label": "Dataset 1",
+        "data": [
+          -61.91358025,
+          -68.17729767,
+          -99.33813443,
+          -93.66769547,
+          47.5994513,
+          82.48799726,
+          -16.16255144
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255,99,132,0.5)"
+      },
+      {
+        "label": "Dataset 2",
+        "data": [
+          28.19101509,
+          18.01783265,
+          37.26851852,
+          -59.73593964,
+          -26.08196159,
+          -66.70781893,
+          50.48525377
+        ],
+        "borderColor": "rgb(54, 162, 235)",
+        "backgroundColor": "rgba(54,162,235,0.5)"
+      }
+    ]
+  },
+  "options": {
+    "animation": {
+      "duration": 2000,
+      "onProgress": "function(context) { if (context.initial) { sharedVar.initProgress.value = context.currentStep / context.numSteps; } else { sharedVar.progress.value = context.currentStep / context.numSteps; } }",
+      "onComplete": "function(context) { if (context.initial) { console.log('Initial animation finished'); } else { console.log('animation finished'); } }"
+    },
+    "interaction": {
+      "mode": "nearest",
+      "axis": "x",
+      "intersect": false
+    },
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Chart.js Line Chart - Animation Progress Bar"
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "handler(chart) { chart.data.datasets.forEach(dataset => { dataset.data = Utils.numbers({count: chart.data.labels.length, min: -100, max: 100}); }); chart.update(); }"
+    },
+    {
+      "name": "Add Dataset",
+      "handler": "handler(chart) { const data = chart.data; const dsColor = Utils.namedColor(chart.data.datasets.length); const newDataset = { label: 'Dataset ' + (data.datasets.length + 1), backgroundColor: Utils.transparentize(dsColor, 0.5), borderColor: dsColor, data: Utils.numbers({count: data.labels.length, min: -100, max: 100}), }; chart.data.datasets.push(newDataset); chart.update(); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "handler(chart) { const data = chart.data; if (data.datasets.length > 0) { data.labels = Utils.months({count: data.labels.length + 1});  for (let index = 0; index < data.datasets.length; ++index) { data.datasets[index].data.push(Utils.rand(-100, 100)); }  chart.update(); } }"
+    },
+    {
+      "name": "Remove Dataset",
+      "handler": "handler(chart) { chart.data.datasets.pop(); chart.update(); }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "handler(chart) { chart.data.labels.splice(-1, 1); /**  remove the label first */  chart.data.datasets.forEach(dataset => { dataset.data.pop(); });  chart.update(); }"
+    },
+    {
+      "name": "initProgress",
+      "handler": "sharedVar.initProgress",
+      "property": "value"
+    },
+    {
+      "name": "progress",
+      "handler": "sharedVar.progress",
+      "property": "value"
+    }
+  ],
+  "sharedVar": {
+    "initProgress": {
+      "value": 0
+    },
+    "progress": {
+      "value": 0
+    }
+  }
+}

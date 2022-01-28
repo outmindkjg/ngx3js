@@ -306,4 +306,8 @@ export class ChartUtils {
 			return value;
 		}, 2);
 	}
+
+	static parseISODate( dateString : string): Date {
+		return new Date(dateString);
+	}
 }

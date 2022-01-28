@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as chartjs from 'chart.js';
-
+import * as helpers from 'chart.js/helpers';
 import 'chartjs-adapter-luxon';
 import {
 	I3JS,
@@ -237,7 +237,11 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 
 	ngOnInit(): void {
 		chartjs.Chart.register(...chartjs.registerables);
+		chartjs.Chart.register(Log2Axis as any, Custom);
+
 		this.chartjs = chartjs.Chart;
+		this.helpers = helpers;
+		
 		this.subscribeRefer(
 			'router',
 			this.route.params.subscribe((params) => {
@@ -304,67 +308,33 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 			NgxThreeUtil.clearGui(actionFolder);
 			if (this.lastActions !== null && this.lastActions !== undefined) {
 				this.lastActions.forEach((action) => {
-					action.callFunction = this.getFunctionOption(action.handler);
-					action.callBack = () => {
-						try {
-							action.callFunction(this.chart);
-						} catch (ex) {
-							console.log(ex);
+					if (typeof action.handler === 'function' && typeof action.onclick === 'function') {
+						actionFolder.add(action, 'onclick').name(action.name);
+					} else if (action.handler !== null && typeof action.handler === 'object' && action.property !== null) {
+						const actionControler = actionFolder.add(action.handler, action.property).name(action.name).listen(true);
+						if (NgxThreeUtil.isNotNull(action.onchange)) {
+							actionControler.onChange(action.onchange);
 						}
-					};
-					actionFolder.add(action, 'callBack').name(action.name);
+						switch(action.name) {
+							case "initProgress" :
+							case "progress" :
+								actionControler.max(1).min(0);
+								break;
+						}
+					} else {
+						console.log(action);
+					}
 				});
 			}
 		}
 	}
 
-	/**
-	 * Checks function option
-	 *
-	 * @param functionOptions
-	 * @returns function option
-	 */
-	private getFunctionOption(functionOptions: any): (chart) => void {
-		let functionItem = (chart: any) => {};
-		if (NgxThreeUtil.isNotNullEmpty(functionOptions)) {
-			if (
-				typeof functionOptions === 'string' &&
-				(functionOptions.indexOf('=>') !== -1 ||
-					functionOptions.indexOf('function(') === 0 ||
-					functionOptions.indexOf('function (') === 0 ||
-					functionOptions.indexOf('handler(') === 0)
-			) {
-				try {
-					const Chart = this.chartjs; // with eval function
-					const Utils = ChartUtils;
-					const sharedVar = (this.chart as any).sharedVar || null;
-					if (
-						Chart !== null &&
-						Utils !== null &&
-						sharedVar !== null
-					) {
-						functionOptions = functionOptions.replace('handler(', 'function(');
-						eval('functionItem = ' + functionOptions + '');
-						if (typeof functionItem === 'function') {
-							return functionItem;
-						}
-					}
-				} catch (ex) {
-					this.consoleLog('functionItem', ex, 'error');
-				}
-			} else if (typeof functionOptions === 'function') {
-				console.log(functionOptions);
-				return functionOptions;
-			}
-		}
-		return functionItem;
-	}
-
 	private lastActions: {
 		name: string;
-		handler: string;
-		callFunction: (chart) => void;
-		callBack: () => void;
+		handler: string | Function;
+		onclick: () => void;
+		onchange: () => void;
+		property: string;
 	}[] = [];
 
 	private changeExample() {
@@ -438,16 +408,16 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 				case 'scriptable-radar':
 				case 'animations-delay':
 				case 'animations-drop':
-				case 'animations-loop ':
-				case 'animations-progressive-line ':
-				case 'animations-progressive-line-easing ':
-				case 'advanced-data-decimation ':
-				case 'advanced-progress-bar ':
-				case 'advanced-radial-gradient ':
-				case 'advanced-linear-gradient ':
-				case 'advanced-programmatic-events ':
-				case 'advanced-derived-axis-type ':
-				case 'advanced-derived-chart-type ':
+				case 'animations-loop':
+				case 'animations-progressive-line':
+				case 'animations-progressive-line-easing':
+				case 'advanced-data-decimation':
+				case 'advanced-progress-bar':
+				case 'advanced-radial-gradient':
+				case 'advanced-linear-gradient':
+				case 'advanced-programmatic-events':
+				case 'advanced-derived-axis-type':
+				case 'advanced-derived-chart-type':
 					this.jsonFileLoad(
 						'chartjs/' + this.lastLoadedExample + '.json',
 						(option: any) => {
@@ -767,8 +737,101 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 	}
 
 	chartjs: any = chartjs;
-
+	helpers: any = helpers;
 	setScene(scene: NgxSceneComponent): void {
 		super.setScene(scene);
 	}
 }
+
+
+class Log2Axis extends chartjs.Scale {
+	static id = 'log2';
+	static defaults = {};
+	_startValue : number;
+	_valueRange : number;
+	constructor(cfg) {
+	  super(cfg);
+	  this._startValue = undefined;
+	  this._valueRange = 0;
+	}
+  
+	parse(raw, index) {
+	  const value = chartjs.LinearScale.prototype.parse.apply(this, [raw, index]);
+	  return isFinite(value) && value > 0 ? value : null;
+	}
+  
+	determineDataLimits() {
+	  const {min, max} = this.getMinMax(true);
+	  this.min = isFinite(min) ? Math.max(0, min) : null;
+	  this.max = isFinite(max) ? Math.max(0, max) : null;
+	}
+  
+	buildTicks() {
+	  const ticks = [];
+  
+	  let power = Math.floor(Math.log2(this.min || 1));
+	  let maxPower = Math.ceil(Math.log2(this.max || 2));
+	  while (power <= maxPower) {
+		ticks.push({value: Math.pow(2, power)});
+		power += 1;
+	  }
+  
+	  this.min = ticks[0].value;
+	  this.max = ticks[ticks.length - 1].value;
+	  return ticks;
+	}
+  
+	/**
+	 * @protected
+	 */
+	configure() {
+	  const start = this.min;
+  
+	  super.configure();
+  
+	  this._startValue = Math.log2(start);
+	  this._valueRange = Math.log2(this.max) - Math.log2(start);
+	}
+  
+	getPixelForValue(value) {
+	  if (value === undefined || value === 0) {
+		value = this.min;
+	  }
+  
+	  return this.getPixelForDecimal(value === this.min ? 0
+		: (Math.log2(value) - this._startValue) / this._valueRange);
+	}
+  
+	getValueForPixel(pixel) {
+	  const decimal = this.getDecimalForPixel(pixel);
+	  return Math.pow(2, this._startValue + decimal * this._valueRange);
+	}
+  }
+  
+  
+  class Custom extends chartjs.BubbleController {
+	static id = 'derivedBubble';
+	options : any= {
+	  boxStrokeStyle: 'red'
+	};
+	draw() {
+	  // Call bubble controller method to draw all the points
+	  super.draw();
+  
+	  // Now we can do some custom drawing for this dataset.
+	  // Here we'll draw a box around the first point in each dataset,
+	  // using `boxStrokeStyle` dataset option for color
+	  var meta = this.getMeta();
+	  var pt0 = meta.data[0];
+	  let {x , y } = pt0.getProps(['x', 'y']);
+	  let {radius} = pt0.options;
+  
+	  var ctx = this.chart.ctx;
+	  ctx.save();
+	  ctx.strokeStyle = this.options.boxStrokeStyle;
+	  ctx.lineWidth = 1;
+	  ctx.strokeRect((x as any) - (radius as any), (y as any) - (radius as any), 2 * (radius as any), 2 * (radius as any));
+	  ctx.restore();
+	}
+  }
+  

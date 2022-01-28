@@ -1,0 +1,55 @@
+{
+  "type": "line",
+  "data": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "datasets": [
+      {
+        "label": "My First dataset",
+        "data": [
+          532.18449931,
+          218.97290809,
+          645.47325103,
+          638.84602195,
+          322.54801097,
+          894.1100823,
+          69.58161866,
+          194.64163237,
+          22.37654321,
+          157.72462277,
+          168.58710562,
+          363.60596708
+        ],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgba(255,99,132,0.5)",
+        "fill": false
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "scales": {
+      "x": {
+        "display": true
+      },
+      "y": {
+        "display": true,
+        "type": "log2"
+      }
+    }
+  },
+  "actions": [],
+  "sharedVar": {}
+}
