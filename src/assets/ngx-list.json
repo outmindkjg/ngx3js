@@ -23,7 +23,9 @@
 				"NgxAbstractMaterialComponent": "ngxapi/en/NgxAbstractMaterialComponent",
 				"NgxAbstractObject3dComponent": "ngxapi/en/NgxAbstractObject3dComponent",
 				"NgxAbstractSubscribeComponent": "ngxapi/en/NgxAbstractSubscribeComponent",
-				"NgxAbstractTextureComponent": "ngxapi/en/NgxAbstractTextureComponent"
+				"NgxAbstractTextureComponent": "ngxapi/en/NgxAbstractTextureComponent",
+				"NgxAbstractRendererEventComponent": "ngxapi/en/NgxAbstractRendererEventComponent",
+				"NgxAbstractRendererUpdateComponent": "ngxapi/en/NgxAbstractRendererUpdateComponent"
 			},
 			"Component": {
 				"NgxBackgroundComponent": "ngxapi/en/NgxBackgroundComponent",
@@ -835,20 +837,12 @@
 				"CurvesRollerCoaster": "ngxapi/en/CurvesRollerCoaster"
 			},
 			"Chart": {
-				"NgxAbstractChartComponent": "ngxapi/en/NgxAbstractChartComponent",
-				"NgxChartControllerComponent": "ngxapi/en/NgxChartControllerComponent",
-				"NgxChartAxesComponent": "ngxapi/en/NgxChartAxesComponent",
-				"NgxChartBarComponent": "ngxapi/en/NgxChartBarComponent",
-				"NgxChartBubbleComponent": "ngxapi/en/NgxChartBubbleComponent",
-				"NgxChartComponent": "ngxapi/en/NgxChartComponent",
-				"NgxChartDoughnutComponent": "ngxapi/en/NgxChartDoughnutComponent",
-				"NgxChartLegendComponent": "ngxapi/en/NgxChartLegendComponent",
-				"NgxChartLineComponent": "ngxapi/en/NgxChartLineComponent",
-				"NgxChartPieComponent": "ngxapi/en/NgxChartPieComponent",
-				"NgxChartPolarAreaComponent": "ngxapi/en/NgxChartPolarAreaComponent",
-				"NgxChartRadarComponent": "ngxapi/en/NgxChartRadarComponent",
-				"NgxChartScatterComponent": "ngxapi/en/NgxChartScatterComponent",
-				"NgxChartTitleComponent": "ngxapi/en/NgxChartTitleComponent"
+				"NgxTextureChartJsComponent": "ngxapi/en/NgxTextureChartJsComponent",
+				"NgxTextureEChartsComponent": "ngxapi/en/NgxTextureEChartsComponent",
+				"NgxEventProxyComponent": "ngxapi/en/NgxEventProxyComponent",
+				"ChartUtils": "ngxapi/en/ChartUtils",
+				"CHARTJS": "ngxapi/en/CHARTJS",
+				"ECHARTS": "ngxapi/en/ECHARTS"
 			}
 		}
 	}

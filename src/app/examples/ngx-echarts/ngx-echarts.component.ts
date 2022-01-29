@@ -3,9 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import * as echarts from 'echarts';
 import 'echarts-gl';
 
-import { ChartAction, ChartUtils } from '../chart/chart-utils';
-import * as ECHARTS from '../chart/echarts/echarts.interface';
-
 import {
 	I3JS,
 	N3JS,
@@ -13,6 +10,8 @@ import {
 	NgxRendererComponent,
 	NgxSceneComponent,
 	NgxThreeUtil,
+	ChartAction, ChartUtils,
+	ECHARTS
 } from 'ngx3js';
 
 interface SeriesDataTypes {

@@ -9,28 +9,31 @@
 	<body>
 		[page:NgxAbstractSubscribeComponent] &rarr; [page:NgxAbstractTextureComponent] &rarr;
 
-		<h1>NgxRenderTargetComponent</h1>
+		<h1>NgxTextureEChartsComponent</h1>
 
 		<p class="desc">
-			The Render Target component.<br />
-			See the [page:NgxRenderTargetComponent ngx3js docs] page for details.<br />
-			[page:RenderTarget RenderTarget] - THREE.RenderTarget
+			NgxTextureEChartsComponent<br />
+			See the [page:NgxTextureEChartsComponent ngx3js docs] page for details.<br />
+			<code data-type="html"><br />
+			&lt;ngx3js-texture-echarts [options]="options"&gt;&lt;/ngx3js-texture-echarts&gt;<br />
+			</code>
 		</p>
 
 		<h2>Angular Template</h2>
-		<code data-type="html">&lt;ngx3js-render-target
+		<code data-type="html">&lt;ngx3js-texture-echarts
 			[ anisotropy ]="... number -- The number of samples taken al... "
+			[ canvasBackground ]="... INgxColor"
+			[ canvasBackgroundOpacity ]="... number"
+			[ canvasSize ]="... number"
 			[ center ]="... number -- The point around which rotatio... "
 			[ centerX ]="... number -- The point around which rotatio... "
 			[ centerY ]="... number -- The point around which rotatio... "
-			[ count ]="... number -- The count of render target com... "
 			[ cubeType ]="... string -- The CubeType of Texture - "
 			[ data ]="... number[]|BufferSource -- The data of DataTexture "
 			[ dataType ]="... string -- This must correspond to the [.... "
 			[ debug ]="... boolean -- Debug this Object "
 			[ depth ]="... number -- depth of the texture. "
-			[ depthBuffer ]="... boolean -- The depthBuffer of composer co... "
-			[ depthTexture ]="... any -- The depthTexture of composer c... "
+			[ echarts ]="... echarts"
 			[ enabled ]="... boolean -- Enabled or Not "
 			[ encoding ]="... string -- [THREE.LinearEncoding](https:/... "
 			[ filter ]="... string -- The Default Value of magFilter... "
@@ -46,8 +49,11 @@
 			[ offset ]="... number -- How much a single repetition o... "
 			[ offsetX ]="... number -- How much a single repetition o... "
 			[ offsetY ]="... number -- How much a single repetition o... "
-			( onDestory )="...($event : NgxRenderTargetComponent -- Will be called when before des... )"
-			( onLoad )="...($event : NgxRenderTargetComponent -- Will be called when load compl... )"
+			( onDestory )="...($event : NgxTextureEChartsComponent -- Will be called when before des... )"
+			( onInitChart )="...($event : ECharts)"
+			( onLoad )="...($event : NgxTextureEChartsComponent -- Will be called when load compl... )"
+			[ option ]="... EChartOption|EChartsResponsiveOption"
+			[ optionSeqn ]="... string"
 			[ overrideParams ]="... any -- The override params "
 			[ premultiplyAlpha ]="... boolean -- If set to *true*, the alpha ch... "
 			[ programMipmaps ]="... any[] -- The texture program mipmaps "
@@ -58,13 +64,10 @@
 			[ repeatY ]="... number -- How many times the texture is ... "
 			[ rotation ]="... number -- How much the texture is rotate... "
 			[ scale ]="... number -- scale of the texture. "
-			[ size ]="... number -- The size of render target comp... "
-			[ stencilBuffer ]="... boolean -- The stencilBuffer of composer ... "
-			[ targetSize ]="... Vector2|NgxSizeComponent -- The targetSize of pass compone... "
 			[ text ]="... string -- The Texture param use when cal... "
 			[ textureAlign ]="... string"
 			[ tween ]="... any -- Tween animation params "
-			[ type ]="... string -- The Input of render target com... "
+			[ type ]="... string -- The Type of Texture of Matrial "
 			[ unpackAlignment ]="... number -- 4 by default. Specifies the al... "
 			[ userData ]="... any -- An object that can be used to ... "
 			[ width ]="... number -- width of the texture. "
@@ -72,13 +75,13 @@
 			[ wrap ]="... string -- This defines how the texture i... "
 			[ wrapS ]="... string -- This defines how the texture i... "
 			[ wrapT ]="... string -- This defines how the texture i... "
-		&gt;&lt;/ngx3js-render-target&gt;
+		&gt;&lt;/ngx3js-texture-echarts&gt;
 		</code>
 
 		<h2>Constructor</h2>
-				<h3>[constructor:NgxRenderTargetComponent NgxRenderTargetComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+				<h3>[constructor:NgxTextureEChartsComponent NgxTextureEChartsComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Creates an instance of render target component.
+			Creates an instance of mesh component.
 		</p>
 
 		<h2>Properties</h2>
@@ -115,6 +118,21 @@
 			By default, this value is 1. A higher value gives a less blurry result than a basic mipmap, at the cost of more texture samples being used. Use [page:WebGLRenderer.getMaxAnisotropy renderer.getMaxAnisotropy]() to find the maximum valid anisotropy value for the GPU; this value is usually a power of 2.
 		</p>
 
+		<h3>[property:INgxColor canvasBackground]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number canvasBackgroundOpacity] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:number canvasSize] &nbsp; = 1024 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
+		</p>
+
 		<h3>[property:number center]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.<br />
@@ -131,11 +149,6 @@
 		<p>
 			The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.<br />
 			The value of center.y
-		</p>
-
-		<h3>[property:number count] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The count of render target component
 		</p>
 
 		<h3>[property:string cubeType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -166,14 +179,9 @@
 			depth of the texture.
 		</p>
 
-		<h3>[property:boolean depthBuffer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:echarts echarts]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
-			The depthBuffer of composer component
-		</p>
-
-		<h3>[property:any depthTexture]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The depthTexture of composer component
+			
 		</p>
 
 		<h3>[property:boolean enabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -214,7 +222,7 @@
 			Whether to generate mipmaps (if possible) for a texture. True by default. Set this to false if you are creating mipmaps manually.
 		</p>
 
-		<h3>[property:number height]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h3>[property:number height] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			height of the texture.
 		</p>
@@ -293,9 +301,24 @@
 			Will be called when before destory. The argument will be the loaded self
 		</p>
 
+		<h3>[property:EventEmitter onInitChart] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
+		</p>
+
 		<h3>[property:EventEmitter onLoad] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Will be called when load completes. The argument will be the loaded self
+		</p>
+
+		<h3>[property:EChartOption|EChartsResponsiveOption option] &nbsp; = {} <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:string optionSeqn]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
 		</p>
 
 		<h3>[property:any overrideParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -366,24 +389,9 @@
 			
 		</p>
 
-		<h3>[property:number size] &nbsp; = 1024 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The size of render target component
-		</p>
-
-		<h3>[property:boolean stencilBuffer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The stencilBuffer of composer component
-		</p>
-
 		<h3>[property:string subscribeType]<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Subscribe type of abstract subscribe component
-		</p>
-
-		<h3>[property:Vector2|NgxSizeComponent targetSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
-		<p>
-			The targetSize of pass component
 		</p>
 
 		<h3>[property:string text]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -406,10 +414,9 @@
 			Tween animation params
 		</p>
 
-		<h3>[property:string type] &nbsp; = 'RenderTarget' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<h3>[property:string type] &nbsp; = 'map' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
-			The Input of render target component<br />
-			Notice - case insensitive.
+			The Type of Texture of Matrial
 		</p>
 
 		<h3>[property:number unpackAlignment]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -424,7 +431,7 @@
 			An object that can be used to store custom data about the Object3D. It should not hold references to functions as these will not be cloned.
 		</p>
 
-		<h3>[property:number width]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h3>[property:number width] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
 		<p>
 			width of the texture.
 		</p>
@@ -482,13 +489,13 @@
 			Adds changes
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string[] changes] - The changes.
 		</p>
 		<p>
-			Applys changes
+			Applys changes3d
 		</p>
 
 		<h3>[method:void applyTexture2Material](  [param:Material material],  [param:string key],  [param:Texture texture] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -564,6 +571,11 @@
 			Returns : changes
 		</p>
 
+		<h3>[method:ECharts getChart](  )<i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
+		</p>
+
 		<h3>[method:string getId](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Gets id<br />
@@ -587,12 +599,6 @@
 			Returns : offset
 		</p>
 
-		<h3>[method:T getRenderTarget](  )<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Gets render target<br />
-			Returns : render target
-		</p>
-
 		<h3>[method:Vector2 getRepeat](  [param:number defX],  [param:number defY] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
@@ -612,8 +618,8 @@
 
 		<h3>[method:T getTexture](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Gets texture<br />
-			Returns : texture
+			Gets mesh<br />
+			Returns : mesh
 		</p>
 
 		<h3>[method:Texture getTextureImage](  [param:string image],  [param:string[] cubeImage]?,  [param:string|TCanvasFunctionType program]?,  [param:any onLoad]? )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -934,6 +940,21 @@
 
 
 		<h2>Interfaces</h2>
+		<h3 id="INgxColor" class="interface"> INgxColor <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:string|number|I3JS.Color INgxColor]</h3>
+
+
+		<p class="desc">
+			Three Color<br />
+			string hexcode - #ffffff<br />
+			string hsl(0,1,1)<br />
+			string rgb(255,255,255)<br />
+			string color name - red,blue...  'aliceblue': 0xF0F8FF, 'antiquewhite': 0xFAEBD7, 'aqua': 0x00FFFF ...<br />
+			string random<br />
+			number 0xffffff<br />
+			THREE.Color
+		</p>
+
 		<h3 id="TCanvasFunctionType" class="interface"> TCanvasFunctionType <i class="modifier modifier-interface">Type alias</i></h3>
 		<h4>[method:void function](  [param:CanvasRenderingContext2D ctx]?,  [param:string text]?,  [param:number width]?,  [param:number height]?,  [param:any options]? )</h4>
 		<h4>Parameters</h4>
@@ -956,6 +977,6 @@
 
 		<br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/render-target/render-target.component.ts /render-target/render-target.component.ts]</p>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/chart/echarts/echarts.component.ts /chart/echarts/echarts.component.ts]</p>
 	</body>
 </html>

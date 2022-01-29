@@ -10,9 +10,6 @@ import { Css3dPeriodictableComponent } from './css3d-periodictable/css3d-periodi
 import { Css3dSandboxComponent } from './css3d-sandbox/css3d-sandbox.component';
 import { Css3dSpritesComponent } from './css3d-sprites/css3d-sprites.component';
 import { Css3dYoutubeComponent } from './css3d-youtube/css3d-youtube.component';
-import { NgxTextureChartJsComponent } from './chart/chartjs/chartjs.component';
-import { NgxTextureEChartsComponent } from './chart/echarts/echarts.component';
-
 import { ExamplesRoutingModule } from './examples-routing.module';
 import { GamesFpsComponent } from './games-fps/games-fps.component';
 import { MiscAnimationGroupsComponent } from './misc-animation-groups/misc-animation-groups.component';
@@ -40,10 +37,10 @@ import { MiscUvTestsComponent } from './misc-uv-tests/misc-uv-tests.component';
 import { NgxBonesBrowserComponent } from './ngx-bones-browser/ngx-bones-browser.component';
 import { NgxCameraComponent } from './ngx-camera/ngx-camera.component';
 import { NgxChartJsComponent } from './ngx-chartjs/ngx-chartjs.component';
-import { NgxEChartsComponent } from './ngx-echarts/ngx-echarts.component';
 import { NgxControlComponent } from './ngx-control/ngx-control.component';
 import { NgxCurveComponent } from './ngx-curve/ngx-curve.component';
 import { NgxDirectivesComponent } from './ngx-directives/ngx-directives.component';
+import { NgxEChartsComponent } from './ngx-echarts/ngx-echarts.component';
 import { NgxEffectComponent } from './ngx-effect/ngx-effect.component';
 import { NgxFontComponent } from './ngx-font/ngx-font.component';
 import { NgxGeometryBrowserComponent } from './ngx-geometry-browser/ngx-geometry-browser.component';
@@ -440,7 +437,7 @@ import { WebxrVrRollercoasterComponent } from './webxr-vr-rollercoaster/webxr-vr
 import { WebxrVrSandboxComponent } from './webxr-vr-sandbox/webxr-vr-sandbox.component';
 import { WebxrVrSculptComponent } from './webxr-vr-sculpt/webxr-vr-sculpt.component';
 import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component';
-import { NgxEventProxyComponent } from './chart/event-proxy/event-proxy.component';
+
 @NgModule({
 	declarations: [
 		WebglAnimationClothComponent,
@@ -878,9 +875,6 @@ import { NgxEventProxyComponent } from './chart/event-proxy/event-proxy.componen
 		WebxrVrHandinputPointerdragComponent,
 		WebxrVrHandinputPressbuttonComponent,
 		WebxrVrLayersComponent,
-		NgxTextureChartJsComponent,
-		NgxTextureEChartsComponent,
-		NgxEventProxyComponent
 	],
 	imports: [CommonModule, ExamplesRoutingModule, Ngx3JsModule],
 	providers: [],

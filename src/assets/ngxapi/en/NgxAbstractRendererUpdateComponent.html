@@ -9,21 +9,21 @@
 	<body>
 		[page:NgxAbstractSubscribeComponent] &rarr;
 
-		<h1>NgxAbstractControllerComponent</h1>
+		<h1>NgxAbstractRendererUpdateComponent</h1>
 
 		<p class="desc">
-			The Abstract Controller component.<br />
-			See the [page:NgxAbstractControllerComponent ngx3js docs] page for details.<br />
+			The Abstract Subscribe component.<br />
+			See the [page:NgxAbstractSubscribeComponent ngx3js docs] page for details.<br />
 			<code data-type="typescript"><br />
 			@Component({<br />
 				providers: [<br />
 					{<br />
-						provide: NgxAbstractControllerComponent,<br />
+						provide: NgxAbstractSubscribeComponent,<br />
 						useExisting: forwardRef(() =&gt; NgxXxxComponent),<br />
 					},<br />
 				],<br />
 			})<br />
-			export class NgxXxxComponent extends NgxAbstractControllerComponent implements OnInit {<br />
+			export class NgxXxxComponent extends NgxAbstractSubscribeComponent implements OnInit {<br />
 				constructor() {<br />
 					super();<br />
 				}<br />
@@ -32,9 +32,9 @@
 		</p>
 
 		<h2>Constructor</h2>
-				<h3>[constructor:NgxAbstractControllerComponent NgxAbstractControllerComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+				<h3>[constructor:NgxAbstractRendererUpdateComponent NgxAbstractRendererUpdateComponent](  )<i class="modifier modifier-overwrite">Overwrite</i></h3>
 		<p>
-			Creates an instance of controller component.
+			Creates an instance of abstract subscribe component.
 		</p>
 
 		<h2>Properties</h2>
@@ -47,49 +47,14 @@
 			Object attr of abstract subscribe component
 		</p>
 
-		<h3>[property:QueryList _cameras]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			The Cameras of controller component
-		</p>
-
-		<h3>[property:IHtmlCollection _canvas]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			The Canvas of controller component
-		</p>
-
-		<h3>[property:QueryList _canvas2ds]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			The Canvas2ds of controller component
-		</p>
-
 		<h3>[property:string[] _changeList]<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Change list of abstract subscribe component
 		</p>
 
-		<h3>[property:IRendererEvent _event]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			The Event of controller component
-		</p>
-
 		<h3>[property:boolean _needUpdate] &nbsp; = true <i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Need update of abstract subscribe component
-		</p>
-
-		<h3>[property:Renderer _renderer]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			The Renderer of controller component
-		</p>
-
-		<h3>[property:Scene _scene]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			The Scene of controller component
-		</p>
-
-		<h3>[property:QueryList _scenes]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			The Scenes of controller component
 		</p>
 
 		<h3>[property:boolean debug] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -125,16 +90,6 @@
 		<h3>[property:any parent]<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			The Parent of abstract subscribe component
-		</p>
-
-		<h3>[property:IHtmlCollection refObject2d]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			Ref object2d of controller component
-		</p>
-
-		<h3>[property:Object3D refObject3d]<i class="modifier modifier-protected">Protected</i></h3>
-		<p>
-			Ref object3d of controller component
 		</p>
 
 		<h3>[property:any selfAny] &nbsp; = ... <i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -177,7 +132,7 @@
 			Adds changes
 		</p>
 
-		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:string[] changes] - The changes.
@@ -246,11 +201,6 @@
 		<p>
 			Gets changes<br />
 			Returns : changes
-		</p>
-
-		<h3>[method:void getController](  )<i class="modifier modifier-public">Public</i></h3>
-		<p>
-			Gets controller
 		</p>
 
 		<h3>[method:string getId](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -322,15 +272,6 @@
 			Runs subscribe next
 		</p>
 
-		<h3>[method:void setCanvas](  [param:IHtmlCollection canvas] )<i class="modifier modifier-public">Public</i></h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:IHtmlCollection canvas] - The canvas.
-		</p>
-		<p>
-			Sets canvas
-		</p>
-
 		<h3>[method:void setObject](  [param:any obj] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<h4>Parameters</h4>
 		<p>
@@ -338,24 +279,6 @@
 		</p>
 		<p>
 			Sets object
-		</p>
-
-		<h3>[method:void setObject2d](  [param:IHtmlCollection refObject2d] )<i class="modifier modifier-public">Public</i></h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:IHtmlCollection refObject2d] - The ref object2d.
-		</p>
-		<p>
-			Sets object2d
-		</p>
-
-		<h3>[method:void setObject3d](  [param:Object3D refObject3d] )<i class="modifier modifier-public">Public</i></h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:Object3D refObject3d] - The ref object3d.
-		</p>
-		<p>
-			Sets object3d
 		</p>
 
 		<h3>[method:boolean setParent](  [param:any parent] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -366,27 +289,6 @@
 		<p>
 			Sets parent<br />
 			Returns : true if parent
-		</p>
-
-		<h3>[method:void setRenderer](  [param:Renderer renderer],  [param:QueryList scenes],  [param:QueryList cameras],  [param:QueryList canvas2ds] )<i class="modifier modifier-public">Public</i></h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:Renderer renderer] - The renderer.<br />
-			[parameter:QueryList scenes] - The scenes.<br />
-			[parameter:QueryList cameras] - The cameras.<br />
-			[parameter:QueryList canvas2ds] - The canvas2ds.
-		</p>
-		<p>
-			Sets renderer
-		</p>
-
-		<h3>[method:void setScene](  [param:Scene scene] )<i class="modifier modifier-public">Public</i></h3>
-		<h4>Parameters</h4>
-		<p>
-			[parameter:Scene scene] - The scene.
-		</p>
-		<p>
-			Sets scene
 		</p>
 
 		<h3>[method:void setSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -505,13 +407,13 @@
 			Returns : subscription
 		</p>
 
-		<h3>[method:void update](  [param:IRendererTimer rendererTimer] )<i class="modifier modifier-public">Public</i></h3>
+		<h3>[method:void update](  [param:IRendererTimer renderTimer] )<i class="modifier modifier-public">Public</i></h3>
 		<h4>Parameters</h4>
 		<p>
-			[parameter:IRendererTimer rendererTimer] - The renderer timer.
+			[parameter:IRendererTimer renderTimer] - The render timer.
 		</p>
 		<p>
-			Updates controller component
+			
 		</p>
 
 		<h3>[method:void updateInputParams](  [param:any params],  [param:boolean firstChange],  [param:SimpleChanges changes],  [param:string type] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -528,51 +430,6 @@
 
 
 		<h2>Interfaces</h2>
-		<h3 id="IHtmlCollection" class="interface"> IHtmlCollection <i class="modifier modifier-interface">Interface</i></h3>
-		<h4>Properties</h4>
-		<p>
-			[property:IHtmlCollection[] children] -  The children.<br />
-			[property:any component] -  The component.<br />
-			[property:HTMLElement html] -  The html.<br />
-			[property:string name] -  The name.
-		</p>
-
-		<p class="desc">
-			Html collection
-		</p>
-
-		<h3 id="IRendererEvent" class="interface"> IRendererEvent <i class="modifier modifier-interface">Interface</i></h3>
-		<h4>Properties</h4>
-		<p>
-			[property:Camera[] cameras]? -  The cameras.<br />
-			[property:Vector2 client]? -  The client.<br />
-			[property:number clientX]? -  The client x.<br />
-			[property:number clientY]? -  The client y.<br />
-			[property:Vector2 direction]? -  The direction.<br />
-			[property:any event] -  The event.<br />
-			[property:number height]? -  The height.<br />
-			[property:any keyInfo]? -  The key info.<br />
-			[property:Camera mainCamera]? -  The main camera.<br />
-			[property:Scene mainScene]? -  The main scene.<br />
-			[property:Vector2 mouse]? -  The mouse.<br />
-			[property:HTMLElement nativeElement]? -  The native element.<br />
-			[property:Vector2 offset]? -  The offset.<br />
-			[property:number offsetX]? -  The offset x.<br />
-			[property:number offsetY]? -  The offset y.<br />
-			[property:Vector2 rate]? -  The rate.<br />
-			[property:number rateX]? -  The rate x.<br />
-			[property:number rateY]? -  The rate y.<br />
-			[property:WebGL1Renderer renderer]? -  The renderer.<br />
-			[property:Scene[] scenes]? -  The scenes.<br />
-			[property:Vector2 size]? -  The size.<br />
-			[property:string type] -  The type.<br />
-			[property:number width]? -  The width.
-		</p>
-
-		<p class="desc">
-			Renderer event
-		</p>
-
 		<h3 id="IRendererTimer" class="interface"> IRendererTimer <i class="modifier modifier-interface">Interface</i></h3>
 		<h4>Properties</h4>
 		<p>
@@ -586,29 +443,8 @@
 			Renderer timer
 		</p>
 
-		<h3 id="Renderer" class="interface"> Renderer <i class="modifier modifier-interface">Interface</i></h3>
-		<h4>Constructor</h4>
-		<p>
-			[constructor:Renderer Renderer](  ) 
-		</p>
-		<h4>Properties</h4>
-		<p>
-			[property:HTMLCanvasElement domElement] -  The dom element.
-		</p>
-		<h4>Methods</h4>
-		<p>
-			[method:void render](  [param:Object3D scene],  [param:Camera camera] ) <br />
-			[method:void setSize](  [param:number width],  [param:number height],  [param:boolean updateStyle]? ) 
-		</p>
-
-		<p class="desc">
-			Renderer<br />
-			See the [page:Renderer ngx3js docs] page for details.<br />
-			See the [example:ngx_renderer ngx renderer] page for a live demo.
-		</p>
-
 		<br />
 		<h2>Source</h2>
-		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/controller.component.abstract.ts /controller.component.abstract.ts]</p>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/renderer-update.abstract.ts /renderer-update.abstract.ts]</p>
 	</body>
 </html>

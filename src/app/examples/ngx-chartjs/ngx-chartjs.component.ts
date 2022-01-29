@@ -4,16 +4,13 @@ import * as chartjs from 'chart.js';
 import * as helpers from 'chart.js/helpers';
 import 'chartjs-adapter-luxon';
 import {
-	I3JS,
+	ChartAction, CHARTJS, ChartUtils, I3JS,
 	N3JS,
 	NgxBaseComponent,
 	NgxRendererComponent,
 	NgxSceneComponent,
-	NgxThreeUtil,
+	NgxThreeUtil
 } from 'ngx3js';
-import { stringify } from 'querystring';
-import { ChartAction, ChartUtils } from '../chart/chart-utils';
-import * as CHARTJS from '../chart/chartjs/chartjs.interface';
 
 @Component({
 	selector: 'app-ngx-chartjs',

@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>CHARTJS</h1>
+
+		<h2>Namespace</h2>
+		<h3 id="UpdateModeEnum"> UpdateModeEnum <i class="modifier modifier-interface">Enumeration</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:UpdateModeEnum active] = "active" -  The active.<br />
+			[property:UpdateModeEnum hide] = "hide" -  The hide.<br />
+			[property:UpdateModeEnum none] = "none" -  The none.<br />
+			[property:UpdateModeEnum normal] = "normal" -  The normal.<br />
+			[property:UpdateModeEnum reset] = "reset" -  The reset.<br />
+			[property:UpdateModeEnum resize] = "resize" -  The resize.<br />
+			[property:UpdateModeEnum show] = "show" -  The show.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ActiveDataPoint"> ActiveDataPoint <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number datasetIndex]? -  The dataset index.<br />
+			[property:number index]? -  The index.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ActiveElement">[page:ActiveDataPoint] &rarr; ActiveElement <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number datasetIndex]? -  The dataset index.<br />
+			[property:Element element]? -  The element.<br />
+			[property:number index]? -  The index.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="AnimationSpec"> AnimationSpec <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:Scriptable delay]? - Delay before starting the animations.<br />
+			[property:Scriptable duration]? - The number of milliseconds an animation takes.<br />
+			[property:Scriptable easing]? - Easing function to use<br />
+			[property:Scriptable loop]? - If set to true, the animations loop endlessly.<br />
+			[property:ScriptableFunction onComplete]? - Callback called when all animations are completed.<br />
+			[property:ScriptableFunction onProgress]? - Callback called on each step of an animation.<br />
+			[property:AnimationsSpec radius]? -  The radius.<br />
+			[property:AnimationsSpec x]? -  The x.<br />
+			[property:AnimationsSpec y]? -  The y.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="AnimationsSpec"> AnimationsSpec <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:Scriptable delay]? - Delay before starting the animations.<br />
+			[property:Scriptable duration]? - The number of milliseconds an animation takes.<br />
+			[property:Scriptable easing]? - Easing function to use<br />
+			[property:Scriptable from]? - Start value for the animation. Current value is used when undefined<br />
+			[property:Scriptable loop]? - If set to true, the animations loop endlessly.<br />
+			[property:string[] properties]? -  The properties.<br />
+			[property:Scriptable to]? -  The to.<br />
+			[property:'number'|'boolean'|'color' type]? - Type of property, determines the interpolator used. Possible values?: 'number', 'color' and 'boolean'. Only really needed for 'color', because typeof does not get that right.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:T fn](  [param:T from]?,  [param:T to]?,  [param:number factor]? ) 
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="BasePlatform"> BasePlatform <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Methods</h4>
+		<p>
+			[method:CanvasRenderingContext2D acquireContext](  [param:HTMLCanvasElement canvas]?,  [param:CanvasRenderingContext2DSettings options]? ) - Called at chart construction time, returns a context2d instance implementing<br />
+			the [W3C Canvas 2D Context API standard]{@link https://www.w3.org/TR/2dcontext/}.<br />
+			[method:void addEventListener](  [param:Chart chart]?,  [param:string type]?,  [param:any listener]? ) - Registers the specified listener on the given chart.<br />
+			[method:number getDevicePixelRatio](  ) - Returns : the current devicePixelRatio of the device this platform is connected to.<br />
+			[method:void getMaximumSize](  [param:HTMLCanvasElement canvas]?,  [param:number width]?,  [param:number height]?,  [param:number aspectRatio]? ) - Returns : the maximum size available.<br />
+			[method:boolean isAttached](  [param:HTMLCanvasElement canvas]? ) - Returns : true if the canvas is attached to the platform, false if not.<br />
+			[method:boolean releaseContext](  [param:CanvasRenderingContext2D context]? ) - Called at chart destruction time, releases any resources associated to the context<br />
+			previously returned by the acquireContext() method.<br />
+			Returns : true if the method succeeded, else false<br />
+			[method:void removeEventListener](  [param:Chart chart]?,  [param:string type]?,  [param:any listener]? ) - Removes the specified listener previously registered with addEventListener.<br />
+			[method:void updateConfig](  [param:ChartConfiguration config]? ) - Updates config with platform specific requirements
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="BorderRadius"> BorderRadius <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number bottomLeft]? -  The bottom left.<br />
+			[property:number bottomRight]? -  The bottom right.<br />
+			[property:number topLeft]? -  The top left.<br />
+			[property:number topRight]? -  The top right.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="Chart" class="dummy-class"> [page:Chart Chart] <i class="modifier modifier-interface">Interface</i></h3>
+		<p class="desc">
+			See the [page:Chart Chart] page for more details.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ChartArea"> ChartArea <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number bottom]? -  The bottom.<br />
+			[property:number height]? -  The height.<br />
+			[property:number left]? -  The left.<br />
+			[property:number right]? -  The right.<br />
+			[property:number top]? -  The top.<br />
+			[property:number width]? -  The width.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ChartConfiguration"> ChartConfiguration <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:ChartAction[] actions]? - ChartActions<br />
+			[property:ChartData data]? - TData represents the data point type. If unspecified, a default is provided<br />
+			  based on the chart type.<br />
+			TLabel represents the label type<br />
+			[property:ChartOptions options]? - Chart Options<br />
+			[property:Plugin[] plugins]? - Plugin<br />
+			[property:ChartSharedVar sharedVar]? - Chart Shared Var<br />
+			[property:string type]? - Chart Type<br />
+			bar, line, scatter, bubble, pie, doughnut, polarArea, radar<br />
+			[property:string url]? - Chart Configuration URL
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ChartData"> ChartData <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:ChartDataset[] datasets]? - Data sets<br />
+			[property:ScriptableAndArray labels]? - Labels
+		</p>
+
+		<p class="desc">
+			TData represents the data point type. If unspecified, a default is provided<br />
+			  based on the chart type.<br />
+			TLabel represents the label type
+		</p>
+
+		<h3 id="ChartDataset"> ChartDataset <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:Scriptable backgroundColor]? - base background color<br />
+			[property:Scriptable borderColor]? - Color of the border.<br />
+			[property:Scriptable borderWidth]? - Size of the border.<br />
+			[property:any[] data]? -  The data.<br />
+			[property:FillTarget|ComplexFillTarget fill]? - Both line and radar charts support a fill option on the dataset object which can be used to create area between two datasets or a dataset and a boundary, i.e. the scale origin, start or end<br />
+			[property:string label]? - The label for the dataset which appears in the legend and tooltips.<br />
+			[property:any segment]? -  The segment.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ChartEvent"> ChartEvent <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:Event native]? -  The native.<br />
+			[property:'resize'|'contextmenu'|'mouseenter'|'mousedown'|'mousemove'|'mouseup'|'mouseout'|'click'|'dblclick'|'keydown'|'keypress'|'keyup' type] -  The type.<br />
+			[property:number x]? -  The x.<br />
+			[property:number y]? -  The y.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ChartOptions"> ChartOptions <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:AnimationSpec animation]? -  The animation.<br />
+			[property:any animations]? -  The animations.<br />
+			[property:number aspectRatio]? - Canvas aspect ratio (i.e. width / height, a value of 1 representing a square canvas). Note that this option is ignored if the height is explicitly defined either as attribute or via the style.<br />
+			[property:Scriptable backgroundColor]? - base background color<br />
+			[property:Scriptable borderColor]? - base border color<br />
+			[property:Scriptable color]? - base color<br />
+			[property:number devicePixelRatio]? - Override the window's default devicePixelRatio.<br />
+			[property:any elements]? -  The elements.<br />
+			[property:any events]? - The events option defines the browser events that the chart should listen to for tooltips and hovering.<br />
+			[property:Partial font]? - base font<br />
+			[property:CoreInteractionOptions hover]? -  The hover.<br />
+			[property:'x'|'y' indexAxis]? - The base axis of the chart. 'x' for vertical charts and 'y' for horizontal charts.<br />
+			[property:CoreInteractionOptions interaction]? -  The interaction.<br />
+			[property:Partial layout]? -  The layout.<br />
+			[property:string locale]? - Locale used for number formatting (using `Intl.NumberFormat`).<br />
+			[property:boolean maintainAspectRatio]? - Maintain the original canvas aspect ratio (width / height) when resizing.<br />
+			[property:ScriptableFunction onClick]? - Called if the event is of type 'mouseup' or 'click'. Passed the event, an array of active elements, and the chart.<br />
+			[property:ScriptableFunction onHover]? - Called when any of the events fire. Passed the event, an array of active elements (bars, points, etc), and the chart.<br />
+			[property:ScriptableFunction onResize]? - Called when a resize occurs. Gets passed two arguments?: the chart instance and the new size.<br />
+			[property:any plugins]? -  The plugins.<br />
+			[property:number resizeDelay]? - Delay the resize update by give amount of milliseconds. This can ease the resize process by debouncing update of the elements.<br />
+			[property:boolean responsive]? - Resizes the chart canvas when its container does (important note...).<br />
+			[property:any scales]? -  The scales.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ComplexFillTarget"> ComplexFillTarget <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:Color above]? - If no color is set, the default color will be the background color of the chart.<br />
+			[property:Color below]? - Same as the above.<br />
+			[property:FillTarget target]? - The accepted values are the same as the filling mode values, so you may use absolute and relative dataset indexes and/or boundaries.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="CoreInteractionOptions"> CoreInteractionOptions <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:'x'|'y'|'xy'|'r' axis]? - Can be set to 'x', 'y', 'xy' or 'r' to define which directions are used in calculating distances. Defaults to 'x' for 'index' mode and 'xy' in dataset and 'nearest' modes.<br />
+			[property:boolean intersect]? - if true, the hover mode only applies when the mouse position intersects an item on the chart.<br />
+			[property:any mode]? - Sets which elements appear in the tooltip. See Interaction Modes for details.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ElementOptions"> ElementOptions <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:Scriptable backgroundColor]? -  The background color.<br />
+			[property:Scriptable borderCapStyle]? -  The border cap style.<br />
+			[property:Scriptable borderColor]? -  The border color.<br />
+			[property:Scriptable borderDash]? -  The border dash.<br />
+			[property:Scriptable borderDashOffset]? -  The border dash offset.<br />
+			[property:Scriptable borderJoinStyle]? -  The border join style.<br />
+			[property:Scriptable borderWidth]? -  The border width.<br />
+			[property:Scriptable hoverBackgroundColor]? -  The hover background color.<br />
+			[property:Scriptable hoverBorderCapStyle]? -  The hover border cap style.<br />
+			[property:Scriptable hoverBorderColor]? -  The hover border color.<br />
+			[property:Scriptable hoverBorderDash]? -  The hover border dash.<br />
+			[property:Scriptable hoverBorderDashOffset]? -  The hover border dash offset.<br />
+			[property:Scriptable hoverBorderJoinStyle]? -  The hover border join style.<br />
+			[property:Scriptable hoverBorderWidth]? -  The hover border width.<br />
+			[property:Scriptable hoverPointStyle]? -  The hover point style.<br />
+			[property:Scriptable hoverRadius]? -  The hover radius.<br />
+			[property:Scriptable pointStyle]? -  The point style.<br />
+			[property:Scriptable radius]? -  The radius.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="FontSpec"> FontSpec <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:string family]? - Default font family for all text, follows CSS font-family options.<br />
+			[property:string|number lineHeight]? - Height of an individual line of text (see MDN).<br />
+			[property:number size]? - Default font size (in px) for text. Does not apply to radialLinear scale point labels.<br />
+			[property:'normal'|'italic'|'oblique'|'initial'|'inherit' style]? - Default font style. Does not apply to tooltip title or footer. Does not apply to chart title. Follows CSS font-style options (i.e. normal, italic, oblique, initial, inherit)<br />
+			[property:string weight]? - Default font weight (boldness). (see MDN).
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="GridLineOptions"> GridLineOptions <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:Color borderColor]? -  The border color.<br />
+			[property:number[] borderDash]? -  The border dash.<br />
+			[property:Scriptable borderDashOffset]? -  The border dash offset.<br />
+			[property:number borderWidth]? -  The border width.<br />
+			[property:boolean circular]? -  The circular.<br />
+			[property:Scriptable color]? -  The color.<br />
+			[property:boolean display]? -  The display.<br />
+			[property:boolean drawBorder]? -  The draw border.<br />
+			[property:boolean drawOnChartArea]? -  The draw on chart area.<br />
+			[property:boolean drawTicks]? -  The draw ticks.<br />
+			[property:Scriptable lineWidth]? -  The line width.<br />
+			[property:boolean offset]? -  The offset.<br />
+			[property:number[] tickBorderDash]? -  The tick border dash.<br />
+			[property:Scriptable tickBorderDashOffset]? -  The tick border dash offset.<br />
+			[property:Scriptable tickColor]? -  The tick color.<br />
+			[property:number tickLength]? -  The tick length.<br />
+			[property:number tickWidth]? -  The tick width.<br />
+			[property:number z]? -  The z.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="InteractionItem"> InteractionItem <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number datasetIndex]? -  The dataset index.<br />
+			[property:Element element]? -  The element.<br />
+			[property:number index]? -  The index.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="InteractionOptions"> InteractionOptions <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:string axis]? -  The axis.<br />
+			[property:boolean intersect]? -  The intersect.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="LayoutItem"> LayoutItem <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number bottom]? - Bottom edge of the item. Set by layout system and cannot be used in update<br />
+			[property:boolean fullSize]? - if true, and the item is horizontal, then push vertical boxes down<br />
+			[property:number height]? - Height of item. Must be valid after update()<br />
+			[property:number left]? - Left edge of the item. Set by layout system and cannot be used in update<br />
+			[property:LayoutPosition position]? - The position of the item in the chart layout. Possible values are<br />
+			[property:number right]? - Right edge of the item. Set by layout system and cannot be used in update<br />
+			[property:number top]? - Top edge of the item. Set by layout system and cannot be used in update<br />
+			[property:number weight]? - The weight used to sort the item. Higher weights are further away from the chart area<br />
+			[property:number width]? - Width of item. Must be valid after update()
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void beforeLayout](  ) - Called before the layout process starts<br />
+			[method:void draw](  [param:ChartArea chartArea]? ) - Draws the element<br />
+			[method:ChartArea getPadding](  ) - Returns an object with padding on the edges<br />
+			[method:boolean isHorizontal](  ) - returns true if the layout item is horizontal (ie. top or bottom)<br />
+			[method:void update](  [param:number width]?,  [param:number height]?,  [param:ChartArea margins]? ) - Takes two parameters?: width and height.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="LegendItem"> LegendItem <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number|BorderRadius borderRadius]? - Border radius of the legend box<br />
+			[property:number datasetIndex]? - Index of the associated dataset<br />
+			[property:Color fillStyle]? - Fill style of the legend box<br />
+			[property:Color fontColor]? - Font color for the text<br />
+			Defaults to LegendOptions.labels.color<br />
+			[property:boolean hidden]? - If true, this item represents a hidden dataset. Label will be rendered with a strike-through effect<br />
+			[property:CanvasLineCap lineCap]? - For box border.<br />
+			[property:number[] lineDash]? - For box border.<br />
+			[property:number lineDashOffset]? - For box border.<br />
+			[property:CanvasLineJoin lineJoin]? - For box border.<br />
+			[property:number lineWidth]? - Width of box border<br />
+			[property:PointStyle pointStyle]? - Point style of the legend box (only used if usePointStyle is true)<br />
+			[property:number rotation]? - Rotation of the point in degrees (only used if usePointStyle is true)<br />
+			[property:Color strokeStyle]? - Stroke style of the legend box<br />
+			[property:string text]? - Label that will be displayed<br />
+			[property:TextAlign textAlign]? - Text alignment
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="LegendOptions"> LegendOptions <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:'center'|'start'|'end' align]? - Alignment of the legend.<br />
+			[property:boolean display]? - Is the legend shown?<br />
+			[property:boolean fullSize]? - Marks that this box should take the full width/height of the canvas (moving other boxes). This is unlikely to need to be changed in day-to-day use.<br />
+			[property:any labels]? -  The labels.<br />
+			[property:number maxHeight]? - Maximum height of the legend, in pixels<br />
+			[property:number maxWidth]? - Maximum width of the legend, in pixels<br />
+			[property:ScriptableFunction onClick]? - A callback that is called when a click event is registered on a label item.<br />
+			[property:ScriptableFunction onHover]? - A callback that is called when a 'mousemove' event is registered on top of a label item<br />
+			[property:ScriptableFunction onLeave]? - A callback that is called when a 'mousemove' event is registered outside of a previously hovered label item.<br />
+			[property:LayoutPosition position]? - Position of the legend.<br />
+			[property:boolean reverse]? - Legend will show datasets in reverse order.<br />
+			[property:boolean rtl]? - true for rendering the legends from right to left.<br />
+			[property:string textDirection]? - This will force the text direction 'rtl' or 'ltr' on the canvas for rendering the legend, regardless of the css specified on the canvas<br />
+			[property:any title]? -  The title.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="Plugin"> Plugin <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:ScriptableFunction afterBuildTicks]? -  The after build ticks.<br />
+			[property:ScriptableFunction afterDataLimits]? -  The after data limits.<br />
+			[property:ScriptableFunction afterDatasetDraw]? -  The after dataset draw.<br />
+			[property:ScriptableFunction afterDatasetUpdate]? -  The after dataset update.<br />
+			[property:ScriptableFunction afterDatasetsDraw]? -  The after datasets draw.<br />
+			[property:ScriptableFunction afterDatasetsUpdate]? -  The after datasets update.<br />
+			[property:ScriptableFunction afterDestroy]? - Called after the chart has been destroyed.<br />
+			[property:ScriptableFunction afterDraw]? -  The after draw.<br />
+			[property:ScriptableFunction afterEvent]? -  The after event.<br />
+			[property:ScriptableFunction afterInit]? -  The after init.<br />
+			[property:ScriptableFunction afterLayout]? -  The after layout.<br />
+			[property:ScriptableFunction afterRender]? -  The after render.<br />
+			[property:ScriptableFunction afterTooltipDraw]? -  The after tooltip draw.<br />
+			[property:ScriptableFunction afterUpdate]? -  The after update.<br />
+			[property:ScriptableFunction beforeBuildTicks]? -  The before build ticks.<br />
+			[property:ScriptableFunction beforeDataLimits]? -  The before data limits.<br />
+			[property:ScriptableFunction beforeDatasetDraw]? -  The before dataset draw.<br />
+			[property:ScriptableFunction beforeDatasetUpdate]? -  The before dataset update.<br />
+			[property:ScriptableFunction beforeDatasetsDraw]? -  The before datasets draw.<br />
+			[property:ScriptableFunction beforeDatasetsUpdate]? -  The before datasets update.<br />
+			[property:ScriptableFunction beforeDestroy]? - Called before the chart is being destroyed.<br />
+			[property:ScriptableFunction beforeDraw]? -  The before draw.<br />
+			[property:ScriptableFunction beforeElementsUpdate]? -  The before elements update.<br />
+			[property:ScriptableFunction beforeEvent]? -  The before event.<br />
+			[property:ScriptableFunction beforeInit]? -  The before init.<br />
+			[property:ScriptableFunction beforeLayout]? -  The before layout.<br />
+			[property:ScriptableFunction beforeRender]? -  The before render.<br />
+			[property:ScriptableFunction beforeTooltipDraw]? -  The before tooltip draw.<br />
+			[property:ScriptableFunction beforeUpdate]? -  The before update.<br />
+			[property:ScriptableFunction destroy]? - Called after the chart has been destroyed.<br />
+			deprecated - since version 3.7.0 in favour of afterDestroy<br />
+			[property:string id]? -  The id.<br />
+			[property:ScriptableFunction install]? -  The install.<br />
+			[property:ScriptableFunction reset]? -  The reset.<br />
+			[property:ScriptableFunction resize]? -  The resize.<br />
+			[property:ScriptableFunction start]? -  The start.<br />
+			[property:ScriptableFunction stop]? -  The stop.<br />
+			[property:ScriptableFunction uninstall]? - Called after chart is destroyed on all plugins that were installed for that chart. This hook is also invoked for disabled plugins (options === false).
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="Point"> Point <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number x]? -  The x.<br />
+			[property:number y]? -  The y.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ScaleOptions"> ScaleOptions <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:ScriptableFunction afterBuildTicks]? - Callback that runs after ticks are created. Useful for filtering ticks.<br />
+			[property:ScriptableFunction afterCalculateLabelRotation]? - Callback that runs after tick rotation is determined.<br />
+			[property:ScriptableFunction afterDataLimits]? - Callback that runs after data limits are determined.<br />
+			[property:ScriptableFunction afterFit]? - Callback that runs after the scale fits to the canvas.<br />
+			[property:ScriptableFunction afterSetDimensions]? - Callback that runs after dimensions are set.<br />
+			[property:ScriptableFunction afterTickToLabelConversion]? - Callback that runs after ticks are converted into strings.<br />
+			[property:ScriptableFunction afterUpdate]? - Callback that runs at the end of the update process.<br />
+			[property:boolean alignToPixels]? - Align pixel values to device pixels<br />
+			[property:any angleLines]? -  The angle lines.<br />
+			[property:boolean animate]? -  The animate.<br />
+			[property:'x'|'y' axis]? - Which type of axis this is. Possible values are?: 'x', 'y'. If not set, this is inferred from the first character of the ID which should be 'x' or 'y'.<br />
+			[property:ScriptableFunction beforeBuildTicks]? - Callback that runs before ticks are created.<br />
+			[property:ScriptableFunction beforeCalculateLabelRotation]? - Callback that runs before tick rotation is determined.<br />
+			[property:ScriptableFunction beforeDataLimits]? - Callback that runs before data limits are determined.<br />
+			[property:ScriptableFunction beforeFit]? - Callback that runs before the scale fits to the canvas.<br />
+			[property:ScriptableFunction beforeSetDimensions]? - Callback that runs before dimensions are set.<br />
+			[property:ScriptableFunction beforeTickToLabelConversion]? - Callback that runs before ticks are converted into strings.<br />
+			[property:ScriptableFunction beforeUpdate]? - Callback called before the update process starts.<br />
+			[property:boolean beginAtZero]? - if true, scale will include 0 if it is not already included.<br />
+			[property:'ticks'|'data' bounds]? - Scale boundary strategy (bypassed by min/max time options)<br />
+			- `data`: make sure data are fully visible, ticks outside are removed<br />
+			- `ticks`: make sure ticks are fully visible, data outside are truncated<br />
+			[property:boolean|'auto' display]? - Controls the axis global visibility (visible when true, hidden when false). When display?: 'auto', the axis is visible only if at least one associated dataset is visible.<br />
+			[property:GridLineOptions grid]? -  The grid.<br />
+			[property:number max]? - User defined maximum value for the scale, overrides maximum value from data.<br />
+			[property:number min]? - User defined minimum value for the scale, overrides minimum value from data.<br />
+			[property:boolean offset]? - If true, extra space is added to the both edges and the axis is scaled to fit into the chart area. This is set to true for a bar chart by default.<br />
+			[property:any pointLabels]? -  The point labels.<br />
+			[property:'left'|'center'|'right'|'top'|'bottom' position]? - Position of the axis.<br />
+			[property:boolean reverse]? - Reverse the scale.<br />
+			[property:string stack]? - Stack group. Axes at the same `position` with same `stack` are stacked.<br />
+			[property:number stackWeight]? - Weight of the scale in stack group. Used to determine the amount of allocated space for the scale within the group.<br />
+			[property:boolean|'single' stacked]? - If true, data will be comprised between datasets of data<br />
+			[property:number suggestedMax]? - Adjustment used when calculating the maximum data value.<br />
+			[property:number suggestedMin]? - Adjustment used when calculating the minimum data value.<br />
+			[property:TickOptions ticks]? -  The ticks.<br />
+			[property:any title]? - Options for the scale title.<br />
+			[property:number weight]? - The weight used to sort the axis. Higher weights are further away from the chart area.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="TickOptions"> TickOptions <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:'center'|'start'|'end' align]? - The label alignment<br />
+			[property:boolean autoSkip]? - If true, automatically calculates how many labels can be shown and hides labels accordingly. Labels will be rotated up to maxRotation before skipping any. Turn autoSkip off to show all labels no matter what.<br />
+			[property:number autoSkipPadding]? - Padding between the ticks on the horizontal axis when autoSkip is enabled.<br />
+			[property:Scriptable backdropColor]? - Color of label backdrops.<br />
+			[property:number|ChartArea backdropPadding]? - Padding of tick backdrop.<br />
+			[property:ScriptableFunction callback]? - Returns the string representation of the tick value as it should be displayed on the chart. See callback.<br />
+			[property:Scriptable color]? - Color of tick<br />
+			[property:'center'|'near'|'far' crossAlign]? - How is the label positioned perpendicular to the axis direction.<br />
+			This only applies when the rotation is 0 and the axis position is one of "top", "left", "right", or "bottom"<br />
+			[property:boolean display]? - If true, show tick labels.<br />
+			[property:Scriptable font]? - see Fonts<br />
+			[property:boolean includeBounds]? - Should the defined `min` and `max` values be presented as ticks even if they are not "nice".<br />
+			[property:number labelOffset]? - Distance in pixels to offset the label from the centre point of the tick (in the x direction for the x axis, and the y direction for the y axis). Note?: this can cause labels at the edges to be cropped by the edge of the canvas<br />
+			[property:any major]? -  The major.<br />
+			[property:number maxRotation]? - Maximum rotation for tick labels when rotating to condense labels. Note?: Rotation doesn't occur until necessary. Note?: Only applicable to horizontal scales.<br />
+			[property:number minRotation]? - Minimum rotation for tick labels. Note?: Only applicable to horizontal scales.<br />
+			[property:boolean mirror]? - Flips tick labels around axis, displaying the labels inside the chart instead of outside. Note?: Only applicable to vertical scales.<br />
+			[property:number padding]? - Sets the offset of the tick labels from the axis<br />
+			[property:number sampleSize]? - The number of ticks to examine when deciding how many labels will fit. Setting a smaller value will be faster, but may be less accurate when there is large variability in label length.<br />
+			[property:Scriptable showLabelBackdrop]? - If true, draw a background behind the tick labels.<br />
+			[property:Scriptable textStrokeColor]? - The color of the stroke around the text.<br />
+			[property:Scriptable textStrokeWidth]? - Stroke width around the text.<br />
+			[property:number z]? - z-index of tick layer. Useful when ticks are drawn on chart area. Values &lt;= 0 are drawn under datasets, &gt; 0 on top.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="TooltipItem"> TooltipItem <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:Chart chart]? - The chart the tooltip is being shown on<br />
+			[property:number dataIndex]? - Index of this data item in the dataset<br />
+			[property:any dataset]? - The dataset the item comes from<br />
+			[property:number datasetIndex]? - Index of the dataset the item comes from<br />
+			[property:Element element]? - The chart element (point, arc, bar, etc.) for this tooltip item<br />
+			[property:string formattedValue]? - Formatted value for the tooltip<br />
+			[property:string label]? - Label for the tooltip<br />
+			[property:any parsed]? - Parsed data values for the given `dataIndex` and `datasetIndex`<br />
+			[property:unknown raw]? - Raw data values for the given `dataIndex` and `datasetIndex`
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="TooltipModel"> TooltipModel <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:string[] afterBody]? -  The after body.<br />
+			[property:string[] beforeBody]? -  The before body.<br />
+			[property:any body]? -  The body.<br />
+			[property:number caretX]? -  The caret x.<br />
+			[property:number caretY]? -  The caret y.<br />
+			[property:Chart chart]? -  The chart.<br />
+			[property:any[] dataPoints]? -  The data points.<br />
+			[property:string[] footer]? -  The footer.<br />
+			[property:number height]? -  The height.<br />
+			[property:any[] labelColors]? -  The label colors.<br />
+			[property:any labelPointStyles]? -  The label point styles.<br />
+			[property:Color[] labelTextColors]? -  The label text colors.<br />
+			[property:number opacity]? -  The opacity.<br />
+			[property:any options]? -  The options.<br />
+			[property:string[] title]? -  The title.<br />
+			[property:number width]? -  The width.<br />
+			[property:number x]? -  The x.<br />
+			[property:TooltipXAlignment xAlign]? -  The x align.<br />
+			[property:number y]? -  The y.<br />
+			[property:TooltipYAlignment yAlign]? -  The y align.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:ActiveElement[] getActiveElements](  ) <br />
+			[method:void setActiveElements](  [param:ActiveDataPoint[] active]?,  [param:Point eventPosition]? ) 
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ChartItem"> ChartItem <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:string|CanvasRenderingContext2D|HTMLCanvasElement|ArrayLike ChartItem]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ChartType"> ChartType <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:'bar'|'line'|'scatter'|'bubble'|'pie'|'doughnut'|'polarArea'|'radar'|string ChartType]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="Color"> Color <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:string|CanvasGradient|CanvasPattern Color]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="EasingFunction"> EasingFunction <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:'linear'|'easeInQuad'|'easeOutQuad'|'easeInOutQuad'|'easeInCubic'|'easeOutCubic'|'easeInOutCubic'|'easeInQuart'|'easeOutQuart'|'easeInOutQuart'|'easeInQuint'|'easeOutQuint'|'easeInOutQuint'|'easeInSine'|'easeOutSine'|'easeInOutSine'|'easeInExpo'|'easeOutExpo'|'easeInOutExpo'|'easeInCirc'|'easeOutCirc'|'easeInOutCirc'|'easeInElastic'|'easeOutElastic'|'easeInOutElastic'|'easeInBack'|'easeOutBack'|'easeInOutBack'|'easeInBounce'|'easeOutBounce'|'easeInOutBounce' EasingFunction]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="FillTarget"> FillTarget <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:number|string|'start'|'end'|'origin'|'stack'|'shape'|boolean FillTarget]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="LayoutPosition"> LayoutPosition <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:'left'|'top'|'right'|'bottom'|'center'|'chartArea' LayoutPosition]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="PointStyle"> PointStyle <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:'circle'|'cross'|'crossRot'|'dash'|'line'|'rect'|'rectRounded'|'rectRot'|'star'|'triangle'|HTMLImageElement|HTMLCanvasElement PointStyle]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="Scriptable"> Scriptable <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:T|string Scriptable]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ScriptableAndArray"> ScriptableAndArray <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:Scriptable|string ScriptableAndArray]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ScriptableFunction"> ScriptableFunction <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:string ScriptableFunction]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="TextAlign"> TextAlign <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:'left'|'center'|'right' TextAlign]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="TooltipXAlignment"> TooltipXAlignment <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:'left'|'center'|'right' TooltipXAlignment]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="TooltipYAlignment"> TooltipYAlignment <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:'top'|'center'|'bottom' TooltipYAlignment]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/chart/chartjs/chartjs.interface.ts /chart/chartjs/chartjs.interface.ts]</p>
+	</body>
+</html>

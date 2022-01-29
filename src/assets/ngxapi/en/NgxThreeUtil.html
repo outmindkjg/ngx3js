@@ -500,11 +500,11 @@
 			Returns : glsl version
 		</p>
 
-		<h3>[method:GUIController getGuiController](  [param:GUI gui],  [param:string name] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h3>[method:GUIController getGuiController](  [param:GUI gui],  [param:string property] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:GUI gui] - The gui.<br />
-			[parameter:string name] - The name.
+			[parameter:string property] - The property.
 		</p>
 		<p>
 			Gets gui folder<br />
@@ -1100,6 +1100,11 @@
 			Returns : type safe
 		</p>
 
+		<h3>[method:string getUUID](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Gets uuid
+		</p>
+
 		<h3>[method:Observable getUpdateSubscribe](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<p>
 			Gets update subscribe<br />
@@ -1214,6 +1219,16 @@
 		</p>
 
 		<h3>[method:boolean isNotNull](  [param:any value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any value] - The value.
+		</p>
+		<p>
+			Determines whether not null is<br />
+			Returns : true if not null
+		</p>
+
+		<h3>[method:boolean isNotNullEmpty](  [param:any value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
 		<h4>Parameters</h4>
 		<p>
 			[parameter:any value] - The value.
@@ -1544,7 +1559,7 @@
 			[property:string[] select]? - The select value of select type<br />
 			[property:number step]? - The step value of number type<br />
 			[property:string title]? - The title of gui name<br />
-			[property:'number'|'color'|'select'|'folder'|'button'|'checkbox'|'input'|'listen'|'auto' type]? - The type of gui control<br />
+			[property:'number'|'color'|'auto'|'select'|'folder'|'button'|'checkbox'|'input'|'listen' type]? - The type of gui control<br />
 			[property:any value]? - The name of gui control
 		</p>
 		<h4>Methods</h4>

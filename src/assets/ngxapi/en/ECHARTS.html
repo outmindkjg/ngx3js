@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		<h1>ECHARTS</h1>
+
+		<h2>Namespace</h2>
+		<h3 id="CartesianAxis"> CartesianAxis <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:Label axisLabel]? - Settings related to axis label.<br />
+			[property:Line axisLine]? - Settings related to axis line.<br />
+			[property:Pointer axisPointer]? - axisPointer settings on the axis.<br />
+			[property:Tick axisTick]? - Settings related to axis tick.<br />
+			[property:boolean boundaryGap]? - The boundary gap on both sides of a coordinate axis.<br />
+			The setting and behavior of category axes and non-category axes are<br />
+			different. The `boundaryGap` of category axis can be set to either<br />
+			`true` or `false`. Default value is set to be `true`, in which case<br />
+			`axisTick` is served only as a separation line, and labels and data<br />
+			appear only in the center part of two axis ticks, which is called<br />
+			band. For non-category axis, including time, numerical value, and<br />
+			log axes, `boundaryGap` is an array of two values, representing the<br />
+			spanning range between minimum and maximum value.<br />
+			The value can be set in numeric value or relative percentage,<br />
+			which becomes invalid after setting `min` and `max`.<br />
+			[property:any data]? - Category data, available in type: `'category'` axis.<br />
+			If `type` is not specified, but `axis.data` is specified,<br />
+			the `type` is auto set as `'category'`.<br />
+			If type is specified as `'category'`,<br />
+			but axis.data is not specified, `axis.data` will be<br />
+			auto collected from `series.data`.<br />
+			It brings convenience, but we should notice that<br />
+			`axis.data` provides then value range of the `'category'` axis.<br />
+			If it is auto collected from `series.data`,<br />
+			Only the values appearing in series.data can be collected.<br />
+			For example, if series.data is empty, nothing will be collected.<br />
+			[property:number gridIndex]? - The index of grid which this axis belongs to.<br />
+			Defaults to be in the first grid.<br />
+			[property:string id]? - Component ID, not specified by default.<br />
+			If specified, it can be used to refer the component in option or API.<br />
+			[property:number interval]? - Compulsively set segmentation interval for axis.<br />
+			As splitNumber is a recommendation value,<br />
+			the calculated tick may not be the same as expected.<br />
+			In this case, interval should be used along with min and max<br />
+			to compulsively set tickings.<br />
+			But in most cases, we do not suggest using this,<br />
+			out automatic calculation is enough for most situations.<br />
+			This is unavailable for category axis.<br />
+			Timestamp should be passed for type: `'time'` axis.<br />
+			Logged value should be passed for type: `'log'` axis.<br />
+			[property:boolean inverse]? - Whether axis is inversed. New option from ECharts 3.<br />
+			[property:number logBase]? - Base of logarithm, which is valid only for numeric axes with type:<br />
+			`'log'`.<br />
+			[property:string|number max]? - The maximum value of axis.<br />
+			It can be set to a special value `'dataMax'` so that<br />
+			the minimum value on this axis is set to be the maximum label.<br />
+			It will be automatically computed to make sure axis tick is equally<br />
+			distributed when not set.<br />
+			In category axis, it can also be set as the ordinal number.<br />
+			For example, if a catergory axis has<br />
+			`data: ['categoryA', 'categoryB', 'categoryC']`<br />
+			, and the ordinal `2` represents `'categoryC'`.<br />
+			Moreover, it can be set as negative number, like `-3`.<br />
+			[property:string|number min]? - The minimun value of axis.<br />
+			It can be set to a special value `'dataMin'` so that<br />
+			the minimum value on this axis is set to be the minimum label.<br />
+			It will be automatically computed to make sure axis tick is equally<br />
+			distributed when not set. In category axis, it can also be set<br />
+			as the ordinal number.<br />
+			For example, if a catergory axis has<br />
+			`data: ['categoryA', 'categoryB', 'categoryC']`<br />
+			, and the ordinal `2` represents `'categoryC'`.<br />
+			Moreover, it can be set as negative number, like `-3`.<br />
+			[property:any minInterval]? - Maximum gap between split lines.<br />
+			For example, in time axis (type is `'time'`),<br />
+			it can be set to be `3600 * 24 * 1000` to make sure<br />
+			that the gap between axis labels is less than or equal to one day.<br />
+			[property:MinorSplitLine minorSplitLine]? - Minor SplitLine of axis in grid area.<br />
+			[property:MinorTick minorTick]? - Settings related to axis minor tick.<br />
+			[property:string name]? - Name of axis.<br />
+			[property:number nameGap]? - Gap between axis name and axis line.<br />
+			[property:'center'|'start'|'end'|'middle' nameLocation]? - Location of axis name.<br />
+			[property:number nameRotate]? - Rotation of axis name.<br />
+			[property:any nameTextStyle]? - Text style of axis name.<br />
+			[property:number offset]? - Offset of this axis relative to default position.<br />
+			Useful when multiple axis of this type has same position value.<br />
+			[property:boolean scale]? - It is available only in numerical axis, i.e., type: `'value'`.<br />
+			It specifies whether not to contain zero position<br />
+			of axis compulsively.<br />
+			When it is set to be `true`, the axis may not contain zero position,<br />
+			which is useful in the scatter chart for both value axes.<br />
+			This configuration item is unavailable when the `min` and `max`<br />
+			are set.<br />
+			[property:boolean show]? - If show this axis.<br />
+			[property:boolean silent]? - True for axis that cannot be interacted with.<br />
+			[property:SplitArea splitArea]? - Split area of axis in grid area, not shown by default.<br />
+			[property:SplitLine splitLine]? - SplitLine of axis in grid area.<br />
+			[property:number splitNumber]? - Number of segments that the axis is split into.<br />
+			Note that this number serves only as a recommendation,<br />
+			and the true segments may be adjusted based on readability.<br />
+			This is unavailable for category axis.<br />
+			[property:boolean triggerEvent]? - Whether the labels of axis triggers and reacts to mouse events.<br />
+			Parameters of event includes:<br />
+			[property:number z]? - z value of all graghical elements in this axis,<br />
+			which controls order of drawing graphical components.<br />
+			Components with smaller z values may be overwritten by those<br />
+			with larger z values.<br />
+			z has a lower priority to zlevel, and will not create new Canvas.<br />
+			[property:number zlevel]? - `zlevel` value of all graghical elements in this axis.<br />
+			`zlevel` is used to make layers with Canvas.<br />
+			Graphical elements with different `zlevel` values will be placed<br />
+			in different Canvases, which is a common optimization technique.<br />
+			We can put those frequently changed elements<br />
+			(like those with animations) to a seperate `zlevel`.<br />
+			Notice that too many Canvases will increase memory cost,<br />
+			and should be used carefully on mobile phones to avoid crash.<br />
+			Canvases with bigger `zlevel` will be placed on Canvases<br />
+			with smaller `zlevel`.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="DataObject"> DataObject <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:any textStyle]? -  The text style.<br />
+			[property:string|number value]? -  The value.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="EChartOption"> EChartOption <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:ChartAction[] actions]? - ChartActions<br />
+			[property:object angleAxis]? - The angle axis in Polar Coordinate.<br />
+			[property:boolean animation]? - Whether to enable animation.<br />
+			[property:number|Function animationDelay]? - Delay before updating the first animation, which supports<br />
+			callback function for different data<br />
+			to have different animation effect.<br />
+			[property:number|Function animationDelayUpdate]? - Delay before updating animation, which supports callback function<br />
+			for different data to have different animation effect.<br />
+			[property:number animationDuration]? - Duration of the first animation, which supports callback function<br />
+			for different data to have different animation effect<br />
+			[property:number|Function animationDurationUpdate]? - Time for animation to complete, which supports callback function<br />
+			for different data to have different animation effect<br />
+			[property:string animationEasing]? - Easing method used for the first animation.<br />
+			Varied easing effects can be found at `easing effect example`.<br />
+			[property:string animationEasingUpdate]? - Easing method used for animation.<br />
+			[property:number animationThreshold]? - Whether to set graphic number threshold to animation.<br />
+			Animation will be disabled when graphic number is larger than threshold.<br />
+			[property:object aria]? - `dataset` component is published since ECharts 4.<br />
+			`dataset` brings convenience in data management separated with styles<br />
+			and enables data reuse by different series.<br />
+			More importantly, is enables data encoding from data to visual,<br />
+			which brings convenience in some scenarios.<br />
+			More details about `dataset` can be checked in the tutorial.<br />
+			[property:any axisPointer]? - `axisPointer` is a tool for displaying reference line and axis value<br />
+			under mouse pointer.<br />
+			[property:any backgroundColor]? - Background color. Defaults to have no background.<br />
+			[property:string blendMode]? - Equal to CanvasRenderingContext2D.globalCompositeOperation<br />
+			[property:object brush]? - `brush` is an area-selecting component, with which user can select<br />
+			part of data from a chart to display in detail, or doing calculations<br />
+			with them.<br />
+			[property:any calendar]? - Calendar coordinates.<br />
+			In ECharts, we are very creative to achieve the calendar chart,<br />
+			by using the calendar coordinates<br />
+			to achieve the calendar chart, as shown in the following example,<br />
+			we can use calendar coordinates<br />
+			in `heatmap`, `scatter`, `effectScatter`, and `graph`.<br />
+			[property:string[] color]? - The color list of palette.<br />
+			If no color is set in series, the colors would be adopted sequentially<br />
+			and circularly from this list<br />
+			as the colors of series.<br />
+			[property:any dataZoom]? - `dataZoom` component is used for zooming a specific area,<br />
+			which enables user to investigate data in detail,<br />
+			or get an overview of the data,<br />
+			or get rid of outlier points.<br />
+			These types of `dataZoom` component are supported:<br />
+			+ `dataZoomInside`: Data zoom functionalities is embeded<br />
+			  inside coordinate systems, enable user to zoom<br />
+			  or roam coordinate system by mouse dragging,<br />
+			  mouse move or finger touch (in touch screen).<br />
+			+ `dataZoomSlider`: A special slider bar is provided,<br />
+			  on which coordinate systems can be zoomed or roamed<br />
+			  by mouse dragging or finger touch (in touch screen).<br />
+			+ `dataZoomSelect`: A marquee tool is provided for zooming<br />
+			  or roaming coordinate system.<br />
+			  That is `toolbox.feature.dataZoom`, which can only be configured<br />
+			  in toolbox.<br />
+			[property:any dataset]? -  The dataset.<br />
+			[property:object[] geo]? - Geographic coorinate system component.<br />
+			Geographic coorinate system component is used to draw maps,<br />
+			which also supports `scatter series`, and `line series`.<br />
+			[property:object[] geo3D]? -  The geo3 d.<br />
+			[property:any[] globe]? -  The globe.<br />
+			[property:object|object[] graphic]? - `graphic` component enable creating graphic elements in echarts.<br />
+			Those graphic type are supported.<br />
+			`image`, `text`, `circle`, `sector`, `ring`, `polygon`,<br />
+			`polyline`, `rect`, `line`, `bezierCurve`, `arc`, `group`,<br />
+			[property:any grid]? - Drawing grid in rectangular coordinate.<br />
+			In a single grid, at most two X and Y axes each is allowed.<br />
+			`Line chart`, `bar chart`, and `scatter chart (bubble chart)`<br />
+			can be drawn in grid.<br />
+			In ECharts 2.x, there could only be one single grid component<br />
+			at most in a single echarts instance.<br />
+			But in ECharts 3, there is no limitation.<br />
+			[property:any[] grid3D]? -  The grid3 d.<br />
+			[property:number hoverLayerThreshold]? - Threshold of if use single hover layer to optimize.<br />
+			It is recommended that `hoverLayerThreshold` is equivalent to or less than<br />
+			`progressiveThreshold`, otherwise hover will cause restart of progressive,<br />
+			which is unexpected.<br />
+			see example &lt;echarts/test/heatmap-large.html&gt;.<br />
+			[property:any legend]? - Legend component.<br />
+			Legend component shows symbol, color and name of different series.<br />
+			You can click legends to toggle displaying series in the chart.<br />
+			In ECharts 3, a single echarts instance may contain multiple<br />
+			legend components, which makes it easier for the layout of multiple<br />
+			legend components.<br />
+			If there have to be too many legend items, `vertically scrollable` legend<br />
+			or `horizontally scrollable` legend are options to paginate them.<br />
+			Check `legend.type` please.<br />
+			[property:object parallel]? - `Parallel Coordinates` is a common way of visualizing high-dimensional<br />
+			geometry and analyzing multivariate data.<br />
+			For example, `series-parallel.data` is the following data:<br />
+			[property:object parallelAxis]? - This component is the coordinate axis for parallel coordinate.<br />
+			[property:object polar]? - Polar coordinate can be used in scatter and line chart.<br />
+			Every polar coordinate has an `angleAxis` and a `radiusAxis`.<br />
+			[property:number progressive]? - Configuration for progressive/incremental rendering<br />
+			[property:number progressiveThreshold]? - Configuration for progressive/incremental rendering<br />
+			[property:object radar]? - Coordinate for `radar charts`.<br />
+			This component is equal to the polar component in ECharts 2.<br />
+			Because the polar component in the echarts 3 is reconstructed<br />
+			to be the standard polar coordinate component,<br />
+			this component is renamed to be radar to avoid confusion.<br />
+			Radar chart coordinate is different from polar coordinate,<br />
+			in that every axis indicator of the radar chart coordinate<br />
+			is an individual dimension.<br />
+			The style of indicator coordinate axis could be configured<br />
+			through the following configuration items,<br />
+			including `name`, `axisLine`, `axisTick`, `axisLabel`,<br />
+			`splitLine`, `splitArea`.<br />
+			[property:object radiusAxis]? - Radial axis of polar coordinate.<br />
+			[property:any series]? -  The series.<br />
+			[property:ChartSharedVar sharedVar]? - Chart Shared Var<br />
+			[property:any singleAxis]? - An axis with a single dimension. It can be used to display data<br />
+			in one dimension.<br />
+			[property:any textStyle]? - Global font style.<br />
+			[property:object timeline]? - `timeline` component, which provides functions like switching and playing<br />
+			between multiple ECharts `options`.<br />
+			[property:EChartTitleOption|EChartTitleOption[] title]? - Title component, including main title and subtitle.<br />
+			In ECharts 2.x, a single instance of ECharts could contains<br />
+			one title component at most.<br />
+			However, in ECharts 3, there could be one or more<br />
+			than one title components.<br />
+			It is more useful when multiple diagrams in one instance all need titles.<br />
+			[property:object toolbox]? - A group of utility tools, which includes `export`, `data view`,<br />
+			`dynamic type switching`, `data area zooming`, and `reset`.<br />
+			[property:any tooltip]? - Tooltip component.<br />
+			It can be configured on different places:<br />
+			+ Configured on global: `tooltip`<br />
+			+ Configured in a coordinate system: `grid.tooltip`,<br />
+			  `polar.tooltip`, `single.tooltip`<br />
+			+ Configured in a series: `series.tooltip`<br />
+			+ Configured in each item of `series.data`: `series.data.tooltip`<br />
+			[property:string url]? -  The url.<br />
+			[property:boolean useUTC]? - Whether to use UTC in display.<br />
+			- `true`: When `axis.type` is `'time'`, ticks is determined<br />
+			  according to UTC, and `axisLabel` and `tooltip` use UTC by default.<br />
+			- `false`: When `axis.type` is `'time'`, ticks is determined<br />
+			  according to local time, and `axisLabel` and `tooltip` use local time<br />
+			  by default.<br />
+			The default value of useUTC is false, for sake of considering:<br />
+			- In many cases, labels should be displayed in local time<br />
+			  (whether the time is stored in server in local time or UTC).<br />
+			- If user uses time string (like '2012-01-02') in data,<br />
+			it usually means local time if time zone is not specified.<br />
+			Time should be displayed in its original time zone by default.<br />
+			Notice: the setting only effects 'display time', but not 'parse time'.<br />
+			About how time value (like `1491339540396`, `'2013-01-04'`, ...)<br />
+			is parsed in echarts, see `the time part in date`.<br />
+			[property:any visualMap]? - `visualMap` is a type of component for visual encoding,<br />
+			which maps the data to visual channels, including:<br />
+			+ symbol: Type of symbol.<br />
+			+ symbolSize: Symbol size.<br />
+			+ color: Symbol color.<br />
+			+ colorAlpha: Symbol alpha channel.<br />
+			+ opacity: Opacity of symbol and others (like labels).<br />
+			+ colorLightness: Lightness in HSL.<br />
+			+ colorSaturation: Saturation in HSL.<br />
+			+ colorHue: Hue in HSL.<br />
+			Myltiple `visualMap` component could be defined in a chart instance,<br />
+			which enable that different dimensions<br />
+			of a series data are mapped to different visual channels.<br />
+			`visualMap` could be defined as `Piecewise (visualMapPiecewise)`<br />
+			or `Continuous (visualMapContinuous)`,<br />
+			which is distinguished by the property type.<br />
+			[property:XAxis xAxis]? - The x axis in cartesian(rectangular) coordinate.<br />
+			Usually a single grid component can place at most 2 x axis,<br />
+			one on the bottom and another on the top.<br />
+			offset can be used to avoid overlap when you need to put more<br />
+			than two x axis.<br />
+			[property:YAxis yAxis]? - The y axis in cartesian(rectangular) coordinate.<br />
+			Usually a single grid component can place at most 2 y axis,<br />
+			one on the left and another on the right. offset can be used<br />
+			to avoid overlap when you need to put more than two y axis.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="EChartTitleOption"> EChartTitleOption <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:string backgroundColor]? -  The background color.<br />
+			[property:string borderColor]? -  The border color.<br />
+			[property:number|number[] borderRadius]? -  The border radius.<br />
+			[property:number borderWidth]? -  The border width.<br />
+			[property:string|number bottom]? -  The bottom.<br />
+			[property:number itemGap]? -  The item gap.<br />
+			[property:string|number left]? -  The left.<br />
+			[property:string link]? -  The link.<br />
+			[property:number|number[] padding]? - Title space around content. The unit is `px`.<br />
+			Default values for each position are 5.<br />
+			And they can be set to different values with left, right, top, and bottom.<br />
+			[property:string|number right]? -  The right.<br />
+			[property:number shadowBlur]? -  The shadow blur.<br />
+			[property:number shadowColor]? -  The shadow color.<br />
+			[property:number shadowOffsetX]? -  The shadow offset x.<br />
+			[property:number shadowOffsetY]? -  The shadow offset y.<br />
+			[property:boolean show]? -  The show.<br />
+			[property:string sublink]? -  The sublink.<br />
+			[property:string subtarget]? -  The subtarget.<br />
+			[property:string subtext]? -  The subtext.<br />
+			[property:any subtextStyle]? -  The subtext style.<br />
+			[property:string target]? -  The target.<br />
+			[property:string text]? -  The text.<br />
+			[property:string textAlign]? -  The text align.<br />
+			[property:any textStyle]? -  The text style.<br />
+			[property:string textVerticalAlign]? -  The text vertical align.<br />
+			[property:string|number top]? -  The top.<br />
+			[property:boolean triggerEvent]? -  The trigger event.<br />
+			[property:number z]? -  The z.<br />
+			[property:number zlevel]? -  The zlevel.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ECharts"> ECharts <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:string group] - Group name to be used in chart connection
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void appendData](  [param:any opts] ) - The method is used in rendering millions of data<br />
+			    (e.g. rendering geo data). In these scenario, the entire size of<br />
+			    data is probably up to 10 or 100 MB, even using binary format.<br />
+			    So chunked load data and rendering is required. When using<br />
+			    `appendData`, the graphic elements that have been rendered will<br />
+			    not be cleared, but keep rendering new graphic elements.<br />
+			[method:void clear](  ) - Clears current instance; removes all components and charts in<br />
+			    current instance.<br />
+			[method:boolean containPixel](  [param:EChartsConvertFinder finder],  [param:any[] value] ) - Determine whether the given point is in the given coordinate systems or series.<br />
+			[method:string|any[] convertFromPixel](  [param:EChartsConvertFinder finder],  [param:string|any[] value] ) - Convert a point from pixel coordinate to logical coordinate<br />
+			    (e.g., in geo, cartesian, graph, ...).<br />
+			[method:string|any[] convertToPixel](  [param:EChartsConvertFinder finder],  [param:string|any[] value] ) - Convert a point from logical coordinate (e.g., in geo, cartesian,<br />
+			    graph, ...) to pixel coordinate.<br />
+			[method:void dispatchAction](  [param:object payload] ) - Triggers chart action, like chart switch `legendToggleSelect`,<br />
+			    zoom data area `dataZoom`, show tooltip `showTip` and so on.<br />
+			    See [link:https://echarts.apache.org/api.html#action action] and<br />
+			    [link:https://echarts.apache.org/api.html#events events]<br />
+			    for more information.<br />
+			[method:void dispose](  ) - Disposes instance. Once disposed, the instance can not be used again.<br />
+			[method:string getConnectedDataURL](  [param:any opts] ) - Exports connected chart image; returns a base64 url; can be set to<br />
+			    `src` of `Image`. Position of charts in exported image are<br />
+			    related to that of the container.<br />
+			[method:string getDataURL](  [param:any opts] ) - Exports chart image; returns a base64 URL; can be set to `src` of<br />
+			     `Image`.<br />
+			[method:HTMLCanvasElement|HTMLDivElement getDom](  ) - Gets DOM element of ECharts instance container.<br />
+			Returns : DOM container.<br />
+			[method:number getHeight](  ) - Gets height of ECharts instance container.<br />
+			Returns : Height.<br />
+			[method:EChartOption getOption](  ) - Gets `option` object maintained in current instance, which contains<br />
+			    configuration item and data merged from previous `setOption`<br />
+			    operations by users, along with user interaction states.<br />
+			    For example, switching of legend, zooming area of data zoom,<br />
+			    and so on. Therefore, a new instance that is exactly the same<br />
+			    can be recovered from this option.<br />
+			[method:number getWidth](  ) - Gets width of ECharts instance container.<br />
+			Returns : Width.<br />
+			[method:void hideLoading](  ) - Hides animation loading effect.<br />
+			[method:boolean isDisposed](  ) - Returns whether current instance has been disposed.<br />
+			Returns : Whether has been disposed.<br />
+			[method:void off](  [param:string eventName],  [param:Function handler]? ) - Unbind event-handler function.<br />
+			[method:void on](  [param:string eventName],  [param:Function handler],  [param:object context]? ) - Binds event-handling function.<br />
+			    There are two kinds of events in ECharts, one of which is mouse<br />
+			    events, which will be triggered when the mouse clicks certain<br />
+			    element in the chart, the other kind will be triggered after<br />
+			    `dispatchAction` is called. Every action has a corresponding<br />
+			    event.<br />
+			    If event is triggered externally by `dispatchAction`, and there<br />
+			    is batch attribute in action to trigger batch action, then the<br />
+			    corresponding response event parameters be in batch.<br />
+			[method:void on](  [param:string eventName],  [param:Function handler],  [param:object context]?,  [param:string eventName],  [param:string|Object query],  [param:Function handler],  [param:object context]? ) - Binds event-handling function.<br />
+			    There are two kinds of events in ECharts, one of which is mouse<br />
+			    events, which will be triggered when the mouse clicks certain<br />
+			    element in the chart, the other kind will be triggered after<br />
+			    `dispatchAction` is called. Every action has a corresponding<br />
+			    event.<br />
+			    If event is triggered externally by `dispatchAction`, and there<br />
+			    is batch attribute in action to trigger batch action, then the<br />
+			    corresponding response event parameters be in batch.<br />
+			[method:void resize](  [param:EChartsResizeOption opts]? ) - Resizes chart, which should be called manually when container size<br />
+			    changes. When `opts` is not provided, DOM size is used.<br />
+			[method:void setOption](  [param:EChartOption|EChartsResponsiveOption option],  [param:boolean notMerge]?,  [param:boolean lazyUpdate]? ) - Configuration item, data, universal interface, all parameters and<br />
+			    data can all be modified through `setOption`. ECharts will merge<br />
+			    new parameters and data, and then refresh chart.<br />
+			[method:void setOption](  [param:EChartOption|EChartsResponsiveOption option],  [param:boolean notMerge]?,  [param:boolean lazyUpdate]?,  [param:EChartOption option],  [param:EChartsOptionConfig opts]? ) - Configuration item, data, universal interface, all parameters and<br />
+			    data can all be modified through `setOption`. ECharts will merge<br />
+			    new parameters and data, and then refresh chart.<br />
+			[method:void showLoading](  [param:string type]?,  [param:EChartsLoadingOption opts]? ) - Shows loading animation. You can call this interface manually before<br />
+			    data is loaded, and call `hideLoading` to hide loading animation<br />
+			    after data is loaded.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="EChartsConvertFinder"> EChartsConvertFinder <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:string geoId]? -  The geo id.<br />
+			[property:number geoIndex]? -  The geo index.<br />
+			[property:string geoName]? -  The geo name.<br />
+			[property:string gridId]? -  The grid id.<br />
+			[property:number gridIndex]? -  The grid index.<br />
+			[property:string gridName]? -  The grid name.<br />
+			[property:string seriesId]? -  The series id.<br />
+			[property:number seriesIndex]? -  The series index.<br />
+			[property:string seriesName]? -  The series name.<br />
+			[property:string xAxisId]? -  The x axis id.<br />
+			[property:number xAxisIndex]? -  The x axis index.<br />
+			[property:string xAxisName]? -  The x axis name.<br />
+			[property:string yAxisId]? -  The y axis id.<br />
+			[property:number yAxisIndex]? -  The y axis index.<br />
+			[property:string yAxisName]? -  The y axis name.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="EChartsLoadingOption"> EChartsLoadingOption <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:string color]? - Loading circle color.<br />
+			[property:number fontSize]? - Font size.<br />
+			[property:number lineWidth]? - Line width of the "spinner".<br />
+			[property:string maskColor]? - Mask background color.<br />
+			[property:boolean showSpinner]? - Show an animated "spinner" or not.<br />
+			[property:number spinnerRadius]? - Radius of the "spinner".<br />
+			[property:string text]? - Loading text.<br />
+			[property:string textColor]? - Loading text color.<br />
+			[property:number zlevel]? - Zlevel of loading. If not 0, it creates a new canvas for loading.
+		</p>
+
+		<p class="desc">
+			Options for `echartsInstance.showLoading` method<br />
+			{@link https://echarts.apache.org/en/api.html#echartsInstance.showLoading}
+		</p>
+
+		<h3 id="EChartsMapResource"> EChartsMapResource <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:string key]? -  The key.<br />
+			[property:boolean loaded]? -  The loaded.<br />
+			[property:string name]? -  The name.<br />
+			[property:any parent]? -  The parent.<br />
+			[property:string type]? -  The type.<br />
+			[property:string url]? -  The url.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="EChartsOptionConfig"> EChartsOptionConfig <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean lazyUpdate]? -  The lazy update.<br />
+			[property:boolean notMerge]? -  The not merge.<br />
+			[property:boolean silent]? -  The silent.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="EChartsResizeOption"> EChartsResizeOption <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:string|number height]? - Chart height.<br />
+			[property:boolean silent]? - Specify whether or not to prevent triggering events.<br />
+			[property:string|number width]? - Chart width.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="EChartsResponsiveOption">[page:EChartOption] &rarr; EChartsResponsiveOption <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:ChartAction[] actions]? - ChartActions<br />
+			[property:object angleAxis]? - The angle axis in Polar Coordinate.<br />
+			[property:boolean animation]? - Whether to enable animation.<br />
+			[property:number|Function animationDelay]? - Delay before updating the first animation, which supports<br />
+			callback function for different data<br />
+			to have different animation effect.<br />
+			[property:number|Function animationDelayUpdate]? - Delay before updating animation, which supports callback function<br />
+			for different data to have different animation effect.<br />
+			[property:number animationDuration]? - Duration of the first animation, which supports callback function<br />
+			for different data to have different animation effect<br />
+			[property:number|Function animationDurationUpdate]? - Time for animation to complete, which supports callback function<br />
+			for different data to have different animation effect<br />
+			[property:string animationEasing]? - Easing method used for the first animation.<br />
+			Varied easing effects can be found at `easing effect example`.<br />
+			[property:string animationEasingUpdate]? - Easing method used for animation.<br />
+			[property:number animationThreshold]? - Whether to set graphic number threshold to animation.<br />
+			Animation will be disabled when graphic number is larger than threshold.<br />
+			[property:object aria]? - `dataset` component is published since ECharts 4.<br />
+			`dataset` brings convenience in data management separated with styles<br />
+			and enables data reuse by different series.<br />
+			More importantly, is enables data encoding from data to visual,<br />
+			which brings convenience in some scenarios.<br />
+			More details about `dataset` can be checked in the tutorial.<br />
+			[property:any axisPointer]? - `axisPointer` is a tool for displaying reference line and axis value<br />
+			under mouse pointer.<br />
+			[property:any backgroundColor]? - Background color. Defaults to have no background.<br />
+			[property:EChartOption baseOption]? -  The base option.<br />
+			[property:string blendMode]? - Equal to CanvasRenderingContext2D.globalCompositeOperation<br />
+			[property:object brush]? - `brush` is an area-selecting component, with which user can select<br />
+			part of data from a chart to display in detail, or doing calculations<br />
+			with them.<br />
+			[property:any calendar]? - Calendar coordinates.<br />
+			In ECharts, we are very creative to achieve the calendar chart,<br />
+			by using the calendar coordinates<br />
+			to achieve the calendar chart, as shown in the following example,<br />
+			we can use calendar coordinates<br />
+			in `heatmap`, `scatter`, `effectScatter`, and `graph`.<br />
+			[property:string[] color]? - The color list of palette.<br />
+			If no color is set in series, the colors would be adopted sequentially<br />
+			and circularly from this list<br />
+			as the colors of series.<br />
+			[property:any dataZoom]? - `dataZoom` component is used for zooming a specific area,<br />
+			which enables user to investigate data in detail,<br />
+			or get an overview of the data,<br />
+			or get rid of outlier points.<br />
+			These types of `dataZoom` component are supported:<br />
+			+ `dataZoomInside`: Data zoom functionalities is embeded<br />
+			  inside coordinate systems, enable user to zoom<br />
+			  or roam coordinate system by mouse dragging,<br />
+			  mouse move or finger touch (in touch screen).<br />
+			+ `dataZoomSlider`: A special slider bar is provided,<br />
+			  on which coordinate systems can be zoomed or roamed<br />
+			  by mouse dragging or finger touch (in touch screen).<br />
+			+ `dataZoomSelect`: A marquee tool is provided for zooming<br />
+			  or roaming coordinate system.<br />
+			  That is `toolbox.feature.dataZoom`, which can only be configured<br />
+			  in toolbox.<br />
+			[property:any dataset]? -  The dataset.<br />
+			[property:object[] geo]? - Geographic coorinate system component.<br />
+			Geographic coorinate system component is used to draw maps,<br />
+			which also supports `scatter series`, and `line series`.<br />
+			[property:object[] geo3D]? -  The geo3 d.<br />
+			[property:any[] globe]? -  The globe.<br />
+			[property:object|object[] graphic]? - `graphic` component enable creating graphic elements in echarts.<br />
+			Those graphic type are supported.<br />
+			`image`, `text`, `circle`, `sector`, `ring`, `polygon`,<br />
+			`polyline`, `rect`, `line`, `bezierCurve`, `arc`, `group`,<br />
+			[property:any grid]? - Drawing grid in rectangular coordinate.<br />
+			In a single grid, at most two X and Y axes each is allowed.<br />
+			`Line chart`, `bar chart`, and `scatter chart (bubble chart)`<br />
+			can be drawn in grid.<br />
+			In ECharts 2.x, there could only be one single grid component<br />
+			at most in a single echarts instance.<br />
+			But in ECharts 3, there is no limitation.<br />
+			[property:any[] grid3D]? -  The grid3 d.<br />
+			[property:number hoverLayerThreshold]? - Threshold of if use single hover layer to optimize.<br />
+			It is recommended that `hoverLayerThreshold` is equivalent to or less than<br />
+			`progressiveThreshold`, otherwise hover will cause restart of progressive,<br />
+			which is unexpected.<br />
+			see example &lt;echarts/test/heatmap-large.html&gt;.<br />
+			[property:any legend]? - Legend component.<br />
+			Legend component shows symbol, color and name of different series.<br />
+			You can click legends to toggle displaying series in the chart.<br />
+			In ECharts 3, a single echarts instance may contain multiple<br />
+			legend components, which makes it easier for the layout of multiple<br />
+			legend components.<br />
+			If there have to be too many legend items, `vertically scrollable` legend<br />
+			or `horizontally scrollable` legend are options to paginate them.<br />
+			Check `legend.type` please.<br />
+			[property:EChartsMediaOption[] media]? -  The media.<br />
+			[property:object parallel]? - `Parallel Coordinates` is a common way of visualizing high-dimensional<br />
+			geometry and analyzing multivariate data.<br />
+			For example, `series-parallel.data` is the following data:<br />
+			[property:object parallelAxis]? - This component is the coordinate axis for parallel coordinate.<br />
+			[property:object polar]? - Polar coordinate can be used in scatter and line chart.<br />
+			Every polar coordinate has an `angleAxis` and a `radiusAxis`.<br />
+			[property:number progressive]? - Configuration for progressive/incremental rendering<br />
+			[property:number progressiveThreshold]? - Configuration for progressive/incremental rendering<br />
+			[property:object radar]? - Coordinate for `radar charts`.<br />
+			This component is equal to the polar component in ECharts 2.<br />
+			Because the polar component in the echarts 3 is reconstructed<br />
+			to be the standard polar coordinate component,<br />
+			this component is renamed to be radar to avoid confusion.<br />
+			Radar chart coordinate is different from polar coordinate,<br />
+			in that every axis indicator of the radar chart coordinate<br />
+			is an individual dimension.<br />
+			The style of indicator coordinate axis could be configured<br />
+			through the following configuration items,<br />
+			including `name`, `axisLine`, `axisTick`, `axisLabel`,<br />
+			`splitLine`, `splitArea`.<br />
+			[property:object radiusAxis]? - Radial axis of polar coordinate.<br />
+			[property:any series]? -  The series.<br />
+			[property:ChartSharedVar sharedVar]? - Chart Shared Var<br />
+			[property:any singleAxis]? - An axis with a single dimension. It can be used to display data<br />
+			in one dimension.<br />
+			[property:any textStyle]? - Global font style.<br />
+			[property:object timeline]? - `timeline` component, which provides functions like switching and playing<br />
+			between multiple ECharts `options`.<br />
+			[property:EChartTitleOption|EChartTitleOption[] title]? - Title component, including main title and subtitle.<br />
+			In ECharts 2.x, a single instance of ECharts could contains<br />
+			one title component at most.<br />
+			However, in ECharts 3, there could be one or more<br />
+			than one title components.<br />
+			It is more useful when multiple diagrams in one instance all need titles.<br />
+			[property:object toolbox]? - A group of utility tools, which includes `export`, `data view`,<br />
+			`dynamic type switching`, `data area zooming`, and `reset`.<br />
+			[property:any tooltip]? - Tooltip component.<br />
+			It can be configured on different places:<br />
+			+ Configured on global: `tooltip`<br />
+			+ Configured in a coordinate system: `grid.tooltip`,<br />
+			  `polar.tooltip`, `single.tooltip`<br />
+			+ Configured in a series: `series.tooltip`<br />
+			+ Configured in each item of `series.data`: `series.data.tooltip`<br />
+			[property:string url]? -  The url.<br />
+			[property:boolean useUTC]? - Whether to use UTC in display.<br />
+			- `true`: When `axis.type` is `'time'`, ticks is determined<br />
+			  according to UTC, and `axisLabel` and `tooltip` use UTC by default.<br />
+			- `false`: When `axis.type` is `'time'`, ticks is determined<br />
+			  according to local time, and `axisLabel` and `tooltip` use local time<br />
+			  by default.<br />
+			The default value of useUTC is false, for sake of considering:<br />
+			- In many cases, labels should be displayed in local time<br />
+			  (whether the time is stored in server in local time or UTC).<br />
+			- If user uses time string (like '2012-01-02') in data,<br />
+			it usually means local time if time zone is not specified.<br />
+			Time should be displayed in its original time zone by default.<br />
+			Notice: the setting only effects 'display time', but not 'parse time'.<br />
+			About how time value (like `1491339540396`, `'2013-01-04'`, ...)<br />
+			is parsed in echarts, see `the time part in date`.<br />
+			[property:any visualMap]? - `visualMap` is a type of component for visual encoding,<br />
+			which maps the data to visual channels, including:<br />
+			+ symbol: Type of symbol.<br />
+			+ symbolSize: Symbol size.<br />
+			+ color: Symbol color.<br />
+			+ colorAlpha: Symbol alpha channel.<br />
+			+ opacity: Opacity of symbol and others (like labels).<br />
+			+ colorLightness: Lightness in HSL.<br />
+			+ colorSaturation: Saturation in HSL.<br />
+			+ colorHue: Hue in HSL.<br />
+			Myltiple `visualMap` component could be defined in a chart instance,<br />
+			which enable that different dimensions<br />
+			of a series data are mapped to different visual channels.<br />
+			`visualMap` could be defined as `Piecewise (visualMapPiecewise)`<br />
+			or `Continuous (visualMapContinuous)`,<br />
+			which is distinguished by the property type.<br />
+			[property:XAxis xAxis]? - The x axis in cartesian(rectangular) coordinate.<br />
+			Usually a single grid component can place at most 2 x axis,<br />
+			one on the bottom and another on the top.<br />
+			offset can be used to avoid overlap when you need to put more<br />
+			than two x axis.<br />
+			[property:YAxis yAxis]? - The y axis in cartesian(rectangular) coordinate.<br />
+			Usually a single grid component can place at most 2 y axis,<br />
+			one on the left and another on the right. offset can be used<br />
+			to avoid overlap when you need to put more than two y axis.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="ERectangle"> ERectangle <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number height] -  The height.<br />
+			[property:number width] -  The width.<br />
+			[property:number x] -  The x.<br />
+			[property:number y] -  The y.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="Graphic"> Graphic <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:any LinearGradient] - x, y, x2, y2 are all percent from 0 to 1
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void clipPointsByRect](  [param:any points],  [param:ERectangle rect] ) - Clip the given points by the given rectangular.<br />
+			[method:ERectangle clipRectByRect](  [param:ERectangle targetRect],  [param:ERectangle rect] ) - Clip the first input rectangular by the second input rectangular.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="Label">[page:Omit] &rarr; Label <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:string color]? -  The color.<br />
+			[property:string|Function formatter]? -  The formatter.<br />
+			[property:boolean inside]? -  The inside.<br />
+			[property:number|Function interval]? -  The interval.<br />
+			[property:number margin]? -  The margin.<br />
+			[property:number rotate]? -  The rotate.<br />
+			[property:boolean show]? -  The show.<br />
+			[property:boolean showMaxLabel]? -  The show max label.<br />
+			[property:boolean showMinLabel]? -  The show min label.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="Line"> Line <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:any lineStyle]? -  The line style.<br />
+			[property:boolean onZero]? -  The on zero.<br />
+			[property:number onZeroAxisIndex]? -  The on zero axis index.<br />
+			[property:boolean show]? -  The show.<br />
+			[property:string|string[] symbol]? -  The symbol.<br />
+			[property:number[] symbolOffset]? -  The symbol offset.<br />
+			[property:number[] symbolSize]? -  The symbol size.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="MapObj"> MapObj <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:object geoJson] - geoJson data for map<br />
+			[property:object specialAreas] - special areas fro map
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="MinorSplitLine"> MinorSplitLine <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:any lineStyle]? -  The line style.<br />
+			[property:boolean show]? -  The show.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="MinorTick"> MinorTick <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number length]? -  The length.<br />
+			[property:any lineStyle]? -  The line style.<br />
+			[property:boolean show]? -  The show.<br />
+			[property:number splitNumber]? -  The split number.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="Pointer"> Pointer <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:any handle]? -  The handle.<br />
+			[property:PointerLabel label]? -  The label.<br />
+			[property:any lineStyle]? -  The line style.<br />
+			[property:any shadowStyle]? -  The shadow style.<br />
+			[property:boolean show]? -  The show.<br />
+			[property:boolean snap]? -  The snap.<br />
+			[property:boolean status]? -  The status.<br />
+			[property:boolean triggerTooltip]? -  The trigger tooltip.<br />
+			[property:'none'|'line'|'shadow' type]? -  The type.<br />
+			[property:number value]? -  The value.<br />
+			[property:number z]? -  The z.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="PointerLabel"> PointerLabel <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:string|object backgroundColor]? -  The background color.<br />
+			[property:string borderColor]? -  The border color.<br />
+			[property:number borderRadius]? -  The border radius.<br />
+			[property:number borderWidth]? -  The border width.<br />
+			[property:string color]? -  The color.<br />
+			[property:string fontFamily]? -  The font family.<br />
+			[property:number fontSize]? -  The font size.<br />
+			[property:'normal'|'italic'|'oblique' fontStyle]? -  The font style.<br />
+			[property:'normal'|'bold'|'bolder'|'lighter'|'100'|'200'|'300'|'400'|'500'|'600'|'700'|'800'|'900' fontWeight]? -  The font weight.<br />
+			[property:string|Function formatter]? -  The formatter.<br />
+			[property:string|number height]? -  The height.<br />
+			[property:number lineHeight]? -  The line height.<br />
+			[property:number margin]? -  The margin.<br />
+			[property:number|number[] padding]? -  The padding.<br />
+			[property:string|number precision]? -  The precision.<br />
+			[property:number shadowBlur]? -  The shadow blur.<br />
+			[property:string shadowColor]? -  The shadow color.<br />
+			[property:number shadowOffsetX]? -  The shadow offset x.<br />
+			[property:number shadowOffsetY]? -  The shadow offset y.<br />
+			[property:boolean show]? -  The show.<br />
+			[property:string textBorderColor]? -  The text border color.<br />
+			[property:number textBorderWidth]? -  The text border width.<br />
+			[property:number textShadowBlur]? -  The text shadow blur.<br />
+			[property:string textShadowColor]? -  The text shadow color.<br />
+			[property:number textShadowOffsetX]? -  The text shadow offset x.<br />
+			[property:number textShadowOffsetY]? -  The text shadow offset y.<br />
+			[property:string|number width]? -  The width.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="SplitArea"> SplitArea <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:any areaStyle]? -  The area style.<br />
+			[property:number|Function interval]? -  The interval.<br />
+			[property:boolean show]? -  The show.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="SplitLine"> SplitLine <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:number|Function interval]? -  The interval.<br />
+			[property:any lineStyle]? -  The line style.<br />
+			[property:boolean show]? -  The show.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="Tick"> Tick <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:boolean alignWithLabel]? -  The align with label.<br />
+			[property:boolean inside]? -  The inside.<br />
+			[property:number|Function interval]? -  The interval.<br />
+			[property:number length]? -  The length.<br />
+			[property:any lineStyle]? -  The line style.<br />
+			[property:boolean show]? -  The show.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="XAxis">[page:CartesianAxis] &rarr; XAxis <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:Label axisLabel]? - Settings related to axis label.<br />
+			[property:Line axisLine]? - Settings related to axis line.<br />
+			[property:Pointer axisPointer]? - axisPointer settings on the axis.<br />
+			[property:Tick axisTick]? - Settings related to axis tick.<br />
+			[property:boolean boundaryGap]? - The boundary gap on both sides of a coordinate axis.<br />
+			The setting and behavior of category axes and non-category axes are<br />
+			different. The `boundaryGap` of category axis can be set to either<br />
+			`true` or `false`. Default value is set to be `true`, in which case<br />
+			`axisTick` is served only as a separation line, and labels and data<br />
+			appear only in the center part of two axis ticks, which is called<br />
+			band. For non-category axis, including time, numerical value, and<br />
+			log axes, `boundaryGap` is an array of two values, representing the<br />
+			spanning range between minimum and maximum value.<br />
+			The value can be set in numeric value or relative percentage,<br />
+			which becomes invalid after setting `min` and `max`.<br />
+			[property:any data]? - Category data, available in type: `'category'` axis.<br />
+			If `type` is not specified, but `axis.data` is specified,<br />
+			the `type` is auto set as `'category'`.<br />
+			If type is specified as `'category'`,<br />
+			but axis.data is not specified, `axis.data` will be<br />
+			auto collected from `series.data`.<br />
+			It brings convenience, but we should notice that<br />
+			`axis.data` provides then value range of the `'category'` axis.<br />
+			If it is auto collected from `series.data`,<br />
+			Only the values appearing in series.data can be collected.<br />
+			For example, if series.data is empty, nothing will be collected.<br />
+			[property:number gridIndex]? - The index of grid which this axis belongs to.<br />
+			Defaults to be in the first grid.<br />
+			[property:string id]? - Component ID, not specified by default.<br />
+			If specified, it can be used to refer the component in option or API.<br />
+			[property:number interval]? - Compulsively set segmentation interval for axis.<br />
+			As splitNumber is a recommendation value,<br />
+			the calculated tick may not be the same as expected.<br />
+			In this case, interval should be used along with min and max<br />
+			to compulsively set tickings.<br />
+			But in most cases, we do not suggest using this,<br />
+			out automatic calculation is enough for most situations.<br />
+			This is unavailable for category axis.<br />
+			Timestamp should be passed for type: `'time'` axis.<br />
+			Logged value should be passed for type: `'log'` axis.<br />
+			[property:boolean inverse]? - Whether axis is inversed. New option from ECharts 3.<br />
+			[property:number logBase]? - Base of logarithm, which is valid only for numeric axes with type:<br />
+			`'log'`.<br />
+			[property:string|number max]? - The maximum value of axis.<br />
+			It can be set to a special value `'dataMax'` so that<br />
+			the minimum value on this axis is set to be the maximum label.<br />
+			It will be automatically computed to make sure axis tick is equally<br />
+			distributed when not set.<br />
+			In category axis, it can also be set as the ordinal number.<br />
+			For example, if a catergory axis has<br />
+			`data: ['categoryA', 'categoryB', 'categoryC']`<br />
+			, and the ordinal `2` represents `'categoryC'`.<br />
+			Moreover, it can be set as negative number, like `-3`.<br />
+			[property:string|number min]? - The minimun value of axis.<br />
+			It can be set to a special value `'dataMin'` so that<br />
+			the minimum value on this axis is set to be the minimum label.<br />
+			It will be automatically computed to make sure axis tick is equally<br />
+			distributed when not set. In category axis, it can also be set<br />
+			as the ordinal number.<br />
+			For example, if a catergory axis has<br />
+			`data: ['categoryA', 'categoryB', 'categoryC']`<br />
+			, and the ordinal `2` represents `'categoryC'`.<br />
+			Moreover, it can be set as negative number, like `-3`.<br />
+			[property:any minInterval]? - Maximum gap between split lines.<br />
+			For example, in time axis (type is `'time'`),<br />
+			it can be set to be `3600 * 24 * 1000` to make sure<br />
+			that the gap between axis labels is less than or equal to one day.<br />
+			[property:MinorSplitLine minorSplitLine]? - Minor SplitLine of axis in grid area.<br />
+			[property:MinorTick minorTick]? - Settings related to axis minor tick.<br />
+			[property:string name]? - Name of axis.<br />
+			[property:number nameGap]? - Gap between axis name and axis line.<br />
+			[property:'center'|'start'|'end'|'middle' nameLocation]? - Location of axis name.<br />
+			[property:number nameRotate]? - Rotation of axis name.<br />
+			[property:any nameTextStyle]? - Text style of axis name.<br />
+			[property:number offset]? - Offset of this axis relative to default position.<br />
+			Useful when multiple axis of this type has same position value.<br />
+			[property:'top'|'bottom' position]? - The first x axis in grid defaults to be on the bottom of the grid,<br />
+			and the second x axis is on the other side against the first x axis.<br />
+			[property:boolean scale]? - It is available only in numerical axis, i.e., type: `'value'`.<br />
+			It specifies whether not to contain zero position<br />
+			of axis compulsively.<br />
+			When it is set to be `true`, the axis may not contain zero position,<br />
+			which is useful in the scatter chart for both value axes.<br />
+			This configuration item is unavailable when the `min` and `max`<br />
+			are set.<br />
+			[property:boolean show]? - If show this axis.<br />
+			[property:boolean silent]? - True for axis that cannot be interacted with.<br />
+			[property:SplitArea splitArea]? - Split area of axis in grid area, not shown by default.<br />
+			[property:SplitLine splitLine]? - SplitLine of axis in grid area.<br />
+			[property:number splitNumber]? - Number of segments that the axis is split into.<br />
+			Note that this number serves only as a recommendation,<br />
+			and the true segments may be adjusted based on readability.<br />
+			This is unavailable for category axis.<br />
+			[property:boolean triggerEvent]? - Whether the labels of axis triggers and reacts to mouse events.<br />
+			Parameters of event includes:<br />
+			[property:any type]? - Options:<br />
+			+ 'value' - Numerical axis, suitable for continuous data.<br />
+			+ 'category' Category axis, suitable for discrete category data.<br />
+			  Data should only be set via data for this type.<br />
+			+ 'time' Time axis, suitable for continuous time series data.<br />
+			  As compared to value axis, it has a better formatting for time<br />
+			  and a different tick calculation method.<br />
+			  For example, it decides to use month, week, day or hour for tick<br />
+			  based on the range of span.<br />
+			+ 'log' Log axis, suitable for log data.<br />
+			[property:number z]? - z value of all graghical elements in this axis,<br />
+			which controls order of drawing graphical components.<br />
+			Components with smaller z values may be overwritten by those<br />
+			with larger z values.<br />
+			z has a lower priority to zlevel, and will not create new Canvas.<br />
+			[property:number zlevel]? - `zlevel` value of all graghical elements in this axis.<br />
+			`zlevel` is used to make layers with Canvas.<br />
+			Graphical elements with different `zlevel` values will be placed<br />
+			in different Canvases, which is a common optimization technique.<br />
+			We can put those frequently changed elements<br />
+			(like those with animations) to a seperate `zlevel`.<br />
+			Notice that too many Canvases will increase memory cost,<br />
+			and should be used carefully on mobile phones to avoid crash.<br />
+			Canvases with bigger `zlevel` will be placed on Canvases<br />
+			with smaller `zlevel`.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="YAxis">[page:CartesianAxis] &rarr; YAxis <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:Label axisLabel]? - Settings related to axis label.<br />
+			[property:Line axisLine]? - Settings related to axis line.<br />
+			[property:Pointer axisPointer]? - axisPointer settings on the axis.<br />
+			[property:Tick axisTick]? - Settings related to axis tick.<br />
+			[property:boolean boundaryGap]? - The boundary gap on both sides of a coordinate axis.<br />
+			The setting and behavior of category axes and non-category axes are<br />
+			different. The `boundaryGap` of category axis can be set to either<br />
+			`true` or `false`. Default value is set to be `true`, in which case<br />
+			`axisTick` is served only as a separation line, and labels and data<br />
+			appear only in the center part of two axis ticks, which is called<br />
+			band. For non-category axis, including time, numerical value, and<br />
+			log axes, `boundaryGap` is an array of two values, representing the<br />
+			spanning range between minimum and maximum value.<br />
+			The value can be set in numeric value or relative percentage,<br />
+			which becomes invalid after setting `min` and `max`.<br />
+			[property:any data]? - Category data, available in type: `'category'` axis.<br />
+			If `type` is not specified, but `axis.data` is specified,<br />
+			the `type` is auto set as `'category'`.<br />
+			If type is specified as `'category'`,<br />
+			but axis.data is not specified, `axis.data` will be<br />
+			auto collected from `series.data`.<br />
+			It brings convenience, but we should notice that<br />
+			`axis.data` provides then value range of the `'category'` axis.<br />
+			If it is auto collected from `series.data`,<br />
+			Only the values appearing in series.data can be collected.<br />
+			For example, if series.data is empty, nothing will be collected.<br />
+			[property:number gridIndex]? - The index of grid which this axis belongs to.<br />
+			Defaults to be in the first grid.<br />
+			[property:string id]? - Component ID, not specified by default.<br />
+			If specified, it can be used to refer the component in option or API.<br />
+			[property:number interval]? - Compulsively set segmentation interval for axis.<br />
+			As splitNumber is a recommendation value,<br />
+			the calculated tick may not be the same as expected.<br />
+			In this case, interval should be used along with min and max<br />
+			to compulsively set tickings.<br />
+			But in most cases, we do not suggest using this,<br />
+			out automatic calculation is enough for most situations.<br />
+			This is unavailable for category axis.<br />
+			Timestamp should be passed for type: `'time'` axis.<br />
+			Logged value should be passed for type: `'log'` axis.<br />
+			[property:boolean inverse]? - Whether axis is inversed. New option from ECharts 3.<br />
+			[property:number logBase]? - Base of logarithm, which is valid only for numeric axes with type:<br />
+			`'log'`.<br />
+			[property:string|number max]? - The maximum value of axis.<br />
+			It can be set to a special value `'dataMax'` so that<br />
+			the minimum value on this axis is set to be the maximum label.<br />
+			It will be automatically computed to make sure axis tick is equally<br />
+			distributed when not set.<br />
+			In category axis, it can also be set as the ordinal number.<br />
+			For example, if a catergory axis has<br />
+			`data: ['categoryA', 'categoryB', 'categoryC']`<br />
+			, and the ordinal `2` represents `'categoryC'`.<br />
+			Moreover, it can be set as negative number, like `-3`.<br />
+			[property:string|number min]? - The minimun value of axis.<br />
+			It can be set to a special value `'dataMin'` so that<br />
+			the minimum value on this axis is set to be the minimum label.<br />
+			It will be automatically computed to make sure axis tick is equally<br />
+			distributed when not set. In category axis, it can also be set<br />
+			as the ordinal number.<br />
+			For example, if a catergory axis has<br />
+			`data: ['categoryA', 'categoryB', 'categoryC']`<br />
+			, and the ordinal `2` represents `'categoryC'`.<br />
+			Moreover, it can be set as negative number, like `-3`.<br />
+			[property:any minInterval]? - Maximum gap between split lines.<br />
+			For example, in time axis (type is `'time'`),<br />
+			it can be set to be `3600 * 24 * 1000` to make sure<br />
+			that the gap between axis labels is less than or equal to one day.<br />
+			[property:MinorSplitLine minorSplitLine]? - Minor SplitLine of axis in grid area.<br />
+			[property:MinorTick minorTick]? - Settings related to axis minor tick.<br />
+			[property:string name]? - Name of axis.<br />
+			[property:number nameGap]? - Gap between axis name and axis line.<br />
+			[property:'center'|'start'|'end'|'middle' nameLocation]? - Location of axis name.<br />
+			[property:number nameRotate]? - Rotation of axis name.<br />
+			[property:any nameTextStyle]? - Text style of axis name.<br />
+			[property:number offset]? - Offset of this axis relative to default position.<br />
+			Useful when multiple axis of this type has same position value.<br />
+			[property:'left'|'right' position]? - The first y axis in grid defaults to be the left (`'left'`)<br />
+			of the grid, and the second y axis is on the other side<br />
+			against the first y axis.<br />
+			[property:boolean scale]? - It is available only in numerical axis, i.e., type: `'value'`.<br />
+			It specifies whether not to contain zero position<br />
+			of axis compulsively.<br />
+			When it is set to be `true`, the axis may not contain zero position,<br />
+			which is useful in the scatter chart for both value axes.<br />
+			This configuration item is unavailable when the `min` and `max`<br />
+			are set.<br />
+			[property:boolean show]? - If show this axis.<br />
+			[property:boolean silent]? - True for axis that cannot be interacted with.<br />
+			[property:SplitArea splitArea]? - Split area of axis in grid area, not shown by default.<br />
+			[property:SplitLine splitLine]? - SplitLine of axis in grid area.<br />
+			[property:number splitNumber]? - Number of segments that the axis is split into.<br />
+			Note that this number serves only as a recommendation,<br />
+			and the true segments may be adjusted based on readability.<br />
+			This is unavailable for category axis.<br />
+			[property:boolean triggerEvent]? - Whether the labels of axis triggers and reacts to mouse events.<br />
+			Parameters of event includes:<br />
+			[property:any type]? - Options:<br />
+			+ 'value' - Numerical axis, suitable for continuous data.<br />
+			+ 'category' Category axis, suitable for discrete category data.<br />
+			  Data should only be set via 'data' for this type.<br />
+			+ 'time' Time axis, suitable for continuous time series data.<br />
+			  As compared to value axis, it has a better formatting for time<br />
+			  and a different tick calculation method.<br />
+			  For example, it decides to use month, week, day or hour for tick<br />
+			  based on the range of span.<br />
+			+ 'log' Log axis, suitable for log data.<br />
+			[property:number z]? - z value of all graghical elements in this axis,<br />
+			which controls order of drawing graphical components.<br />
+			Components with smaller z values may be overwritten by those<br />
+			with larger z values.<br />
+			z has a lower priority to zlevel, and will not create new Canvas.<br />
+			[property:number zlevel]? - `zlevel` value of all graghical elements in this axis.<br />
+			`zlevel` is used to make layers with Canvas.<br />
+			Graphical elements with different `zlevel` values will be placed<br />
+			in different Canvases, which is a common optimization technique.<br />
+			We can put those frequently changed elements<br />
+			(like those with animations) to a seperate `zlevel`.<br />
+			Notice that too many Canvases will increase memory cost,<br />
+			and should be used carefully on mobile phones to avoid crash.<br />
+			Canvases with bigger `zlevel` will be placed on Canvases<br />
+			with smaller `zlevel`.
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="echarts"> echarts <i class="modifier modifier-interface">Interface</i></h3>
+		<h4>Properties</h4>
+		<p>
+			[property:Graphic graphic] - Util methods about graphics.
+		</p>
+		<h4>Methods</h4>
+		<p>
+			[method:void connect](  [param:string|ECharts[] group] ) - Connects interaction of multiple chart series. For example:<br />
+			[method:void disConnect](  [param:string group] ) - Disconnects interaction of multiple chart series. To have one single<br />
+			instance to be removed, you can set `group` of chart instance to be null.<br />
+			[method:void dispose](  [param:HTMLCanvasElement|ECharts|HTMLDivElement target] ) - Destroys chart instance, after which the instance cannot be used any<br />
+			    more.<br />
+			[method:ECharts getInstanceByDom](  [param:HTMLCanvasElement|HTMLDivElement target] ) - Returns chart instance of dom container.<br />
+			[method:MapObj getMap](  [param:string mapName] ) - Get a registed map.<br />
+			Returns : Map data.<br />
+			[method:ECharts init](  [param:HTMLCanvasElement|HTMLDivElement dom],  [param:string|object theme]?,  [param:any opts]? ) - Creates an ECharts instance, and returns an echartsInstance. You shall<br />
+			    not initialize multiple ECharts instances on a single container.<br />
+			[method:void registerMap](  [param:string mapName],  [param:object geoJson],  [param:object specialAreas]? ) - Registers available maps. This can only be used after including<br />
+			[link:https://echarts.apache.org/option.html#geo geo]<br />
+			component or chart series of<br />
+			[link:https://echarts.apache.org/option.html#series-map map].<br />
+			[method:void registerTheme](  [param:string themeName],  [param:object theme] ) - Registers a theme, should be specified when<br />
+			[link:https://echarts.apache.org/api.html#echarts.init initialize the chart instance].
+		</p>
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="EChartsMediaOption"> EChartsMediaOption <i class="modifier modifier-interface">Type alias</i></h3>
+
+
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="EChartsSeriesType"> EChartsSeriesType <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:'line'|'bar'|'pie'|'scatter'|'effectScatter'|'radar'|'tree'|'treemap'|'sunburst'|'boxplot'|'candlestick'|'heatmap'|'map'|'parallel'|'lines'|'graph'|'sankey'|'funnel'|'gauge'|'pictorialBar'|'themeRiver'|'custom' EChartsSeriesType]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<h3 id="TypedArray"> TypedArray <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:Int8Array|Uint8Array|Int16Array|Uint16Array|Int32Array|Uint32Array|Uint8ClampedArray|Float32Array|Float64Array TypedArray]</h3>
+
+
+		<p class="desc">
+			
+		</p>
+
+		<br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/chart/echarts/echarts.interface.ts /chart/echarts/echarts.interface.ts]</p>
+	</body>
+</html>
