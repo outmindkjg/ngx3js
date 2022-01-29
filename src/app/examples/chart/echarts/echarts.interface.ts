@@ -13,6 +13,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+import { ChartAction, ChartSharedVar } from "../chart-utils";
+
 interface XAxis extends CartesianAxis {
 	/**
 	 * The first x axis in grid defaults to be on the bottom of the grid,
@@ -979,6 +981,16 @@ export interface EChartOption {
 
 	grid3D? : any[];
 	
+	/**
+	 * Chart Shared Var
+	 */
+	 sharedVar?: ChartSharedVar;
+
+	 /**
+	  * ChartActions
+	  */
+	 actions?: ChartAction[];
+ 
 }
 
 export interface Graphic {

@@ -8023,15 +8023,16 @@
       "x": {
         "type": "number",
         "easing": "linear",
-        "duration": "(ctx) => { return sharedVar.easing(ctx.index / 1000) * 5000 / 1000 }",
-        "delay": "delay(ctx) { if (ctx.type !== 'data' || ctx.xStarted) { return 0; } ctx.xStarted = true; return sharedVar.delay(ctx); }"
+        "duration": "(ctx) => { return sharedVar.easing(ctx.index / 1000) * 50000 / 1000 }",
+        "from" : null,
+        "delay": "(ctx) => { if (ctx.type !== 'data' || ctx.xStarted) { return 0; } ctx.xStarted = true; return sharedVar.delay(ctx); }"
       },
       "y": {
         "type": "number",
         "easing": "linear",
-        "duration": "(ctx) => { return sharedVar.easing(ctx.index / 1000) * 5000 / 1000 }",
+        "duration": "(ctx) => { return sharedVar.easing(ctx.index / 1000) * 50000 / 1000 }",
         "from": "(ctx) => { return ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y }",
-        "delay": "delay(ctx) { if (ctx.type !== 'data' || ctx.yStarted) { return 0; } ctx.yStarted = true; return sharedVar.delay(ctx); }"
+        "delay": "(ctx) => { if (ctx.type !== 'data' || ctx.yStarted) { return 0; } ctx.yStarted = true; return sharedVar.delay(ctx); }"
       }
     },
     "interaction": {
@@ -8085,11 +8086,10 @@
     }
   ],
   "sharedVar": {
-    "totalDuration": 5000,
     "duration": "(ctx) => { return sharedVar.easing(ctx.index / 1000) * 5000 / 1000 }",
-    "delay": "(ctx) => { sharedVar.easing(ctx.index / 1000) * 5000 }",
+    "delay": "(ctx) => { return sharedVar.easing(ctx.index / 1000) * 5000 }",
     "easing": "helpers.easingEffects.easeOutQuad",
     "restart": false,
-    "restartAnims": "(chart) => { chart.stop(); const meta0 = chart.getDatasetMeta(0); const meta1 = chart.getDatasetMeta(1); for (let i = 0; i < 1000; i++) { const ctx0 = meta0.controller.getContext(i); const ctx1 = meta1.controller.getContext(i); ctx0.xStarted = ctx0.yStarted = false; ctx1.xStarted = ctx1.yStarted = false; } chart.update(); }"
+    "restartAnims": "(chart) => { chart.stop();  const meta0 = chart.getDatasetMeta(0); const meta1 = chart.getDatasetMeta(1); for (let i = 0; i < 1000; i++) { const ctx0 = meta0.controller.getContext(i); const ctx1 = meta1.controller.getContext(i); ctx0.xStarted = ctx0.yStarted = false; ctx1.xStarted = ctx1.yStarted = false; } chart.config.options.animation.x.easing = sharedVar.easing.name; chart.config.options.animation.y.easing = sharedVar.easing.name; chart.update(); }"
   }
 }

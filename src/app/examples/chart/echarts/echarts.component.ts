@@ -15,6 +15,7 @@ import {
 	NgxAbstractTextureComponent,
 	NgxThreeUtil,
 } from 'ngx3js';
+import { ChartUtils } from '../chart-utils';
 import * as ECHARTS from './echarts.interface';
 
 /**
@@ -257,54 +258,49 @@ export class NgxTextureEChartsComponent
 	 * @param seriesOptions
 	 */
 	private checkSeriesOption(seriesOptions: any) {
-		if (
-			NgxThreeUtil.isNotNullEmpty(seriesOptions.renderItem) &&
-			typeof seriesOptions.renderItem === 'string'
-		) {
-			try {
-				let renderItem = null;
-				eval('renderItem = ' + seriesOptions.renderItem + '');
-				if (typeof renderItem === 'function') {
-					seriesOptions.renderItem = renderItem;
-				} else {
-					delete seriesOptions.renderItem;
-				}
-			} catch (ex) {
-				this.consoleLog('renderItem', ex, 'error');
-				delete seriesOptions.renderItem;
-			}
+		if (NgxThreeUtil.isNotNullEmpty(seriesOptions.renderItem)) {
+			seriesOptions.renderItem = this.checkScriptOption(
+				seriesOptions.renderItem
+			);
 		}
 		if (
 			NgxThreeUtil.isNotNullEmpty(seriesOptions.data) &&
 			Array.isArray(seriesOptions.data)
 		) {
-			seriesOptions.data.forEach(data => {
+			seriesOptions.data.forEach((data) => {
 				if (
 					typeof data === 'object' &&
 					data.label !== undefined &&
 					typeof data.label === 'object' &&
 					typeof data.label.rich === 'object'
 				) {
-					const rich :{ [key : string] : any} =  data.label.rich;
+					const rich: { [key: string]: any } = data.label.rich;
 					Object.entries(rich).forEach(([key, value]) => {
-						if (typeof value === 'object' && NgxThreeUtil.isNotNullEmpty(value.backgroundColor)) {
-							value.backgroundColor = this.checkTextureOption(value.backgroundColor);
+						if (
+							typeof value === 'object' &&
+							NgxThreeUtil.isNotNullEmpty(value.backgroundColor)
+						) {
+							value.backgroundColor = this.checkTextureOption(
+								value.backgroundColor
+							);
 						}
 					});
 				}
-			})
-	
+			});
 		}
 	}
 
 	/**
 	 * Checks texture option
-	 * @param textureOptions 
+	 * @param textureOptions
 	 */
 	private checkTextureOption(textureOptions: any) {
 		if (NgxThreeUtil.isNotNullEmpty(textureOptions)) {
-			if (typeof textureOptions === 'object' && typeof textureOptions.image === 'string') {
-				const imageSrc : string = textureOptions.image;
+			if (
+				typeof textureOptions === 'object' &&
+				typeof textureOptions.image === 'string'
+			) {
+				const imageSrc: string = textureOptions.image;
 				if (imageSrc.startsWith('data:')) {
 					const image = new Image();
 					image.src = imageSrc;
@@ -319,14 +315,93 @@ export class NgxTextureEChartsComponent
 		return textureOptions;
 	}
 
+	private _sharedVar: any = {};
+
+	/**
+	 * Checks function option
+	 *
+	 * @param scriptOptions
+	 * @returns function option
+	 */
+	private checkEvalString(str: string): any {
+		let functionItem: any = null;
+		try {
+			const Chart = this.echarts;
+			const THREE = N3JS;
+			const Utils = ChartUtils;
+			const sharedVar = this._sharedVar || {};
+			// const helpers = this.helpers || {};
+			if (
+				Chart !== null &&
+				THREE !== null &&
+				Utils !== null &&
+				sharedVar !== null
+			) {
+				eval('functionItem = ' + str + '');
+				if (
+					typeof functionItem === 'function' ||
+					typeof functionItem === 'object'
+				) {
+					return functionItem;
+				} else {
+					functionItem = null;
+				}
+			}
+		} catch (ex) {
+			this.consoleLog('evalString', ex, 'error');
+			functionItem = null;
+		}
+	}
+
+	/**
+	 * Checks function option
+	 *
+	 * @param scriptOptions
+	 * @returns function option
+	 */
+	private checkScriptOption(scriptOptions: any): any {
+		let functionItem = null;
+		if (NgxThreeUtil.isNotNullEmpty(scriptOptions)) {
+			if (typeof scriptOptions === 'string') {
+				let scriptOptionsTrim = scriptOptions.trim();
+				if (ChartUtils.isFunctionString(scriptOptionsTrim)) {
+					scriptOptionsTrim = ChartUtils.getFunctionString(scriptOptionsTrim);
+					functionItem = this.checkEvalString(scriptOptionsTrim);
+					if (
+						typeof functionItem === 'function' ||
+						typeof functionItem === 'object'
+					) {
+						return functionItem;
+					} else {
+						functionItem = null;
+					}
+				} else if (ChartUtils.isObjectString(scriptOptionsTrim)) {
+					try {
+						functionItem = JSON.parse(scriptOptionsTrim);
+					} catch (ex) {
+						this.consoleLog('jsonItem', ex, 'error');
+						functionItem = null;
+					}
+				} else if (ChartUtils.isCallableString(scriptOptionsTrim)) {
+					functionItem = this.checkEvalString(scriptOptionsTrim);
+				} else {
+					functionItem = scriptOptions;
+				}
+			} else {
+				functionItem = scriptOptions;
+			}
+		}
+		return functionItem;
+	}
+
 	private _lastChartInfo: {
 		url: string;
 		seqn: string;
-		background : any;
+		background: any;
 	} = {
 		url: null,
 		seqn: null,
-		background : null
+		background: null,
 	};
 
 	private initChart() {
@@ -365,6 +440,15 @@ export class NgxTextureEChartsComponent
 			this.checkMapResource(mapResource);
 			return;
 		}
+		if (NgxThreeUtil.isNotNull(this._chartOption.sharedVar)) {
+			Object.entries(this._chartOption.sharedVar).forEach(([key, value]) => {
+				let sharedValue = value;
+				if (typeof value === 'string') {
+					sharedValue = this.checkScriptOption(value);
+				}
+				this._sharedVar[key] = this._chartOption.sharedVar[key] = sharedValue;
+			});
+		}
 		if (NgxThreeUtil.isNotNullEmpty(this.canvasBackground)) {
 			const backgroundColor = NgxThreeUtil.getColorAlphaSafe(
 				this.canvasBackground,
@@ -396,7 +480,7 @@ export class NgxTextureEChartsComponent
 				this._lastChartInfo.background = this._chartOption.backgroundColor;
 				this._chartOption.backgroundColor = backgroundColorRgb;
 			}
-		} else if (NgxThreeUtil.isNotNull(this._lastChartInfo.background)){
+		} else if (NgxThreeUtil.isNotNull(this._lastChartInfo.background)) {
 			this._chartOption.backgroundColor = this._lastChartInfo.background;
 		}
 		this.checkTextureOption(this._chartOption.backgroundColor);
@@ -444,6 +528,39 @@ export class NgxTextureEChartsComponent
 			});
 		}
 		if (
+			NgxThreeUtil.isNotNull(this._chartOption.actions) &&
+			Array.isArray(this._chartOption.actions)
+		) {
+			this._chartOption.actions.forEach((actions) => {
+				if (typeof actions.handler === 'string') {
+					actions.handler = this.checkScriptOption(actions.handler);
+					if (
+						typeof actions.handler === 'string' &&
+						actions.handler.startsWith('sharedVar')
+					) {
+						const [_, sharedKey] = (actions.handler + '.').split('.');
+						if (sharedKey !== null && sharedKey.length > 0) {
+							actions.handler = this._sharedVar[sharedKey] || {};
+						} else {
+							actions.handler = this._sharedVar;
+						}
+					}
+				}
+				if (typeof actions.handler === 'function') {
+					const handler = actions.handler;
+					actions.onclick = () => {
+						handler(this._chart);
+					};
+				} else if (
+					typeof actions.handler !== 'object' ||
+					NgxThreeUtil.isNull(actions.property)
+				) {
+					actions.handler = null;
+					actions.onclick = null;
+				}
+			});
+		}
+		if (
 			this._chart !== null &&
 			NgxThreeUtil.isNotNullEmpty(this.optionSeqn) &&
 			this._lastChartInfo.seqn !== this.optionSeqn
@@ -456,6 +573,10 @@ export class NgxTextureEChartsComponent
 			this._chart = this.echarts.init(this._mapCanvas);
 		}
 		this._chart.setOption(this._chartOption, true, false);
+		this._chart.resize({
+			width: this._mapCanvasSize.x,
+			height: this._mapCanvasSize.y,
+		});
 		this.texture.needsUpdate = true;
 		this.onInitChart.emit(this._chart);
 		this.getTimeout(1000).then(() => {

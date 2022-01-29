@@ -188,90 +188,81 @@ export class NgxTextureChartJsComponent
 		});
 	}
 
-	/**
-	 * Checks texture option
-	 * @param textureOptions
-	 */
-	private checkTextureOption(textureOptions: any) {
-		if (NgxThreeUtil.isNotNullEmpty(textureOptions)) {
-			if (
-				typeof textureOptions === 'object' &&
-				typeof textureOptions.image === 'string'
-			) {
-				const imageSrc: string = textureOptions.image;
-				if (imageSrc.startsWith('data:')) {
-					const image = new Image();
-					image.src = imageSrc;
-					textureOptions.image = image;
-				} else {
-					textureOptions.image = NgxThreeUtil.getStoreUrl(imageSrc);
-				}
-			} else {
-				textureOptions = NgxThreeUtil.getStoreUrl(textureOptions);
-			}
-		}
-		return textureOptions;
-	}
-
-	private _sharedVar : any = {}
+	private _sharedVar: any = {};
 
 	/**
 	 * Checks function option
-	 * 
-	 * @param functionOptions 
-	 * @returns function option 
+	 *
+	 * @param scriptOptions
+	 * @returns function option
 	 */
-	private checkFunctionOption(functionOptions: any): any {
-		let functionItem = null;
-		if (NgxThreeUtil.isNotNullEmpty(functionOptions)) {
-			if (typeof functionOptions === 'string') {
-				let functionOptionsTrim = functionOptions.trim();
-				if (/\)[ \t\n]*=>[ \t\n]*/.test(functionOptionsTrim) || /^(function|function [a-zA-Z][a-zA-Z_0-9]+|[a-zA-Z][a-zA-Z_0-9]+)(| )\([^\)]*\)[ \t\n]*\{/.test(functionOptionsTrim)) {
-					try {
-						const Chart = this.chartjs;
-						const THREE = N3JS;
-						const Utils = ChartUtils;
-						const sharedVar = this._sharedVar || {};
-						const helpers = this.helpers || {};
-						functionOptionsTrim = functionOptionsTrim.replace(/^(function|function [a-zA-Z][a-zA-Z_0-9]+|[a-zA-Z][a-zA-Z_0-9]+)(| )\(/,'function(');
-						if (Chart !== null && THREE !== null && Utils !== null && sharedVar !== null && helpers !== null) {
-							eval('functionItem = ' + functionOptionsTrim + '');
-							if (typeof functionItem === 'function' || typeof functionItem === 'object') {
-								return functionItem;
-							} else {
-								functionItem = null;
-							}
-						}
-					} catch (ex) {
-						this.consoleLog('functionItem', ex, 'error');
-						functionItem = null;
-					}
-				} else if (/^\{/.test(functionOptionsTrim) && /\}$/.test(functionOptionsTrim)){
-					try {
-						functionItem = JSON.parse(functionOptionsTrim);	
-					} catch (ex) {
-						this.consoleLog('jsonItem', ex, 'error');
-						functionItem = null;
-					}
-				} else if (/^(new |)(map|Date|[a-zA-Z][a-zA-Z0-9]+\.[a-zA-Z][a-zA-Z0-9_\.]+)(|\(.*\))$/.test(functionOptionsTrim)){
-					try {
-						const Chart = this.chartjs;
-						const THREE = N3JS;
-						const Utils = ChartUtils;
-						const sharedVar = this._sharedVar || {};
-						const helpers = this.helpers || {};
-						if (Chart !== null && Utils !== null && sharedVar !== null && helpers !== null && THREE !== null) {
-							eval('functionItem = ' + functionOptionsTrim + '');
-						}
-					} catch (ex) {
-						this.consoleLog('jsonItem', ex, 'error');
-						functionItem = null;
-					}
+	private checkEvalString(str: string): any {
+		let functionItem: any = null;
+		try {
+			const Chart = this.chartjs;
+			const THREE = N3JS;
+			const Utils = ChartUtils;
+			const sharedVar = this._sharedVar || {};
+			const helpers = this.helpers || {};
+			if (
+				Chart !== null &&
+				THREE !== null &&
+				Utils !== null &&
+				sharedVar !== null &&
+				helpers !== null
+			) {
+				eval('functionItem = ' + str + '');
+				if (
+					typeof functionItem === 'function' ||
+					typeof functionItem === 'object'
+				) {
+					return functionItem;
 				} else {
-					functionItem = functionOptions;	
+					functionItem = null;
+				}
+			}
+		} catch (ex) {
+			this.consoleLog('evalString', ex, 'error');
+			functionItem = null;
+		}
+	}
+
+	/**
+	 * Checks function option
+	 *
+	 * @param scriptOptions
+	 * @returns function option
+	 */
+	private checkScriptOption(scriptOptions: CHARTJS.Scriptable<any>): any {
+		let functionItem = null;
+		if (NgxThreeUtil.isNotNullEmpty(scriptOptions)) {
+			if (typeof scriptOptions === 'string') {
+				let scriptOptionsTrim = scriptOptions.trim();
+				if (ChartUtils.isFunctionString(scriptOptionsTrim)) {
+					scriptOptionsTrim = ChartUtils.getFunctionString(scriptOptionsTrim);
+					functionItem = this.checkEvalString(scriptOptionsTrim);
+					if (
+						typeof functionItem === 'function' ||
+						typeof functionItem === 'object'
+					) {
+						return functionItem;
+					} else {
+						functionItem = null;
+					}
+				} else if (ChartUtils.isObjectString(scriptOptionsTrim)) {
+					try {
+						functionItem = JSON.parse(scriptOptionsTrim);
+					} catch (ex) {
+						this.consoleLog('jsonItem', ex, 'error');
+						functionItem = null;
+					}
+				} else if (ChartUtils.isCallableString(scriptOptionsTrim)) {
+					functionItem = this.checkEvalString(scriptOptionsTrim);
+				} else {
+					functionItem = scriptOptions;
 				}
 			} else {
-				functionItem = functionOptions;
+				functionItem = scriptOptions;
 			}
 		}
 		return functionItem;
@@ -279,66 +270,86 @@ export class NgxTextureChartJsComponent
 
 	/**
 	 * Checks scriptable and array options
-	 * 
-	 * @param elements 
-	 * 
-	 * @returns scriptable and array options 
+	 *
+	 * @param elements
+	 *
+	 * @returns scriptable and array options
 	 */
-	private checkScriptableAndArrayOptions(elements: any): any {
+	private checkScriptableElementOptions(
+		elements: CHARTJS.ElementOptions
+	): CHARTJS.ElementOptions {
 		if (NgxThreeUtil.isNotNull(elements.backgroundColor)) {
-			elements.backgroundColor = this.checkFunctionOption(elements.backgroundColor);
+			elements.backgroundColor = this.checkScriptOption(
+				elements.backgroundColor
+			);
 		}
 		if (NgxThreeUtil.isNotNull(elements.hoverBackgroundColor)) {
-			elements.hoverBackgroundColor = this.checkFunctionOption(elements.hoverBackgroundColor);
+			elements.hoverBackgroundColor = this.checkScriptOption(
+				elements.hoverBackgroundColor
+			);
 		}
 		if (NgxThreeUtil.isNotNull(elements.borderColor)) {
-			elements.borderColor = this.checkFunctionOption(elements.borderColor);
+			elements.borderColor = this.checkScriptOption(elements.borderColor);
 		}
 		if (NgxThreeUtil.isNotNull(elements.hoverBorderColor)) {
-			elements.hoverBorderColor = this.checkFunctionOption(elements.hoverBorderColor);
+			elements.hoverBorderColor = this.checkScriptOption(
+				elements.hoverBorderColor
+			);
 		}
 		if (NgxThreeUtil.isNotNull(elements.borderWidth)) {
-			elements.borderWidth = this.checkFunctionOption(elements.borderWidth);
+			elements.borderWidth = this.checkScriptOption(elements.borderWidth);
 		}
 		if (NgxThreeUtil.isNotNull(elements.hoverBorderWidth)) {
-			elements.hoverBorderWidth = this.checkFunctionOption(elements.hoverBorderWidth);
+			elements.hoverBorderWidth = this.checkScriptOption(
+				elements.hoverBorderWidth
+			);
 		}
 		if (NgxThreeUtil.isNotNull(elements.radius)) {
-			elements.radius = this.checkFunctionOption(elements.radius);
+			elements.radius = this.checkScriptOption(elements.radius);
 		}
 		if (NgxThreeUtil.isNotNull(elements.hoverRadius)) {
-			elements.hoverRadius = this.checkFunctionOption(elements.hoverRadius);
+			elements.hoverRadius = this.checkScriptOption(elements.hoverRadius);
 		}
 		if (NgxThreeUtil.isNotNull(elements.pointStyle)) {
-			elements.pointStyle = this.checkFunctionOption(elements.pointStyle);
+			elements.pointStyle = this.checkScriptOption(elements.pointStyle);
 		}
 		return elements;
 	}
 
-	 /**
-	  * Checks animations options
-	  * 
-	  * @param elements 
-	  * @returns animations options 
-	  */
-	 private checkAnimationsOptions(elements: any): any {
-		if (elements.from != undefined) {
-			elements.from = this.checkFunctionOption(elements.from);
+	/**
+	 * Checks animations options
+	 *
+	 * @param elements
+	 * @returns animations options
+	 */
+	private checkAnimationsOptions(
+		elements: CHARTJS.AnimationsSpec
+	): CHARTJS.AnimationsSpec {
+		if (elements.from !== undefined) {
+			if (elements.from === null) {
+				elements.from = NaN;
+			} else {
+				elements.from = this.checkScriptOption(elements.from);
+			}
 		}
-		if (NgxThreeUtil.isNotNull(elements.to)) {
-			elements.to = this.checkFunctionOption(elements.to);
+		if (elements.to !== undefined) {
+			if (elements.to === null) {
+				elements.to = NaN;
+			} else {
+				elements.to = this.checkScriptOption(elements.to);
+			}
 		}
 		if (NgxThreeUtil.isNotNull(elements.loop)) {
-			elements.loop = this.checkFunctionOption(elements.loop);
+			elements.loop = this.checkScriptOption(elements.loop);
 		}
 		if (NgxThreeUtil.isNotNull(elements.duration)) {
-			elements.duration = this.checkFunctionOption(elements.duration);
+			elements.duration = this.checkScriptOption(elements.duration);
 		}
 		if (NgxThreeUtil.isNotNull(elements.delay)) {
-			elements.delay = this.checkFunctionOption(elements.delay);
+			elements.delay = this.checkScriptOption(elements.delay);
 		}
 		return elements;
-	 }
+	}
 
 	private _lastChartInfo: {
 		url: string;
@@ -461,35 +472,39 @@ export class NgxTextureChartJsComponent
 			Object.entries(this._chartOption.sharedVar).forEach(([key, value]) => {
 				let sharedValue = value;
 				if (typeof value === 'string') {
-					sharedValue = this.checkFunctionOption(value);
+					sharedValue = this.checkScriptOption(value);
 				}
 				this._sharedVar[key] = this._chartOption.sharedVar[key] = sharedValue;
-			})
+			});
 		}
 		if (NgxThreeUtil.isNotNull(this._chartOption.data?.datasets)) {
 			if (Array.isArray(this._chartOption.data?.datasets)) {
 				const datasets = this._chartOption.data?.datasets;
-				datasets.forEach((dataset: any) => {
+				datasets.forEach((dataset) => {
 					if (NgxThreeUtil.isNotNull(dataset.segment)) {
 						const segment = dataset.segment;
 						if (NgxThreeUtil.isNotNullEmpty(segment?.backgroundColor)) {
-							segment.backgroundColor = this.checkFunctionOption(segment.backgroundColor);
+							segment.backgroundColor = this.checkScriptOption(
+								segment.backgroundColor
+							);
 						}
 						if (NgxThreeUtil.isNotNullEmpty(segment?.borderColor)) {
-							segment.borderColor = this.checkFunctionOption(segment.borderColor);
+							segment.borderColor = this.checkScriptOption(segment.borderColor);
 						}
 						if (NgxThreeUtil.isNotNullEmpty(segment?.borderDash)) {
-							segment.borderDash = this.checkFunctionOption(segment.borderDash);
+							segment.borderDash = this.checkScriptOption(segment.borderDash);
 						}
 						if (NgxThreeUtil.isNotNullEmpty(segment?.borderJoinStyle)) {
-							segment.borderJoinStyle = this.checkFunctionOption(segment.borderJoinStyle);
+							segment.borderJoinStyle = this.checkScriptOption(
+								segment.borderJoinStyle
+							);
 						}
 						if (NgxThreeUtil.isNotNullEmpty(segment?.borderWidth)) {
-							segment.borderWidth = this.checkFunctionOption(segment.borderWidth);
+							segment.borderWidth = this.checkScriptOption(segment.borderWidth);
 						}
-					} 
+					}
 					if (NgxThreeUtil.isNotNull(dataset.borderColor)) {
-						dataset.borderColor = this.checkFunctionOption(dataset.borderColor);
+						dataset.borderColor = this.checkScriptOption(dataset.borderColor);
 					}
 				});
 			}
@@ -503,10 +518,10 @@ export class NgxTextureChartJsComponent
 					if (NgxThreeUtil.isNotNull(x.ticks)) {
 						const ticks = x.ticks;
 						if (NgxThreeUtil.isNotNull(ticks.font)) {
-							ticks.font = this.checkFunctionOption(ticks.font)
+							ticks.font = this.checkScriptOption(ticks.font);
 						}
 						if (NgxThreeUtil.isNotNull(ticks.callback)) {
-							ticks.callback = this.checkFunctionOption(ticks.callback)
+							ticks.callback = this.checkScriptOption(ticks.callback);
 						}
 					}
 				}
@@ -515,82 +530,83 @@ export class NgxTextureChartJsComponent
 					if (NgxThreeUtil.isNotNull(y.grid)) {
 						const grid = y.grid;
 						if (NgxThreeUtil.isNotNull(grid.color)) {
-							grid.color = this.checkFunctionOption(grid.color)
+							grid.color = this.checkScriptOption(grid.color);
 						}
 					}
 				}
-
 			}
 			if (NgxThreeUtil.isNotNull(options.plugins)) {
 				const plugins = options.plugins;
 				if (NgxThreeUtil.isNotNull(plugins.legend)) {
 					const legend = plugins.legend;
 					if (NgxThreeUtil.isNotNullEmpty(legend?.labels)) {
-						const labels : any = legend.labels;
+						const labels = legend.labels;
 						if (NgxThreeUtil.isNotNullEmpty(labels?.generateLabels)) {
-							labels.generateLabels = this.checkFunctionOption(labels.generateLabels);
+							labels.generateLabels = this.checkScriptOption(
+								labels.generateLabels
+							);
 						}
 					}
 					if (NgxThreeUtil.isNotNullEmpty(legend?.onClick)) {
-						legend.onClick = this.checkFunctionOption(legend.onClick);
+						legend.onClick = this.checkScriptOption(legend.onClick);
 					}
 					if (NgxThreeUtil.isNotNullEmpty(legend?.onHover)) {
-						legend.onHover = this.checkFunctionOption(legend.onHover);
+						legend.onHover = this.checkScriptOption(legend.onHover);
 					}
 					if (NgxThreeUtil.isNotNullEmpty(legend?.onLeave)) {
-						legend.onLeave = this.checkFunctionOption(legend.onLeave);
+						legend.onLeave = this.checkScriptOption(legend.onLeave);
 					}
 				}
 				if (NgxThreeUtil.isNotNull(plugins.title)) {
-					const title : any = plugins.title;
+					const title: any = plugins.title;
 					if (NgxThreeUtil.isNotNullEmpty(title?.text)) {
-						title.text = this.checkFunctionOption(title.text);
+						title.text = this.checkScriptOption(title.text);
 					}
 				}
 				if (NgxThreeUtil.isNotNull(plugins.tooltip)) {
 					const tooltip = plugins.tooltip;
 					if (NgxThreeUtil.isNotNull(tooltip.callbacks)) {
-						const callbacks : any = tooltip.callbacks;
+						const callbacks: any = tooltip.callbacks;
 						if (NgxThreeUtil.isNotNullEmpty(callbacks?.label)) {
-							callbacks.label = this.checkFunctionOption(callbacks.label);
+							callbacks.label = this.checkScriptOption(callbacks.label);
 						}
 						if (NgxThreeUtil.isNotNullEmpty(callbacks?.footer)) {
-							callbacks.footer = this.checkFunctionOption(callbacks.footer);
+							callbacks.footer = this.checkScriptOption(callbacks.footer);
 						}
 					}
 					if (NgxThreeUtil.isNotNullEmpty(tooltip?.external)) {
-						tooltip.external = this.checkFunctionOption(tooltip.external);
+						tooltip.external = this.checkScriptOption(tooltip.external);
 					}
 				}
 			}
 			if (NgxThreeUtil.isNotNull(options.elements)) {
 				const elements = options.elements;
 				if (NgxThreeUtil.isNotNull(elements.bar)) {
-					elements.bar = this.checkScriptableAndArrayOptions(elements.bar);
+					elements.bar = this.checkScriptableElementOptions(elements.bar);
 				}
 				if (NgxThreeUtil.isNotNull(elements.arc)) {
-					elements.arc = this.checkScriptableAndArrayOptions(elements.arc);
+					elements.arc = this.checkScriptableElementOptions(elements.arc);
 				}
 				if (NgxThreeUtil.isNotNull(elements.line)) {
-					elements.line = this.checkScriptableAndArrayOptions(elements.line);
+					elements.line = this.checkScriptableElementOptions(elements.line);
 				}
 				if (NgxThreeUtil.isNotNull(elements.point)) {
-					elements.point = this.checkScriptableAndArrayOptions(elements.point);
+					elements.point = this.checkScriptableElementOptions(elements.point);
 				}
 			}
 			if (NgxThreeUtil.isNotNull(options.animation)) {
-				const animation : any = options.animation;
+				const animation = options.animation;
 				if (NgxThreeUtil.isNotNull(animation.onProgress)) {
-					animation.onProgress = this.checkFunctionOption(animation.onProgress);
+					animation.onProgress = this.checkScriptOption(animation.onProgress);
 				}
 				if (NgxThreeUtil.isNotNull(animation.onComplete)) {
-					animation.onComplete = this.checkFunctionOption(animation.onComplete);
+					animation.onComplete = this.checkScriptOption(animation.onComplete);
 				}
 				if (NgxThreeUtil.isNotNull(animation.duration)) {
-					animation.duration = this.checkFunctionOption(animation.duration);
+					animation.duration = this.checkScriptOption(animation.duration);
 				}
 				if (NgxThreeUtil.isNotNull(animation.delay)) {
-					animation.delay = this.checkFunctionOption(animation.delay);
+					animation.delay = this.checkScriptOption(animation.delay);
 				}
 				if (NgxThreeUtil.isNotNull(animation.x)) {
 					animation.x = this.checkAnimationsOptions(animation.x);
@@ -615,42 +631,51 @@ export class NgxTextureChartJsComponent
 				}
 			}
 		}
-		if (NgxThreeUtil.isNotNull(this._chartOption.plugins) && Array.isArray(this._chartOption.plugins)) {
+		if (
+			NgxThreeUtil.isNotNull(this._chartOption.plugins) &&
+			Array.isArray(this._chartOption.plugins)
+		) {
 			const plugins = this._chartOption.plugins;
-			plugins.forEach(plugin => {
+			plugins.forEach((plugin) => {
 				if (typeof plugin.beforeDraw === 'string') {
-					plugin.beforeDraw = this.checkFunctionOption(plugin.beforeDraw);
+					plugin.beforeDraw = this.checkScriptOption(plugin.beforeDraw);
 				}
 				if (typeof plugin.afterDraw === 'string') {
-					plugin.afterDraw = this.checkFunctionOption(plugin.afterDraw);
+					plugin.afterDraw = this.checkScriptOption(plugin.afterDraw);
 				}
 				if (typeof plugin.beforeRender === 'string') {
-					plugin.beforeRender = this.checkFunctionOption(plugin.beforeRender);
+					plugin.beforeRender = this.checkScriptOption(plugin.beforeRender);
 				}
 				if (typeof plugin.afterRender === 'string') {
-					plugin.afterRender = this.checkFunctionOption(plugin.afterRender);
+					plugin.afterRender = this.checkScriptOption(plugin.afterRender);
 				}
 				if (typeof plugin.beforeUpdate === 'string') {
-					plugin.beforeUpdate = this.checkFunctionOption(plugin.beforeUpdate);
+					plugin.beforeUpdate = this.checkScriptOption(plugin.beforeUpdate);
 				}
 				if (typeof plugin.afterUpdate === 'string') {
-					plugin.afterUpdate = this.checkFunctionOption(plugin.afterUpdate);
+					plugin.afterUpdate = this.checkScriptOption(plugin.afterUpdate);
 				}
 				if (typeof plugin.beforeDestroy === 'string') {
-					plugin.beforeDestroy = this.checkFunctionOption(plugin.beforeDestroy);
+					plugin.beforeDestroy = this.checkScriptOption(plugin.beforeDestroy);
 				}
 				if (typeof plugin.afterDestroy === 'string') {
-					plugin.afterDestroy = this.checkFunctionOption(plugin.afterDestroy);
+					plugin.afterDestroy = this.checkScriptOption(plugin.afterDestroy);
 				}
-			})
+			});
 		}
-			
-		if (NgxThreeUtil.isNotNull(this._chartOption.actions) && Array.isArray(this._chartOption.actions)) {
-			this._chartOption.actions.forEach(actions => {
+
+		if (
+			NgxThreeUtil.isNotNull(this._chartOption.actions) &&
+			Array.isArray(this._chartOption.actions)
+		) {
+			this._chartOption.actions.forEach((actions) => {
 				if (typeof actions.handler === 'string') {
-					actions.handler = this.checkFunctionOption(actions.handler);
-					if (typeof actions.handler === 'string' && actions.handler.startsWith('sharedVar')) {
-						const [_, sharedKey] =  (actions.handler + ".").split(".");
+					actions.handler = this.checkScriptOption(actions.handler);
+					if (
+						typeof actions.handler === 'string' &&
+						actions.handler.startsWith('sharedVar')
+					) {
+						const [_, sharedKey] = (actions.handler + '.').split('.');
 						if (sharedKey !== null && sharedKey.length > 0) {
 							actions.handler = this._sharedVar[sharedKey] || {};
 						} else {
@@ -662,8 +687,11 @@ export class NgxTextureChartJsComponent
 					const handler = actions.handler;
 					actions.onclick = () => {
 						handler(this._chart);
-					}
-				} else if (typeof actions.handler !== 'object' || NgxThreeUtil.isNull(actions.property)) {
+					};
+				} else if (
+					typeof actions.handler !== 'object' ||
+					NgxThreeUtil.isNull(actions.property)
+				) {
 					actions.handler = null;
 					actions.onclick = null;
 				}

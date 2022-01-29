@@ -11,6 +11,22 @@ export interface ChartConfig {
 	rmax?: number;
 }
 
+export interface ChartAction {
+	name?: string;
+	handler?: string | Function | Object;
+	onclick?: Function;
+	property?: string;
+	select?: any[] | { [key: string]: any };
+	min?: number;
+	max?: number;
+	listen?: boolean;
+	change?: any;
+}
+
+export interface ChartSharedVar {
+	[key: string]: any;
+}
+
 export class ChartUtils {
 	static _seed: number = new Date().getTime();
 
@@ -276,8 +292,18 @@ export class ChartUtils {
 
 	static transparentize(value, opacity?: number) {
 		var alpha = opacity === undefined ? 0.5 : 1 - opacity;
-		const colorRgb = this.colorHexParse(value) || this.colorRgbParse(value) ;
-		return 'rgba(' + colorRgb.r + ',' + colorRgb.g + ','  + colorRgb.b + ',' + alpha + ')';
+		const colorRgb = this.colorHexParse(value) || this.colorRgbParse(value);
+		return (
+			'rgba(' +
+			colorRgb.r +
+			',' +
+			colorRgb.g +
+			',' +
+			colorRgb.b +
+			',' +
+			alpha +
+			')'
+		);
 	}
 
 	static namedColor(index) {
@@ -294,20 +320,52 @@ export class ChartUtils {
 		return this.newDate(days).toISOString();
 	}
 
-	static stringify(option) : string{
-		return JSON.stringify(option, (_, value) =>{
-			if (typeof value === 'function') {
-				return value
-					.toString()
-					.split('\n')
-					.map((line) => line.trim())
-					.join(' ');
-			}
-			return value;
-		}, 2);
+	static stringify(option): string {
+		return JSON.stringify(
+			option,
+			(_, value) => {
+				if (typeof value === 'function') {
+					return value
+						.toString()
+						.split('\n')
+						.map((line) => line.trim())
+						.join(' ');
+				}
+				return value;
+			},
+			2
+		);
 	}
 
-	static parseISODate( dateString : string): Date {
+	static parseISODate(dateString: string): Date {
 		return new Date(dateString);
+	}
+
+	static isFunctionString(str: string): boolean {
+		if (str !== null && str !== undefined) {
+			return (
+				/\)[ \t\n]*=>[ \t\n]*/.test(str) ||
+				/^(function|function [a-zA-Z][a-zA-Z_0-9]+|[a-zA-Z][a-zA-Z_0-9]+)(| )\([^\)]*\)[ \t\n]*\{/.test(
+					str
+				)
+			);
+		} else {
+			return false;
+		}
+	}
+
+	static getFunctionString(str: string): string {
+		return str.replace(
+			/^(function|function [a-zA-Z][a-zA-Z_0-9]+|[a-zA-Z][a-zA-Z_0-9]+)(| )\(/,
+			'function('
+		);
+	}
+
+	static isObjectString(str: string): boolean {
+		return /^\{/.test(str) && /\}$/.test(str);
+	}
+
+	static isCallableString(str: string): boolean {
+		return /^(new |)(map|Date|[a-zA-Z][a-zA-Z0-9]+\.[a-zA-Z][a-zA-Z0-9_\.]+)(|\(.*\))$/.test(str);
 	}
 }

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import * as echarts from 'echarts';
 import 'echarts-gl';
 
-import { ChartUtils } from '../chart/chart-utils';
+import { ChartAction, ChartUtils } from '../chart/chart-utils';
 import * as ECHARTS from '../chart/echarts/echarts.interface';
 
 import {
@@ -45,8 +45,10 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 	backgroundOpacity: number;
 	repeatX: number;
 	repeatY: number;
+	textureAlign : string;
+	offsetX: number;
+	offsetY: number;
 	wrap: string;
-	randomData: () => void;
 }> {
 	constructor(private route: ActivatedRoute) {
 		super(
@@ -54,7 +56,7 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 				geometry: 'BoxGeometry',
 				autoLookat: false,
 				type: 0,
-				example: 'pie-simple',
+				example: 'line-gradient',
 				width: 2,
 				height: 2,
 				canvasSize: 512,
@@ -67,10 +69,10 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 				backgroundOpacity: 0.6,
 				repeatX: 1,
 				repeatY: 1,
+				textureAlign : 'none',
+				offsetX: 0,
+				offsetY: 0,
 				wrap: 'ClampToEdgeWrapping',
-				randomData: () => {
-					this.refreshChart();
-				},
 			},
 			[
 				{
@@ -146,7 +148,7 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 							listen: true,
 							min: 0.5,
 							max: 3,
-							step: 0.5,
+							step: 0.2,
 						},
 						{
 							name: 'repeatY',
@@ -155,7 +157,49 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 							listen: true,
 							min: 0.5,
 							max: 3,
-							step: 0.5,
+							step: 0.2,
+						},
+						{
+							name : 'textureAlign',
+							type : 'select',
+							select : ['none', 'top-left','top-center','top-right','middle-left','middle-center','middle-right','bottom-left','bottom-center','bottom-right'],
+							change : () => {
+								if (this.renderer && this.renderer.gui) {
+									const chartSizeFolder = NgxThreeUtil.getGuiFolder(this.renderer.gui, 'Chart Size & Color');
+									if (chartSizeFolder !== null) {
+										const offsetX = NgxThreeUtil.getGuiController(chartSizeFolder, 'offsetX');
+										const offsetY = NgxThreeUtil.getGuiController(chartSizeFolder, 'offsetY');
+										switch(this.controls.textureAlign) {
+											case 'none' :
+												NgxThreeUtil.setGuiEnabled(offsetX, true);
+												NgxThreeUtil.setGuiEnabled(offsetY, true);
+												break;
+											default :
+												NgxThreeUtil.setGuiEnabled(offsetX, false);
+												NgxThreeUtil.setGuiEnabled(offsetY, false);
+												break;
+										}
+									}
+								}
+							}
+						},
+						{
+							name: 'offsetX',
+							title: 'offset-X',
+							type: 'number',
+							listen: true,
+							min: -1,
+							max: 1,
+							step: 0.1,
+						},
+						{
+							name: 'offsetY',
+							title: 'offset-Y',
+							type: 'number',
+							listen: true,
+							min: -1,
+							max: 1,
+							step: 0.1,
 						},
 						{
 							name: 'wrap',
@@ -196,7 +240,7 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 					],
 				},
 				{
-					name: 'Chart Attribute',
+					name: 'Chart Action',
 					type: 'folder',
 					children: [],
 				},
@@ -232,11 +276,6 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 							type: 'color',
 						},
 					],
-				},
-				{
-					name: 'randomData',
-					title: 'Data Randomize',
-					type: 'button',
 				},
 			],
 			false,
@@ -328,162 +367,38 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 				}, 1000);
 				break;
 		}
-	}
 
-	private refreshChart() {
-		if (this.chart !== null) {
-			const option = this.chart.getOption();
-			if (NgxThreeUtil.isNotNull(option.series)) {
-				if (Array.isArray(option.series)) {
-					this.seriesDataTypes.forEach((dataType, idx) => {
-						option.series[idx].data = this.getRandomSeriesData(
-							dataType,
-							option.series[idx].data
-						);
-					});
-				} else if (this.seriesDataTypes.length > 0) {
-					const dataType = this.seriesDataTypes[0];
-					option.series.data = this.getRandomSeriesData(
-						dataType,
-						option.series.data
-					);
-				}
-				this.option = Object.assign({}, option);
+		if (this.lastActions !== this.option.actions) {
+			this.lastActions = this.option.actions;
+			const actionFolder = NgxThreeUtil.getGuiFolder(
+				this.renderer.gui,
+				'Chart Action'
+			);
+			NgxThreeUtil.clearGui(actionFolder);
+			if (this.lastActions !== null && this.lastActions !== undefined) {
+				this.lastActions.forEach((action) => {
+					if (typeof action.handler === 'function' && typeof action.onclick === 'function') {
+						actionFolder.add(action, 'onclick').name(action.name);
+					} else if (action.handler !== null && typeof action.handler === 'object' && action.property !== null) {
+						const actionControler = actionFolder.add(action.handler, action.property).name(action.name).listen(true);
+						if (NgxThreeUtil.isNotNull(action.change)) {
+							actionControler.onChange(action.change);
+						}
+						switch(action.name) {
+							case "initProgress" :
+							case "progress" :
+								actionControler.max(1).min(0);
+								break;
+						}
+					} else {
+						console.log(action);
+					}
+				});
 			}
 		}
 	}
 
-	private getRandomSeriesData(
-		dataType: SeriesDataTypes,
-		oldData: any[]
-	): any[] {
-		switch (dataType.type) {
-			case 'number':
-				oldData = ChartUtils.numbers(dataType);
-				break;
-			case 'value':
-				const valueList = ChartUtils.numbers(dataType);
-				oldData.forEach((obj, idx) => {
-					obj.value = valueList[idx];
-				});
-				break;
-			case 'xy':
-				const valueListX = ChartUtils.numbers(dataType);
-				const valueListY = ChartUtils.numbers(dataType);
-				oldData.forEach((obj, idx) => {
-					obj.x = valueListX[idx];
-					obj.y = valueListY[idx];
-				});
-				break;
-			case 'array':
-				{
-					const valuePairList: number[][] = [];
-					for (let i = 0; i < oldData[0].length; i++) {
-						if (typeof oldData[0][i] === 'number') {
-							valuePairList.push(ChartUtils.numbers(dataType));
-						} else {
-							break;
-						}
-					}
-					valuePairList[0].forEach((_, idx) => {
-						const data: number[] = oldData[idx];
-						valuePairList.forEach((value, seq) => {
-							data[seq] = value[idx];
-						});
-					});
-				}
-				break;
-			case 'valuearray':
-				{
-					const valuePairList: number[][] = [];
-					for (let i = 0; i < oldData[0]['value'].length; i++) {
-						if (typeof oldData[0]['value'][i] === 'number') {
-							valuePairList.push(ChartUtils.numbers(dataType));
-						} else {
-							break;
-						}
-					}
-					if (valuePairList.length > 0) {
-						valuePairList[0].forEach((_, idx) => {
-							const data: number[] = oldData[idx]['value'] || [];
-							valuePairList.forEach((value, seq) => {
-								data[seq] = value[idx];
-							});
-						});
-					}
-				}
-				break;
-		}
-		return oldData;
-	}
-
-	private seriesDataTypes: SeriesDataTypes[] = [];
-
-	private getSeriesDataTypes(data: any[]): SeriesDataTypes {
-		const seriesDataTypes = {
-			count: data.length,
-			min: 0,
-			max: 0,
-			decimals: 2,
-			type: 'none',
-		};
-		if (data.length > 0) {
-			const firstData = data[0];
-			if (typeof firstData === 'number') {
-				seriesDataTypes.max = Math.max(...data);
-				seriesDataTypes.min = Math.min(...data);
-				seriesDataTypes.type = 'number';
-			} else if (NgxThreeUtil.isNotNull(firstData.value)) {
-				if (typeof firstData.value === 'number') {
-					const valueList: number[] = [];
-					data.forEach((obj) => {
-						valueList.push(obj.value);
-					});
-					seriesDataTypes.max = Math.max(...valueList);
-					seriesDataTypes.min = Math.min(...valueList);
-					seriesDataTypes.type = 'value';
-				} else if (
-					Array.isArray(firstData.value) &&
-					typeof firstData.value[0] === 'number'
-				) {
-					const valueList: number[] = [];
-					data.forEach((obj) => {
-						valueList.push(...obj.value);
-					});
-					seriesDataTypes.max = Math.max(...valueList);
-					seriesDataTypes.min = Math.min(...valueList);
-					seriesDataTypes.type = 'valuearray';
-				}
-			} else if (
-				NgxThreeUtil.isNotNull(firstData.x) &&
-				NgxThreeUtil.isNotNull(firstData.y)
-			) {
-				const valueList: number[] = [];
-				data.forEach((obj) => {
-					valueList.push(obj.x, obj.y);
-				});
-				seriesDataTypes.max = Math.max(...valueList);
-				seriesDataTypes.min = Math.min(...valueList);
-				seriesDataTypes.type = 'xy';
-			} else if (Array.isArray(firstData) && typeof firstData[0] === 'number') {
-				const valueList: number[] = [];
-				data.forEach((obj) => {
-					obj.forEach((value) => {
-						if (typeof value === 'number') {
-							valueList.push(value);
-						}
-					});
-				});
-				seriesDataTypes.max = Math.max(...valueList);
-				seriesDataTypes.min = Math.min(...valueList);
-				seriesDataTypes.type = 'array';
-			}
-		}
-		if (seriesDataTypes.max > 0 && seriesDataTypes.max <= seriesDataTypes.min) {
-			seriesDataTypes.min = seriesDataTypes.max * 0.2;
-		}
-		return seriesDataTypes;
-	}
+	private lastActions: ChartAction [] = [];
 
 	private changeExample() {
 		if (this.lastLoadedExample !== this.controls.example) {
@@ -499,35 +414,6 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 				(option: any) => {
 					this.option = option;
 					this.optionSeqn = NgxThreeUtil.getUUID();
-					this.seriesDataTypes = [];
-					if (NgxThreeUtil.isNotNull(option.series)) {
-						if (Array.isArray(option.series)) {
-							option.series.forEach((series) => {
-								if (Array.isArray(series.data)) {
-									this.seriesDataTypes.push(
-										this.getSeriesDataTypes(series.data)
-									);
-								}
-							});
-						} else if (Array.isArray(option.series.data)) {
-							this.seriesDataTypes.push(
-								this.getSeriesDataTypes(option.series.data)
-							);
-						}
-					}
-					const guiController = NgxThreeUtil.getGuiController(
-						this.renderer.gui,
-						'randomData'
-					);
-					if (guiController) {
-						let hasRandom: boolean = false;
-						this.seriesDataTypes.forEach((type) => {
-							if (type.type !== 'none') {
-								hasRandom = true;
-							}
-						});
-						NgxThreeUtil.setGuiEnabled(guiController, hasRandom);
-					}
 				}
 			);
 		}

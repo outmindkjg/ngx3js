@@ -11,7 +11,8 @@ import {
 	NgxSceneComponent,
 	NgxThreeUtil,
 } from 'ngx3js';
-import { ChartUtils } from '../chart/chart-utils';
+import { stringify } from 'querystring';
+import { ChartAction, ChartUtils } from '../chart/chart-utils';
 import * as CHARTJS from '../chart/chartjs/chartjs.interface';
 
 @Component({
@@ -36,6 +37,7 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 	backgroundOpacity: number;
 	repeatX: number;
 	repeatY: number;
+	textureAlign: string;
 	offsetX: number;
 	offsetY: number;
 	wrap: string;
@@ -46,7 +48,7 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 				geometry: 'BoxGeometry',
 				autoLookat: false,
 				type: 0,
-				example: 'pie-simple',
+				example: 'bar-vertical',
 				width: 2,
 				height: 2,
 				canvasSize: 512,
@@ -59,6 +61,7 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 				backgroundOpacity: 0.6,
 				repeatX: 1,
 				repeatY: 1,
+				textureAlign: 'none',
 				offsetX: 0,
 				offsetY: 0,
 				wrap: 'ClampToEdgeWrapping',
@@ -147,6 +150,50 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 							min: 0.5,
 							max: 3,
 							step: 0.2,
+						},
+						{
+							name: 'textureAlign',
+							type: 'select',
+							select: [
+								'none',
+								'top-left',
+								'top-center',
+								'top-right',
+								'middle-left',
+								'middle-center',
+								'middle-right',
+								'bottom-left',
+								'bottom-center',
+								'bottom-right',
+							],
+							change: () => {
+								if (this.renderer && this.renderer.gui) {
+									const chartSizeFolder = NgxThreeUtil.getGuiFolder(
+										this.renderer.gui,
+										'Chart Size & Color'
+									);
+									if (chartSizeFolder !== null) {
+										const offsetX = NgxThreeUtil.getGuiController(
+											chartSizeFolder,
+											'offsetX'
+										);
+										const offsetY = NgxThreeUtil.getGuiController(
+											chartSizeFolder,
+											'offsetY'
+										);
+										switch (this.controls.textureAlign) {
+											case 'none':
+												NgxThreeUtil.setGuiEnabled(offsetX, true);
+												NgxThreeUtil.setGuiEnabled(offsetY, true);
+												break;
+											default:
+												NgxThreeUtil.setGuiEnabled(offsetX, false);
+												NgxThreeUtil.setGuiEnabled(offsetY, false);
+												break;
+										}
+									}
+								}
+							},
 						},
 						{
 							name: 'offsetX',
@@ -254,7 +301,7 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 
 		this.chartjs = chartjs.Chart;
 		this.helpers = helpers;
-		
+
 		this.subscribeRefer(
 			'router',
 			this.route.params.subscribe((params) => {
@@ -295,13 +342,14 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 		this.changeExample();
 	}
 
-	public option: any = null;
+	public option: CHARTJS.ChartConfiguration = null;
 	public optionSeqn: string = null;
 
 	private lastLoadedExample: string = null;
 	private chart: CHARTJS.Chart = null;
 
 	private intervalRunTimer: any = null;
+
 	public setChart(chart: CHARTJS.Chart) {
 		this.chart = chart;
 		if (this.intervalRunTimer !== null) {
@@ -321,16 +369,26 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 			NgxThreeUtil.clearGui(actionFolder);
 			if (this.lastActions !== null && this.lastActions !== undefined) {
 				this.lastActions.forEach((action) => {
-					if (typeof action.handler === 'function' && typeof action.onclick === 'function') {
+					if (
+						typeof action.handler === 'function' &&
+						typeof action.onclick === 'function'
+					) {
 						actionFolder.add(action, 'onclick').name(action.name);
-					} else if (action.handler !== null && typeof action.handler === 'object' && action.property !== null) {
-						const actionControler = actionFolder.add(action.handler, action.property).name(action.name).listen(true);
-						if (NgxThreeUtil.isNotNull(action.onchange)) {
-							actionControler.onChange(action.onchange);
+					} else if (
+						action.handler !== null &&
+						typeof action.handler === 'object' &&
+						action.property !== null
+					) {
+						const actionControler = actionFolder
+							.add(action.handler, action.property)
+							.name(action.name)
+							.listen(true);
+						if (NgxThreeUtil.isNotNull(action.change)) {
+							actionControler.onChange(action.change);
 						}
-						switch(action.name) {
-							case "initProgress" :
-							case "progress" :
+						switch (action.name) {
+							case 'initProgress':
+							case 'progress':
 								actionControler.max(1).min(0);
 								break;
 						}
@@ -342,13 +400,7 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 		}
 	}
 
-	private lastActions: {
-		name: string;
-		handler: string | Function;
-		onclick: () => void;
-		onchange: () => void;
-		property: string;
-	}[] = [];
+	private lastActions: ChartAction[] = [];
 
 	private changeExample() {
 		if (this.lastLoadedExample !== this.controls.example) {
@@ -359,328 +411,101 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 					this.chartTypeName = example.name;
 				}
 			});
-			switch (this.lastLoadedExample) {
-				case 'bar-vertical':
-				case 'bar-horizontal':
-				case 'bar-stacked':
-				case 'bar-stacked-groups':
-				case 'bar-floating':
-				case 'bar-border-radius':
-				case 'line-line':
-				case 'line-multi-axis':
-				case 'line-stepped':
-				case 'line-interpolation':
-				case 'line-styling':
-				case 'line-segments':
-				case 'other-bubble':
-				case 'other-scatter':
-				case 'other-scatter-multi-axis':
-				case 'other-doughnut':
-				case 'other-pie':
-				case 'other-multi-series-pie':
-				case 'other-polar-area':
-				case 'other-polar-area-center-labels':
-				case 'other-radar':
-				case 'other-radar-skip-points':
-				case 'other-combo-bar-line':
-				case 'other-stacked-bar-line':
-				case 'area-line-boundaries':
-				case 'area-line-datasets':
-				case 'area-line-drawtime':
-				case 'area-line-stacked':
-				case 'area-radar':
-				case 'scales-linear-min-max':
-				case 'scales-linear-min-max-suggested':
-				case 'scales-linear-step-size':
-				case 'scales-log':
-				case 'scales-time-line':
-				case 'scales-time-max-span':
-				case 'scales-time-combo':
-				case 'scales-stacked':
-				case 'scales-grid-options':
-				case 'scales-ticks-options':
-				case 'scales-titles-options':
-				case 'scales-center-options':
-				case 'legend-position':
-				case 'legend-title':
-				case 'legend-point-style':
-				case 'legend-events':
-				case 'legend-html':
-				case 'title-alignment':
-				case 'title-subtitle':
-				case 'tooltip-position':
-				case 'tooltip-interactions':
-				case 'tooltip-point-style':
-				case 'tooltip-content':
-				case 'tooltip-html':
-				case 'scriptable-bar':
-				case 'scriptable-bubble':
-				case 'scriptable-pie':
-				case 'scriptable-line':
-				case 'scriptable-polar':
-				case 'scriptable-radar':
-				case 'animations-delay':
-				case 'animations-drop':
-				case 'animations-loop':
-				case 'animations-progressive-line':
-				case 'animations-progressive-line-easing':
-				case 'advanced-data-decimation':
-				case 'advanced-progress-bar':
-				case 'advanced-radial-gradient':
-				case 'advanced-linear-gradient':
-				case 'advanced-programmatic-events':
-				case 'advanced-derived-axis-type':
-				case 'advanced-derived-chart-type':
-				case 'plugins-chart-area-border':
-				case 'plugins-quadrants':
-					this.jsonFileLoad(
-						'chartjs/' + this.lastLoadedExample + '.json',
-						(option: any) => {
-							switch (this.lastLoadedExample) {
-								case 'scales-time-line':
-									{
-										const labels: any = [];
-										option.data.labels.forEach((_, idx) => {
-											labels.push(ChartUtils.newDate(idx));
-										});
-										option.data.labels = labels;
-										option.data.datasets[2].data.forEach((data, idx) => {
-											switch (idx) {
-												case 0:
-													data.x = ChartUtils.newDateString(0);
-													break;
-												case 1:
-													data.x = ChartUtils.newDateString(5);
-													break;
-												case 2:
-													data.x = ChartUtils.newDateString(7);
-													break;
-												case 3:
-													data.x = ChartUtils.newDateString(15);
-													break;
-											}
-										});
+			this.jsonFileLoad(
+				'chartjs/' + this.lastLoadedExample + '.json',
+				(option: any) => {
+					switch (this.lastLoadedExample) {
+						case 'scales-time-line':
+							{
+								const labels: any = [];
+								option.data.labels.forEach((_, idx) => {
+									labels.push(ChartUtils.newDate(idx));
+								});
+								option.data.labels = labels;
+								option.data.datasets[2].data.forEach((data, idx) => {
+									switch (idx) {
+										case 0:
+											data.x = ChartUtils.newDateString(0);
+											break;
+										case 1:
+											data.x = ChartUtils.newDateString(5);
+											break;
+										case 2:
+											data.x = ChartUtils.newDateString(7);
+											break;
+										case 3:
+											data.x = ChartUtils.newDateString(15);
+											break;
 									}
-									break;
-								case 'scales-time-max-span':
-									option.data.datasets[0].data.forEach((data, idx) => {
-										switch (idx) {
-											case 0:
-												data.x = ChartUtils.newDateString(0);
-												break;
-											case 1:
-												data.x = ChartUtils.newDateString(2);
-												break;
-											case 2:
-												data.x = ChartUtils.newDateString(4);
-												break;
-											case 3:
-												data.x = ChartUtils.newDateString(6);
-												break;
-										}
-									});
-									option.data.datasets[1].data.forEach((data, idx) => {
-										switch (idx) {
-											case 0:
-												data.x = ChartUtils.newDate(0);
-												break;
-											case 1:
-												data.x = ChartUtils.newDate(2);
-												break;
-											case 2:
-												data.x = ChartUtils.newDate(5);
-												break;
-											case 3:
-												data.x = ChartUtils.newDate(6);
-												break;
-										}
-									});
-									break;
-								case 'scales-time-combo':
-									{
-										const labels: any = [];
-										option.data.labels.forEach((_, idx) => {
-											labels.push(ChartUtils.newDate(idx));
-										});
-										option.data.labels = labels;
-									}
-									break;
-								case 'tooltip-position':
-									(chartjs.Tooltip.positioners as any).bottom = function (
-										items
-									) {
-										const pos = (chartjs.Tooltip.positioners as any).average(
-											items,
-											null
-										);
-										if (pos === false) {
-											return false;
-										}
-
-										const chart = this.chart;
-
-										return {
-											x: pos.x,
-											y: chart.chartArea.bottom,
-											xAlign: 'center',
-											yAlign: 'bottom',
-										};
-									};
-									break;
+								});
 							}
-							this.option = option;
-							this.optionSeqn = NgxThreeUtil.getUUID();
-						}
-					);
-					break;
-				default:
-					console.log(this.lastLoadedExample + '.json');
-					const Utils = ChartUtils;
-					const Chart = chartjs.Chart;
-
-					const DATA_COUNT = 7;
-					const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
-
-					const labels = Utils.months({ count: 7 });
-					const data = {
-						labels: labels,
-						datasets: [
-							{
-								label: 'Dataset 1',
-								animations: {
-									y: {
-										duration: 2000,
-										delay: 500,
-									},
-								},
-								data: Utils.numbers(NUMBER_CFG),
-								borderColor: Utils.CHART_COLORS.red,
-								backgroundColor: Utils.transparentize(
-									Utils.CHART_COLORS.red,
-									0.5
-								),
-								fill: 1,
-								tension: 0.5,
-							},
-							{
-								label: 'Dataset 2',
-								data: Utils.numbers(NUMBER_CFG),
-								borderColor: Utils.CHART_COLORS.blue,
-								backgroundColor: Utils.transparentize(
-									Utils.CHART_COLORS.blue,
-									0.5
-								),
-							},
-						],
-					};
-
-					const config = {
-						type: 'line',
-						data: data,
-						options: {
-							animations: {
-								y: {
-									easing: 'easeInOutElastic',
-									from: (ctx) => {
-										if (ctx.type === 'data') {
-											if (ctx.mode === 'default' && !ctx.dropped) {
-												ctx.dropped = true;
-												return 0;
-											}
-										}
-									},
-								},
-							},
-						},
-					};
-
-					const actions = [
-						{
-							name: 'Randomize',
-							handler(chart) {
-								chart.data.datasets.forEach((dataset) => {
-									dataset.data = Utils.numbers({
-										count: chart.data.labels.length,
-										min: -100,
-										max: 100,
-									});
-								});
-								chart.update();
-							},
-						},
-						{
-							name: 'Add Dataset',
-							handler(chart) {
-								const data = chart.data;
-								const dsColor = Utils.namedColor(chart.data.datasets.length);
-								const newDataset = {
-									label: 'Dataset ' + (data.datasets.length + 1),
-									backgroundColor: Utils.transparentize(dsColor, 0.5),
-									borderColor: dsColor,
-									data: Utils.numbers({
-										count: data.labels.length,
-										min: -100,
-										max: 100,
-									}),
-								};
-								chart.data.datasets.push(newDataset);
-								chart.update();
-							},
-						},
-						{
-							name: 'Add Data',
-							handler(chart) {
-								const data = chart.data;
-								if (data.datasets.length > 0) {
-									data.labels = Utils.months({ count: data.labels.length + 1 });
-
-									for (let index = 0; index < data.datasets.length; ++index) {
-										data.datasets[index].data.push(Utils.rand(-100, 100));
-									}
-
-									chart.update();
+							break;
+						case 'scales-time-max-span':
+							option.data.datasets[0].data.forEach((data, idx) => {
+								switch (idx) {
+									case 0:
+										data.x = ChartUtils.newDateString(0);
+										break;
+									case 1:
+										data.x = ChartUtils.newDateString(2);
+										break;
+									case 2:
+										data.x = ChartUtils.newDateString(4);
+										break;
+									case 3:
+										data.x = ChartUtils.newDateString(6);
+										break;
 								}
-							},
-						},
-						{
-							name: 'Remove Dataset',
-							handler(chart) {
-								chart.data.datasets.pop();
-								chart.update();
-							},
-						},
-						{
-							name: 'Remove Data',
-							handler(chart) {
-								chart.data.labels.splice(-1, 1); // remove the label first
-
-								chart.data.datasets.forEach((dataset) => {
-									dataset.data.pop();
+							});
+							option.data.datasets[1].data.forEach((data, idx) => {
+								switch (idx) {
+									case 0:
+										data.x = ChartUtils.newDate(0);
+										break;
+									case 1:
+										data.x = ChartUtils.newDate(2);
+										break;
+									case 2:
+										data.x = ChartUtils.newDate(5);
+										break;
+									case 3:
+										data.x = ChartUtils.newDate(6);
+										break;
+								}
+							});
+							break;
+						case 'scales-time-combo':
+							{
+								const labels: any = [];
+								option.data.labels.forEach((_, idx) => {
+									labels.push(ChartUtils.newDate(idx));
 								});
-
-								chart.update();
-							},
-						},
-					];
-
-					this.option = config;
-					this.option.actions = actions;
-
-					function replacer(key, value) {
-						if (typeof value === 'function') {
-							return value
-								.toString()
-								.split('\n')
-								.map((line) => line.trim())
-								.join(' ');
-						}
-						return value;
+								option.data.labels = labels;
+							}
+							break;
+						case 'tooltip-position':
+							(chartjs.Tooltip.positioners as any).bottom = function (items) {
+								const pos = (chartjs.Tooltip.positioners as any).average(
+									items,
+									null
+								);
+								if (pos === false) {
+									return false;
+								}
+								const chart = this.chart;
+								return {
+									x: pos.x,
+									y: chart.chartArea.bottom,
+									xAlign: 'center',
+									yAlign: 'bottom',
+								};
+							};
+							break;
 					}
-
-					console.log(JSON.stringify(this.option, replacer, 2));
-
-					break;
-			}
+					this.option = option;
+					this.optionSeqn = NgxThreeUtil.getUUID();
+				}
+			);
 		}
 	}
 
@@ -758,95 +583,100 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 	}
 }
 
-
 class Log2Axis extends chartjs.Scale {
 	static id = 'log2';
 	static defaults = {};
-	_startValue : number;
-	_valueRange : number;
+	_startValue: number;
+	_valueRange: number;
 	constructor(cfg) {
-	  super(cfg);
-	  this._startValue = undefined;
-	  this._valueRange = 0;
+		super(cfg);
+		this._startValue = undefined;
+		this._valueRange = 0;
 	}
-  
+
 	parse(raw, index) {
-	  const value = chartjs.LinearScale.prototype.parse.apply(this, [raw, index]);
-	  return isFinite(value) && value > 0 ? value : null;
+		const value = chartjs.LinearScale.prototype.parse.apply(this, [raw, index]);
+		return isFinite(value) && value > 0 ? value : null;
 	}
-  
+
 	determineDataLimits() {
-	  const {min, max} = this.getMinMax(true);
-	  this.min = isFinite(min) ? Math.max(0, min) : null;
-	  this.max = isFinite(max) ? Math.max(0, max) : null;
+		const { min, max } = this.getMinMax(true);
+		this.min = isFinite(min) ? Math.max(0, min) : null;
+		this.max = isFinite(max) ? Math.max(0, max) : null;
 	}
-  
+
 	buildTicks() {
-	  const ticks = [];
-  
-	  let power = Math.floor(Math.log2(this.min || 1));
-	  let maxPower = Math.ceil(Math.log2(this.max || 2));
-	  while (power <= maxPower) {
-		ticks.push({value: Math.pow(2, power)});
-		power += 1;
-	  }
-  
-	  this.min = ticks[0].value;
-	  this.max = ticks[ticks.length - 1].value;
-	  return ticks;
+		const ticks = [];
+
+		let power = Math.floor(Math.log2(this.min || 1));
+		let maxPower = Math.ceil(Math.log2(this.max || 2));
+		while (power <= maxPower) {
+			ticks.push({ value: Math.pow(2, power) });
+			power += 1;
+		}
+
+		this.min = ticks[0].value;
+		this.max = ticks[ticks.length - 1].value;
+		return ticks;
 	}
-  
+
 	/**
 	 * @protected
 	 */
 	configure() {
-	  const start = this.min;
-  
-	  super.configure();
-  
-	  this._startValue = Math.log2(start);
-	  this._valueRange = Math.log2(this.max) - Math.log2(start);
+		const start = this.min;
+
+		super.configure();
+
+		this._startValue = Math.log2(start);
+		this._valueRange = Math.log2(this.max) - Math.log2(start);
 	}
-  
+
 	getPixelForValue(value) {
-	  if (value === undefined || value === 0) {
-		value = this.min;
-	  }
-  
-	  return this.getPixelForDecimal(value === this.min ? 0
-		: (Math.log2(value) - this._startValue) / this._valueRange);
+		if (value === undefined || value === 0) {
+			value = this.min;
+		}
+
+		return this.getPixelForDecimal(
+			value === this.min
+				? 0
+				: (Math.log2(value) - this._startValue) / this._valueRange
+		);
 	}
-  
+
 	getValueForPixel(pixel) {
-	  const decimal = this.getDecimalForPixel(pixel);
-	  return Math.pow(2, this._startValue + decimal * this._valueRange);
+		const decimal = this.getDecimalForPixel(pixel);
+		return Math.pow(2, this._startValue + decimal * this._valueRange);
 	}
-  }
-  
-  
-  class Custom extends chartjs.BubbleController {
+}
+
+class Custom extends chartjs.BubbleController {
 	static id = 'derivedBubble';
-	options : any= {
-	  boxStrokeStyle: 'red'
+	options: any = {
+		boxStrokeStyle: 'red',
 	};
 	draw() {
-	  // Call bubble controller method to draw all the points
-	  super.draw();
-  
-	  // Now we can do some custom drawing for this dataset.
-	  // Here we'll draw a box around the first point in each dataset,
-	  // using `boxStrokeStyle` dataset option for color
-	  var meta = this.getMeta();
-	  var pt0 = meta.data[0];
-	  let {x , y } = pt0.getProps(['x', 'y']);
-	  let {radius} = pt0.options;
-  
-	  var ctx = this.chart.ctx;
-	  ctx.save();
-	  ctx.strokeStyle = this.options.boxStrokeStyle;
-	  ctx.lineWidth = 1;
-	  ctx.strokeRect((x as any) - (radius as any), (y as any) - (radius as any), 2 * (radius as any), 2 * (radius as any));
-	  ctx.restore();
+		// Call bubble controller method to draw all the points
+		super.draw();
+
+		// Now we can do some custom drawing for this dataset.
+		// Here we'll draw a box around the first point in each dataset,
+		// using `boxStrokeStyle` dataset option for color
+		var meta = this.getMeta();
+		var pt0 = meta.data[0];
+		let { x, y } = pt0.getProps(['x', 'y']);
+		let { radius } = pt0.options;
+
+		var ctx = this.chart.ctx;
+		ctx.save();
+		ctx.strokeStyle = this.options.boxStrokeStyle;
+		ctx.lineWidth = 1;
+		ctx.strokeRect(
+			(x as any) - (radius as any),
+			(y as any) - (radius as any),
+			2 * (radius as any),
+			2 * (radius as any)
+		);
+		ctx.restore();
 	}
-  }
-  
+}
