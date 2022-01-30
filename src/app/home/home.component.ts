@@ -44,6 +44,14 @@ export class HomeComponent {
 		{
 			name: 'Community',
 			children: [
+				
+				{
+					id: 'https://www.buymeacoffee.com/ngx3js',
+					isExtLink: true,
+					name: 'buy me a coffee',
+					selected: false,
+					tags: '',
+				},
 				{
 					id: 'https://stackoverflow.com/questions/tagged/ngx3js',
 					isExtLink: true,
