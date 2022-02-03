@@ -433,6 +433,7 @@ import { NgxMeshComponent } from './ngx-mesh/ngx-mesh.component';
 import { WebglLoaderTextureLogluvComponent } from './webgl-loader-texture-logluv/webgl-loader-texture-logluv.component';
 import { WebglPerformanceShaderComponent } from './webgl-performance-shader/webgl-performance-shader.component';
 import { WebglMaterialsNodesPlaygroundComponent } from './webgl-materials-nodes-playground/webgl-materials-nodes-playground.component';
+import { WebglNodesPlaygroundComponent } from './webgl-nodes-playground/webgl-nodes-playground.component';
 import { WebgpuNodesPlaygroundComponent } from './webgpu-nodes-playground/webgpu-nodes-playground.component';
 import { WebgpuSkinningPointsComponent } from './webgpu-skinning-points/webgpu-skinning-points.component';
 
@@ -1047,6 +1048,10 @@ const routes: Routes = [
 	{
 		path: 'webgl_materials_nodes_playground',
 		component: WebglMaterialsNodesPlaygroundComponent,
+	},
+	{
+		path: 'webgl_nodes_playground',
+		component: WebglNodesPlaygroundComponent,
 	},
 	{
 		path: 'webgl_materials_standard_nodes',

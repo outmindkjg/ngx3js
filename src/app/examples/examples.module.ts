@@ -313,6 +313,7 @@ import { WebglMultipleElementsComponent } from './webgl-multiple-elements/webgl-
 import { WebglMultipleRenderersComponent } from './webgl-multiple-renderers/webgl-multiple-renderers.component';
 import { WebglMultipleScenesComparisonComponent } from './webgl-multiple-scenes-comparison/webgl-multiple-scenes-comparison.component';
 import { WebglMultipleViewsComponent } from './webgl-multiple-views/webgl-multiple-views.component';
+import { WebglNodesPlaygroundComponent } from './webgl-nodes-playground/webgl-nodes-playground.component';
 import { WebglPanoramaCubeComponent } from './webgl-panorama-cube/webgl-panorama-cube.component';
 import { WebglPanoramaEquirectangularComponent } from './webgl-panorama-equirectangular/webgl-panorama-equirectangular.component';
 import { WebglPerformanceNodesComponent } from './webgl-performance-nodes/webgl-performance-nodes.component';
@@ -579,6 +580,7 @@ import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component
 		WebglLoaderMf3Component,
 		WebglLoaderDs3Component,
 		WebglLoaderDm3Component,
+		WebglNodesPlaygroundComponent,
 		WebglMaterialsBumpmapComponent,
 		WebglMaterialsCarComponent,
 		WebglMaterialsChannelsComponent,

@@ -1,0 +1,32 @@
+@import '../../../assets/examples/files/open-sans/open-sans.css';
+@import '../../../assets/examples/files/tabler-icons/tabler-icons';
+
+.threejs-playground,
+.threejs-renderer {
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 50%;
+	width: 100%;
+}
+.threejs-renderer {
+	top: 0;
+	bottom: 50%;
+}
+.threejs-playground {
+	top: 50%;
+	bottom: 0;
+	::ng-deep {
+		flow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: #222;
+            box-shadow: inset 0 0 20px 0px #000000;
+			@extend .flow-container;
+        }
+	}
+}
