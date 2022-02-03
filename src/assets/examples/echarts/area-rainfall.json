@@ -3139,13 +3139,12 @@
   "yAxis": [
     {
       "name": "Flow(m^3/s)",
-      "type": "value",
-      "max": 500
+      "type": "value"
     },
     {
       "name": "Rainfall(mm)",
       "nameLocation": "start",
-      "max": 5,
+      "alignTicks": true,
       "type": "value",
       "inverse": true
     }
@@ -9368,5 +9367,12 @@
         0
       ]
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); const data = sharedVar.data; options.series.forEach((series, idx) => { switch (idx) { case 0: series.data = series.data.map(function (value) { return value + (Math.round((Math.random() - 0.5) * 10) / 10) * 20; }); break; case 1: series.data = series.data.map(function (value) { return value + (Math.round((Math.random() - 0.5) * 10) / 10) * 20; }); break; } }); chart.setOption(options); }"
+    }
+  ],
+  "sharedVar": {}
 }
