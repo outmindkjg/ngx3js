@@ -4,601 +4,276 @@
  * Copyright Google LLC All Rights Reserved.
  */
 
- 'use strict';
+'use strict';
 
- var request = require('request');
- const fs = require('fs');
- const ChartUtils = require('./chart-utils.js');
- const cwd = process.cwd();
- const colors = require('colors');
- 
- function readUrl(url, isGl, callBack) {
-	 let remoteUrl =
-		 'https://echarts.apache.org/examples/examples/js/' +
-		 (isGl ? 'gl/' : '') +
-		 url +
-		 '.js';
-	 request.get(remoteUrl, function (error, response, body) {
-		 if (!error && response.statusCode == 200) {
-			 console.log(remoteUrl);
-			 callBack(body);
-		 } else {
-			 console.log(remoteUrl, error, response);
-		 }
-	 });
- }
- 
- function writeJson(fileName, jsonData, comment, callBack) {
-	 let data = ChartUtils.stringify(jsonData);
-	 if (comment !== undefined && comment !== null && comment !== '') {
-		 data = '/** ' + comment + ' */\n' + data;
-	 }
-	 const filePath =
-		 cwd +
-		 '/src/assets/examples/echarts/' +
-		 fileName +
-		 (jsonData !== null ? '.json' : '.txt');
-	 fs.writeFile(filePath, data, (err) => {
-		 if (err) throw err;
-		 console.log(filePath);
-		 if (callBack !== undefined && callBack !== null) {
-			 callBack();
-		 }
-	 });
- }
- 
- const Utils = ChartUtils;
- 
+var request = require('request');
+const fs = require('fs');
+const ChartUtils = require('./chart-utils.js');
+const cwd = process.cwd();
+const colors = require('colors');
+
+function readUrl(url, callBack) {
+	let remoteUrl = 'https://echarts.apache.org/examples' + url;
+	request.get(remoteUrl, function (error, response, body) {
+		if (!error && response.statusCode == 200) {
+			console.log(remoteUrl);
+			callBack(body);
+		} else {
+			console.log(remoteUrl, error, response);
+		}
+	});
+}
+
+const $ = {
+	get: function (url, callBack) {
+		readUrl(url, (txt) => {
+			callBack(JSON.parse(txt));
+		});
+	},
+};
+
+const Utils = ChartUtils;
 
 function LinearGradient(x, y, x2, y2, colorStops, globalCoord) {
 	return {
-		colorStops : colorStops || [],
-		x : x == null ? 0 : x,
-		y : y == null ? 0 : y,
-		x2 : x2 == null ? 1 : x2,
-		y2 : y2 == null ? 0 : y2,
-		type : 'linear',
-		global : globalCoord || false
-	}
+		colorStops: colorStops || [],
+		x: x == null ? 0 : x,
+		y: y == null ? 0 : y,
+		x2: x2 == null ? 1 : x2,
+		y2: y2 == null ? 0 : y2,
+		type: 'linear',
+		global: globalCoord || false,
+	};
 }
 
-  const actions2 = [
-	{
-	  name: 'Randomize',
-	  handler : (chart) => {
-		  const options = chart.getOption();
-		  options.series.forEach((series, idx) => {
-			switch(idx) {
-				case 0 :
-					series.data = Utils.numbers({ count : series.data.length , decimals : 0, min : 9, max : 15});
-					break;
-				case 1 :
-					series.data = Utils.numbers({ count : series.data.length , decimals : 0, min : -2, max : 5});
-					break;
-			}
-		  });
-		  chart.setOption(options);
-	  }
+const ROOT_PATH = '';
+let option = {};
+const myChart = {
+	showLoading: function () {},
+	hideLoading: function () {},
+	setOption: function (option) {
+		const chartConfig = option;
+		chartConfig.actions = actions;
+		chartConfig.sharedVar = sharedVar;
+		writeJson(fileName, chartConfig);
 	},
-    {
-		name: "Add Data",
-		handler: (chart) => { 
+};
+
+function writeJson(fileName, jsonData, comment, callBack) {
+	let data = ChartUtils.stringify(jsonData);
+	if (comment !== undefined && comment !== null && comment !== '') {
+		data = '/** ' + comment + ' */\n' + data;
+	}
+	const filePath =
+		cwd +
+		'/src/assets/examples/echarts/' +
+		fileName +
+		(jsonData !== null ? '.json' : '.txt');
+	fs.writeFile(filePath, data, (err) => {
+		if (err) throw err;
+		console.log(filePath);
+		if (callBack !== undefined && callBack !== null) {
+			callBack();
+		}
+	});
+}
+
+const actions2 = [
+	{
+		name: 'Randomize',
+		handler: (chart) => {
 			const options = chart.getOption();
-			if (options.series.length > 0) { 
-				options.xAxis.forEach(xAxis => {
-					xAxis.data = Utils.dayofweek({count: xAxis.data.length + 1});  
+			options.series.forEach((series, idx) => {
+				switch (idx) {
+					case 0:
+						series.data = Utils.numbers({
+							count: series.data.length,
+							decimals: 0,
+							min: 9,
+							max: 15,
+						});
+						break;
+					case 1:
+						series.data = Utils.numbers({
+							count: series.data.length,
+							decimals: 0,
+							min: -2,
+							max: 5,
+						});
+						break;
+				}
+			});
+			chart.setOption(options);
+		},
+	},
+	{
+		name: 'Add Data',
+		handler: (chart) => {
+			const options = chart.getOption();
+			if (options.series.length > 0) {
+				options.xAxis.forEach((xAxis) => {
+					xAxis.data = Utils.dayofweek({ count: xAxis.data.length + 1 });
 				});
 				options.series.forEach((series, idx) => {
-					switch(idx) {
-						case 0 :
+					switch (idx) {
+						case 0:
 							series.data.push(Utils.rand(9, 15));
 							break;
-						case 1 :
+						case 1:
 							series.data.push(Utils.rand(-2, 5));
 							break;
 					}
 				});
 				chart.setOption(options);
-			} 
-		}
+			}
+		},
 	},
 	{
-		name: "Remove Data",
-		handler: (chart) => { 
+		name: 'Remove Data',
+		handler: (chart) => {
 			const options = chart.getOption();
-			if (options.series.length > 0) { 
-				options.xAxis.forEach(xAxis => {
-					xAxis.data.splice(-1, 1); 
+			if (options.series.length > 0) {
+				options.xAxis.forEach((xAxis) => {
+					xAxis.data.splice(-1, 1);
 				});
 				options.series.forEach((series) => {
 					series.data.pop();
 				});
 				chart.setOption(options);
-			} 
-		}
-	}
-  ];
+			}
+		},
+	},
+];
 
-  const actions = [
-  ];
+const actions = [
+	{
+		name: 'Randomize',
+		handler: (chart) => {
+			const options = chart.getOption();
+			const data = sharedVar.data;
+			options.series.forEach((series, idx) => {
+				switch (idx) {
+					case 0:
+						series.data = series.data.map(function (value) {
+							return value + Math.round((Math.random() -0.5)* 10) / 10 * 20;
+						  });
+						break;
+					case 1:
+						series.data = series.data.map(function (value) {
+							return value + Math.round((Math.random() -0.5)* 10) / 10 * 20;
+						});
+						break;
+					}
+			});
+			chart.setOption(options);
+		},
+	},
+];
 
-  const sharedVar = {
-	base : 3
-  }
+const sharedVar = {};
 
-  const option = {
-	title: {
-        text: 'Confidence Band',
-        subtext: 'Example in MetricsGraphics.js',
-        left: 'center'
+const fileName = 'multiple-x-axis';
+
+const jsHtml = `
+const colors = ['#5470C6', '#EE6666'];
+option = {
+  color: colors,
+  tooltip: {
+    trigger: 'none',
+    axisPointer: {
+      type: 'cross'
+    }
+  },
+  legend: {},
+  grid: {
+    top: 70,
+    bottom: 50
+  },
+  xAxis: [
+    {
+      type: 'category',
+      axisTick: {
+        alignWithLabel: true
       },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'cross',
-          animation: false,
-          label: {
-            backgroundColor: '#ccc',
-            borderColor: '#aaa',
-            borderWidth: 1,
-            shadowBlur: 0,
-            shadowOffsetX: 0,
-            shadowOffsetY: 0,
-            color: '#222'
-          }
-        },
-        formatter: function (params) {
-          return (
-            params[2].name +
-            '<br />' +
-            ((params[2].value - sharedVar.base) * 100).toFixed(1) +
-            '%'
-          );
+      axisLine: {
+        onZero: false,
+        lineStyle: {
+          color: colors[1]
         }
       },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
+      axisPointer: {
+        label: {
+          formatter: function (params) {
+            return (
+              'Precipitation  ' +
+              params.value +
+              (params.seriesData.length ? '：' + params.seriesData[0].data : '')
+            );
+          }
+        }
       },
-	  xAxis: {
-		  "type": "category",
-		  "data": [
-			"2012-08-28",
-			"2012-08-29",
-			"2012-08-30",
-			"2012-08-31",
-			"2012-09-01",
-			"2012-09-02",
-			"2012-09-03",
-			"2012-09-04",
-			"2012-09-05",
-			"2012-09-06",
-			"2012-09-07",
-			"2012-09-08",
-			"2012-09-09",
-			"2012-09-10",
-			"2012-09-11",
-			"2012-09-12",
-			"2012-09-13",
-			"2012-09-14",
-			"2012-09-15",
-			"2012-09-16",
-			"2012-09-17",
-			"2012-09-18",
-			"2012-09-19",
-			"2012-09-20",
-			"2012-09-21",
-			"2012-09-22",
-			"2012-09-23",
-			"2012-09-24",
-			"2012-09-25",
-			"2012-09-26",
-			"2012-09-27",
-			"2012-09-28",
-			"2012-09-29",
-			"2012-09-30",
-			"2012-10-01",
-			"2012-10-02",
-			"2012-10-03",
-			"2012-10-04",
-			"2012-10-05",
-			"2012-10-06",
-			"2012-10-07",
-			"2012-10-08",
-			"2012-10-09",
-			"2012-10-10",
-			"2012-10-11",
-			"2012-10-12",
-			"2012-10-13",
-			"2012-10-14",
-			"2012-10-15",
-			"2012-10-16",
-			"2012-10-17",
-			"2012-10-18",
-			"2012-10-19",
-			"2012-10-20",
-			"2012-10-21",
-			"2012-10-22",
-			"2012-10-23",
-			"2012-10-24",
-			"2012-10-25",
-			"2012-10-26",
-			"2012-10-27",
-			"2012-10-28",
-			"2012-10-29",
-			"2012-10-30",
-			"2012-10-31",
-			"2012-11-01",
-			"2012-11-02",
-			"2012-11-03",
-			"2012-11-04",
-			"2012-11-05",
-			"2012-11-06",
-			"2012-11-07",
-			"2012-11-08",
-			"2012-11-09",
-			"2012-11-10",
-			"2012-11-11",
-			"2012-11-12",
-			"2012-11-13",
-			"2012-11-14",
-			"2012-11-15",
-			"2012-11-16",
-			"2012-11-17",
-			"2012-11-18",
-			"2012-11-19",
-			"2012-11-21",
-			"2012-11-28",
-			"2012-12-05",
-			"2012-12-12",
-			"2012-12-19",
-			"2012-12-27",
-			"2012-12-31"
-		  ],
-		  axisLabel: {
-			formatter: function (value, idx) {
-			  var date = new Date(value);
-			  return idx === 0
-				? value
-				: [date.getMonth() + 1, date.getDate()].join('-');
-			}
-		  },
-		  boundaryGap: false
-	},		  	
-	"yAxis": {
-        axisLabel: {
-          formatter: function (val) {
-            return (val - sharedVar.base) * 100 + '%';
-          }
-        },
-        axisPointer: {
-          label: {
-            formatter: function (params) {
-              return ((params.value - sharedVar.base) * 100).toFixed(1) + '%';
-            }
-          }
-        },
-        splitNumber: 3
+      // prettier-ignore
+      data: ['2016-1', '2016-2', '2016-3', '2016-4', '2016-5', '2016-6', '2016-7', '2016-8', '2016-9', '2016-10', '2016-11', '2016-12']
     },
-	"series": [
-	  {
-		"name": "L",
-		"type": "line",
-		"data": [
-		  0.3982670977999998,
-		  1.6833036365,
-		  2.1287778695,
-		  2.3458167992,
-		  2.4777322093,
-		  2.5565719465,
-		  2.6456042288,
-		  2.6660088505,
-		  2.7048160059,
-		  2.7035604199,
-		  2.7704556241000002,
-		  2.7773623582,
-		  2.7979520151,
-		  2.7957951963,
-		  2.8162736828,
-		  2.863389992,
-		  2.8430011353,
-		  2.8589659708,
-		  2.8561346310999998,
-		  2.8708024645,
-		  2.866027521,
-		  2.8730733414,
-		  2.8716521617,
-		  2.8428827802,
-		  2.8902645583,
-		  3.0333682152,
-		  2.9931527033,
-		  2.8925718238,
-		  2.9094802158,
-		  2.915680144,
-		  2.9085643219,
-		  2.8830185255,
-		  2.9643160742,
-		  2.9441287137,
-		  2.9292856612,
-		  2.8281898665,
-		  2.8118725935,
-		  2.8268096679,
-		  2.8229626183,
-		  2.8497520389,
-		  2.8381305555,
-		  2.8409147023,
-		  3.063624221,
-		  3.1553854927,
-		  3.2055952772,
-		  2.9373533002,
-		  2.9132405945,
-		  2.8838290871,
-		  2.8440240952,
-		  2.8395635362,
-		  2.8430976805,
-		  2.9217012436,
-		  2.8896126192,
-		  2.8910355503,
-		  2.8926150773,
-		  2.8879701845,
-		  2.8923158881,
-		  2.8903008592,
-		  2.9059386187,
-		  2.9093189544999998,
-		  2.9158694322,
-		  2.9113276251,
-		  2.9076518392,
-		  2.9062236957,
-		  2.9192971999,
-		  2.9259998677,
-		  2.9179569706,
-		  2.9245886175,
-		  2.9249372941,
-		  2.9336515858,
-		  2.9206829549,
-		  2.9153876107,
-		  2.9197331672,
-		  2.9376260306,
-		  2.9180444092,
-		  2.9254556623,
-		  2.9342292845,
-		  2.9382004983,
-		  2.9402302151,
-		  2.9410873217,
-		  2.9232894553,
-		  2.9407763528,
-		  2.916470056,
-		  2.8913577471,
-		  2.9118365122,
-		  2.9192649771,
-		  2.910004207,
-		  2.910533519,
-		  2.909486646,
-		  2.9092848708,
-		  3.1537781522
-		],
-		lineStyle: {
-            opacity: 0
-		},
-		stack: 'confidence-band',
-		symbol: 'none'
-	  },
-	  {
-		name: 'U',
-		type: 'line',
-	  "data": [
-		  2.8967046779000003,
-		  1.4491049982,
-		  0.9668634870999999,
-		  0.7258952249,
-		  0.5816866709999999,
-		  0.4853494,
-		  0.4167718883,
-		  0.3652780785,
-		  0.3253602494,
-		  0.29345747969999997,
-		  0.2674476879,
-		  0.24660966010000002,
-		  0.22799691960000001,
-		  0.2119911843,
-		  0.19751615779999998,
-		  0.188013836,
-		  0.1772255058,
-		  0.1683750477,
-		  0.16040993730000003,
-		  0.1524436508,
-		  0.1456478711,
-		  0.1398989877,
-		  0.13398499989999998,
-		  0.12594933700000002,
-		  0.12384864790000001,
-		  0.180702727,
-		  0.1169753536,
-		  0.1106951125,
-		  0.1069448137,
-		  0.1036518025,
-		  0.1008793037,
-		  0.0973219235,
-		  0.0967551764,
-		  0.0904872944,
-		  0.0860042654,
-		  0.08318302779999999,
-		  0.0809116093,
-		  0.10880889810000001,
-		  0.2771231087,
-		  0.2253627713,
-		  0.2500147927,
-		  0.2462733265,
-		  0.1818859377,
-		  0.203013617,
-		  0.17562100509999998,
-		  0.0663809955,
-		  0.0643802981,
-		  0.06269200050000001,
-		  0.0912763956,
-		  0.10018022620000001,
-		  0.0990893558,
-		  0.028098839,
-		  0.0971742497,
-		  0.1320028694,
-		  0.1091139664,
-		  0.129358271,
-		  0.1624775084,
-		  0.1657547211,
-		  0.136613142,
-		  0.1303694838,
-		  0.118135569,
-		  0.1280991019,
-		  0.13622071819999998,
-		  0.1397761598,
-		  0.114185217,
-		  0.10202655969999999,
-		  0.11472014189999999,
-		  0.1049026402,
-		  0.1047563129,
-		  0.0877568198,
-		  0.11483302779999999,
-		  0.125592095,
-		  0.1176554629,
-		  0.0818658387,
-		  0.12029133980000001,
-		  0.10515369690000001,
-		  0.08849777739999999,
-		  0.0814542884,
-		  0.0789530192,
-		  0.0775536225,
-		  0.1137397899,
-		  0.0790417924,
-		  0.129810853,
-		  0.1199467174,
-		  0.1330203143,
-		  0.12609499629999998,
-		  0.1458287499,
-		  0.1444856197,
-		  0.147586668,
-		  0.14686304039999998,
-		  0.19616917940000003
-		],
-		lineStyle: {
-            opacity: 0
-          },
-          areaStyle: {
-            color: '#ccc'
-          },
-          stack: 'confidence-band',
-          symbol: 'none'
-	  },
-	  {
-		"type": "line",
-		"data": [
-		  1.8381573741,
-		  2.4171752707,
-		  2.6209229364,
-		  2.7207073998,
-		  2.7538834531,
-		  2.7982645863,
-		  2.8542523129,
-		  2.997389027,
-		  2.9919307266,
-		  2.9703509067,
-		  3.001317397,
-		  2.9882350162,
-		  3.0059394263,
-		  2.9884434102,
-		  3.0041183019,
-		  3.0353559544,
-		  3.0070046011,
-		  2.9995748193,
-		  2.9964538977,
-		  3.007797889,
-		  3.0025402723,
-		  2.994682619,
-		  2.9924158479,
-		  2.9608611279,
-		  3.0075430252,
-		  3.1850284663,
-		  3.076629596,
-		  2.9685707729,
-		  2.9767391326,
-		  2.98031385,
-		  2.9689803184,
-		  2.9241253033,
-		  3.0233974572,
-		  3.011073579,
-		  2.997905178,
-		  2.8916292904,
-		  2.8901741028,
-		  2.9127029703,
-		  2.9238007953,
-		  2.9583345751,
-		  2.9589871038,
-		  2.9785710958,
-		  3.2430880604,
-		  3.3472823479000002,
-		  3.3360734074,
-		  2.9536351645,
-		  2.9132990621,
-		  2.8711327174,
-		  2.8525573179,
-		  2.8497594934,
-		  2.8796234471,
-		  2.9350877081,
-		  2.984474438,
-		  2.993948643,
-		  3.0003154213,
-		  2.9936981702,
-		  2.995705166,
-		  2.9946599168,
-		  3.0070057212,
-		  3.0082121656,
-		  3.0141422884,
-		  3.0041613553,
-		  2.9986385713,
-		  2.9947855067,
-		  3.0078904741,
-		  3.0099598702,
-		  3.0001146029,
-		  3.0047572651,
-		  3.006204557,
-		  3.0115231406,
-		  2.9967365006,
-		  2.9891014548,
-		  2.9907233187,
-		  3.0095972086,
-		  2.9888190642,
-		  2.9976427704,
-		  3.0084213775,
-		  3.0107446453,
-		  3.009457792,
-		  3.0031194779,
-		  2.9884871787,
-		  3.0058347339,
-		  2.9764369564,
-		  2.9520204036,
-		  2.9781815641,
-		  2.9928638828,
-		  2.9848033088,
-		  2.9902215145,
-		  2.9904318505,
-		  2.9965834085,
-		  3.3297981389
-		],
-		itemStyle: {
-            color: '#333'
-          },
-          showSymbol: false
-	  }
-	],
-  };
+    {
+      type: 'category',
+      axisTick: {
+        alignWithLabel: true
+      },
+      axisLine: {
+        onZero: false,
+        lineStyle: {
+          color: colors[0]
+        }
+      },
+      axisPointer: {
+        label: {
+          formatter: function (params) {
+            return (
+              'Precipitation  ' +
+              params.value +
+              (params.seriesData.length ? '：' + params.seriesData[0].data : '')
+            );
+          }
+        }
+      },
+      // prettier-ignore
+      data: ['2015-1', '2015-2', '2015-3', '2015-4', '2015-5', '2015-6', '2015-7', '2015-8', '2015-9', '2015-10', '2015-11', '2015-12']
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value'
+    }
+  ],
+  series: [
+    {
+      name: 'Precipitation(2015)',
+      type: 'line',
+      xAxisIndex: 1,
+      smooth: true,
+      emphasis: {
+        focus: 'series'
+      },
+      data: [
+        2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3
+      ]
+    },
+    {
+      name: 'Precipitation(2016)',
+      type: 'line',
+      smooth: true,
+      emphasis: {
+        focus: 'series'
+      },
+      data: [
+        3.9, 5.9, 11.1, 18.7, 48.3, 69.2, 231.6, 46.6, 55.4, 18.4, 10.3, 0.7
+      ]
+    }
+  ]
+};
+  `;
 
- const fileName = 'confidence-band';
- 
- const chartConfig = option;
- chartConfig.actions = actions;
- chartConfig.sharedVar = sharedVar;
- 
- writeJson(fileName, chartConfig);
- 
- 
+eval(jsHtml);
+
+myChart.setOption(option)
