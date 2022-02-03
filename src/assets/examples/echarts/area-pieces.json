@@ -100,5 +100,20 @@
         ]
       ]
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series) => { const data = Utils.numbers({ count : series.data.length , decimals : 0, min : 100, max : 800}); series.data.forEach((item, idx) => { item[1] = data[idx]; }) }); chart.setOption(options); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.series.forEach((series) => { let lastDate = '2019-10-10'; if (series.data.length > 0) { lastDate = series.data[series.data.length - 1][0]; } series.data.push([Utils.addDate(lastDate,1) , Utils.rand(100, 800)]); }); chart.setOption(options); } }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.series.forEach((series) => { series.data.pop(); }); chart.setOption(options); } }"
+    }
+  ],
+  "sharedVar": {}
 }

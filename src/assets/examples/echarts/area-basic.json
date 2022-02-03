@@ -29,5 +29,28 @@
       "type": "line",
       "areaStyle": {}
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series) => { series.data = Utils.numbers({ count : series.data.length , decimals : 0, min : 800, max : 1400}); }); chart.setOption(options); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.xAxis.forEach(xAxis => { xAxis.data = Utils.dayofweek({count: xAxis.data.length + 1}); }); options.series.forEach((series) => { series.data.push(Utils.rand(800, 1400)); }); chart.setOption(options); } }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.xAxis.forEach(xAxis => { xAxis.data.splice(-1, 1); }); options.series.forEach((series) => { series.data.pop(); }); chart.setOption(options); } }"
+    },
+    {
+      "name": "Toggle areaStyle",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.series.forEach((series) => { if (series.areaStyle === null) { series.areaStyle = {}; } else { series.areaStyle = null; } }); chart.setOption(options); } }"
+    },
+    {
+      "name": "Toggle boundaryGap",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.xAxis.forEach(xAxis => { xAxis.boundaryGap = !xAxis.boundaryGap; }); chart.setOption(options); } }"
+    }
+  ],
+  "sharedVar": {}
 }

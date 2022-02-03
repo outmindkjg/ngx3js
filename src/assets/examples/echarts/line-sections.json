@@ -132,5 +132,12 @@
         ]
       }
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series) => { series.data = Utils.numbers({ count : series.data.length , decimals : 0, min : 0, max : 800}); }); chart.setOption(options); }"
+    }
+  ],
+  "sharedVar": {}
 }

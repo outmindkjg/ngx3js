@@ -142,6 +142,12 @@ const dayofweek = function (config) {
 	return values;
 };
 
+const addDate = function (dateStr, add) {
+	const date = new Date(dateStr);
+	date.setDate(date.getDate() + add);
+	return date.toISOString().split('T')[0]; 
+}
+
 const color = function (index) {
 	return COLORS[index % COLORS.length];
 };
@@ -305,5 +311,6 @@ module.exports = {
 	namedColor: namedColor,
 	newDate: newDate,
 	newDateString: newDateString,
+	addDate : addDate,
 	stringify : stringify
 };
