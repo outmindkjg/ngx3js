@@ -84,14 +84,14 @@ const actions = [
 		handler: (chart) => {
 			const options = chart.getOption();
 			options.series.forEach((series, idx) => {
-				series.data = Utils.numbers({
-					count: series.data.length,
-					decimals: 0,
-					min: 100,
-					max: 1700,
-				});
+					series.data = Utils.numbers({
+						count: series.data.length,
+						decimals: 0,
+						min: 0,
+						max: 200,
+					});
 			});
-			chart.setOption(options);
+			sharedVar.changeData(chart, options);
 		},
 	},
 	{
@@ -99,14 +99,14 @@ const actions = [
 		handler: (chart) => {
 			const options = chart.getOption();
 			if (options.series.length > 0) {
-				options.yAxis.forEach((yAxis) => {
-					yAxis.data.push(Utils.dayofweek({ count: yAxis.data.length + 1 }).pop());
+				options.xAxis.forEach((xAxis) => {
+					xAxis.data.push(Utils.months({ count: xAxis.data.length + 1 }).pop());
 				});
-				options.series.forEach((series) => {
-					const value = Math.round(Utils.rand(500, 1500));
+				options.series.forEach((series, idx) => {
+					const value = Math.round(Utils.rand(0, 200));
 					series.data.push(value);
 				});
-				chart.setOption(options);
+				sharedVar.changeData(chart, options);
 			}
 		},
 	},
@@ -115,14 +115,15 @@ const actions = [
 		handler: (chart) => {
 			const options = chart.getOption();
 			if (options.series.length > 0) {
-				options.yAxis.forEach((yAxis) => {
-					yAxis.data.splice(-1, 1);
+				options.xAxis.forEach((xAxis) => {
+					xAxis.data.splice(-1, 1);
 				});
 				options.series.forEach((series) => {
 					series.data.pop();
 				});
 				chart.setOption(options);
 			}
+			sharedVar.changeData(chart, options);
 		},
 	},
 ];
@@ -153,108 +154,97 @@ const actions2 = [
 
 const sharedVar = {};
 
-const fileName = 'bar-brush';
+const fileName = 'bar1';
 
 const jsHtml = `
-let xAxisData = [];
-let data1 = [];
-let data2 = [];
-let data3 = [];
-let data4 = [];
-for (let i = 0; i < 10; i++) {
-  xAxisData.push('Class' + i);
-  data1.push(+(Math.random() * 2).toFixed(2));
-  data2.push(+(Math.random() * 5).toFixed(2));
-  data3.push(+(Math.random() + 0.3).toFixed(2));
-  data4.push(+Math.random().toFixed(2));
-}
-var emphasisStyle = {
-  itemStyle: {
-    shadowBlur: 10,
-    shadowColor: 'rgba(0,0,0,0.3)'
-  }
-};
 option = {
-  legend: {
-    data: ['bar', 'bar2', 'bar3', 'bar4'],
-    left: '10%'
-  },
-  brush: {
-    toolbox: ['rect', 'polygon', 'lineX', 'lineY', 'keep', 'clear'],
-    xAxisIndex: 0
-  },
-  toolbox: {
-    feature: {
-      magicType: {
-        type: ['stack']
-      },
-      dataView: {}
-    }
-  },
-  tooltip: {},
-  xAxis: {
-    data: xAxisData,
-    name: 'X Axis',
-    axisLine: { onZero: true },
-    splitLine: { show: false },
-    splitArea: { show: false }
-  },
-  yAxis: {},
-  grid: {
-    bottom: 100
-  },
-  series: [
-    {
-      name: 'bar',
-      type: 'bar',
-      stack: 'one',
-      emphasis: emphasisStyle,
-      data: data1
-    },
-    {
-      name: 'bar2',
-      type: 'bar',
-      stack: 'one',
-      emphasis: emphasisStyle,
-      data: data2
-    },
-    {
-      name: 'bar3',
-      type: 'bar',
-      stack: 'two',
-      emphasis: emphasisStyle,
-      data: data3
-    },
-    {
-      name: 'bar4',
-      type: 'bar',
-      stack: 'two',
-      emphasis: emphasisStyle,
-      data: data4
-    }
-  ]
-};
-sharedVar.brushSelected = function (params) {
-  var brushed = [];
-  var brushComponent = params.batch[0];
-  for (var sIdx = 0; sIdx < brushComponent.selected.length; sIdx++) {
-    var rawIndices = brushComponent.selected[sIdx].dataIndex;
-    brushed.push('[Series ' + sIdx + '] ' + rawIndices.join(', '));
+	title: {
+	  text: 'Rainfall vs Evaporation',
+	  subtext: 'Fake Data'
+	},
+	tooltip: {
+	  trigger: 'axis'
+	},
+	legend: {
+	  data: ['Rainfall', 'Evaporation']
+	},
+	toolbox: {
+	  show: true,
+	  feature: {
+		dataView: { show: true, readOnly: false },
+		magicType: { show: true, type: ['line', 'bar'] },
+		restore: { show: true },
+		saveAsImage: { show: true }
+	  }
+	},
+	calculable: true,
+	xAxis: [
+	  {
+		type: 'category',
+		// prettier-ignore
+		data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+	  }
+	],
+	yAxis: [
+	  {
+		type: 'value'
+	  }
+	],
+	series: [
+	  {
+		name: 'Rainfall',
+		type: 'bar',
+		data: [
+		  2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3
+		],
+		markPoint: {
+		  data: [
+			{ type: 'max', name: 'Max' },
+			{ type: 'min', name: 'Min' }
+		  ]
+		},
+		markLine: {
+		  data: [{ type: 'average', name: 'Avg' }]
+		}
+	  },
+	  {
+		name: 'Evaporation',
+		type: 'bar',
+		data: [
+		  2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3
+		],
+		markPoint: {
+		  data: [
+			{ name: 'Max', value: 182.2, xAxis: 7, yAxis: 183 },
+			{ name: 'Min', value: 2.3, xAxis: 11, yAxis: 3 }
+		  ]
+		},
+		markLine: {
+		  data: [{ type: 'average', name: 'Avg' }]
+		}
+	  }
+	]
+  };
+  sharedVar.changeData = function( chart , options) {
+	let minValue = { name: 'Min', value: Infinity, xAxis: 0, yAxis: 0 };
+	let maxValue = { name: 'Max', value: -Infinity, xAxis: 0, yAxis: 0 };
+	const data = options.series[1].data;
+	data.forEach((value, idx) => {
+		if (value > maxValue.value) {
+			maxValue.value = value;
+			maxValue.xAxis = idx;
+			maxValue.yAxis = value;
+		}
+		if (value < minValue.value) {
+			minValue.value = value;
+			minValue.xAxis = idx;
+			minValue.yAxis = value;
+		}
+	});
+	options.series[1].markPoint.data = [maxValue, minValue];
+	chart.setOption(options);
   }
-  sharedVar.myChart.setOption({
-    title: {
-      backgroundColor: '#333',
-      text: 'SELECTED DATA INDICES: \\n' + brushed.join('\\n'),
-      bottom: 0,
-      right: '10%',
-      width: 100,
-      textStyle: {
-        fontSize: 12,
-        color: '#fff'
-      }
-    }
-  });
-};
+
   `;
 
 try {

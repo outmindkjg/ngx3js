@@ -140,5 +140,22 @@
         ]
       }
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series, idx) => { series.data = Utils.numbers({ count: series.data.length, decimals: 0, min: 0, max: 200, }); }); sharedVar.changeData(chart, options); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.xAxis.forEach((xAxis) => { xAxis.data.push(Utils.months({ count: xAxis.data.length + 1 }).pop()); }); options.series.forEach((series, idx) => { const value = Math.round(Utils.rand(0, 200)); series.data.push(value); }); sharedVar.changeData(chart, options); } }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.xAxis.forEach((xAxis) => { xAxis.data.splice(-1, 1); }); options.series.forEach((series) => { series.data.pop(); }); chart.setOption(options); } sharedVar.changeData(chart, options); }"
+    }
+  ],
+  "sharedVar": {
+    "changeData": "function( chart , options) { let minValue = { name: 'Min', value: Infinity, xAxis: 0, yAxis: 0 }; let maxValue = { name: 'Max', value: -Infinity, xAxis: 0, yAxis: 0 }; const data = options.series[1].data; data.forEach((value, idx) => { if (value > maxValue.value) { maxValue.value = value; maxValue.xAxis = idx; maxValue.yAxis = value; } if (value < minValue.value) { minValue.value = value; minValue.xAxis = idx; minValue.yAxis = value; } }); options.series[1].markPoint.data = [maxValue, minValue]; chart.setOption(options); }"
+  }
 }

@@ -102,5 +102,20 @@
         -210
       ]
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series, idx) => { switch(idx) { case 0 : /**  200, 170, 240, 244, 200, 220, 210\t\t\t\t */ series.data = Utils.numbers({ count: series.data.length, decimals: 0, min: 150, max: 250, }); break; case 1 : /**  320, 302, 341, 374, 390, 450, 420 */ series.data = Utils.numbers({ count: series.data.length, decimals: 0, min: 300, max: 450, }); break; case 2 : /**  -120, -132, -101, -134, -190, -230, -210 */ series.data = Utils.numbers({ count: series.data.length, decimals: 0, min: -250, max: -100, }); break; }  }); chart.setOption(options); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.yAxis.forEach((yAxis) => { yAxis.data.push(Utils.dayofweek({ count: yAxis.data.length + 1 }).pop()); }); options.series.forEach((series, idx) => { let value = 0; switch(idx) { case 0 : value = Math.round(Utils.rand(150, 250)); break; case 1 : value = Math.round(Utils.rand(350, 450)); break; case 2 : value = Math.round(Utils.rand(-250, -100)); break; } series.data.push(value); }); chart.setOption(options); } }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.yAxis.forEach((yAxis) => { yAxis.data.splice(-1, 1); }); options.series.forEach((series) => { series.data.pop(); }); chart.setOption(options); } }"
+    }
+  ],
+  "sharedVar": {}
 }
