@@ -153,95 +153,108 @@ const actions2 = [
 
 const sharedVar = {};
 
-const fileName = 'bar-y-category-stack';
+const fileName = 'bar-brush';
 
 const jsHtml = `
+let xAxisData = [];
+let data1 = [];
+let data2 = [];
+let data3 = [];
+let data4 = [];
+for (let i = 0; i < 10; i++) {
+  xAxisData.push('Class' + i);
+  data1.push(+(Math.random() * 2).toFixed(2));
+  data2.push(+(Math.random() * 5).toFixed(2));
+  data3.push(+(Math.random() + 0.3).toFixed(2));
+  data4.push(+Math.random().toFixed(2));
+}
+var emphasisStyle = {
+  itemStyle: {
+    shadowBlur: 10,
+    shadowColor: 'rgba(0,0,0,0.3)'
+  }
+};
 option = {
-	tooltip: {
-	  trigger: 'axis',
-	  axisPointer: {
-		// Use axis to trigger tooltip
-		type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
-	  }
-	},
-	legend: {},
-	grid: {
-	  left: '3%',
-	  right: '4%',
-	  bottom: '3%',
-	  containLabel: true
-	},
-	xAxis: {
-	  type: 'value'
-	},
-	yAxis: {
-	  type: 'category',
-	  data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-	},
-	series: [
-	  {
-		name: 'Direct',
-		type: 'bar',
-		stack: 'total',
-		label: {
-		  show: true
-		},
-		emphasis: {
-		  focus: 'series'
-		},
-		data: [320, 302, 301, 334, 390, 330, 320]
-	  },
-	  {
-		name: 'Mail Ad',
-		type: 'bar',
-		stack: 'total',
-		label: {
-		  show: true
-		},
-		emphasis: {
-		  focus: 'series'
-		},
-		data: [120, 132, 101, 134, 90, 230, 210]
-	  },
-	  {
-		name: 'Affiliate Ad',
-		type: 'bar',
-		stack: 'total',
-		label: {
-		  show: true
-		},
-		emphasis: {
-		  focus: 'series'
-		},
-		data: [220, 182, 191, 234, 290, 330, 310]
-	  },
-	  {
-		name: 'Video Ad',
-		type: 'bar',
-		stack: 'total',
-		label: {
-		  show: true
-		},
-		emphasis: {
-		  focus: 'series'
-		},
-		data: [150, 212, 201, 154, 190, 330, 410]
-	  },
-	  {
-		name: 'Search Engine',
-		type: 'bar',
-		stack: 'total',
-		label: {
-		  show: true
-		},
-		emphasis: {
-		  focus: 'series'
-		},
-		data: [820, 832, 901, 934, 1290, 1330, 1320]
-	  }
-	]
-  };
-
+  legend: {
+    data: ['bar', 'bar2', 'bar3', 'bar4'],
+    left: '10%'
+  },
+  brush: {
+    toolbox: ['rect', 'polygon', 'lineX', 'lineY', 'keep', 'clear'],
+    xAxisIndex: 0
+  },
+  toolbox: {
+    feature: {
+      magicType: {
+        type: ['stack']
+      },
+      dataView: {}
+    }
+  },
+  tooltip: {},
+  xAxis: {
+    data: xAxisData,
+    name: 'X Axis',
+    axisLine: { onZero: true },
+    splitLine: { show: false },
+    splitArea: { show: false }
+  },
+  yAxis: {},
+  grid: {
+    bottom: 100
+  },
+  series: [
+    {
+      name: 'bar',
+      type: 'bar',
+      stack: 'one',
+      emphasis: emphasisStyle,
+      data: data1
+    },
+    {
+      name: 'bar2',
+      type: 'bar',
+      stack: 'one',
+      emphasis: emphasisStyle,
+      data: data2
+    },
+    {
+      name: 'bar3',
+      type: 'bar',
+      stack: 'two',
+      emphasis: emphasisStyle,
+      data: data3
+    },
+    {
+      name: 'bar4',
+      type: 'bar',
+      stack: 'two',
+      emphasis: emphasisStyle,
+      data: data4
+    }
+  ]
+};
+sharedVar.brushSelected = function (params) {
+  var brushed = [];
+  var brushComponent = params.batch[0];
+  for (var sIdx = 0; sIdx < brushComponent.selected.length; sIdx++) {
+    var rawIndices = brushComponent.selected[sIdx].dataIndex;
+    brushed.push('[Series ' + sIdx + '] ' + rawIndices.join(', '));
+  }
+  sharedVar.myChart.setOption({
+    title: {
+      backgroundColor: '#333',
+      text: 'SELECTED DATA INDICES: \\n' + brushed.join('\\n'),
+      bottom: 0,
+      right: '10%',
+      width: 100,
+      textStyle: {
+        fontSize: 12,
+        color: '#fff'
+      }
+    }
+  });
+};
   `;
 
 try {
