@@ -39,5 +39,51 @@
         "color": "yellow"
       }
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series, idx) => { switch (idx) { case 0: series.data = Utils.numbers({ count: series.data.length, decimals: 0, min: 50, max: 200, }); break; } }); chart.setOption(options); }"
+    },
+    {
+      "name": "LineStyle",
+      "value": "dashed",
+      "select": [
+        "dashed",
+        "solid",
+        "dotted"
+      ],
+      "handler": "(chart, lineStyle) => { const options = chart.getOption(); options.series.forEach((series, idx) => { switch (idx) { case 0: series.lineStyle.type = lineStyle; break; } }); chart.setOption(options); }"
+    },
+    {
+      "name": "Line Width",
+      "value": 4,
+      "min": 1,
+      "max": 5,
+      "handler": "(chart, width) => { const options = chart.getOption(); options.series.forEach((series, idx) => { switch (idx) { case 0: series.lineStyle.width = width; break; } }); chart.setOption(options); }"
+    },
+    {
+      "name": "Symbol",
+      "value": "triangle",
+      "select": [
+        "circle",
+        "rect",
+        "roundRect",
+        "triangle",
+        "diamond",
+        "pin",
+        "arrow",
+        "none"
+      ],
+      "handler": "(chart, symbol) => { const options = chart.getOption(); options.series.forEach((series, idx) => { switch (idx) { case 0: series.symbol = symbol; break; } }); chart.setOption(options); }"
+    },
+    {
+      "name": "Symbol Size",
+      "value": 20,
+      "min": 5,
+      "max": 30,
+      "handler": "(chart, size) => { const options = chart.getOption(); options.series.forEach((series, idx) => { switch (idx) { case 0: series.symbolSize = size; break; } }); chart.setOption(options); }"
+    }
+  ],
+  "sharedVar": {}
 }

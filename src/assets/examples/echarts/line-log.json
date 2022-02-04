@@ -87,5 +87,12 @@
         0.001953125
       ]
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series, idx) => { const logRate = Math.random() + 0.5; series.data = series.data.map(value => { return value * logRate; }) }); chart.setOption(options); }"
+    }
+  ],
+  "sharedVar": {}
 }

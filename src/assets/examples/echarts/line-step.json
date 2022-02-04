@@ -81,5 +81,12 @@
         510
       ]
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series, idx) => { switch(idx) { case 0 : series.data = Utils.numbers({ count: series.data.length, decimals: 0, min: 50, max: 250, }); break; case 1 : series.data = Utils.numbers({ count: series.data.length, decimals: 0, min: 200, max: 450, }); break; case 2 : series.data = Utils.numbers({ count: series.data.length, decimals: 0, min: 400, max: 600, }); break; } }); chart.setOption(options); }"
+    }
+  ],
+  "sharedVar": {}
 }

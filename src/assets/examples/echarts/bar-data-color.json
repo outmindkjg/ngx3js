@@ -32,5 +32,20 @@
       ],
       "type": "bar"
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption();  options.series.forEach((series, idx) => { switch (idx) { case 0: const selectedIdx = Math.round(Math.random() * (series.data.length - 1)); series.data = Utils.numbers({ count: series.data.length, decimals: 0, min: 50, max: 200, }).map((value, idx) => { if (idx === selectedIdx) { return { value: value, itemStyle: { color: '#a90000' } }; } else { return value; } }); break; } }); chart.setOption(options); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.xAxis.forEach((xAxis) => { xAxis.data = Utils.dayofweek({ count: xAxis.data.length + 1 }); }); options.series.forEach((series, idx) => { switch (idx) { case 0: series.data.push(Utils.rand(50, 200)); break; } }); chart.setOption(options); } }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.xAxis.forEach((xAxis) => { xAxis.data.splice(-1, 1); }); options.series.forEach((series) => { series.data.pop(); }); chart.setOption(options); } }"
+    }
+  ],
+  "sharedVar": {}
 }

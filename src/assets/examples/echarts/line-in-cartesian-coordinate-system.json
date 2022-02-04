@@ -19,5 +19,12 @@
       ],
       "type": "line"
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series, idx) => { switch (idx) { case 0: const xData = Utils.numbers({ count: series.data.length, decimals: 0, min: 0, max: 50, }); const yData = Utils.numbers({ count: series.data.length, decimals: 0, min: 0, max: 100, }); series.data = xData.map((value, idx) => { return [value, yData[idx]]; }); break; } }); chart.setOption(options); }"
+    }
+  ],
+  "sharedVar": {}
 }

@@ -18,6 +18,7 @@
 	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.001" [far]="1000">
 		<ngx3js-position [x]="2" [y]="2" [z]="4"></ngx3js-position>
+		<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
 	</ngx3js-camera>
 	<ngx3js-scene #scene (onLoad)="setScene($event)">
 		<ngx3js-texture

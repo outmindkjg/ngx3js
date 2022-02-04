@@ -9371,7 +9371,7 @@
   "actions": [
     {
       "name": "Randomize",
-      "handler": "(chart) => { const options = chart.getOption(); const data = sharedVar.data; options.series.forEach((series, idx) => { switch (idx) { case 0: series.data = series.data.map(function (value) { return value + (Math.round((Math.random() - 0.5) * 10) / 10) * 20; }); break; case 1: series.data = series.data.map(function (value) { return value + (Math.round((Math.random() - 0.5) * 10) / 10) * 20; }); break; } }); chart.setOption(options); }"
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series, idx) => { switch (idx) { case 0: series.data = series.data.map(function (value) { return value + (Math.round((Math.random() - 0.2) * 10) / 10) * 10; }); break; case 1: series.data = series.data.map(function (value) { return value + (Math.round((Math.random() - 0.2) * 10) / 100) * 2; }); break; } }); chart.setOption(options); }"
     }
   ],
   "sharedVar": {}

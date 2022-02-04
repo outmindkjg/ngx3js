@@ -58,5 +58,20 @@
         681807
       ]
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series, idx) => { series.data = Utils.numbers({ count: series.data.length, decimals: 0, min: 18203, max: 630230, }); }); chart.setOption(options); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.yAxis.forEach((yAxis) => { yAxis.data.push(Utils.dayofweek({ count: yAxis.data.length + 1 }).pop()); }); options.series.forEach((series) => { const value = Math.round(Utils.rand(18203, 630230)); series.data.push(value); }); chart.setOption(options); } }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.yAxis.forEach((yAxis) => { yAxis.data.splice(-1, 1); }); options.series.forEach((series) => { series.data.pop(); }); chart.setOption(options); } }"
+    }
+  ],
+  "sharedVar": {}
 }

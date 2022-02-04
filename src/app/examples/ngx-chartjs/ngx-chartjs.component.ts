@@ -366,26 +366,23 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 			NgxThreeUtil.clearGui(actionFolder);
 			if (this.lastActions !== null && this.lastActions !== undefined) {
 				this.lastActions.forEach((action) => {
-					if (
-						typeof action.handler === 'function' &&
-						typeof action.onclick === 'function'
-					) {
+					if (typeof action.handler === 'function' && typeof action.onclick === 'function') {
 						actionFolder.add(action, 'onclick').name(action.name);
-					} else if (
-						action.handler !== null &&
-						typeof action.handler === 'object' &&
-						action.property !== null
-					) {
-						const actionControler = actionFolder
-							.add(action.handler, action.property)
-							.name(action.name)
-							.listen(true);
+					} else if (action.handler !== null) {
+						let actionControler : I3JS.GUIController = null;
+						if (typeof action.handler === 'object' && action.property !== null) {
+							actionControler = actionFolder.add(action.handler, action.property).name(action.name).listen(true);
+						} else if (NgxThreeUtil.isNotNull(action.select)){
+							actionControler = actionFolder.add(action, 'value', action.select).name(action.name).listen(true);
+						} else {
+							actionControler = actionFolder.add(action, 'value', action.min, action.max, action.step).name(action.name).listen(true);
+						}
 						if (NgxThreeUtil.isNotNull(action.change)) {
 							actionControler.onChange(action.change);
 						}
-						switch (action.name) {
-							case 'initProgress':
-							case 'progress':
+						switch(action.name) {
+							case "initProgress" :
+							case "progress" :
 								actionControler.max(1).min(0);
 								break;
 						}

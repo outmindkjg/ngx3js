@@ -2,25 +2,15 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as echarts from 'echarts';
 import 'echarts-gl';
-
 import {
-	I3JS,
+	ChartAction, ECHARTS, I3JS,
 	N3JS,
 	NgxBaseComponent,
 	NgxRendererComponent,
 	NgxSceneComponent,
-	NgxThreeUtil,
-	ChartAction, ChartUtils,
-	ECHARTS
+	NgxThreeUtil
 } from 'ngx3js';
 
-interface SeriesDataTypes {
-	count: number;
-	min: number;
-	max: number;
-	decimals: number;
-	type: string;
-}
 
 @Component({
 	selector: 'app-ngx-echarts',
@@ -378,8 +368,15 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 				this.lastActions.forEach((action) => {
 					if (typeof action.handler === 'function' && typeof action.onclick === 'function') {
 						actionFolder.add(action, 'onclick').name(action.name);
-					} else if (action.handler !== null && typeof action.handler === 'object' && action.property !== null) {
-						const actionControler = actionFolder.add(action.handler, action.property).name(action.name).listen(true);
+					} else if (action.handler !== null) {
+						let actionControler : I3JS.GUIController = null;
+						if (typeof action.handler === 'object' && action.property !== null) {
+							actionControler = actionFolder.add(action.handler, action.property).name(action.name).listen(true);
+						} else if (NgxThreeUtil.isNotNull(action.select)){
+							actionControler = actionFolder.add(action, 'value', action.select).name(action.name).listen(true);
+						} else {
+							actionControler = actionFolder.add(action, 'value', action.min, action.max, action.step).name(action.name).listen(true);
+						}
 						if (NgxThreeUtil.isNotNull(action.change)) {
 							actionControler.onChange(action.change);
 						}

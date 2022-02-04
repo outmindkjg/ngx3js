@@ -7,7 +7,8 @@
     "trigger": "axis",
     "axisPointer": {
       "type": "shadow"
-    }
+    },
+    "formatter": "function (params) { var tar = params[1]; return tar.name + '\\n' + tar.seriesName + ' : ' + tar.value; }"
   },
   "grid": {
     "left": "3%",
@@ -73,5 +74,20 @@
         300
       ]
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption();  options.series.forEach((series, idx) => { switch (idx) { case 0: series.data = Utils.numbers({ count: series.data.length, decimals: 0, min: 200, max: 3000, }); break; } }); chart.setOption(options); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.xAxis.forEach((xAxis) => { xAxis.data.push(Utils.dayofweek({ count: xAxis.data.length + 1 }).pop()); }); options.series.forEach((series) => { series.data.push(Math.round(Utils.rand(200, 3000))); }); chart.setOption(options); } }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.xAxis.forEach((xAxis) => { xAxis.data.splice(-1, 1); }); options.series.forEach((series) => { series.data.pop(); }); chart.setOption(options); } }"
+    }
+  ],
+  "sharedVar": {}
 }

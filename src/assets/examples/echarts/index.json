@@ -36,7 +36,7 @@
 			{ "url": "line-pen", "name": "Click to Add Points" },
 			{ "url": "line-draggable", "name": "Try Dragging these Points" },
 			{ "url": "line-polar", "name": "Two Value-Axes in Polar" },
-			{ "url": "line-polar2", "name": "Two Value-Axes in Polar" },
+			{ "url": "line-polar2", "name": "Two Value-Axes in Polar2" },
 			{ "url": "line-tooltip-touch", "name": "Tooltip and DataZoom on Mobile" },
 			{ "url": "dataset-link", "name": "Share Dataset" }
 		]
@@ -48,8 +48,8 @@
 			{ "url": "bar-simple", "name": "Basic Bar" },
 			{ "url": "bar-tick-align", "name": "Axis Align with Tick" },
 			{ "url": "bar-data-color", "name": "Set Style of Single Bar." },
-			{ "url": "bar-waterfall", "name": "Waterfall Chart" },
-			{ "url": "bar-negative2", "name": "Bar Chart with Negative Value" },
+			{ "url": "bar-waterfall", "name": "Bar Waterfall Chart" },
+			{ "url": "bar-negative2", "name": "Bar Chart with Negative Value2" },
 			{
 				"url": "bar-polar-label-radial",
 				"name": "Radial Polar Bar Label Position"
@@ -62,7 +62,7 @@
 			{ "url": "bar-gradient", "name": "Clickable Column Chart with Gradient" },
 			{ "url": "bar-label-rotation", "name": "Bar Label Rotation" },
 			{ "url": "bar-stack", "name": "Stacked Column Chart" },
-			{ "url": "bar-waterfall2", "name": "Waterfall Chart" },
+			{ "url": "bar-waterfall2", "name": "Bar Waterfall Chart2" },
 			{ "url": "bar-y-category-stack", "name": "Stacked Horizontal Bar" },
 			{ "url": "bar-brush", "name": "Brush Select on Column Chart" },
 			{ "url": "bar-negative", "name": "Bar Chart with Negative Value" },
