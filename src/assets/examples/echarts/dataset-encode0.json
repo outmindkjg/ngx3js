@@ -88,5 +88,7 @@
         "y": "product"
       }
     }
-  ]
+  ],
+  "actions": [],
+  "sharedVar": {}
 }

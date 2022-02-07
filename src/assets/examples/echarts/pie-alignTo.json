@@ -1,319 +1,28 @@
 {
-  "darkMode": "auto",
-  "colorBy": "series",
-  "color": [
-    "#5470c6",
-    "#91cc75",
-    "#fac858",
-    "#ee6666",
-    "#73c0de",
-    "#3ba272",
-    "#fc8452",
-    "#9a60b4",
-    "#ea7ccc"
-  ],
-  "gradientColor": [
-    "#f6efa6",
-    "#d88273",
-    "#bf444c"
-  ],
-  "aria": {
-    "decal": {
-      "decals": [
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            2,
-            5
-          ],
-          "symbolSize": 1,
-          "rotation": 0.5235987755982988
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "circle",
-          "dashArrayX": [
-            [
-              8,
-              8
-            ],
-            [
-              0,
-              8,
-              8,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ],
-          "symbolSize": 0.8
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            4,
-            3
-          ],
-          "rotation": -0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              6,
-              6
-            ],
-            [
-              0,
-              6,
-              6,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ]
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              1,
-              0
-            ],
-            [
-              1,
-              6
-            ]
-          ],
-          "dashArrayY": [
-            1,
-            0,
-            6,
-            0
-          ],
-          "rotation": 0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "triangle",
-          "dashArrayX": [
-            [
-              9,
-              9
-            ],
-            [
-              0,
-              9,
-              9,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            7,
-            2
-          ],
-          "symbolSize": 0.75
-        }
-      ]
-    }
-  },
-  "textStyle": {
-    "fontFamily": "sans-serif",
-    "fontSize": 12,
-    "fontStyle": "normal",
-    "fontWeight": "normal"
-  },
-  "stateAnimation": {
-    "duration": 300,
-    "easing": "cubicOut"
-  },
-  "animation": "auto",
-  "animationDuration": 1000,
-  "animationDurationUpdate": 500,
-  "animationEasing": "cubicInOut",
-  "animationEasingUpdate": "cubicInOut",
-  "animationThreshold": 2000,
-  "progressiveThreshold": 3000,
-  "progressive": 400,
-  "hoverLayerThreshold": 3000,
-  "useUTC": false,
   "title": [
     {
       "text": "Pie label alignTo",
-      "left": "center",
-      "zlevel": 0,
-      "z": 6,
-      "show": true,
-      "target": "blank",
-      "subtext": "",
-      "subtarget": "blank",
-      "top": 0,
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderColor": "#ccc",
-      "borderWidth": 0,
-      "padding": 5,
-      "itemGap": 10,
-      "textStyle": {
-        "fontSize": 18,
-        "fontWeight": "bold",
-        "color": "#464646"
-      },
-      "subtextStyle": {
-        "fontSize": 12,
-        "color": "#6E7079"
-      },
-      "right": null
+      "left": "center"
     },
     {
       "subtext": "alignTo: \"none\" (default)",
       "left": "16.67%",
       "top": "75%",
-      "textAlign": "center",
-      "zlevel": 0,
-      "z": 6,
-      "show": true,
-      "text": "",
-      "target": "blank",
-      "subtarget": "blank",
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderColor": "#ccc",
-      "borderWidth": 0,
-      "padding": 5,
-      "itemGap": 10,
-      "textStyle": {
-        "fontSize": 18,
-        "fontWeight": "bold",
-        "color": "#464646"
-      },
-      "subtextStyle": {
-        "fontSize": 12,
-        "color": "#6E7079"
-      },
-      "right": null,
-      "bottom": null
+      "textAlign": "center"
     },
     {
       "subtext": "alignTo: \"labelLine\"",
       "left": "50%",
       "top": "75%",
-      "textAlign": "center",
-      "zlevel": 0,
-      "z": 6,
-      "show": true,
-      "text": "",
-      "target": "blank",
-      "subtarget": "blank",
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderColor": "#ccc",
-      "borderWidth": 0,
-      "padding": 5,
-      "itemGap": 10,
-      "textStyle": {
-        "fontSize": 18,
-        "fontWeight": "bold",
-        "color": "#464646"
-      },
-      "subtextStyle": {
-        "fontSize": 12,
-        "color": "#6E7079"
-      },
-      "right": null,
-      "bottom": null
+      "textAlign": "center"
     },
     {
       "subtext": "alignTo: \"edge\"",
       "left": "83.33%",
       "top": "75%",
-      "textAlign": "center",
-      "zlevel": 0,
-      "z": 6,
-      "show": true,
-      "text": "",
-      "target": "blank",
-      "subtarget": "blank",
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderColor": "#ccc",
-      "borderWidth": 0,
-      "padding": 5,
-      "itemGap": 10,
-      "textStyle": {
-        "fontSize": 18,
-        "fontWeight": "bold",
-        "color": "#464646"
-      },
-      "subtextStyle": {
-        "fontSize": 12,
-        "color": "#6E7079"
-      },
-      "right": null,
-      "bottom": null
+      "textAlign": "center"
     }
   ],
-  "axisPointer": [
-    {
-      "show": "auto",
-      "zlevel": 0,
-      "z": 50,
-      "type": "line",
-      "snap": false,
-      "triggerTooltip": true,
-      "value": null,
-      "status": null,
-      "link": [],
-      "animation": null,
-      "animationDurationUpdate": 200,
-      "lineStyle": {
-        "color": "#B9BEC9",
-        "width": 1,
-        "type": "dashed"
-      },
-      "shadowStyle": {
-        "color": "rgba(210,219,238,0.2)"
-      },
-      "label": {
-        "show": true,
-        "formatter": null,
-        "precision": "auto",
-        "margin": 3,
-        "color": "#fff",
-        "padding": [
-          5,
-          7,
-          5,
-          7
-        ],
-        "backgroundColor": "auto",
-        "borderColor": null,
-        "borderWidth": 0,
-        "borderRadius": 3
-      },
-      "handle": {
-        "show": false,
-        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
-        "size": 45,
-        "margin": 50,
-        "color": "#333",
-        "shadowBlur": 3,
-        "shadowColor": "#aaa",
-        "shadowOffsetX": 0,
-        "shadowOffsetY": 2,
-        "throttle": 40
-      }
-    }
-  ],
-  "tooltip": [],
   "series": [
     {
       "type": "pie",
@@ -355,71 +64,12 @@
       "label": {
         "position": "outer",
         "alignTo": "none",
-        "bleedMargin": 5,
-        "rotate": 0,
-        "show": true,
-        "overflow": "truncate",
-        "edgeDistance": "25%",
-        "distanceToLabelLine": 5
+        "bleedMargin": 5
       },
       "left": 0,
       "right": "66.6667%",
       "top": 0,
-      "bottom": 0,
-      "zlevel": 0,
-      "z": 2,
-      "legendHoverLink": true,
-      "colorBy": "data",
-      "clockwise": true,
-      "startAngle": 90,
-      "minAngle": 0,
-      "minShowLabelAngle": 0,
-      "selectedOffset": 10,
-      "percentPrecision": 2,
-      "stillShowZeroSum": true,
-      "width": null,
-      "height": null,
-      "labelLine": {
-        "show": true,
-        "length": 15,
-        "length2": 15,
-        "smooth": false,
-        "minTurnAngle": 90,
-        "maxSurfaceAngle": 90,
-        "lineStyle": {
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "itemStyle": {
-        "borderWidth": 1,
-        "borderJoin": "round"
-      },
-      "showEmptyCircle": true,
-      "emptyCircleStyle": {
-        "color": "lightgray",
-        "opacity": 1
-      },
-      "labelLayout": {
-        "hideOverlap": true
-      },
-      "emphasis": {
-        "scale": true,
-        "scaleSize": 5,
-        "label": {
-          "show": true
-        },
-        "labelLine": {
-          "show": true
-        }
-      },
-      "avoidLabelOverlap": true,
-      "animationType": "expansion",
-      "animationDuration": 1000,
-      "animationTypeUpdate": "transition",
-      "animationEasingUpdate": "cubicInOut",
-      "animationDurationUpdate": 500,
-      "animationEasing": "cubicInOut"
+      "bottom": 0
     },
     {
       "type": "pie",
@@ -461,71 +111,12 @@
       "label": {
         "position": "outer",
         "alignTo": "labelLine",
-        "bleedMargin": 5,
-        "rotate": 0,
-        "show": true,
-        "overflow": "truncate",
-        "edgeDistance": "25%",
-        "distanceToLabelLine": 5
+        "bleedMargin": 5
       },
       "left": "33.3333%",
       "right": "33.3333%",
       "top": 0,
-      "bottom": 0,
-      "zlevel": 0,
-      "z": 2,
-      "legendHoverLink": true,
-      "colorBy": "data",
-      "clockwise": true,
-      "startAngle": 90,
-      "minAngle": 0,
-      "minShowLabelAngle": 0,
-      "selectedOffset": 10,
-      "percentPrecision": 2,
-      "stillShowZeroSum": true,
-      "width": null,
-      "height": null,
-      "labelLine": {
-        "show": true,
-        "length": 15,
-        "length2": 15,
-        "smooth": false,
-        "minTurnAngle": 90,
-        "maxSurfaceAngle": 90,
-        "lineStyle": {
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "itemStyle": {
-        "borderWidth": 1,
-        "borderJoin": "round"
-      },
-      "showEmptyCircle": true,
-      "emptyCircleStyle": {
-        "color": "lightgray",
-        "opacity": 1
-      },
-      "labelLayout": {
-        "hideOverlap": true
-      },
-      "emphasis": {
-        "scale": true,
-        "scaleSize": 5,
-        "label": {
-          "show": true
-        },
-        "labelLine": {
-          "show": true
-        }
-      },
-      "avoidLabelOverlap": true,
-      "animationType": "expansion",
-      "animationDuration": 1000,
-      "animationTypeUpdate": "transition",
-      "animationEasingUpdate": "cubicInOut",
-      "animationDurationUpdate": 500,
-      "animationEasing": "cubicInOut"
+      "bottom": 0
     },
     {
       "type": "pie",
@@ -567,79 +158,14 @@
       "label": {
         "position": "outer",
         "alignTo": "edge",
-        "margin": 20,
-        "edgeDistance": 20,
-        "rotate": 0,
-        "show": true,
-        "overflow": "truncate",
-        "bleedMargin": 10,
-        "distanceToLabelLine": 5
+        "margin": 20
       },
       "left": "66.6667%",
       "right": 0,
       "top": 0,
-      "bottom": 0,
-      "zlevel": 0,
-      "z": 2,
-      "legendHoverLink": true,
-      "colorBy": "data",
-      "clockwise": true,
-      "startAngle": 90,
-      "minAngle": 0,
-      "minShowLabelAngle": 0,
-      "selectedOffset": 10,
-      "percentPrecision": 2,
-      "stillShowZeroSum": true,
-      "width": null,
-      "height": null,
-      "labelLine": {
-        "show": true,
-        "length": 15,
-        "length2": 15,
-        "smooth": false,
-        "minTurnAngle": 90,
-        "maxSurfaceAngle": 90,
-        "lineStyle": {
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "itemStyle": {
-        "borderWidth": 1,
-        "borderJoin": "round"
-      },
-      "showEmptyCircle": true,
-      "emptyCircleStyle": {
-        "color": "lightgray",
-        "opacity": 1
-      },
-      "labelLayout": {
-        "hideOverlap": true
-      },
-      "emphasis": {
-        "scale": true,
-        "scaleSize": 5,
-        "label": {
-          "show": true
-        },
-        "labelLine": {
-          "show": true
-        }
-      },
-      "avoidLabelOverlap": true,
-      "animationType": "expansion",
-      "animationDuration": 1000,
-      "animationTypeUpdate": "transition",
-      "animationEasingUpdate": "cubicInOut",
-      "animationDurationUpdate": 500,
-      "animationEasing": "cubicInOut"
+      "bottom": 0
     }
   ],
-  "visualMap": [],
-  "legend": [],
-  "markArea": [],
-  "markLine": [],
-  "markPoint": [],
-  "brush": [],
-  "dataZoom": []
+  "actions": [],
+  "sharedVar": {}
 }

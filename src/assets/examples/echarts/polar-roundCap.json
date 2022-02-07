@@ -61,5 +61,7 @@
       "Without Round Cap",
       "With Round Cap"
     ]
-  }
+  },
+  "actions": [],
+  "sharedVar": {}
 }

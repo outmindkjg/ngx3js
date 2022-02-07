@@ -246,7 +246,7 @@ const colorRgbParse = function (str) {
 
 const transparentize = function (value, opacity) {
 	var alpha = opacity === undefined ? 0.5 : 1 - opacity;
-	const colorRgb = colorHexParse(value) || colorRgbParse(value);
+	const colorRgb = colorHexParse(value) || colorRgbParse(value) | value;
 	return (
 		'rgba(' +
 		colorRgb.r +

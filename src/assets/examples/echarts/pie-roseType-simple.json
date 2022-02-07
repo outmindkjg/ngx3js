@@ -71,5 +71,7 @@
         }
       ]
     }
-  ]
+  ],
+  "actions": [],
+  "sharedVar": {}
 }

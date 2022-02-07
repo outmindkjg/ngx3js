@@ -116,12 +116,7 @@
       }
     }
   ],
-  "actions": [
-    {
-      "name": "Randomize",
-      "handler": "(chart) => { const options = chart.getOption(); const dataset = options.dataset[0]; dataset.source = dataset.source.map((data, idx) => { if (idx === 0) { return data; } else { return data.map((value, no) => { if (no === 0) { return value; } else { return Math.round(value + (Math.random() - 0.5) * 30); } }) } }); chart.setOption(options); }"
-    }
-  ],
+  "actions": [],
   "sharedVar": {
     "updateAxisPointer": "function (event) { const xAxisInfo = event.axesInfo[0]; if (xAxisInfo) { const dimension = xAxisInfo.value + 1; sharedVar.myChart.setOption({ series: { id: 'pie', label: { formatter: '{b}: {@[' + dimension + ']} ({d}%)' }, encode: { value: dimension, tooltip: dimension } } }); } }"
   }

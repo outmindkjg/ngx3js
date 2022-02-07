@@ -79,6 +79,9 @@
     {
       "name": "Evaporation",
       "type": "bar",
+      "tooltip": {
+        "valueFormatter": "function (value) { return value + ' ml'; }"
+      },
       "data": [
         2,
         4.9,
@@ -97,6 +100,9 @@
     {
       "name": "Precipitation",
       "type": "bar",
+      "tooltip": {
+        "valueFormatter": "function (value) { return value + ' ml'; }"
+      },
       "data": [
         2.6,
         5.9,
@@ -116,6 +122,9 @@
       "name": "Temperature",
       "type": "line",
       "yAxisIndex": 1,
+      "tooltip": {
+        "valueFormatter": "function (value) { return value + ' °C'; }"
+      },
       "data": [
         2,
         2.2,
@@ -131,5 +140,20 @@
         6.2
       ]
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series, idx) => { switch(idx) { case 0 : case 1 : series.data = Utils.numbers({ count: series.data.length, decimals: 1, min: 0, max: 200, }); break; case 2 : series.data = Utils.numbers({ count: series.data.length, decimals: 1, min: 0, max: 25, }); break; } }); chart.setOption(options); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.xAxis.forEach((xAxis) => { xAxis.data.push(Utils.dayofweek({ count: xAxis.data.length + 1 }).pop()); }); options.series.forEach((series, idx) => { switch(idx) { case 0 : case 1 : { const value = Math.round(Utils.rand(0, 200)); series.data.push(value); } break; case 2 :{ const value = Math.round(Utils.rand(0, 20)); series.data.push(value); } break; } }); chart.setOption(options); } }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.xAxis.forEach((xAxis) => { xAxis.data.splice(-1, 1); }); options.series.forEach((series) => { series.data.pop(); }); chart.setOption(options); } }"
+    }
+  ],
+  "sharedVar": {}
 }

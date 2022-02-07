@@ -11,6 +11,7 @@
   },
   "tooltip": {
     "showDelay": 0,
+    "formatter": "function (params) { if (params.value.length > 1) { return ( params.seriesName + ' :\\n' + params.value[0] + 'cm ' + params.value[1] + 'kg ' ); } else { return ( params.seriesName + ' :\\n' + params.name + ' : ' + params.value + 'kg ' ); } }",
     "axisPointer": {
       "show": true,
       "type": "cross",
@@ -2206,5 +2207,7 @@
         ]
       }
     }
-  ]
+  ],
+  "actions": [],
+  "sharedVar": {}
 }

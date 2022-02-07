@@ -49,5 +49,7 @@
     {
       "type": "bar"
     }
-  ]
+  ],
+  "actions": [],
+  "sharedVar": {}
 }

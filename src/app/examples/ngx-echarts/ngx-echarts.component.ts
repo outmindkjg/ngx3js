@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as echarts from 'echarts';
 import 'echarts-gl';
+import ecStat from 'echarts-stat';
+
 import {
 	ChartAction, ECHARTS, I3JS,
 	N3JS,
@@ -273,6 +275,7 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 	}
 
 	ngOnInit(): void {
+		echarts.registerTransform((ecStat as any).transform.clustering);
 		this.echarts = echarts;
 		this.subscribeRefer(
 			'router',

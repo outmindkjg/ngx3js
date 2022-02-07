@@ -96,5 +96,7 @@
       ],
       "type": "scatter"
     }
-  ]
+  ],
+  "actions": [],
+  "sharedVar": {}
 }

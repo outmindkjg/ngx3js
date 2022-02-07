@@ -27,6 +27,7 @@
     "chartjs-adapter-luxon": "^1.1.0",
     "echarts": "^5.2.2",
     "echarts-gl": "^2.0.8",
+    "echarts-stat": "^1.2.0",
     "gsap": "^3.8.0",
     "luxon": "^2.3.0",
     "ngx-highlightjs": "^4.1.4",

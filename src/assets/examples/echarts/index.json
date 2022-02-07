@@ -73,7 +73,7 @@
 			{ "url": "bar-animation-delay", "name": "Animation Delay" },
 			{ "url": "bar-drilldown", "name": "Bar Chart Drilldown Animation." },
 			{ "url": "bar-race", "name": "Bar Race" },
-			{ "url": "bar-race-country", "name": "Bar Race" },
+			{ "url": "bar-race-country", "name": "Bar Race Country" },
 			{ "url": "bar-rich-text", "name": "Wheater Statistics" },
 			{ "url": "dynamic-data", "name": "Dynamic Data" },
 			{ "url": "mix-timeline-finance", "name": "Finance Indices 2002" },
@@ -106,7 +106,7 @@
 			{ "url": "pie-custom", "name": "Customized Pie" },
 			{ "url": "pie-pattern", "name": "Texture on Pie Chart" },
 			{ "url": "pie-roseType", "name": "Nightingale Chart" },
-			{ "url": "pie-roseType-simple", "name": "Nightingale Chart" },
+			{ "url": "pie-roseType-simple", "name": "Nightingale Chart Simple" },
 			{ "url": "pie-alignTo", "name": "Pie Label Align" },
 			{ "url": "pie-labelLine-adjust", "name": "Label Line Adjust" },
 			{ "url": "pie-legend", "name": "Pie with Scrollable Legend" },
@@ -128,7 +128,7 @@
 			{ "url": "scatter-single-axis", "name": "Scatter on Single Axis" },
 			{ "url": "scatter-weight", "name": "Distribution of Height and Weight" },
 			{ "url": "scatter-aggregate-bar", "name": "Aggregate Scatter to Bar" },
-			{ "url": "scatter-label-align-right", "name": "Align Label on the Top" },
+			{ "url": "scatter-label-align-right", "name": "Align Label on the Right" },
 			{ "url": "scatter-label-align-top", "name": "Align Label on the Top" },
 			{ "url": "scatter-symbol-morph", "name": "Symbol Shape Morph" },
 			{
@@ -139,7 +139,7 @@
 			{ "url": "scatter-aqi-color", "name": "Scatter Aqi Color" },
 			{ "url": "scatter-nutrients", "name": "Scatter Nutrients" },
 			{ "url": "scatter-nutrients-matrix", "name": "Scatter Nutrients Matrix" },
-			{ "url": "scatter-polar-punchCard", "name": "Punch Card of Github" },
+			{ "url": "scatter-polar-punchCard", "name": "Polar Punch Card of Github" },
 			{
 				"url": "scatter-life-expectancy-timeline",
 				"name": "Life Expectancy and GDP"
