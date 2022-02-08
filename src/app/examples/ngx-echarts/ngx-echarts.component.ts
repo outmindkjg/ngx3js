@@ -23,6 +23,7 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 	geometry: string;
 	autoLookat: boolean;
 	type: number;
+	useDrag : boolean;
 	example: string;
 	width: number;
 	height: number;
@@ -47,6 +48,7 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 				geometry: 'BoxGeometry',
 				autoLookat: false,
 				type: 0,
+				useDrag : true,
 				example: 'line-gradient',
 				width: 2,
 				height: 2,
@@ -99,6 +101,11 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 						{
 							name: 'autoLookat',
 							title: 'Lookat Camera',
+							type: 'checkbox',
+						},
+						{
+							name: 'useDrag',
+							title: 'use Mouse Drag',
 							type: 'checkbox',
 						},
 						{
@@ -322,44 +329,8 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 
 	private lastLoadedExample: string = null;
 	private chart: ECHARTS.ECharts = null;
-
-	private intervalRunTimer: any = null;
 	public setChart(chart: ECHARTS.ECharts) {
 		this.chart = chart;
-		if (this.intervalRunTimer !== null) {
-			window.clearInterval(this.intervalRunTimer);
-			this.intervalRunTimer = null;
-		}
-		switch (this.lastLoadedExample) {
-			case 'gauge-clock':
-				this.intervalRunTimer = window.setInterval(() => {
-					var date = new Date();
-					var second = date.getSeconds();
-					var minute = date.getMinutes() + second / 60;
-					var hour = (date.getHours() % 12) + minute / 60;
-					this.chart.setOption({
-						series: [
-							{
-								name: 'hour',
-								animation: hour !== 0,
-								data: [{ value: hour }],
-							},
-							{
-								name: 'minute',
-								animation: minute !== 0,
-								data: [{ value: minute }],
-							},
-							{
-								animation: second !== 0,
-								name: 'second',
-								data: [{ value: second }],
-							},
-						],
-					});
-				}, 1000);
-				break;
-		}
-
 		if (this.lastActions !== this.option.actions) {
 			this.lastActions = this.option.actions;
 			const actionFolder = NgxThreeUtil.getGuiFolder(

@@ -121,5 +121,9 @@
         }
       }
     }
-  ]
+  ],
+  "actions": [],
+  "sharedVar": {
+    "setInterval": "function (myChart) { return setInterval(function () { myChart.setOption({ series: [ { type: 'gauge', data: [ { value: +(Math.random() * 100).toFixed(2), name: 'PLP' } ] } ] }); }, 2000); }"
+  }
 }

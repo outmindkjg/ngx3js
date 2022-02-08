@@ -4,7 +4,7 @@
   },
   "tooltip": {
     "trigger": "item",
-    "formatter": "{a} <br/>{b} : {c}%"
+    "formatter": "{a} \n{b} : {c}%"
   },
   "toolbox": {
     "feature": {
@@ -81,5 +81,7 @@
         }
       ]
     }
-  ]
+  ],
+  "actions": [],
+  "sharedVar": {}
 }

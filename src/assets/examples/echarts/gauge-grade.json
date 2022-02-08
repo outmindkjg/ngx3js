@@ -59,7 +59,8 @@
       "axisLabel": {
         "color": "#464646",
         "fontSize": 20,
-        "distance": -60
+        "distance": -60,
+        "formatter": "function (value) { if (value === 0.875) { return 'A'; } else if (value === 0.625) { return 'B'; } else if (value === 0.375) { return 'C'; } else if (value === 0.125) { return 'D'; } return ''; }"
       },
       "title": {
         "offsetCenter": [
@@ -75,6 +76,7 @@
           "0%"
         ],
         "valueAnimation": true,
+        "formatter": "function (value) { return Math.round(value * 100) + '分'; }",
         "color": "auto"
       },
       "data": [
@@ -84,5 +86,12 @@
         }
       ]
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series, idx) => { series.data[0].value = Math.round(Utils.rand(0, 1) * 1000) / 1000; }); chart.setOption(options); }"
+    }
+  ],
+  "sharedVar": {}
 }

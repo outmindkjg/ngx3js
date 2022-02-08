@@ -1,1016 +1,55 @@
 {
   "backgroundColor": "#333",
-  "darkMode": "auto",
-  "colorBy": "series",
-  "color": [
-    "#5470c6",
-    "#91cc75",
-    "#fac858",
-    "#ee6666",
-    "#73c0de",
-    "#3ba272",
-    "#fc8452",
-    "#9a60b4",
-    "#ea7ccc"
-  ],
-  "gradientColor": [
-    "#f6efa6",
-    "#d88273",
-    "#bf444c"
-  ],
-  "aria": {
-    "decal": {
-      "decals": [
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            2,
-            5
-          ],
-          "symbolSize": 1,
-          "rotation": 0.5235987755982988
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "circle",
-          "dashArrayX": [
-            [
-              8,
-              8
-            ],
-            [
-              0,
-              8,
-              8,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ],
-          "symbolSize": 0.8
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            4,
-            3
-          ],
-          "rotation": -0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              6,
-              6
-            ],
-            [
-              0,
-              6,
-              6,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ]
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              1,
-              0
-            ],
-            [
-              1,
-              6
-            ]
-          ],
-          "dashArrayY": [
-            1,
-            0,
-            6,
-            0
-          ],
-          "rotation": 0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "triangle",
-          "dashArrayX": [
-            [
-              9,
-              9
-            ],
-            [
-              0,
-              9,
-              9,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            7,
-            2
-          ],
-          "symbolSize": 0.75
-        }
-      ]
+  "legend": {
+    "bottom": 30,
+    "data": [
+      "Beijing",
+      "Shanghai",
+      "Guangzhou"
+    ],
+    "itemGap": 20,
+    "textStyle": {
+      "color": "#fff",
+      "fontSize": 14
     }
   },
-  "textStyle": {
-    "fontFamily": "sans-serif",
-    "fontSize": 12,
-    "fontStyle": "normal",
-    "fontWeight": "normal"
+  "tooltip": {
+    "padding": 10,
+    "backgroundColor": "#222",
+    "borderColor": "#777",
+    "borderWidth": 1
   },
-  "stateAnimation": {
-    "duration": 300,
-    "easing": "cubicOut"
-  },
-  "animation": "auto",
-  "animationDuration": 1000,
-  "animationDurationUpdate": 500,
-  "animationEasing": "cubicInOut",
-  "animationEasingUpdate": "cubicInOut",
-  "animationThreshold": 2000,
-  "progressiveThreshold": 3000,
-  "progressive": 400,
-  "hoverLayerThreshold": 3000,
-  "useUTC": false,
-  "axisPointer": [
-    {
-      "show": "auto",
-      "zlevel": 0,
-      "z": 50,
-      "type": "line",
-      "snap": false,
-      "triggerTooltip": true,
-      "value": null,
-      "status": null,
-      "link": [],
-      "animation": null,
-      "animationDurationUpdate": 200,
-      "lineStyle": {
-        "color": "#B9BEC9",
-        "width": 1,
-        "type": "dashed"
-      },
-      "shadowStyle": {
-        "color": "rgba(210,219,238,0.2)"
-      },
-      "label": {
-        "show": true,
-        "formatter": null,
-        "precision": "auto",
-        "margin": 3,
-        "color": "#fff",
-        "padding": [
-          5,
-          7,
-          5,
-          7
-        ],
-        "backgroundColor": "auto",
-        "borderColor": null,
-        "borderWidth": 0,
-        "borderRadius": 3
-      },
-      "handle": {
-        "show": false,
-        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
-        "size": 45,
-        "margin": 50,
-        "color": "#333",
-        "shadowBlur": 3,
-        "shadowColor": "#aaa",
-        "shadowOffsetX": 0,
-        "shadowOffsetY": 2,
-        "throttle": 40
-      }
-    }
-  ],
-  "tooltip": [
-    {
-      "padding": 10,
-      "backgroundColor": "#222",
-      "borderColor": "#777",
-      "borderWidth": 1,
-      "zlevel": 0,
-      "z": 60,
-      "show": true,
-      "showContent": true,
-      "trigger": "item",
-      "triggerOn": "mousemove|click",
-      "alwaysShowContent": false,
-      "displayMode": "single",
-      "renderMode": "auto",
-      "confine": null,
-      "showDelay": 0,
-      "hideDelay": 100,
-      "transitionDuration": 0.4,
-      "enterable": false,
-      "shadowBlur": 10,
-      "shadowColor": "rgba(0, 0, 0, .2)",
-      "shadowOffsetX": 1,
-      "shadowOffsetY": 2,
-      "borderRadius": 4,
-      "extraCssText": "",
-      "axisPointer": {
-        "type": "line",
-        "axis": "auto",
-        "animation": "auto",
-        "animationDurationUpdate": 200,
-        "animationEasingUpdate": "exponentialOut",
-        "crossStyle": {
-          "color": "#999",
-          "width": 1,
-          "type": "dashed",
-          "textStyle": {}
-        }
-      },
-      "textStyle": {
-        "color": "#666",
-        "fontSize": 14
-      }
-    }
-  ],
   "parallelAxis": [
     {
       "dim": 0,
       "name": "日期",
       "inverse": true,
       "max": 31,
-      "nameLocation": "start",
-      "type": "value",
-      "nameGap": 20,
-      "nameTextStyle": {
-        "color": "#fff",
-        "fontSize": 12
-      },
-      "axisLine": {
-        "lineStyle": {
-          "color": "#aaa",
-          "width": 1,
-          "type": "solid"
-        },
-        "show": "auto",
-        "onZero": true,
-        "onZeroAxisIndex": null,
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
-        ]
-      },
-      "axisTick": {
-        "lineStyle": {
-          "color": "#777",
-          "width": 1
-        },
-        "show": "auto",
-        "inside": false,
-        "length": 5
-      },
-      "splitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "axisLabel": {
-        "color": "#fff",
-        "show": true,
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null,
-        "margin": 8,
-        "fontSize": 12
-      },
-      "boundaryGap": [
-        0,
-        0
-      ],
-      "splitNumber": 5,
-      "minorTick": {
-        "show": false,
-        "splitNumber": 5,
-        "length": 3,
-        "lineStyle": {}
-      },
-      "minorSplitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": "#F4F7FD",
-          "width": 1
-        }
-      },
-      "show": true,
-      "zlevel": 0,
-      "z": 10,
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
-        "show": false
-      },
-      "axisPointer": {},
-      "splitArea": {
-        "show": false,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
-      },
-      "areaSelectStyle": {
-        "width": 20,
-        "borderWidth": 1,
-        "borderColor": "rgba(160,197,232)",
-        "color": "rgba(160,197,232)",
-        "opacity": 0.3
-      },
-      "realtime": true
+      "nameLocation": "start"
     },
     {
       "dim": 1,
-      "name": "AQI",
-      "type": "value",
-      "nameLocation": "end",
-      "nameGap": 20,
-      "nameTextStyle": {
-        "color": "#fff",
-        "fontSize": 12
-      },
-      "axisLine": {
-        "lineStyle": {
-          "color": "#aaa",
-          "width": 1,
-          "type": "solid"
-        },
-        "show": "auto",
-        "onZero": true,
-        "onZeroAxisIndex": null,
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
-        ]
-      },
-      "axisTick": {
-        "lineStyle": {
-          "color": "#777",
-          "width": 1
-        },
-        "show": "auto",
-        "inside": false,
-        "length": 5
-      },
-      "splitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "axisLabel": {
-        "color": "#fff",
-        "show": true,
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null,
-        "margin": 8,
-        "fontSize": 12
-      },
-      "boundaryGap": [
-        0,
-        0
-      ],
-      "splitNumber": 5,
-      "minorTick": {
-        "show": false,
-        "splitNumber": 5,
-        "length": 3,
-        "lineStyle": {}
-      },
-      "minorSplitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": "#F4F7FD",
-          "width": 1
-        }
-      },
-      "show": true,
-      "zlevel": 0,
-      "z": 10,
-      "inverse": false,
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
-        "show": false
-      },
-      "axisPointer": {},
-      "splitArea": {
-        "show": false,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
-      },
-      "areaSelectStyle": {
-        "width": 20,
-        "borderWidth": 1,
-        "borderColor": "rgba(160,197,232)",
-        "color": "rgba(160,197,232)",
-        "opacity": 0.3
-      },
-      "realtime": true
+      "name": "AQI"
     },
     {
       "dim": 2,
-      "name": "PM2.5",
-      "type": "value",
-      "nameLocation": "end",
-      "nameGap": 20,
-      "nameTextStyle": {
-        "color": "#fff",
-        "fontSize": 12
-      },
-      "axisLine": {
-        "lineStyle": {
-          "color": "#aaa",
-          "width": 1,
-          "type": "solid"
-        },
-        "show": "auto",
-        "onZero": true,
-        "onZeroAxisIndex": null,
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
-        ]
-      },
-      "axisTick": {
-        "lineStyle": {
-          "color": "#777",
-          "width": 1
-        },
-        "show": "auto",
-        "inside": false,
-        "length": 5
-      },
-      "splitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "axisLabel": {
-        "color": "#fff",
-        "show": true,
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null,
-        "margin": 8,
-        "fontSize": 12
-      },
-      "boundaryGap": [
-        0,
-        0
-      ],
-      "splitNumber": 5,
-      "minorTick": {
-        "show": false,
-        "splitNumber": 5,
-        "length": 3,
-        "lineStyle": {}
-      },
-      "minorSplitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": "#F4F7FD",
-          "width": 1
-        }
-      },
-      "show": true,
-      "zlevel": 0,
-      "z": 10,
-      "inverse": false,
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
-        "show": false
-      },
-      "axisPointer": {},
-      "splitArea": {
-        "show": false,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
-      },
-      "areaSelectStyle": {
-        "width": 20,
-        "borderWidth": 1,
-        "borderColor": "rgba(160,197,232)",
-        "color": "rgba(160,197,232)",
-        "opacity": 0.3
-      },
-      "realtime": true
+      "name": "PM2.5"
     },
     {
       "dim": 3,
-      "name": "PM10",
-      "type": "value",
-      "nameLocation": "end",
-      "nameGap": 20,
-      "nameTextStyle": {
-        "color": "#fff",
-        "fontSize": 12
-      },
-      "axisLine": {
-        "lineStyle": {
-          "color": "#aaa",
-          "width": 1,
-          "type": "solid"
-        },
-        "show": "auto",
-        "onZero": true,
-        "onZeroAxisIndex": null,
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
-        ]
-      },
-      "axisTick": {
-        "lineStyle": {
-          "color": "#777",
-          "width": 1
-        },
-        "show": "auto",
-        "inside": false,
-        "length": 5
-      },
-      "splitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "axisLabel": {
-        "color": "#fff",
-        "show": true,
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null,
-        "margin": 8,
-        "fontSize": 12
-      },
-      "boundaryGap": [
-        0,
-        0
-      ],
-      "splitNumber": 5,
-      "minorTick": {
-        "show": false,
-        "splitNumber": 5,
-        "length": 3,
-        "lineStyle": {}
-      },
-      "minorSplitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": "#F4F7FD",
-          "width": 1
-        }
-      },
-      "show": true,
-      "zlevel": 0,
-      "z": 10,
-      "inverse": false,
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
-        "show": false
-      },
-      "axisPointer": {},
-      "splitArea": {
-        "show": false,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
-      },
-      "areaSelectStyle": {
-        "width": 20,
-        "borderWidth": 1,
-        "borderColor": "rgba(160,197,232)",
-        "color": "rgba(160,197,232)",
-        "opacity": 0.3
-      },
-      "realtime": true
+      "name": "PM10"
     },
     {
       "dim": 4,
-      "name": " CO",
-      "type": "value",
-      "nameLocation": "end",
-      "nameGap": 20,
-      "nameTextStyle": {
-        "color": "#fff",
-        "fontSize": 12
-      },
-      "axisLine": {
-        "lineStyle": {
-          "color": "#aaa",
-          "width": 1,
-          "type": "solid"
-        },
-        "show": "auto",
-        "onZero": true,
-        "onZeroAxisIndex": null,
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
-        ]
-      },
-      "axisTick": {
-        "lineStyle": {
-          "color": "#777",
-          "width": 1
-        },
-        "show": "auto",
-        "inside": false,
-        "length": 5
-      },
-      "splitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "axisLabel": {
-        "color": "#fff",
-        "show": true,
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null,
-        "margin": 8,
-        "fontSize": 12
-      },
-      "boundaryGap": [
-        0,
-        0
-      ],
-      "splitNumber": 5,
-      "minorTick": {
-        "show": false,
-        "splitNumber": 5,
-        "length": 3,
-        "lineStyle": {}
-      },
-      "minorSplitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": "#F4F7FD",
-          "width": 1
-        }
-      },
-      "show": true,
-      "zlevel": 0,
-      "z": 10,
-      "inverse": false,
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
-        "show": false
-      },
-      "axisPointer": {},
-      "splitArea": {
-        "show": false,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
-      },
-      "areaSelectStyle": {
-        "width": 20,
-        "borderWidth": 1,
-        "borderColor": "rgba(160,197,232)",
-        "color": "rgba(160,197,232)",
-        "opacity": 0.3
-      },
-      "realtime": true
+      "name": " CO"
     },
     {
       "dim": 5,
-      "name": "NO2",
-      "type": "value",
-      "nameLocation": "end",
-      "nameGap": 20,
-      "nameTextStyle": {
-        "color": "#fff",
-        "fontSize": 12
-      },
-      "axisLine": {
-        "lineStyle": {
-          "color": "#aaa",
-          "width": 1,
-          "type": "solid"
-        },
-        "show": "auto",
-        "onZero": true,
-        "onZeroAxisIndex": null,
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
-        ]
-      },
-      "axisTick": {
-        "lineStyle": {
-          "color": "#777",
-          "width": 1
-        },
-        "show": "auto",
-        "inside": false,
-        "length": 5
-      },
-      "splitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "axisLabel": {
-        "color": "#fff",
-        "show": true,
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null,
-        "margin": 8,
-        "fontSize": 12
-      },
-      "boundaryGap": [
-        0,
-        0
-      ],
-      "splitNumber": 5,
-      "minorTick": {
-        "show": false,
-        "splitNumber": 5,
-        "length": 3,
-        "lineStyle": {}
-      },
-      "minorSplitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": "#F4F7FD",
-          "width": 1
-        }
-      },
-      "show": true,
-      "zlevel": 0,
-      "z": 10,
-      "inverse": false,
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
-        "show": false
-      },
-      "axisPointer": {},
-      "splitArea": {
-        "show": false,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
-      },
-      "areaSelectStyle": {
-        "width": 20,
-        "borderWidth": 1,
-        "borderColor": "rgba(160,197,232)",
-        "color": "rgba(160,197,232)",
-        "opacity": 0.3
-      },
-      "realtime": true
+      "name": "NO2"
     },
     {
       "dim": 6,
-      "name": "SO2",
-      "type": "value",
-      "nameLocation": "end",
-      "nameGap": 20,
-      "nameTextStyle": {
-        "color": "#fff",
-        "fontSize": 12
-      },
-      "axisLine": {
-        "lineStyle": {
-          "color": "#aaa",
-          "width": 1,
-          "type": "solid"
-        },
-        "show": "auto",
-        "onZero": true,
-        "onZeroAxisIndex": null,
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
-        ]
-      },
-      "axisTick": {
-        "lineStyle": {
-          "color": "#777",
-          "width": 1
-        },
-        "show": "auto",
-        "inside": false,
-        "length": 5
-      },
-      "splitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "axisLabel": {
-        "color": "#fff",
-        "show": true,
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null,
-        "margin": 8,
-        "fontSize": 12
-      },
-      "boundaryGap": [
-        0,
-        0
-      ],
-      "splitNumber": 5,
-      "minorTick": {
-        "show": false,
-        "splitNumber": 5,
-        "length": 3,
-        "lineStyle": {}
-      },
-      "minorSplitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": "#F4F7FD",
-          "width": 1
-        }
-      },
-      "show": true,
-      "zlevel": 0,
-      "z": 10,
-      "inverse": false,
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
-        "show": false
-      },
-      "axisPointer": {},
-      "splitArea": {
-        "show": false,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
-      },
-      "areaSelectStyle": {
-        "width": 20,
-        "borderWidth": 1,
-        "borderColor": "rgba(160,197,232)",
-        "color": "rgba(160,197,232)",
-        "opacity": 0.3
-      },
-      "realtime": true
+      "name": "SO2"
     },
     {
       "dim": 7,
@@ -1023,7 +62,29 @@
         "中度污染",
         "重度污染",
         "严重污染"
-      ],
+      ]
+    }
+  ],
+  "visualMap": {
+    "show": true,
+    "min": 0,
+    "max": 150,
+    "dimension": 2,
+    "inRange": {
+      "color": [
+        "#50a3ba",
+        "#eac736",
+        "#d94e5d"
+      ]
+    }
+  },
+  "parallel": {
+    "left": "5%",
+    "right": "18%",
+    "bottom": 100,
+    "parallelAxisDefault": {
+      "type": "value",
+      "name": "AQI指数",
       "nameLocation": "end",
       "nameGap": 20,
       "nameTextStyle": {
@@ -1032,148 +93,29 @@
       },
       "axisLine": {
         "lineStyle": {
-          "color": "#aaa",
-          "width": 1,
-          "type": "solid"
-        },
-        "show": true,
-        "onZero": true,
-        "onZeroAxisIndex": null,
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
-        ]
+          "color": "#aaa"
+        }
       },
       "axisTick": {
         "lineStyle": {
-          "color": "#777",
-          "width": 1
-        },
-        "alignWithLabel": false,
-        "interval": "auto",
-        "show": true,
-        "inside": false,
-        "length": 5
+          "color": "#777"
+        }
       },
       "splitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "axisLabel": {
-        "color": "#fff",
-        "interval": "auto",
-        "show": true,
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null,
-        "margin": 8,
-        "fontSize": 12
-      },
-      "boundaryGap": true,
-      "deduplication": null,
-      "show": true,
-      "zlevel": 0,
-      "z": 10,
-      "inverse": false,
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
         "show": false
       },
-      "axisPointer": {},
-      "splitArea": {
-        "show": false,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
-      },
-      "areaSelectStyle": {
-        "width": 20,
-        "borderWidth": 1,
-        "borderColor": "rgba(160,197,232)",
-        "color": "rgba(160,197,232)",
-        "opacity": 0.3
-      },
-      "realtime": true
+      "axisLabel": {
+        "color": "#fff"
+      }
     }
-  ],
-  "parallel": [
-    {
-      "left": "5%",
-      "right": "18%",
-      "bottom": 100,
-      "parallelAxisDefault": {
-        "type": "value",
-        "name": "AQI指数",
-        "nameLocation": "end",
-        "nameGap": 20,
-        "nameTextStyle": {
-          "color": "#fff",
-          "fontSize": 12
-        },
-        "axisLine": {
-          "lineStyle": {
-            "color": "#aaa"
-          }
-        },
-        "axisTick": {
-          "lineStyle": {
-            "color": "#777"
-          }
-        },
-        "splitLine": {
-          "show": false
-        },
-        "axisLabel": {
-          "color": "#fff"
-        }
-      },
-      "zlevel": 0,
-      "z": 0,
-      "top": 60,
-      "layout": "horizontal",
-      "axisExpandable": false,
-      "axisExpandCenter": null,
-      "axisExpandCount": 0,
-      "axisExpandWidth": 50,
-      "axisExpandRate": 17,
-      "axisExpandDebounce": 50,
-      "axisExpandSlideTriggerArea": [
-        -0.15,
-        0.05,
-        0.4
-      ],
-      "axisExpandTriggerOn": "click"
-    }
-  ],
+  },
   "series": [
     {
       "name": "Beijing",
       "type": "parallel",
       "lineStyle": {
         "width": 1,
-        "opacity": 0.5,
-        "type": "solid"
+        "opacity": 0.5
       },
       "data": [
         [
@@ -1486,32 +428,14 @@
           6,
           "优"
         ]
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "parallel",
-      "parallelIndex": 0,
-      "label": {
-        "show": false
-      },
-      "inactiveOpacity": 0.05,
-      "activeOpacity": 1,
-      "emphasis": {
-        "label": {
-          "show": false
-        }
-      },
-      "progressive": 500,
-      "smooth": false,
-      "animationEasing": "linear"
+      ]
     },
     {
       "name": "Shanghai",
       "type": "parallel",
       "lineStyle": {
         "width": 1,
-        "opacity": 0.5,
-        "type": "solid"
+        "opacity": 0.5
       },
       "data": [
         [
@@ -1824,32 +748,14 @@
           53,
           "中度污染"
         ]
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "parallel",
-      "parallelIndex": 0,
-      "label": {
-        "show": false
-      },
-      "inactiveOpacity": 0.05,
-      "activeOpacity": 1,
-      "emphasis": {
-        "label": {
-          "show": false
-        }
-      },
-      "progressive": 500,
-      "smooth": false,
-      "animationEasing": "linear"
+      ]
     },
     {
       "name": "Guangzhou",
       "type": "parallel",
       "lineStyle": {
         "width": 1,
-        "opacity": 0.5,
-        "type": "solid"
+        "opacity": 0.5
       },
       "data": [
         [
@@ -2162,223 +1068,9 @@
           11,
           "轻度污染"
         ]
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "parallel",
-      "parallelIndex": 0,
-      "label": {
-        "show": false
-      },
-      "inactiveOpacity": 0.05,
-      "activeOpacity": 1,
-      "emphasis": {
-        "label": {
-          "show": false
-        }
-      },
-      "progressive": 500,
-      "smooth": false,
-      "animationEasing": "linear"
-    }
-  ],
-  "visualMap": [
-    {
-      "show": true,
-      "min": 0,
-      "max": 150,
-      "dimension": 2,
-      "inRange": {
-        "color": [
-          "#50a3ba",
-          "#eac736",
-          "#d94e5d"
-        ]
-      },
-      "zlevel": 0,
-      "z": 4,
-      "seriesIndex": "all",
-      "left": 0,
-      "right": null,
-      "top": null,
-      "bottom": 0,
-      "itemWidth": null,
-      "itemHeight": null,
-      "inverse": false,
-      "orient": "vertical",
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderColor": "#ccc",
-      "contentColor": "#5793f3",
-      "inactiveColor": "#aaa",
-      "borderWidth": 0,
-      "padding": 5,
-      "textGap": 10,
-      "precision": 0,
-      "textStyle": {
-        "color": "#333"
-      },
-      "align": "auto",
-      "calculable": false,
-      "hoverLink": true,
-      "realtime": true,
-      "handleIcon": "path://M-11.39,9.77h0a3.5,3.5,0,0,1-3.5,3.5h-22a3.5,3.5,0,0,1-3.5-3.5h0a3.5,3.5,0,0,1,3.5-3.5h22A3.5,3.5,0,0,1-11.39,9.77Z",
-      "handleSize": "120%",
-      "handleStyle": {
-        "borderColor": "#fff",
-        "borderWidth": 1
-      },
-      "indicatorIcon": "circle",
-      "indicatorSize": "50%",
-      "indicatorStyle": {
-        "borderColor": "#fff",
-        "borderWidth": 2,
-        "shadowBlur": 2,
-        "shadowOffsetX": 1,
-        "shadowOffsetY": 1,
-        "shadowColor": "rgba(0,0,0,0.2)"
-      },
-      "target": {
-        "inRange": {
-          "color": [
-            "#50a3ba",
-            "#eac736",
-            "#d94e5d"
-          ]
-        },
-        "outOfRange": {
-          "color": [
-            "rgba(0,0,0,0)"
-          ],
-          "opacity": [
-            0,
-            0
-          ]
-        }
-      },
-      "controller": {
-        "inRange": {
-          "color": [
-            "#50a3ba",
-            "#eac736",
-            "#d94e5d"
-          ],
-          "symbol": [
-            "roundRect"
-          ],
-          "symbolSize": [
-            20,
-            20
-          ]
-        },
-        "outOfRange": {
-          "color": [
-            "#aaa"
-          ],
-          "symbol": [
-            "roundRect"
-          ],
-          "symbolSize": [
-            20,
-            20
-          ]
-        }
-      },
-      "range": [
-        0,
-        150
       ]
     }
   ],
-  "legend": [
-    {
-      "bottom": 30,
-      "data": [
-        "Beijing",
-        "Shanghai",
-        "Guangzhou"
-      ],
-      "itemGap": 20,
-      "textStyle": {
-        "color": "#fff",
-        "fontSize": 14
-      },
-      "zlevel": 0,
-      "z": 4,
-      "show": true,
-      "orient": "horizontal",
-      "left": "center",
-      "top": null,
-      "align": "auto",
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderColor": "#ccc",
-      "borderRadius": 0,
-      "borderWidth": 0,
-      "padding": 5,
-      "itemWidth": 25,
-      "itemHeight": 14,
-      "symbolRotate": "inherit",
-      "symbolKeepAspect": true,
-      "inactiveColor": "#ccc",
-      "inactiveBorderColor": "#ccc",
-      "inactiveBorderWidth": "auto",
-      "itemStyle": {
-        "color": "inherit",
-        "opacity": "inherit",
-        "borderColor": "inherit",
-        "borderWidth": "auto",
-        "borderCap": "inherit",
-        "borderJoin": "inherit",
-        "borderDashOffset": "inherit",
-        "borderMiterLimit": "inherit"
-      },
-      "lineStyle": {
-        "width": "auto",
-        "color": "inherit",
-        "inactiveColor": "#ccc",
-        "inactiveWidth": 2,
-        "opacity": "inherit",
-        "type": "inherit",
-        "cap": "inherit",
-        "join": "inherit",
-        "dashOffset": "inherit",
-        "miterLimit": "inherit"
-      },
-      "selectedMode": true,
-      "selector": false,
-      "selectorLabel": {
-        "show": true,
-        "borderRadius": 10,
-        "padding": [
-          3,
-          5,
-          3,
-          5
-        ],
-        "fontSize": 12,
-        "fontFamily": "sans-serif",
-        "color": "#666",
-        "borderWidth": 1,
-        "borderColor": "#666"
-      },
-      "emphasis": {
-        "selectorLabel": {
-          "show": true,
-          "color": "#eee",
-          "backgroundColor": "#666"
-        }
-      },
-      "selectorPosition": "auto",
-      "selectorItemGap": 7,
-      "selectorButtonGap": 10,
-      "tooltip": {
-        "show": false
-      },
-      "selected": {}
-    }
-  ],
-  "markArea": [],
-  "markLine": [],
-  "markPoint": [],
-  "brush": [],
-  "dataZoom": []
+  "actions": [],
+  "sharedVar": {}
 }

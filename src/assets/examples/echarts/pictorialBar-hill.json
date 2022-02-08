@@ -1,349 +1,11 @@
 {
   "backgroundColor": "#0f375f",
-  "animationEasing": "elasticOut",
-  "darkMode": "auto",
-  "colorBy": "series",
-  "color": [
-    "#5470c6",
-    "#91cc75",
-    "#fac858",
-    "#ee6666",
-    "#73c0de",
-    "#3ba272",
-    "#fc8452",
-    "#9a60b4",
-    "#ea7ccc"
-  ],
-  "gradientColor": [
-    "#f6efa6",
-    "#d88273",
-    "#bf444c"
-  ],
-  "aria": {
-    "decal": {
-      "decals": [
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            2,
-            5
-          ],
-          "symbolSize": 1,
-          "rotation": 0.5235987755982988
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "circle",
-          "dashArrayX": [
-            [
-              8,
-              8
-            ],
-            [
-              0,
-              8,
-              8,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ],
-          "symbolSize": 0.8
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            4,
-            3
-          ],
-          "rotation": -0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              6,
-              6
-            ],
-            [
-              0,
-              6,
-              6,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ]
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              1,
-              0
-            ],
-            [
-              1,
-              6
-            ]
-          ],
-          "dashArrayY": [
-            1,
-            0,
-            6,
-            0
-          ],
-          "rotation": 0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "triangle",
-          "dashArrayX": [
-            [
-              9,
-              9
-            ],
-            [
-              0,
-              9,
-              9,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            7,
-            2
-          ],
-          "symbolSize": 0.75
-        }
-      ]
+  "tooltip": {},
+  "legend": {
+    "textStyle": {
+      "color": "#ddd"
     }
   },
-  "textStyle": {
-    "fontFamily": "sans-serif",
-    "fontSize": 12,
-    "fontStyle": "normal",
-    "fontWeight": "normal"
-  },
-  "stateAnimation": {
-    "duration": 300,
-    "easing": "cubicOut"
-  },
-  "animation": "auto",
-  "animationDuration": 1000,
-  "animationDurationUpdate": 500,
-  "animationEasingUpdate": "cubicInOut",
-  "animationThreshold": 2000,
-  "progressiveThreshold": 3000,
-  "progressive": 400,
-  "hoverLayerThreshold": 3000,
-  "useUTC": false,
-  "axisPointer": [
-    {
-      "show": "auto",
-      "zlevel": 0,
-      "z": 50,
-      "type": "line",
-      "snap": false,
-      "triggerTooltip": true,
-      "value": null,
-      "status": null,
-      "link": [],
-      "animation": null,
-      "animationDurationUpdate": 200,
-      "lineStyle": {
-        "color": "#B9BEC9",
-        "width": 1,
-        "type": "dashed"
-      },
-      "shadowStyle": {
-        "color": "rgba(210,219,238,0.2)"
-      },
-      "label": {
-        "show": true,
-        "formatter": null,
-        "precision": "auto",
-        "margin": 3,
-        "color": "#fff",
-        "padding": [
-          5,
-          7,
-          5,
-          7
-        ],
-        "backgroundColor": "auto",
-        "borderColor": null,
-        "borderWidth": 0,
-        "borderRadius": 3
-      },
-      "handle": {
-        "show": false,
-        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
-        "size": 45,
-        "margin": 50,
-        "color": "#333",
-        "shadowBlur": 3,
-        "shadowColor": "#aaa",
-        "shadowOffsetX": 0,
-        "shadowOffsetY": 2,
-        "throttle": 40
-      }
-    }
-  ],
-  "tooltip": [
-    {
-      "zlevel": 0,
-      "z": 60,
-      "show": true,
-      "showContent": true,
-      "trigger": "item",
-      "triggerOn": "mousemove|click",
-      "alwaysShowContent": false,
-      "displayMode": "single",
-      "renderMode": "auto",
-      "confine": null,
-      "showDelay": 0,
-      "hideDelay": 100,
-      "transitionDuration": 0.4,
-      "enterable": false,
-      "backgroundColor": "#fff",
-      "shadowBlur": 10,
-      "shadowColor": "rgba(0, 0, 0, .2)",
-      "shadowOffsetX": 1,
-      "shadowOffsetY": 2,
-      "borderRadius": 4,
-      "borderWidth": 1,
-      "padding": null,
-      "extraCssText": "",
-      "axisPointer": {
-        "type": "line",
-        "axis": "auto",
-        "animation": "auto",
-        "animationDurationUpdate": 200,
-        "animationEasingUpdate": "exponentialOut",
-        "crossStyle": {
-          "color": "#999",
-          "width": 1,
-          "type": "dashed",
-          "textStyle": {}
-        }
-      },
-      "textStyle": {
-        "color": "#666",
-        "fontSize": 14
-      }
-    }
-  ],
-  "yAxis": [
-    {
-      "splitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "axisTick": {
-        "show": false,
-        "inside": false,
-        "length": 5,
-        "lineStyle": {
-          "width": 1
-        }
-      },
-      "axisLine": {
-        "show": false,
-        "onZero": true,
-        "onZeroAxisIndex": null,
-        "lineStyle": {
-          "color": "#6E7079",
-          "width": 1,
-          "type": "solid"
-        },
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
-        ]
-      },
-      "axisLabel": {
-        "show": false,
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null,
-        "margin": 8,
-        "fontSize": 12
-      },
-      "boundaryGap": [
-        0,
-        0
-      ],
-      "splitNumber": 5,
-      "minorTick": {
-        "show": false,
-        "splitNumber": 5,
-        "length": 3,
-        "lineStyle": {}
-      },
-      "minorSplitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": "#F4F7FD",
-          "width": 1
-        }
-      },
-      "show": true,
-      "zlevel": 0,
-      "z": 0,
-      "inverse": false,
-      "name": "",
-      "nameLocation": "end",
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "nameTextStyle": {},
-      "nameGap": 15,
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
-        "show": false
-      },
-      "axisPointer": {},
-      "splitArea": {
-        "show": false,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
-      },
-      "offset": 0,
-      "type": "value"
-    }
-  ],
   "xAxis": [
     {
       "data": [
@@ -353,113 +15,42 @@
         "Kilimanjaro"
       ],
       "axisTick": {
-        "show": false,
-        "alignWithLabel": false,
-        "interval": "auto",
-        "inside": false,
-        "length": 5,
-        "lineStyle": {
-          "width": 1
-        }
+        "show": false
       },
       "axisLine": {
-        "show": false,
-        "onZero": true,
-        "onZeroAxisIndex": null,
-        "lineStyle": {
-          "color": "#6E7079",
-          "width": 1,
-          "type": "solid"
-        },
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
-        ]
+        "show": false
       },
       "axisLabel": {
         "margin": 20,
         "color": "#ddd",
-        "fontSize": 14,
-        "interval": "auto",
-        "show": true,
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null
-      },
-      "boundaryGap": true,
-      "deduplication": null,
-      "splitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "show": true,
-      "zlevel": 0,
-      "z": 0,
-      "inverse": false,
-      "name": "",
-      "nameLocation": "end",
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "nameTextStyle": {},
-      "nameGap": 15,
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
-        "show": false
-      },
-      "axisPointer": {},
-      "splitArea": {
-        "show": false,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
-      },
-      "offset": 0,
-      "type": "category"
+        "fontSize": 14
+      }
     }
   ],
-  "grid": [
-    {
-      "show": false,
-      "zlevel": 0,
-      "z": 0,
-      "left": "10%",
-      "top": 60,
-      "right": "10%",
-      "bottom": 70,
-      "containLabel": false,
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderWidth": 1,
-      "borderColor": "#ccc"
+  "yAxis": {
+    "splitLine": {
+      "show": false
+    },
+    "axisTick": {
+      "show": false
+    },
+    "axisLine": {
+      "show": false
+    },
+    "axisLabel": {
+      "show": false
     }
-  ],
+  },
+  "markLine": {
+    "z": -1
+  },
+  "animationEasing": "elasticOut",
   "series": [
     {
       "type": "pictorialBar",
       "name": "All",
       "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        }
+        "scale": true
       },
       "label": {
         "show": true,
@@ -481,7 +72,8 @@
             0,
             10
           ],
-          "symbolMargin": "-30%"
+          "symbolMargin": "-30%",
+          "animationDelay": "function (dataIndex, params) { return params.index * 30; }"
         },
         {
           "value": "-",
@@ -521,47 +113,10 @@
         },
         "data": [
           {
-            "yAxis": 8844,
-            "label": {},
-            "emphasis": {
-              "label": {}
-            }
+            "yAxis": 8844
           }
-        ],
-        "emphasis": {
-          "label": {
-            "show": false
-          }
-        }
-      },
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "cartesian2d",
-      "legendHoverLink": true,
-      "barMinHeight": 0,
-      "barMinAngle": 0,
-      "large": false,
-      "largeThreshold": 400,
-      "progressive": 0,
-      "progressiveChunkMode": "mod",
-      "symbol": "circle",
-      "symbolSize": null,
-      "symbolRotate": null,
-      "symbolPosition": null,
-      "symbolOffset": null,
-      "symbolMargin": null,
-      "symbolRepeat": false,
-      "symbolRepeatDirection": "end",
-      "symbolClip": false,
-      "symbolBoundingData": null,
-      "symbolPatternSize": 400,
-      "barGap": "-100%",
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      },
-      "stack": null
+        ]
+      }
     },
     {
       "name": "All",
@@ -602,157 +157,9 @@
             50
           ]
         }
-      ],
-      "zlevel": 0,
-      "coordinateSystem": "cartesian2d",
-      "legendHoverLink": true,
-      "barMinHeight": 0,
-      "barMinAngle": 0,
-      "large": false,
-      "largeThreshold": 400,
-      "progressive": 0,
-      "progressiveChunkMode": "mod",
-      "symbolSize": null,
-      "symbolRotate": null,
-      "symbolPosition": null,
-      "symbolMargin": null,
-      "symbolRepeat": false,
-      "symbolRepeatDirection": "end",
-      "symbolClip": false,
-      "symbolBoundingData": null,
-      "symbolPatternSize": 400,
-      "emphasis": {
-        "scale": false,
-        "label": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      },
-      "label": {},
-      "stack": null
+      ]
     }
   ],
-  "visualMap": [],
-  "legend": [
-    {
-      "textStyle": {
-        "color": "#ddd"
-      },
-      "zlevel": 0,
-      "z": 4,
-      "show": true,
-      "orient": "horizontal",
-      "left": "center",
-      "top": 0,
-      "align": "auto",
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderColor": "#ccc",
-      "borderRadius": 0,
-      "borderWidth": 0,
-      "padding": 5,
-      "itemGap": 10,
-      "itemWidth": 25,
-      "itemHeight": 14,
-      "symbolRotate": "inherit",
-      "symbolKeepAspect": true,
-      "inactiveColor": "#ccc",
-      "inactiveBorderColor": "#ccc",
-      "inactiveBorderWidth": "auto",
-      "itemStyle": {
-        "color": "inherit",
-        "opacity": "inherit",
-        "borderColor": "inherit",
-        "borderWidth": "auto",
-        "borderCap": "inherit",
-        "borderJoin": "inherit",
-        "borderDashOffset": "inherit",
-        "borderMiterLimit": "inherit"
-      },
-      "lineStyle": {
-        "width": "auto",
-        "color": "inherit",
-        "inactiveColor": "#ccc",
-        "inactiveWidth": 2,
-        "opacity": "inherit",
-        "type": "inherit",
-        "cap": "inherit",
-        "join": "inherit",
-        "dashOffset": "inherit",
-        "miterLimit": "inherit"
-      },
-      "selectedMode": true,
-      "selector": false,
-      "selectorLabel": {
-        "show": true,
-        "borderRadius": 10,
-        "padding": [
-          3,
-          5,
-          3,
-          5
-        ],
-        "fontSize": 12,
-        "fontFamily": "sans-serif",
-        "color": "#666",
-        "borderWidth": 1,
-        "borderColor": "#666"
-      },
-      "emphasis": {
-        "selectorLabel": {
-          "show": true,
-          "color": "#eee",
-          "backgroundColor": "#666"
-        }
-      },
-      "selectorPosition": "auto",
-      "selectorItemGap": 7,
-      "selectorButtonGap": 10,
-      "tooltip": {
-        "show": false
-      },
-      "selected": {}
-    }
-  ],
-  "markArea": [],
-  "markLine": [
-    {
-      "z": -1,
-      "zlevel": 0,
-      "symbol": [
-        "circle",
-        "arrow"
-      ],
-      "symbolSize": [
-        8,
-        16
-      ],
-      "symbolOffset": 0,
-      "precision": 2,
-      "tooltip": {
-        "trigger": "item"
-      },
-      "label": {
-        "show": true,
-        "position": "end",
-        "distance": 5
-      },
-      "lineStyle": {
-        "type": "dashed"
-      },
-      "emphasis": {
-        "label": {
-          "show": true
-        },
-        "lineStyle": {
-          "width": 3
-        }
-      },
-      "animationEasing": "linear"
-    }
-  ],
-  "markPoint": [],
-  "brush": [],
-  "dataZoom": []
+  "actions": [],
+  "sharedVar": {}
 }

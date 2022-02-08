@@ -1,255 +1,25 @@
 {
-  "darkMode": "auto",
-  "colorBy": "series",
-  "color": [
-    "#5470c6",
-    "#91cc75",
-    "#fac858",
-    "#ee6666",
-    "#73c0de",
-    "#3ba272",
-    "#fc8452",
-    "#9a60b4",
-    "#ea7ccc"
-  ],
-  "gradientColor": [
-    "#f6efa6",
-    "#d88273",
-    "#bf444c"
-  ],
-  "aria": {
-    "decal": {
-      "decals": [
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            2,
-            5
-          ],
-          "symbolSize": 1,
-          "rotation": 0.5235987755982988
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "circle",
-          "dashArrayX": [
-            [
-              8,
-              8
-            ],
-            [
-              0,
-              8,
-              8,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ],
-          "symbolSize": 0.8
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            4,
-            3
-          ],
-          "rotation": -0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              6,
-              6
-            ],
-            [
-              0,
-              6,
-              6,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ]
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              1,
-              0
-            ],
-            [
-              1,
-              6
-            ]
-          ],
-          "dashArrayY": [
-            1,
-            0,
-            6,
-            0
-          ],
-          "rotation": 0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "triangle",
-          "dashArrayX": [
-            [
-              9,
-              9
-            ],
-            [
-              0,
-              9,
-              9,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            7,
-            2
-          ],
-          "symbolSize": 0.75
-        }
-      ]
-    }
+  "tooltip": {
+    "position": "top",
+    "formatter": "function (p) { var format = echarts.format.formatTime('yyyy-MM-dd', p.data[0]); return format + ': ' + p.data[1]; }"
   },
-  "textStyle": {
-    "fontFamily": "sans-serif",
-    "fontSize": 12,
-    "fontStyle": "normal",
-    "fontWeight": "normal"
+  "visualMap": {
+    "min": 0,
+    "max": 1000,
+    "calculable": true,
+    "orient": "vertical",
+    "left": "670",
+    "top": "center"
   },
-  "stateAnimation": {
-    "duration": 300,
-    "easing": "cubicOut"
-  },
-  "animation": "auto",
-  "animationDuration": 1000,
-  "animationDurationUpdate": 500,
-  "animationEasing": "cubicInOut",
-  "animationEasingUpdate": "cubicInOut",
-  "animationThreshold": 2000,
-  "progressiveThreshold": 3000,
-  "progressive": 400,
-  "hoverLayerThreshold": 3000,
-  "useUTC": false,
   "calendar": [
     {
       "orient": "vertical",
-      "range": "2015",
-      "zlevel": 0,
-      "z": 2,
-      "left": 80,
-      "top": 60,
-      "cellSize": [
-        20,
-        20
-      ],
-      "splitLine": {
-        "show": true,
-        "lineStyle": {
-          "color": "#000",
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "itemStyle": {
-        "color": "#fff",
-        "borderWidth": 1,
-        "borderColor": "#ccc"
-      },
-      "dayLabel": {
-        "show": true,
-        "firstDay": 0,
-        "position": "start",
-        "margin": "50%",
-        "color": "#000"
-      },
-      "monthLabel": {
-        "show": true,
-        "position": "start",
-        "margin": 5,
-        "align": "center",
-        "formatter": null,
-        "color": "#000"
-      },
-      "yearLabel": {
-        "show": true,
-        "position": null,
-        "margin": 30,
-        "formatter": null,
-        "color": "#ccc",
-        "fontFamily": "sans-serif",
-        "fontWeight": "bolder",
-        "fontSize": 20
-      }
+      "range": "2015"
     },
     {
       "left": 300,
       "orient": "vertical",
-      "range": "2016",
-      "zlevel": 0,
-      "z": 2,
-      "top": 60,
-      "cellSize": [
-        20,
-        20
-      ],
-      "splitLine": {
-        "show": true,
-        "lineStyle": {
-          "color": "#000",
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "itemStyle": {
-        "color": "#fff",
-        "borderWidth": 1,
-        "borderColor": "#ccc"
-      },
-      "dayLabel": {
-        "show": true,
-        "firstDay": 0,
-        "position": "start",
-        "margin": "50%",
-        "color": "#000"
-      },
-      "monthLabel": {
-        "show": true,
-        "position": "start",
-        "margin": 5,
-        "align": "center",
-        "formatter": null,
-        "color": "#000"
-      },
-      "yearLabel": {
-        "show": true,
-        "position": null,
-        "margin": 30,
-        "formatter": null,
-        "color": "#ccc",
-        "fontFamily": "sans-serif",
-        "fontWeight": "bolder",
-        "fontSize": 20
-      },
-      "right": null
+      "range": "2016"
     },
     {
       "left": 520,
@@ -261,143 +31,7 @@
       "orient": "vertical",
       "range": "2017",
       "dayLabel": {
-        "margin": 5,
-        "show": true,
-        "firstDay": 0,
-        "position": "start",
-        "color": "#000"
-      },
-      "zlevel": 0,
-      "z": 2,
-      "top": 60,
-      "splitLine": {
-        "show": true,
-        "lineStyle": {
-          "color": "#000",
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "itemStyle": {
-        "color": "#fff",
-        "borderWidth": 1,
-        "borderColor": "#ccc"
-      },
-      "monthLabel": {
-        "show": true,
-        "position": "start",
-        "margin": 5,
-        "align": "center",
-        "formatter": null,
-        "color": "#000"
-      },
-      "yearLabel": {
-        "show": true,
-        "position": null,
-        "margin": 30,
-        "formatter": null,
-        "color": "#ccc",
-        "fontFamily": "sans-serif",
-        "fontWeight": "bolder",
-        "fontSize": 20
-      },
-      "right": null
-    }
-  ],
-  "axisPointer": [
-    {
-      "show": "auto",
-      "zlevel": 0,
-      "z": 50,
-      "type": "line",
-      "snap": false,
-      "triggerTooltip": true,
-      "value": null,
-      "status": null,
-      "link": [],
-      "animation": null,
-      "animationDurationUpdate": 200,
-      "lineStyle": {
-        "color": "#B9BEC9",
-        "width": 1,
-        "type": "dashed"
-      },
-      "shadowStyle": {
-        "color": "rgba(210,219,238,0.2)"
-      },
-      "label": {
-        "show": true,
-        "formatter": null,
-        "precision": "auto",
-        "margin": 3,
-        "color": "#fff",
-        "padding": [
-          5,
-          7,
-          5,
-          7
-        ],
-        "backgroundColor": "auto",
-        "borderColor": null,
-        "borderWidth": 0,
-        "borderRadius": 3
-      },
-      "handle": {
-        "show": false,
-        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
-        "size": 45,
-        "margin": 50,
-        "color": "#333",
-        "shadowBlur": 3,
-        "shadowColor": "#aaa",
-        "shadowOffsetX": 0,
-        "shadowOffsetY": 2,
-        "throttle": 40
-      }
-    }
-  ],
-  "tooltip": [
-    {
-      "position": "top",
-      "zlevel": 0,
-      "z": 60,
-      "show": true,
-      "showContent": true,
-      "trigger": "item",
-      "triggerOn": "mousemove|click",
-      "alwaysShowContent": false,
-      "displayMode": "single",
-      "renderMode": "auto",
-      "confine": null,
-      "showDelay": 0,
-      "hideDelay": 100,
-      "transitionDuration": 0.4,
-      "enterable": false,
-      "backgroundColor": "#fff",
-      "shadowBlur": 10,
-      "shadowColor": "rgba(0, 0, 0, .2)",
-      "shadowOffsetX": 1,
-      "shadowOffsetY": 2,
-      "borderRadius": 4,
-      "borderWidth": 1,
-      "padding": null,
-      "extraCssText": "",
-      "axisPointer": {
-        "type": "line",
-        "axis": "auto",
-        "animation": "auto",
-        "animationDurationUpdate": 200,
-        "animationEasingUpdate": "exponentialOut",
-        "crossStyle": {
-          "color": "#999",
-          "width": 1,
-          "type": "dashed",
-          "textStyle": {}
-        }
-      },
-      "textStyle": {
-        "color": "#666",
-        "fontSize": 14
+        "margin": 5
       }
     }
   ],
@@ -1867,23 +1501,7 @@
           "2015-12-31",
           898
         ]
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "geoIndex": 0,
-      "blurSize": 30,
-      "pointSize": 20,
-      "maxOpacity": 1,
-      "minOpacity": 0,
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      },
-      "label": {},
-      "emphasis": {
-        "label": {}
-      }
+      ]
     },
     {
       "type": "heatmap",
@@ -3354,23 +2972,7 @@
           "2016-12-31",
           935
         ]
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "geoIndex": 0,
-      "blurSize": 30,
-      "pointSize": 20,
-      "maxOpacity": 1,
-      "minOpacity": 0,
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      },
-      "label": {},
-      "emphasis": {
-        "label": {}
-      }
+      ]
     },
     {
       "type": "heatmap",
@@ -4837,128 +4439,9 @@
           "2017-12-31",
           248
         ]
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "geoIndex": 0,
-      "blurSize": 30,
-      "pointSize": 20,
-      "maxOpacity": 1,
-      "minOpacity": 0,
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      },
-      "label": {},
-      "emphasis": {
-        "label": {}
-      }
-    }
-  ],
-  "visualMap": [
-    {
-      "min": 0,
-      "max": 1000,
-      "calculable": true,
-      "orient": "vertical",
-      "left": "670",
-      "top": "center",
-      "show": true,
-      "zlevel": 0,
-      "z": 4,
-      "seriesIndex": "all",
-      "right": null,
-      "bottom": null,
-      "itemWidth": null,
-      "itemHeight": null,
-      "inverse": false,
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderColor": "#ccc",
-      "contentColor": "#5793f3",
-      "inactiveColor": "#aaa",
-      "borderWidth": 0,
-      "padding": 5,
-      "textGap": 10,
-      "precision": 0,
-      "textStyle": {
-        "color": "#333"
-      },
-      "align": "auto",
-      "hoverLink": true,
-      "realtime": true,
-      "handleIcon": "path://M-11.39,9.77h0a3.5,3.5,0,0,1-3.5,3.5h-22a3.5,3.5,0,0,1-3.5-3.5h0a3.5,3.5,0,0,1,3.5-3.5h22A3.5,3.5,0,0,1-11.39,9.77Z",
-      "handleSize": "120%",
-      "handleStyle": {
-        "borderColor": "#fff",
-        "borderWidth": 1
-      },
-      "indicatorIcon": "circle",
-      "indicatorSize": "50%",
-      "indicatorStyle": {
-        "borderColor": "#fff",
-        "borderWidth": 2,
-        "shadowBlur": 2,
-        "shadowOffsetX": 1,
-        "shadowOffsetY": 1,
-        "shadowColor": "rgba(0,0,0,0.2)"
-      },
-      "target": {
-        "inRange": {
-          "color": [
-            "#f6efa6",
-            "#d88273",
-            "#bf444c"
-          ]
-        },
-        "outOfRange": {
-          "color": [
-            "rgba(0,0,0,0)"
-          ],
-          "opacity": [
-            0,
-            0
-          ]
-        }
-      },
-      "controller": {
-        "inRange": {
-          "color": [
-            "#f6efa6",
-            "#d88273",
-            "#bf444c"
-          ],
-          "symbol": [
-            "roundRect"
-          ],
-          "symbolSize": [
-            20,
-            20
-          ]
-        },
-        "outOfRange": {
-          "color": [
-            "#aaa"
-          ],
-          "symbol": [
-            "roundRect"
-          ],
-          "symbolSize": [
-            20,
-            20
-          ]
-        }
-      },
-      "range": [
-        0,
-        1000
       ]
     }
   ],
-  "legend": [],
-  "markArea": [],
-  "markLine": [],
-  "markPoint": [],
-  "brush": [],
-  "dataZoom": []
+  "actions": [],
+  "sharedVar": {}
 }

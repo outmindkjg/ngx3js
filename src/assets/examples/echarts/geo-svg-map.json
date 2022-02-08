@@ -1,253 +1,13 @@
 {
-  "darkMode": "auto",
-  "colorBy": "series",
-  "color": [
-    "#5470c6",
-    "#91cc75",
-    "#fac858",
-    "#ee6666",
-    "#73c0de",
-    "#3ba272",
-    "#fc8452",
-    "#9a60b4",
-    "#ea7ccc"
-  ],
-  "gradientColor": [
-    "#f6efa6",
-    "#d88273",
-    "#bf444c"
-  ],
-  "aria": {
-    "decal": {
-      "decals": [
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            2,
-            5
-          ],
-          "symbolSize": 1,
-          "rotation": 0.5235987755982988
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "circle",
-          "dashArrayX": [
-            [
-              8,
-              8
-            ],
-            [
-              0,
-              8,
-              8,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ],
-          "symbolSize": 0.8
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            4,
-            3
-          ],
-          "rotation": -0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              6,
-              6
-            ],
-            [
-              0,
-              6,
-              6,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ]
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              1,
-              0
-            ],
-            [
-              1,
-              6
-            ]
-          ],
-          "dashArrayY": [
-            1,
-            0,
-            6,
-            0
-          ],
-          "rotation": 0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "triangle",
-          "dashArrayX": [
-            [
-              9,
-              9
-            ],
-            [
-              0,
-              9,
-              9,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            7,
-            2
-          ],
-          "symbolSize": 0.75
-        }
-      ]
-    }
+  "tooltip": {
+    "formatter": "function (params) { console.log(params); return [ params.name + ':', 'xxxxxxxxxxxxxxxx', 'xxxxxxxxxxxxxxxx', 'xxxxxxxxxxxxxxxx' ].join('\\n'); }"
   },
-  "textStyle": {
-    "fontFamily": "sans-serif",
-    "fontSize": 12,
-    "fontStyle": "normal",
-    "fontWeight": "normal"
-  },
-  "stateAnimation": {
-    "duration": 300,
-    "easing": "cubicOut"
-  },
-  "animation": "auto",
-  "animationDuration": 1000,
-  "animationDurationUpdate": 500,
-  "animationEasing": "cubicInOut",
-  "animationEasingUpdate": "cubicInOut",
-  "animationThreshold": 2000,
-  "progressiveThreshold": 3000,
-  "progressive": 400,
-  "hoverLayerThreshold": 3000,
-  "useUTC": false,
-  "axisPointer": [
-    {
-      "show": "auto",
-      "zlevel": 0,
-      "z": 50,
-      "type": "line",
-      "snap": false,
-      "triggerTooltip": true,
-      "value": null,
-      "status": null,
-      "link": [],
-      "animation": null,
-      "animationDurationUpdate": 200,
-      "lineStyle": {
-        "color": "#B9BEC9",
-        "width": 1,
-        "type": "dashed"
-      },
-      "shadowStyle": {
-        "color": "rgba(210,219,238,0.2)"
-      },
-      "label": {
-        "show": true,
-        "formatter": null,
-        "precision": "auto",
-        "margin": 3,
-        "color": "#fff",
-        "padding": [
-          5,
-          7,
-          5,
-          7
-        ],
-        "backgroundColor": "auto",
-        "borderColor": null,
-        "borderWidth": 0,
-        "borderRadius": 3
-      },
-      "handle": {
-        "show": false,
-        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
-        "size": 45,
-        "margin": 50,
-        "color": "#333",
-        "shadowBlur": 3,
-        "shadowColor": "#aaa",
-        "shadowOffsetX": 0,
-        "shadowOffsetY": 2,
-        "throttle": 40
-      }
-    }
-  ],
-  "tooltip": [
-    {
-      "zlevel": 0,
-      "z": 60,
-      "show": true,
-      "showContent": true,
-      "trigger": "item",
-      "triggerOn": "mousemove|click",
-      "alwaysShowContent": false,
-      "displayMode": "single",
-      "renderMode": "auto",
-      "confine": null,
-      "showDelay": 0,
-      "hideDelay": 100,
-      "transitionDuration": 0.4,
-      "enterable": false,
-      "backgroundColor": "#fff",
-      "shadowBlur": 10,
-      "shadowColor": "rgba(0, 0, 0, .2)",
-      "shadowOffsetX": 1,
-      "shadowOffsetY": 2,
-      "borderRadius": 4,
-      "borderWidth": 1,
-      "padding": null,
-      "extraCssText": "",
-      "axisPointer": {
-        "type": "line",
-        "axis": "auto",
-        "animation": "auto",
-        "animationDurationUpdate": 200,
-        "animationEasingUpdate": "exponentialOut",
-        "crossStyle": {
-          "color": "#999",
-          "width": 1,
-          "type": "dashed",
-          "textStyle": {}
-        }
-      },
-      "textStyle": {
-        "color": "#666",
-        "fontSize": 14
-      }
-    }
-  ],
   "geo": [
     {
-      "map": { "name" : "sicily", "url" : "echarts/files/Sicily_prehellenic_topographic_map.svg"},
+      "map": {
+        "name": "sicily",
+        "url": "echarts/files/Sicily_prehellenic_topographic_map.svg"
+      },
       "roam": true,
       "layoutCenter": [
         "50%",
@@ -257,19 +17,13 @@
       "selectedMode": "single",
       "tooltip": {
         "show": true,
-        "confine": true
+        "confine": true,
+        "formatter": "function (params) { return [ 'This is the introduction:', 'xxxxxxxxxxxxxxxxxxxxx', 'xxxxxxxxxxxxxxxxxxxxx', 'xxxxxxxxxxxxxxxxxxxxx', 'xxxxxxxxxxxxxxxxxxxxx', 'xxxxxxxxxxxxxxxxxxxxx', 'xxxxxxxxxxxxxxxxxxxxx', 'xxxxxxxxxxxxxxxxxxxxx', 'xxxxxxxxxxxxxxxxxxxxx', 'xxxxxxxxxxxxxxxxxxxxx', 'xxxxxxxxxxxxxxxxxxxxx' ].join('\\n'); }"
       },
-      "itemStyle": {
-        "borderWidth": 0.5,
-        "borderColor": "#444"
-      },
+      "itemStyle": {},
       "emphasis": {
         "label": {
-          "show": false,
-          "color": "rgb(100,0,0)"
-        },
-        "itemStyle": {
-          "color": "rgba(255,215,0,0.8)"
+          "show": false
         }
       },
       "select": {
@@ -277,8 +31,7 @@
           "color": "#b50205"
         },
         "label": {
-          "show": false,
-          "color": "rgb(100,0,0)"
+          "show": false
         }
       },
       "regions": [
@@ -298,7 +51,7 @@
             "alwaysShowContent": true,
             "enterable": true,
             "extraCssText": "user-select: text",
-            "formatter": "Route 1:<br>xxxxxxxxxxxxxxxxxxxxxxxxxxx<br>xxxxxxxxxxxxxxxxxxxxxxxxxxx<br>xxxxxxxxxxxxxxxxxxxxxxxxxxx<br>xxxxxxxxxxxxxxxxxxxxxxxxxxx<br>xxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            "formatter": "Route 1:\nxxxxxxxxxxxxxxxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxx"
           }
         },
         {
@@ -317,576 +70,95 @@
             "alwaysShowContent": true,
             "enterable": true,
             "extraCssText": "user-select: text",
-            "formatter": "Route 2:<br>xxxxxxxxxxxxxx<br>xxxxxxxxxxxxxx<br>xxxxxxxxxxxxxx<br>xxxxxxxxxxxxxx<br>xxxxxxxxxxxxxx<br>xxxxxxxxxxxxxx<br>xxxxxxxxxxxxxx<br>xxxxxxxxxxxxxx"
+            "formatter": "Route 2:\nxxxxxxxxxxxxxx\nxxxxxxxxxxxxxx\nxxxxxxxxxxxxxx\nxxxxxxxxxxxxxx\nxxxxxxxxxxxxxx\nxxxxxxxxxxxxxx\nxxxxxxxxxxxxxx\nxxxxxxxxxxxxxx"
           }
-        },
-        {
-          "name": "Lentini"
-        },
-        {
-          "name": "Lentini"
-        },
-        {
-          "name": "Assorus"
-        },
-        {
-          "name": "Assorus"
-        },
-        {
-          "name": "Ziz (Palermo)"
-        },
-        {
-          "name": "Hybla (Avola)"
-        },
-        {
-          "name": "Hybla (Avola)"
-        },
-        {
-          "name": "(Butera)"
-        },
-        {
-          "name": "(Butera)"
-        },
-        {
-          "name": "Camico (Caltabellotta)"
-        },
-        {
-          "name": "Camico (Caltabellotta)"
-        },
-        {
-          "name": "(Cassibile)"
-        },
-        {
-          "name": "(Cassibile)"
-        },
-        {
-          "name": "(Catelluccio di Noto)"
-        },
-        {
-          "name": "(Catelluccio di Noto)"
-        },
-        {
-          "name": "(Ragusa)"
-        },
-        {
-          "name": "(Ragusa)"
-        },
-        {
-          "name": "(Centuripe)"
-        },
-        {
-          "name": "(Centuripe)"
-        },
-        {
-          "name": "Inessa (Paternò)"
-        },
-        {
-          "name": "Inessa (Paternò)"
-        },
-        {
-          "name": "(Mola)"
-        },
-        {
-          "name": "(Mola)"
-        },
-        {
-          "name": "(Colle Madore)"
-        },
-        {
-          "name": "(Colle Madore)"
-        },
-        {
-          "name": "(Cozzo del Pantano)"
-        },
-        {
-          "name": "(Cozzo del Pantano)"
-        },
-        {
-          "name": "(Cozzo Matrice)"
-        },
-        {
-          "name": "(Cozzo Matrice)"
-        },
-        {
-          "name": "(Erbe Bianche)"
-        },
-        {
-          "name": "(Erbe Bianche)"
-        },
-        {
-          "name": "Eryx (Erice)"
-        },
-        {
-          "name": "Segesta"
-        },
-        {
-          "name": "(Francavilla)"
-        },
-        {
-          "name": "(Francavilla)"
-        },
-        {
-          "name": "(Giarratana)"
-        },
-        {
-          "name": "(Giarratana)"
-        },
-        {
-          "name": "(Gibil Gabib)"
-        },
-        {
-          "name": "(Gibil Gabib)"
-        },
-        {
-          "name": "Kratos (Gratteri)"
-        },
-        {
-          "name": "Kratos (Gratteri)"
-        },
-        {
-          "name": "(Lavanca Nera)"
-        },
-        {
-          "name": "(Lavanca Nera)"
-        },
-        {
-          "name": "(Licata)"
-        },
-        {
-          "name": "(Licata)"
-        },
-        {
-          "name": "(M. d'Oro)"
-        },
-        {
-          "name": "(M. d'Oro)"
-        },
-        {
-          "name": "(Mendolito)"
-        },
-        {
-          "name": "(Mendolito)"
-        },
-        {
-          "name": "Menai (Mineo)"
-        },
-        {
-          "name": "Menai (Mineo)"
-        },
-        {
-          "name": "Murika (Modica)"
-        },
-        {
-          "name": "Murika (Modica)"
-        },
-        {
-          "name": "(Montagna di Marzo)"
-        },
-        {
-          "name": "(Montagna di Marzo)"
-        },
-        {
-          "name": "Makella (Montagnola)"
-        },
-        {
-          "name": "Makella (Montagnola)"
-        },
-        {
-          "name": "Entella"
-        },
-        {
-          "name": "Entella"
-        },
-        {
-          "name": "Iaitas (Monte Jato)"
-        },
-        {
-          "name": "Iaitas (Monte Jato)"
-        },
-        {
-          "name": "(Contrada Tremenzano)"
-        },
-        {
-          "name": "(Contrada Tremenzano)"
-        },
-        {
-          "name": "(Monte Finocchito)"
-        },
-        {
-          "name": "(Monte Finocchito)"
-        },
-        {
-          "name": "Plemmyrion (Plemmirio)"
-        },
-        {
-          "name": "Plemmyrion (Plemmirio)"
-        },
-        {
-          "name": "Pantalica"
-        },
-        {
-          "name": "Pantalica"
-        },
-        {
-          "name": "Thapsos"
-        },
-        {
-          "name": "Thapsos"
-        },
-        {
-          "name": "(Monte Milena)"
-        },
-        {
-          "name": "(Monte Milena)"
-        },
-        {
-          "name": "(Ribera)"
-        },
-        {
-          "name": "(Ribera)"
-        },
-        {
-          "name": "(Mura Pregne)"
-        },
-        {
-          "name": "(Mura Pregne)"
-        },
-        {
-          "name": "Erbita (Nicosia)"
-        },
-        {
-          "name": "Erbita (Nicosia)"
-        },
-        {
-          "name": "(Longane)"
-        },
-        {
-          "name": "(Longane)"
-        },
-        {
-          "name": "Nakone (Monte Maranfusa)"
-        },
-        {
-          "name": "Nakone (Monte Maranfusa)"
-        },
-        {
-          "name": "(Caltagirone)"
-        },
-        {
-          "name": "(Caltagirone)"
-        },
-        {
-          "name": "Ziz (Palermo)"
-        },
-        {
-          "name": "Segesta"
-        },
-        {
-          "name": "Eryx (Erice)"
         }
-      ],
-      "zlevel": 0,
-      "z": 0,
-      "show": true,
-      "left": "center",
-      "top": "center",
-      "aspectScale": null,
-      "silent": false,
-      "boundingCoords": null,
-      "center": null,
-      "zoom": 1,
-      "scaleLimit": null,
-      "label": {
-        "show": false,
-        "color": "#000"
-      },
-      "selectedMap": {}
+      ]
     }
   ],
-  "yAxis": [
-    {
-      "axisLine": {
-        "show": false,
-        "onZero": true,
-        "onZeroAxisIndex": null,
-        "lineStyle": {
-          "color": "#6E7079",
-          "width": 1,
-          "type": "solid"
-        },
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
-        ]
-      },
-      "splitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "axisLabel": {
-        "show": false,
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null,
-        "margin": 8,
-        "fontSize": 12
-      },
-      "axisTick": {
-        "show": false,
-        "inside": false,
-        "length": 5,
-        "lineStyle": {
-          "width": 1
-        }
-      },
-      "boundaryGap": [
-        0,
-        0
-      ],
-      "splitNumber": 5,
-      "minorTick": {
-        "show": false,
-        "splitNumber": 5,
-        "length": 3,
-        "lineStyle": {}
-      },
-      "minorSplitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": "#F4F7FD",
-          "width": 1
-        }
-      },
-      "show": true,
-      "zlevel": 0,
-      "z": 0,
-      "inverse": false,
-      "name": "",
-      "nameLocation": "end",
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "nameTextStyle": {},
-      "nameGap": 15,
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
-        "show": false
-      },
-      "axisPointer": {},
-      "splitArea": {
-        "show": false,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
-      },
-      "offset": 0,
-      "type": "value"
+  "grid": {
+    "top": 10,
+    "left": "center",
+    "width": 80,
+    "height": 20
+  },
+  "xAxis": {
+    "axisLine": {
+      "show": false
+    },
+    "splitLine": {
+      "show": false
+    },
+    "axisLabel": {
+      "show": false
+    },
+    "axisTick": {
+      "show": false
     }
-  ],
-  "xAxis": [
-    {
-      "axisLine": {
-        "show": false,
-        "onZero": true,
-        "onZeroAxisIndex": null,
-        "lineStyle": {
-          "color": "#6E7079",
-          "width": 1,
-          "type": "solid"
-        },
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
-        ]
-      },
-      "splitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "axisLabel": {
-        "show": false,
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null,
-        "margin": 8,
-        "fontSize": 12
-      },
-      "axisTick": {
-        "show": false,
-        "inside": false,
-        "length": 5,
-        "lineStyle": {
-          "width": 1
-        }
-      },
-      "boundaryGap": [
-        0,
-        0
-      ],
-      "splitNumber": 5,
-      "minorTick": {
-        "show": false,
-        "splitNumber": 5,
-        "length": 3,
-        "lineStyle": {}
-      },
-      "minorSplitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": "#F4F7FD",
-          "width": 1
-        }
-      },
-      "show": true,
-      "zlevel": 0,
-      "z": 0,
-      "inverse": false,
-      "name": "",
-      "nameLocation": "end",
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "nameTextStyle": {},
-      "nameGap": 15,
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
-        "show": false
-      },
-      "axisPointer": {},
-      "splitArea": {
-        "show": false,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
-      },
-      "offset": 0,
-      "type": "value"
+  },
+  "yAxis": {
+    "axisLine": {
+      "show": false
+    },
+    "splitLine": {
+      "show": false
+    },
+    "axisLabel": {
+      "show": false
+    },
+    "axisTick": {
+      "show": false
     }
-  ],
-  "grid": [
-    {
-      "top": 10,
-      "left": "center",
-      "width": 80,
-      "height": 20,
-      "show": false,
-      "zlevel": 0,
-      "z": 0,
-      "containLabel": false,
-      "backgroundColor": "rgba(0,0,0,0)",
+  },
+  "series": {
+    "type": "scatter",
+    "itemStyle": {},
+    "label": {
+      "show": true,
+      "borderColor": "#999",
       "borderWidth": 1,
-      "borderColor": "#ccc"
-    }
-  ],
-  "series": [
-    {
-      "type": "scatter",
-      "itemStyle": {
-        "opacity": 0.8
-      },
-      "label": {
-        "show": true,
-        "borderColor": "#999",
-        "borderWidth": 1,
-        "borderRadius": 2,
-        "backgroundColor": "#fff",
-        "padding": [
-          3,
-          5
-        ],
-        "fontSize": 18,
-        "opacity": 1,
-        "color": "#333"
-      },
-      "encode": {
-        "label": 2
-      },
-      "symbolSize": 0,
-      "tooltip": {
-        "show": false
-      },
-      "selectedMode": "single",
-      "select": {
-        "label": {
-          "color": "#fff",
-          "borderColor": "#555",
-          "backgroundColor": "#555"
-        },
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      },
-      "data": [
-        [
-          0,
-          0,
-          "route1"
-        ],
-        [
-          1,
-          0,
-          "route2"
-        ]
+      "borderRadius": 2,
+      "backgroundColor": "#fff",
+      "padding": [
+        3,
+        5
       ],
-      "coordinateSystem": "cartesian2d",
-      "zlevel": 0,
-      "z": 2,
-      "legendHoverLink": true,
-      "large": false,
-      "largeThreshold": 2000,
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        }
-      },
-      "clip": true,
-      "universalTransition": {
-        "divideShape": "clone"
+      "fontSize": 18,
+      "opacity": 1,
+      "color": "#333"
+    },
+    "encode": {
+      "label": 2
+    },
+    "symbolSize": 0,
+    "tooltip": {
+      "show": false
+    },
+    "selectedMode": "single",
+    "select": {
+      "label": {
+        "color": "#fff",
+        "borderColor": "#555",
+        "backgroundColor": "#555"
       }
-    }
-  ],
-  "visualMap": [],
-  "legend": [],
-  "markArea": [],
-  "markLine": [],
-  "markPoint": [],
-  "brush": [],
-  "dataZoom": []
+    },
+    "data": [
+      [
+        0,
+        0,
+        "route1"
+      ],
+      [
+        1,
+        0,
+        "route2"
+      ]
+    ]
+  },
+  "actions": [],
+  "sharedVar": {
+    "on": [
+      "function(myChart) { myChart.on('selectchanged', function (params) { if (!params.selected.length) { myChart.dispatchAction({ type: 'hideTip' }); myChart.dispatchAction({ type: 'geoSelect', geoIndex: 0 /**  Use no name to unselect. */ }); } else { const option = myChart.getOption(); var btnDataIdx = params.selected[0].dataIndex[0]; var name = option.series[0].data[btnDataIdx][2]; myChart.dispatchAction({ type: 'geoSelect', geoIndex: 0, name: name }); myChart.dispatchAction({ type: 'showTip', geoIndex: 0, name: name }); } }) }"
+    ]
+  }
 }

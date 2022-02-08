@@ -1,539 +1,85 @@
 {
   "animation": false,
-  "darkMode": "auto",
-  "colorBy": "series",
-  "color": [
-    "#5470c6",
-    "#91cc75",
-    "#fac858",
-    "#ee6666",
-    "#73c0de",
-    "#3ba272",
-    "#fc8452",
-    "#9a60b4",
-    "#ea7ccc"
-  ],
-  "gradientColor": [
-    "#f6efa6",
-    "#d88273",
-    "#bf444c"
-  ],
-  "aria": {
-    "decal": {
-      "decals": [
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            2,
-            5
-          ],
-          "symbolSize": 1,
-          "rotation": 0.5235987755982988
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "circle",
-          "dashArrayX": [
-            [
-              8,
-              8
-            ],
-            [
-              0,
-              8,
-              8,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ],
-          "symbolSize": 0.8
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            4,
-            3
-          ],
-          "rotation": -0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              6,
-              6
-            ],
-            [
-              0,
-              6,
-              6,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ]
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              1,
-              0
-            ],
-            [
-              1,
-              6
-            ]
-          ],
-          "dashArrayY": [
-            1,
-            0,
-            6,
-            0
-          ],
-          "rotation": 0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "triangle",
-          "dashArrayX": [
-            [
-              9,
-              9
-            ],
-            [
-              0,
-              9,
-              9,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            7,
-            2
-          ],
-          "symbolSize": 0.75
-        }
-      ]
-    }
+  "legend": {
+    "bottom": 10,
+    "left": "center",
+    "data": [
+      "Dow-Jones index",
+      "MA5",
+      "MA10",
+      "MA20",
+      "MA30"
+    ]
   },
-  "textStyle": {
-    "fontFamily": "sans-serif",
-    "fontSize": 12,
-    "fontStyle": "normal",
-    "fontWeight": "normal"
+  "tooltip": {
+    "trigger": "axis",
+    "axisPointer": {
+      "type": "cross"
+    },
+    "borderWidth": 1,
+    "borderColor": "#ccc",
+    "padding": 10,
+    "textStyle": {
+      "color": "#000"
+    },
+    "position": "function (pos, params, el, elRect, size) { const obj = { top: 10 }; obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30; return obj; }"
   },
-  "stateAnimation": {
-    "duration": 300,
-    "easing": "cubicOut"
-  },
-  "animationDuration": 1000,
-  "animationDurationUpdate": 500,
-  "animationEasing": "cubicInOut",
-  "animationEasingUpdate": "cubicInOut",
-  "animationThreshold": 2000,
-  "progressiveThreshold": 3000,
-  "progressive": 400,
-  "hoverLayerThreshold": 3000,
-  "useUTC": false,
-  "toolbox": [
-    {
-      "feature": {
-        "dataZoom": {
-          "yAxisIndex": false,
-          "show": true,
-          "filterMode": "filter",
-          "icon": {
-            "zoom": "M0,13.5h26.9 M13.5,26.9V0 M32.1,13.5H58V58H13.5 V32.1",
-            "back": "M22,1.4L9.9,13.5l12.3,12.3 M10.3,13.5H54.9v44.6 H10.3v-26"
-          },
-          "title": {
-            "zoom": "Zoom",
-            "back": "Zoom Reset"
-          },
-          "brushStyle": {
-            "borderWidth": 0,
-            "color": "rgba(210,219,238,0.2)"
-          },
-          "iconStatus": {
-            "zoom": "normal",
-            "back": "normal"
-          }
-        },
-        "brush": {
-          "type": [
-            "lineX",
-            "clear"
-          ],
-          "show": true,
-          "icon": {
-            "rect": "M7.3,34.7 M0.4,10V-0.2h9.8 M89.6,10V-0.2h-9.8 M0.4,60v10.2h9.8 M89.6,60v10.2h-9.8 M12.3,22.4V10.5h13.1 M33.6,10.5h7.8 M49.1,10.5h7.8 M77.5,22.4V10.5h-13 M12.3,31.1v8.2 M77.7,31.1v8.2 M12.3,47.6v11.9h13.1 M33.6,59.5h7.6 M49.1,59.5 h7.7 M77.5,47.6v11.9h-13",
-            "polygon": "M55.2,34.9c1.7,0,3.1,1.4,3.1,3.1s-1.4,3.1-3.1,3.1 s-3.1-1.4-3.1-3.1S53.5,34.9,55.2,34.9z M50.4,51c1.7,0,3.1,1.4,3.1,3.1c0,1.7-1.4,3.1-3.1,3.1c-1.7,0-3.1-1.4-3.1-3.1 C47.3,52.4,48.7,51,50.4,51z M55.6,37.1l1.5-7.8 M60.1,13.5l1.6-8.7l-7.8,4 M59,19l-1,5.3 M24,16.1l6.4,4.9l6.4-3.3 M48.5,11.6 l-5.9,3.1 M19.1,12.8L9.7,5.1l1.1,7.7 M13.4,29.8l1,7.3l6.6,1.6 M11.6,18.4l1,6.1 M32.8,41.9 M26.6,40.4 M27.3,40.2l6.1,1.6 M49.9,52.1l-5.6-7.6l-4.9-1.2",
-            "lineX": "M15.2,30 M19.7,15.6V1.9H29 M34.8,1.9H40.4 M55.3,15.6V1.9H45.9 M19.7,44.4V58.1H29 M34.8,58.1H40.4 M55.3,44.4 V58.1H45.9 M12.5,20.3l-9.4,9.6l9.6,9.8 M3.1,29.9h16.5 M62.5,20.3l9.4,9.6L62.3,39.7 M71.9,29.9H55.4",
-            "lineY": "M38.8,7.7 M52.7,12h13.2v9 M65.9,26.6V32 M52.7,46.3h13.2v-9 M24.9,12H11.8v9 M11.8,26.6V32 M24.9,46.3H11.8v-9 M48.2,5.1l-9.3-9l-9.4,9.2 M38.9-3.9V12 M48.2,53.3l-9.3,9l-9.4-9.2 M38.9,62.3V46.4",
-            "keep": "M4,10.5V1h10.3 M20.7,1h6.1 M33,1h6.1 M55.4,10.5V1H45.2 M4,17.3v6.6 M55.6,17.3v6.6 M4,30.5V40h10.3 M20.7,40 h6.1 M33,40h6.1 M55.4,30.5V40H45.2 M21,18.9h62.9v48.6H21V18.9z",
-            "clear": "M22,14.7l30.9,31 M52.9,14.7L22,45.7 M4.7,16.8V4.2h13.1 M26,4.2h7.8 M41.6,4.2h7.8 M70.3,16.8V4.2H57.2 M4.7,25.9v8.6 M70.3,25.9v8.6 M4.7,43.2v12.6h13.1 M26,55.8h7.8 M41.6,55.8h7.8 M70.3,43.2v12.6H57.2"
-          },
-          "title": {
-            "rect": "Box Select",
-            "polygon": "Lasso Select",
-            "lineX": "Horizontally Select",
-            "lineY": "Vertically Select",
-            "keep": "Keep Selections",
-            "clear": "Clear Selections"
-          },
-          "iconStatus": {
-            "lineX": "normal",
-            "clear": "normal"
-          }
-        }
-      },
-      "show": true,
-      "z": 6,
-      "zlevel": 0,
-      "orient": "horizontal",
-      "left": "right",
-      "top": "top",
-      "backgroundColor": "transparent",
-      "borderColor": "#ccc",
-      "borderRadius": 0,
-      "borderWidth": 0,
-      "padding": 5,
-      "itemSize": 15,
-      "itemGap": 8,
-      "showTitle": true,
-      "iconStyle": {
-        "borderColor": "#666",
-        "color": "none"
-      },
-      "emphasis": {
-        "iconStyle": {
-          "borderColor": "#3E98C5"
-        }
-      },
-      "tooltip": {
-        "show": false,
-        "position": "bottom"
+  "axisPointer": {
+    "link": [
+      {
+        "xAxisIndex": "all"
       }
+    ],
+    "label": {
+      "backgroundColor": "#777"
     }
-  ],
-  "axisPointer": [
-    {
-      "link": [
-        {
-          "xAxisIndex": "all"
-        }
-      ],
-      "label": {
-        "backgroundColor": "#777",
-        "show": true,
-        "formatter": null,
-        "precision": "auto",
-        "margin": 3,
-        "color": "#fff",
-        "padding": [
-          5,
-          7,
-          5,
-          7
-        ],
-        "borderColor": null,
-        "borderWidth": 0,
-        "borderRadius": 3
+  },
+  "toolbox": {
+    "feature": {
+      "dataZoom": {
+        "yAxisIndex": false
       },
-      "show": "auto",
-      "zlevel": 0,
-      "z": 50,
-      "type": "line",
-      "snap": false,
-      "triggerTooltip": true,
-      "value": null,
-      "status": null,
-      "animation": null,
-      "animationDurationUpdate": 200,
-      "lineStyle": {
-        "color": "#B9BEC9",
-        "width": 1,
-        "type": "dashed"
-      },
-      "shadowStyle": {
-        "color": "rgba(210,219,238,0.2)"
-      },
-      "handle": {
-        "show": false,
-        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
-        "size": 45,
-        "margin": 50,
-        "color": "#333",
-        "shadowBlur": 3,
-        "shadowColor": "#aaa",
-        "shadowOffsetX": 0,
-        "shadowOffsetY": 2,
-        "throttle": 40
-      }
-    }
-  ],
-  "tooltip": [
-    {
-      "trigger": "axis",
-      "axisPointer": {
-        "type": "cross",
-        "axis": "auto",
-        "animation": "auto",
-        "animationDurationUpdate": 200,
-        "animationEasingUpdate": "exponentialOut",
-        "crossStyle": {
-          "color": "#999",
-          "width": 1,
-          "type": "dashed",
-          "textStyle": {}
-        }
-      },
-      "borderWidth": 1,
-      "borderColor": "#ccc",
-      "padding": 10,
-      "textStyle": {
-        "color": "#000",
-        "fontSize": 14
-      },
-      "zlevel": 0,
-      "z": 60,
-      "show": true,
-      "showContent": true,
-      "triggerOn": "mousemove|click",
-      "alwaysShowContent": false,
-      "displayMode": "single",
-      "renderMode": "auto",
-      "confine": null,
-      "showDelay": 0,
-      "hideDelay": 100,
-      "transitionDuration": 0.4,
-      "enterable": false,
-      "backgroundColor": "#fff",
-      "shadowBlur": 10,
-      "shadowColor": "rgba(0, 0, 0, .2)",
-      "shadowOffsetX": 1,
-      "shadowOffsetY": 2,
-      "borderRadius": 4,
-      "extraCssText": ""
-    }
-  ],
-  "yAxis": [
-    {
-      "scale": true,
-      "splitArea": {
-        "show": true,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
-      },
-      "boundaryGap": [
-        0,
-        0
-      ],
-      "axisLine": {
-        "show": "auto",
-        "onZero": true,
-        "onZeroAxisIndex": null,
-        "lineStyle": {
-          "color": "#6E7079",
-          "width": 1,
-          "type": "solid"
-        },
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
+      "brush": {
+        "type": [
+          "lineX",
+          "clear"
         ]
+      }
+    }
+  },
+  "brush": {
+    "xAxisIndex": "all",
+    "brushLink": "all",
+    "outOfBrush": {
+      "colorAlpha": 0.1
+    }
+  },
+  "visualMap": {
+    "show": false,
+    "seriesIndex": 5,
+    "dimension": 2,
+    "pieces": [
+      {
+        "value": 1,
+        "color": "#ec0000"
       },
-      "axisTick": {
-        "show": "auto",
-        "inside": false,
-        "length": 5,
-        "lineStyle": {
-          "width": 1
-        }
-      },
-      "splitNumber": 5,
-      "minorTick": {
-        "show": false,
-        "splitNumber": 5,
-        "length": 3,
-        "lineStyle": {}
-      },
-      "minorSplitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": "#F4F7FD",
-          "width": 1
-        }
-      },
-      "show": true,
-      "zlevel": 0,
-      "z": 0,
-      "inverse": false,
-      "name": "",
-      "nameLocation": "end",
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "nameTextStyle": {},
-      "nameGap": 15,
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
-        "show": false
-      },
-      "axisPointer": {
-        "status": "hide",
-        "value": 16891.412742382272,
-        "seriesDataIndices": []
-      },
-      "axisLabel": {
-        "show": true,
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null,
-        "margin": 8,
-        "fontSize": 12
-      },
-      "splitLine": {
-        "show": true,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "offset": 0,
-      "type": "value"
+      {
+        "value": -1,
+        "color": "#00da3c"
+      }
+    ]
+  },
+  "grid": [
+    {
+      "left": "10%",
+      "right": "8%",
+      "height": "50%"
     },
     {
-      "scale": true,
-      "gridIndex": 1,
-      "splitNumber": 2,
-      "axisLabel": {
-        "show": false,
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null,
-        "margin": 8,
-        "fontSize": 12
-      },
-      "axisLine": {
-        "show": false,
-        "onZero": true,
-        "onZeroAxisIndex": null,
-        "lineStyle": {
-          "color": "#6E7079",
-          "width": 1,
-          "type": "solid"
-        },
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
-        ]
-      },
-      "axisTick": {
-        "show": false,
-        "inside": false,
-        "length": 5,
-        "lineStyle": {
-          "width": 1
-        }
-      },
-      "splitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "boundaryGap": [
-        0,
-        0
-      ],
-      "minorTick": {
-        "show": false,
-        "splitNumber": 5,
-        "length": 3,
-        "lineStyle": {}
-      },
-      "minorSplitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": "#F4F7FD",
-          "width": 1
-        }
-      },
-      "show": true,
-      "zlevel": 0,
-      "z": 0,
-      "inverse": false,
-      "name": "",
-      "nameLocation": "end",
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "nameTextStyle": {},
-      "nameGap": 15,
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
-        "show": false
-      },
-      "axisPointer": {
-        "status": "hide",
-        "value": 156804016.62049863,
-        "seriesDataIndices": []
-      },
-      "splitArea": {
-        "show": false,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
-      },
-      "offset": 0,
-      "type": "value"
+      "left": "10%",
+      "right": "8%",
+      "top": "63%",
+      "height": "16%"
     }
   ],
   "xAxis": [
@@ -3682,120 +3228,18 @@
         "2016-06-21",
         "2016-06-22"
       ],
-      "scale": true,
       "boundaryGap": false,
       "axisLine": {
-        "onZero": false,
-        "show": true,
-        "onZeroAxisIndex": null,
-        "lineStyle": {
-          "color": "#6E7079",
-          "width": 1,
-          "type": "solid"
-        },
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
-        ]
+        "onZero": false
       },
       "splitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
+        "show": false
       },
       "min": "dataMin",
       "max": "dataMax",
       "axisPointer": {
-        "z": 100,
-        "status": "hide",
-        "value": 3136,
-        "seriesDataIndices": [
-          {
-            "seriesIndex": 0,
-            "dataIndexInside": 59,
-            "dataIndex": 3136
-          },
-          {
-            "seriesIndex": 1,
-            "dataIndexInside": 59,
-            "dataIndex": 3136
-          },
-          {
-            "seriesIndex": 2,
-            "dataIndexInside": 59,
-            "dataIndex": 3136
-          },
-          {
-            "seriesIndex": 3,
-            "dataIndexInside": 59,
-            "dataIndex": 3136
-          },
-          {
-            "seriesIndex": 4,
-            "dataIndexInside": 59,
-            "dataIndex": 3136
-          }
-        ]
-      },
-      "deduplication": null,
-      "axisTick": {
-        "alignWithLabel": false,
-        "interval": "auto",
-        "show": true,
-        "inside": false,
-        "length": 5,
-        "lineStyle": {
-          "width": 1
-        }
-      },
-      "axisLabel": {
-        "interval": "auto",
-        "show": true,
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null,
-        "margin": 8,
-        "fontSize": 12
-      },
-      "show": true,
-      "zlevel": 0,
-      "z": 0,
-      "inverse": false,
-      "name": "",
-      "nameLocation": "end",
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "nameTextStyle": {},
-      "nameGap": 15,
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
-        "show": false
-      },
-      "splitArea": {
-        "show": false,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
-      },
-      "offset": 0
+        "z": 100
+      }
     },
     {
       "type": "category",
@@ -6943,127 +6387,68 @@
         "2016-06-21",
         "2016-06-22"
       ],
-      "scale": true,
       "boundaryGap": false,
       "axisLine": {
-        "onZero": false,
-        "show": true,
-        "onZeroAxisIndex": null,
-        "lineStyle": {
-          "color": "#6E7079",
-          "width": 1,
-          "type": "solid"
-        },
-        "symbol": [
-          "none",
-          "none"
-        ],
-        "symbolSize": [
-          10,
-          15
-        ]
+        "onZero": false
       },
       "axisTick": {
-        "show": false,
-        "alignWithLabel": false,
-        "interval": "auto",
-        "inside": false,
-        "length": 5,
-        "lineStyle": {
-          "width": 1
-        }
-      },
-      "splitLine": {
-        "show": false,
-        "lineStyle": {
-          "color": [
-            "#E0E6F1"
-          ],
-          "width": 1,
-          "type": "solid"
-        }
-      },
-      "axisLabel": {
-        "show": false,
-        "interval": "auto",
-        "inside": false,
-        "rotate": 0,
-        "showMinLabel": null,
-        "showMaxLabel": null,
-        "margin": 8,
-        "fontSize": 12
-      },
-      "min": "dataMin",
-      "max": "dataMax",
-      "deduplication": null,
-      "show": true,
-      "zlevel": 0,
-      "z": 0,
-      "inverse": false,
-      "name": "",
-      "nameLocation": "end",
-      "nameRotate": null,
-      "nameTruncate": {
-        "maxWidth": null,
-        "ellipsis": "...",
-        "placeholder": "."
-      },
-      "nameTextStyle": {},
-      "nameGap": 15,
-      "silent": false,
-      "triggerEvent": false,
-      "tooltip": {
         "show": false
       },
-      "axisPointer": {
-        "status": "hide",
-        "value": 3136,
-        "seriesDataIndices": [
-          {
-            "seriesIndex": 5,
-            "dataIndexInside": 59,
-            "dataIndex": 3136
-          }
-        ]
+      "splitLine": {
+        "show": false
       },
-      "splitArea": {
-        "show": false,
-        "areaStyle": {
-          "color": [
-            "rgba(250,250,250,0.2)",
-            "rgba(210,219,238,0.2)"
-          ]
-        }
+      "axisLabel": {
+        "show": false
       },
-      "offset": 0
+      "min": "dataMin",
+      "max": "dataMax"
     }
   ],
-  "grid": [
+  "yAxis": [
     {
-      "left": "10%",
-      "right": "8%",
-      "height": "50%",
-      "show": false,
-      "zlevel": 0,
-      "z": 0,
-      "top": 60,
-      "containLabel": false,
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderWidth": 1,
-      "borderColor": "#ccc"
+      "scale": true,
+      "splitArea": {
+        "show": true
+      }
     },
     {
-      "left": "10%",
-      "right": "8%",
-      "top": "63%",
-      "height": "16%",
-      "show": false,
-      "zlevel": 0,
-      "z": 0,
-      "containLabel": false,
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderWidth": 1,
-      "borderColor": "#ccc"
+      "scale": true,
+      "gridIndex": 1,
+      "splitNumber": 2,
+      "axisLabel": {
+        "show": false
+      },
+      "axisLine": {
+        "show": false
+      },
+      "axisTick": {
+        "show": false
+      },
+      "splitLine": {
+        "show": false
+      }
+    }
+  ],
+  "dataZoom": [
+    {
+      "type": "inside",
+      "xAxisIndex": [
+        0,
+        1
+      ],
+      "start": 98,
+      "end": 100
+    },
+    {
+      "show": true,
+      "xAxisIndex": [
+        0,
+        1
+      ],
+      "type": "slider",
+      "top": "85%",
+      "start": 98,
+      "end": 100
     }
   ],
   "series": [
@@ -29061,34 +28446,11 @@
       ],
       "itemStyle": {
         "color": "#00da3c",
-        "color0": "#ec0000",
-        "borderWidth": 1
+        "color0": "#ec0000"
       },
-      "tooltip": {},
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "cartesian2d",
-      "legendHoverLink": true,
-      "layout": "horizontal",
-      "clip": true,
-      "emphasis": {
-        "scale": true,
-        "itemStyle": {
-          "borderWidth": 2
-        },
-        "label": {}
-      },
-      "barMaxWidth": null,
-      "barMinWidth": null,
-      "barWidth": null,
-      "large": true,
-      "largeThreshold": 600,
-      "progressive": 3000,
-      "progressiveThreshold": 10000,
-      "progressiveChunkMode": "mod",
-      "animationEasing": "linear",
-      "animationDuration": 300,
-      "label": {}
+      "tooltip": {
+        "formatter": "function (param) { param = param[0]; return [ 'Date: ' + param.name + '<hr size=1 style=\"margin: 3px 0\">', 'Open: ' + param.data[0] + '\\n', 'Close: ' + param.data[1] + '\\n', 'Lowest: ' + param.data[2] + '\\n', 'Highest: ' + param.data[3] + '\\n' ].join(''); }"
+      }
     },
     {
       "name": "MA5",
@@ -32238,46 +31600,8 @@
       ],
       "smooth": true,
       "lineStyle": {
-        "opacity": 0.5,
-        "width": 2,
-        "type": "solid"
-      },
-      "zlevel": 0,
-      "z": 3,
-      "coordinateSystem": "cartesian2d",
-      "legendHoverLink": true,
-      "clip": true,
-      "label": {
-        "position": "top"
-      },
-      "endLabel": {
-        "show": false,
-        "valueAnimation": true,
-        "distance": 8
-      },
-      "emphasis": {
-        "scale": true,
-        "lineStyle": {
-          "width": "bolder"
-        },
-        "label": {}
-      },
-      "step": false,
-      "smoothMonotone": null,
-      "symbol": "emptyCircle",
-      "symbolSize": 4,
-      "symbolRotate": null,
-      "showSymbol": true,
-      "showAllSymbol": "auto",
-      "connectNulls": false,
-      "sampling": "none",
-      "animationEasing": "linear",
-      "progressive": 0,
-      "hoverLayerThreshold": null,
-      "universalTransition": {
-        "divideShape": "clone"
-      },
-      "triggerLineEvent": false
+        "opacity": 0.5
+      }
     },
     {
       "name": "MA10",
@@ -35427,46 +34751,8 @@
       ],
       "smooth": true,
       "lineStyle": {
-        "opacity": 0.5,
-        "width": 2,
-        "type": "solid"
-      },
-      "zlevel": 0,
-      "z": 3,
-      "coordinateSystem": "cartesian2d",
-      "legendHoverLink": true,
-      "clip": true,
-      "label": {
-        "position": "top"
-      },
-      "endLabel": {
-        "show": false,
-        "valueAnimation": true,
-        "distance": 8
-      },
-      "emphasis": {
-        "scale": true,
-        "lineStyle": {
-          "width": "bolder"
-        },
-        "label": {}
-      },
-      "step": false,
-      "smoothMonotone": null,
-      "symbol": "emptyCircle",
-      "symbolSize": 4,
-      "symbolRotate": null,
-      "showSymbol": true,
-      "showAllSymbol": "auto",
-      "connectNulls": false,
-      "sampling": "none",
-      "animationEasing": "linear",
-      "progressive": 0,
-      "hoverLayerThreshold": null,
-      "universalTransition": {
-        "divideShape": "clone"
-      },
-      "triggerLineEvent": false
+        "opacity": 0.5
+      }
     },
     {
       "name": "MA20",
@@ -38616,46 +37902,8 @@
       ],
       "smooth": true,
       "lineStyle": {
-        "opacity": 0.5,
-        "width": 2,
-        "type": "solid"
-      },
-      "zlevel": 0,
-      "z": 3,
-      "coordinateSystem": "cartesian2d",
-      "legendHoverLink": true,
-      "clip": true,
-      "label": {
-        "position": "top"
-      },
-      "endLabel": {
-        "show": false,
-        "valueAnimation": true,
-        "distance": 8
-      },
-      "emphasis": {
-        "scale": true,
-        "lineStyle": {
-          "width": "bolder"
-        },
-        "label": {}
-      },
-      "step": false,
-      "smoothMonotone": null,
-      "symbol": "emptyCircle",
-      "symbolSize": 4,
-      "symbolRotate": null,
-      "showSymbol": true,
-      "showAllSymbol": "auto",
-      "connectNulls": false,
-      "sampling": "none",
-      "animationEasing": "linear",
-      "progressive": 0,
-      "hoverLayerThreshold": null,
-      "universalTransition": {
-        "divideShape": "clone"
-      },
-      "triggerLineEvent": false
+        "opacity": 0.5
+      }
     },
     {
       "name": "MA30",
@@ -41805,46 +41053,8 @@
       ],
       "smooth": true,
       "lineStyle": {
-        "opacity": 0.5,
-        "width": 2,
-        "type": "solid"
-      },
-      "zlevel": 0,
-      "z": 3,
-      "coordinateSystem": "cartesian2d",
-      "legendHoverLink": true,
-      "clip": true,
-      "label": {
-        "position": "top"
-      },
-      "endLabel": {
-        "show": false,
-        "valueAnimation": true,
-        "distance": 8
-      },
-      "emphasis": {
-        "scale": true,
-        "lineStyle": {
-          "width": "bolder"
-        },
-        "label": {}
-      },
-      "step": false,
-      "smoothMonotone": null,
-      "symbol": "emptyCircle",
-      "symbolSize": 4,
-      "symbolRotate": null,
-      "showSymbol": true,
-      "showAllSymbol": "auto",
-      "connectNulls": false,
-      "sampling": "none",
-      "animationEasing": "linear",
-      "progressive": 0,
-      "hoverLayerThreshold": null,
-      "universalTransition": {
-        "divideShape": "clone"
-      },
-      "triggerLineEvent": false
+        "opacity": 0.5
+      }
     },
     {
       "name": "Volume",
@@ -57557,363 +56767,13 @@
           89440000,
           1
         ]
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "cartesian2d",
-      "legendHoverLink": true,
-      "barMinHeight": 0,
-      "barMinAngle": 0,
-      "large": false,
-      "largeThreshold": 400,
-      "progressive": 3000,
-      "progressiveChunkMode": "mod",
-      "clip": true,
-      "roundCap": false,
-      "showBackground": false,
-      "backgroundStyle": {
-        "color": "rgba(180, 180, 180, 0.2)",
-        "borderColor": null,
-        "borderWidth": 0,
-        "borderType": "solid",
-        "borderRadius": 0,
-        "shadowBlur": 0,
-        "shadowColor": null,
-        "shadowOffsetX": 0,
-        "shadowOffsetY": 0,
-        "opacity": 1
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      },
-      "realtimeSort": false,
-      "label": {},
-      "emphasis": {
-        "label": {}
-      }
+      ]
     }
   ],
-  "visualMap": [
-    {
-      "show": false,
-      "seriesIndex": 5,
-      "dimension": 2,
-      "pieces": [
-        {
-          "value": 1,
-          "color": "#ec0000"
-        },
-        {
-          "value": -1,
-          "color": "#00da3c"
-        }
-      ],
-      "zlevel": 0,
-      "z": 4,
-      "min": 0,
-      "max": 200,
-      "left": 0,
-      "right": null,
-      "top": null,
-      "bottom": 0,
-      "itemWidth": 20,
-      "itemHeight": 14,
-      "inverse": false,
-      "orient": "vertical",
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderColor": "#ccc",
-      "contentColor": "#5793f3",
-      "inactiveColor": "#aaa",
-      "borderWidth": 0,
-      "padding": 5,
-      "textGap": 10,
-      "precision": 0,
-      "textStyle": {
-        "color": "#333"
-      },
-      "selected": {
-        "0": true,
-        "1": true
-      },
-      "minOpen": false,
-      "maxOpen": false,
-      "align": "auto",
-      "itemSymbol": "roundRect",
-      "categories": null,
-      "splitNumber": 5,
-      "selectedMode": "multiple",
-      "itemGap": 10,
-      "hoverLink": true,
-      "inRange": {
-        "color": [
-          "#006edd",
-          "#e0ffff"
-        ]
-      },
-      "outOfRange": {
-        "color": [
-          "rgba(0,0,0,0)"
-        ]
-      },
-      "target": {
-        "inRange": {
-          "color": [
-            "#006edd",
-            "#e0ffff"
-          ]
-        },
-        "outOfRange": {
-          "color": [
-            "rgba(0,0,0,0)"
-          ]
-        }
-      },
-      "controller": {
-        "inRange": {
-          "color": [
-            "#006edd",
-            "#e0ffff"
-          ],
-          "symbol": [
-            "roundRect"
-          ],
-          "symbolSize": [
-            20,
-            20
-          ]
-        },
-        "outOfRange": {
-          "color": [
-            "rgba(0,0,0,0)"
-          ],
-          "symbol": [
-            "roundRect"
-          ],
-          "symbolSize": [
-            20,
-            20
-          ]
-        }
-      }
-    }
-  ],
-  "legend": [
-    {
-      "bottom": 10,
-      "left": "center",
-      "data": [
-        "Dow-Jones index",
-        "MA5",
-        "MA10",
-        "MA20",
-        "MA30"
-      ],
-      "zlevel": 0,
-      "z": 4,
-      "show": true,
-      "orient": "horizontal",
-      "top": null,
-      "align": "auto",
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderColor": "#ccc",
-      "borderRadius": 0,
-      "borderWidth": 0,
-      "padding": 5,
-      "itemGap": 10,
-      "itemWidth": 25,
-      "itemHeight": 14,
-      "symbolRotate": "inherit",
-      "symbolKeepAspect": true,
-      "inactiveColor": "#ccc",
-      "inactiveBorderColor": "#ccc",
-      "inactiveBorderWidth": "auto",
-      "itemStyle": {
-        "color": "inherit",
-        "opacity": "inherit",
-        "borderColor": "inherit",
-        "borderWidth": "auto",
-        "borderCap": "inherit",
-        "borderJoin": "inherit",
-        "borderDashOffset": "inherit",
-        "borderMiterLimit": "inherit"
-      },
-      "lineStyle": {
-        "width": "auto",
-        "color": "inherit",
-        "inactiveColor": "#ccc",
-        "inactiveWidth": 2,
-        "opacity": "inherit",
-        "type": "inherit",
-        "cap": "inherit",
-        "join": "inherit",
-        "dashOffset": "inherit",
-        "miterLimit": "inherit"
-      },
-      "textStyle": {
-        "color": "#333"
-      },
-      "selectedMode": true,
-      "selector": false,
-      "selectorLabel": {
-        "show": true,
-        "borderRadius": 10,
-        "padding": [
-          3,
-          5,
-          3,
-          5
-        ],
-        "fontSize": 12,
-        "fontFamily": "sans-serif",
-        "color": "#666",
-        "borderWidth": 1,
-        "borderColor": "#666"
-      },
-      "emphasis": {
-        "selectorLabel": {
-          "show": true,
-          "color": "#eee",
-          "backgroundColor": "#666"
-        }
-      },
-      "selectorPosition": "auto",
-      "selectorItemGap": 7,
-      "selectorButtonGap": 10,
-      "tooltip": {
-        "show": false
-      },
-      "right": null,
-      "selected": {}
-    }
-  ],
-  "markArea": [],
-  "markLine": [],
-  "markPoint": [],
-  "brush": [
-    {
-      "xAxisIndex": "all",
-      "brushLink": "all",
-      "outOfBrush": {
-        "colorAlpha": 0.1
-      },
-      "seriesIndex": "all",
-      "brushType": "rect",
-      "brushMode": "single",
-      "transformable": true,
-      "brushStyle": {
-        "borderWidth": 1,
-        "color": "rgba(210,219,238,0.3)",
-        "borderColor": "#D2DBEE"
-      },
-      "throttleType": "fixRate",
-      "throttleDelay": 0,
-      "removeOnClick": true,
-      "z": 10000,
-      "inBrush": {
-        "liftZ": 5
-      }
-    }
-  ],
-  "dataZoom": [
-    {
-      "type": "inside",
-      "xAxisIndex": [
-        0,
-        1
-      ],
-      "start": 98,
-      "end": 100,
-      "zlevel": 0,
-      "z": 4,
-      "filterMode": "filter",
-      "disabled": false,
-      "zoomLock": false,
-      "zoomOnMouseWheel": true,
-      "moveOnMouseMove": true,
-      "moveOnMouseWheel": false,
-      "preventDefaultMouseMove": true,
-      "throttle": 20,
-      "startValue": 3077,
-      "endValue": 3140
-    },
-    {
-      "show": true,
-      "xAxisIndex": [
-        0,
-        1
-      ],
-      "type": "slider",
-      "top": "85%",
-      "start": 98,
-      "end": 100,
-      "zlevel": 0,
-      "z": 4,
-      "filterMode": "filter",
-      "right": "ph",
-      "width": "ph",
-      "height": "ph",
-      "left": null,
-      "bottom": null,
-      "borderColor": "#d2dbee",
-      "borderRadius": 3,
-      "backgroundColor": "rgba(47,69,84,0)",
-      "dataBackground": {
-        "lineStyle": {
-          "color": "#d2dbee",
-          "width": 0.5
-        },
-        "areaStyle": {
-          "color": "#d2dbee",
-          "opacity": 0.2
-        }
-      },
-      "selectedDataBackground": {
-        "lineStyle": {
-          "color": "#8fb0f7",
-          "width": 0.5
-        },
-        "areaStyle": {
-          "color": "#8fb0f7",
-          "opacity": 0.2
-        }
-      },
-      "fillerColor": "rgba(135,175,274,0.2)",
-      "handleIcon": "path://M-9.35,34.56V42m0-40V9.5m-2,0h4a2,2,0,0,1,2,2v21a2,2,0,0,1-2,2h-4a2,2,0,0,1-2-2v-21A2,2,0,0,1-11.35,9.5Z",
-      "handleSize": "100%",
-      "handleStyle": {
-        "color": "#fff",
-        "borderColor": "#ACB8D1"
-      },
-      "moveHandleSize": 7,
-      "moveHandleIcon": "path://M-320.9-50L-320.9-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-348-41-339-50-320.9-50z M-212.3-50L-212.3-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-239.4-41-230.4-50-212.3-50z M-103.7-50L-103.7-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-130.9-41-121.8-50-103.7-50z",
-      "moveHandleStyle": {
-        "color": "#D2DBEE",
-        "opacity": 0.7
-      },
-      "showDetail": true,
-      "showDataShadow": "auto",
-      "realtime": true,
-      "zoomLock": false,
-      "textStyle": {
-        "color": "#6E7079"
-      },
-      "brushSelect": true,
-      "brushStyle": {
-        "color": "rgba(135,175,274,0.15)"
-      },
-      "emphasis": {
-        "handleStyle": {
-          "borderColor": "#8FB0F7"
-        },
-        "moveHandleStyle": {
-          "color": "#8FB0F7"
-        }
-      },
-      "throttle": 20,
-      "startValue": 3077,
-      "endValue": 3140
-    }
-  ]
+  "actions": [],
+  "sharedVar": {
+    "on": [
+      "function(myChart) { myChart.dispatchAction({ type: 'brush', areas: [ { brushType: 'lineX', coordRange: ['2016-06-02', '2016-06-20'], xAxisIndex: 0 } ] }); }"
+    ]
+  }
 }

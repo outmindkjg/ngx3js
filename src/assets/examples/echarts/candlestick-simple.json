@@ -38,5 +38,20 @@
         ]
       ]
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series, idx) => { const data= Utils.numbers({ count: series.data.length, decimals: 1, min: -15, max: 15, }); series.data.forEach((item, idx) => { const value = data[idx]; item[0] += value; item[1] += value; item[2] += value; item[3] += value; }); }); chart.setOption(options); }"
+    },
+    {
+      "name": "Add Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.xAxis.forEach((xAxis) => { xAxis.data.push(Utils.months({ count: xAxis.data.length + 1 }).pop()); }); options.series.forEach((series, idx) => { const value = Math.round(Utils.rand(0, 30)); series.data.push([ 20 + value, 34 + value, 10 + value, 38+value ]); }); chart.setOption(options); } }"
+    },
+    {
+      "name": "Remove Data",
+      "handler": "(chart) => { const options = chart.getOption(); if (options.series.length > 0) { options.xAxis.forEach((xAxis) => { xAxis.data.splice(-1, 1); }); options.series.forEach((series) => { series.data.pop(); }); chart.setOption(options); } }"
+    }
+  ],
+  "sharedVar": {}
 }

@@ -1,7 +1,6 @@
 {
-  "backgroundColor": "#000",
   "tooltip": {
-    "formatter": "{a} <br/>{b} : {c}%"
+    "formatter": "{a} \n{b} : {c}%"
   },
   "toolbox": {
     "feature": {
@@ -450,7 +449,8 @@
         "fontSize": 18,
         "fontWeight": 800,
         "fontFamily": "Arial",
-        "color": "#fff"
+        "color": "#fff",
+        "formatter": "function (value) { if (value === 0.5) { return '2/4'; } if (value === 1) { return '4/4'; } return value + ''; }"
       },
       "progress": {
         "show": true,
@@ -550,7 +550,8 @@
         "fontSize": 18,
         "fontWeight": 800,
         "fontFamily": "Arial",
-        "color": "#fff"
+        "color": "#fff",
+        "formatter": "function (value) { return -value + ''; }"
       },
       "anchor": {
         "show": true,
@@ -585,5 +586,9 @@
         }
       ]
     }
-  ]
+  ],
+  "actions": [],
+  "sharedVar": {
+    "setInterval": "function(myChart) { return setInterval(function() { const option = myChart.getOption(); option.series[1].data[0].value = Math.round(Utils.rand(0,250) * 10) / 10; option.series[2].data[0].value = Math.round(Utils.rand(0,8) * 10) / 10; option.series[5].data[0].value = Math.round(Utils.rand(0,1) * 10) / 10; option.series[6].data[0].value = Math.round(Utils.rand(-120,-60) * 10) / 10; myChart.setOption(option); }, 3000); }"
+  }
 }

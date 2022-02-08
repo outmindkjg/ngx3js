@@ -1,223 +1,11 @@
 {
-  "darkMode": "auto",
-  "colorBy": "series",
-  "color": [
-    "#5470c6",
-    "#91cc75",
-    "#fac858",
-    "#ee6666",
-    "#73c0de",
-    "#3ba272",
-    "#fc8452",
-    "#9a60b4",
-    "#ea7ccc"
-  ],
-  "gradientColor": [
-    "#f6efa6",
-    "#d88273",
-    "#bf444c"
-  ],
-  "aria": {
-    "decal": {
-      "decals": [
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            2,
-            5
-          ],
-          "symbolSize": 1,
-          "rotation": 0.5235987755982988
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "circle",
-          "dashArrayX": [
-            [
-              8,
-              8
-            ],
-            [
-              0,
-              8,
-              8,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ],
-          "symbolSize": 0.8
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            4,
-            3
-          ],
-          "rotation": -0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              6,
-              6
-            ],
-            [
-              0,
-              6,
-              6,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ]
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              1,
-              0
-            ],
-            [
-              1,
-              6
-            ]
-          ],
-          "dashArrayY": [
-            1,
-            0,
-            6,
-            0
-          ],
-          "rotation": 0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "triangle",
-          "dashArrayX": [
-            [
-              9,
-              9
-            ],
-            [
-              0,
-              9,
-              9,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            7,
-            2
-          ],
-          "symbolSize": 0.75
-        }
-      ]
-    }
-  },
-  "textStyle": {
-    "fontFamily": "sans-serif",
-    "fontSize": 12,
-    "fontStyle": "normal",
-    "fontWeight": "normal"
-  },
-  "stateAnimation": {
-    "duration": 300,
-    "easing": "cubicOut"
-  },
-  "animation": "auto",
-  "animationDuration": 1000,
-  "animationDurationUpdate": 500,
-  "animationEasing": "cubicInOut",
-  "animationEasingUpdate": "cubicInOut",
-  "animationThreshold": 2000,
-  "progressiveThreshold": 3000,
-  "progressive": 400,
-  "hoverLayerThreshold": 3000,
-  "useUTC": false,
-  "axisPointer": [
-    {
-      "show": "auto",
-      "zlevel": 0,
-      "z": 50,
-      "type": "line",
-      "snap": false,
-      "triggerTooltip": true,
-      "value": null,
-      "status": null,
-      "link": [],
-      "animation": null,
-      "animationDurationUpdate": 200,
-      "lineStyle": {
-        "color": "#B9BEC9",
-        "width": 1,
-        "type": "dashed"
-      },
-      "shadowStyle": {
-        "color": "rgba(210,219,238,0.2)"
-      },
-      "label": {
-        "show": true,
-        "formatter": null,
-        "precision": "auto",
-        "margin": 3,
-        "color": "#fff",
-        "padding": [
-          5,
-          7,
-          5,
-          7
-        ],
-        "backgroundColor": "auto",
-        "borderColor": null,
-        "borderWidth": 0,
-        "borderRadius": 3
-      },
-      "handle": {
-        "show": false,
-        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
-        "size": 45,
-        "margin": 50,
-        "color": "#333",
-        "shadowBlur": 3,
-        "shadowColor": "#aaa",
-        "shadowOffsetX": 0,
-        "shadowOffsetY": 2,
-        "throttle": 40
-      }
-    }
-  ],
-  "tooltip": [],
   "series": [
     {
       "type": "gauge",
       "startAngle": 90,
       "endAngle": -270,
       "pointer": {
-        "show": false,
-        "icon": null,
-        "offsetCenter": [
-          0,
-          0
-        ],
-        "showAbove": true,
-        "length": "60%",
-        "width": 6,
-        "keepAspect": false
+        "show": false
       },
       "progress": {
         "show": true,
@@ -227,52 +15,28 @@
         "itemStyle": {
           "borderWidth": 1,
           "borderColor": "#464646"
-        },
-        "width": 10
+        }
       },
       "axisLine": {
         "lineStyle": {
-          "width": 40,
-          "color": [
-            [
-              1,
-              "#E6EBF8"
-            ]
-          ]
-        },
-        "show": true,
-        "roundCap": false
+          "width": 40
+        }
       },
       "splitLine": {
         "show": false,
         "distance": 0,
-        "length": 10,
-        "lineStyle": {
-          "color": "#63677A",
-          "width": 3,
-          "type": "solid"
-        }
+        "length": 10
       },
       "axisTick": {
-        "show": false,
-        "splitNumber": 5,
-        "length": 6,
-        "distance": 10,
-        "lineStyle": {
-          "color": "#63677A",
-          "width": 1,
-          "type": "solid"
-        }
+        "show": false
       },
       "axisLabel": {
         "show": false,
-        "distance": 50,
-        "color": "#464646",
-        "fontSize": 12
+        "distance": 50
       },
       "data": [
         {
-          "value": 40.2,
+          "value": 20,
           "name": "Perfect",
           "title": {
             "offsetCenter": [
@@ -289,7 +53,7 @@
           }
         },
         {
-          "value": 51.75,
+          "value": 40,
           "name": "Good",
           "title": {
             "offsetCenter": [
@@ -306,7 +70,7 @@
           }
         },
         {
-          "value": 68.23,
+          "value": 60,
           "name": "Commonly",
           "title": {
             "offsetCenter": [
@@ -324,14 +88,7 @@
         }
       ],
       "title": {
-        "fontSize": 14,
-        "show": true,
-        "offsetCenter": [
-          0,
-          "20%"
-        ],
-        "color": "#464646",
-        "valueAnimation": false
+        "fontSize": 14
       },
       "detail": {
         "width": 50,
@@ -341,61 +98,65 @@
         "borderColor": "auto",
         "borderRadius": 20,
         "borderWidth": 1,
-        "formatter": "{value}%",
-        "show": true,
-        "backgroundColor": "rgba(0,0,0,0)",
-        "padding": [
-          5,
-          10
-        ],
-        "offsetCenter": [
-          0,
-          "40%"
-        ],
-        "fontWeight": "bold",
-        "lineHeight": 30,
-        "valueAnimation": false
-      },
-      "zlevel": 0,
-      "z": 2,
-      "colorBy": "data",
-      "center": [
-        "50%",
-        "50%"
-      ],
-      "legendHoverLink": true,
-      "radius": "75%",
-      "clockwise": true,
-      "min": 0,
-      "max": 100,
-      "splitNumber": 10,
-      "anchor": {
-        "show": false,
-        "showAbove": false,
-        "size": 6,
-        "icon": "circle",
-        "offsetCenter": [
-          0,
-          0
-        ],
-        "keepAspect": false,
-        "itemStyle": {
-          "color": "#fff",
-          "borderWidth": 0,
-          "borderColor": "#5470c6"
-        }
-      },
-      "label": {},
-      "emphasis": {
-        "label": {}
+        "formatter": "{value}%"
       }
     }
   ],
-  "visualMap": [],
-  "legend": [],
-  "markArea": [],
-  "markLine": [],
-  "markPoint": [],
-  "brush": [],
-  "dataZoom": []
+  "actions": [],
+  "sharedVar": {
+    "gaugeData": [
+      {
+        "value": 20,
+        "name": "Perfect",
+        "title": {
+          "offsetCenter": [
+            "0%",
+            "-30%"
+          ]
+        },
+        "detail": {
+          "valueAnimation": true,
+          "offsetCenter": [
+            "0%",
+            "-20%"
+          ]
+        }
+      },
+      {
+        "value": 40,
+        "name": "Good",
+        "title": {
+          "offsetCenter": [
+            "0%",
+            "0%"
+          ]
+        },
+        "detail": {
+          "valueAnimation": true,
+          "offsetCenter": [
+            "0%",
+            "10%"
+          ]
+        }
+      },
+      {
+        "value": 60,
+        "name": "Commonly",
+        "title": {
+          "offsetCenter": [
+            "0%",
+            "30%"
+          ]
+        },
+        "detail": {
+          "valueAnimation": true,
+          "offsetCenter": [
+            "0%",
+            "40%"
+          ]
+        }
+      }
+    ],
+    "setInterval": "function (myChart) { return setInterval(function () { const gaugeData = sharedVar.gaugeData; gaugeData[0].value = +(Math.random() * 100).toFixed(2); gaugeData[1].value = +(Math.random() * 100).toFixed(2); gaugeData[2].value = +(Math.random() * 100).toFixed(2); myChart.setOption({ series: [ { data: gaugeData, pointer: { show: false } } ] }); }, 2000); }"
+  }
 }

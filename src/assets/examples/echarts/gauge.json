@@ -1,6 +1,6 @@
 {
   "tooltip": {
-    "formatter": "{a} <br/>{b} : {c}%"
+    "formatter": "{a} \n{b} : {c}%"
   },
   "series": [
     {
@@ -16,5 +16,12 @@
         }
       ]
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series, idx) => { series.data[0].value = Math.round(Utils.rand(0, 100)); }); chart.setOption(options); }"
+    }
+  ],
+  "sharedVar": {}
 }

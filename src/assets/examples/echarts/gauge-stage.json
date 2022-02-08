@@ -58,5 +58,14 @@
         }
       ]
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series, idx) => { series.data[0].value = Math.round(Utils.rand(0, 100)); }); chart.setOption(options); }"
+    }
+  ],
+  "sharedVar": {
+    "setInterval": "function(myChart) { return setInterval(function () { myChart.setOption({ series: [ { data: [ { value: +(Math.random() * 100).toFixed(2) } ] } ] }); }, 2000); }"
+  }
 }

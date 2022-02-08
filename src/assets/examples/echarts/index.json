@@ -199,13 +199,13 @@
 	{
 		"title": "Graph",
 		"children": [
-			{ "url": "graph-force2", "name": "Force Layout" },
+			{ "url": "graph-force2", "name": "Force Layout2" },
 			{ "url": "graph-grid", "name": "Graph on Cartesian" },
 			{ "url": "graph-simple", "name": "Simple Graph" },
 			{ "url": "graph-force", "name": "Force Layout" },
 			{ "url": "graph-label-overlap", "name": "Hide Overlapped Label" },
 			{ "url": "graph", "name": "Les Miserables" },
-			{ "url": "graph-circular-layout", "name": "Les Miserables" },
+			{ "url": "graph-circular-layout", "name": "Circular Les Miserables" },
 			{ "url": "graph-force-dynamic", "name": "Graph Dynamic" },
 			{ "url": "graph-webkit-dep", "name": "Graph Webkit Dep" },
 			{ "url": "graph-npm", "name": "NPM Dependencies" },
@@ -320,14 +320,8 @@
 			{
 				"url": "pictorialBar-velocity",
 				"name": "Velocity of Christmas Reindeers"
-			}
-		]
-	},
-	{
-		"title": "ThemeRiver",
-		"children": [
-			{ "url": "themeRiver-basic", "name": "ThemeRiver" },
-			{ "url": "themeRiver-lastfm", "name": "ThemeRiver Lastfm" }
+			},
+			{ "url": "themeRiver-basic", "name": "ThemeRiver" }
 		]
 	},
 	{

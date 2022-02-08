@@ -1,368 +1,63 @@
 {
-  "darkMode": "auto",
-  "colorBy": "series",
-  "color": [
-    "#5470c6",
-    "#91cc75",
-    "#fac858",
-    "#ee6666",
-    "#73c0de",
-    "#3ba272",
-    "#fc8452",
-    "#9a60b4",
-    "#ea7ccc"
-  ],
-  "gradientColor": [
-    "#f6efa6",
-    "#d88273",
-    "#bf444c"
-  ],
-  "aria": {
-    "decal": {
-      "decals": [
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            2,
-            5
-          ],
-          "symbolSize": 1,
-          "rotation": 0.5235987755982988
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "circle",
-          "dashArrayX": [
-            [
-              8,
-              8
-            ],
-            [
-              0,
-              8,
-              8,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ],
-          "symbolSize": 0.8
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            4,
-            3
-          ],
-          "rotation": -0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              6,
-              6
-            ],
-            [
-              0,
-              6,
-              6,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ]
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              1,
-              0
-            ],
-            [
-              1,
-              6
-            ]
-          ],
-          "dashArrayY": [
-            1,
-            0,
-            6,
-            0
-          ],
-          "rotation": 0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "triangle",
-          "dashArrayX": [
-            [
-              9,
-              9
-            ],
-            [
-              0,
-              9,
-              9,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            7,
-            2
-          ],
-          "symbolSize": 0.75
-        }
-      ]
-    }
+  "tooltip": {},
+  "geo": {
+    "tooltip": {
+      "show": true
+    },
+    "map": {
+      "name": "iceland_svg",
+      "url": "echarts/files/Map_of_Iceland.svg"
+    },
+    "roam": true
   },
-  "textStyle": {
-    "fontFamily": "sans-serif",
-    "fontSize": 12,
-    "fontStyle": "normal",
-    "fontWeight": "normal"
-  },
-  "stateAnimation": {
-    "duration": 300,
-    "easing": "cubicOut"
-  },
-  "animation": "auto",
-  "animationDuration": 1000,
-  "animationDurationUpdate": 500,
-  "animationEasing": "cubicInOut",
-  "animationEasingUpdate": "cubicInOut",
-  "animationThreshold": 2000,
-  "progressiveThreshold": 3000,
-  "progressive": 400,
-  "hoverLayerThreshold": 3000,
-  "useUTC": false,
-  "axisPointer": [
-    {
-      "show": "auto",
-      "zlevel": 0,
-      "z": 50,
-      "type": "line",
-      "snap": false,
-      "triggerTooltip": true,
-      "value": null,
-      "status": null,
-      "link": [],
-      "animation": null,
-      "animationDurationUpdate": 200,
-      "lineStyle": {
-        "color": "#B9BEC9",
-        "width": 1,
-        "type": "dashed"
-      },
-      "shadowStyle": {
-        "color": "rgba(210,219,238,0.2)"
-      },
-      "label": {
-        "show": true,
-        "formatter": null,
-        "precision": "auto",
-        "margin": 3,
-        "color": "#fff",
-        "padding": [
-          5,
-          7,
-          5,
-          7
-        ],
-        "backgroundColor": "auto",
-        "borderColor": null,
-        "borderWidth": 0,
-        "borderRadius": 3
-      },
-      "handle": {
-        "show": false,
-        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
-        "size": 45,
-        "margin": 50,
-        "color": "#333",
-        "shadowBlur": 3,
-        "shadowColor": "#aaa",
-        "shadowOffsetX": 0,
-        "shadowOffsetY": 2,
-        "throttle": 40
-      }
-    }
-  ],
-  "tooltip": [
-    {
-      "zlevel": 0,
-      "z": 60,
-      "show": true,
-      "showContent": true,
-      "trigger": "item",
-      "triggerOn": "mousemove|click",
-      "alwaysShowContent": false,
-      "displayMode": "single",
-      "renderMode": "auto",
-      "confine": null,
-      "showDelay": 0,
-      "hideDelay": 100,
-      "transitionDuration": 0.4,
-      "enterable": false,
-      "backgroundColor": "#fff",
-      "shadowBlur": 10,
-      "shadowColor": "rgba(0, 0, 0, .2)",
-      "shadowOffsetX": 1,
-      "shadowOffsetY": 2,
-      "borderRadius": 4,
-      "borderWidth": 1,
-      "padding": null,
-      "extraCssText": "",
-      "axisPointer": {
-        "type": "line",
-        "axis": "auto",
-        "animation": "auto",
-        "animationDurationUpdate": 200,
-        "animationEasingUpdate": "exponentialOut",
-        "crossStyle": {
-          "color": "#999",
-          "width": 1,
-          "type": "dashed",
-          "textStyle": {}
-        }
-      },
-      "textStyle": {
-        "color": "#666",
-        "fontSize": 14
-      }
-    }
-  ],
-  "geo": [
-    {
-      "tooltip": {
-        "show": true
-      },
-      "map": { "name" : "iceland_svg", "url" : "echarts/files/Map_of_Iceland.svg"},
-      "roam": true,
-      "zlevel": 0,
-      "z": 0,
-      "show": true,
-      "left": "center",
-      "top": "center",
-      "aspectScale": null,
-      "silent": false,
-      "boundingCoords": null,
-      "center": null,
-      "zoom": 1,
-      "scaleLimit": null,
-      "label": {
-        "show": false,
-        "color": "#000"
-      },
-      "itemStyle": {
-        "borderWidth": 0.5,
-        "borderColor": "#444"
-      },
-      "emphasis": {
-        "label": {
-          "show": true,
-          "color": "rgb(100,0,0)"
-        },
-        "itemStyle": {
-          "color": "rgba(255,215,0,0.8)"
-        }
-      },
-      "select": {
-        "label": {
-          "show": true,
-          "color": "rgb(100,0,0)"
-        },
-        "itemStyle": {
-          "color": "rgba(255,215,0,0.8)"
-        }
-      },
-      "regions": [],
-      "selectedMap": {}
-    }
-  ],
-  "series": [
-    {
-      "type": "effectScatter",
-      "coordinateSystem": "geo",
-      "geoIndex": 0,
-      "itemStyle": {
-        "color": "#b02a02"
-      },
-      "encode": {
-        "tooltip": 2
-      },
-      "data": [
-        [
-          488.2358421078053,
-          459.70913833075736,
-          100
-        ],
-        [
-          770.3415644319939,
-          757.9672194986475,
-          30
-        ],
-        [
-          1180.0329284196291,
-          743.6141808346214,
-          80
-        ],
-        [
-          894.03790632245,
-          1188.1985153835008,
-          61
-        ],
-        [
-          1372.98925630313,
-          477.3839988649537,
-          70
-        ],
-        [
-          1378.62251255796,
-          935.6708486282843,
-          81
-        ]
+  "series": {
+    "type": "effectScatter",
+    "coordinateSystem": "geo",
+    "geoIndex": 0,
+    "symbolSize": "function (params) { return (params[2] / 100) * 15 + 5; }",
+    "itemStyle": {
+      "color": "#b02a02"
+    },
+    "encode": {
+      "tooltip": 2
+    },
+    "data": [
+      [
+        488.2358421078053,
+        459.70913833075736,
+        100
       ],
-      "zlevel": 0,
-      "z": 2,
-      "legendHoverLink": true,
-      "effectType": "ripple",
-      "progressive": 0,
-      "showEffectOn": "render",
-      "clip": true,
-      "rippleEffect": {
-        "period": 4,
-        "scale": 2.5,
-        "brushType": "fill",
-        "number": 3
-      },
-      "universalTransition": {
-        "divideShape": "clone"
-      },
-      "label": {},
-      "emphasis": {
-        "label": {}
-      }
-    }
-  ],
-  "visualMap": [],
-  "legend": [],
-  "markArea": [],
-  "markLine": [],
-  "markPoint": [],
-  "brush": [],
-  "dataZoom": []
+      [
+        770.3415644319939,
+        757.9672194986475,
+        30
+      ],
+      [
+        1180.0329284196291,
+        743.6141808346214,
+        80
+      ],
+      [
+        894.03790632245,
+        1188.1985153835008,
+        61
+      ],
+      [
+        1372.98925630313,
+        477.3839988649537,
+        70
+      ],
+      [
+        1378.62251255796,
+        935.6708486282843,
+        81
+      ]
+    ]
+  },
+  "actions": [],
+  "sharedVar": {
+    "on": [
+      "function(myChart) { myChart.getZr().on('click', function (params) { var pixelPoint = [params.offsetX, params.offsetY]; var dataPoint = myChart.convertFromPixel({ geoIndex: 0 }, pixelPoint); console.log(dataPoint); }); }"
+    ]
+  }
 }

@@ -76,7 +76,8 @@
       "label": {
         "color": "#000",
         "textBorderColor": "#fff",
-        "textBorderWidth": 2
+        "textBorderWidth": 2,
+        "formatter": "function (param) { var depth = param.treePathInfo.length; if (depth === 2) { return 'radial'; } else if (depth === 3) { return 'tangential'; } else if (depth === 4) { return '0'; } return ''; }"
       },
       "levels": [
         {},
@@ -106,5 +107,7 @@
         }
       ]
     }
-  ]
+  ],
+  "actions": [],
+  "sharedVar": {}
 }

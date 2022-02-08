@@ -6,7 +6,7 @@
   },
   "tooltip": {
     "trigger": "item",
-    "formatter": "{a} <br/>{b} : {c}%"
+    "formatter": "{a} \n{b} : {c}%"
   },
   "toolbox": {
     "orient": "vertical",
@@ -159,5 +159,7 @@
         }
       ]
     }
-  ]
+  ],
+  "actions": [],
+  "sharedVar": {}
 }

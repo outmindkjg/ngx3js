@@ -8,6 +8,9 @@ ngx3js
 
 The aim of the project is to create an easy to use, lightweight, cross-browser, general purpose 3D library in angular. The current builds only include a WebGL renderer but WebGPU (experimental), SVG and CSS3D renderers are also available in the examples.
 
+[![Buy Me A Coffee][buymeacoffee-image]][buymeacoffee-url]
+
+
 [Home](https://outmindkjg.github.io/ngx3js-doc/#) &mdash;
 [Examples](https://outmindkjg.github.io/ngx3js-doc/#/examples/) &mdash;
 [Documentation](https://outmindkjg.github.io/ngx3js-doc/#/docs) &mdash;
@@ -34,8 +37,8 @@ npm install
 # install by npm
 npm install -g @angular/cli
 npm install --save ngx3js
-npm install --save three@0.136.0
-npm install --save-dev @types/three@0.136.1
+npm install --save three@0.137.5
+npm install --save-dev @types/three@0.137.0
 ```
 
 
@@ -240,3 +243,6 @@ node ./node_modules/ngx3js/bin/patch.js
 [build-size-url]: https://bundlephobia.com/result?p=ngx3js
 [npm-downloads]: https://img.shields.io/npm/dw/ngx3js
 [npmtrends-url]: https://www.npmtrends.com/ngx3js
+[buymeacoffee-image]: https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png
+[buymeacoffee-url]: https://www.buymeacoffee.com/ngx3js
+

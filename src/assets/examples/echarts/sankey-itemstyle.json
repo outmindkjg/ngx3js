@@ -1270,5 +1270,7 @@
   ],
   "tooltip": {
     "trigger": "item"
-  }
+  },
+  "actions": [],
+  "sharedVar": {}
 }

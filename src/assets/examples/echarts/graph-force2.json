@@ -1,207 +1,4 @@
 {
-  "darkMode": "auto",
-  "colorBy": "series",
-  "color": [
-    "#5470c6",
-    "#91cc75",
-    "#fac858",
-    "#ee6666",
-    "#73c0de",
-    "#3ba272",
-    "#fc8452",
-    "#9a60b4",
-    "#ea7ccc"
-  ],
-  "gradientColor": [
-    "#f6efa6",
-    "#d88273",
-    "#bf444c"
-  ],
-  "aria": {
-    "decal": {
-      "decals": [
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            2,
-            5
-          ],
-          "symbolSize": 1,
-          "rotation": 0.5235987755982988
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "circle",
-          "dashArrayX": [
-            [
-              8,
-              8
-            ],
-            [
-              0,
-              8,
-              8,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ],
-          "symbolSize": 0.8
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            4,
-            3
-          ],
-          "rotation": -0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              6,
-              6
-            ],
-            [
-              0,
-              6,
-              6,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ]
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              1,
-              0
-            ],
-            [
-              1,
-              6
-            ]
-          ],
-          "dashArrayY": [
-            1,
-            0,
-            6,
-            0
-          ],
-          "rotation": 0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "triangle",
-          "dashArrayX": [
-            [
-              9,
-              9
-            ],
-            [
-              0,
-              9,
-              9,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            7,
-            2
-          ],
-          "symbolSize": 0.75
-        }
-      ]
-    }
-  },
-  "textStyle": {
-    "fontFamily": "sans-serif",
-    "fontSize": 12,
-    "fontStyle": "normal",
-    "fontWeight": "normal"
-  },
-  "stateAnimation": {
-    "duration": 300,
-    "easing": "cubicOut"
-  },
-  "animation": "auto",
-  "animationDuration": 1000,
-  "animationDurationUpdate": 500,
-  "animationEasing": "cubicInOut",
-  "animationEasingUpdate": "cubicInOut",
-  "animationThreshold": 2000,
-  "progressiveThreshold": 3000,
-  "progressive": 400,
-  "hoverLayerThreshold": 3000,
-  "useUTC": false,
-  "axisPointer": [
-    {
-      "show": "auto",
-      "zlevel": 0,
-      "z": 50,
-      "type": "line",
-      "snap": false,
-      "triggerTooltip": true,
-      "value": null,
-      "status": null,
-      "link": [],
-      "animation": null,
-      "animationDurationUpdate": 200,
-      "lineStyle": {
-        "color": "#B9BEC9",
-        "width": 1,
-        "type": "dashed"
-      },
-      "shadowStyle": {
-        "color": "rgba(210,219,238,0.2)"
-      },
-      "label": {
-        "show": true,
-        "formatter": null,
-        "precision": "auto",
-        "margin": 3,
-        "color": "#fff",
-        "padding": [
-          5,
-          7,
-          5,
-          7
-        ],
-        "backgroundColor": "auto",
-        "borderColor": null,
-        "borderWidth": 0,
-        "borderRadius": 3
-      },
-      "handle": {
-        "show": false,
-        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
-        "size": 45,
-        "margin": 50,
-        "color": "#333",
-        "shadowBlur": 3,
-        "shadowColor": "#aaa",
-        "shadowOffsetX": 0,
-        "shadowOffsetY": 2,
-        "throttle": 40
-      }
-    }
-  ],
-  "tooltip": [],
   "series": [
     {
       "type": "graph",
@@ -221,63 +18,14 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
           "source": "0",
           "target": "1"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     },
     {
       "type": "graph",
@@ -300,11 +48,7 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
@@ -319,52 +63,7 @@
           "source": "2",
           "target": "0"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     },
     {
       "type": "graph",
@@ -390,11 +89,7 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
@@ -413,52 +108,7 @@
           "source": "3",
           "target": "0"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     },
     {
       "type": "graph",
@@ -487,11 +137,7 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
@@ -514,52 +160,7 @@
           "source": "4",
           "target": "0"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     },
     {
       "type": "graph",
@@ -591,11 +192,7 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
@@ -622,52 +219,7 @@
           "source": "5",
           "target": "0"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     },
     {
       "type": "graph",
@@ -702,11 +254,7 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
@@ -737,52 +285,7 @@
           "source": "6",
           "target": "0"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     },
     {
       "type": "graph",
@@ -820,11 +323,7 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
@@ -859,52 +358,7 @@
           "source": "7",
           "target": "0"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     },
     {
       "type": "graph",
@@ -945,11 +399,7 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
@@ -988,52 +438,7 @@
           "source": "8",
           "target": "0"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     },
     {
       "type": "graph",
@@ -1077,11 +482,7 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
@@ -1124,52 +525,7 @@
           "source": "9",
           "target": "0"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     },
     {
       "type": "graph",
@@ -1216,11 +572,7 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
@@ -1267,52 +619,7 @@
           "source": "10",
           "target": "0"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     },
     {
       "type": "graph",
@@ -1362,11 +669,7 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
@@ -1417,52 +720,7 @@
           "source": "11",
           "target": "0"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     },
     {
       "type": "graph",
@@ -1515,11 +773,7 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
@@ -1574,52 +828,7 @@
           "source": "12",
           "target": "0"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     },
     {
       "type": "graph",
@@ -1675,11 +884,7 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
@@ -1738,52 +943,7 @@
           "source": "13",
           "target": "0"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     },
     {
       "type": "graph",
@@ -1842,11 +1002,7 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
@@ -1909,52 +1065,7 @@
           "source": "14",
           "target": "0"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     },
     {
       "type": "graph",
@@ -2016,11 +1127,7 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
@@ -2087,52 +1194,7 @@
           "source": "15",
           "target": "0"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     },
     {
       "type": "graph",
@@ -2197,11 +1259,7 @@
       "height": "25%",
       "force": {
         "repulsion": 60,
-        "edgeLength": 2,
-        "initLayout": null,
-        "gravity": 0.1,
-        "friction": 0.6,
-        "layoutAnimation": true
+        "edgeLength": 2
       },
       "edges": [
         {
@@ -2272,59 +1330,9 @@
           "source": "16",
           "target": "0"
         }
-      ],
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "roam": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "label": {
-        "show": false,
-        "formatter": "{b}"
-      },
-      "itemStyle": {},
-      "lineStyle": {
-        "color": "#aaa",
-        "width": 1,
-        "opacity": 0.5
-      },
-      "emphasis": {
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
-        }
-      }
+      ]
     }
   ],
-  "visualMap": [],
-  "legend": [],
-  "markArea": [],
-  "markLine": [],
-  "markPoint": [],
-  "brush": [],
-  "dataZoom": []
+  "actions": [],
+  "sharedVar": {}
 }

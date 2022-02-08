@@ -1,285 +1,31 @@
 {
-  "darkMode": "auto",
-  "colorBy": "series",
-  "color": [
-    "#5470c6",
-    "#91cc75",
-    "#fac858",
-    "#ee6666",
-    "#73c0de",
-    "#3ba272",
-    "#fc8452",
-    "#9a60b4",
-    "#ea7ccc"
-  ],
-  "gradientColor": [
-    "#f6efa6",
-    "#d88273",
-    "#bf444c"
-  ],
-  "aria": {
-    "decal": {
-      "decals": [
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            2,
-            5
-          ],
-          "symbolSize": 1,
-          "rotation": 0.5235987755982988
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "circle",
-          "dashArrayX": [
-            [
-              8,
-              8
-            ],
-            [
-              0,
-              8,
-              8,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ],
-          "symbolSize": 0.8
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            4,
-            3
-          ],
-          "rotation": -0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              6,
-              6
-            ],
-            [
-              0,
-              6,
-              6,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ]
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              1,
-              0
-            ],
-            [
-              1,
-              6
-            ]
-          ],
-          "dashArrayY": [
-            1,
-            0,
-            6,
-            0
-          ],
-          "rotation": 0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "triangle",
-          "dashArrayX": [
-            [
-              9,
-              9
-            ],
-            [
-              0,
-              9,
-              9,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            7,
-            2
-          ],
-          "symbolSize": 0.75
-        }
-      ]
-    }
+  "title": {
+    "top": 5,
+    "left": "center",
+    "text": "How $3.7 Trillion is Spent",
+    "subtext": "Obama’s 2012 Budget Proposal"
   },
-  "textStyle": {
-    "fontFamily": "sans-serif",
-    "fontSize": 12,
-    "fontStyle": "normal",
-    "fontWeight": "normal"
+  "legend": {
+    "data": [
+      "2012Budget",
+      "2011Budget",
+      "Growth"
+    ],
+    "selectedMode": "single",
+    "top": 55,
+    "itemGap": 5,
+    "borderRadius": 5
   },
-  "stateAnimation": {
-    "duration": 300,
-    "easing": "cubicOut"
-  },
-  "animation": "auto",
-  "animationDuration": 1000,
-  "animationDurationUpdate": 500,
-  "animationEasing": "cubicInOut",
-  "animationEasingUpdate": "cubicInOut",
-  "animationThreshold": 2000,
-  "progressiveThreshold": 3000,
-  "progressive": 400,
-  "hoverLayerThreshold": 3000,
-  "useUTC": false,
-  "title": [
-    {
-      "top": 5,
-      "left": "center",
-      "text": "How $3.7 Trillion is Spent",
-      "subtext": "Obama’s 2012 Budget Proposal",
-      "zlevel": 0,
-      "z": 6,
-      "show": true,
-      "target": "blank",
-      "subtarget": "blank",
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderColor": "#ccc",
-      "borderWidth": 0,
-      "padding": 5,
-      "itemGap": 10,
-      "textStyle": {
-        "fontSize": 18,
-        "fontWeight": "bold",
-        "color": "#464646"
-      },
-      "subtextStyle": {
-        "fontSize": 12,
-        "color": "#6E7079"
-      },
-      "right": null,
-      "bottom": null
-    }
-  ],
-  "axisPointer": [
-    {
-      "show": "auto",
-      "zlevel": 0,
-      "z": 50,
-      "type": "line",
-      "snap": false,
-      "triggerTooltip": true,
-      "value": null,
-      "status": null,
-      "link": [],
-      "animation": null,
-      "animationDurationUpdate": 200,
-      "lineStyle": {
-        "color": "#B9BEC9",
-        "width": 1,
-        "type": "dashed"
-      },
-      "shadowStyle": {
-        "color": "rgba(210,219,238,0.2)"
-      },
-      "label": {
-        "show": true,
-        "formatter": null,
-        "precision": "auto",
-        "margin": 3,
-        "color": "#fff",
-        "padding": [
-          5,
-          7,
-          5,
-          7
-        ],
-        "backgroundColor": "auto",
-        "borderColor": null,
-        "borderWidth": 0,
-        "borderRadius": 3
-      },
-      "handle": {
-        "show": false,
-        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
-        "size": 45,
-        "margin": 50,
-        "color": "#333",
-        "shadowBlur": 3,
-        "shadowColor": "#aaa",
-        "shadowOffsetX": 0,
-        "shadowOffsetY": 2,
-        "throttle": 40
-      }
-    }
-  ],
-  "tooltip": [
-    {
-      "zlevel": 0,
-      "z": 60,
-      "show": true,
-      "showContent": true,
-      "trigger": "item",
-      "triggerOn": "mousemove|click",
-      "alwaysShowContent": false,
-      "displayMode": "single",
-      "renderMode": "auto",
-      "confine": null,
-      "showDelay": 0,
-      "hideDelay": 100,
-      "transitionDuration": 0.4,
-      "enterable": false,
-      "backgroundColor": "#fff",
-      "shadowBlur": 10,
-      "shadowColor": "rgba(0, 0, 0, .2)",
-      "shadowOffsetX": 1,
-      "shadowOffsetY": 2,
-      "borderRadius": 4,
-      "borderWidth": 1,
-      "padding": null,
-      "extraCssText": "",
-      "axisPointer": {
-        "type": "line",
-        "axis": "auto",
-        "animation": "auto",
-        "animationDurationUpdate": 200,
-        "animationEasingUpdate": "exponentialOut",
-        "crossStyle": {
-          "color": "#999",
-          "width": 1,
-          "type": "dashed",
-          "textStyle": {}
-        }
-      },
-      "textStyle": {
-        "color": "#666",
-        "fontSize": 14
-      }
-    }
-  ],
+  "tooltip": {},
   "series": [
     {
       "type": "treemap",
-      "tooltip": {},
+      "tooltip": {
+        "formatter": "function (info) { const amountIndex = 0; const amountIndex2011 = 1; let value = info.value; let amount = value[amountIndex]; amount = sharedVar.isValidNumber(amount) ? echarts.format.addCommas(amount * 1000) + '$' : '-'; let amount2011 = value[amountIndex2011]; amount2011 = sharedVar.isValidNumber(amount2011) ? echarts.format.addCommas(amount2011 * 1000) + '$' : '-'; let perHousehold = value[3]; perHousehold = sharedVar.isValidNumber(perHousehold) ? echarts.format.addCommas(+perHousehold.toFixed(4) * 1000) + '$' : '-'; let change = value[2]; change = sharedVar.isValidNumber(change) ? change.toFixed(2) + '%' : '-'; return [ echarts.format.encodeHTML(info.name) + \"\\n\", '2012 Amount:  ' + amount + '\\n', 'Per Household:  ' + perHousehold + '\\n', '2011 Amount:  ' + amount2011 + '\\n', 'Change From 2011:  ' + change ].join(''); }"
+      },
       "label": {
         "position": "insideTopLeft",
+        "formatter": "function (params) { let arr = [ '{name|' + params.name + '}', '{hr|}', '{budget|$ ' + echarts.format.addCommas(params.value[0]) + '} {label|budget}' ]; arr.push( '{household|$ ' + echarts.format.addCommas(+params.value[3].toFixed(4) * 1000) + '} {label|per household}' ); return arr.join('\\n'); }",
         "rich": {
           "budget": {
             "fontSize": 22,
@@ -313,148 +59,18 @@
             "height": 0,
             "lineHeight": 10
           }
-        },
-        "show": true,
-        "distance": 0,
-        "padding": 5,
-        "color": "#fff",
-        "overflow": "truncate"
+        }
       },
       "itemStyle": {
-        "borderColor": "black",
-        "color": null,
-        "colorAlpha": null,
-        "colorSaturation": null,
-        "borderWidth": 0,
-        "gapWidth": 0,
-        "borderColorSaturation": null
+        "borderColor": "black"
       },
       "levels": [
         {
-          "color": [
-            "#5470c6",
-            "#91cc75",
-            "#fac858",
-            "#ee6666",
-            "#73c0de",
-            "#3ba272",
-            "#fc8452",
-            "#9a60b4",
-            "#ea7ccc"
-          ],
           "colorMappingBy": "id",
           "itemStyle": {
             "borderWidth": 3,
             "gapWidth": 3
-          },
-          "decal": [
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "dashArrayX": [
-                1,
-                0
-              ],
-              "dashArrayY": [
-                2,
-                5
-              ],
-              "symbolSize": 1,
-              "rotation": 0.5235987755982988
-            },
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "symbol": "circle",
-              "dashArrayX": [
-                [
-                  8,
-                  8
-                ],
-                [
-                  0,
-                  8,
-                  8,
-                  0
-                ]
-              ],
-              "dashArrayY": [
-                6,
-                0
-              ],
-              "symbolSize": 0.8
-            },
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "dashArrayX": [
-                1,
-                0
-              ],
-              "dashArrayY": [
-                4,
-                3
-              ],
-              "rotation": -0.7853981633974483
-            },
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "dashArrayX": [
-                [
-                  6,
-                  6
-                ],
-                [
-                  0,
-                  6,
-                  6,
-                  0
-                ]
-              ],
-              "dashArrayY": [
-                6,
-                0
-              ]
-            },
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "dashArrayX": [
-                [
-                  1,
-                  0
-                ],
-                [
-                  1,
-                  6
-                ]
-              ],
-              "dashArrayY": [
-                1,
-                0,
-                6,
-                0
-              ],
-              "rotation": 0.7853981633974483
-            },
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "symbol": "triangle",
-              "dashArrayX": [
-                [
-                  9,
-                  9
-                ],
-                [
-                  0,
-                  9,
-                  9,
-                  0
-                ]
-              ],
-              "dashArrayY": [
-                7,
-                2
-              ],
-              "symbolSize": 0.75
-            }
-          ]
+          }
         },
         {
           "itemStyle": {
@@ -5003,73 +4619,16 @@
             0
           ]
         }
-      ],
-      "progressive": 0,
-      "left": "center",
-      "width": "80%",
-      "height": "80%",
-      "sort": true,
-      "clipWindow": "origin",
-      "squareRatio": 1.618033988749895,
-      "leafDepth": null,
-      "drillDownIcon": "▶",
-      "zoomToNodeRatio": 0.1024,
-      "roam": true,
-      "nodeClick": "zoomToNode",
-      "animation": true,
-      "animationDurationUpdate": 900,
-      "animationEasing": "quinticInOut",
-      "breadcrumb": {
-        "show": true,
-        "height": 22,
-        "left": "center",
-        "top": "bottom",
-        "emptyItemWidth": 25,
-        "itemStyle": {
-          "color": "rgba(0,0,0,0.7)",
-          "textStyle": {
-            "color": "#fff"
-          }
-        }
-      },
-      "upperLabel": {
-        "show": false,
-        "position": [
-          0,
-          "50%"
-        ],
-        "height": 20,
-        "overflow": "truncate",
-        "verticalAlign": "middle"
-      },
-      "emphasis": {
-        "upperLabel": {
-          "show": true,
-          "position": [
-            0,
-            "50%"
-          ],
-          "ellipsis": true,
-          "verticalAlign": "middle"
-        },
-        "label": {
-          "show": true
-        }
-      },
-      "visualMin": null,
-      "visualMax": null,
-      "color": [],
-      "colorAlpha": null,
-      "colorSaturation": null,
-      "colorMappingBy": "index",
-      "visibleMin": 10,
-      "childrenVisibleMin": null
+      ]
     },
     {
       "type": "treemap",
-      "tooltip": {},
+      "tooltip": {
+        "formatter": "function (info) { const amountIndex = 1; const amountIndex2011 = 0; let value = info.value; let amount = value[amountIndex]; amount = sharedVar.isValidNumber(amount) ? echarts.format.addCommas(amount * 1000) + '$' : '-'; let amount2011 = value[amountIndex2011]; amount2011 = sharedVar.isValidNumber(amount2011) ? echarts.format.addCommas(amount2011 * 1000) + '$' : '-'; let perHousehold = value[3]; perHousehold = sharedVar.isValidNumber(perHousehold) ? echarts.format.addCommas(+perHousehold.toFixed(4) * 1000) + '$' : '-'; let change = value[2]; change = sharedVar.isValidNumber(change) ? change.toFixed(2) + '%' : '-'; return [ echarts.format.encodeHTML(info.name) + \"\\n\", '2012 Amount:  ' + amount + '\\n', 'Per Household:  ' + perHousehold + '\\n', '2011 Amount:  ' + amount2011 + '\\n', 'Change From 2011:  ' + change ].join(''); }"
+      },
       "label": {
         "position": "insideTopLeft",
+        "formatter": "function (params) { let arr = [ '{name|' + params.name + '}', '{hr|}', '{budget|$ ' + echarts.format.addCommas(params.value[0]) + '} {label|budget}' ]; return arr.join('\\n'); }",
         "rich": {
           "budget": {
             "fontSize": 22,
@@ -5103,148 +4662,18 @@
             "height": 0,
             "lineHeight": 10
           }
-        },
-        "show": true,
-        "distance": 0,
-        "padding": 5,
-        "color": "#fff",
-        "overflow": "truncate"
+        }
       },
       "itemStyle": {
-        "borderColor": "black",
-        "color": null,
-        "colorAlpha": null,
-        "colorSaturation": null,
-        "borderWidth": 0,
-        "gapWidth": 0,
-        "borderColorSaturation": null
+        "borderColor": "black"
       },
       "levels": [
         {
-          "color": [
-            "#5470c6",
-            "#91cc75",
-            "#fac858",
-            "#ee6666",
-            "#73c0de",
-            "#3ba272",
-            "#fc8452",
-            "#9a60b4",
-            "#ea7ccc"
-          ],
           "colorMappingBy": "id",
           "itemStyle": {
             "borderWidth": 3,
             "gapWidth": 3
-          },
-          "decal": [
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "dashArrayX": [
-                1,
-                0
-              ],
-              "dashArrayY": [
-                2,
-                5
-              ],
-              "symbolSize": 1,
-              "rotation": 0.5235987755982988
-            },
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "symbol": "circle",
-              "dashArrayX": [
-                [
-                  8,
-                  8
-                ],
-                [
-                  0,
-                  8,
-                  8,
-                  0
-                ]
-              ],
-              "dashArrayY": [
-                6,
-                0
-              ],
-              "symbolSize": 0.8
-            },
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "dashArrayX": [
-                1,
-                0
-              ],
-              "dashArrayY": [
-                4,
-                3
-              ],
-              "rotation": -0.7853981633974483
-            },
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "dashArrayX": [
-                [
-                  6,
-                  6
-                ],
-                [
-                  0,
-                  6,
-                  6,
-                  0
-                ]
-              ],
-              "dashArrayY": [
-                6,
-                0
-              ]
-            },
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "dashArrayX": [
-                [
-                  1,
-                  0
-                ],
-                [
-                  1,
-                  6
-                ]
-              ],
-              "dashArrayY": [
-                1,
-                0,
-                6,
-                0
-              ],
-              "rotation": 0.7853981633974483
-            },
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "symbol": "triangle",
-              "dashArrayX": [
-                [
-                  9,
-                  9
-                ],
-                [
-                  0,
-                  9,
-                  9,
-                  0
-                ]
-              ],
-              "dashArrayY": [
-                7,
-                2
-              ],
-              "symbolSize": 0.75
-            }
-          ]
+          }
         },
         {
           "itemStyle": {
@@ -5259,7 +4688,7 @@
           "name": "Health and Human Services",
           "id": "branch-8",
           "value": [
-            1193723000,
+            null,
             1226629000,
             null,
             10.796248131065854
@@ -5501,7 +4930,7 @@
           "name": "Social Security Administration",
           "id": "branch-34",
           "value": [
-            754106000,
+            null,
             818284000,
             null,
             7.202175315992929
@@ -5533,7 +4962,7 @@
           "name": "Defense--Military Programs",
           "id": "branch-5",
           "value": [
-            697301000,
+            null,
             677483000,
             null,
             5.962906936472957
@@ -5655,7 +5084,7 @@
           "name": "Treasury",
           "id": "branch-15",
           "value": [
-            570874000,
+            null,
             612004000,
             null,
             5.386589621804822
@@ -5807,7 +5236,7 @@
           "name": "Agriculture",
           "id": "branch-3",
           "value": [
-            132905000,
+            null,
             148349000,
             null,
             1.3057025506452955
@@ -6189,7 +5618,7 @@
           "name": "Labor",
           "id": "branch-12",
           "value": [
-            256374000,
+            null,
             132612000,
             null,
             1.1671924087535066
@@ -6331,7 +5760,7 @@
           "name": "Veterans Affairs",
           "id": "branch-17",
           "value": [
-            127884000,
+            null,
             132359000,
             null,
             1.1649656141993587
@@ -6393,7 +5822,7 @@
           "name": "Transportation",
           "id": "branch-16",
           "value": [
-            106211000,
+            null,
             129458000,
             null,
             1.1394322900824319
@@ -6605,7 +6034,7 @@
           "name": "Education",
           "id": "branch-6",
           "value": [
-            82431000,
+            null,
             93790000,
             null,
             0.8254982657451164
@@ -6757,7 +6186,7 @@
           "name": "Office of Personnel Management",
           "id": "branch-28",
           "value": [
-            73934000,
+            null,
             83502000,
             null,
             0.7349478215827776
@@ -6789,7 +6218,7 @@
           "name": "Other",
           "id": "branch-29",
           "value": [
-            76266000,
+            null,
             66476000,
             null,
             0.5850924694921885
@@ -7701,7 +7130,7 @@
           "name": "Other Defense Civil Programs",
           "id": "branch-30",
           "value": [
-            60084000,
+            null,
             58663000,
             null,
             0.516325885098686
@@ -7783,7 +7212,7 @@
           "name": "Housing and Urban Development",
           "id": "branch-10",
           "value": [
-            48688000,
+            null,
             52092000,
             null,
             0.4584908376073633
@@ -7885,7 +7314,7 @@
           "name": "Homeland Security",
           "id": "branch-9",
           "value": [
-            55269000,
+            null,
             50045000,
             null,
             0.4404740453056227
@@ -8097,7 +7526,7 @@
           "name": "International Assistance Programs",
           "id": "branch-24",
           "value": [
-            28334000,
+            null,
             41915000,
             null,
             0.36891736654980867
@@ -8209,7 +7638,7 @@
           "name": "Justice",
           "id": "branch-11",
           "value": [
-            27452000,
+            null,
             35403000,
             null,
             0.311601611069137
@@ -8351,7 +7780,7 @@
           "name": "State",
           "id": "branch-13",
           "value": [
-            30639000,
+            null,
             32746000,
             null,
             0.28821586747083466
@@ -8423,7 +7852,7 @@
           "name": "Energy",
           "id": "branch-7",
           "value": [
-            26329000,
+            null,
             30779000,
             null,
             0.27090319992929884
@@ -8505,7 +7934,7 @@
           "name": "Interior",
           "id": "branch-14",
           "value": [
-            18329000,
+            null,
             17863000,
             null,
             0.15722225739423196
@@ -8797,7 +8226,7 @@
           "name": "Federal Communications Commission",
           "id": "branch-20",
           "value": [
-            8918000,
+            null,
             11570000,
             null,
             0.10183404344462092
@@ -8819,7 +8248,7 @@
           "name": "Commerce",
           "id": "branch-4",
           "value": [
-            14500000,
+            null,
             10449000,
             null,
             0.091967495242251
@@ -9001,7 +8430,7 @@
           "name": "Judicial Branch",
           "id": "branch-25",
           "value": [
-            7781000,
+            null,
             8284000,
             null,
             0.07291211891920828
@@ -9133,7 +8562,7 @@
           "name": "Railroad Retirement Board",
           "id": "branch-31",
           "value": [
-            7045000,
+            null,
             7115000,
             null,
             0.06262309586071546
@@ -9165,7 +8594,7 @@
           "name": "Legislative Branch",
           "id": "branch-26",
           "value": [
-            4910000,
+            null,
             5173000,
             null,
             0.04553046730674365
@@ -9347,7 +8776,7 @@
           "name": "Corps of Engineers--Civil Works",
           "id": "branch-2",
           "value": [
-            11478000,
+            null,
             4584000,
             null,
             0.04034634875973572
@@ -9379,7 +8808,7 @@
           "name": "District of Columbia",
           "id": "branch-18",
           "value": [
-            1033000,
+            null,
             1070000,
             null,
             0.00941766866773936
@@ -9431,7 +8860,7 @@
           "name": "Federal Deposit Insurance Corporation",
           "id": "branch-21",
           "value": [
-            60000,
+            null,
             915000,
             null,
             0.008053426944842536
@@ -9441,7 +8870,7 @@
               "name": "Orderly Liquidation",
               "id": "leaf-340",
               "value": [
-                0,
+                null,
                 855000,
                 null,
                 0.007525333374688928
@@ -9473,7 +8902,7 @@
           "name": "General Services Administration",
           "id": "branch-23",
           "value": [
-            304000,
+            null,
             653000,
             null,
             0.005747418355171777
@@ -9535,7 +8964,7 @@
           "name": "Executive Office of the President",
           "id": "branch-19",
           "value": [
-            548000,
+            null,
             569000,
             null,
             0.005008087356956725
@@ -9677,7 +9106,7 @@
           "name": "National Archives and Records Administration",
           "id": "branch-27",
           "value": [
-            458000,
+            null,
             407000,
             null,
             0.003582234717541981
@@ -9699,7 +9128,7 @@
           "name": "Recovery Accountability and Transparency Board",
           "id": "branch-32",
           "value": [
-            0,
+            null,
             32000,
             null,
             0.00028164990408192475
@@ -9709,7 +9138,7 @@
               "name": "Recovery Act Accountability and Transparency Board",
               "id": "leaf-526",
               "value": [
-                0,
+                null,
                 32000,
                 null,
                 0.00028164990408192475
@@ -9721,7 +9150,7 @@
           "name": "Access Board",
           "id": "branch-0",
           "value": [
-            7000,
+            null,
             7000,
             null,
             0.00006161091651792105
@@ -9743,7 +9172,7 @@
           "name": "Committee for Purchase from People Who Are Blind or Severely Dis",
           "id": "branch-1",
           "value": [
-            5000,
+            null,
             6000,
             null,
             0.000052809357015360894
@@ -9765,7 +9194,7 @@
           "name": "Federal Financial Institutions Examination Council",
           "id": "branch-22",
           "value": [
-            3000,
+            null,
             2000,
             null,
             0.000017603119005120297
@@ -9787,79 +9216,22 @@
           "name": "Securities and Exchange Commission",
           "id": "branch-33",
           "value": [
-            0,
+            null,
             0,
             null,
             0
           ]
         }
-      ],
-      "progressive": 0,
-      "left": "center",
-      "width": "80%",
-      "height": "80%",
-      "sort": true,
-      "clipWindow": "origin",
-      "squareRatio": 1.618033988749895,
-      "leafDepth": null,
-      "drillDownIcon": "▶",
-      "zoomToNodeRatio": 0.1024,
-      "roam": true,
-      "nodeClick": "zoomToNode",
-      "animation": true,
-      "animationDurationUpdate": 900,
-      "animationEasing": "quinticInOut",
-      "breadcrumb": {
-        "show": true,
-        "height": 22,
-        "left": "center",
-        "top": "bottom",
-        "emptyItemWidth": 25,
-        "itemStyle": {
-          "color": "rgba(0,0,0,0.7)",
-          "textStyle": {
-            "color": "#fff"
-          }
-        }
-      },
-      "upperLabel": {
-        "show": false,
-        "position": [
-          0,
-          "50%"
-        ],
-        "height": 20,
-        "overflow": "truncate",
-        "verticalAlign": "middle"
-      },
-      "emphasis": {
-        "upperLabel": {
-          "show": true,
-          "position": [
-            0,
-            "50%"
-          ],
-          "ellipsis": true,
-          "verticalAlign": "middle"
-        },
-        "label": {
-          "show": true
-        }
-      },
-      "visualMin": null,
-      "visualMax": null,
-      "color": [],
-      "colorAlpha": null,
-      "colorSaturation": null,
-      "colorMappingBy": "index",
-      "visibleMin": 10,
-      "childrenVisibleMin": null
+      ]
     },
     {
       "type": "treemap",
-      "tooltip": {},
+      "tooltip": {
+        "formatter": "function (info) { const amountIndex = 0; const amountIndex2011 = 1; let value = info.value; let amount = value[amountIndex]; amount = sharedVar.isValidNumber(amount) ? echarts.format.addCommas(amount * 1000) + '$' : '-'; let amount2011 = value[amountIndex2011]; amount2011 = sharedVar.isValidNumber(amount2011) ? echarts.format.addCommas(amount2011 * 1000) + '$' : '-'; let perHousehold = value[3]; perHousehold = sharedVar.isValidNumber(perHousehold) ? echarts.format.addCommas(+perHousehold.toFixed(4) * 1000) + '$' : '-'; let change = value[2]; change = sharedVar.isValidNumber(change) ? change.toFixed(2) + '%' : '-'; return [ echarts.format.encodeHTML(info.name) + \"\\n\", '2012 Amount:  ' + amount + '\\n', 'Per Household:  ' + perHousehold + '\\n', '2011 Amount:  ' + amount2011 + '\\n', 'Change From 2011:  ' + change ].join(''); }"
+      },
       "label": {
         "position": "insideTopLeft",
+        "formatter": "function (params) { let arr = [ '{name|' + params.name + '}', '{hr|}', '{budget|$ ' + echarts.format.addCommas(params.value[0]) + '} {label|budget}' ]; arr.push( '{household|$ ' + echarts.format.addCommas(+params.value[3].toFixed(4) * 1000) + '} {label|per household}' ); return arr.join('\\n'); }",
         "rich": {
           "budget": {
             "fontSize": 22,
@@ -9893,21 +9265,10 @@
             "height": 0,
             "lineHeight": 10
           }
-        },
-        "show": true,
-        "distance": 0,
-        "padding": 5,
-        "color": "#fff",
-        "overflow": "truncate"
+        }
       },
       "itemStyle": {
-        "borderColor": "black",
-        "color": null,
-        "colorAlpha": null,
-        "colorSaturation": null,
-        "borderWidth": 0,
-        "gapWidth": 0,
-        "borderColorSaturation": null
+        "borderColor": "black"
       },
       "levels": [
         {
@@ -9927,115 +9288,7 @@
           "itemStyle": {
             "borderWidth": 3,
             "gapWidth": 3
-          },
-          "decal": [
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "dashArrayX": [
-                1,
-                0
-              ],
-              "dashArrayY": [
-                2,
-                5
-              ],
-              "symbolSize": 1,
-              "rotation": 0.5235987755982988
-            },
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "symbol": "circle",
-              "dashArrayX": [
-                [
-                  8,
-                  8
-                ],
-                [
-                  0,
-                  8,
-                  8,
-                  0
-                ]
-              ],
-              "dashArrayY": [
-                6,
-                0
-              ],
-              "symbolSize": 0.8
-            },
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "dashArrayX": [
-                1,
-                0
-              ],
-              "dashArrayY": [
-                4,
-                3
-              ],
-              "rotation": -0.7853981633974483
-            },
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "dashArrayX": [
-                [
-                  6,
-                  6
-                ],
-                [
-                  0,
-                  6,
-                  6,
-                  0
-                ]
-              ],
-              "dashArrayY": [
-                6,
-                0
-              ]
-            },
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "dashArrayX": [
-                [
-                  1,
-                  0
-                ],
-                [
-                  1,
-                  6
-                ]
-              ],
-              "dashArrayY": [
-                1,
-                0,
-                6,
-                0
-              ],
-              "rotation": 0.7853981633974483
-            },
-            {
-              "color": "rgba(0, 0, 0, 0.2)",
-              "symbol": "triangle",
-              "dashArrayX": [
-                [
-                  9,
-                  9
-                ],
-                [
-                  0,
-                  9,
-                  9,
-                  0
-                ]
-              ],
-              "dashArrayY": [
-                7,
-                2
-              ],
-              "symbolSize": 0.75
-            }
-          ]
+          }
         },
         {
           "colorAlpha": [
@@ -14589,163 +13842,16 @@
             0
           ]
         }
-      ],
-      "progressive": 0,
-      "left": "center",
-      "width": "80%",
-      "height": "80%",
-      "sort": true,
-      "clipWindow": "origin",
-      "squareRatio": 1.618033988749895,
-      "leafDepth": null,
-      "drillDownIcon": "▶",
-      "zoomToNodeRatio": 0.1024,
-      "roam": true,
-      "nodeClick": "zoomToNode",
-      "animation": true,
-      "animationDurationUpdate": 900,
-      "animationEasing": "quinticInOut",
-      "breadcrumb": {
-        "show": true,
-        "height": 22,
-        "left": "center",
-        "top": "bottom",
-        "emptyItemWidth": 25,
-        "itemStyle": {
-          "color": "rgba(0,0,0,0.7)",
-          "textStyle": {
-            "color": "#fff"
-          }
-        }
-      },
-      "upperLabel": {
-        "show": false,
-        "position": [
-          0,
-          "50%"
-        ],
-        "height": 20,
-        "overflow": "truncate",
-        "verticalAlign": "middle"
-      },
-      "emphasis": {
-        "upperLabel": {
-          "show": true,
-          "position": [
-            0,
-            "50%"
-          ],
-          "ellipsis": true,
-          "verticalAlign": "middle"
-        },
-        "label": {
-          "show": true
-        }
-      },
-      "visualMin": null,
-      "visualMax": null,
-      "color": [],
-      "colorAlpha": null,
-      "colorSaturation": null,
-      "colorMappingBy": "index",
-      "visibleMin": 10,
-      "childrenVisibleMin": null
+      ]
     }
   ],
-  "visualMap": [],
-  "legend": [
-    {
-      "data": [
-        "2012Budget",
-        "2011Budget",
-        "Growth"
-      ],
-      "selectedMode": "single",
-      "top": 55,
-      "itemGap": 5,
-      "borderRadius": 5,
-      "zlevel": 0,
-      "z": 4,
-      "show": true,
-      "orient": "horizontal",
-      "left": "center",
-      "align": "auto",
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderColor": "#ccc",
-      "borderWidth": 0,
-      "padding": 5,
-      "itemWidth": 25,
-      "itemHeight": 14,
-      "symbolRotate": "inherit",
-      "symbolKeepAspect": true,
-      "inactiveColor": "#ccc",
-      "inactiveBorderColor": "#ccc",
-      "inactiveBorderWidth": "auto",
-      "itemStyle": {
-        "color": "inherit",
-        "opacity": "inherit",
-        "borderColor": "inherit",
-        "borderWidth": "auto",
-        "borderCap": "inherit",
-        "borderJoin": "inherit",
-        "borderDashOffset": "inherit",
-        "borderMiterLimit": "inherit"
-      },
-      "lineStyle": {
-        "width": "auto",
-        "color": "inherit",
-        "inactiveColor": "#ccc",
-        "inactiveWidth": 2,
-        "opacity": "inherit",
-        "type": "inherit",
-        "cap": "inherit",
-        "join": "inherit",
-        "dashOffset": "inherit",
-        "miterLimit": "inherit"
-      },
-      "textStyle": {
-        "color": "#333"
-      },
-      "selector": false,
-      "selectorLabel": {
-        "show": true,
-        "borderRadius": 10,
-        "padding": [
-          3,
-          5,
-          3,
-          5
-        ],
-        "fontSize": 12,
-        "fontFamily": "sans-serif",
-        "color": "#666",
-        "borderWidth": 1,
-        "borderColor": "#666"
-      },
-      "emphasis": {
-        "selectorLabel": {
-          "show": true,
-          "color": "#eee",
-          "backgroundColor": "#666"
-        }
-      },
-      "selectorPosition": "auto",
-      "selectorItemGap": 7,
-      "selectorButtonGap": 10,
-      "tooltip": {
-        "show": false
-      },
-      "bottom": null,
-      "selected": {
-        "2012Budget": true,
-        "2011Budget": false,
-        "Growth": false
-      }
-    }
-  ],
-  "markArea": [],
-  "markLine": [],
-  "markPoint": [],
-  "brush": [],
-  "dataZoom": []
+  "actions": [],
+  "sharedVar": {
+    "modes": [
+      "2012Budget",
+      "2011Budget",
+      "Growth"
+    ],
+    "isValidNumber": "function isValidNumber(num) { return num != null && isFinite(num); }"
+  }
 }

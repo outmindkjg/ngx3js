@@ -114,5 +114,9 @@
         }
       ]
     }
-  ]
+  ],
+  "actions": [],
+  "sharedVar": {
+    "setInterval": "function(myChart) { return setInterval(function () { const random = +(Math.random() * 60).toFixed(2); myChart.setOption({ series: [ { data: [ { value: random } ] }, { data: [ { value: random } ] } ] }); }, 2000); }"
+  }
 }

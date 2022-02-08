@@ -1,279 +1,28 @@
 {
-  "animationDuration": 1500,
-  "animationEasingUpdate": "quinticInOut",
-  "darkMode": "auto",
-  "colorBy": "series",
-  "color": [
-    "#5470c6",
-    "#91cc75",
-    "#fac858",
-    "#ee6666",
-    "#73c0de",
-    "#3ba272",
-    "#fc8452",
-    "#9a60b4",
-    "#ea7ccc"
-  ],
-  "gradientColor": [
-    "#f6efa6",
-    "#d88273",
-    "#bf444c"
-  ],
-  "aria": {
-    "decal": {
-      "decals": [
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            2,
-            5
-          ],
-          "symbolSize": 1,
-          "rotation": 0.5235987755982988
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "circle",
-          "dashArrayX": [
-            [
-              8,
-              8
-            ],
-            [
-              0,
-              8,
-              8,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ],
-          "symbolSize": 0.8
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            4,
-            3
-          ],
-          "rotation": -0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              6,
-              6
-            ],
-            [
-              0,
-              6,
-              6,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ]
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              1,
-              0
-            ],
-            [
-              1,
-              6
-            ]
-          ],
-          "dashArrayY": [
-            1,
-            0,
-            6,
-            0
-          ],
-          "rotation": 0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "triangle",
-          "dashArrayX": [
-            [
-              9,
-              9
-            ],
-            [
-              0,
-              9,
-              9,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            7,
-            2
-          ],
-          "symbolSize": 0.75
-        }
+  "title": {
+    "text": "Les Miserables",
+    "subtext": "Default layout",
+    "top": "bottom",
+    "left": "right"
+  },
+  "tooltip": {},
+  "legend": [
+    {
+      "data": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
       ]
     }
-  },
-  "textStyle": {
-    "fontFamily": "sans-serif",
-    "fontSize": 12,
-    "fontStyle": "normal",
-    "fontWeight": "normal"
-  },
-  "stateAnimation": {
-    "duration": 300,
-    "easing": "cubicOut"
-  },
-  "animation": "auto",
-  "animationDurationUpdate": 500,
-  "animationEasing": "cubicInOut",
-  "animationThreshold": 2000,
-  "progressiveThreshold": 3000,
-  "progressive": 400,
-  "hoverLayerThreshold": 3000,
-  "useUTC": false,
-  "title": [
-    {
-      "text": "Les Miserables",
-      "subtext": "Default layout",
-      "top": "bottom",
-      "left": "right",
-      "zlevel": 0,
-      "z": 6,
-      "show": true,
-      "target": "blank",
-      "subtarget": "blank",
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderColor": "#ccc",
-      "borderWidth": 0,
-      "padding": 5,
-      "itemGap": 10,
-      "textStyle": {
-        "fontSize": 18,
-        "fontWeight": "bold",
-        "color": "#464646"
-      },
-      "subtextStyle": {
-        "fontSize": 12,
-        "color": "#6E7079"
-      },
-      "right": null,
-      "bottom": null
-    }
   ],
-  "axisPointer": [
-    {
-      "show": "auto",
-      "zlevel": 0,
-      "z": 50,
-      "type": "line",
-      "snap": false,
-      "triggerTooltip": true,
-      "value": null,
-      "status": null,
-      "link": [],
-      "animation": null,
-      "animationDurationUpdate": 200,
-      "lineStyle": {
-        "color": "#B9BEC9",
-        "width": 1,
-        "type": "dashed"
-      },
-      "shadowStyle": {
-        "color": "rgba(210,219,238,0.2)"
-      },
-      "label": {
-        "show": true,
-        "formatter": null,
-        "precision": "auto",
-        "margin": 3,
-        "color": "#fff",
-        "padding": [
-          5,
-          7,
-          5,
-          7
-        ],
-        "backgroundColor": "auto",
-        "borderColor": null,
-        "borderWidth": 0,
-        "borderRadius": 3
-      },
-      "handle": {
-        "show": false,
-        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
-        "size": 45,
-        "margin": 50,
-        "color": "#333",
-        "shadowBlur": 3,
-        "shadowColor": "#aaa",
-        "shadowOffsetX": 0,
-        "shadowOffsetY": 2,
-        "throttle": 40
-      }
-    }
-  ],
-  "tooltip": [
-    {
-      "zlevel": 0,
-      "z": 60,
-      "show": true,
-      "showContent": true,
-      "trigger": "item",
-      "triggerOn": "mousemove|click",
-      "alwaysShowContent": false,
-      "displayMode": "single",
-      "renderMode": "auto",
-      "confine": null,
-      "showDelay": 0,
-      "hideDelay": 100,
-      "transitionDuration": 0.4,
-      "enterable": false,
-      "backgroundColor": "#fff",
-      "shadowBlur": 10,
-      "shadowColor": "rgba(0, 0, 0, .2)",
-      "shadowOffsetX": 1,
-      "shadowOffsetY": 2,
-      "borderRadius": 4,
-      "borderWidth": 1,
-      "padding": null,
-      "extraCssText": "",
-      "axisPointer": {
-        "type": "line",
-        "axis": "auto",
-        "animation": "auto",
-        "animationDurationUpdate": 200,
-        "animationEasingUpdate": "exponentialOut",
-        "crossStyle": {
-          "color": "#999",
-          "width": 1,
-          "type": "dashed",
-          "textStyle": {}
-        }
-      },
-      "textStyle": {
-        "color": "#666",
-        "fontSize": 14
-      }
-    }
-  ],
+  "animationDuration": 1500,
+  "animationEasingUpdate": "quinticInOut",
   "series": [
     {
       "name": "Les Miserables",
@@ -290,11 +39,6 @@
           "category": 0,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -307,11 +51,6 @@
           "category": 0,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -324,11 +63,6 @@
           "category": 1,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -341,11 +75,6 @@
           "category": 1,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -358,11 +87,6 @@
           "category": 0,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -375,11 +99,6 @@
           "category": 0,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -392,11 +111,6 @@
           "category": 0,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -409,11 +123,6 @@
           "category": 0,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -426,11 +135,6 @@
           "category": 0,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -443,11 +147,6 @@
           "category": 0,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -460,11 +159,6 @@
           "category": 1,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -477,11 +171,6 @@
           "category": 1,
           "label": {
             "show": true
-          },
-          "emphasis": {
-            "label": {
-              "show": true
-            }
           }
         },
         {
@@ -494,11 +183,6 @@
           "category": 1,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -511,11 +195,6 @@
           "category": 1,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -528,11 +207,6 @@
           "category": 1,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -545,11 +219,6 @@
           "category": 1,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -562,11 +231,6 @@
           "category": 2,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -579,11 +243,6 @@
           "category": 2,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -596,11 +255,6 @@
           "category": 2,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -613,11 +267,6 @@
           "category": 2,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -630,11 +279,6 @@
           "category": 2,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -647,11 +291,6 @@
           "category": 2,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -664,11 +303,6 @@
           "category": 2,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -681,11 +315,6 @@
           "category": 2,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -698,11 +327,6 @@
           "category": 7,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -715,11 +339,6 @@
           "category": 7,
           "label": {
             "show": true
-          },
-          "emphasis": {
-            "label": {
-              "show": true
-            }
           }
         },
         {
@@ -732,11 +351,6 @@
           "category": 6,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -749,11 +363,6 @@
           "category": 7,
           "label": {
             "show": true
-          },
-          "emphasis": {
-            "label": {
-              "show": true
-            }
           }
         },
         {
@@ -766,11 +375,6 @@
           "category": 4,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -783,11 +387,6 @@
           "category": 3,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -800,11 +399,6 @@
           "category": 2,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -817,11 +411,6 @@
           "category": 2,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -834,11 +423,6 @@
           "category": 1,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -851,11 +435,6 @@
           "category": 1,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -868,11 +447,6 @@
           "category": 3,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -885,11 +459,6 @@
           "category": 3,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -902,11 +471,6 @@
           "category": 3,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -919,11 +483,6 @@
           "category": 3,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -936,11 +495,6 @@
           "category": 3,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -953,11 +507,6 @@
           "category": 6,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -970,11 +519,6 @@
           "category": 7,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -987,11 +531,6 @@
           "category": 7,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1004,11 +543,6 @@
           "category": 7,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1021,11 +555,6 @@
           "category": 6,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1038,11 +567,6 @@
           "category": 4,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1055,11 +579,6 @@
           "category": 4,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1072,11 +591,6 @@
           "category": 5,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1089,11 +603,6 @@
           "category": 5,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1106,11 +615,6 @@
           "category": 8,
           "label": {
             "show": true
-          },
-          "emphasis": {
-            "label": {
-              "show": true
-            }
           }
         },
         {
@@ -1123,11 +627,6 @@
           "category": 6,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1140,11 +639,6 @@
           "category": 6,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1157,11 +651,6 @@
           "category": 6,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1174,11 +663,6 @@
           "category": 6,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1191,11 +675,6 @@
           "category": 6,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1208,11 +687,6 @@
           "category": 6,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1225,11 +699,6 @@
           "category": 6,
           "label": {
             "show": true
-          },
-          "emphasis": {
-            "label": {
-              "show": true
-            }
           }
         },
         {
@@ -1242,11 +711,6 @@
           "category": 6,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1259,11 +723,6 @@
           "category": 8,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1276,11 +735,6 @@
           "category": 8,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1293,11 +747,6 @@
           "category": 8,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1310,11 +759,6 @@
           "category": 8,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1327,11 +771,6 @@
           "category": 8,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1344,11 +783,6 @@
           "category": 8,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1361,11 +795,6 @@
           "category": 8,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1378,11 +807,6 @@
           "category": 8,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1395,11 +819,6 @@
           "category": 8,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1412,11 +831,6 @@
           "category": 8,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1429,11 +843,6 @@
           "category": 8,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1446,11 +855,6 @@
           "category": 7,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1463,11 +867,6 @@
           "category": 7,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1480,11 +879,6 @@
           "category": 7,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1497,11 +891,6 @@
           "category": 7,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1514,11 +903,6 @@
           "category": 1,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1531,11 +915,6 @@
           "category": 8,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1548,11 +927,6 @@
           "category": 8,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1565,11 +939,6 @@
           "category": 7,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         },
         {
@@ -1582,11 +951,6 @@
           "category": 8,
           "label": {
             "show": false
-          },
-          "emphasis": {
-            "label": {
-              "show": false
-            }
           }
         }
       ],
@@ -2640,164 +2004,20 @@
       "roam": true,
       "label": {
         "position": "right",
-        "formatter": "{b}",
-        "show": false
+        "formatter": "{b}"
       },
       "lineStyle": {
         "color": "source",
-        "curveness": 0.3,
-        "width": 1,
-        "opacity": 0.5
+        "curveness": 0.3
       },
       "emphasis": {
         "focus": "adjacency",
         "lineStyle": {
           "width": 10
-        },
-        "scale": true,
-        "label": {
-          "show": true
-        },
-        "edgeLabel": {}
-      },
-      "zlevel": 0,
-      "z": 2,
-      "coordinateSystem": "view",
-      "legendHoverLink": true,
-      "circular": {
-        "rotateLabel": false
-      },
-      "force": {
-        "initLayout": null,
-        "repulsion": [
-          0,
-          50
-        ],
-        "gravity": 0.1,
-        "friction": 0.6,
-        "edgeLength": 30,
-        "layoutAnimation": true
-      },
-      "left": "center",
-      "top": "center",
-      "symbol": "circle",
-      "symbolSize": 10,
-      "edgeSymbol": [
-        "none",
-        "none"
-      ],
-      "edgeSymbolSize": 10,
-      "edgeLabel": {
-        "position": "middle",
-        "distance": 5
-      },
-      "draggable": false,
-      "center": null,
-      "zoom": 1,
-      "nodeScaleRatio": 0.6,
-      "itemStyle": {},
-      "select": {
-        "itemStyle": {
-          "borderColor": "#212121"
         }
       }
     }
   ],
-  "visualMap": [],
-  "legend": [
-    {
-      "data": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I"
-      ],
-      "zlevel": 0,
-      "z": 4,
-      "show": true,
-      "orient": "horizontal",
-      "left": "center",
-      "top": 0,
-      "align": "auto",
-      "backgroundColor": "rgba(0,0,0,0)",
-      "borderColor": "#ccc",
-      "borderRadius": 0,
-      "borderWidth": 0,
-      "padding": 5,
-      "itemGap": 10,
-      "itemWidth": 25,
-      "itemHeight": 14,
-      "symbolRotate": "inherit",
-      "symbolKeepAspect": true,
-      "inactiveColor": "#ccc",
-      "inactiveBorderColor": "#ccc",
-      "inactiveBorderWidth": "auto",
-      "itemStyle": {
-        "color": "inherit",
-        "opacity": "inherit",
-        "borderColor": "inherit",
-        "borderWidth": "auto",
-        "borderCap": "inherit",
-        "borderJoin": "inherit",
-        "borderDashOffset": "inherit",
-        "borderMiterLimit": "inherit"
-      },
-      "lineStyle": {
-        "width": "auto",
-        "color": "inherit",
-        "inactiveColor": "#ccc",
-        "inactiveWidth": 2,
-        "opacity": "inherit",
-        "type": "inherit",
-        "cap": "inherit",
-        "join": "inherit",
-        "dashOffset": "inherit",
-        "miterLimit": "inherit"
-      },
-      "textStyle": {
-        "color": "#333"
-      },
-      "selectedMode": true,
-      "selector": false,
-      "selectorLabel": {
-        "show": true,
-        "borderRadius": 10,
-        "padding": [
-          3,
-          5,
-          3,
-          5
-        ],
-        "fontSize": 12,
-        "fontFamily": "sans-serif",
-        "color": "#666",
-        "borderWidth": 1,
-        "borderColor": "#666"
-      },
-      "emphasis": {
-        "selectorLabel": {
-          "show": true,
-          "color": "#eee",
-          "backgroundColor": "#666"
-        }
-      },
-      "selectorPosition": "auto",
-      "selectorItemGap": 7,
-      "selectorButtonGap": 10,
-      "tooltip": {
-        "show": false
-      },
-      "selected": {}
-    }
-  ],
-  "markArea": [],
-  "markLine": [],
-  "markPoint": [],
-  "brush": [],
-  "dataZoom": []
+  "actions": [],
+  "sharedVar": {}
 }

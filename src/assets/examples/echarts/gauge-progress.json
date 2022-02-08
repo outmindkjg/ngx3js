@@ -69,6 +69,7 @@
           "35%"
         ],
         "valueAnimation": true,
+        "formatter": "function (value) { return '{value|' + value.toFixed(0) + '}{unit|km/h}'; }",
         "rich": {
           "value": {
             "fontSize": 50,
@@ -93,5 +94,12 @@
         }
       ]
     }
-  ]
+  ],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.series.forEach((series, idx) => { series.data[0].value = Math.round(Utils.rand(0, 100)); }); chart.setOption(options); }"
+    }
+  ],
+  "sharedVar": {}
 }
