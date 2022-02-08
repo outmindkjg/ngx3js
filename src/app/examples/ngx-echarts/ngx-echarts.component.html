@@ -55,7 +55,7 @@
 			<ngx3js-position [x]="3" [y]="5" [z]="10"></ngx3js-position>
 		</ngx3js-light>
 		<ngx3js-mesh *ngIf="option">
-			<ngx3js-event-proxy [lookatCamera]="controls.autoLookat" [useDrag]="controls.useDrag"></ngx3js-event-proxy>
+			<ngx3js-event-proxy [type]="'echarts'" [lookatCamera]="controls.autoLookat" [useDrag]="controls.useDrag"></ngx3js-event-proxy>
 			<ngx3js-geometry 
 				[type]="controls.geometry"
 				[width]="controls.width"
