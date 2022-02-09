@@ -343,7 +343,7 @@
 		"children": [
 			{ "url": "dataset-encode0", "name": "Simple Encode" },
 			{ "url": "dataset-default", "name": "Default arrangement" },
-			{ "url": "dataset-encode1", "name": "Encode and Matrix" },
+			{ "url": "dataset-encode1", "name": "Encode and Matrix Todo" },
 			{ "url": "dataset-link", "name": "Share Dataset" },
 			{
 				"url": "dataset-series-layout-by",
@@ -351,17 +351,7 @@
 			},
 			{ "url": "dataset-simple0", "name": "Simple Example of Dataset" },
 			{ "url": "dataset-simple1", "name": "Dataset in Object Array" },
-			{ "url": "area-simple", "name": "Large scale area chart" },
-			{ "url": "line-tooltip-touch", "name": "Tooltip and DataZoom on Mobile" },
-			{ "url": "line-draggable", "name": "Try Dragging these Points" }
-		]
-	},
-	{
-		"title": "Rich Text",
-		"children": [
-			{ "url": "pie-rich-text", "name": "Pie Special Label" },
-			{ "url": "pie-nest", "name": "Nested Pies" },
-			{ "url": "bar-rich-text", "name": "Wheater Statistics" }
+			{ "url": "line-tooltip-touch", "name": "Tooltip and DataZoom on Mobile" }
 		]
 	},
 	{

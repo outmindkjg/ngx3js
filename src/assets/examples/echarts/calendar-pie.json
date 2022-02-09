@@ -59,238 +59,238 @@
       "data": [
         [
           "2017-02-01",
-          4020
+          5744
         ],
         [
           "2017-02-02",
-          5174
+          7389
         ],
         [
           "2017-02-03",
-          6823
+          8412
         ],
         [
           "2017-02-04",
-          1892
+          5454
         ],
         [
           "2017-02-05",
-          1938
+          6006
         ],
         [
           "2017-02-06",
-          1324
+          7542
         ],
         [
           "2017-02-07",
-          2307
+          7181
         ],
         [
           "2017-02-08",
-          3704
+          77
         ],
         [
           "2017-02-09",
-          275
+          6263
         ],
         [
           "2017-02-10",
-          6866
+          6877
         ],
         [
           "2017-02-11",
-          3973
+          5618
         ],
         [
           "2017-02-12",
-          5261
+          3892
         ],
         [
           "2017-02-13",
-          8563
+          8945
         ],
         [
           "2017-02-14",
-          1717
+          8686
         ],
         [
           "2017-02-15",
-          4763
+          6213
         ],
         [
           "2017-02-16",
-          8170
+          8749
         ],
         [
           "2017-02-17",
-          5806
+          1458
         ],
         [
           "2017-02-18",
-          506
+          7483
         ],
         [
           "2017-02-19",
-          7722
+          7026
         ],
         [
           "2017-02-20",
-          2706
+          8135
         ],
         [
           "2017-02-21",
-          814
+          1890
         ],
         [
           "2017-02-22",
-          6481
+          9151
         ],
         [
           "2017-02-23",
-          7057
+          714
         ],
         [
           "2017-02-24",
-          1686
+          8910
         ],
         [
           "2017-02-25",
-          1693
+          1627
         ],
         [
           "2017-02-26",
-          8529
+          2969
         ],
         [
           "2017-02-27",
-          3017
+          8778
         ],
         [
           "2017-02-28",
-          2267
+          8941
         ]
       ]
     }
   ],
   "actions": [],
   "sharedVar": {
-    "pieInitialized": false,
+    "getPieSeries": "function getPieSeries(scatterData, chart) { return scatterData.map(function (item, index) { var center = chart.convertToPixel('calendar', item); return { id: index + 'pie', type: 'pie', center: center, label: { formatter: '{c}', position: 'inside' }, radius: 30, data: [ { name: '工作', value: Math.round(Math.random() * 24) }, { name: '娱乐', value: Math.round(Math.random() * 24) }, { name: '睡觉', value: Math.round(Math.random() * 24) } ] }; }); }",
     "scatterData": [
       [
         "2017-02-01",
-        4020
+        5744
       ],
       [
         "2017-02-02",
-        5174
+        7389
       ],
       [
         "2017-02-03",
-        6823
+        8412
       ],
       [
         "2017-02-04",
-        1892
+        5454
       ],
       [
         "2017-02-05",
-        1938
+        6006
       ],
       [
         "2017-02-06",
-        1324
+        7542
       ],
       [
         "2017-02-07",
-        2307
+        7181
       ],
       [
         "2017-02-08",
-        3704
+        77
       ],
       [
         "2017-02-09",
-        275
+        6263
       ],
       [
         "2017-02-10",
-        6866
+        6877
       ],
       [
         "2017-02-11",
-        3973
+        5618
       ],
       [
         "2017-02-12",
-        5261
+        3892
       ],
       [
         "2017-02-13",
-        8563
+        8945
       ],
       [
         "2017-02-14",
-        1717
+        8686
       ],
       [
         "2017-02-15",
-        4763
+        6213
       ],
       [
         "2017-02-16",
-        8170
+        8749
       ],
       [
         "2017-02-17",
-        5806
+        1458
       ],
       [
         "2017-02-18",
-        506
+        7483
       ],
       [
         "2017-02-19",
-        7722
+        7026
       ],
       [
         "2017-02-20",
-        2706
+        8135
       ],
       [
         "2017-02-21",
-        814
+        1890
       ],
       [
         "2017-02-22",
-        6481
+        9151
       ],
       [
         "2017-02-23",
-        7057
+        714
       ],
       [
         "2017-02-24",
-        1686
+        8910
       ],
       [
         "2017-02-25",
-        1693
+        1627
       ],
       [
         "2017-02-26",
-        8529
+        2969
       ],
       [
         "2017-02-27",
-        3017
+        8778
       ],
       [
         "2017-02-28",
-        2267
+        8941
       ]
     ],
-    "pieRadius": 30,
-    "getPieSeries": "function(scatterData, chart) { return scatterData.map(function (item, index) { var center = chart.convertToPixel('calendar', item); return { id: index + 'pie', type: 'pie', center: center, label: { formatter: '{c}', position: 'inside' }, radius: sharedVar.pieRadius, data: [ { name: '工作', value: Math.round(Math.random() * 24) }, { name: '娱乐', value: Math.round(Math.random() * 24) }, { name: '睡觉', value: Math.round(Math.random() * 24) } ] }; }); }",
-    "setTimeout": "function() { setTimeout (function () { sharedVar.pieInitialized = true; sharedVar.myChart.setOption({ series: sharedVar.getPieSeries(sharedVar.scatterData, sharedVar.myChart) }); }, 10); }"
+    "on": [
+      "function(myChart) { setTimeout(function () { myChart.setOption({ series: sharedVar.getPieSeries(sharedVar.scatterData, myChart) }); }, 10); }"
+    ]
   }
 }

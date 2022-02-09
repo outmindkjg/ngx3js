@@ -1,362 +1,46 @@
 {
-  "darkMode": "auto",
-  "colorBy": "series",
-  "color": [
-    "#5470c6",
-    "#91cc75",
-    "#fac858",
-    "#ee6666",
-    "#73c0de",
-    "#3ba272",
-    "#fc8452",
-    "#9a60b4",
-    "#ea7ccc"
-  ],
-  "gradientColor": [
-    "#f6efa6",
-    "#d88273",
-    "#bf444c"
-  ],
-  "aria": {
-    "decal": {
-      "decals": [
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            2,
-            5
-          ],
-          "symbolSize": 1,
-          "rotation": 0.5235987755982988
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "circle",
-          "dashArrayX": [
-            [
-              8,
-              8
-            ],
-            [
-              0,
-              8,
-              8,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ],
-          "symbolSize": 0.8
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            1,
-            0
-          ],
-          "dashArrayY": [
-            4,
-            3
-          ],
-          "rotation": -0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              6,
-              6
-            ],
-            [
-              0,
-              6,
-              6,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            6,
-            0
-          ]
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "dashArrayX": [
-            [
-              1,
-              0
-            ],
-            [
-              1,
-              6
-            ]
-          ],
-          "dashArrayY": [
-            1,
-            0,
-            6,
-            0
-          ],
-          "rotation": 0.7853981633974483
-        },
-        {
-          "color": "rgba(0, 0, 0, 0.2)",
-          "symbol": "triangle",
-          "dashArrayX": [
-            [
-              9,
-              9
-            ],
-            [
-              0,
-              9,
-              9,
-              0
-            ]
-          ],
-          "dashArrayY": [
-            7,
-            2
-          ],
-          "symbolSize": 0.75
-        }
-      ]
-    }
-  },
-  "textStyle": {
-    "fontFamily": "sans-serif",
-    "fontSize": 12,
-    "fontStyle": "normal",
-    "fontWeight": "normal"
-  },
-  "stateAnimation": {
-    "duration": 300,
-    "easing": "cubicOut"
-  },
-  "animation": "auto",
-  "animationDuration": 1000,
-  "animationDurationUpdate": 500,
-  "animationEasing": "cubicInOut",
-  "animationEasingUpdate": "cubicInOut",
-  "animationThreshold": 2000,
-  "progressiveThreshold": 3000,
-  "progressive": 400,
-  "hoverLayerThreshold": 3000,
-  "useUTC": false,
-  "globe": [
-    {
-      "baseTexture": "echarts/files/moon-base.jpeg",
-      "heightTexture": "echarts/files/moon-bump.jpeg",
-      "displacementScale": 0.05,
-      "displacementQuality": "medium",
-      "environment": "echarts/files/starfield.jpeg",
-      "shading": "realistic",
-      "realisticMaterial": {
-        "roughness": 0.8,
-        "metalness": 0,
-        "textureTiling": 1,
-        "textureOffset": 0,
-        "detailTexture": null
-      },
-      "postEffect": {
+  "globe": {
+    "baseTexture": "echarts/files/moon-base.jpeg",
+    "heightTexture": "echarts/files/moon-bump.jpeg",
+    "displacementScale": 0.05,
+    "displacementQuality": "medium",
+    "environment": "echarts/files/starfield.jpeg",
+    "shading": "realistic",
+    "realisticMaterial": {
+      "roughness": 0.8,
+      "metalness": 0
+    },
+    "postEffect": {
+      "enable": true,
+      "SSAO": {
         "enable": true,
-        "SSAO": {
-          "enable": true,
-          "radius": 2,
-          "intensity": 1,
-          "quality": "high"
-        },
-        "bloom": {
-          "enable": true,
-          "intensity": 0.1
-        },
-        "depthOfField": {
-          "enable": false,
-          "focalRange": 20,
-          "focalDistance": 50,
-          "blurRadius": 10,
-          "fstop": 2.8,
-          "quality": "medium"
-        },
-        "screenSpaceAmbientOcclusion": {
-          "enable": false,
-          "radius": 2,
-          "quality": "medium",
-          "intensity": 1
-        },
-        "screenSpaceReflection": {
-          "enable": false,
-          "quality": "medium",
-          "maxRoughness": 0.8
-        },
-        "colorCorrection": {
-          "enable": true,
-          "exposure": 0,
-          "brightness": 0,
-          "contrast": 1,
-          "saturation": 1,
-          "lookupTexture": ""
-        },
-        "edge": {
-          "enable": false
-        },
-        "FXAA": {
-          "enable": false
-        }
-      },
-      "temporalSuperSampling": {
-        "enable": true
-      },
-      "light": {
-        "ambient": {
-          "intensity": 0,
-          "color": "#fff"
-        },
-        "main": {
-          "intensity": 2,
-          "shadow": true,
-          "time": "",
-          "shadowQuality": "high",
-          "color": "#fff",
-          "alpha": 0,
-          "beta": 0
-        },
-        "ambientCubemap": {
-          "texture": "echarts/files/pisa.hdr",
-          "exposure": 0,
-          "diffuseIntensity": 0.02,
-          "specularIntensity": 0.5
-        }
-      },
-      "viewControl": {
-        "autoRotate": false,
-        "panSensitivity": 0,
-        "targetCoord": null,
-        "projection": "perspective",
-        "autoRotateDirection": "cw",
-        "autoRotateSpeed": 10,
-        "autoRotateAfterStill": 3,
-        "damping": 0.8,
-        "rotateSensitivity": 1,
-        "zoomSensitivity": 1,
-        "panMouseButton": "middle",
-        "rotateMouseButton": "left",
-        "distance": 150,
-        "minDistance": 40,
-        "maxDistance": 400,
-        "orthographicSize": 150,
-        "maxOrthographicSize": 400,
-        "minOrthographicSize": 20,
-        "center": [
-          0,
-          0,
-          0
-        ],
-        "alpha": 0,
-        "beta": 0,
-        "minAlpha": -90,
-        "maxAlpha": 90
-      },
-      "show": true,
-      "zlevel": -10,
-      "left": 0,
-      "top": 0,
-      "width": "100%",
-      "height": "100%",
-      "baseColor": "#fff",
-      "displacementTexture": "",
-      "globeRadius": 100,
-      "globeOuterRadius": 150,
-      "atmosphere": {
-        "show": false,
-        "offset": 5,
-        "color": "#ffffff",
-        "glowPower": 6,
-        "innerGlowPower": 2
-      },
-      "layers": [],
-      "lambertMaterial": {
-        "textureTiling": 1,
-        "textureOffset": 0,
-        "detailTexture": null
-      },
-      "colorMaterial": {
-        "textureTiling": 1,
-        "textureOffset": 0,
-        "detailTexture": null
-      },
-      "hatchingMaterial": {
-        "textureTiling": 1,
-        "textureOffset": 0,
-        "paperColor": "#fff"
+        "radius": 2,
+        "intensity": 1,
+        "quality": "high"
       }
-    }
-  ],
-  "axisPointer": [
-    {
-      "show": "auto",
-      "zlevel": 0,
-      "z": 50,
-      "type": "line",
-      "snap": false,
-      "triggerTooltip": true,
-      "value": null,
-      "status": null,
-      "link": [],
-      "animation": null,
-      "animationDurationUpdate": 200,
-      "lineStyle": {
-        "color": "#B9BEC9",
-        "width": 1,
-        "type": "dashed"
+    },
+    "temporalSuperSampling": {
+      "enable": true
+    },
+    "light": {
+      "ambient": {
+        "intensity": 0
       },
-      "shadowStyle": {
-        "color": "rgba(210,219,238,0.2)"
+      "main": {
+        "intensity": 2,
+        "shadow": true
       },
-      "label": {
-        "show": true,
-        "formatter": null,
-        "precision": "auto",
-        "margin": 3,
-        "color": "#fff",
-        "padding": [
-          5,
-          7,
-          5,
-          7
-        ],
-        "backgroundColor": "auto",
-        "borderColor": null,
-        "borderWidth": 0,
-        "borderRadius": 3
-      },
-      "handle": {
-        "show": false,
-        "icon": "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z",
-        "size": 45,
-        "margin": 50,
-        "color": "#333",
-        "shadowBlur": 3,
-        "shadowColor": "#aaa",
-        "shadowOffsetX": 0,
-        "shadowOffsetY": 2,
-        "throttle": 40
+      "ambientCubemap": {
+        "texture": "echarts/files/pisa.hdr",
+        "exposure": 0,
+        "diffuseIntensity": 0.02
       }
+    },
+    "viewControl": {
+      "autoRotate": false
     }
-  ],
-  "tooltip": [],
+  },
   "series": [],
-  "visualMap": [],
-  "legend": [],
-  "markArea": [],
-  "markLine": [],
-  "markPoint": [],
-  "brush": [],
-  "dataZoom": []
+  "actions": [],
+  "sharedVar": {}
 }
