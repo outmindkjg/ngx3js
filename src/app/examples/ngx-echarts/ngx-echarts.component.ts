@@ -331,6 +331,7 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 	private chart: ECHARTS.ECharts = null;
 	public setChart(chart: ECHARTS.ECharts) {
 		this.chart = chart;
+		console.log(this.chart);
 		if (this.lastActions !== this.option.actions) {
 			this.lastActions = this.option.actions;
 			const actionFolder = NgxThreeUtil.getGuiFolder(

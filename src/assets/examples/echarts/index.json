@@ -160,7 +160,8 @@
 			{ "url": "geo-svg-lines", "name": "GEO SVG Lines" },
 			{ "url": "geo-svg-map", "name": "GEO SVG Map" },
 			{ "url": "geo-svg-scatter-simple", "name": "GEO SVG Scatter" },
-			{ "url": "geo-svg-traffic", "name": "GEO SVG Traffic" }
+			{ "url": "geo-svg-traffic", "name": "GEO SVG Traffic" },
+			{ "url": "map-bar-morph", "name": "Morphing between Map and Bar" }
 		]
 	},
 	{
