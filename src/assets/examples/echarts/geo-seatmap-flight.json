@@ -166,6 +166,11 @@
       }
     ]
   },
-  "actions": [],
+  "actions": [
+    {
+      "name": "Randomize",
+      "handler": "(chart) => { const options = chart.getOption(); options.geo[0].regions = options.geo[0].regions.map((regions, idx) => { if (Math.random() > 0.9) { return { \"name\": regions.name, \"silent\": true, \"itemStyle\": { \"color\": \"#bf0e08\" }, \"emphasis\": { \"itemStyle\": { \"borderColor\": \"#aaa\", \"borderWidth\": 1 } }, \"select\": { \"itemStyle\": { \"color\": \"#bf0e08\" } } } } else { return { name : regions.name } } }); chart.setOption(options); }"
+    }
+  ],
   "sharedVar": {}
 }

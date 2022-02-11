@@ -304,6 +304,9 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 			this.route.params.subscribe((params) => {
 				if (params['type']) {
 					this.controls.example = params['type'];
+					if (this.exampleList.length > 0) {
+						this.changeExample();
+					}
 				}
 			})
 		);
