@@ -42,6 +42,8 @@
 			[ overrideParams ]="... any -- The override params "
 			[ receiveShadow ]="... boolean -- Whether the material receives ... "
 			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string"
+			[ useDrag ]="... boolean"
 			[ userData ]="... any -- An object that can be used to ... "
 			[ visible ]="... boolean -- Object gets rendered if *true*... "
 			[ windowExport ]="... string -- Export this Object to window g... "
@@ -240,6 +242,16 @@
 		<h3>[property:any tween]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
 		<p>
 			Tween animation params
+		</p>
+
+		<h3>[property:string type] &nbsp; = 'echarts' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean useDrag] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			
 		</p>
 
 		<h3>[property:any userData]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
@@ -925,6 +937,7 @@
 			[property:Vector2 client]? -  The client.<br />
 			[property:number clientX]? -  The client x.<br />
 			[property:number clientY]? -  The client y.<br />
+			[property:any[] controls]? -  The controls.<br />
 			[property:Vector2 direction]? -  The direction.<br />
 			[property:any event] -  The event.<br />
 			[property:number height]? -  The height.<br />
