@@ -25,6 +25,7 @@
 		"ngx_directives",
 		"ngx_physics",
 		"ngx_chartjs",
-		"ngx_echarts"
+		"ngx_echarts",
+		"ngx_icons"
 	]
 }

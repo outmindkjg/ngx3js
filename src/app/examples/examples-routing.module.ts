@@ -436,6 +436,7 @@ import { WebglMaterialsNodesPlaygroundComponent } from './webgl-materials-nodes-
 import { WebglNodesPlaygroundComponent } from './webgl-nodes-playground/webgl-nodes-playground.component';
 import { WebgpuNodesPlaygroundComponent } from './webgpu-nodes-playground/webgpu-nodes-playground.component';
 import { WebgpuSkinningPointsComponent } from './webgpu-skinning-points/webgpu-skinning-points.component';
+import { NgxIconsComponent } from './ngx-icons/ngx-icons.component';
 
 const routes: Routes = [
 	{ path: '', pathMatch: 'full', redirectTo: 'ngx_scene' },
@@ -1596,6 +1597,8 @@ const routes: Routes = [
 	{ path: 'ngx_echarts', component: NgxEChartsComponent },
 	{ path: 'ngx_echarts/:type', component: NgxEChartsComponent },
 	{ path: 'ngx_hud', component: NgxHudComponent },
+	{ path: 'ngx_icons', component: NgxIconsComponent },
+	{ path: 'ngx_icons/:type', component: NgxIconsComponent },
 	{ path: 'ngx_light', component: NgxLightComponent },
 	{ path: 'ngx_light/:type', component: NgxLightComponent },
 	{ path: 'ngx_control', component: NgxControlComponent },

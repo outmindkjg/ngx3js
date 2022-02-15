@@ -49,7 +49,7 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 				autoLookat: false,
 				type: 0,
 				useDrag : true,
-				example: 'line-gradient',
+				example: '',
 				width: 2,
 				height: 2,
 				canvasSize: 512,
@@ -334,7 +334,6 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 	private chart: ECHARTS.ECharts = null;
 	public setChart(chart: ECHARTS.ECharts) {
 		this.chart = chart;
-		console.log(this.chart);
 		if (this.lastActions !== this.option.actions) {
 			this.lastActions = this.option.actions;
 			const actionFolder = NgxThreeUtil.getGuiFolder(
@@ -455,6 +454,16 @@ export class NgxEChartsComponent extends NgxBaseComponent<{
 				typeController.onChange(() => {
 					this.changeType();
 				});
+				if (example === null || example === '') {
+					const exampleList: { [key: string]: { url: string; name: string; type: number } } = {};
+					this.exampleList.forEach((example) => {
+						exampleList[example.name] = example;
+					});
+					const randIdx = Math.floor(Math.random() * Object.values(exampleList).length);
+					const exampleInfo = Object.values(exampleList)[randIdx];
+					this.controls.example = exampleInfo.url;
+					this.controls.type = exampleInfo.type;
+				}				
 				this.changeType();
 			});
 		});

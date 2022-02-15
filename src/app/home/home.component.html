@@ -127,6 +127,17 @@ node ./node_modules/ngx3js/bin/patch.js</code><span class="language-type">#shell
 						><br />
 					</ngx3js-viewport-in>
 
+					<h3>Preview - ngx icons (Material Icons)</h3>
+					<br />
+					<ngx3js-viewport-in [scrollEle]="vierInner" #scrollChecker9>
+						<div class="dummy-iframe" *ngIf="!scrollChecker9.isVisible"></div>
+						<iframe
+							*ngIf="scrollChecker9.isVisible"
+							src="#/viewer/ngx_icons"
+						></iframe
+						><br />
+					</ngx3js-viewport-in>
+
 					<h3>Preview - ngx curve</h3>
 					<br />
 					<ngx3js-viewport-in [scrollEle]="vierInner" #scrollChecker6>

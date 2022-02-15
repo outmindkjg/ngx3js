@@ -45,7 +45,7 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 				geometry: 'BoxGeometry',
 				autoLookat: false,
 				type: 0,
-				example: 'bar-vertical',
+				example: '',
 				width: 2,
 				height: 2,
 				canvasSize: 512,
@@ -545,7 +545,7 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 					'Chart'
 				);
 				const typeSelect: { [key: string]: number } = {};
-				const example = this.controls.example;
+				let example = this.controls.example;
 				data.forEach((section, idx) => {
 					typeSelect[section.title] = idx;
 					section.children.forEach((child) => {
@@ -568,6 +568,16 @@ export class NgxChartJsComponent extends NgxBaseComponent<{
 				typeController.onChange(() => {
 					this.changeType();
 				});
+				if (example === null || example === '') {
+					const exampleList: { [key: string]: { url: string; name: string; type: number } } = {};
+					this.exampleList.forEach((example) => {
+						exampleList[example.name] = example;
+					});
+					const randIdx = Math.floor(Math.random() * Object.values(exampleList).length);
+					const exampleInfo = Object.values(exampleList)[randIdx];
+					this.controls.example = exampleInfo.url;
+					this.controls.type = exampleInfo.type;
+				}
 				this.changeType();
 			});
 		});

@@ -47,6 +47,7 @@ import { NgxGeometryBrowserComponent } from './ngx-geometry-browser/ngx-geometry
 import { NgxGeometryComponent } from './ngx-geometry/ngx-geometry.component';
 import { NgxHelloWorldComponent } from './ngx-hello-world/ngx-hello-world.component';
 import { NgxHudComponent } from './ngx-hud/ngx-hud.component';
+import { NgxIconsComponent } from './ngx-icons/ngx-icons.component';
 import { NgxLightComponent } from './ngx-light/ngx-light.component';
 import { NgxMaterialBrowserComponent } from './ngx-material-browser/ngx-material-browser.component';
 import { NgxMaterialComponent } from './ngx-material/ngx-material.component';
@@ -868,6 +869,7 @@ import { WebxrVrVideoComponent } from './webxr-vr-video/webxr-vr-video.component
 		NgxBonesBrowserComponent,
 		NgxMaterialBrowserComponent,
 		NgxGeometryBrowserComponent,
+		NgxIconsComponent,
 		WebgpuInstanceUniformComponent,
 		WebgpuLightsCustomComponent,
 		WebgpuLightsSelectiveComponent,

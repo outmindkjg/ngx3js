@@ -1,0 +1,84 @@
+<div class="info">
+	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
+	ngx3js - Material Icon
+	<strong class="shadow" *ngIf="iconInfo">{{ iconInfo.name }} / String.fromCodePoint({{ iconInfo.codepoint }})</strong>
+</div>
+<ngx3js-renderer
+	[controlType]="'orbit'"
+	[controlOptions]="{ enablePan: false, enableDamping: true, autoRotate : controls.autoRotate }"
+	[statsMode]="0"
+	[antialias]="true"
+	[shadowMapEnabled]="true"
+	[guiControl]="controls"
+	[guiParams]="controlsParams"
+	(onLoad)="setRender($event)"
+	(onRender)="onRender($event)"
+>
+	<ngx3js-lookat [x]="0" [y]="0" [z]="0"></ngx3js-lookat>
+	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.001" [far]="1000">
+		<ngx3js-position [x]="2" [y]="2" [z]="4"></ngx3js-position>
+	</ngx3js-camera>
+	<ngx3js-scene #scene (onLoad)="setScene($event)">
+		<ngx3js-texture
+			[type]="'background'"
+			[image]="'textures/cube/Park3Med/'"
+			[cubeImage]="[
+				'px.jpg',
+				'nx.jpg',
+				'py.jpg',
+				'ny.jpg',
+				'pz.jpg',
+				'nz.jpg'
+			]"
+		></ngx3js-texture>		
+		<ngx3js-light
+			[type]="'AmbientLight'"
+			[color]="'0xffffff'"
+			[intensity]="0.3"
+		></ngx3js-light>
+		<ngx3js-light
+			[type]="'directional'"
+			[color]="'0xffffff'"
+			[intensity]="1"
+			[castShadow]="true"
+			[shadowCameraTop]="1"
+			[shadowCameraBottom]="-1"
+			[shadowCameraLeft]="-1"
+			[shadowCameraRight]="1"
+			[shadowCameraNear]="0.01"
+			[shadowCameraFar]="40"
+			[shadowMapSize]="1024"
+			[shadowRadius]="5"
+		>
+			<ngx3js-position [x]="3" [y]="5" [z]="10"></ngx3js-position>
+		</ngx3js-light>
+		<ngx3js-mesh *ngIf="iconInfo">
+			<ngx3js-geometry 
+				[type]="'text'"
+				[text]="iconInfo.icon"
+				[font]="'icon'"
+				[size]="controls.size"
+				[height]="controls.height"
+				[align]="
+					controls.align.leftRight +
+					'/' +
+					controls.align.topBottom +
+					'/' +
+					controls.align.frontBack
+				"
+				[curveSegments]="controls.curveSegments"
+				[bevelEnabled]="controls.bevel.bevelEnabled"
+				[bevelThickness]="controls.bevel.bevelThickness"
+				[bevelSize]="controls.bevel.bevelSize"
+				[bevelOffset]="controls.bevel.bevelOffset"
+				[bevelSegments]="controls.bevel.bevelSegments"				
+			></ngx3js-geometry>
+			<ngx3js-material
+				[type]="'MeshPhongMaterial'"
+				[transparent]="true"
+				[color]="controls.color"
+				[side]="'double'"
+			></ngx3js-material>
+		</ngx3js-mesh>
+	</ngx3js-scene>
+</ngx3js-renderer>
