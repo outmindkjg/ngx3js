@@ -343,7 +343,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 
 		text = text.replace(
 			/\[page:([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
-			'<a href="#$1" title="$1$2">$3</a>'
+			'<a href="#$1" title="$1$2">$3 <span class="material-icons">link</span></a>'
 		); // [page:name title]
 
 		text = text.replace(
@@ -360,7 +360,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 			'<a href="#$1" title="$1$2">$5</a> : <a href="#$1" title="$1$2">$1$2</a> | <a href="#$3" title="$3$4">$3$4</a>'
 		); // [parameter:name|name title]
 		text = text.replace(
-			/\[page:([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
+			/\[parameter:([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|)\|([\w\.]+)(\[\]|) ([\w\.\s]+)\]/gi,
 			'<a href="#$1" title="$1$2">$7</a> : <a href="#$1" title="$1$2">$1$2</a> | <a href="#$3" title="$3$4">$3$4</a> | <a href="#$5" title="$5$6">$5$6</a>'
 		); // [parameter:name|name|name title]
 
@@ -443,7 +443,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		text = text.replace(/\[link:([\w|\:|\/|\.|\-|\_]+)\]/gi, '[link:$1 $1]'); // [link:url] to [link:url title]
 		text = text.replace(
 			/\[link:([\w|\:|\/|\.|\-|\_|\(|\)|\?|\#|\=|\!]+) ([\w|\:|\/|\.|\-|\_|\s]+)\]/gi,
-			'<a href="$1" target="_blank">$2</a>'
+			'<a href="$1" target="_blank">$2 <span class="material-icons">link</span></a>'
 		); // [link:url title]
 		text = text.replace(
 			/\*([\w|\d|\"|\-|\(][\w|\d|\ |\-|\/|\+|\-|\(|\)|\=|\,|\.\"]*[\w|\d|\"|\)]|\w)\*/gi,
@@ -456,7 +456,7 @@ export class ApiReadComponent implements OnInit, AfterViewInit {
 		text = text.replace(/\[example:([\w\_/]+)\]/gi, '[example:$1 $1]'); // [example:name] to [example:name title]
 		text = text.replace(
 			/\[example:([\w\_/]+) ([\w\:\/\.\-\_ \s]+)\]/gi,
-			'<a href="#examples/$1">$2</a>'
+			'<a href="#examples/$1">$2 <span class="material-icons">link</span></a>'
 		); // [example:name title]
 		const MD5 = function (d) {
 			var r = M(V(Y(X(d), 8 * d.length)));

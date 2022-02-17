@@ -160,6 +160,7 @@
 			},
 			"Geometries": {
 				"NgxGeometryComponent": "ngxapi/en/NgxGeometryComponent",
+				"NgxGeometryIconComponent": "ngxapi/en/NgxGeometryIconComponent",
 				"NgxThreeGeometryCustom": "ngxapi/en/NgxThreeGeometryCustom",
 				"NgxOutlineGeometry": "ngxapi/en/NgxOutlineGeometry",
 				"NgxCircleDepthGeometry": "ngxapi/en/NgxCircleDepthGeometry",
@@ -507,6 +508,7 @@
 				"FileLoader": "ngxapi/en/FileLoader",
 				"Font": "ngxapi/en/Font",
 				"FontLoader": "ngxapi/en/FontLoader",
+				"FontZipLoader": "ngxapi/en/FontZipLoader",
 				"GCodeLoader": "ngxapi/en/GCodeLoader",
 				"GLTFLoader": "ngxapi/en/GLTFLoader",
 				"HDRCubeTextureLoader": "ngxapi/en/HDRCubeTextureLoader",

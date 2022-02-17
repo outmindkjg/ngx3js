@@ -2,22 +2,12 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
 	I3JS,
+	IIconInfo,
 	N3JS,
 	NgxBaseComponent,
+	NgxGeometryIconComponent,
 	NgxRendererComponent, NgxThreeUtil
 } from 'ngx3js';
-
-interface IconInfo {
-	name?: string,
-	version?: number,
-	popularity?: number,
-	codepoint?: number,
-	unsupported_families?: string[],
-	categories?: string[],
-	tags?: string[],
-	icon? : string; 
-	sizes_px?: number[]
-}
 
 @Component({
 	selector: 'app-ngx-icons',
@@ -29,6 +19,7 @@ export class NgxIconsComponent extends NgxBaseComponent<{
 	size: number;
 	height: number;
 	autoRotate: boolean;
+	font : string;
 	category : string;
 	icon : string;
 	align: {
@@ -49,13 +40,14 @@ export class NgxIconsComponent extends NgxBaseComponent<{
 		super(
 			{
 				color: 0x448797,
-				size: 2.5,
+				size: 2.1,
 				height: 0.3,
 				align: {
 					leftRight: 'center',
 					topBottom: 'middle',
 					frontBack: 'double',
 				},
+				font : 'iconoutlined',
 				category : 'All',
 				icon : '',
 				curveSegments: 12,
@@ -69,6 +61,13 @@ export class NgxIconsComponent extends NgxBaseComponent<{
 				},
 			},
 			[
+				{
+					name: 'font',
+					type: 'select',
+					title: 'Icon Font',
+					select: ['icon', 'iconoutlined', 'iconround','iconsharp'],
+				},
+		
 				{
 					name: 'Icon',
 					type: 'folder',
@@ -182,9 +181,9 @@ export class NgxIconsComponent extends NgxBaseComponent<{
 			this.route.params.subscribe((params) => {
 				if (params['type']) {
 					this.controls.icon = params['type'];
-					if (this.exampleList.length > 0) {
+					if (this.exampleInfo !== null) {
 						const icon = this.controls.icon;
-						const iconInfo = this.exampleMap[icon];
+						const iconInfo = this.exampleInfo.map[icon];
 						if (iconInfo !== undefined && iconInfo.categories !== undefined && iconInfo.categories.length > 0) {
 							this.controls.category = iconInfo.categories[0] || 'All';
 						}
@@ -209,10 +208,12 @@ export class NgxIconsComponent extends NgxBaseComponent<{
 		});
 	}
 
-	private exampleList: IconInfo[] = [];
-	private exampleMap: { [key : string] : IconInfo} = {};
+	private exampleInfo: {
+		list : IIconInfo[],
+		map : { [key : string] : IIconInfo }
+	} = null;
 	
-	iconInfo : IconInfo =  null;
+	iconInfo : IIconInfo =  null;
 
 	private iconFolder : I3JS.GUI = null;
 	private iconController : I3JS.GUIController = null;
@@ -220,30 +221,29 @@ export class NgxIconsComponent extends NgxBaseComponent<{
 	public setRender(renderer: NgxRendererComponent): void {
 		super.setRender(renderer);
 		this.getTimeout().then(() => {
-			this.jsonFileLoad('material_icons.json', (data: IconInfo[]) => {
-				this.exampleList = [];
+			NgxGeometryIconComponent.getIconInfos().then(exampleInfo => {
+				this.exampleInfo = exampleInfo;
 				const iconCategorys : string[] = [];
 				iconCategorys.push('All');
-				data.forEach(iconInfo => {
+				this.exampleInfo.list.forEach(iconInfo => {
 					iconInfo.categories.forEach(category => {
 						if (!iconCategorys.includes(category)) {
 							iconCategorys.push(category);
 						}
 					});
-					iconInfo.icon = String.fromCodePoint(iconInfo.codepoint);
-					this.exampleMap[iconInfo.name] = iconInfo;
-					this.exampleList.push(iconInfo);
 				});
 				let icon = this.controls.icon;
 				if (icon === '' || icon === null) {
 					const iconNames:string[] = [];
-					this.exampleList.forEach(icon => {
-						iconNames.push(icon.name);
+					this.exampleInfo.list.forEach(icon => {
+						if (icon.popularity > 60000) {
+							iconNames.push(icon.name);
+						}
 					});
 					var randIdx = Math.floor(Math.random() * iconNames.length);
 					icon = this.controls.icon = iconNames[randIdx];
 				} 
-				const iconInfo = this.exampleMap[this.controls.icon];
+				const iconInfo = this.exampleInfo.map[this.controls.icon];
 				if (iconInfo !== undefined && iconInfo.categories !== undefined && iconInfo.categories.length > 0) {
 					this.controls.category = iconInfo.categories[0] || 'All';
 				}
@@ -267,12 +267,12 @@ export class NgxIconsComponent extends NgxBaseComponent<{
 		const iconNames = this.iconNames;
 		iconNames.length = 0;
 		if (this.controls.category === '' || this.controls.category === 'All') {
-			this.exampleList.forEach(icon => {
+			this.exampleInfo.list.forEach(icon => {
 				iconNames.push(icon.name);
 			});
 		} else {
 			const category = this.controls.category;
-			this.exampleList.forEach(icon => {
+			this.exampleInfo.list.forEach(icon => {
 				if (icon.categories && icon.categories.includes(category)) {
 					iconNames.push(icon.name);
 				}
@@ -289,8 +289,8 @@ export class NgxIconsComponent extends NgxBaseComponent<{
 
 	changeIconName() {
 		const icon = this.controls.icon;
-		if (this.exampleMap[icon] !== undefined) {
-			this.iconInfo = this.exampleMap[icon];
+		if (this.exampleInfo.map[icon] !== undefined) {
+			this.iconInfo = this.exampleInfo.map[icon];
 		}
 	}
 

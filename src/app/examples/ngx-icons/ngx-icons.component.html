@@ -1,7 +1,17 @@
 <div class="info">
 	<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> -
-	ngx3js - Material Icon
-	<strong class="shadow" *ngIf="iconInfo">{{ iconInfo.name }} / String.fromCodePoint({{ iconInfo.codepoint }})</strong>
+	ngx3js Icon font by [<a
+		href="https://fonts.google.com/icons"
+		target="_blank"
+		rel="noopener"
+		>Google Material Icon</a
+	>]<br/>
+	<strong class="shadow" *ngIf="iconInfo">{{ iconInfo.name }} / String.fromCodePoint({{ iconInfo.codepoint }}) / {{ iconInfo.codehex }}</strong>
+</div>
+<div class="bottom" *ngIf="iconInfo">
+	<div id="lbl_left" class="lbl code-preview">
+		<span>{{ iconInfo.name }}</span>
+	</div>
 </div>
 <ngx3js-renderer
 	[controlType]="'orbit'"
@@ -11,6 +21,7 @@
 	[shadowMapEnabled]="true"
 	[guiControl]="controls"
 	[guiParams]="controlsParams"
+	[guiOpen]="true"
 	(onLoad)="setRender($event)"
 	(onRender)="onRender($event)"
 >
@@ -18,19 +29,7 @@
 	<ngx3js-camera [type]="'perspective'" [fov]="45" [near]="0.001" [far]="1000">
 		<ngx3js-position [x]="2" [y]="2" [z]="4"></ngx3js-position>
 	</ngx3js-camera>
-	<ngx3js-scene #scene (onLoad)="setScene($event)">
-		<ngx3js-texture
-			[type]="'background'"
-			[image]="'textures/cube/Park3Med/'"
-			[cubeImage]="[
-				'px.jpg',
-				'nx.jpg',
-				'py.jpg',
-				'ny.jpg',
-				'pz.jpg',
-				'nz.jpg'
-			]"
-		></ngx3js-texture>		
+	<ngx3js-scene #scene (onLoad)="setScene($event)" [background]="'0x000000'">
 		<ngx3js-light
 			[type]="'AmbientLight'"
 			[color]="'0xffffff'"
@@ -53,10 +52,9 @@
 			<ngx3js-position [x]="3" [y]="5" [z]="10"></ngx3js-position>
 		</ngx3js-light>
 		<ngx3js-mesh *ngIf="iconInfo">
-			<ngx3js-geometry 
-				[type]="'text'"
-				[text]="iconInfo.icon"
-				[font]="'icon'"
+			<ngx3js-geometry-icon
+				[type]="controls.font"
+				[icon]="iconInfo.codepoint"
 				[size]="controls.size"
 				[height]="controls.height"
 				[align]="
@@ -72,7 +70,7 @@
 				[bevelSize]="controls.bevel.bevelSize"
 				[bevelOffset]="controls.bevel.bevelOffset"
 				[bevelSegments]="controls.bevel.bevelSegments"				
-			></ngx3js-geometry>
+			></ngx3js-geometry-icon>
 			<ngx3js-material
 				[type]="'MeshPhongMaterial'"
 				[transparent]="true"

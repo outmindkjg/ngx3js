@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="../../" />
+		<script src="page.js"></script>
+		<link type="text/css" rel="stylesheet" href="page.css" />
+	</head>
+	<body>
+		[page:NgxAbstractSubscribeComponent] &rarr; [page:NgxAbstractGeometryComponent] &rarr;
+
+		<h1>NgxGeometryIconComponent</h1>
+
+		<p class="desc">
+			The Geometry Icon component.<br />
+			<h3>Preview - ngx icon</h3><br />
+			<iframe src="#/viewer/ngx_icons"></iframe><br />
+			See the [page:NgxGeometryIconComponent ngx3js docs] page for details.<br />
+			See the [example:ngx_icons ngx icon] page for a live demo.<br />
+			See the [link:https://fonts.google.com/icons Icons - Google Fonts] page for detail.<br />
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry
+		</p>
+
+		<h2>Angular Template</h2>
+		<code data-type="html">&lt;ngx3js-geometry-icon
+			[ align ]="... string -- The align of geometry "
+			[ attrColor ]="... TAttrBufferAttribute -- The attrColor of abstract geom... "
+			[ attrColorKey ]="... string -- The attrColorKey of abstract g... "
+			[ attrColorNormalized ]="... boolean -- The attrColorNormalized of abs... "
+			[ attrColorSize ]="... number -- The attrColorSize of abstract ... "
+			[ attrColorUsage ]="... string -- The attrColorUsage of abstract... "
+			[ attrCustomColor ]="... TAttrBufferAttribute -- The attrCustomColor of abstrac... "
+			[ attrCustomColorUsage ]="... string -- The attrCustomColorUsage of ab... "
+			[ attrIndex ]="... TAttrBufferAttribute -- The attrIndex of abstract geom... "
+			[ attrIndexUsage ]="... string -- The attrIndexUsage of abstract... "
+			[ attrNormal ]="... TAttrBufferAttribute -- The attrNormal of abstract geo... "
+			[ attrNormalNormalized ]="... boolean -- The attrNormalNormalized of ab... "
+			[ attrNormalUsage ]="... string -- The attrNormalUsage of abstrac... "
+			[ attrOffset ]="... TAttrBufferAttribute -- The attrOffset of abstract geo... "
+			[ attrOffsetUsage ]="... string -- The attrOffsetUsage of abstrac... "
+			[ attrOrientationEnd ]="... TAttrBufferAttribute -- The attrOrientationEnd of abst... "
+			[ attrOrientationEndUsage ]="... string -- The attrOrientationEndUsage of... "
+			[ attrOrientationStart ]="... TAttrBufferAttribute -- The attrOrientationStart of ab... "
+			[ attrOrientationStartUsage ]="... string -- The attrOrientationStartUsage ... "
+			[ attrPosition ]="... TAttrBufferAttribute -- The attrPosition of abstract g... "
+			[ attrPositionUsage ]="... string -- The attrPositionUsage of abstr... "
+			[ attrScale ]="... TAttrBufferAttribute -- The attrScale of abstract geom... "
+			[ attrScaleUsage ]="... string -- The attrScaleUsage of abstract... "
+			[ attrSize ]="... TAttrBufferAttribute -- The attrSize of abstract geome... "
+			[ attrSizeUsage ]="... string -- Defines the intended usage pat... "
+			[ attrTextureIndex ]="... TAttrBufferAttribute -- The attrTextureIndex of abstra... "
+			[ attrTextureIndexUsage ]="... string -- The attrTextureIndexUsage of a... "
+			[ attrTranslate ]="... TAttrBufferAttribute -- The attrTranslate of abstract ... "
+			[ attrTranslateUsage ]="... string -- The attrTranslateUsage of abst... "
+			[ attrUv ]="... TAttrBufferAttribute -- The attrUv of abstract geometr... "
+			[ attrUvUsage ]="... string -- The attrUvUsage of abstract ge... "
+			[ attrVertColor ]="... TAttrBufferAttribute -- The attrVertColor of abstract ... "
+			[ attrVisible ]="... TAttrBufferAttribute -- The attrVisible of abstract ge... "
+			[ attributes ]="... any -- This hashmap has as id the nam... "
+			[ autoCustomColor ]="... boolean -- The autoCustomColor of abstrac... "
+			[ autoCustomColorKey ]="... string -- The autoCustomColorKey of abst... "
+			[ autoCustomColorSize ]="... number -- The autoCustomColorSize of abs... "
+			[ autoDisplacement ]="... boolean -- The autoDisplacement of abstra... "
+			[ autoDisplacementSize ]="... number -- The autoDisplacementSize of ab... "
+			[ autoSize ]="... boolean -- The autoSize of abstract geome... "
+			[ autoSizeSize ]="... number -- The autoSizeSize of abstract g... "
+			[ bevelEnabled ]="... boolean -- The bevelEnabled of geometry c... "
+			[ bevelOffset ]="... number -- The bevelOffset of geometry co... "
+			[ bevelSegments ]="... number -- The bevelSegments of geometry ... "
+			[ bevelSize ]="... number -- The bevelSize of geometry comp... "
+			[ bevelThickness ]="... number -- The bevelThickness of geometry... "
+			[ center ]="... boolean -- Center the geometry based on t... "
+			[ compressNormals ]="... string -- Make the input mesh.geometry's... "
+			[ compressPositions ]="... boolean -- The compressPositions "
+			[ compressUvs ]="... boolean -- The compressUvs "
+			[ computeBoundingBox ]="... boolean -- Computes bounding box of the g... "
+			[ computeBoundingSphere ]="... boolean -- Computes bounding sphere of th... "
+			[ computeTangents ]="... boolean -- Calculates and adds a tangent ... "
+			[ computeVertexNormals ]="... boolean -- Computes vertex normals by ave... "
+			[ count ]="... number -- The count of abstract geometry... "
+			[ curveSegments ]="... number -- The curveSegments of geometry ... "
+			[ cutOffAngle ]="... number -- The cutoff angle in radians. I... "
+			[ debug ]="... boolean -- Debug this Object "
+			[ drawRangeCount ]="... number -- drawRangeCount of abstract geo... "
+			[ drawRangeStart ]="... number -- drawRangeStart of abstract geo... "
+			[ edgeSplit ]="... boolean -- The geometry to modify by spli... "
+			[ enabled ]="... boolean -- Enabled or Not "
+			[ flipY ]="... boolean -- The flipY of abstract geometry... "
+			[ height ]="... number -- Height; that is, the length of... "
+			[ icon ]="... string|number -- The icon of geometry component "
+			[ maxEdgeLength ]="... number -- The maxEdgeLength of abstract ... "
+			[ maxIterations ]="... number -- The maxIterations of abstract ... "
+			[ mergeVertices ]="... boolean -- geometry -- Instance of [Buffe... "
+			[ meshType ]="... string -- The meshType of abstract geome... "
+			[ morphAttributes ]="... any -- Hashmap of [BufferAttribute](h... "
+			[ name ]="... string -- The name of the object (doesn'... "
+			( onDestory )="...($event : NgxGeometryIconComponent -- Will be called when before des... )"
+			[ onInit ]="... any"
+			( onLoad )="...($event : NgxGeometryIconComponent -- Will be called when load compl... )"
+			[ overrideParams ]="... any -- The override params "
+			[ program ]="... string -- The program of abstract geomet... "
+			[ programParam ]="... any -- The programParam of abstract g... "
+			[ refName ]="... string|string[] -- refer mesh name of geometry co... "
+			[ scale ]="... number -- Scale the geometry data. This ... "
+			[ simplify ]="... boolean -- The simplify of abstract geome... "
+			[ size ]="... number -- The size of geometry component "
+			[ sphereScale ]="... number -- Scale the geometry data. This ... "
+			[ tessellate ]="... boolean -- The tessellate of abstract geo... "
+			[ thresholdAngle ]="... number -- The thresholdAngle of geometry... "
+			[ toNonIndexed ]="... boolean -- Return a non-index version of ... "
+			[ tryKeepNormals ]="... boolean -- Set to true to keep the normal... "
+			[ tween ]="... any -- Tween animation params "
+			[ type ]="... string -- The type of geometry "
+			[ userData ]="... any -- An object that can be used to ... "
+			[ vertexBuffer ]="... Float32Array|InterleavedBuffer|number[] -- The vertexBuffer of abstract g... "
+			[ vertexBufferStride ]="... number -- The vertexBufferStride of abst... "
+			[ windowExport ]="... string -- Export this Object to window g... "
+		&gt;&lt;/ngx3js-geometry-icon&gt;
+		</code>
+
+		<h2>Constructor</h2>
+				<h3>[constructor:NgxGeometryIconComponent NgxGeometryIconComponent](  [param:NgxLocalStorageService localStorageService] )<i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:NgxLocalStorageService localStorageService] - The local storage service.
+		</p>
+		<p>
+			Creates an instance of geometry component.
+		</p>
+
+		<h2>Properties</h2>
+				<p>
+			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common properties.
+		</p>
+		<p>
+			See the base [page:NgxAbstractGeometryComponent NgxAbstractGeometryComponent] class for common properties.
+		</p>
+
+		<h3>[property:string[] GEOMETRY_ATTR] &nbsp; = ... <i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Geometry attr of abstract geometry component
+		</p>
+
+		<h3>[property:string[] OBJECT_ATTR] &nbsp; = ... <i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Object attr of abstract subscribe component
+		</p>
+
+		<h3>[property:string[] _changeList]<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Change list of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean _needUpdate] &nbsp; = true <i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Need update of abstract subscribe component
+		</p>
+
+		<h3>[property:string align]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The align of geometry<br />
+			left, center, right, top, bottom, front, back, double<br />
+			Notice - case insensitive. mixed
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrColor of abstract geometry component
+		</p>
+
+		<h3>[property:string attrColorKey]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrColorKey of abstract geometry component
+		</p>
+
+		<h3>[property:boolean attrColorNormalized] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrColorNormalized of abstract geometry component
+		</p>
+
+		<h3>[property:number attrColorSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrColorSize of abstract geometry component
+		</p>
+
+		<h3>[property:string attrColorUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrColorUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrCustomColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrCustomColor of abstract geometry component
+		</p>
+
+		<h3>[property:string attrCustomColorUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrCustomColorUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrIndex]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrIndex of abstract geometry component
+		</p>
+
+		<h3>[property:string attrIndexUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrIndexUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrNormal]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrNormal of abstract geometry component
+		</p>
+
+		<h3>[property:boolean attrNormalNormalized] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrNormalNormalized of abstract geometry component
+		</p>
+
+		<h3>[property:string attrNormalUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrNormalUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrOffset]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrOffset of abstract geometry component
+		</p>
+
+		<h3>[property:string attrOffsetUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrOffsetUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrOrientationEnd]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrOrientationEnd of abstract geometry component
+		</p>
+
+		<h3>[property:string attrOrientationEndUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrOrientationEndUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrOrientationStart]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrOrientationStart of abstract geometry component
+		</p>
+
+		<h3>[property:string attrOrientationStartUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrOrientationStartUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrPosition]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrPosition of abstract geometry component
+		</p>
+
+		<h3>[property:string attrPositionUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrPositionUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrScale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrScale of abstract geometry component
+		</p>
+
+		<h3>[property:string attrScaleUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrScaleUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrSize of abstract geometry component
+		</p>
+
+		<h3>[property:string attrSizeUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the <i>usage</i> parameter of<br />
+			[link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrTextureIndex]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrTextureIndex of abstract geometry component
+		</p>
+
+		<h3>[property:string attrTextureIndexUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrTextureIndexUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrTranslate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrTranslate of abstract geometry component
+		</p>
+
+		<h3>[property:string attrTranslateUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrTranslateUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrUv]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrUv of abstract geometry component
+		</p>
+
+		<h3>[property:string attrUvUsage]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrUvUsage of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrVertColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrVertColor of abstract geometry component
+		</p>
+
+		<h3>[property:TAttrBufferAttribute attrVisible]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The attrVisible of abstract geometry component
+		</p>
+
+		<h3>[property:any attributes]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			This hashmap has as id the name of the attribute to be set and as value the [page:BufferAttribute buffer] to set it to.<br />
+			Rather than accessing this property directly, use [page:BufferGeometry.setAttribute BufferGeometry.setAttribute] and [page:BufferGeometry.getAttribute BufferGeometry.getAttribute] to access attributes of this geometry.
+		</p>
+
+		<h3>[property:boolean autoCustomColor]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The autoCustomColor of abstract geometry component
+		</p>
+
+		<h3>[property:string autoCustomColorKey]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The autoCustomColorKey of abstract geometry component
+		</p>
+
+		<h3>[property:number autoCustomColorSize] &nbsp; = 3 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The autoCustomColorSize of abstract geometry component
+		</p>
+
+		<h3>[property:boolean autoDisplacement]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The autoDisplacement of abstract geometry component
+		</p>
+
+		<h3>[property:number autoDisplacementSize] &nbsp; = 3 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The autoDisplacementSize of abstract geometry component
+		</p>
+
+		<h3>[property:boolean autoSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The autoSize of abstract geometry component
+		</p>
+
+		<h3>[property:number autoSizeSize] &nbsp; = 1 <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The autoSizeSize of abstract geometry component
+		</p>
+
+		<h3>[property:boolean bevelEnabled]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bevelEnabled of geometry component
+		</p>
+
+		<h3>[property:number bevelOffset]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bevelOffset of geometry component
+		</p>
+
+		<h3>[property:number bevelSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bevelSegments of geometry component
+		</p>
+
+		<h3>[property:number bevelSize]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bevelSize of geometry component
+		</p>
+
+		<h3>[property:number bevelThickness]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The bevelThickness of geometry component
+		</p>
+
+		<h3>[property:boolean center] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Center the geometry based on the bounding box.
+		</p>
+
+		<h3>[property:string compressNormals]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Make the input mesh.geometry's normal attribute encoded and compressed by 3 different methods.<br />
+			Also will change the mesh.material to `PackedPhongMaterial` which let the vertex shader program decode the normal data.<br />
+			"DEFAULT" || "OCT1Byte" || "OCT2Byte" || "ANGLES"<br />
+			"OCT1Byte"<br />
+			It is not recommended to use 1-byte octahedron normals encoding unless you want to extremely reduce the memory usage<br />
+			As it makes vertex data not aligned to a 4 byte boundary which may harm some WebGL implementations and sometimes the normal distortion is visible<br />
+			Please refer to @zeux 's comments in https://github.com/mrdoob/three.js/pull/18208<br />
+			"OCT2Byte"<br />
+			"ANGLES"
+		</p>
+
+		<h3>[property:boolean compressPositions]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The compressPositions
+		</p>
+
+		<h3>[property:boolean compressUvs]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The compressUvs
+		</p>
+
+		<h3>[property:boolean computeBoundingBox] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Computes bounding box of the geometry, updating [page:BufferGeometry.boundingBox BufferGeometry.boundingBox] attribute. Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.
+		</p>
+
+		<h3>[property:boolean computeBoundingSphere] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Computes bounding sphere of the geometry, updating [page:BufferGeometry.boundingSphere BufferGeometry.boundingSphere] attribute. Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are <i>null</i>.
+		</p>
+
+		<h3>[property:boolean computeTangents] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Calculates and adds a tangent attribute to this geometry.<br />
+			The computation is only supported for indexed geometries and if position, normal, and uv attributes are defined.
+		</p>
+
+		<h3>[property:boolean computeVertexNormals] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Computes vertex normals by averaging face normals.
+		</p>
+
+		<h3>[property:number count]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The count of abstract geometry component
+		</p>
+
+		<h3>[property:number curveSegments]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The curveSegments of geometry component
+		</p>
+
+		<h3>[property:number cutOffAngle]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The cutoff angle in radians. If the angle between two face normals is higher than this value, a split will be made.
+		</p>
+
+		<h3>[property:boolean debug] &nbsp; = false <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Debug this Object
+		</p>
+
+		<h3>[property:number drawRangeCount]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			drawRangeCount of abstract geometry component<br />
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry setDrawRange
+		</p>
+
+		<h3>[property:number drawRangeStart]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			drawRangeStart of abstract geometry component<br />
+			[page:BufferGeometry BufferGeometry] - THREE.BufferGeometry setDrawRange
+		</p>
+
+		<h3>[property:boolean edgeSplit]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The geometry to modify by splitting edges. This geometry can be any of any type: Geometry or BufferGeometry, indexed or not
+		</p>
+
+		<h3>[property:boolean enabled] &nbsp; = true <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Enabled or Not
+		</p>
+
+		<h3>[property:boolean flipY]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The flipY of abstract geometry component
+		</p>
+
+		<h3>[property:BufferGeometry geometry]<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The Geometry of abstract geometry component
+		</p>
+
+		<h3>[property:number height]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			Height; that is, the length of the edges parallel to the Y axis. Optional; defaults to 1.
+		</p>
+
+		<h3>[property:string|number icon]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The icon of geometry component<br />
+			<table><thead><tr></th><th>   Icon Name               </th><th> Code Point </th><th> Code Hex </th><th> Category </th><th></tr></thead><tbody> <tr></td><td> account_circle </td><td> 59475 </td><td> e853 </td><td> action </td><td></tr> <tr></td><td> add </td><td> 57669 </td><td> e145 </td><td> content </td><td></tr> <tr></td><td> add_circle </td><td> 57671 </td><td> e147 </td><td> content </td><td></tr> <tr></td><td> add_circle_outline </td><td> 57672 </td><td> e148 </td><td> content </td><td></tr> <tr></td><td> arrow_back </td><td> 58820 </td><td> e5c4 </td><td> navigation </td><td></tr> <tr></td><td> arrow_back_ios </td><td> 58848 </td><td> e5e0 </td><td> navigation </td><td></tr> <tr></td><td> arrow_drop_down </td><td> 58821 </td><td> e5c5 </td><td> navigation </td><td></tr> <tr></td><td> arrow_forward </td><td> 58824 </td><td> e5c8 </td><td> navigation </td><td></tr> <tr></td><td> arrow_forward_ios </td><td> 58849 </td><td> e5e1 </td><td> navigation </td><td></tr> <tr></td><td> article </td><td> 61250 </td><td> ef42 </td><td> action </td><td></tr> <tr></td><td> calendar_today </td><td> 59701 </td><td> e935 </td><td> action </td><td></tr> <tr></td><td> call </td><td> 57520 </td><td> e0b0 </td><td> communication </td><td></tr> <tr></td><td> cancel </td><td> 58825 </td><td> e5c9 </td><td> navigation </td><td></tr> <tr></td><td> check </td><td> 58826 </td><td> e5ca </td><td> navigation </td><td></tr> <tr></td><td> check_box </td><td> 59444 </td><td> e834 </td><td> toggle </td><td></tr> <tr></td><td> check_box_outline_blank </td><td> 59445 </td><td> e835 </td><td> toggle </td><td></tr> <tr></td><td> check_circle </td><td> 59500 </td><td> e86c </td><td> action </td><td></tr> <tr></td><td> check_circle_outline </td><td> 59693 </td><td> e92d </td><td> action </td><td></tr> <tr></td><td> chevron_left </td><td> 58827 </td><td> e5cb </td><td> navigation </td><td></tr> <tr></td><td> chevron_right </td><td> 58828 </td><td> e5cc </td><td> navigation </td><td></tr> <tr></td><td> clear </td><td> 57676 </td><td> e14c </td><td> content </td><td></tr> <tr></td><td> close </td><td> 58829 </td><td> e5cd </td><td> navigation </td><td></tr> <tr></td><td> content_copy </td><td> 57677 </td><td> e14d </td><td> content </td><td></tr> <tr></td><td> dashboard </td><td> 59505 </td><td> e871 </td><td> action </td><td></tr> <tr></td><td> date_range </td><td> 59670 </td><td> e916 </td><td> action </td><td></tr> <tr></td><td> delete </td><td> 59506 </td><td> e872 </td><td> action </td><td></tr> <tr></td><td> description </td><td> 59507 </td><td> e873 </td><td> action </td><td></tr> <tr></td><td> done </td><td> 59510 </td><td> e876 </td><td> action </td><td></tr> <tr></td><td> edit </td><td> 58313 </td><td> e3c9 </td><td> image </td><td></tr> <tr></td><td> email </td><td> 57534 </td><td> e0be </td><td> communication </td><td></tr> <tr></td><td> error </td><td> 57344 </td><td> e000 </td><td> alert </td><td></tr> <tr></td><td> event </td><td> 59512 </td><td> e878 </td><td> action </td><td></tr> <tr></td><td> expand_less </td><td> 58830 </td><td> e5ce </td><td> navigation </td><td></tr> <tr></td><td> expand_more </td><td> 58831 </td><td> e5cf </td><td> navigation </td><td></tr> <tr></td><td> face </td><td> 59516 </td><td> e87c </td><td> action </td><td></tr> <tr></td><td> favorite </td><td> 59517 </td><td> e87d </td><td> action </td><td></tr> <tr></td><td> favorite_border </td><td> 59518 </td><td> e87e </td><td> action </td><td></tr> <tr></td><td> file_download </td><td> 58052 </td><td> e2c4 </td><td> file </td><td></tr> <tr></td><td> file_upload </td><td> 58054 </td><td> e2c6 </td><td> file </td><td></tr> <tr></td><td> filter_alt </td><td> 61263 </td><td> ef4f </td><td> action </td><td></tr> <tr></td><td> fingerprint </td><td> 59661 </td><td> e90d </td><td> action </td><td></tr> <tr></td><td> groups </td><td> 62003 </td><td> f233 </td><td> social </td><td></tr> <tr></td><td> help </td><td> 59527 </td><td> e887 </td><td> action </td><td></tr> <tr></td><td> help_outline </td><td> 59645 </td><td> e8fd </td><td> action </td><td></tr> <tr></td><td> highlight_off </td><td> 59528 </td><td> e888 </td><td> action </td><td></tr> <tr></td><td> home </td><td> 59530 </td><td> e88a </td><td> action </td><td></tr> <tr></td><td> image </td><td> 58356 </td><td> e3f4 </td><td> image </td><td></tr> <tr></td><td> info </td><td> 59534 </td><td> e88e </td><td> action </td><td></tr> <tr></td><td> language </td><td> 59540 </td><td> e894 </td><td> action </td><td></tr> <tr></td><td> lightbulb </td><td> 57584 </td><td> e0f0 </td><td> action </td><td></tr> <tr></td><td> list </td><td> 59542 </td><td> e896 </td><td> action </td><td></tr> <tr></td><td> local_shipping </td><td> 58712 </td><td> e558 </td><td> maps </td><td></tr> <tr></td><td> location_on </td><td> 57544 </td><td> e0c8 </td><td> communication </td><td></tr> <tr></td><td> lock </td><td> 59543 </td><td> e897 </td><td> action </td><td></tr> <tr></td><td> login </td><td> 60023 </td><td> ea77 </td><td> action </td><td></tr> <tr></td><td> logout </td><td> 59834 </td><td> e9ba </td><td> action </td><td></tr> <tr></td><td> manage_accounts </td><td> 61486 </td><td> f02e </td><td> action </td><td></tr> <tr></td><td> menu </td><td> 58834 </td><td> e5d2 </td><td> navigation </td><td></tr> <tr></td><td> more_horiz </td><td> 58835 </td><td> e5d3 </td><td> navigation </td><td></tr> <tr></td><td> more_vert </td><td> 58836 </td><td> e5d4 </td><td> navigation </td><td></tr> <tr></td><td> navigate_next </td><td> 58377 </td><td> e409 </td><td> image </td><td></tr> <tr></td><td> notifications </td><td> 59380 </td><td> e7f4 </td><td> social </td><td></tr> <tr></td><td> open_in_new </td><td> 59550 </td><td> e89e </td><td> action </td><td></tr> <tr></td><td> paid </td><td> 61505 </td><td> f041 </td><td> action </td><td></tr> <tr></td><td> people </td><td> 59387 </td><td> e7fb </td><td> social </td><td></tr> <tr></td><td> person </td><td> 59389 </td><td> e7fd </td><td> social </td><td></tr> <tr></td><td> person_outline </td><td> 59391 </td><td> e7ff </td><td> social </td><td></tr> <tr></td><td> phone </td><td> 57549 </td><td> e0cd </td><td> communication </td><td></tr> <tr></td><td> photo_camera </td><td> 58386 </td><td> e412 </td><td> image </td><td></tr> <tr></td><td> place </td><td> 58719 </td><td> e55f </td><td> maps </td><td></tr> <tr></td><td> play_arrow </td><td> 57399 </td><td> e037 </td><td> av </td><td></tr> <tr></td><td> question_answer </td><td> 59567 </td><td> e8af </td><td> action </td><td></tr> <tr></td><td> schedule </td><td> 59573 </td><td> e8b5 </td><td> action </td><td></tr> <tr></td><td> school </td><td> 59404 </td><td> e80c </td><td> social </td><td></tr> <tr></td><td> search </td><td> 59574 </td><td> e8b6 </td><td> action </td><td></tr> <tr></td><td> send </td><td> 57699 </td><td> e163 </td><td> content </td><td></tr> <tr></td><td> settings </td><td> 59576 </td><td> e8b8 </td><td> action </td><td></tr> <tr></td><td> share </td><td> 59405 </td><td> e80d </td><td> social </td><td></tr> <tr></td><td> shopping_bag </td><td> 61900 </td><td> f1cc </td><td> action </td><td></tr> <tr></td><td> shopping_cart </td><td> 59596 </td><td> e8cc </td><td> action </td><td></tr> <tr></td><td> star </td><td> 59448 </td><td> e838 </td><td> toggle </td><td></tr> <tr></td><td> task_alt </td><td> 58086 </td><td> e2e6 </td><td> action </td><td></tr> <tr></td><td> thumb_up </td><td> 59612 </td><td> e8dc </td><td> action </td><td></tr> <tr></td><td> verified </td><td> 61302 </td><td> ef76 </td><td> action </td><td></tr> <tr></td><td> visibility </td><td> 59636 </td><td> e8f4 </td><td> action </td><td></tr> <tr></td><td> visibility_off </td><td> 59637 </td><td> e8f5 </td><td> action </td><td></tr> <tr></td><td> warning </td><td> 57346 </td><td> e002 </td><td> alert </td><td></tr> </table><br />
+			See the [link:https://fonts.google.com/icons Icons - Google Fonts] page for more detail.
+		</p>
+
+		<h3>[property:string id] &nbsp; = '' <i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The Id of abstract subscribe component
+		</p>
+
+		<h3>[property:number maxEdgeLength]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The maxEdgeLength of abstract geometry component
+		</p>
+
+		<h3>[property:number maxIterations]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The maxIterations of abstract geometry component
+		</p>
+
+		<h3>[property:boolean mergeVertices]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			geometry -- Instance of [page:BufferGeometry BufferGeometry] to merge the vertices of.<br />
+			tolerance -- The maximum allowable difference between vertex attributes to merge. Defaults to 1e-4.<br />
+			Returns a new [page:BufferGeometry BufferGeometry] with vertices for which all similar vertex attributes (within tolerance) are merged.
+		</p>
+
+		<h3>[property:string meshType]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The meshType of abstract geometry component<br />
+			<table><thead><tr><th>   Three Type               </th><th> Value String(case insensitive) </th></tr></thead><tbody> <tr><td> THREE.EdgesGeometry </td><td> EdgesGeometry, Edges </td></tr> <tr><td> THREE.WireframeGeometry </td><td> WireframeGeometry, Wireframe </td></tr> <tr><td> WireframeGeometry2 </td><td> WireframeGeometry2, Wireframe2 </td></tr> </table>
+		</p>
+
+		<h3>[property:any morphAttributes]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Hashmap of [page:BufferAttribute BufferAttribute]s holding details of the geometry's morph targets.
+		</p>
+
+		<h3>[property:string name]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The name of the object (doesn't need to be unique). Default is an empty string.
+		</p>
+
+		<h3>[property:EventEmitter onDestory] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Will be called when before destory. The argument will be the loaded self
+		</p>
+
+		<h3>[property:any onInit]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:EventEmitter onLoad] &nbsp; = ... <i class="modifier modifier-output">Output</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Will be called when load completes. The argument will be the loaded self
+		</p>
+
+		<h3>[property:any overrideParams]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The override params
+		</p>
+
+		<h3>[property:any parent]<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The Parent of abstract subscribe component
+		</p>
+
+		<h3>[property:string program]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The program of abstract geometry component
+		</p>
+
+		<h3>[property:any programParam]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The programParam of abstract geometry component
+		</p>
+
+		<h3>[property:string|string[] refName]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			refer mesh name  of geometry component
+		</p>
+
+		<h3>[property:number scale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Scale the geometry data. This is typically done as a one time operation, and not during a loop. Use [page:Object3D.scale Object3D.scale] for typical real-time mesh scaling.
+		</p>
+
+		<h3>[property:any selfAny] &nbsp; = ... <i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			
+		</p>
+
+		<h3>[property:boolean simplify]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The simplify of abstract geometry component
+		</p>
+
+		<h3>[property:number size]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The size of geometry component
+		</p>
+
+		<h3>[property:number sphereScale]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Scale the geometry data. This is typically done as a one time operation, and not during a loop. Use [page:Object3D.scale Object3D.scale] for typical real-time mesh scaling.
+		</p>
+
+		<h3>[property:string subscribeType]<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Subscribe type of abstract subscribe component
+		</p>
+
+		<h3>[property:boolean tessellate]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The tessellate of abstract geometry component
+		</p>
+
+		<h3>[property:number thresholdAngle]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The thresholdAngle of geometry component
+		</p>
+
+		<h3>[property:boolean toNonIndexed]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Return a non-index version of an indexed BufferGeometry.
+		</p>
+
+		<h3>[property:boolean tryKeepNormals]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Set to true to keep the normal values for vertices that won't be split.<br />
+			To use this feature, you also need to pass an indexed geometry with a 'normal' BufferAttribute
+		</p>
+
+		<h3>[property:any tween]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Tween animation params
+		</p>
+
+		<h3>[property:string type] &nbsp; = 'icon' <i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i></h3>
+		<p>
+			The type  of geometry<br />
+			<table><thead><tr><th>   Icon Name               </th><th> File Name </th><th> Icon Alias </th></tr></thead><tbody> <tr><td> icon </td><td> materialicons-regular.typeface.json.zip </td><td> materialicons, materialicons-regular, material-icon </td></tr> <tr><td> outlined </td><td> materialiconsoutlined-regular.typeface.json.zip </td><td> materialiconsoutlined, materialiconsoutlined-regular, materialoutlined-icon </td></tr> <tr><td> round </td><td> materialiconsround-regular.typeface.json.zip </td><td> materialiconsround, materialiconsround-regular, materialround-icon </td></tr> <tr><td> sharp </td><td> materialiconssharp-regular.typeface.json.zip </td><td> materialiconssharp, materialiconssharp-regular, materialsharp-icon </td></tr> </table>
+		</p>
+
+		<h3>[property:any userData]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			An object that can be used to store custom data about the Object3D. It should not hold references to functions as these will not be cloned.
+		</p>
+
+		<h3>[property:Float32Array|InterleavedBuffer|number[] vertexBuffer]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The vertexBuffer of abstract geometry component
+		</p>
+
+		<h3>[property:number vertexBufferStride]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			The vertexBufferStride of abstract geometry component
+		</p>
+
+		<h3>[property:string windowExport]<i class="modifier modifier-input">Input</i> <i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Export this Object to window global variables
+		</p>
+
+
+		<h2>Methods</h2>
+				<p>
+			See the base [page:NgxAbstractSubscribeComponent NgxAbstractSubscribeComponent] class for common methods.
+		</p>
+		<p>
+			See the base [page:NgxAbstractGeometryComponent NgxAbstractGeometryComponent] class for common methods.
+		</p>
+
+		<h3>[method:void addChanges](  [param:string|string[]|SimpleChanges key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[]|SimpleChanges key] - The key.
+		</p>
+		<p>
+			Adds changes
+		</p>
+
+		<h3>[method:void applyChanges](  [param:string[] changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string[] changes] - The changes.
+		</p>
+		<p>
+			Applys changes
+		</p>
+
+		<h3>[method:void callOnLoad](  )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Calls on load
+		</p>
+
+		<h3>[method:SimpleChanges checkChanges](  [param:SimpleChanges changes] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:SimpleChanges changes] - The changes.
+		</p>
+		<p>
+			Checks changes<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:void clearChanges](  )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Clears changes
+		</p>
+
+		<h3>[method:void consoleLog](  [param:string key],  [param:any object],  [param:string level] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:string level] - The level.
+		</p>
+		<p>
+			Consoles log
+		</p>
+
+		<h3>[method:void consoleLogTime](  [param:string key],  [param:any object],  [param:number repeat] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any object] - The object.<br />
+			[parameter:number repeat] - The repeat.
+		</p>
+		<p>
+			Consoles log time
+		</p>
+
+		<h3>[method:void destroyLocalComponent](  [param:string key] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			Destroys local component
+		</p>
+
+		<h3>[method:void dispose](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Disposes abstract subscribe component
+		</p>
+
+		<h3>[method:BufferAttribute getAttribute](  [param:TAttrBufferAttribute value],  [param:number itemSize],  [param:string usage]?,  [param:string bufferType]?,  [param:boolean normalized]? )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:TAttrBufferAttribute value] - The value.<br />
+			[parameter:number itemSize] - The item size.<br />
+			[parameter:string usage] - (optional) The usage.<br />
+			[parameter:string bufferType] - (optional) The buffer type.<br />
+			[parameter:boolean normalized] - (optional) The normalized.
+		</p>
+		<p>
+			Gets attribute<br />
+			Returns : attribute
+		</p>
+
+		<h3>[method:void getAttributes](  [param:string colorType] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string colorType] - The color type.
+		</p>
+		<p>
+			Gets attributes<br />
+			Returns : attributes
+		</p>
+
+		<h3>[method:string[] getChanges](  )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Gets changes<br />
+			Returns : changes
+		</p>
+
+		<h3>[method:T getGeometry](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-overwrite">Overwrite</i></h3>
+		<p>
+			Gets geometry<br />
+			Returns : geometry
+		</p>
+
+		<h3>[method:string getId](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Gets id<br />
+			Returns : id
+		</p>
+
+		<h3>[method:void getMorphAttributes](  )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Gets morph attributes<br />
+			Returns : morph attributes
+		</p>
+
+		<h3>[method:T getObject](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Gets object<br />
+			Returns : object
+		</p>
+
+		<h3>[method:Observable getSubscribe](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Gets subscribe<br />
+			Returns : subscribe
+		</p>
+
+		<h3>[method:Promise getTimeout](  [param:number timeDelay] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:number timeDelay] - The time delay.
+		</p>
+		<p>
+			Gets timeout<br />
+			특정 시간후에 이벤트 발생시키기<br />
+			Returns : timeout
+		</p>
+
+		<h3>[method:void getUserData](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Gets user data
+		</p>
+
+		<h3>[method:T initLocalComponent](  [param:string key],  [param:T component] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:T component] - The component.
+		</p>
+		<p>
+			Inits local component<br />
+			Returns : local component
+		</p>
+
+		<h3>[method:boolean isGeometryType](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Determines whether Geometry type is<br />
+			Returns : true if Geometry type
+		</p>
+
+		<h3>[method:boolean isIdEuals](  [param:string id] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string id] - The id.
+		</p>
+		<p>
+			Determines whether id euals is<br />
+			Returns : true if id euals
+		</p>
+
+		<h3>[method:void resetTween](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<p>
+			Resets tween
+		</p>
+
+		<h3>[method:void runSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Runs subscribe next
+		</p>
+
+		<h3>[method:void setGeometry](  [param:BufferGeometry geometry] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:BufferGeometry geometry] - The geometry.
+		</p>
+		<p>
+			Sets geometry
+		</p>
+
+		<h3>[method:void setObject](  [param:any obj] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any obj] - The obj.
+		</p>
+		<p>
+			Sets object
+		</p>
+
+		<h3>[method:void setObject3d](  [param:NgxAbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:NgxAbstractSubscribeComponent object3d] - The object3d.
+		</p>
+		<p>
+			Sets object3d
+		</p>
+
+		<h3>[method:boolean setParent](  [param:any parent] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any parent] - The parent.
+		</p>
+		<p>
+			Sets parent<br />
+			Returns : true if parent
+		</p>
+
+		<h3>[method:void setSubscribeNext](  [param:string|string[] key] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string|string[] key] - The key.
+		</p>
+		<p>
+			Sets subscribe next
+		</p>
+
+		<h3>[method:void setSubscribeType](  [param:string subscribeType] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string subscribeType] - The subscribe type.
+		</p>
+		<p>
+			Sets subscribe type
+		</p>
+
+		<h3>[method:void setTween](  [param:any tweenData] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any tweenData] - The tween data.
+		</p>
+		<p>
+			Sets tween
+		</p>
+
+		<h3>[method:void setTweenTarget](  [param:any tweenTarget] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any tweenTarget] - The tween target.
+		</p>
+		<p>
+			Sets tween target
+		</p>
+
+		<h3>[method:void setUserData](  [param:string key],  [param:any value] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:any value] - The value.
+		</p>
+		<p>
+			Sets user data
+		</p>
+
+		<h3>[method:void subscribeListQuery](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query
+		</p>
+
+		<h3>[method:void subscribeListQueryChange](  [param:QueryList queryList],  [param:string subscribeKey],  [param:string changeKey] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:QueryList queryList] - The query list.<br />
+			[parameter:string subscribeKey] - The subscribe key.<br />
+			[parameter:string changeKey] - The change key.
+		</p>
+		<p>
+			Subscribes list query change
+		</p>
+
+		<h3>[method:void subscribeRefer](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer
+		</p>
+
+		<h3>[method:void subscribeReferList](  [param:string key],  [param:Subscription subscription] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.<br />
+			[parameter:Subscription subscription] - The subscription.
+		</p>
+		<p>
+			Subscribes refer list
+		</p>
+
+		<h3>[method:void unSubscribeRefer](  [param:string key] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer
+		</p>
+
+		<h3>[method:void unSubscribeReferList](  [param:string key] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:string key] - The key.
+		</p>
+		<p>
+			subscribe refer list
+		</p>
+
+		<h3>[method:Subscription[] unSubscription](  [param:Subscription[] subscriptions] )<i class="modifier modifier-protected">Protected</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:Subscription[] subscriptions] - The subscriptions.
+		</p>
+		<p>
+			subscription<br />
+			Returns : subscription
+		</p>
+
+		<h3>[method:void unsetObject3d](  [param:NgxAbstractSubscribeComponent object3d] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:NgxAbstractSubscribeComponent object3d] - The object3d.
+		</p>
+		<p>
+			unSets object3d
+		</p>
+
+		<h3>[method:void updateInputParams](  [param:any params],  [param:boolean firstChange],  [param:SimpleChanges changes],  [param:string type] )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-inherited">Inherited</i></h3>
+		<h4>Parameters</h4>
+		<p>
+			[parameter:any params] - The params.<br />
+			[parameter:boolean firstChange] - The first change.<br />
+			[parameter:SimpleChanges changes] - The changes.<br />
+			[parameter:string type] - The type.
+		</p>
+		<p>
+			Updates input params
+		</p>
+
+		<h3>[method:Promise getIconInfos](  )<i class="modifier modifier-public">Public</i> <i class="modifier modifier-static">Static</i></h3>
+		<p>
+			Gets icon infos<br />
+			Returns : icon infos
+		</p>
+
+
+		<h2>Interfaces</h2>
+		<h3 id="TAttrBufferAttribute" class="interface"> TAttrBufferAttribute <i class="modifier modifier-interface">Type alias</i></h3>
+		<h3>[property:number[]|Int8Array|Int16Array|Int32Array|Uint8Array|Uint16Array|Uint32Array|Float32Array|Float64Array|I3JS.BufferAttribute TAttrBufferAttribute]</h3>
+
+
+		<p class="desc">
+			Attr Buffer Attribute
+		</p>
+
+		<br />
+		<h2>Source</h2>
+		<p>[link:https://github.com/outmindkjg/ngx3js-module/tree/master/projects/ngx3js/src/lib/geometry-icon/geometry-icon.component.ts /geometry-icon/geometry-icon.component.ts]</p>
+	</body>
+</html>

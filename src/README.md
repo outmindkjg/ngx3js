@@ -41,16 +41,6 @@ npm install --save three@0.137.5
 npm install --save-dev @types/three@0.137.0
 ```
 
-
-### Auto Formater - optional ###
-```sh
-# prettier format change
-npx prettier --write src/**/*.json
-npx prettier --write src/**/*.ts
-npx prettier --write src/**/*.html
-npx prettier --write src/**/*.scss
-```
-
 ### Imports Ngx3JsModule - Required ###
 
 To use ngx3js have to import Ngx3JsModule in src/app/app.module.ts or some other place modle.ts

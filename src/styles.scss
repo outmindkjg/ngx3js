@@ -1,6 +1,16 @@
+@import '//fonts.googleapis.com/css2?family=Material+Icons';
+
 @import './main';
 @import './page';
 @import './prettify';
+
+span.material-icons {
+	vertical-align: middle;
+}
+
+a span.material-icons {
+	font-size: 0.9em;
+}
 
 pre.prettyprint,
 code.prettyprint {
