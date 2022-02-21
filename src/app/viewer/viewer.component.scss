@@ -53,10 +53,12 @@ div#example-iframe {
 		right: 1rem;
 		bottom: 1rem;
 		z-index: 100;
-		padding: 12px;
-		border-radius: 25px;
+		padding: 5px;
+        font-size: 2.5rem;
+		border-radius: 50%;
 		border: 2px solid var(--background-color);
 		background-color: var(--text-color);
+		color: var(--background-color);
 		transform: rotate(0deg);
 		transform-origin: center center;
 		transition: transform 0.5s, opacity 0.5s;
@@ -87,12 +89,11 @@ div#example-iframe {
                 display: none;
             }
             &::after {
-                content: '';
-                background-image: url(../../assets/examples/files/close.svg);
-                background-size: 50px 50px;
+                content: 'close';
+                line-height: 1;
+                font-family: 'Material Icons';
+                font-size: 50px;
                 display: inline-block;
-                width : 50px;
-                height: 50px;
             }
         }
     }
@@ -113,6 +114,7 @@ div#example-iframe {
 	}
 	a.button.ngxgithub {
 		right: 80px;
+        color : var(--secondary-background-color);
 	}
 	a.button:hover {
 		opacity: 1;

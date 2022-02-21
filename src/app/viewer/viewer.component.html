@@ -3,29 +3,26 @@
 	<a id="fullScreen" href="#" (click)="toggleScreen()" ><span>{{ isfullScreenMode ? 'Close Full Screen' : 'Active Full Screen'}}</span></a>
 	<a id="newWindow" [href]="fullUrl" target="_blank">Open in New Window</a>
 	<a
-		class="button download"
+		class="button download material-icons"
 		#download
 		href="#"
 		title="Screenshot Download"
 		(click)="downloadThumbFile()"
-		><img src="assets/examples/files/camera.svg"
-	/></a>
+		>camera</a>
 	<a
-		class="button github"
+		class="button github material-icons"
 		#github
 		target="_blank"
 		href="#"
 		title="View source code"
-		><img src="assets/examples/files/ic_code_black_24dp.svg"
-	/></a>
+		>code</a>
 	<a
-		class="button ngxgithub"
+		class="button ngxgithub material-icons"
 		#ngxGithub
 		target="_blank"
 		href="#"
 		title="View source code"
-		><img src="assets/examples/files/angular.svg"
-	/></a>
+		>code</a>
 		
 	<div id="viewer-inner">
 		<router-outlet></router-outlet>

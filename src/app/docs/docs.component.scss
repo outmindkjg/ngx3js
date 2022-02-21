@@ -28,6 +28,7 @@ a.button {
 	border-radius: 25px;
 	border: 2px solid var(--background-color);
 	background-color: var(--text-color);
+	color: var(--background-color);
 	transform: rotate(0deg);
 	transform-origin: center center;
 	transition: transform 0.5s, opacity 0.5s;
